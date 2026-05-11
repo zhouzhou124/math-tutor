@@ -1,0 +1,28 @@
+{
+  "question_id": "2024-数一-010",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 10,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$10.$ 设随机变量 $X,Y$ 相互独立，且均服从参数为 $\\lambda$ 的指数分布，令 $Z=|X-Y|$，则下列随机变量与 $Z$ 同分布的是（ ）\n\n$(A)$ $X+Y$\n$(B)$ $\\frac{X+Y}{2}$\n$(C)$ $2X$\n$(D)$ $X$",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 随机变量及其分布 数学概念: 概率统计 特征值 特征向量 中等难度 5分题 2024-数一-010"
+}

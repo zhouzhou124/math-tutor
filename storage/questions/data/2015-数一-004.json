@@ -1,0 +1,23 @@
+{
+  "question_id": "2015-数一-004",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$4.$ 设 $D$ 是第一象限中曲线 $2xy=1,4xy=1$ 与直线 $y=x,y=\\sqrt3x$ 围成的区域，则 $\\iint\\limits_D f(x,y)dxdy=$( )\n\n$(A)$ $ \\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $\n\n$(B)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $ \n\n$(C)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $\n\n$(D)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二重积分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2015年 选择题 知识点: 二重积分 数学概念: 三角函数 几何应用 极限 积分 重积分 曲线积分 中等难度 4分题 2015-数一-004"
+}

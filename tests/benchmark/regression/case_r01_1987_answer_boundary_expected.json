@@ -1,0 +1,8 @@
+{
+  "case": "regression_1987_boundary",
+  "description": "1987回归测试：章节头无类型关键词(# 一、# 五、)不应导致分割失败。至少识别2个章节",
+  "checks": {
+    "question_count_min": 3,
+    "math_valid": true
+  }
+}

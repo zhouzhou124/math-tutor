@@ -1,0 +1,10 @@
+{
+  "case": "unbalanced_frac",
+  "description": "花括号不配对，应检测到数学结构损坏",
+  "checks": {
+    "math_valid": false,
+    "warnings_include_math_bracket": true,
+    "needs_manual_review": true,
+    "has_failure_mode": true
+  }
+}

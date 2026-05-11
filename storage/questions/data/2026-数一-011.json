@@ -1,0 +1,23 @@
+{
+  "question_id": "2026-数一-011",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "向量代数与空间解析几何"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$11.$ 设向量 $\\vec{v_1} = (0,x,z)$，$\\vec{v_2} = (y,0,1)$，令 $\\vec{F}(x,y,z) = \\vec{v_1} \\times \\vec{v_2}$，则 $\\operatorname{div} \\vec{F} = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1+z$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量代数与空间解析几何"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 填空题 知识点: 向量代数与空间解析几何 中等难度 5分题 2026-数一-011"
+}

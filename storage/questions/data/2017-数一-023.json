@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-023",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 23,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$23.$ (本题满分11分)设 $X_1,\\dots,X_n$ 独立同分布 $N(\\mu,\\sigma^2)$，$\\mu$ 已知。记录 $Z_i=|X_i-\\mu|$。\n\n$(1)$ 求 $Z_1$ 的概率密度；\n\n$(2)$ 利用一阶矩求 $\\sigma$ 的矩估计量；\n\n$(3)$ 求 $\\sigma$ 的最大似然估计量。",
+  "standard_answer": "$(1)$ $f(z)=\\frac{2}{\\sqrt{2\\pi}\\sigma}e^{-z^2/(2\\sigma^2)}(z\\ge0)$。\n$(2)$ $\\hat\\sigma=\\sqrt{\\pi/2}\\cdot\\overline{Z}$。\n$(3)$ $\\hat\\sigma=\\sqrt{\\frac1n\\sum Z_i^2}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 解答题 知识点: 数理统计 数学概念: 参数估计 极大似然 概率统计 较难题 11分题 2017-数一-023"
+}

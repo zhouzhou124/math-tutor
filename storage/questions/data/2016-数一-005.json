@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-005",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$5.$ 设 $A,B$ 是可逆矩阵，且 $A$ 与 $B$ 相似，则下列结论错误的是( )\n\n$(A)$ $A^T$ 与 $B^T$ 相似\n\n$(B)$ $A^{-1}$ 与 $B^{-1}$ 相似\n\n$(C)$ $A+A^T$ 与 $B+B^T$ 相似\n\n$(D)$ $A+A^{-1}$ 与 $B+B^{-1}$ 相似",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 中等难度 4分题 2016-数一-005"
+}

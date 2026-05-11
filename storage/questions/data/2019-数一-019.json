@@ -1,0 +1,23 @@
+{
+  "question_id": "2019-数一-019",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "knowledge_points": [
+    "三重积分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)设空间区域 $\\Omega$ 由锥面 $z=\\sqrt{x^2+y^2}$ 与平面 $z=1$ 围成，求 $\\Omega$ 的形心坐标。",
+  "standard_answer": "形心 $(0,1/4,1/4)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "三重积分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 解答题 知识点: 三重积分 中等难度 10分题 2019-数一-019"
+}

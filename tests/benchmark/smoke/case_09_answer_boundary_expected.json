@@ -1,0 +1,9 @@
+{
+  "case": "answer_boundary",
+  "description": "答案和解析与题干粘连，Layout Recovery应分离",
+  "checks": {
+    "answer_on_separate_line": true,
+    "answer_count": 1,
+    "question_count": 0
+  }
+}

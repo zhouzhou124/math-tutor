@@ -1,0 +1,23 @@
+{
+  "question_id": "2014-数一-007",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$7.$ 设随机事件 $A$ 与 $B$ 相互独立，且 $P(B) = 0.5$，$P(A - B) = 0.3$，则 $P(B - A) =$ $( )$\n\n$(A)$ $0.1 \\qquad (B)$ $0.2\\qquad (C)$ $0.3 \\qquad(D)$ $0.4$",
+  "standard_answer": "B.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 随机事件与概率 中等难度 4分题 2014-数一-007"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-018",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 18,
+  "knowledge_points": [
+    "中值定理"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)设 $f(x)$ 在 $[0,1]$ 上具有2阶导数，$f(1)>0$，$\\lim_{x\\to0^+}\\frac{f(x)}{x}<0$。证明：\n\n$(1)$ $f(x)=0$ 在 $(0,1)$ 内至少存在一个实根；\n\n$(2)$ $f(x)f''(x)+[f'(x)]^2=0$ 在 $(0,1)$ 内至少存在两个不同实根。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "中值定理"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 证明题 知识点: 中值定理 数学概念: 极限 较难题 10分题 2017-数一-018"
+}

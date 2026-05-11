@@ -1,0 +1,25 @@
+{
+  "question_id": "2026-数一-018",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "微分方程",
+    "多元函数微分"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$18.$ （本题满分12分）设 $f(u)$ 在 $(0,+\\infty)$ 内具有 $3$ 阶连续导数，且存在可微函数 $F(x,y)$ 使 $dF = \\frac{f(xy)}{x^2 y} dx + \\frac{f''(xy)}{x y^2} dy$。\n\n$(1)$ 证明 $\\left(\\frac{f''(u)}{u} - \\frac{f(u)}{u}\\right)' = 0$；\n\n$(2)$ 设 $f(1)=1,f'(1)=-1,f''(1)=0$，求 $f(u)$。",
+  "standard_answer": "$f(u)=-e^{u-1}+e^{1-u}+u$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程",
+    "多元函数微分"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 解答题 知识点: 微分方程 多元函数微分 较难题 12分题 2026-数一-018"
+}

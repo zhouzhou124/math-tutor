@@ -1,0 +1,23 @@
+{
+  "question_id": "2022-数一-008",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$8.$ 设 $X\\sim U(0,3)$，$Y$ 服从参数为2的泊松分布，且 $\\operatorname{Cov}(X,Y)=-1$，则 $D(2X-Y+1)=$（ ）\n\n$(A)$ 1\n$(B)$ 5\n$(C)$ 9\n$(D)$ 12",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数字特征"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 数字特征 数学概念: 概率统计 中等难度 5分题 2022-数一-008"
+}

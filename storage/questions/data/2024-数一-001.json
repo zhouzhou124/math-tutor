@@ -1,0 +1,28 @@
+{
+  "question_id": "2024-数一-001",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$1.$ $f(x) = \\int_{0}^{x} e^{\\cos t} dt, g(x) = \\int_{0}^{\\sin x} e^{t^{2}} dt$，则（ ）\n\n$(A)$ $f(x)$ 是奇函数，$g(x)$ 是偶函数\n\n$(B)$ $f(x)$ 是偶函数，$g(x)$ 是奇函数\n\n$(C)$ $f(x)$ 与 $g(x)$ 均为奇函数\n\n$(D)$ $f(x)$ 与 $g(x)$ 均为周期函数",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "定积分"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 定积分 数学概念: 三角函数 对数指数函数 积分 中等难度 5分题 2024-数一-001"
+}

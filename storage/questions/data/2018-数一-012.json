@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-012",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$12.$ 设 $L$ 为球面 $x^2+y^2+z^2=1$ 与平面 $x+y+z=0$ 的交线，则 $\\oint_L xyds=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "0.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 填空题 知识点: 曲线曲面积分 数学概念: 重积分 曲线积分 较难题 4分题 2018-数一-012"
+}

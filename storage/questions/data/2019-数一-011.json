@@ -1,0 +1,23 @@
+{
+  "question_id": "2019-数一-011",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$11.$ 幂级数 $\\sum_{n=0}^\\infty\\frac{(-1)^n}{(2n)!}x^n$ 的和函数为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\cos\\sqrt{x}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 无穷级数 数学概念: 级数 求和 中等难度 4分题 2019-数一-011"
+}

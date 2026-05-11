@@ -1,0 +1,25 @@
+{
+  "question_id": "2019-数一-021",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)设 $A=\\begin{pmatrix}2&0&0\\\\0&x&2\\\\0&2&x\\end{pmatrix}$，$B=\\begin{pmatrix}2&0&0\\\\0&y&1\\\\0&1&y\\end{pmatrix}$，且 $A$ 与 $B$ 相似。\n\n$(1)$ 求 $x,y$；\n\n$(2)$ 求可逆矩阵 $P$ 使得 $P^{-1}AP=B$。",
+  "standard_answer": "$(1)$ $x=3,y=-2$。\n$(2)$ $P=\\begin{pmatrix}1&1&1\\\\-2&-1&-2\\\\0&0&-4\\end{pmatrix}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 解答题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 较难题 11分题 2019-数一-021"
+}

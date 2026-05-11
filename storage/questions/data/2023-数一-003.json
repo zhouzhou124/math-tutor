@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-003",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$3.$ 设 $y=f(x)$ 由 $x=2t+|t|,y=|t|\\sin t$ 确定,则( )\n\n$(A)$ f连续,f'(0)不存在 $(B)$ f'(0)存在,f'在x=0不连续 $(C)$ f'连续,f''(0)不存在 $(D)$ f''(0)存在",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 导数与微分 数学概念: 三角函数 较难题 5分题 2023-数一-003"
+}

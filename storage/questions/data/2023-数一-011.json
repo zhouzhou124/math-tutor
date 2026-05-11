@@ -1,0 +1,25 @@
+{
+  "question_id": "2023-数一-011",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "极限与连续",
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$11.$ $\\lim_{x\\to0}\\frac{\\int_0^x\\sin(t^2)dt}{x^3}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1/3$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续",
+    "定积分"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 极限 积分 中等难度 5分题 2023-数一-011"
+}

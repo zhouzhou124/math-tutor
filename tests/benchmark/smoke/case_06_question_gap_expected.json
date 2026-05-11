@@ -1,0 +1,9 @@
+{
+  "case": "question_gap",
+  "description": "题号不连续(1,2,5)，应检测到缺口3,4",
+  "checks": {
+    "question_count": 3,
+    "question_gaps": [3, 4],
+    "warnings_include_question_gap": true
+  }
+}

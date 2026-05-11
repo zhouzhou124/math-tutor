@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-003",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$3.$ $\\sum_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!}=$( )\n\n$(A)$ $\\sin1+\\cos1$\n\n$(B)$ $2\\sin1+\\cos1$\n\n$(C)$ $2\\sin1+2\\cos1$\n\n$(D)$ $2\\sin1+3\\cos1$",
+  "standard_answer": "B.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 无穷级数 数学概念: 三角函数 级数 求和 中等难度 4分题 2018-数一-003"
+}

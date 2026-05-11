@@ -1,0 +1,25 @@
+{
+  "question_id": "2021-数一-018",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "多元函数微分",
+    "向量代数与空间解析几何"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$18.$ (本题满分12分)已知曲线 $C:\\begin{cases}x^2+2y^2-z=6\\\\4x+2y+z=30\\end{cases}$，求 $C$ 上的点到 $xOy$ 坐标面距离的最大值。",
+  "standard_answer": "最大值为66。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分",
+    "向量代数与空间解析几何"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 解答题 知识点: 多元函数微分 向量代数与空间解析几何 数学概念: 几何应用 较难题 12分题 2021-数一-018"
+}

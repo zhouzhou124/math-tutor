@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-021",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)已知 $a$ 是常数，且 $A=\\begin{pmatrix}1&2&a\\\\1&3&0\\\\2&7&-a\\end{pmatrix}$ 可经初等列变换化为 \n$B=\\begin{pmatrix}1&a&2\\\\0&1&1\\\\-1&1&1\\end{pmatrix}$。\n\n$(1)$ 求 $a$；\n\n$(2)$ 求满足 $AP=B$ 的可逆矩阵 $P$。",
+  "standard_answer": "$(1)$ $a=2$。\n$(2)$ $P=\\begin{pmatrix}1&0&0\\\\0&1&0\\\\0&0&1\\end{pmatrix}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 解答题 知识点: 矩阵运算 数学概念: 矩阵运算 较难题 11分题 2018-数一-021"
+}

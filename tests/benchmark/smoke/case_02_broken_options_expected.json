@@ -1,0 +1,9 @@
+{
+  "case": "broken_options",
+  "description": "选项和题目混在同一行，Layout Recovery应插入换行",
+  "checks": {
+    "option_lines": 4,
+    "has_individual_options": true,
+    "needs_manual_review": false
+  }
+}

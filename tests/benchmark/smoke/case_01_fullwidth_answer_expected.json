@@ -1,0 +1,15 @@
+{
+  "case": "fullwidth_answer",
+  "description": "全角题号+答案标记应保留换行，选项应分行",
+  "checks": {
+    "question_count": 1,
+    "answer_count": 1,
+    "has_option_A": true,
+    "has_option_B": true,
+    "has_option_C": true,
+    "has_option_D": true,
+    "answer_on_separate_line": true,
+    "needs_manual_review": false,
+    "math_valid": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-001",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 若函数 $f(x)=\\begin{cases}\\frac{1-\\cos\\sqrt{x}}{ax},& x>0,\\\\ b,& x\\le0\\end{cases}$ 在 $x=0$ 处连续，则 $( )$\n\n$(A)$ $ab=\\frac{1}{2}$ $\\qquad$ $(B)$ $ab=-\\frac{1}{2}$ $\\qquad$ $(C)$ $ab=0$ $\\qquad$ $(D)$ $ab=2$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2017年 选择题 知识点: 极限与连续 数学概念: 三角函数 中等难度 4分题 2017-数一-001"
+}

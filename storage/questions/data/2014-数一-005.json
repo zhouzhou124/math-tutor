@@ -1,0 +1,23 @@
+{
+  "question_id": "2014-数一-005",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "行列式"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$5.$ 行列式 $\\left| \\begin{array}{cccc} 0 & a & b & 0 \\\\ a & 0 & 0 & b \\\\ 0 & c & d & 0 \\\\ c & 0 & 0 & d \\end{array} \\right| =$ $( )$\n\n$(A)$ $(ad-bc)^2 \\qquad (B)$ $-(ad-bc)^2 \\qquad (C)$ $a^2d^2-b^2c^2 \\qquad (D)$ $b^2c^2-a^2d^2$",
+  "standard_answer": "B.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "行列式"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 行列式 数学概念: 矩阵运算 中等难度 4分题 2014-数一-005"
+}

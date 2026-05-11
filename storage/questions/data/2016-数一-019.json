@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-019",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "knowledge_points": [
+    "极限与连续",
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)已知函数 $f(x)$ 可导，且 $f(0) = 1$，$0 < f'(x) < \\frac{1}{2}$。设数列 $\\{x_n\\}$ 满足 $x_{n+1} = f(x_n)$ ($n = 1,2,\\dots$)。证明：\n\n$(1)$ 级数 $\\sum_{n=1}^{\\infty} (x_{n+1} - x_n)$ 绝对收敛；\n\n$(2)$ $\\lim_{n\\to\\infty} x_n$ 存在，且 $0 < \\lim_{n\\to\\infty} x_n < 2$。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续",
+    "无穷级数"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 证明题 知识点: 极限与连续 无穷级数 数学概念: 极限 级数 求和 级数收敛性 较难题 10分题 2016-数一-019"
+}

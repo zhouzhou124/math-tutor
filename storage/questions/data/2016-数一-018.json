@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-018",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)设有界区域 $\\Omega$ 由平面 $2x+y+2z=2$ 与三个坐标平面围成，$\\Sigma$ 为 $\\Omega$ 整个表面的外侧，计算 $I=\\iint\\limits_\\Sigma(x^2+1)dydz-2ydzdx+3zdxdy$。",
+  "standard_answer": "4/3。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 曲线曲面积分 三重积分 数学概念: 极限 重积分 曲线积分 较难题 10分题 2016-数一-018"
+}

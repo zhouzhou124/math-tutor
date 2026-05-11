@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-007",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$7.$ 设 $X_1\\sim N(0,1),X_2\\sim N(0,2^2),X_3\\sim N(5,3^2)$，$p_i=P\\{-2\\le X_i\\le2\\}$，则( )\n\n$(A)$ $p_1>p_2>p_3$\n$(B)$ $p_2>p_1>p_3$\n$(C)$ $p_3>p_1>p_2$\n$(D)$ $p_1>p_3>p_2$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 随机变量及其分布 中等难度 4分题 2013-数一-007"
+}

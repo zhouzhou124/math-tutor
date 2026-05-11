@@ -1,0 +1,10 @@
+{
+  "case": "formula_crossline",
+  "description": "公式跨行断裂，应合并",
+  "checks": {
+    "math_valid": true,
+    "lines_max": 3,
+    "math_object_count_min": 1,
+    "needs_manual_review": false
+  }
+}

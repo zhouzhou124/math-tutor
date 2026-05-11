@@ -1,0 +1,25 @@
+{
+  "question_id": "2021-数一-014",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$14.$ 设 $\\Sigma$ 为空间区域 $\\{x^2+4y^2\\le4,0\\le z\\le2\\}$ 表面的外侧，则 $\\iint\\limits_\\Sigma x^2dydz+y^2dzdx+zdxdy=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$4\\pi$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 填空题 知识点: 曲线曲面积分 三重积分 数学概念: 极限 重积分 曲线积分 较难题 5分题 2021-数一-014"
+}

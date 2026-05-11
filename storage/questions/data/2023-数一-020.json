@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-020",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 20,
+  "knowledge_points": [
+    "中值定理"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$20.$ (本题满分12分)设 $f(x)$ 在 $[-a,a]$ 上有二阶连续导数,证明:\n\n$(1)$ 若 $f(0)=0$,则存在 $\\xi$ 使 $f''(\\xi)= \\frac{[f(a)+f(-a)]}{a^2}$;\n\n$(2)$ 若 $f(x)$ 在 $(-a,a)$ 内取得极值,则存在 $\\eta$ 使 $|f''(\\eta)|\\ge \\frac{|f(a)-f(-a)|}{2a^2}$.",
+  "standard_answer": "证明略.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "中值定理"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 证明题 知识点: 中值定理 数学概念: 函数极值 较难题 12分题 2023-数一-020"
+}

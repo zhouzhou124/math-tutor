@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-008",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$8.$ 设总体 $X\\sim N(\\mu,\\sigma^2)$，$X_1,\\dots,X_n$ 是样本，检验 $H_0:\\mu=\\mu_0,H_1:\\mu\\neq\\mu_0$，则( )\n\n$(A)$ 在 $\\alpha=0.05$ 下拒绝 $H_0$，则 $\\alpha=0.01$ 下必拒绝\n\n$(B)$ 在 $\\alpha=0.05$ 下拒绝 $H_0$，则 $\\alpha=0.01$ 下必接受\n\n$(C)$ 在 $\\alpha=0.05$ 下接受 $H_0$，则 $\\alpha=0.01$ 下必拒绝\n\n$(D)$ 在 $\\alpha=0.05$ 下接受 $H_0$，则 $\\alpha=0.01$ 下必接受",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 数理统计 中等难度 4分题 2018-数一-008"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "2024-数一-002",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$2.$ 设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）\n\n$(A)$ $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(B)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(C)$ $\\iint_{\\Sigma}(\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$\n\n$(D)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 5分题 2024-数一-002"
+}

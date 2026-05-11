@@ -1,0 +1,23 @@
+{
+  "question_id": "2020-数一-005",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$5.$ 设 $A$ 为 $m\\times n$ 矩阵，$B$ 为 $n\\times m$ 矩阵，若 $AB$ 可逆，则 $( )$\n\n$(A)$ $r(A)=m,r(B)=m$\n\n$(B)$ $r(A)=m,r(B)=n$\n\n$(C)$ $r(A)=n,r(B)=m$\n\n$(D)$ $r(A)=n,r(B)=n$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2020年 选择题 知识点: 矩阵运算 数学概念: 矩阵运算 中等难度 4分题 2020-数一-005"
+}

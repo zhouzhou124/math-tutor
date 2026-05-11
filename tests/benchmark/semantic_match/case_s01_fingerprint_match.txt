@@ -1,0 +1,2 @@
+
+【1】求极限 $\lim_{x\to 0}\frac{3\sin x + x^2\cos\frac{1}{x}}{(1 + \cos x)\ln(1 + x)}$ 。

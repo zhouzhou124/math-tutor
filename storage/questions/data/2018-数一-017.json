@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-017",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$17.$ (本题满分10分)设 $\\Sigma$ 是曲面 $x=\\sqrt{1-3y^2-3z^2}$ 的前侧，计算曲面积分 $I=\\iint_\\Sigma xdydz+(y^3+2)dzdx+z^3dxdy$。",
+  "standard_answer": "$4\\pi/3$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 解答题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 10分题 2018-数一-017"
+}

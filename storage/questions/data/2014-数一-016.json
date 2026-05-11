@@ -1,0 +1,23 @@
+{
+  "question_id": "2014-数一-016",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 16,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$16.$ (本题满分10分)设函数 $y = f(x)$ 由方程 $y^3 + xy^2 + x^2 y + 6 = 0$ 确定，求 $f(x)$ 的极值。",
+  "standard_answer": "极大值 $f(-2)=1$，极小值 $f(0)=-2$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 解答题 知识点: 导数与微分 数学概念: 函数极值 中等难度 10分题 2014-数一-016"
+}

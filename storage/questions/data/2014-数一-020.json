@@ -1,0 +1,25 @@
+{
+  "question_id": "2014-数一-020",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "knowledge_points": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$20.$ (本题满分11分)设 $A = \\begin{pmatrix} 1 & -2 & 3 & -4 \\\\ 0 & 1 & -1 & 1 \\\\ 1 & 2 & 0 & -3 \\end{pmatrix}$，$E$ 为 $3$ 阶单位矩阵。\n\n$(1)$ 求方程组 $Ax = 0$ 的一个基础解系；\n\n$(2)$ 求满足 $AB=E$ 的所有矩阵 $B$。",
+  "standard_answer": "$(1)$ $\\xi_1=(1,1,1,0)^T,\\xi_2=(1,0,0,1)^T$。\n$(2)$ 通解形式。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 解答题 知识点: 线性方程组 矩阵运算 数学概念: 微分方程求解 矩阵运算 较难题 11分题 2014-数一-020"
+}

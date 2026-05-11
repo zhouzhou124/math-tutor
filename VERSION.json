@@ -1,0 +1,44 @@
+{
+  "parser_version": "0.6.0-stable",
+  "frozen": false,
+  "frozen_date": "",
+  "splitter": "state_machine_shadow_v1",
+  "ocr_pipeline": "deterministic_with_optional_llm",
+  "matcher": "fingerprint_number_fallback",
+  "benchmark": {
+    "pass_rate": 1.0,
+    "total_cases": 20
+  },
+  "dataset": {
+    "source_of_truth": "storage/questions/data",
+    "years": "2010-2025",
+    "math1_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "extra_volumes": [
+      "第一套"
+    ],
+    "total_questions": 385,
+    "answer_coverage": 1.0,
+    "solution_coverage": 0.0
+  },
+  "next_phase": "user_loop",
+  "rule": "storage/questions/data is the only active dataset",
+  "dataset_policy": "current_active_questions_only",
+  "last_updated": "2026-05-10"
+}

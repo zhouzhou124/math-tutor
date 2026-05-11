@@ -1,0 +1,35 @@
+# 1987年全国硕士研究生招生考试
+
+# 数学（一）
+
+（科目代码：301）
+
+# 一、填空题（本题共5小题，每小题3分，满分15分）
+
+（1）与两直线 $\left\{ \begin{array}{l}x = 1,\\ y = -1 + t,\\ z = 2 + t \end{array} \right.$ 及 $\frac{x + 1}{1} = \frac{y + 2}{2} = \frac{z - 1}{1}$ 都平行，且过原点的平面方程为
+（2）当 $x =$ 时，函数 $y = x2^{x}$ 取得极小值
+（3）由曲线 $y = \ln x$ 与两直线 $y = (\mathrm{e} + 1) - x$ 及 $y = 0$ 所围成的平面图形的面积为
+（4）设 $L$ 为取正向的圆 $x^{2} + y^{2} = 9$ ，则曲线积分 $\oint_{L}(2xy - 2y)\mathrm{d}x + (x^{2} - 4x)\mathrm{d}y$ 的值为
+（5）已知3维线性空间的一组基为 $\alpha_{1} = (1,1,0),\alpha_{2} = (1,0,1),\alpha_{3} = (0,1,1)$ ，则向量 $\pmb{\alpha} =$ （2，0，0）在上述基底下的坐标为
+
+# 二、（本题满分8分）
+
+求正常数 $a$ 与 $b$ ，使得 $\lim_{x\to 0}\frac{1}{bx - \sin x}\int_0^x\frac{t^2}{\sqrt{a + t^2}}\mathrm{d}t = 1$ 成立.
+
+# 三、（本题满分7分）
+
+(1)（本题满分3分）设函数 $f, g$ 连续可微， $u = f(x, xy), v = g(x + xy)$ ，求 $\frac{\partial u}{\partial x} \cdot \frac{\partial v}{\partial x}$ .
+
+(2)（本题满分4分）设矩阵 $\mathbf{A}$ 与 $\mathbf{B}$ 满足 $\mathbf{AB} = \mathbf{A} + 2\mathbf{B}$ ，其中 $\mathbf{A} = \begin{pmatrix} 3 & 0 & 1 \\ 1 & 1 & 0 \\ 0 & 1 & 4 \end{pmatrix}$ ，求矩阵 $\mathbf{B}$ .
+
+# 五、选择题（本题共4小题，每小题3分，满分12分）
+
+（1）设常数 $k > 0$ ，则级数 $\sum_{n = 1}^{\infty}(-1)^{n}\frac{k + n}{n^{2}} (\quad)$
+
+（A）发散
+
+（B）绝对收敛
+
+（C）条件收敛
+
+(D) 收敛或发散与 $k$ 的取值有关

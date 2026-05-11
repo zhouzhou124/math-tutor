@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-003",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$3.$ 设 $f(x)=|x-1/2|$，$b_n=2\\int_0^1 f(x)\\sin n\\pi xdx$。令 $S(x)=\\sum b_n\\sin n\\pi x$，则 $S(-9/4)=$( )\n\n$(A)$ $3/4$\n$(B)$ $1/4$\n$(C)$ $-1/4$\n$(D)$ $-3/4$",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 无穷级数 数学概念: 三角函数 积分 级数 求和 较难题 4分题 2013-数一-003"
+}

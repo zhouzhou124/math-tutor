@@ -1,0 +1,11 @@
+{
+  "case": "missing_option",
+  "description": "缺少选项C，Validator应检测到",
+  "checks": {
+    "warnings_include_missing_option": true,
+    "has_option_A": true,
+    "has_option_B": true,
+    "has_option_D": true,
+    "has_option_C": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-013",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$13.$ 设 $2$ 阶矩阵 $A$ 有两个不同特征值，$\\alpha_1,\\alpha_2$ 是 $A$ 的线性无关的特征向量，且满足 $A^2(\\alpha_1+\\alpha_2)=\\alpha_1+\\alpha_2$，则 $|A|=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "-1.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "特征值与特征向量"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 填空题 知识点: 特征值与特征向量 数学概念: 向量线性关系 特征值 特征向量 矩阵运算 较难题 4分题 2018-数一-013"
+}

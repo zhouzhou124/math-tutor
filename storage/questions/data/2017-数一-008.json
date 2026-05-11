@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-008",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$8.$ 设 $X_1,\\dots,X_n(n\\ge2)$ 为来自 $N(\\mu,1)$ 的样本，$\\overline{X}=\\frac1n\\sum X_i$，则不正确的是( )\n\n$(A)$ $\\sum(X_i-\\mu)^2$ 服从 $\\chi^2$ 分布\n\n$(B)$ $2(X_n-X_1)^2$ 服从 $\\chi^2$ 分布\n\n$(C)$ $\\sum(X_i-\\overline{X})^2$ 服从 $\\chi^2$ 分布\n\n$(D)$ $n(\\overline{X}-\\mu)^2$ 服从 $\\chi^2$ 分布",
+  "standard_answer": "B.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2017年 选择题 知识点: 数理统计 数学概念: 概率统计 级数 求和 较难题 4分题 2017-数一-008"
+}

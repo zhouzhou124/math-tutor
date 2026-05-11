@@ -1,0 +1,8 @@
+{
+  "case": "semantic_fingerprint",
+  "description": "指纹提取：极限+三角函数+分数应产生≥3个公式指纹",
+  "checks": {
+    "math_object_count_min": 3,
+    "math_valid": true
+  }
+}

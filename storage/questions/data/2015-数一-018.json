@@ -1,0 +1,23 @@
+{
+  "question_id": "2015-数一-018",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)\n\n$(1)$ 设 $u(x),v(x)$ 可导，利用导数定义证明 $[uv]'=u'v+uv'$；\n\n$(2)$ 设 $u_1,\\dots,u_n$ 可导，$f=u_1u_2\\cdots u_n$，写出 $f$ 的求导公式。",
+  "standard_answer": "$(1)$ 证明略。\n$(2)$ $f'=\\sum_{i=1}^nu_1\\cdots u_{i-1}u_i'u_{i+1}\\cdots u_n$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 解答题 知识点: 导数与微分 中等难度 10分题 2015-数一-018"
+}

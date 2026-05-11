@@ -1,0 +1,23 @@
+{
+  "question_id": "2026-数一-022",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$22.$ （本题满分12分）假设某种元件寿命服从指数分布，其均值 $\\theta$ 未知。取 $n$ 个元件做寿命实验，直到出现 $k(1\\le k\\le n)$ 个元件失效时停止。\n\n$(1)$ 若 $k=1$，失效元件寿命记为 $T$，求 $T$ 的概率密度，并确定 $a$ 使 $\\hat{\\theta}=aT$ 是 $\\theta$ 的无偏估计，求 $D(\\hat{\\theta})$；\n\n$(2)$ 已知 $t_1\\le\\cdots\\le t_k$，似然函数 $L(\\theta)=\\frac{1}{\\theta^k}e^{-\\frac{1}{\\theta}\\sum_{i=1}^k(n-i+1)(t_i-t_{i-1})}$，求 $\\theta$ 的最大似然估计。",
+  "standard_answer": "$(1)$ $f_T(t)=\\frac{n}{\\theta}e^{-\\frac{n}{\\theta}t},a=n,D(\\hat{\\theta})=\\theta^2$。\n$(2)$ $\\hat{\\theta}=\\frac{1}{k}\\sum_{i=1}^k(n-i+1)(t_i-t_{i-1})$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 解答题 知识点: 数理统计 数学概念: 参数估计 极大似然 对数指数函数 概率统计 级数 求和 较难题 12分题 2026-数一-022"
+}

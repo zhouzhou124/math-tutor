@@ -1,0 +1,23 @@
+{
+  "question_id": "2015-数一-012",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "knowledge_points": [
+    "三重积分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$12.$ 设 $\\Omega$ 是平面 $x+y+z=1$ 与三个坐标平面所围成的空间区域，则 $\\iiint\\limits_\\Omega(x+2y+3z)dxdydz=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "1/2.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "三重积分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 填空题 知识点: 三重积分 数学概念: 极限 重积分 曲线积分 中等难度 4分题 2015-数一-012"
+}

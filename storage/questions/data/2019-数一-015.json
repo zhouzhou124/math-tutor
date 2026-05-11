@@ -1,0 +1,25 @@
+{
+  "question_id": "2019-数一-015",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 15,
+  "knowledge_points": [
+    "微分方程",
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$15.$ (本题满分10分)求 $y'+xy=e^{-x^2/2}$ 满足 $y(0)=0$ 的解，并求该函数的凹凸区间与拐点。",
+  "standard_answer": "$y=xe^{-x^2/2}$，凸区间 $(-\\infty,-\\sqrt3)\\cup(0,\\sqrt3)$，凹区间 $(-\\sqrt3,0)\\cup(\\sqrt3,+\\infty)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程",
+    "导数与微分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 解答题 知识点: 微分方程 导数与微分 数学概念: 对数指数函数 中等难度 10分题 2019-数一-015"
+}

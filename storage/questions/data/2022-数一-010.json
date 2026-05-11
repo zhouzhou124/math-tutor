@@ -1,0 +1,25 @@
+{
+  "question_id": "2022-数一-010",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 10,
+  "knowledge_points": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$10.$ 设 $X\\sim N(0,1)$，在 $X=x$ 条件下 $Y\\sim N(x,1)$，则 $X$ 与 $Y$ 的相关系数为（ ）\n\n$(A)$ $\\frac14$\n$(B)$ $\\frac12$\n$(C)$ $\\frac{\\sqrt3}{2}$\n$(D)$ $\\frac{\\sqrt2}{2}$",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 数字特征 随机变量及其分布 数学概念: 概率统计 中等难度 5分题 2022-数一-010"
+}

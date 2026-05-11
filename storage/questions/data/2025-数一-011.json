@@ -1,0 +1,23 @@
+{
+  "question_id": "2025-数一-011",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$11.$ $\\lim_{x \\to 0^+} \\frac{x^x - 1}{\\ln x \\cdot \\ln(1-x)} = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$-1$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 填空题 知识点: 极限与连续 数学概念: 对数指数函数 极限 中等难度 5分题 2025-数一-011"
+}

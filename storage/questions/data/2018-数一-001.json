@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-001",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 下列函数中，在 $x=0$ 处不可导的是( )\n\n$(A)$ $f(x)=|x|\\sin|x|$ $\\qquad$ $(B)$ $f(x)=|x|\\sin\\sqrt{|x|}$\n\n$(C)$ $f(x)=\\cos|x|$ $\\qquad$ $(D)$ $f(x)=\\cos\\sqrt{|x|}$",
+  "standard_answer": "B.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 导数与微分 数学概念: 三角函数 中等难度 4分题 2018-数一-001"
+}

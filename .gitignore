@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+.env
+.venv/
+venv/
+env/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+storage/settings.json
+storage/build_report_*.json
+storage/questions/build_report_*.md
+storage/questions/backup_*/
+storage/questions/current_backup_*/
+prompts/*.tmp.*
+streamlit_*.log
+
+# Source materials and PDFs (not part of the web app)
+00-模拟题/
+【1】考研数学一历年真题及答案（1987-2026）/
+张宇/
+
+# IDE / editor
+.vscode/
+.idea/

@@ -1,0 +1,9 @@
+{
+  "case": "question_inline",
+  "description": "多道题挤在一行，应能检测到2道题",
+  "checks": {
+    "question_count_min": 2,
+    "has_question_numbers": true,
+    "needs_manual_review": false
+  }
+}

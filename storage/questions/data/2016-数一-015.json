@@ -1,0 +1,23 @@
+{
+  "question_id": "2016-数一-015",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 15,
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$15.$ (本题满分10分)已知 $D=\\{(r,\\theta)|2\\le r\\le2(1+\\cos\\theta),-\\frac\\pi2\\le\\theta\\le\\frac\\pi2\\}$，计算 $\\iint\\limits_D xdxdy$。",
+  "standard_answer": "8/3。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二重积分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 二重积分 数学概念: 三角函数 极限 重积分 曲线积分 中等难度 10分题 2016-数一-015"
+}

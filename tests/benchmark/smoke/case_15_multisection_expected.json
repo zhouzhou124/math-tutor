@@ -1,0 +1,10 @@
+{
+  "case": "multisection",
+  "description": "完整三章节试卷：选择题(1-2)+填空题(4-5)+解答题(6-7)。验证连续编号跨章节，答案和解析正确提取",
+  "checks": {
+    "question_count": 6,
+    "answer_count": 6,
+    "math_valid": true,
+    "needs_manual_review": false
+  }
+}

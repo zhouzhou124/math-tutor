@@ -1,0 +1,23 @@
+{
+  "question_id": "2025-数一-016",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 16,
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$16.$ 设 $A,B$ 为两个随机事件，$A$ 与 $B$ 相互独立，已知 $P(A)=2P(B), P(A\\cup B)=\\frac{5}{8}$，则在 $A,B$ 至少有一个发生的条件下，$A,B$ 中恰有一个发生的概率为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{4}{5}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 填空题 知识点: 随机事件与概率 数学概念: 概率统计 中等难度 5分题 2025-数一-016"
+}

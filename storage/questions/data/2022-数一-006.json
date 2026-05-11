@@ -1,0 +1,25 @@
+{
+  "question_id": "2022-数一-006",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "矩阵运算",
+    "线性方程组"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$6.$ 设 $A,B$ 均为 $n$ 阶矩阵，$E$ 为单位矩阵，若方程组 $AX=0$ 与 $BX=0$ 同解，则（ ）\n\n$(A)$ $\\begin{pmatrix}A&O\\\\O&B\\end{pmatrix}Y=0$ 只有零解\n$(B)$ $\\begin{pmatrix}A&O\\\\O&AB\\end{pmatrix}Y=0$ 只有零解\n$(C)$ $\\begin{pmatrix}A&B\\\\O&B\\end{pmatrix}Y=0$ 与 $\\begin{pmatrix}B&A\\\\O&A\\end{pmatrix}Y=0$ 同解\n$(D)$ $\\begin{pmatrix}A&O\\\\O&B\\end{pmatrix}Y=0$ 与 $\\begin{pmatrix}B&O\\\\O&A\\end{pmatrix}Y=0$ 同解",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "线性方程组"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 矩阵运算 线性方程组 数学概念: 矩阵运算 较难题 5分题 2022-数一-006"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-004",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$4.$ 设 $L_1,L_2,L_3,L_4$ 为四条曲线，$I_i=\\oint_{L_i}(y+\\frac{y^3}{6})dx+(2x-\\frac{x^3}{3})dy$，则 $\\max\\{I_1,I_2,I_3,I_4\\}=$( )\n\n$(A)$ $I_1 \\qquad(B)$ $I_2 \\qquad (C)$ $I_3 \\qquad (D)$ $I_4$",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 4分题 2013-数一-004"
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "2021-数一-017",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "knowledge_points": [
+    "极限与连续",
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$17.$ (本题满分10分)求极限 $\\lim_{x\\to0}(\\frac{1+\\int_0^x e^{t^2}dt}{e^x-1}-\\frac{1}{\\sin x})$。",
+  "standard_answer": "$\\frac{1}{2}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续",
+    "定积分"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 解答题 知识点: 极限与连续 定积分 数学概念: 三角函数 对数指数函数 极限 积分 中等难度 10分题 2021-数一-017"
+}

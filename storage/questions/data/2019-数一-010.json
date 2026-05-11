@@ -1,0 +1,23 @@
+{
+  "question_id": "2019-数一-010",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 10,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$10.$ 微分方程 $yy''+(y')^2=yy'$ 满足 $y(0)=1,y'(0)=1$ 的解为 $y=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\sqrt{3e^x-2}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 微分方程 数学概念: 微分方程求解 较难题 4分题 2019-数一-010"
+}

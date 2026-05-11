@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-021",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)已知矩阵 $A=\\begin{pmatrix}0&-1&1\\\\2&-3&0\\\\0&0&0\\end{pmatrix}$。\n\n$(1)$ 求 $A^{99}$；\n\n$(2)$ 设 $3$ 阶矩阵 $B = (\\alpha_1,\\alpha_2,\\alpha_3)$ 满足 $B^2 = BA$。记 $B^{100} = (\\beta_1,\\beta_2,\\beta_3)$，将 $\\beta_1,\\beta_2,\\beta_3$ 分别表示为 $\\alpha_1,\\alpha_2,\\alpha_3$ 的线性组合。\n",
+  "standard_answer": "$(1)$ $A^{99}$ 含 $2^{99}-2\\cdot3^{99}$ 等项。\n$(2)$ $\\beta_3=0$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 矩阵运算 特征值与特征向量 数学概念: 矩阵运算 较难题 11分题 2016-数一-021"
+}

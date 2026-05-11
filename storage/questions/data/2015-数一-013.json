@@ -1,0 +1,23 @@
+{
+  "question_id": "2015-数一-013",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "行列式"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$13.$ $n$ 阶行列式 $\\begin{vmatrix}2&0&\\cdots&0&2\\\\ -1&2&\\cdots&0&2\\\\ \\vdots&\\vdots&\\ddots&\\vdots&\\vdots\\\\ 0&0&\\cdots&2&2\\\\0&0&\\cdots&-1&2\\end{vmatrix}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$2^{n+1}-2$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "行列式"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 填空题 知识点: 行列式 数学概念: 矩阵运算 较难题 4分题 2015-数一-013"
+}

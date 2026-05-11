@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-001",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 已知极限 $\\lim_{x\\to0}\\frac{x-\\arctan x}{x^k}=c$，其中 $k,c$ 为常数，且 $c\\neq0$，则( )\n\n$(A)$ $k=2,c=-\\frac12 \\qquad(B)$ $k=2,c=\\frac12$ \n\n$(C)$ $k=3,c=-\\frac13 \\qquad(D)$ $k=3,c=\\frac13$",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 极限与连续 数学概念: 三角函数 极限 中等难度 4分题 2013-数一-001"
+}

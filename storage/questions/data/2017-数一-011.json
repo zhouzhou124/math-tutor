@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-011",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$11.$ 若曲线积分 $\\int_L\\frac{xdx-aydy}{x^2+y^2-1}$ 在 $D=\\{x^2+y^2<1\\}$ 内与路径无关，则 $a=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "-1.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 填空题 知识点: 曲线曲面积分 数学概念: 几何应用 积分 较难题 4分题 2017-数一-011"
+}

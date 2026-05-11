@@ -1,0 +1,23 @@
+{
+  "question_id": "2019-数一-012",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$12.$ 设 $\\Sigma$ 为锥面 $z=\\sqrt{x^2+y^2}$ 介于 $z=0$ 与 $z=2$ 之间的部分，方向取下侧，则 $\\iint\\limits_\\Sigma|y|dxdy=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$32/3$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 曲线曲面积分 数学概念: 极限 重积分 曲线积分 较难题 4分题 2019-数一-012"
+}

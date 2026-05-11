@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-023",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 23,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $$f(x;\\theta) = \\begin{cases} \\frac{\\theta^2}{x^3} e^{-\\frac{\\theta}{x}}, & x > 0 \\\\ 0, & \\text{其他} \\end{cases}$$，其中 $\\theta$ 为未知参数且大于零。$X_1,X_2,\\dots,X_n$ 为来自总体 $X$ 的简单随机样本。\n\n$(1)$ 求 $\\theta$ 的矩估计量；\n\n$(2)$ 求 $\\theta$ 的最大似然估计量。",
+  "standard_answer": "$(1)$ $\\hat\\theta=2\\overline{X}$。\n$(2)$ $\\hat\\theta=n/\\sum(1/X_i)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 解答题 知识点: 数理统计 数学概念: 参数估计 极大似然 对数指数函数 概率统计 较难题 11分题 2013-数一-023"
+}

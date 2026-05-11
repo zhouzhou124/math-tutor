@@ -1,0 +1,8 @@
+{
+  "case": "1987_fragment",
+  "description": "1987年老格式真实片段。当前Regex解析器基线：5题（仅检测到填空题章节的(1)-(5)，二、三、四、五章节头缺题型关键词未被识别）。P3状态机目标：≥10题",
+  "checks": {
+    "question_count_min": 5,
+    "needs_manual_review": false
+  }
+}

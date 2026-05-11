@@ -1,0 +1,23 @@
+{
+  "question_id": "2017-数一-002",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$2.$ 设函数 $f(x)$ 可导，且 $f(x)f'(x)>0$，则( )\n\n$(A)$ $f(1)>f(-1)$ $\\qquad$ $(B)$ $f(1)<f(-1)$\n\n$(C)$ $|f(1)|>|f(-1)|$ $\\qquad$ $(D)$ $|f(1)|<|f(-1)|$",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2017年 选择题 知识点: 导数与微分 中等难度 4分题 2017-数一-002"
+}

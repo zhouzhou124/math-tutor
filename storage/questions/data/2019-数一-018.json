@@ -1,0 +1,25 @@
+{
+  "question_id": "2019-数一-018",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 18,
+  "knowledge_points": [
+    "中值定理",
+    "导数与微分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)设 $f(x)$ 在 $[0,1]$ 上连续，$(0,1)$ 内可导，且 $f(0)=0,f(1)=1$，证明：存在 $\\xi\\in(0,1)$ 使得 $f'(\\xi)=2\\xi f(\\xi)$。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "中值定理",
+    "导数与微分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 证明题 知识点: 中值定理 导数与微分 较难题 10分题 2019-数一-018"
+}

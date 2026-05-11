@@ -1,0 +1,25 @@
+{
+  "question_id": "2013-数一-021",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 21,
+  "knowledge_points": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)设二次型 $f(x_1,x_2,x_3) = 2(a_1x_1 + a_2x_2 + a_3x_3)^2 + (b_1x_1 + b_2x_2 + b_3x_3)^2$，记 $\\alpha = \\begin{pmatrix} a_1 \\\\ a_2 \\\\ a_3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} b_1 \\\\ b_2 \\\\ b_3 \\end{pmatrix}$。\n\n$(1)$ 证明二次型 $f$ 对应的矩阵为 $2\\alpha\\alpha^{\\mathrm{T}} + \\beta\\beta^{\\mathrm{T}}$；\n\n$(2)$ 若 $\\alpha,\\beta$ 正交且均为单位向量，证明 $f$ 在正交变换下的标准形为 $2y_1^2 + y_2^2$。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 证明题 知识点: 二次型 特征值与特征向量 数学概念: 二次型 标准化 正交变换 矩阵运算 较难题 11分题 2013-数一-021"
+}

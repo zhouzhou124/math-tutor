@@ -1,0 +1,23 @@
+{
+  "question_id": "2024-数一-013",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$13.$ 已知 $f(x)=1+x$，若 $f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}a_n\\cos nx(x\\in[0,\\pi])$，则 $\\lim_{n\\to\\infty}n^2\\sin a_{2n-1}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$-\\frac{1}{\\pi}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 填空题 知识点: 无穷级数 数学概念: 三角函数 极限 级数 求和 较难题 5分题 2024-数一-013"
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "2026-数一-014",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "定积分",
+    "反常积分"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$14.$ $\\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2} dx = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$2\\ln2$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "定积分",
+    "反常积分"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 填空题 知识点: 定积分 反常积分 数学概念: 对数指数函数 积分 中等难度 5分题 2026-数一-014"
+}

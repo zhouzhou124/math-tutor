@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-013",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$13.$ 设 $f(x)=1-x,x\\in[0,1]$,余弦级数展开,则 $a_{2n}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "0.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 无穷级数 较难题 5分题 2023-数一-013"
+}

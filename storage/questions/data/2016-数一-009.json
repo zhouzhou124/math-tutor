@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-009",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 9,
+  "knowledge_points": [
+    "极限与连续",
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$9.$ $\\lim_{x\\to0}\\frac{\\int_0^xt\\ln(1+t\\sin t)dt}{1-\\cos x^2}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "1/2.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续",
+    "定积分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 对数指数函数 极限 积分 中等难度 4分题 2016-数一-009"
+}

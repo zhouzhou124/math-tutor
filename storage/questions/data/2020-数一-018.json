@@ -1,0 +1,23 @@
+{
+  "question_id": "2020-数一-018",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)\n\n设 $\\Sigma$ 为曲面 $z = \\sqrt{x^2 + y^2}$ ($1 \\le x^2 + y^2 \\le 4$) 的下侧，$f(x)$ 是连续函数，计算\n$\nI = \\iint_{\\Sigma} [x f(xy) + 2x - y] dy dz + [y f(xy) + 2y + x] dz dx + [z f(xy) + z] dx dy.\n$",
+  "standard_answer": "$14\\pi/3$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 解答题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 10分题 2020-数一-018"
+}

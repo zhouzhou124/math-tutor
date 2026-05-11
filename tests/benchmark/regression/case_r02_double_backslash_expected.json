@@ -1,0 +1,8 @@
+{
+  "case": "regression_double_backslash",
+  "description": "双反斜杠修复：\\\\prime\\\\frac\\\\int应全部修复为单反斜杠",
+  "checks": {
+    "math_valid": true,
+    "math_object_count_min": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "case": "no_degradation",
+  "description": "完全干净的LaTeX输入。验证管道不损坏良好输入（do no harm），输出应与输入语义等价",
+  "checks": {
+    "question_count": 3,
+    "answer_count": 3,
+    "math_valid": true,
+    "needs_manual_review": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "2024-数一-019",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "knowledge_points": [
+    "中值定理",
+    "定积分"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$19.$ （本题满分12分）设函数 $f(x)$ 具有二阶导数，且 $f'(0)=f'(1),|f''(x)|\\le1$。证明：\n\n$(1)$ 当 $x\\in(0,1)$ 时，$|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n\n$(2)$ $|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}|\\le\\frac{1}{12}$。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "中值定理",
+    "定积分"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 证明题 知识点: 中值定理 定积分 数学概念: 积分 较难题 12分题 2024-数一-019"
+}

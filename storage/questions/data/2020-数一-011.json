@@ -1,0 +1,23 @@
+{
+  "question_id": "2020-数一-011",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$11.$ 设 $f(x)$ 满足 $f''(x)+af'(x)+f(x)=0$，且 $f(0)=m,f'(0)=n$，则 $\\int_0^{+\\infty}f(x)dx=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$n+am$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 微分方程 数学概念: 积分 较难题 4分题 2020-数一-011"
+}

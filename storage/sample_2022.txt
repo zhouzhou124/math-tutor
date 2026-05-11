@@ -1,0 +1,28 @@
+# 2022年全国硕士研究生招生考试数学（一）试题
+
+# -,�:ll� ( *�:it 10 ,J,�, �,J,� 5 :St, :it 50 :St. =A:�1J,��lli a{] lm1'"�:Igicp, R �-:Igir4,g.� § � * , m.PJr� :IgifiJ a{] *-m::t,l=A:� Ja a{] m� P-J. i
+
+(1)设 $\operatorname* { l i m } _ { x \to 1 } { \frac { f ( x ) } { \ln x } } = 1$ ，则 ） Z
+
+(B x→1
+
+( D
+
+( 2) i!l. $f ( u )$ nJ � , $, z = x y f \left( { \frac { y } { x } } \right)$ , ;ff $x { \frac { \partial z } { \partial x } } + y { \frac { \partial z } { \partial y } } = y ^ { 2 } ( \ln y - \ln x )$ + y J!U ( )
+
+$\left\{ x _ { n } \right\}$ tWJE $- { \frac { \pi } { 2 } } \leqslant x _ { n } \leqslant { \frac { \pi } { 2 } }$
+
+(A) ;ff $\operatorname* { l i m } _ { n \to \infty } \cos ( \sin x _ { n } )$ Htf,JJ!tl $\operatorname* { l i m } _ { n \to \infty } x _ { n }$ Hi£.   
+( B) ;ff $\operatorname* { l i m } _ { n \to \infty } \sin ( \cos x _ { n } )$ Hi£ ,JJ!U $\operatorname* { l i m } _ { n \to \infty } x _ { n }$ Hi£.   
+( C) ;fflim cos( sin $x _ { n }$ HtE,JJ!Ulim sin $x _ { n }$ HtE,f!=l $\operatorname* { l i m } _ { n \to \infty } x _ { n }$ �-JEHtE. n......-+00 n-oc   
+( D) ;ff $\operatorname* { l i m } _ { n \to \infty } \sin ( \cos x _ { n } )$ Htf ,JJ!U $\operatorname* { l i m } _ { n \to \infty } \cos x _ { n }$ $x _ { n }$ Hi£, f!=l $\operatorname* { l i m } _ { n \to \infty } x _ { n }$ �-JEHtf.
+
+-+.>- l' x ( 4) -;('; /1 = 2 (1 ) O + COS X $\cdot I _ { 1 } = \int _ { 0 } ^ { 1 } \frac { x } { 2 ( 1 + \cos x ) } \mathrm { d } x , I _ { 2 } = \int _ { 0 } ^ { 1 } \frac { \ln ( 1 + x ) } { 1 + \cos x } \mathrm { d } x , I _ { 3 } = \int _ { 0 } ^ { 1 } \frac { 2 x } { 1 + \sin x } \mathrm { d } x$ 1 O + COS X l' ln (1 + x ) dx ,/ = 2x . dx, JJ!U ( ）
+
+$( \mathbf { A } ) I _ { 1 } < I _ { 2 } < I _ { 3 } .$
+
+$\begin{array} { r } { \left( \mathbf { B } \right) I _ { 2 } < I _ { 1 } < I _ { 3 } . } \end{array}$
+
+$\begin{array} { r } { \left( \mathbf { C } \right) I _ { 1 } < I _ { 3 } < I _ { 2 } . } \end{array}$
+
+$\left( \mathrm { D } \right) I _ { 3 } < I _ { 2 } < I _ { 1

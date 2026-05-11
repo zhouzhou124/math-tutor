@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-018",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$18.$ (本题满分10分)已知 $y'+y=f(x)$，其中 $f(x)$ 是 $\\mathbf{R}$ 上的连续函数。\n\n$(1)$ 若 $f(x)=x$，求方程的通解；\n\n$(2)$ 若 $f(x)$ 是周期为 $T$ 的函数，证明方程存在唯一的以 $T$ 为周期的解。",
+  "standard_answer": "$(1)$ $y=x-1+Ce^{-x}$。\n$(2)$ 证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 解答题 知识点: 微分方程 数学概念: 微分方程求解 中等难度 10分题 2018-数一-018"
+}

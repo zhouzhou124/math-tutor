@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-002",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$2.$ 曲面 $x^2+\\cos(xy)+yz+x=0$ 在点 $(0,1,-1)$ 处的切平面方程为( )\n\n$(A)$ $x-y+z=-2$\n$(B)$ $x+y+z=0$\n$(C)$ $x-2y+z=-3$\n$(D)$ $x-y-z=0$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 多元函数微分 数学概念: 三角函数 几何应用 切线与法线 中等难度 4分题 2013-数一-002"
+}

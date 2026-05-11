@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-015",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "基础",
+  "score": 5,
+  "question": "$15.$ $A=\\begin{pmatrix}1&2&3\\\\0&1&4\\\\0&0&1\\end{pmatrix}$,则 $A^{-1}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\begin{pmatrix}1&-2&5\\\\0&1&-4\\\\0&0&1\\end{pmatrix}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 矩阵运算 数学概念: 矩阵运算 基础题 5分题 2023-数一-015"
+}

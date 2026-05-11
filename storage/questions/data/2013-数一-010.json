@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-010",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 10,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$10.$ 已知 已知 $y_1 = e^x - xe^x$，$y_2 = e^x - xe^x$，$y_3 = -xe^x$ 是某二阶常系数非齐次线性微分方程的 $3$ 个解，则该方程的通解为 $y=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$y=C_1e^x+C_2e^{-x}-xe^x$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 填空题 知识点: 微分方程 数学概念: 对数指数函数 微分方程求解 中等难度 4分题 2013-数一-010"
+}

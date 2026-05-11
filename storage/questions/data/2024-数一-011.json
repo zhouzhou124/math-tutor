@@ -1,0 +1,23 @@
+{
+  "question_id": "2024-数一-011",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$11.$ $\\lim_{x\\to 0}\\frac{(1+ax^2)^{\\sin x}-1}{x^3}=6$，则 $a=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$6$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 填空题 知识点: 极限与连续 数学概念: 三角函数 极限 中等难度 5分题 2024-数一-011"
+}

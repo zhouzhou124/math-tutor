@@ -1,0 +1,8 @@
+# -,�:ll� ( *�:it 10 ,J,�, �,J,� 5 :St
+
+(1)设 $\operatorname* { l i m } _ { x \to 1 } { \frac { f ( x ) } { \ln x } } = 1$ ，则
+
+(A) ;ff $\operatorname* { l i m } _ { n \to \infty } \cos ( \sin x _ { n } )$ Htf
+(B) ;ff $\operatorname* { l i m } _ { n \to \infty } \sin ( \cos x _ { n } )$ Hi£
+(C) ;fflim cos( sin $x _ { n }$ HtE
+(D) ;ff $\operatorname* { l i m } _ { n \to \infty } \sin ( \cos x _ { n } )$ Htf

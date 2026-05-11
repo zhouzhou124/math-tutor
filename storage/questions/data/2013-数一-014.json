@@ -1,0 +1,23 @@
+{
+  "question_id": "2013-数一-014",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "基础",
+  "score": 4,
+  "question": "$14.$ 设随机变量 $Y$ 服从参数为 $1$ 的指数分布，$a$ 为常数且大于零，则 $P\\{Y \\le a+1 \\mid Y > a\\} =\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1-e^{-1}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 填空题 知识点: 随机变量及其分布 数学概念: 概率统计 基础题 4分题 2013-数一-014"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2022-数一-007",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$7.$ 设 $\\alpha_1=(1,2,3)^T,\\alpha_2=(2,1,1)^T,\\alpha_3=(0,3,\\lambda)^T,\\beta_1=(1,2,0)^T,\\beta_2=(1,1,1)^T$，若 $\\alpha_1,\\alpha_2,\\alpha_3$ 与 $\\beta_1,\\beta_2$ 等价，则 $\\lambda$ 取值范围是（ ）\n\n$(A)$ $\\{\\lambda\\in R\\}$\n$(B)$ $\\{\\lambda\\in R,\\lambda\\neq-1\\}$\n$(C)$ $\\{\\lambda\\in R,\\lambda\\neq-1,\\lambda\\neq-2\\}$\n$(D)$ $\\{\\lambda\\in R,\\lambda\\neq-2\\}$",
+  "standard_answer": "C.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 向量组与线性空间 数学概念: 特征值 特征向量 较难题 5分题 2022-数一-007"
+}

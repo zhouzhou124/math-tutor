@@ -1,0 +1,25 @@
+{
+  "question_id": "2023-数一-021",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$21.$ (本题满分12分)已知二次型 $f=x_1^2+2x_2^2+2x_3^2+2x_1x_2-2x_1x_3,g=y_1^2+y_2^2+y_3^2+2y_2y_3$.\n\n$(1)$ 求可逆变换 $x=Py$ 将 $f$ 化为 $g$;\n\n$(2)$ 是否存在正交变换?",
+  "standard_answer": "$(1)$ $P=\\begin{pmatrix}1&-1&1\\\\0&1&0\\\\0&0&1\\end{pmatrix}$.\n$(2)$ 不存在.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 解答题 知识点: 二次型 特征值与特征向量 数学概念: 二次型 标准化 正交变换 较难题 12分题 2023-数一-021"
+}

@@ -1,0 +1,11 @@
+{
+  "case": "ocr_symbols",
+  "description": "OCR数学符号应转换为LaTeX命令",
+  "checks": {
+    "math_object_count_min": 3,
+    "contains_latex_int": true,
+    "contains_latex_sum": true,
+    "contains_latex_infty": true,
+    "math_valid": true
+  }
+}

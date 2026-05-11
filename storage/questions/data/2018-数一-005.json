@@ -1,0 +1,25 @@
+{
+  "question_id": "2018-数一-005",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$5.$ 下列矩阵中，与矩阵 $\\begin{pmatrix}1&1&0\\\\0&1&1\\\\0&0&1\\end{pmatrix}$ 相似的为( )\n\n$(A)$ $\\begin{pmatrix}1&1&0\\\\0&1&-1\\\\0&0&1\\end{pmatrix}$\n$(B)$ $\\begin{pmatrix}1&0&-1\\\\0&1&1\\\\0&0&1\\end{pmatrix}$\n$(C)$ $\\begin{pmatrix}1&1&0\\\\0&1&0\\\\0&0&1\\end{pmatrix}$\n$(D)$ $\\begin{pmatrix}1&0&-1\\\\0&1&0\\\\0&0&1\\end{pmatrix}$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 较难题 4分题 2018-数一-005"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2020-数一-012",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$12.$ 设 $f(x,y)$ 二阶连续偏导，$\\frac{\\partial f}{\\partial y}=xe^{xy}$，$f(x,1)=x^2$，则 $\\left.\\frac{\\partial^2 f}{\\partial x\\partial y}\\right|_{(1,1)}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$4e$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 多元函数微分 数学概念: 偏导数 对数指数函数 中等难度 4分题 2020-数一-012"
+}

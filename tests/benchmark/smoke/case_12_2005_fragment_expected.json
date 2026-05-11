@@ -1,0 +1,10 @@
+{
+  "case": "2005_fragment",
+  "description": "2005年过渡格式真实片段：填空题6道 + 选择题2道。验证连续编号和$$数学环境正确保护",
+  "checks": {
+    "question_count_min": 8,
+    "math_valid": true,
+    "contains_display_math": true,
+    "needs_manual_review": false
+  }
+}

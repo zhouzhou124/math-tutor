@@ -1,0 +1,30 @@
+{
+  "question_id": "2026-数一-006",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵，$\\beta$ 是 $n$ 维列向量，若 $A$ 的列向量组可由 $B$ 的列向量组表示，则（ ）\n\n$(A)$ 当 $Ax = \\beta$ 有解时，$Bx = \\beta$ 有解\n\n$(B)$ 当 $A^T x = \\beta$ 有解时，$B^T x = \\beta$ 有解\n\n$(C)$ 当 $Bx = \\beta$ 有解时，$Ax = \\beta$ 有解\n\n$(D)$ 当 $B^T x = \\beta$ 有解时，$A^T x = \\beta$ 有解",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "source": "manual_2026",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2026年 选择题 知识点: 矩阵运算 向量组与线性空间 数学概念: 矩阵运算 较难题 5分题 2026-数一-006"
+}

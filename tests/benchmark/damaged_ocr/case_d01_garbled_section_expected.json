@@ -1,0 +1,8 @@
+{
+  "case": "damaged_ocr_garbled_section",
+  "description": "OCR严重损坏的章节头+乱码选项。验证不崩溃，检测到题号和选项",
+  "checks": {
+    "math_object_count_min": 2,
+    "needs_manual_review": false
+  }
+}

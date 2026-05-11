@@ -1,0 +1,25 @@
+{
+  "question_id": "2026-数一-021",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "向量组与线性空间",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$21.$ （本题满分12分）已知向量组 $\\alpha_1=(1,0,-1,-1)^T,\\alpha_2=(1,-1,0,-2)^T,\\alpha_3=(0,-1,1,-1)^T,\\alpha_4=(0,1,-1,1)^T$，记 $A=(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$，$G=(\\alpha_1,\\alpha_2)$。\n\n$(1)$ 证明 $\\alpha_1,\\alpha_2$ 是极大线性无关组；\n\n$(2)$ 求 $H$ 使 $A=GH$，并求 $A^{10}$。",
+  "standard_answer": "$H=\\begin{pmatrix}1&0&-1&1\\\\0&1&1&-1\\end{pmatrix}$，$A^{10}=\\begin{pmatrix}1&-8&-9&9\\\\0&-1&-2&2\\\\-1&9&10&-10\\\\-1&7&8&-8\\end{pmatrix}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量组与线性空间",
+    "矩阵运算"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 解答题 知识点: 向量组与线性空间 矩阵运算 数学概念: 向量线性关系 较难题 12分题 2026-数一-021"
+}

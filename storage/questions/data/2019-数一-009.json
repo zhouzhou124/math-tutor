@@ -1,0 +1,23 @@
+{
+  "question_id": "2019-数一-009",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 9,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$9.$ 设 $z=f(x,y)$ 可微，且 $z$ 满足 $\\frac{\\partial z}{\\partial x}=-\\cos x\\cdot f'(x,y)+y$，$\\frac{\\partial z}{\\partial y}=\\cos y\\cdot f'(x,y)+x$，则 $\\frac{1}{\\cos x}\\frac{\\partial z}{\\partial x}+\\frac{1}{\\cos y}\\frac{\\partial z}{\\partial y}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$y/\\cos x+x/\\cos y$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 多元函数微分 数学概念: 三角函数 偏导数 中等难度 4分题 2019-数一-009"
+}

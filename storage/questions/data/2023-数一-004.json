@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-004",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$4.$ 已知 $a_n<b_n(n=1,2,\\dots)$,若 $\\sum a_n$ 与 $\\sum b_n$ 均收敛,则$\\sum a_n$绝对收敛是$\\sum b_n$绝对收敛的 $( )$\n\n$(A)$ 充要 $(B)$ 充分不必要 $(C)$ 必要不充分 $(D)$ 既不充分也不必要",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 无穷级数 数学概念: 级数 求和 级数收敛性 中等难度 5分题 2023-数一-004"
+}

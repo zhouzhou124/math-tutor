@@ -1,0 +1,25 @@
+{
+  "question_id": "2025-数一-019",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "knowledge_points": [
+    "导数与微分",
+    "中值定理"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$19.$ （本题满分10分）设函数 $f(x)$ 在区间 $(a,b)$ 内可导。证明导函数 $f'(x)$ 在 $(a,b)$ 内严格单调增加的充要条件是：对 $(a,b)$ 内任意的 $x_1<x_2<x_3$ 有 $\\frac{f(x_2)-f(x_1)}{x_2-x_1}<\\frac{f(x_3)-f(x_2)}{x_3-x_2}$。",
+  "standard_answer": "证明略。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分",
+    "中值定理"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 证明题 知识点: 导数与微分 中值定理 较难题 10分题 2025-数一-019"
+}

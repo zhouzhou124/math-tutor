@@ -1,0 +1,25 @@
+{
+  "question_id": "2014-数一-008",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$8.$ 设连续型随机变量 $X_1$ 与 $X_2$ 相互独立且方差均存在，$X_1$ 与 $X_2$ 的概率密度分别为 $f_1(x)$ 与 $f_2(x)$，随机变量 $Y_1$ 的概率密度为 $f_{Y_1}(y) = \\frac{1}{2}[f_1(y) + f_2(y)]$，随机变量 $Y_2 = \\frac{1}{2}(X_1 + X_2),$ 则( )\n\n$(A)$ $E(Y_1)>E(Y_2),D(Y_1)>D(Y_2)$\n\n$(B)$ $E(Y_1)=E(Y_2),D(Y_1)=D(Y_2)$\n\n$(C)$ $E(Y_1)=E(Y_2),D(Y_1)<D(Y_2)$\n\n$(D)$ $E(Y_1)=E(Y_2),D(Y_1)>D(Y_2)$",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 随机变量及其分布 数字特征 数学概念: 概率统计 较难题 4分题 2014-数一-008"
+}

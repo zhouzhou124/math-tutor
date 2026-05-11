@@ -1,0 +1,10 @@
+{
+  "case": "math_env_protect",
+  "description": "数学环境$$内部不应被换行逻辑切割",
+  "checks": {
+    "math_env_intact": true,
+    "contains_display_math": true,
+    "math_valid": true,
+    "needs_manual_review": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "2016-数一-008",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$8.$ 随机试验 $E$ 有三种两两不相容的结果 $A_1,A_2,A_3$，概率均为 $\\frac13$，独立重复做 $2$ 次。$X$ 为 $A_1$ 发生次数，$Y$ 为 $A_2$ 发生次数，则 $X$ 与 $Y$ 的相关系数为( )\n\n$(A)$ $-\\frac12$ $\\qquad$ $(B)$ $-\\frac13$ $\\qquad$ $(C)$ $\\frac13$ $\\qquad$ $(D)$ $\\frac12$",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 数字特征 随机变量及其分布 数学概念: 概率统计 较难题 4分题 2016-数一-008"
+}

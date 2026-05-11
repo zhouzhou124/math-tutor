@@ -1,0 +1,23 @@
+{
+  "question_id": "2026-数一-019",
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$19.$ （本题满分12分）设有向曲线 $L$ 为椭圆 $x^2 + 3y^2 = 1$ 上沿逆时针方向从 $A(-\\frac{1}{2},-\\frac{1}{2})$ 到 $B(\\frac{1}{2},\\frac{1}{2})$ 的部分，计算 $I = \\int_L (e^{x^2}\\sin x - 2xy) dx + (6x - x^2 - y\\cos^4 y) dy$。",
+  "standard_answer": "$\\sqrt{3}\\pi-\\frac{1}{4}$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2026",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2026年 解答题 知识点: 曲线曲面积分 数学概念: 三角函数 几何应用 对数指数函数 积分 较难题 12分题 2026-数一-019"
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "2014-数一-015",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 15,
+  "knowledge_points": [
+    "极限与连续",
+    "定积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$15.$ (本题满分10分)求极限 $\\lim_{x\\to +\\infty} \\frac{\\int_{1}^{x} [t^2 (e^{\\frac{1}{t}} - 1)  - t] dt}{x^2 \\ln(1 + \\frac{1}{x})}$。",
+  "standard_answer": "1/2。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续",
+    "定积分"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 解答题 知识点: 极限与连续 定积分 数学概念: 对数指数函数 极限 积分 较难题 10分题 2014-数一-015"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "2025-数一-006",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$6.$ 设 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 是 $n$ 维列向量，$\\alpha_1,\\alpha_2$ 线性无关，$\\alpha_1,\\alpha_2,\\alpha_3$ 线性相关，且 $\\alpha_1+\\alpha_2+\\alpha_4=0$。关于 $x,y,z$ 的方程组 $x\\alpha_1+y\\alpha_2+z\\alpha_3=\\alpha_4$ 的几何图形是（ ）\n\n$(A)$ 过原点的一个平面\n$(B)$ 过原点的一条直线\n$(C)$ 不过原点的一个平面\n$(D)$ 不过原点的一条直线",
+  "standard_answer": "D.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "source": "manual_2025",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2025年 选择题 知识点: 向量组与线性空间 数学概念: 向量线性关系 中等难度 5分题 2025-数一-006"
+}

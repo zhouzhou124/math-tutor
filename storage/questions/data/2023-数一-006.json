@@ -1,0 +1,23 @@
+{
+  "question_id": "2023-数一-006",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$6.$ 设 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关,且 $\\beta_1=\\alpha_1+\\alpha_2,\\beta_2=\\alpha_2+\\alpha_3$,则 $( )$\n\n$(A)$ $\\beta_1,\\beta_2,\\alpha_3$ 无关 $\\qquad$ $(B)$ $\\beta_1,\\beta_2,\\alpha_2$ 无关 \n\n$(C)$ $\\beta_1,\\beta_2,\\alpha_1$ 无关 $\\qquad$ $(D)$ $\\beta_1,\\beta_2,\\alpha_3$ 相关",
+  "standard_answer": "A.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 向量组与线性空间 数学概念: 向量线性关系 中等难度 5分题 2023-数一-006"
+}

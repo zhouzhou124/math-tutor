@@ -1,0 +1,23 @@
+{
+  "question_id": "2018-数一-014",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$14.$ 设 $A$ 与 $B$ 独立，$A$ 与 $C$ 独立，$BC=\\emptyset$。若 $P(A)=P(B)=\\frac{1}{2}$，$P(AC|AB\\cup C)=\\frac{1}{4}$，则 $P(C)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "1/4.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 填空题 知识点: 随机事件与概率 较难题 4分题 2018-数一-014"
+}

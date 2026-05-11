@@ -1,0 +1,8 @@
+{
+  "case": "2022_ocr_damaged",
+  "description": "2022年真实OCR损坏片段。OCR严重损坏导致\\int丢失。验证：不崩溃，检测到题号，数学对象部分可识别",
+  "checks": {
+    "math_object_count_min": 3,
+    "has_question_numbers": true
+  }
+}

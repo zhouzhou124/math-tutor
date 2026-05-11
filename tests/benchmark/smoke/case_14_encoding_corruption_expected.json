@@ -1,0 +1,8 @@
+{
+  "case": "encoding_corruption",
+  "description": "GBK编码损坏：标题行乱码但LaTeX公式结构完整。验证编码混用检测触发，LaTeX不受编码损坏影响",
+  "checks": {
+    "math_valid": true,
+    "math_object_count_min": 2
+  }
+}

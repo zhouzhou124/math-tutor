@@ -1,0 +1,25 @@
+{
+  "question_id": "2013-数一-019",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "knowledge_points": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)设直线 $L$ 过 $A(1,0,0)$，$B(0,1,1)$ 两点，将 $L$ 绕 $z$ 轴旋转一周得到曲面 $\\Sigma$，$\\Sigma$ 与平面 $z=0$，$z=2$ 所围成的立体为 $\\Omega$。\n\n$(1)$ 求曲面 $\\Sigma$ 的方程；\n\n$(2)$ 求 $\\Omega$ 的形心坐标。",
+  "standard_answer": "$(1)$ $x^2+y^2=(1-z)^2$($z\\le1$)及$x^2+y^2=(z-1)^2$($z\\ge1$)。\n$(2)$ 形心 $(0,0,5/8)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 解答题 知识点: 曲线曲面积分 三重积分 数学概念: 几何应用 较难题 10分题 2013-数一-019"
+}
