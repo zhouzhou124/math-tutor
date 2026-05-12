@@ -2,10 +2,22 @@
 
 import os
 
-# LLM API
+# ── LLM API（主模型） ──
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com")
 LLM_MODEL = os.getenv("LLM_MODEL", "deepseek-v4-pro")
+
+# ── 分 Agent 模型配置（留空则回退到主模型） ──
+SOLVER_MODEL = os.getenv("SOLVER_MODEL", "")          # 解答 Agent
+GRADING_MODEL = os.getenv("GRADING_MODEL", "")        # 批改 Agent
+DIAGNOSIS_MODEL = os.getenv("DIAGNOSIS_MODEL", "")    # 诊断 Agent
+MEMORY_MODEL = os.getenv("MEMORY_MODEL", "")          # 记忆 Agent
+
+# ── API Key 轮换 ──
+CREDENTIAL_STORE_PATH = os.path.join(
+    os.path.dirname(__file__), "storage", ".credentials.json",
+)
+KEY_ROTATION_DAYS = int(os.getenv("KEY_ROTATION_DAYS", "15"))
 
 # 考研数学类别
 MATH_TYPES = ["数学一", "26宇哥八套卷"]
@@ -47,17 +59,37 @@ ERROR_TYPES = [
 # 学习阶段
 STAGES = ["基础薄弱", "强化阶段", "冲刺阶段"]
 
-# 评分规则说明
+# 评分规则说明（按题型分层）
 GRADING_RULES = """
-考研数学阅卷标准：
+考研数学阅卷标准（题型分层）：
+解答题: 数学正确性 50% + 关键步骤 30% + 完整性 20%
+证明题: 逻辑链完整性 40% + 数学正确性 40% + 严谨性 20%
+
 1. 只看有效步骤 — 无效或无关步骤不计分
-2. 最终答案错误但过程正确 → 给步骤分（不超过满分的70%）
-3. 公式错误 → 扣关键步骤分（扣3-5分/处）
-4. 计算错误 → 适当扣分（扣1-2分/处）
-5. 概念错误 → 重扣（扣5分以上）
-6. 笔误但方法正确 → 酌情给分
-7. 推导跳跃过大 → 酌情扣分
+2. 公式错误 → 扣关键步骤分（扣3-5分/处）
+3. 计算错误 → 适当扣分（扣1-2分/处）
+4. 概念错误 → 重扣（扣5分以上）
+5. 笔误但方法正确 → 酌情给分
+6. 跳过非关键步骤但数学正确 → 不扣分
+7. 解题顺序与标准不同但逻辑正确 → 不扣分
 """
+
+# 按题型的评分权重
+SCORING_WEIGHTS = {
+    "解答题": {"correctness": 0.5, "key_steps": 0.3, "completeness": 0.2},
+    "证明题": {"logic_chain": 0.4, "correctness": 0.4, "rigor": 0.2},
+    "选择题": {"answer_match": 1.0},
+    "填空题": {"answer_match": 1.0},
+}
+
+# OCR Vision API（pytesseract 不足时的云 fallback）
+VISION_API_KEY = os.getenv("VISION_API_KEY", "")
+VISION_BASE_URL = os.getenv("VISION_BASE_URL", "https://api.openai.com/v1")
+VISION_MODEL = os.getenv("VISION_MODEL", "gpt-4o")
+
+# 规范解题轨迹生成
+CANONICAL_SOLVE_MODEL = os.getenv("CANONICAL_SOLVE_MODEL", "")
+VERIFY_STEPS = os.getenv("VERIFY_STEPS", "true").lower() == "true"
 
 # 存储路径
 STORAGE_DIR = os.path.join(os.path.dirname(__file__), "storage")

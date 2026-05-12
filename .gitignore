@@ -2,7 +2,22 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# ══════════════════════════════════════
+#  敏感文件 — 防止隐私泄露
+# ══════════════════════════════════════
 .env
+.env.*
+!.env.example
+storage/.credentials.json
+storage/settings.json
+*.pem
+*.key
+*.p12
+*.pfx
+*secret*
+*credential*
+!credential_store.py
+
 .venv/
 venv/
 env/
@@ -11,7 +26,6 @@ env/
 .coverage
 htmlcov/
 
-storage/settings.json
 storage/build_report_*.json
 storage/questions/build_report_*.md
 storage/questions/backup_*/

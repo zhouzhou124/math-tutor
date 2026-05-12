@@ -35,8 +35,10 @@ def normalize_latex_style(text: str) -> str:
 
     s = text
 
-    # ── 0. 基础清理: 转义换行符、嵌套数学环境 ──
+    # ── 0. 基础清理: 转义换行符、嵌套数学环境、LaTeX 分隔符 ──
     s = _remove_escaped_newlines(s)
+    s = _fix_triple_dollars(s)
+    s = _convert_latex_delimiters(s)
     s = _fix_nested_math(s)
 
     # ── 0.5. R0: 特定模式 $ 包裹（仅安全模式）──
@@ -350,15 +352,51 @@ def _fix_chinese_in_math(text: str) -> str:
     """确保中文不在数学模式内: $x=0是极值点$ → $x=0$ 是极值点"""
     def _fix(match):
         content = match.group(1)
-        # 如果数学模式内包含中文字符，尝试修复
-        if any('一' <= c <= '鿿' for c in content):
-            # 在中文前关闭 $，中文后重新打开 $
-            fixed = re.sub(r'([一-鿿]+)', r'$\1$', content)
-            # 修复可能产生的 $$ 嵌套
-            fixed = fixed.replace('$$$', '$')
-            return '$' + fixed + '$'
-        return match.group(0)
+        if not any('一' <= c <= '鿿' for c in content):
+            return match.group(0)
+        # 仅处理含 LaTeX 命令的长数学块，避免拆分短中文块如 $在展开式中$
+        has_latex = '\\' in content or '^' in content or '_' in content
+        if not has_latex or len(content) < 10:
+            return match.group(0)
+        # 将内容拆分为: 纯数学段 + 纯中文段
+        segments = re.split(r'([一-鿿＀-￯]+(?:[，。、；：！？]|[一-鿿])*)', content)
+        segments = [s for s in segments if s]
+        if not segments:
+            return match.group(0)
+        parts = []
+        for seg in segments:
+            is_chinese = any('一' <= c <= '鿿' for c in seg)
+            if is_chinese:
+                parts.append(seg)  # 中文作为纯文本
+            else:
+                parts.append(f'${seg.strip()}$')  # 数学保留 $ 包裹
+        return ''.join(parts)
     text = re.sub(r'\$([^$]+)\$', _fix, text)
+    return text
+
+
+def _fix_triple_dollars(text: str) -> str:
+    """修复 $$$ (三重$) 分隔符。
+    $$$ 通常出现在 display math 关闭后紧跟内容时:
+      $$内容$$$后续 → $$内容$$ 后续
+    策略: 非$字符后的 $$$ → $$ (确保前面的 display math 正确关闭)
+    """
+    if '$$$' not in text:
+        return text
+    s = re.sub(r'(?<!\$)\${3}', '$$', text)
+    return s
+
+
+def _convert_latex_delimiters(text: str) -> str:
+    """将标准 LaTeX 分隔符转换为 KaTeX 兼容格式。
+
+    \\[...\\] → $$...$$ (display math)
+    \\(...\\) → $...$ (inline math)
+    """
+    # \[...\] → $$...$$  (display math)
+    text = re.sub(r'\\\[(.+?)\\\]', r'$$\1$$', text, flags=re.DOTALL)
+    # \(...\) → $...$  (inline math)
+    text = re.sub(r'\\\((.+?)\\\)', r'$\1$', text, flags=re.DOTALL)
     return text
 
 

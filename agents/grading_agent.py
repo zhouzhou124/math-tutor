@@ -13,31 +13,82 @@ class GradingAgent:
 
     def grade(self, question: str, standard_answer: str,
               student_answer: str, total_score: int = 10,
-              knowledge_points: str = "", difficulty: str = "中等") -> dict:
+              knowledge_points: str = "", difficulty: str = "中等",
+              canonical_trace=None) -> dict:
+        """标准批改入口（Engine B 主路径）。"""
+        return self._do_grade(question, standard_answer, student_answer,
+                              total_score, knowledge_points, difficulty,
+                              canonical_trace)
+
+    def grade_with_evidence(self, question: str, standard_answer: str,
+                            student_answer: str, total_score: int = 10,
+                            knowledge_points: str = "", difficulty: str = "中等",
+                            canonical_trace=None,
+                            engine_c_evidence: dict = None) -> dict:
         """
-        输入: 题目、标准答案、学生作答、满分值
-        输出: {"success": bool, "total": float, "step_score": float,
-                "result_score": float, "step_analysis": [...],
-                "deductions": [...], "comment": str}
+        基于 Engine C 结构化证据的语义裁决（Engine B 作为 fallback 时使用）。
+        不再从头理解题目，只对 Engine C 无法判断的部分做最终裁决。
         """
         if not self.client:
-            return {
-                "success": False,
-                "total": 0,
-                "step_score": 0,
-                "result_score": 0,
-                "step_analysis": [],
-                "deductions": [],
-                "comment": "LLM 未配置，无法批改。",
-            }
+            return {"success": False, "total": 0, "comment": "LLM 未配置"}
 
-        # 按满分值调整评分参数
-        step_total = round(total_score * 0.7, 1)
-        result_total = round(total_score * 0.3, 1)
+        # 构建精简的 evidence 描述
+        evidence_text = ""
+        if engine_c_evidence:
+            matched = engine_c_evidence.get("matched_steps", [])
+            coverage = engine_c_evidence.get("coverage", 0)
+            correctness = engine_c_evidence.get("correctness", 0)
+            evidence_text = "Engine C 分析结果：\n"
+            evidence_text += f"- 步骤覆盖度: {coverage:.0%}\n"
+            evidence_text += f"- 数学正确度: {correctness:.0%}\n"
+            if matched:
+                evidence_text += "- 已匹配步骤:\n"
+                for ms in matched[:10]:
+                    evidence_text += (
+                        f"  · {ms.get('label', '?')}: "
+                        f"match={ms.get('match_method', '?')}\n"
+                    )
+
+        return self._do_grade(
+            question, standard_answer, student_answer,
+            total_score, knowledge_points, difficulty,
+            canonical_trace,
+            extra_context=evidence_text,
+        )
+
+    def _do_grade(self, question: str, standard_answer: str,
+                  student_answer: str, total_score: int,
+                  knowledge_points: str, difficulty: str,
+                  canonical_trace=None, extra_context: str = "") -> dict:
+        """内部统一批改实现。"""
+
+        if not self.client:
+            return {"success": False, "total": 0, "comment": "LLM 未配置，无法批改。"}
+
+        step_total = round(total_score * 0.5, 1)
+        result_total = round(total_score * 0.5, 1)
+
+        # 格式化 canonical trace
+        enriched_answer = standard_answer
+        if canonical_trace and hasattr(canonical_trace, 'best_method'):
+            best = canonical_trace.best_method(student_answer=student_answer)
+            if best and best.graph and best.graph.nodes:
+                trace_lines = [f"标准解法: {best.method_name}", ""]
+                for node in best.graph.nodes:
+                    op = node.operation or node.type
+                    out = node.output or ""
+                    label = node.label or ""
+                    if out:
+                        trace_lines.append(f"步骤({op}): {label} → {out}")
+                    elif label:
+                        trace_lines.append(f"步骤({op}): {label}")
+                if best.final_answer:
+                    trace_lines.append(f"\n最终答案: {best.final_answer}")
+                enriched_answer = "\n".join(trace_lines)
 
         system = GRADING_PROMPT.format(
             question=question,
-            standard_answer=standard_answer,
+            standard_answer=enriched_answer,
             student_answer=student_answer if student_answer else "（学生未作答）",
             grading_rules=GRADING_RULES,
             knowledge_points=knowledge_points or "未指定",
@@ -46,6 +97,11 @@ class GradingAgent:
             result_total=result_total,
             total=total_score,
         )
+
+        # 如果有 Engine C 证据，追加到 prompt 末尾
+        if extra_context:
+            system += f"\n\n[系统提示] 以下为自动分析结果，仅供参考。" \
+                      f"你只需要对不确定的部分做最终语义判断：\n{extra_context}"
 
         try:
             response = self.client.chat.completions.create(
@@ -60,19 +116,9 @@ class GradingAgent:
             text = response.choices[0].message.content
             return self._parse_grading_result(text, total_score)
         except UnicodeEncodeError:
-            return {
-                "success": False, "total": 0, "step_score": 0, "result_score": 0,
-                "step_analysis": [], "deductions": [],
-                "comment": "系统编码错误，请重试",
-                "_error_type": "system_encoding",
-            }
+            return {"success": False, "total": 0, "comment": "系统编码错误", "_error_type": "system_encoding"}
         except Exception:
-            return {
-                "success": False, "total": 0, "step_score": 0, "result_score": 0,
-                "step_analysis": [], "deductions": [],
-                "comment": "批改服务暂时不可用，请重试",
-                "_error_type": "system_internal",
-            }
+            return {"success": False, "total": 0, "comment": "批改服务暂不可用", "_error_type": "system_internal"}
 
     def _parse_grading_result(self, text: str, total: int) -> dict:
         """解析批改结果文本"""

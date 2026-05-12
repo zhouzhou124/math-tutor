@@ -39,10 +39,34 @@ class ErrorLevel:
 # SymPy Expression Parser
 # ═══════════════════════════════════════════════
 
+def _convert_nested_frac(s: str) -> str:
+    """将 \\frac{a}{b} 递归转换为 ((a)/(b))，从最内层开始处理。"""
+    for _ in range(10):  # 最多 10 层嵌套
+        m = re.search(r'\\frac\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}', s)
+        if not m:
+            break
+        num, den = m.group(1), m.group(2)
+        replacement = f'(({num})/({den}))'
+        s = s[:m.start()] + replacement + s[m.end():]
+    return s
+
+
+def _convert_nested_sqrt(s: str) -> str:
+    """将 \\sqrt{expr} 转换为 sqrt((expr))。"""
+    for _ in range(5):
+        m = re.search(r'\\sqrt\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}', s)
+        if not m:
+            break
+        inner = m.group(1)
+        replacement = f'sqrt(({inner}))'
+        s = s[:m.start()] + replacement + s[m.end():]
+    return s
+
+
 def parse_expression(latex_or_text: str) -> Optional['sp.Expr']:
     """
     将 LaTeX 或自然文本中的数学表达式解析为 SymPy 表达式。
-    支持: x^2, sin(x), ln(y), e^x, (x+1)^2, etc.
+    支持: x^2, sin(x), ln(y), e^x, (x+1)^2, 嵌套分数, 嵌套根号, etc.
     """
     if not _HAS_SYMPY or not latex_or_text or not latex_or_text.strip():
         return None
@@ -50,13 +74,21 @@ def parse_expression(latex_or_text: str) -> Optional['sp.Expr']:
     s = latex_or_text.strip()
     s = s.replace('$', '').replace('$$', '')
     s = s.replace(r'\sin', 'sin').replace(r'\cos', 'cos').replace(r'\tan', 'tan')
+    s = s.replace(r'\arctan', 'atan').replace(r'\arcsin', 'asin').replace(r'\arccos', 'acos')
     s = s.replace(r'\ln', 'ln').replace(r'\log', 'log').replace(r'\exp', 'exp')
-    s = s.replace(r'\sqrt', 'sqrt').replace(r'\pi', 'pi').replace(r'\infty', 'oo')
-    s = s.replace(r'\frac', '').replace(r'\cdot', '*').replace(r'\times', '*')
+    s = s.replace(r'\pi', 'pi').replace(r'\infty', 'oo')
+    s = s.replace(r'\cdot', '*').replace(r'\times', '*')
     s = s.replace(r'\le', '<=').replace(r'\ge', '>=').replace(r'\ne', '!=')
+
+    # 先处理嵌套的 \frac 和 \sqrt（从内到外）
+    s = _convert_nested_frac(s)
+    s = _convert_nested_sqrt(s)
+
+    # 清理剩余的 LaTeX 命令
     s = re.sub(r'\\[a-zA-Z]+', '', s)
-    s = re.sub(r'\{([^}]*)\}\{([^}]*)\}', r'(\1)/(\2)', s)
     s = s.replace('{', '(').replace('}', ')')
+
+    # 隐式乘法: 2x → 2*x, (a)(b) → (a)*(b)
     s = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', s)
     s = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', s)
     s = re.sub(r'\)\(', ')*(', s)
@@ -67,7 +99,7 @@ def parse_expression(latex_or_text: str) -> Optional['sp.Expr']:
     try:
         expr = sp.sympify(s, evaluate=False)
         return expr
-    except (sp.SympifyError, TypeError, SyntaxError):
+    except (sp.SympifyError, TypeError, SyntaxError, IndexError, ValueError):
         return None
 
 
@@ -75,88 +107,200 @@ def parse_expression(latex_or_text: str) -> Optional['sp.Expr']:
 # Symbolic Execution + Comparison
 # ═══════════════════════════════════════════════
 
+def _norm_str(s: str) -> str:
+    """字符串规范化：去掉空格、$符号，小写化。"""
+    return re.sub(r'\s+', '', s.lower().replace('$', ''))
+
+
+def _numeric_sample(expr, n_points: int = 5, radius: float = 2.0) -> bool:
+    """
+    数值采样比较。在 [-radius, radius] 区间内采样 n_points 个值，
+    如果全部匹配则认为等价。快速排除大多数不等价表达式。
+    只对单变量表达式有效。
+    """
+    try:
+        import random
+        free_vars = list(expr.free_symbols)
+        if not free_vars:
+            # 常量表达式：直接 evalf
+            return abs(float(expr.evalf())) < 1e-10 if hasattr(expr, 'evalf') else False
+        for _ in range(n_points):
+            subs = {}
+            for v in free_vars:
+                subs[v] = random.uniform(-radius, radius)
+            val = float(expr.subs(subs).evalf())
+            if abs(val) > 1e-8:
+                return False
+        return True
+    except Exception:
+        return None  # 无法判断
+
+
 def symbolic_compare(student_text: str, standard_expr: str) -> dict:
     """
-    对学生表达式和标准表达式进行符号等价比较。
+    分级符号等价比较（从快到慢）。
+
+    Level 1: 字符串规范化比较
+    Level 2: 数值采样（快速排除不等价）
+    Level 3: expand/factor 比较
+    Level 4: simplify（最后手段，加保护）
 
     Returns:
-        {
-            "equivalent": bool,
-            "student_parsed": str,
-            "standard_parsed": str,
-            "difference": str or None,
-            "error_level": int,
-        }
+        {"equivalent", "student_parsed", "standard_parsed", "difference", "error_level", "method"}
     """
-    # 如果学生什么都没写
-    if not student_text or not student_text.strip():
+
+    def _result(equiv: bool, method: str, diff: str = None, level=ErrorLevel.CORRECT):
         return {
-            "equivalent": False,
-            "student_parsed": None,
+            "equivalent": equiv,
+            "student_parsed": student_text,
             "standard_parsed": standard_expr,
-            "difference": None,
-            "error_level": ErrorLevel.LEVEL_0,
+            "difference": diff,
+            "error_level": level if not equiv else ErrorLevel.CORRECT,
+            "method": method,
         }
 
+    if not student_text or not student_text.strip():
+        return _result(False, "empty", "未作答", ErrorLevel.LEVEL_0)
+
+    # ── Level 1: 字符串规范化 ──
+    if _norm_str(student_text) == _norm_str(standard_expr):
+        return _result(True, "string_norm")
+
+    # ── 无 SymPy：只能做到 L1 ──
+    if not _HAS_SYMPY:
+        return _result(False, "string_norm", "字符串不匹配（无SymPy）", ErrorLevel.LEVEL_1)
+
+    # 解析
     student_expr = parse_expression(student_text)
     std_expr = parse_expression(standard_expr)
 
     if student_expr is None:
-        return {
-            "equivalent": False,
-            "student_parsed": student_text,
-            "standard_parsed": str(std_expr) if std_expr else standard_expr,
-            "difference": "无法解析学生表达式",
-            "error_level": ErrorLevel.LEVEL_0,
-        }
-
+        return _result(False, "parse_fail", "无法解析学生表达式", ErrorLevel.LEVEL_0)
     if std_expr is None:
-        return {
-            "equivalent": False,
-            "student_parsed": str(student_expr),
-            "standard_parsed": standard_expr,
-            "difference": "标准表达式无法解析",
-            "error_level": ErrorLevel.LEVEL_0,
-        }
+        return _result(False, "parse_fail", "标准表达式无法解析", ErrorLevel.LEVEL_0)
 
-    # 符号化简比较
+    diff_expr = student_expr - std_expr
+
+    # ── Level 2: 数值采样（快速路径）──
+    numeric_result = _numeric_sample(diff_expr)
+    if numeric_result is True:
+        return _result(True, "numeric_sample")
+    elif numeric_result is False:
+        return _result(False, "numeric_sample", "数值采样不等价", ErrorLevel.LEVEL_1)
+
+    # ── Level 3: expand/factor（比 simplify 快）──
     try:
-        diff = sp.simplify(student_expr - std_expr)
-        equivalent = (diff == 0)
+        if sp.expand(diff_expr) == 0:
+            return _result(True, "expand")
     except Exception:
-        equivalent = False
-        diff = None
+        pass
+    try:
+        if sp.factor(diff_expr) == 0:
+            return _result(True, "factor")
+    except Exception:
+        pass
 
-    if equivalent:
-        return {
-            "equivalent": True,
-            "student_parsed": str(student_expr),
-            "standard_parsed": str(std_expr),
-            "difference": None,
-            "error_level": ErrorLevel.CORRECT,
-        }
-    else:
-        # 尝试扩展形式再比较
+    # ── Level 4: simplify（最后手段，带线程超时保护）──
+    try:
+        import concurrent.futures as _futures
+        with _futures.ThreadPoolExecutor(max_workers=1) as _pool:
+            _future = _pool.submit(lambda: sp.simplify(diff_expr))
+            diff_simplified = _future.result(timeout=5)
+        if diff_simplified == 0:
+            return _result(True, "simplify")
+    except (_futures.TimeoutError, Exception):
+        return _result(False, "simplify_timeout", "simplify 超时，结果不可靠", ErrorLevel.LEVEL_1)
+
+    return _result(False, "simplify", "不等价", ErrorLevel.LEVEL_1)
+
+
+# ═══════════════════════════════════════════════
+#  Domain-Aware Comparison（填空题专用）
+# ═══════════════════════════════════════════════
+
+# 常见定义域假设
+_DOMAIN_ASSUMPTIONS = [
+    {"label": "x>=0", "symbols": {"x": "positive"}},
+    {"label": "x in Reals", "symbols": {"x": "real"}},
+    {"label": "n positive integer", "symbols": {"n": ("integer", "positive")}},
+    {"label": "all variables positive", "mode": "all_positive"},
+    {"label": "all variables real", "mode": "all_real"},
+]
+
+
+def symbolic_compare_with_domains(student_text: str, standard_expr: str) -> dict:
+    """
+    带定义域假设的符号等价比较。
+
+    适用于填空题：
+      sqrt(x^2) vs x  →  仅当 x>=0 时等价
+      1/(1/x) vs x    →  仅当 x≠0 时等价
+
+    先做标准比较，不等价时尝试常见定义域假设。
+    """
+    # 先标准比较
+    result = symbolic_compare(student_text, standard_expr)
+    if result.get("equivalent"):
+        return result
+
+    if not _HAS_SYMPY:
+        return result
+
+    student_expr = parse_expression(student_text)
+    std_expr = parse_expression(standard_expr)
+    if student_expr is None or std_expr is None:
+        return result
+
+    # 提取表达式中的自由变量
+    free_vars = student_expr.free_symbols | std_expr.free_symbols
+    var_names = [str(v) for v in free_vars]
+
+    # 尝试常见定义域假设
+    for assumption in _DOMAIN_ASSUMPTIONS:
         try:
-            diff2 = sp.simplify(sp.expand(student_expr) - sp.expand(std_expr))
-            if diff2 == 0:
+            # 构建带假设的符号
+            local_dict = {}
+            for old_sym in free_vars:
+                name = str(old_sym)
+                if assumption.get("mode") == "all_positive":
+                    new_sym = sp.Symbol(name, positive=True)
+                elif assumption.get("mode") == "all_real":
+                    new_sym = sp.Symbol(name, real=True)
+                else:
+                    sym_assumptions = assumption.get("symbols", {}).get(name)
+                    if sym_assumptions:
+                        kwargs = {}
+                        if isinstance(sym_assumptions, tuple):
+                            for a in sym_assumptions:
+                                kwargs[a] = True
+                        else:
+                            kwargs[sym_assumptions] = True
+                        new_sym = sp.Symbol(name, **kwargs)
+                    else:
+                        continue
+                local_dict[old_sym] = new_sym
+
+            if not local_dict:
+                continue
+
+            # 重建带假设的表达式
+            s_expr = student_expr.subs(local_dict)
+            t_expr = std_expr.subs(local_dict)
+
+            diff = sp.simplify(s_expr - t_expr)
+            if diff == 0:
                 return {
                     "equivalent": True,
-                    "student_parsed": str(sp.expand(student_expr)),
-                    "standard_parsed": str(sp.expand(std_expr)),
-                    "difference": "expand 后等价",
+                    "student_parsed": str(student_expr),
+                    "standard_parsed": str(std_expr),
+                    "difference": None,
                     "error_level": ErrorLevel.CORRECT,
+                    "method": f"domain_{assumption['label'].replace(' ', '_')}",
                 }
         except Exception:
-            pass
+            continue
 
-        return {
-            "equivalent": False,
-            "student_parsed": str(student_expr),
-            "standard_parsed": str(std_expr),
-            "difference": str(diff) if diff is not None else "比较失败",
-            "error_level": ErrorLevel.LEVEL_1,
-        }
+    return result
 
 
 # ═══════════════════════════════════════════════
@@ -212,16 +356,18 @@ def detect_math_content(text: str) -> bool:
 def build_student_graph(student_text: str) -> dict:
     """
     将学生文本解析为 Student Graph。
+
     返回:
         {
-            "nodes": [{"id": str, "label": str, "has_math": bool, "math_content": str}],
+            "nodes": [{"id", "type", "label", "has_math", "math_content", "has_error"}],
             "total_steps": int,
             "steps_with_math": int,
-            "is_level_0": bool,  # 只有步骤名, 无数学执行
+            "is_level_0": bool,
         }
     """
+    from operations import infer_op_from_text
+
     nodes = []
-    # 按自然段落或步骤编号拆分
     lines = student_text.strip().split('\n')
     current_step = None
 
@@ -237,9 +383,7 @@ def build_student_graph(student_text: str) -> dict:
 
         if is_new_step or current_step is None:
             if current_step:
-                current_step["has_math"] = detect_math_content(current_step["raw"])
-                if current_step["has_math"]:
-                    current_step["math_content"] = current_step["raw"]
+                _finalize_node(current_step)
                 nodes.append(current_step)
 
             current_step = {
@@ -248,14 +392,14 @@ def build_student_graph(student_text: str) -> dict:
                 "raw": line,
                 "has_math": False,
                 "math_content": "",
+                "type": "compute",
+                "has_error": False,
             }
         else:
             current_step["raw"] += "\n" + line
 
     if current_step:
-        current_step["has_math"] = detect_math_content(current_step["raw"])
-        if current_step["has_math"]:
-            current_step["math_content"] = current_step["raw"]
+        _finalize_node(current_step)
         nodes.append(current_step)
 
     steps_with_math = sum(1 for n in nodes if n["has_math"])
@@ -266,6 +410,60 @@ def build_student_graph(student_text: str) -> dict:
         "total_steps": len(nodes),
         "steps_with_math": steps_with_math,
         "is_level_0": is_level_0,
+    }
+
+
+def _finalize_node(node: dict):
+    """填充节点的 has_math, math_content, type, has_error 字段。"""
+    from operations import infer_op_from_text
+    node["has_math"] = detect_math_content(node["raw"])
+    if node["has_math"]:
+        node["math_content"] = node["raw"]
+    node["type"] = infer_op_from_text(node["raw"]).value
+    node["has_error"] = bool(
+        re.search(r'[×✗错误]|不正确|不对|算错|写错', node["raw"])
+    )
+
+
+def build_student_graph_from_trace(trace_result: dict) -> dict:
+    """
+    将 extract_student_trace() 的输出转换为 match_graphs() 兼容的 student graph。
+
+    Args:
+        trace_result: extract_student_trace() 的返回值
+
+    Returns:
+        {
+            "nodes": [{"id", "type", "label", "output", "has_math", "math_content"}],
+            "total_steps": int,
+            "steps_with_math": int,
+            "is_level_0": bool,
+        }
+    """
+    steps = trace_result.get("steps", [])
+    nodes = []
+    for step in steps:
+        output = step.get("output_state", "")
+        has_math = bool(output) or detect_math_content(step.get("label", ""))
+        nodes.append({
+            "id": step.get("id", f"s{len(nodes)+1}"),
+            "type": step.get("operation", "compute"),
+            "label": step.get("label", ""),
+            "output": output,
+            "input_state": step.get("input_state", ""),
+            "has_math": has_math,
+            "math_content": output or step.get("label", ""),
+            "has_error": step.get("has_error", False),
+        })
+
+    steps_with_math = sum(1 for n in nodes if n["has_math"])
+    return {
+        "nodes": nodes,
+        "total_steps": len(nodes),
+        "steps_with_math": steps_with_math,
+        "is_level_0": len(nodes) > 0 and steps_with_math == 0,
+        "final_answer": trace_result.get("final_answer", ""),
+        "method_name": trace_result.get("method_name", ""),
     }
 
 
@@ -363,7 +561,7 @@ def execute_against_graph(student_text: str,
 # ═══════════════════════════════════════════════
 
 def quick_compare(student: str, standard: str) -> dict:
-    """快速符号比较（适用于填空/选择题）"""
+    """快速符号比较（适用于填空/选择题）。带定义域意识。"""
     if not _HAS_SYMPY:
         def norm(s):
             return re.sub(r'\s+', '', str(s)).lower().replace('{','').replace('}','')
@@ -376,4 +574,11 @@ def quick_compare(student: str, standard: str) -> dict:
         return {"equivalent": eq, "student_parsed": student, "standard_parsed": standard,
                 "difference": None if eq else "string mismatch",
                 "error_level": ErrorLevel.CORRECT if eq else ErrorLevel.LEVEL_1}
-    return symbolic_compare(student, standard)
+
+    # 先标准比较
+    result = symbolic_compare(student, standard)
+    if result.get("equivalent"):
+        return result
+
+    # 标准比较不等价 → 尝试带定义域假设
+    return symbolic_compare_with_domains(student, standard)

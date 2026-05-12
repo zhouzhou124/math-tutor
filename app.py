@@ -28,12 +28,18 @@ if os.path.isdir(r"E:\math_tutor") and r"E:\math_tutor" not in sys.path:
 
 import html
 import json
+import re
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import numpy as np
 import time
 from openai import OpenAI
+import importlib.util as _ilu_llm
+_llm_spec = _ilu_llm.spec_from_file_location("llm_client", os.path.join(_ROOT, "llm_client.py"))
+llm_client_mod = _ilu_llm.module_from_spec(_llm_spec)
+_llm_spec.loader.exec_module(llm_client_mod)
+create_client = llm_client_mod.create_client
 
 from config import (
     LLM_API_KEY, LLM_BASE_URL, LLM_MODEL,
@@ -288,6 +294,10 @@ st.markdown("""
 
 # ────────────────── API Key 持久化 ──────────────────
 SETTINGS_FILE = os.path.join(os.path.dirname(__file__), "storage", "settings.json")
+import importlib.util as _ilu
+_cred_spec = _ilu.spec_from_file_location("credential_store", os.path.join(_ROOT, "credential_store.py"))
+credential_store = _ilu.module_from_spec(_cred_spec)
+_cred_spec.loader.exec_module(credential_store)
 
 def load_settings() -> dict:
     """加载持久化的设置"""
@@ -295,8 +305,6 @@ def load_settings() -> dict:
         try:
             with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
                 settings = json.load(f)
-                # Never reload secrets from disk. Use LLM_API_KEY or the current
-                # Streamlit session for API credentials.
                 settings.pop("api_key", None)
                 return settings
         except Exception:
@@ -325,19 +333,35 @@ if "user_loop" not in st.session_state:
         st.session_state.question_db,
         st.session_state.memory,
     )
-# 加载持久化的非敏感设置；API Key 只来自环境变量或当前会话
+# 加载持久化的非敏感设置；API Key 从 credential_store 读取（15天自动过期）
 _saved = load_settings()
+_cred_profile = credential_store.get_active_profile()
 if "base_url" not in st.session_state:
-    st.session_state.base_url = _saved.get("base_url", LLM_BASE_URL)
+    st.session_state.base_url = (
+        _cred_profile.get("base_url") if _cred_profile
+        else _saved.get("base_url", LLM_BASE_URL)
+    )
 if "model" not in st.session_state:
-    st.session_state.model = _saved.get("model", LLM_MODEL)
+    st.session_state.model = (
+        _cred_profile.get("model") if _cred_profile
+        else _saved.get("model", LLM_MODEL)
+    )
 if "api_key" not in st.session_state:
-    st.session_state.api_key = LLM_API_KEY
+    st.session_state.api_key = (
+        _cred_profile.get("api_key") if _cred_profile
+        else LLM_API_KEY
+    )
+if "protocol" not in st.session_state:
+    st.session_state.protocol = (
+        _cred_profile.get("protocol", "openai") if _cred_profile
+        else "openai"
+    )
 if st.session_state.get("api_key") and st.session_state.llm_client is None:
     try:
-        st.session_state.llm_client = OpenAI(
+        st.session_state.llm_client = create_client(
             api_key=st.session_state.api_key,
             base_url=st.session_state.base_url,
+            protocol=st.session_state.get("protocol", "openai"),
         )
     except Exception:
         pass
@@ -358,23 +382,779 @@ if "diagnosis_result" not in st.session_state:
 def get_client():
     """获取或创建 LLM 客户端"""
     if st.session_state.llm_client is None and st.session_state.get("api_key"):
-        st.session_state.llm_client = OpenAI(
+        st.session_state.llm_client = create_client(
             api_key=st.session_state.api_key,
             base_url=st.session_state.get("base_url", LLM_BASE_URL),
+            protocol=st.session_state.get("protocol", "openai"),
         )
     return st.session_state.llm_client
 
 
+def _render_choice_fill_ui(gr, sa, dr, ocr_data, selected_q):
+    """选择题/填空题：短、准、快的选项分析 UI。"""
+    q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
+    is_choice = (q_type == "选择题")
+    std_ans = sa.get("standard_answer", "")
+    total_max = sa.get("total_score", selected_q.get("score", 4))
+    total = gr.get("total", 0)
+    is_correct = total >= total_max
+
+    # ── 非法输入检测 ──
+    if gr.get("illegal_input"):
+        st.error(f"## ⚠️ {gr.get('comment', '非法输入')}")
+        st.warning("本题为**单选题**，只能选择一个答案。请重新提交单个选项字母。")
+        return  # 不继续显示后续批改内容
+
+    # ── 结果对比卡 ──
+    student_ans = ocr_data.get("student_answer", "")
+    correct_opt = selected_q.get("correct_option", "")
+
+    cols = st.columns(2)
+    with cols[0]:
+        with st.container(border=True):
+            st.markdown(f"### {'✅' if is_correct else '❌'} 你的答案")
+            st.markdown(f"## {student_ans[:20] or '(未作答)'}")
+    with cols[1]:
+        with st.container(border=True):
+            st.markdown(f"### ✅ 正确答案")
+            if is_choice and correct_opt:
+                st.markdown(f"## {correct_opt}")
+            elif std_ans:
+                render_latex(std_ans[:100])
+
+    # 总分
+    st.caption(f"得分: {total}/{total_max}" + (" ✓ 正确" if is_correct else ""))
+
+    # ── 错误原因（一句话） ──
+    if not is_correct:
+        st.error(f"**错误原因**: {dr.get('root_cause', '答案不匹配')}")
+
+    # ── 选项分析（选择题专属） ──
+    if is_choice and not is_correct:
+        _render_option_analysis(selected_q, correct_opt, student_ans)
+
+    # ── 秒杀技巧（折叠） ──
+    solution_steps = sa.get("steps", [])
+    if solution_steps:
+        with st.expander("💡 解题思路与技巧", expanded=is_correct):
+            for i, step in enumerate(solution_steps, 1):
+                content = step["content"] if isinstance(step, dict) else str(step)
+                with st.container(border=True):
+                    st.markdown(f"**Step {i}**")
+                    render_latex(content)
+
+    # ── 完整证明（深度折叠） ──
+    full_answer = sa.get("standard_answer", "")
+    if full_answer and len(full_answer) > 100:
+        with st.expander("📖 完整解题过程（可展开）", expanded=False):
+            render_latex(full_answer)
+
+    # ── 知识回顾（与当前题目严格相关） ──
+    kp_list = selected_q.get("knowledge_points", [])
+    sa_kp = sa.get("knowledge_points", [])
+    display_kp = sa_kp or kp_list
+    sa_cm = sa.get("common_mistakes", [])
+
+    st.markdown("---")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        if display_kp:
+            st.markdown("**📚 考查知识点**")
+            for kp in display_kp[:3]:
+                st.markdown(f"- {kp}")
+    with col_b:
+        if sa_cm:
+            st.markdown("**⚠️ 易混淆点**")
+            for cm in sa_cm[:3]:
+                st.markdown(f"- {cm}")
+
+    # ── 错因与学习建议（仅当错误且与当前题强相关） ──
+    if not is_correct and display_kp:
+        _render_contextual_recommendations(selected_q, gr, dr, display_kp)
+
+
+def _render_option_analysis(selected_q, correct_opt, student_ans):
+    """选择题选项分析：逐个解释为什么对/错。"""
+    options = selected_q.get("options", {})
+    if not options:
+        return
+    st.markdown("**🔍 选项分析**")
+    for letter in sorted(options.keys()):
+        opt_text = options[letter]
+        is_correct_opt = (letter.upper() == correct_opt.upper())
+        is_student_choice = (letter.upper() == student_ans.strip().upper())
+
+        icon = "✅" if is_correct_opt else "❌"
+        ctx = "你的选择" if is_student_choice else ("正确答案" if is_correct_opt else "")
+
+        with st.container(border=True):
+            st.markdown(f"{icon} **{letter}** {ctx}")
+            render_latex(opt_text[:200])
+
+
+def _render_contextual_recommendations(selected_q, gr, dr, display_kp):
+    """只推荐与当前题目强相关的学习内容。"""
+    st.markdown("**🎯 针对性建议**")
+    # 只推荐当前题目涉及的知识点
+    for kp in display_kp[:2]:
+        try:
+            recs = st.session_state.question_db.search(knowledge_point=kp, limit=1)
+            for rq in recs:
+                col_btn, col_info = st.columns([3, 2])
+                with col_btn:
+                    st.button(
+                        f"📝 练习：{rq.get('question_id','')} [{rq.get('question_type','')}]",
+                        key=f"ctx_rec_{rq.get('question_id','')}",
+                    )
+        except Exception:
+            pass
+    # 一句话建议
+    error_type = dr.get("error_type", "")
+    kp_str = display_kp[0] if display_kp else ""
+    tips = {
+        "概念错误": f"建议重新理解「{kp_str}」的核心定义，区分易混淆概念。",
+        "审题错误": f"建议仔细审题，关注「{kp_str}」中的关键词和条件。",
+        "选择题答案错误": f"建议练习「{kp_str}」相关的选择题，掌握排除法和快速判断技巧。",
+    }
+    tip = tips.get(error_type, f"建议针对「{kp_str}」进行专项练习。")
+    st.caption(tip)
+
+
+def _render_essay_grading_ui(gr, sa, dr, ocr_data, selected_q):
+    """解答题/证明题：三栏推导分析 UI。"""
+    total = gr.get("total", 0)
+    total_max = sa.get("total_score", 10)
+    engine = gr.get("engine", gr.get("_engine", ""))
+    conf = _compute_confidence(gr, None)
+    student_ans = ocr_data.get("student_answer", "")
+
+    # ═══ 顶部：评分面板 ═══
+    _render_score_panel(gr, sa, total, total_max, engine, conf)
+    _render_method_info_bar(gr)
+
+    # ═══ 四层评分明细 ═══
+    layers = gr.get("layers", {})
+    if layers:
+        l1, l2, l3, l4 = (layers.get(k, {}) for k in ("fast", "structural", "semantic", "teaching"))
+        col_l1, col_l2, col_l3, col_l4 = st.columns(4)
+        with col_l1:
+            st.metric("⚡ 答案验证", f"{l1.get('score', 0):.0f}/{l1.get('max_score', total_max):.0f}",
+                      help=l1.get("detail", ""))
+        with col_l2:
+            st.metric("📐 步骤结构", f"{l2.get('score', 0):.0f}/{l2.get('max_score', total_max):.0f}",
+                      help=f"{l2.get('detail', '')} | 匹配: {l2.get('matched_method', '-')}")
+        with col_l3:
+            st.metric("🔬 数学合法性", f"{l3.get('score', 0):.0f}/{l3.get('max_score', total_max):.0f}",
+                      help=f"{l3.get('detail', '')} | 自洽性: {l3.get('validity', 0):.0%}")
+        with col_l4:
+            st.caption(f"💡 {l4.get('teaching_tip', '')}")
+
+    # ═══ 三栏主体 ═══
+    # 加载 canonical trace
+    _canonical_display = None
+    try:
+        if selected_q.get("canonical_solutions"):
+            from solution_graph import CanonicalSolutionTrace
+            _canonical_display = CanonicalSolutionTrace.from_question_json(selected_q)
+    except Exception:
+        pass
+
+    st.markdown("---")
+
+    if _canonical_display and _canonical_display.methods:
+        # 多方法 Tab
+        methods = _canonical_display.methods
+        method_names = [m.method_name for m in methods]
+        if len(method_names) > 1:
+            tabs = st.tabs([f"{i+1}. {n}" for i, n in enumerate(method_names)])
+            for idx, (tab, method) in enumerate(zip(tabs, methods)):
+                with tab:
+                    _render_three_column_view(gr, method, student_ans)
+        else:
+            _render_three_column_view(gr, methods[0], student_ans)
+    else:
+        # 无 canonical trace：简单展示
+        _render_fallback_view(gr, sa, student_ans)
+
+    # ═══ 裁决 → 诊断 → 教学（三层分离）═══
+    _render_diagnosis_bottom(gr, sa, dr, ocr_data, selected_q)
+
+
+def _render_score_panel(gr, sa, total, total_max, engine, conf):
+    """顶部评分面板：分数 + 进度条 + 置信度。"""
+    pct = total / max(total_max, 1)
+    bar = "█" * int(pct * 20) + "░" * (20 - int(pct * 20))
+    color = "#22c55e" if pct >= 0.9 else "#eab308" if pct >= 0.7 else "#ef4444"
+
+    st.markdown(f"""
+    <div style="border: 1px solid #dbe4ef; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="font-size: 1.5em; font-weight: bold; color:{color};">{total}/{total_max}</span>
+          <span style="margin-left: 12px; color: #64748b;">
+            过程分 {gr.get('step_score', 0)} · 正确分 {gr.get('result_score', 0)}
+          </span>
+        </div>
+        <div style="color: #64748b; font-size: 0.85em;">
+          置信度 {conf:.0%} · {gr.get('engine', gr.get('_engine', '?'))}
+        </div>
+      </div>
+      <div style="font-family: monospace; margin-top: 4px; color: {color};">{bar}</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def _render_method_info_bar(gr):
+    """方法识别信息条。"""
+    method_matched = gr.get("method_matched", "")
+    method_family = gr.get("method_family", "")
+    tier = gr.get("tier", "")
+    candidate_submitted = gr.get("candidate_submitted", False)
+    if not method_matched and not method_family and not candidate_submitted:
+        return
+    parts = []
+    if method_matched:
+        parts.append(f"🎯 匹配解法: **{method_matched}**")
+    if method_family:
+        tier_map = {"t1_fast": "T1·快速 ⚡", "t1_fast_path": "T1·快速通道 ⚡",
+                     "t1_answer_check": "T1·答案检查",
+                     "t3_graph_match": "T3·定向图匹配", "t4_semantic_fallback": "T4·语义判断"}
+        parts.append(f"📂 {method_family} | {tier_map.get(tier, tier)}")
+    if candidate_submitted:
+        parts.append("📋 候选方法已提交审核")
+    st.caption(" · ".join(parts))
+
+
+def _render_three_column_view(gr, method, student_ans):
+    """三栏布局：标准步骤 | 学生作答 | AI 分析。"""
+    from solution_renderer import render_step, _op_type_cn
+
+    nodes = method.graph.nodes
+    proc_nodes = [n for n in nodes if n.type != "final_answer"]
+    final_node = next((n for n in nodes if n.type == "final_answer"), None)
+    step_analysis = gr.get("step_analysis", [])
+
+    # ── 三栏标题 ──
+    col_std, col_stu, col_ai = st.columns([3, 3, 2])
+    with col_std:
+        st.markdown("**📐 规范推导**")
+    with col_stu:
+        st.markdown("**✍️ 你的推导**")
+    with col_ai:
+        st.markdown("**🤖 AI 分析**")
+
+    # ── 逐步骤渲染 ──
+    for i, node in enumerate(proc_nodes):
+        analysis = step_analysis[i] if i < len(step_analysis) else {}
+        judgment = analysis.get("judgment", "")
+        comment = analysis.get("comment", "")
+
+        # 判断图标
+        if "正确" in judgment:
+            icon, bg = "✅", "#dcfce7"
+        elif "部分" in judgment:
+            icon, bg = "⚠️", "#fef9c3"
+        elif "缺失" in judgment:
+            icon, bg = "❌", "#fecaca"
+        else:
+            icon, bg = "⬜", ""
+
+        col_std, col_stu, col_ai = st.columns([3, 3, 2])
+        with col_std:
+            with st.container(border=True):
+                op_cn = _OP_TYPE_MAP.get(node.operation or node.type, "计算")
+                st.markdown(f"**Step {i+1}** · {op_cn}")
+                if node.goal:
+                    st.caption(f"🎯 {node.goal}")
+                if node.strategy:
+                    st.caption(f"📋 {node.strategy}")
+                label = node.label or ""
+                if label:
+                    st.caption(label)
+                if node.input_state:
+                    st.caption(f"入: ${node.input_state}$")
+                if node.output:
+                    render_latex(node.output)
+                if node.weight:
+                    st.caption(f"_{node.weight:.0f}分_")
+
+        with col_stu:
+            with st.container(border=True):
+                st.markdown(f"### {icon}")
+                if analysis.get("input_state"):
+                    st.caption(f"状态: ${analysis['input_state']}$")
+                st.markdown(comment or "—")
+
+        with col_ai:
+            with st.container(border=True):
+                st.markdown(f"**{judgment or '未分析'}**")
+                if analysis.get("score"):
+                    st.caption(f"得分: {analysis['score']}")
+                explanation = _gen_step_explanation(node)
+                if explanation:
+                    st.caption(f"💡 {explanation}")
+
+        # 错误传播：标注影响
+        if "❌" in icon and i < len(proc_nodes) - 1:
+            col_v = st.columns([3, 3, 2])[2]
+            with col_v:
+                st.caption("⚠️ 影响后续步骤")
+
+    # ── 最终答案对照 ──
+    st.markdown("---")
+    final_text = final_node.output if final_node and final_node.output else method.final_answer
+    col_fs, col_fd = st.columns(2)
+    with col_fs:
+        st.caption("**🏁 标准答案**")
+        render_latex(final_text or method.final_answer)
+    with col_fd:
+        st.caption("**🏁 你的答案**")
+        sa_answer = sa.get("standard_answer", "")
+        if sa_answer:
+            render_latex(sa_answer[:200])
+
+    # 错误传播分析
+    graph_result = gr.get("_graph_result", {})
+    root_errors = graph_result.get("root_errors", [])
+    cascaded = graph_result.get("cascaded_errors", [])
+    if root_errors or cascaded:
+        with st.expander("🔗 错误传播分析", expanded=(len(root_errors) > 0)):
+            if root_errors:
+                st.caption(f"🔴 根因错误步骤: {', '.join(root_errors)}")
+            if cascaded:
+                st.caption(f"🟡 级联影响（不重复扣分）: {', '.join(cascaded)}")
+                st.caption("这些步骤因上游错误导致，仅扣少量分。")
+
+    # DAG 依赖关系提示
+    if method.graph.edges and len(method.graph.edges) > 0:
+        with st.expander("🔗 推导依赖图", expanded=False):
+            edges_display = [f"{e.source} → {e.target}" for e in method.graph.edges[:10]]
+            st.caption(" → ".join(edges_display))
+
+
+def _render_fallback_view(gr, sa, student_ans):
+    """无 canonical trace 时的简单展示。"""
+    solution_steps = sa.get("steps", [])
+    step_analysis = gr.get("step_analysis", [])
+    cols = st.columns(2)
+    with cols[0]:
+        st.subheader("💡 解题思路")
+        if solution_steps:
+            for i, step in enumerate(solution_steps, 1):
+                content = step["content"] if isinstance(step, dict) else str(step)
+                with st.container(border=True):
+                    st.markdown(f"**步骤 {i}**")
+                    render_latex(content)
+        else:
+            std_ans = sa.get("standard_answer", "")
+            if std_ans:
+                render_latex(std_ans)
+            else:
+                st.info("暂无标准答案")
+    with cols[1]:
+        st.subheader("🔍 批改分析")
+        if step_analysis:
+            for step in step_analysis:
+                judgment = step.get("judgment", "")
+                icon = "✅" if "正确" in judgment else ("⚠️" if "部分" in judgment else "❌")
+                st.caption(f"{icon} {step.get('num', '')}. {step.get('content', '')}: {judgment}")
+        else:
+            st.info("暂无步骤分析")
+
+
+def _render_diagnosis_bottom(gr, sa, dr, ocr_data, selected_q):
+    """底部面板：拆分为 裁决(Judge) → 诊断(Diagnose) → 教学(Tutor) 三层。"""
+    sa_kp = sa.get("knowledge_points", [])
+    sa_cm = sa.get("common_mistakes", [])
+    kp_list = selected_q.get("knowledge_points", [])
+    display_kp = sa_kp or kp_list
+
+    # ── 第一层: 裁决 (Judge) — 只看对/错/部分分 + 错因标签 ──
+    st.markdown("---")
+    st.subheader("⚖️ 裁决")
+    col_j1, col_j2 = st.columns(2)
+    with col_j1:
+        etype = dr.get("error_type", "无错误")
+        etype_colors = {"概念错误": "red", "推导错误": "orange", "运算错误": "orange",
+                        "计算粗心": "orange", "审题错误": "blue", "知识点遗忘": "violet",
+                        "无错误": "green"}
+        color = etype_colors.get(etype, "grey")
+        label = "✓ 无错误" if etype == "无错误" else f"**:{color}[{etype}]**"
+        st.markdown(f"判定: {label}")
+        if dr.get("root_cause"):
+            st.caption(f"原因: {dr.get('root_cause', '')}")
+        if dr.get("is_repeat", False):
+            st.error(f"⚠️ 该知识点已连续出错 {dr.get('repeat_count', 0)} 次")
+    with col_j2:
+        if display_kp:
+            st.caption("涉及知识点:")
+            for kp in display_kp[:3]:
+                st.markdown(f"- {kp}")
+        if sa_cm:
+            st.caption("常见易错:")
+            for cm in sa_cm[:2]:
+                st.markdown(f"- {cm}")
+
+    # ── 第二层: 诊断 (Diagnoser) — 分析为什么错 ──
+    if dr.get("error_type", "") not in ("无错误", "无明显错误", "", None):
+        st.markdown("---")
+        st.subheader("🔬 诊断")
+        etype = dr.get("error_type", "")
+        if etype == "概念错误":
+            st.info("**概念错误** — 对核心定义或定理理解有偏差。建议回到教材确认基本概念。")
+        elif etype == "推导错误":
+            st.info("**推导错误** — 推理链存在断裂或跳跃。建议补充中间步骤，检查每一步的依据。")
+        elif etype == "运算错误":
+            st.info("**运算错误** — 数值或代数运算出错。建议验算关键步骤的计算结果。")
+        elif etype == "计算粗心":
+            st.info("**计算粗心** — 非理解性问题。建议养成验算习惯，注意符号和系数。")
+        elif etype == "审题错误":
+            st.info("**审题错误** — 未准确理解题目条件。建议仔细阅读题目中的每一个条件。")
+
+    # ── 第三层: 教学 (Tutor) — 如何学/练 ──
+    st.markdown("---")
+    st.subheader("📖 学习指导")
+
+    # 知识掌握度
+    if display_kp:
+        profile = st.session_state.memory.get_profile()
+        chapter_acc = profile.get("chapter_accuracy", {})
+        accs = [(kp, chapter_acc.get(kp, 0)) for kp in display_kp[:3]]
+        if accs:
+            bars = " | ".join(
+                f"{kp[:10]}: {'█' * int(a * 8)}{'░' * max(0, 8 - int(a * 8))} {int(a * 100)}%"
+                for kp, a in accs
+            )
+            st.caption(f"📊 {bars}")
+
+    # 专项练习推荐（仅与本题相关）
+    if display_kp and dr.get("error_type", "") not in ("无错误", "无明显错误", "", None):
+        try:
+            recs = st.session_state.question_db.search(knowledge_point=display_kp[0], limit=2)
+            if recs:
+                st.caption("🎯 专项练习:")
+                cols = st.columns(2)
+                for i, rq in enumerate(recs):
+                    with cols[i]:
+                        st.button(
+                            f"📝 {rq.get('question_id','')}",
+                            key=f"tutor_rec_{rq.get('question_id','')}",
+                            use_container_width=True,
+                        )
+        except Exception:
+            pass
+
+    # 学习路线建议
+    profile = st.session_state.memory.get_profile()
+    weak_points = profile.get("weak_points", [])
+    if weak_points and dr.get("error_type", "") not in ("无错误", "无明显错误", "", None):
+        st.caption(f"📋 建议优先攻克: {', '.join(weak_points[:3])}")
+
+
+def _render_canonical_method(method, idx: int):
+    """结构化步骤卡片渲染 — Step Timeline + 卡片布局。"""
+    nodes = method.graph.nodes
+    proc_nodes = [n for n in nodes if n.type != "final_answer"]
+    final_node = next((n for n in nodes if n.type == "final_answer"), None)
+
+    # ── 🏷 解法总览栏 ──
+    col_ov, col_kp = st.columns([3, 2])
+    with col_ov:
+        st.markdown(f"**{method.method_name}** — {len(proc_nodes)} 步 · {method.graph.total_score}分")
+    with col_kp:
+        if method.knowledge_points:
+            st.caption(" · ".join(method.knowledge_points[:4]))
+
+    # ── 🔵 步骤时间线 ──
+    for i, node in enumerate(proc_nodes):
+        op_cn = _OP_TYPE_MAP.get(node.operation or node.type, "计算")
+        score = node.weight
+        is_critical = score >= 2.0
+        has_details = bool(node.input_state or node.output)
+
+        # 时间线连接线
+        col_dot, col_card = st.columns([0.05, 0.95])
+        with col_dot:
+            if is_critical:
+                st.markdown(f"🔴")
+            else:
+                st.markdown("🔵")
+        with col_card:
+            # 卡片标题行
+            title = f"Step {i+1} · {node.label or op_cn}"
+            if is_critical:
+                title += " `关键`"
+
+            with st.expander(title, expanded=(i == 0)):
+                # 推理语义层
+                st.caption(f"📐 操作: **{op_cn}** `{node.operation or node.type}` | {score:.0f}分")
+                if node.goal:
+                    st.caption(f"🎯 目标: {node.goal}")
+                if node.strategy:
+                    st.caption(f"📋 策略: {node.strategy}")
+                if node.reasoning:
+                    st.info(node.reasoning)
+
+                # 推导块：输入 → 操作 → 输出
+                inp = node.input_state or ""
+                out = node.output or ""
+                if inp or out:
+                    col_i, col_a, col_o = st.columns([4, 1, 4])
+                    with col_i:
+                        if inp:
+                            st.caption("📥 输入")
+                            render_latex(inp)
+                    with col_a:
+                        if inp and out:
+                            st.caption("→")
+                    with col_o:
+                        if out:
+                            st.caption("📤 输出")
+                            render_latex(out)
+
+                # 教学解释
+                explanation = _gen_step_explanation(node)
+                if explanation:
+                    st.info(explanation)
+
+        # 垂直分隔线（非最后一步）
+        if i < len(proc_nodes) - 1:
+            col_v, _ = st.columns([0.05, 0.95])
+            with col_v:
+                st.markdown("│")
+
+    # ── 🏁 最终答案卡片 ──
+    st.markdown("---")
+    final_text = final_node.output if final_node and final_node.output else method.final_answer
+    if final_text:
+        with st.container(border=True):
+            col_fa, col_box = st.columns([1, 4])
+            with col_fa:
+                st.markdown("### 🏁")
+            with col_box:
+                st.markdown("**最终答案**")
+                render_latex(final_text)
+
+    # ── ⚠ 常见错误卡片 ──
+    if method.common_mistakes:
+        with st.expander("⚠️ 常见错误提醒", expanded=False):
+            for cm in method.common_mistakes[:5]:
+                st.markdown(f"- {cm}")
+
+
+def _render_student_vs_standard(grading_result: dict, canonical_method):
+    """学生 vs 标准步骤对照表。"""
+    if not grading_result or not canonical_method:
+        return
+
+    step_analysis = grading_result.get("step_analysis", [])
+    proc_nodes = [n for n in canonical_method.graph.nodes if n.type != "final_answer"]
+
+    if not step_analysis or not proc_nodes:
+        return
+
+    st.markdown("---")
+    st.subheader("📋 步骤对照")
+
+    # 表头
+    col_s, col_j, col_c = st.columns([3, 1, 3])
+    with col_s:
+        st.caption("**标准步骤**")
+    with col_j:
+        st.caption("**评判**")
+    with col_c:
+        st.caption("**你的作答**")
+
+    for i, node in enumerate(proc_nodes):
+        analysis = step_analysis[i] if i < len(step_analysis) else {}
+        judgment = analysis.get("judgment", "")
+        comment = analysis.get("comment", "")
+        icon = "✅" if "正确" in judgment else ("⚠️" if "部分" in judgment else "❌")
+
+        col_s, col_j, col_c = st.columns([3, 1, 3])
+        with col_s:
+            st.markdown(f"**{i+1}.** {node.label or (node.operation or node.type)}")
+            if node.output:
+                render_latex(node.output)
+
+        with col_j:
+            st.markdown(f"### {icon}")
+            st.caption(judgment)
+
+        with col_c:
+            st.markdown(comment or "—")
+        st.markdown("---")
+
+
+_OP_TYPE_MAP = {
+    "differentiate": "求导", "integrate": "积分", "compute_limit": "求极限",
+    "partial_diff": "偏导数", "expand": "展开", "factor": "因式分解",
+    "simplify": "化简", "substitute": "代换/换元", "collect": "合并同类项",
+    "cancel": "约分", "solve_equation": "解方程", "solve_system": "解方程组",
+    "matrix_op": "矩阵运算", "row_reduce": "行变换", "eigen_solve": "特征值/特征向量",
+    "determinant": "行列式计算", "orthogonalize": "正交化", "quadratic_form": "二次型标准化",
+    "expand_series": "级数展开", "convergence_test": "收敛性判别",
+    "probability_calc": "概率计算", "expectation": "期望/方差",
+    "mle_derive": "极大似然推导", "apply_theorem": "应用定理",
+    "classify": "分类讨论", "final_answer": "最终答案", "compute": "计算",
+}
+
+
+def _gen_step_explanation(node) -> str:
+    """为步骤生成简短教学解释。"""
+    op = node.operation or node.type
+    inp = node.input_state or ""
+    out = node.output or ""
+    if op == "substitute" and inp:
+        return f"通过代换简化表达式结构，使后续运算更简便"
+    if op == "factor" and inp:
+        return "将表达式分解为乘积形式，便于讨论根与符号"
+    if op == "simplify":
+        return "合并同类项、约分，化为最简形式"
+    if op == "integrate":
+        return f"对表达式进行积分，寻找原函数"
+    if op == "differentiate":
+        return "求导数，分析函数增减性与极值"
+    if op == "compute_limit":
+        return "应用极限法则或等价无穷小求极限"
+    if op == "eigen_solve":
+        return "构造特征方程，求解特征值与特征向量"
+    if op == "apply_theorem":
+        return "应用相关定理，将条件转化为可计算形式"
+    if op == "classify":
+        return "按参数取值分类讨论，确保所有情形被覆盖"
+    if out:
+        return f"执行{_OP_TYPE_MAP.get(op, op)}运算，得到结果"
+    return ""
+
+
 def render_latex(text: str) -> None:
-    """规范化 + 渲染 LaTeX。所有显示数学内容的地方统一入口。"""
-    if text:
-        st.markdown(normalize_latex_style(text))
+    """统一数学渲染入口：sanitize → normalize → render。所有带数学内容的地方必须走这里。"""
+    if not text:
+        return
+    from math_sanitizer import safe_latex, is_valid_latex
+    try:
+        cleaned = safe_latex(text)
+        normalized = normalize_latex_style(cleaned)
+        st.markdown(normalized)
+    except Exception:
+        try:
+            st.text(f"[数学渲染失败，显示原文]\n{text[:500]}")
+        except Exception:
+            pass
 
 
 def render_latex_caption(text: str) -> None:
     """规范化 + 渲染 LaTeX 为小字说明"""
     if text:
-        st.caption(normalize_latex_style(text))
+        from math_sanitizer import safe_latex
+        try:
+            st.caption(normalize_latex_style(safe_latex(text)))
+        except Exception:
+            pass
+
+
+def md_safe(text: str) -> None:
+    """
+    st.markdown() 的安全替代。如果文本含有数学符号，强制经过 safe_latex。
+    用于无法确定是否含数学内容的文本。
+    """
+    if not text:
+        return
+    from math_sanitizer import safe_latex
+    # 检测是否含数学内容
+    has_math = bool(re.search(r'[\$\\\^_{}]|\\[a-zA-Z]+', text))
+    try:
+        if has_math:
+            st.markdown(normalize_latex_style(safe_latex(text)))
+        else:
+            st.markdown(text)
+    except Exception:
+        try:
+            st.text(text[:500])
+        except Exception:
+            pass
+
+
+def _compute_confidence(gr: dict, locked: dict | None = None) -> float:
+    """综合置信度计算。"""
+    # 图匹配置信度
+    if locked and locked.get("canonical_trace"):
+        trace = locked["canonical_trace"]
+        if hasattr(trace, "verified") and trace.verified:
+            # 已验证的 trace → 高置信度
+            verification_confidence = getattr(trace, "verification_log", None)
+            if verification_confidence and hasattr(verification_confidence, "confidence"):
+                base = verification_confidence.confidence
+            else:
+                base = 0.9
+            # 根据图匹配覆盖率调整
+            graph_result = gr.get("_graph_result", {})
+            alignment = graph_result.get("alignment_score", 1.0)
+            return min(base, alignment)
+        else:
+            # 未验证的 trace → 中等置信度
+            return 0.7
+    # LLM 批改 → 默认置信度
+    return 0.75
+
+
+def _extract_solution_from_grading(raw: str) -> str:
+    """从 LLM 批改输出中提取纯解题过程，去除评分/扣分/评语等批改信息。"""
+    if not raw:
+        return ""
+    lines = raw.split('\n')
+    clean = []
+    skip = False
+    for line in lines:
+        stripped = line.strip()
+        if re.match(r'^#{1,3}\s*评分总览', stripped):
+            skip = True
+            continue
+        if re.match(r'^#{1,3}\s*整体评价', stripped):
+            skip = True
+            continue
+        if re.match(r'^\*\*总分[:：]', stripped):
+            skip = True
+            continue
+        if re.match(r'^扣分项\d+', stripped):
+            skip = True
+            continue
+        if re.match(r'^-\s*判断[:：]', stripped):
+            continue
+        if re.match(r'^-\s*得分[:：]', stripped):
+            continue
+        if re.match(r'^-\s*评语[:：]', stripped):
+            continue
+        if re.match(r'^#{1,3}\s+', stripped) and not re.match(r'^#{1,3}\s*步骤', stripped):
+            skip = False
+        if not skip:
+            clean.append(line)
+    result = '\n'.join(clean).strip()
+    result = re.sub(r'^\n+', '', result)
+    return result
+
+
+def _extract_final_answer(solution_steps: list, standard_answer: str = "") -> str:
+    """从解题步骤中提取最终答案（\\boxed{...} 或最后一个步骤）。"""
+    for step in reversed(solution_steps):
+        content = step["content"] if isinstance(step, dict) else str(step)
+        m = re.search(r'\\boxed\{([^}]+)\}', content)
+        if m:
+            return f"$\\boxed{{{m.group(1)}}}$"
+    if standard_answer:
+        m = re.search(r'\\boxed\{([^}]+)\}', standard_answer)
+        if m:
+            return f"$\\boxed{{{m.group(1)}}}$"
+    if standard_answer:
+        m = re.search(r'最终答案[：:\s]*\n?(.*?)(?:\n#{1,3}|\n涉及|\n常见|\Z)', standard_answer, re.DOTALL)
+        if m:
+            return m.group(1).strip()
+    if solution_steps:
+        last = solution_steps[-1]
+        content = last["content"] if isinstance(last, dict) else str(last)
+        return content
+    return standard_answer or "暂无"
 
 
 def _chip(label: str, variant: str = "") -> str:
@@ -584,70 +1364,182 @@ if page == "dashboard":
 elif page == "practice":
     st.title("✏️ 智能刷题")
 
-    tab_upload, tab_text = st.tabs(["📷 图片上传", "⌨️ 文本输入"])
+    selected_bank = st.session_state.get("selected_question")
 
-    with tab_upload:
-        col_q, col_a = st.columns(2)
-        with col_q:
-            st.subheader("📋 上传题目图片")
-            question_file = st.file_uploader(
-                "题目图片", type=["png", "jpg", "jpeg"],
-                key="q_upload", label_visibility="collapsed"
-            )
-            if question_file:
-                st.image(question_file, use_container_width=True)
+    if selected_bank:
+        # ═══════════════════════════════════════════
+        #  情况 A: 题库已选题 — 文本 + 拍照 双入口
+        # ═══════════════════════════════════════════
+        st.info(f"📋 已选题目: {selected_bank.get('question_id', '?')} — "
+                f"{selected_bank.get('category', '')} {selected_bank.get('question_type', '')} "
+                f"| 知识点: {', '.join(selected_bank.get('knowledge_points', [])[:3])}")
 
-        with col_a:
-            st.subheader("✍️ 上传作答图片")
-            answer_file = st.file_uploader(
-                "作答图片", type=["png", "jpg", "jpeg"],
-                key="a_upload", label_visibility="collapsed"
-            )
-            if answer_file:
-                st.image(answer_file, use_container_width=True)
+        if st.button("↩️ 返回题库", key="back_to_bank_from_practice"):
+            st.session_state.selected_question = None
+            st.rerun()
 
-        # 元数据
+        # ── 题目展示 ──
+        st.subheader("📋 题目内容")
+        with st.container(border=True):
+            render_latex(selected_bank.get("question", ""))
+
+        # 元数据只读展示
+        mt = selected_bank.get("category", "数学一")
+        qt = selected_bank.get("question_type", "解答题")
+        kps = ", ".join(selected_bank.get("knowledge_points", []))
+        st.caption(f"📐 {mt} | 📝 {qt} | 🏷️ {kps}")
+
         st.markdown("---")
-        mc1, mc2, mc3, mc4 = st.columns(4)
-        math_type = mc1.selectbox("数学类别", MATH_TYPES, key="mt_upload")
-        q_type = mc2.selectbox("题型", QUESTION_TYPES, key="qt_upload")
-        difficulty = mc3.selectbox("难度", DIFFICULTY_LEVELS, key="diff_upload")
-        kp = mc4.selectbox("知识点", ["自动识别"] + sum(KNOWLEDGE_POINTS.values(), []), key="kp_upload")
+        st.subheader("✍️ 输入你的作答")
+        st.caption("文本和图片可同时使用，系统会合并两者内容后再批改。")
 
-        if st.button("🔍 识别并批改", type="primary", use_container_width=True,
-                     disabled=not question_file):
+        # ── 左右两栏：文本输入 + 拍照上传 ──
+        col_text, col_photo = st.columns(2)
+
+        with col_text:
+            st.markdown("**⌨️ 文本输入**")
+            st.caption("使用 $...$ 包裹公式")
+            bank_text_answer = st.text_area(
+                "请输入你的解题过程（支持 LaTeX）",
+                height=220, key="bank_text_answer", label_visibility="collapsed",
+            )
+
+        with col_photo:
+            st.markdown("**📷 拍照上传**")
+            bank_photo_answer = st.file_uploader(
+                "上传作答图片", type=["png", "jpg", "jpeg"],
+                key="bank_photo_answer", label_visibility="collapsed",
+            )
+            if bank_photo_answer:
+                st.image(bank_photo_answer, use_container_width=True)
+
+        has_text = bool(bank_text_answer and bank_text_answer.strip())
+        has_photo = bank_photo_answer is not None
+
+        # 状态提示
+        if has_text and has_photo:
+            st.success("📝 文本 + 📷 图片 已就绪，将合并两者内容后批改")
+        elif has_text:
+            st.info("📝 文本输入已就绪")
+        elif has_photo:
+            st.info("📷 图片已就绪，提交后将 OCR 识别")
+
+        # ── 提交按钮 ──
+        if st.button("🚀 提交批改", type="primary", use_container_width=True,
+                     disabled=not (has_text or has_photo)):
             client = get_client()
             if client is None:
                 st.warning("请先在「系统设置」中配置 API Key")
             else:
-                with st.spinner("OCR 识别中..."):
-                    # 保存上传文件到临时路径
-                    import tempfile
-                    q_path = None
-                    a_path = None
-                    if question_file:
+                student_answer_parts = []
+
+                # 处理图片 OCR
+                if has_photo:
+                    with st.spinner("OCR 识别答案图片中..."):
+                        import tempfile
                         with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
-                            f.write(question_file.read())
-                            q_path = f.name
-                    if answer_file:
-                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
-                            f.write(answer_file.read())
+                            f.write(bank_photo_answer.read())
                             a_path = f.name
 
-                    ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
-                    st.session_state.ocr_result = ocr_agent.recognize(q_path, a_path)
+                        ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
+                        ocr_text = ocr_agent._local_ocr(a_path)
+                        if client and ocr_text:
+                            cleaned = ocr_agent._llm_cleanup("", ocr_text)
+                            if cleaned:
+                                ocr_text = cleaned.get("student_answer", ocr_text)
+                        if ocr_text and ocr_text.strip():
+                            student_answer_parts.append(ocr_text.strip())
+                        try:
+                            os.unlink(a_path)
+                        except Exception:
+                            pass
 
-                if st.session_state.ocr_result.get("success"):
-                    st.success("OCR 识别完成")
-                    st.session_state.answer_view_mode = False
-                    st.session_state.page = "grading"
-                    st.rerun()
+                # 处理文本输入
+                if has_text:
+                    student_answer_parts.append(bank_text_answer.strip())
+
+                merged_answer = "\n\n".join(student_answer_parts)
+
+                st.session_state.ocr_result = {
+                    "success": True,
+                    "question": selected_bank["question"],
+                    "student_answer": merged_answer,
+                    "math_type": mt,
+                    "question_type": qt,
+                    "knowledge_point": kps,
+                    "confidence": 0.9 if has_photo else 1.0,
+                    "warnings": [],
+                }
+                st.session_state.answer_view_mode = False
+                st.session_state.page = "grading"
+                st.rerun()
+
+    else:
+        # ═══════════════════════════════════════════
+        #  情况 B: 未选题目 — 原有双 tab 流程
+        # ═══════════════════════════════════════════
+        tab_upload, tab_text = st.tabs(["📷 图片上传", "⌨️ 文本输入"])
+
+        with tab_upload:
+            col_q, col_a = st.columns(2)
+            with col_q:
+                st.subheader("📋 上传题目图片")
+                question_file = st.file_uploader(
+                    "题目图片", type=["png", "jpg", "jpeg"],
+                    key="q_upload", label_visibility="collapsed"
+                )
+                if question_file:
+                    st.image(question_file, use_container_width=True)
+
+            with col_a:
+                st.subheader("✍️ 上传作答图片")
+                answer_file = st.file_uploader(
+                    "作答图片", type=["png", "jpg", "jpeg"],
+                    key="a_upload", label_visibility="collapsed"
+                )
+                if answer_file:
+                    st.image(answer_file, use_container_width=True)
+
+            # 元数据
+            st.markdown("---")
+            mc1, mc2, mc3, mc4 = st.columns(4)
+            math_type = mc1.selectbox("数学类别", MATH_TYPES, key="mt_upload")
+            q_type = mc2.selectbox("题型", QUESTION_TYPES, key="qt_upload")
+            difficulty = mc3.selectbox("难度", DIFFICULTY_LEVELS, key="diff_upload")
+            kp = mc4.selectbox("知识点", ["自动识别"] + sum(KNOWLEDGE_POINTS.values(), []), key="kp_upload")
+
+            if st.button("🔍 识别并批改", type="primary", use_container_width=True,
+                         disabled=not question_file):
+                client = get_client()
+                if client is None:
+                    st.warning("请先在「系统设置」中配置 API Key")
                 else:
-                    st.error(f"OCR 识别失败: {'; '.join(st.session_state.ocr_result.get('warnings', []))}")
+                    with st.spinner("OCR 识别中..."):
+                        import tempfile
+                        q_path = None
+                        a_path = None
+                        if question_file:
+                            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
+                                f.write(question_file.read())
+                                q_path = f.name
+                        if answer_file:
+                            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
+                                f.write(answer_file.read())
+                                a_path = f.name
 
-    with tab_text:
-        # 智能推荐：基于薄弱知识点
-        if not st.session_state.get("selected_question"):
+                        ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
+                        st.session_state.ocr_result = ocr_agent.recognize(q_path, a_path)
+
+                    if st.session_state.ocr_result.get("success"):
+                        st.success("OCR 识别完成")
+                        st.session_state.answer_view_mode = False
+                        st.session_state.page = "grading"
+                        st.rerun()
+                    else:
+                        st.error(f"OCR 识别失败: {'; '.join(st.session_state.ocr_result.get('warnings', []))}")
+
+        with tab_text:
+            # 智能推荐：基于薄弱知识点
             st.subheader("🎯 智能推荐")
             profile = st.session_state.memory.get_profile()
             weak_points = profile.get("weak_points", [])
@@ -656,7 +1548,6 @@ elif page == "practice":
                 for i, wp in enumerate(weak_points[:3]):
                     col = [w1, w2, w3][i]
                     with col:
-                        # 获取该知识点的题目数
                         try:
                             qs = st.session_state.question_db.search(knowledge_point=wp, limit=1)
                             count = len(qs)
@@ -672,67 +1563,49 @@ elif page == "practice":
                                 pass
                 st.markdown("---")
 
-        # 从题库加载的题目
-        selected = st.session_state.get("selected_question")
-        if selected:
-            st.info(f"📋 已加载题目: {selected.get('question_id', '?')} — "
-                    f"{selected.get('category', '')} {selected.get('question_type', '')} "
-                    f"| 知识点: {', '.join(selected.get('knowledge_points', [])[:3])}")
-            if st.button("↩️ 返回题库", key="back_to_bank"):
-                st.session_state.selected_question = None
-                st.rerun()
-
-        col_q2, col_a2 = st.columns(2)
-        with col_q2:
-            st.subheader("📋 题目内容")
-            default_q = selected.get("question", "") if selected else ""
-            # 仅展示渲染后的 LaTeX，不显示原始代码编辑框
-            if default_q:
-                with st.container(border=True):
-                    render_latex(default_q)
-            else:
-                # 手动输入模式（无选中题目时）
+            col_q2, col_a2 = st.columns(2)
+            with col_q2:
+                st.subheader("📋 题目内容")
                 question_text = st.text_area(
                     "请输入题目（支持 LaTeX）",
                     height=250, key="q_text", label_visibility="collapsed",
                 )
-            question_text = default_q  # 使用选中题目，不可编辑
-        with col_a2:
-            st.subheader("✍️ 你的解答")
-            st.caption("使用 $...$ 包裹公式，如 $\\int_0^1 x^2 dx = \\frac{1}{3}$")
-            student_answer = st.text_area(
-                "请输入你的解题过程（支持 LaTeX）",
-                height=220, key="a_text", label_visibility="collapsed"
-            )
-            if student_answer:
-                with st.container(border=True):
-                    st.markdown(student_answer)
+            with col_a2:
+                st.subheader("✍️ 你的解答")
+                st.caption("使用 $...$ 包裹公式，如 $\\int_0^1 x^2 dx = \\frac{1}{3}$")
+                student_answer = st.text_area(
+                    "请输入你的解题过程（支持 LaTeX）",
+                    height=220, key="a_text", label_visibility="collapsed"
+                )
+                if student_answer:
+                    with st.container(border=True):
+                        st.markdown(student_answer)
 
-        mc1, mc2, mc3, mc4 = st.columns(4)
-        math_type_t = mc1.selectbox("数学类别", MATH_TYPES, key="mt_text")
-        q_type_t = mc2.selectbox("题型", QUESTION_TYPES, key="qt_text")
-        difficulty_t = mc3.selectbox("难度", DIFFICULTY_LEVELS, key="diff_text")
-        kp_t = mc4.selectbox("知识点", sum(KNOWLEDGE_POINTS.values(), []), key="kp_text")
+            mc1, mc2, mc3, mc4 = st.columns(4)
+            math_type_t = mc1.selectbox("数学类别", MATH_TYPES, key="mt_text")
+            q_type_t = mc2.selectbox("题型", QUESTION_TYPES, key="qt_text")
+            difficulty_t = mc3.selectbox("难度", DIFFICULTY_LEVELS, key="diff_text")
+            kp_t = mc4.selectbox("知识点", sum(KNOWLEDGE_POINTS.values(), []), key="kp_text")
 
-        if st.button("🚀 提交批改", type="primary", use_container_width=True,
-                     disabled=not question_text):
-            client = get_client()
-            if client is None:
-                st.warning("请先在「系统设置」中配置 API Key")
-            else:
-                st.session_state.ocr_result = {
-                    "success": True,
-                    "question": question_text,
-                    "student_answer": student_answer,
-                    "math_type": math_type_t,
-                    "question_type": q_type_t,
-                    "knowledge_point": kp_t,
-                    "confidence": 1.0,
-                    "warnings": [],
-                }
-                st.session_state.answer_view_mode = False
-                st.session_state.page = "grading"
-                st.rerun()
+            if st.button("🚀 提交批改", type="primary", use_container_width=True,
+                         disabled=not question_text):
+                client = get_client()
+                if client is None:
+                    st.warning("请先在「系统设置」中配置 API Key")
+                else:
+                    st.session_state.ocr_result = {
+                        "success": True,
+                        "question": question_text,
+                        "student_answer": student_answer,
+                        "math_type": math_type_t,
+                        "question_type": q_type_t,
+                        "knowledge_point": kp_t,
+                        "confidence": 1.0,
+                        "warnings": [],
+                    }
+                    st.session_state.answer_view_mode = False
+                    st.session_state.page = "grading"
+                    st.rerun()
 
 
 # ==================== AI 批改 ====================
@@ -855,23 +1728,141 @@ elif page == "grading":
                                 else f"错误, 标准答案为 {std_ans[:100]}"
                             ),
                         }
-                    dresult = {
-                        "error_type": "无错误" if is_correct else ("选择题错误" if q_type == "选择题" else "填空题错误"),
-                        "root_cause": "" if is_correct else f"标准答案为 {std_ans[:80]}",
-                        "is_repeat": False, "repeat_count": 0,
-                        "affects_future": False, "weak_points": [],
-                    }
+                    if is_correct:
+                        dresult = {
+                            "error_type": "无错误", "root_cause": "",
+                            "is_repeat": False, "repeat_count": 0,
+                            "affects_future": False, "weak_points": [],
+                        }
+                    else:
+                        # 选择题：简洁的错因分析
+                        if q_type == "选择题":
+                            correct_opt = selected_q.get("correct_option", "")
+                            dresult = {
+                                "error_type": "选择题答案错误",
+                                "root_cause": f"正确答案是 {correct_opt}，你选择了 {student_ans[:10]}。请分析每个选项的数学含义。",
+                                "is_repeat": False, "repeat_count": 0,
+                                "affects_future": False, "weak_points": selected_q.get("knowledge_points", []),
+                            }
+                        else:
+                            # 填空题
+                            dresult = {
+                                "error_type": "填空题错误",
+                                "root_cause": f"答案与标准答案不等价。标准答案: {std_ans[:60]}",
+                                "is_repeat": False, "repeat_count": 0,
+                                "affects_future": False, "weak_points": selected_q.get("knowledge_points", []),
+                            }
                     progress.progress(80, text="快速批改完成，正在保存...")
                 else:
-                    # Engine B: LLM 批改 (解答题/证明题, 或缓存未命中)
-                    grading = GradingAgent(client, model)
-                    gresult = grading.grade(
-                        question=question, standard_answer=std_ans,
-                        student_answer=student_ans, total_score=total_score,
-                        knowledge_points=ocr_data.get("knowledge_point", ""),
-                        difficulty=selected_q.get("difficulty", "中等"),
-                    )
-                    progress.progress(65, text="批改完成，正在诊断分析...")
+                    # Engine C: 图对齐批改（多解法 Best-Match）
+                    engine_c_ok = False
+                    _canonical = None
+                    locked = None
+                    _trace_result = None
+                    if selected_q.get("question_id"):
+                        try:
+                            from question_locker import lock_question
+                            from graph_matching import grade_with_graph
+                            locked = lock_question(selected_q, st.session_state.question_db, client, model)
+                            _canonical = locked.get("canonical_trace")
+
+                            # 提取学生轨迹（只做一次，后续 evolver 复用）
+                            from student_trace_extractor import extract_student_trace
+                            from symbolic_executor import build_student_graph_from_trace
+                            _trace_result = extract_student_trace(
+                                student_ans or "", question, client, model
+                            )
+                            student_graph = build_student_graph_from_trace(_trace_result)
+
+                            # Best-Match：遍历所有 canonical methods，取最高分
+                            best_score = -1.0
+                            best_gresult = None
+                            best_method_name = ""
+                            method_count = 0
+
+                            if _canonical and _canonical.is_multimethod():
+                                progress.progress(40, text=f"多解法图对齐批改中 ({_canonical.method_count()}法)...")
+                            else:
+                                progress.progress(40, text="图对齐批改中...")
+
+                            for method in (_canonical.methods if _canonical else []):
+                                mg = method.graph
+                                if not mg or len(mg.nodes) <= 1:
+                                    continue
+                                method_count += 1
+                                try:
+                                    graph_result = grade_with_graph(
+                                        student_ans or "", mg,
+                                        student_graph=student_graph,
+                                        student_trace=_trace_result,
+                                    )
+                                    score = graph_result.get("score", 0)
+                                    if score > best_score:
+                                        best_score = score
+                                        best_gresult = {
+                                            "success": True,
+                                            "total": round(score, 1),
+                                            "step_score": round(score * 0.5, 1),
+                                            "result_score": round(score * 0.5, 1),
+                                            "step_analysis": [
+                                                {"num": i+1, "content": m.get("label", ""),
+                                                 "judgment": "正确" if m.get("matched") else "缺失/错误",
+                                                 "score": f"{m.get('weight', 0):.1f}",
+                                                 "comment": m.get("error", "")}
+                                                for i, m in enumerate(graph_result.get("matched_steps", []))
+                                            ],
+                                            "deductions": [],
+                                            "comment": graph_result.get("error_label", ""),
+                                            "_engine": "C_graph",
+                                        }
+                                        best_method_name = method.method_name
+                                except Exception:
+                                    continue
+
+                            if best_gresult is not None:
+                                gresult = best_gresult
+                                # 方法分类结果
+                                try:
+                                    from method_classifier import classify_student_method
+                                    classification = classify_student_method(_trace_result, _canonical)
+                                    gresult["method_family"] = classification["family_name"]
+                                    gresult["tier"] = (
+                                        "t1_fast_path" if (
+                                            classification["recommendation"] != "semantic_fallback"
+                                            and _compute_confidence(None, None) > 0.8
+                                        ) else "t3_graph_match" if classification["recommendation"] != "semantic_fallback"
+                                        else "t4_semantic_fallback"
+                                    )
+                                except Exception:
+                                    pass
+                                # 记录匹配到的方法并增加 usage_count
+                                if best_method_name and _canonical:
+                                    gresult["method_matched"] = best_method_name
+                                    for m in _canonical.methods:
+                                        if m.method_name == best_method_name:
+                                            m.usage_count += 1
+                                            break
+
+                                # 更新 solution 为 lock_question 的标准答案
+                                if locked.get("standard_answer"):
+                                    solution["standard_answer"] = locked["standard_answer"]
+                                engine_c_ok = True
+                                progress.progress(70, text=f"图对齐批改完成 ({method_count}法, 最佳: {best_method_name})...")
+                        except Exception as _e_c:
+                            print(f"[Engine C 失败] {_e_c}")
+
+                    if not engine_c_ok:
+                        # Engine B: LLM 批改 (解答题/证明题, 或缓存未命中)
+                        # 传入 canonical_trace 让 LLM 参考结构化标准解
+                        grading = GradingAgent(client, model)
+                        gresult = grading.grade(
+                            question=question, standard_answer=std_ans,
+                            student_answer=student_ans, total_score=total_score,
+                            knowledge_points=ocr_data.get("knowledge_point", ""),
+                            difficulty=selected_q.get("difficulty", "中等"),
+                            canonical_trace=_canonical,
+                        )
+                        progress.progress(65, text="批改完成，正在诊断分析...")
 
                     # Step 3: 诊断（仅解答题需要AI分析）
                     diagnosis = DiagnosisAgent(client, model)
@@ -885,6 +1876,30 @@ elif page == "grading":
                     )
                 st.session_state.grading_result = gresult
                 st.session_state.diagnosis_result = dresult
+                progress.progress(82, text="检查是否可进化题库...")
+
+                # Step 3.5: 候选方法提交 — 高分低匹配时提交到人工审核队列
+                try:
+                    _total = gresult.get("total", 0)
+                    _max = solution.get("total_score", 10)
+                    if _total >= _max * 0.85 and selected_q.get("question_id"):
+                        from trace_evolver import submit_candidate
+                        if _trace_result and _trace_result.get("steps"):
+                            submitted = submit_candidate(
+                                question_id=selected_q["question_id"],
+                                student_trace=_trace_result,
+                                score=_total,
+                                total_score=_max,
+                                existing_trace=_canonical,
+                                grading_summary={"comment": gresult.get("comment", ""),
+                                                 "engine": gresult.get("engine", "")},
+                            )
+                            if submitted:
+                                gresult["candidate_submitted"] = True
+                                progress.progress(84, text="候选方法已提交审核队列")
+                except Exception as _evo_err:
+                    pass  # 非关键路径
+
                 progress.progress(85, text="正在保存到错题本...")
 
                 # Step 4: 保存到错题本
@@ -914,136 +1929,28 @@ elif page == "grading":
             sa = st.session_state.standard_answer or {}
             dr = st.session_state.diagnosis_result or {}
 
-            st.markdown("---")
+            # 判断题型
+            selected_q = st.session_state.get("selected_question") or {}
+            q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
+            is_fast = q_type in ("选择题", "填空题")
 
-            # 评分卡片
-            st.subheader("📊 评分总览")
-            sc1, sc2, sc3 = st.columns(3)
-            total = gr.get("total", 0)
-            total_max = sa.get("total_score", 10)
-            sc1.metric("总分", f"{total}/{total_max}")
-            sc2.metric("步骤分", f"{gr.get('step_score', 0)}/{round(total_max*0.7,1)}")
-            sc3.metric("结果分", f"{gr.get('result_score', 0)}/{round(total_max*0.3,1)}")
+            # 从标准答案中提取知识点和易错点
+            sa_kp = sa.get("knowledge_points", [])
+            sa_cm = sa.get("common_mistakes", [])
+
+            st.markdown("---")
 
             # 评分模式提示
-            st.markdown("---")
             mode_label = "🤖 AI 在线批改" if st.session_state.get("api_key") else "📋 离线批改（基于标准答案对比）"
             st.caption(mode_label)
 
-            # 步骤分析
-            st.subheader("🔍 步骤分析")
-            steps = gr.get("step_analysis", [])
-            if steps:
-                for step in steps:
-                    judgment = step.get("judgment", "")
-                    if "正确" in judgment or "✓" in judgment:
-                        icon = "✅"
-                    elif "部分" in judgment:
-                        icon = "⚠️"
-                    else:
-                        icon = "❌"
+            # ===== 模板 1: 选择题 + 填空题 =====
+            if is_fast:
+                _render_choice_fill_ui(gr, sa, dr, ocr_data, selected_q)
 
-                    with st.container(border=True):
-                        st.markdown(f"{icon} **步骤{step.get('num', '')}**: {step.get('content', '')}")
-                        st.caption(f"判断: {judgment} | 得分: {step.get('score', '')}")
-                        st.caption(f"评语: {step.get('comment', '')}")
-            elif gr.get("raw"):
-                # LLM返回了原始文本但没有解析出步骤
-                with st.container(border=True):
-                    st.markdown(gr["raw"])
+            # ===== 模板 2: 解答题 + 证明题 =====
             else:
-                # 离线模式：显示简单对比结果
-                with st.container(border=True):
-                    student_ans = ocr_data.get("student_answer", "")
-                    std_ans = sa.get("standard_answer", "")
-                    if student_ans and std_ans:
-                        st.markdown(f"**你的作答**: {student_ans[:300]}")
-                        st.markdown(f"**标准答案**: {std_ans[:300]}")
-                    else:
-                        st.info("暂无详细步骤分析。配置 API Key 可启用 AI 深度批改。")
-
-            # 标准答案（带置信度检查）
-            st.markdown("---")
-            st.subheader("📖 标准答案")
-
-            # 从题库获取匹配置信度
-            selected_q = st.session_state.get("selected_question") or {}
-            answer_confidence = selected_q.get("answer_confidence", 1.0)
-            answer_matched_by = selected_q.get("answer_matched_by", "")
-
-            if answer_confidence < 0.40:
-                with st.container(border=True):
-                    st.warning(
-                        "⚠️ 答案待人工复核\n\n"
-                        f"该题答案匹配置信度较低（{answer_confidence:.0%}），"
-                        "暂不展示以避免错误答案。\n\n"
-                        "匹配方式: {answer_matched_by}"
-                    )
-            elif answer_confidence < 0.70:
-                with st.container(border=True):
-                    st.info(
-                        f"📋 自动匹配答案（置信度 {answer_confidence:.0%}）"
-                    )
-                    render_latex(sa.get("standard_answer", "暂无"))
-                    st.caption("该答案为自动匹配，建议人工确认")
-            else:
-                with st.container(border=True):
-                    render_latex(sa.get("standard_answer", "暂无"))
-
-            # 错因分析
-            st.markdown("---")
-            st.subheader("🔬 错因分析")
-            etype = dr.get("error_type", "未识别")
-            etype_color = {"概念错误": "red", "推导错误": "orange", "计算错误": "orange",
-                           "公式记忆错误": "violet", "审题错误": "blue", "计算粗心": "orange",
-                           "选择题答案错误": "red", "未作答": "grey"}
-            color = etype_color.get(etype, "grey")
-            st.markdown(f"**:{color}[{etype}]** — {dr.get('root_cause', '未分析')}")
-
-            # 知识点分析
-            if kp_list:
-                profile = st.session_state.memory.get_profile()
-                chapter_acc = profile.get("chapter_accuracy", {})
-                st.caption("📊 相关知识点掌握度:")
-                for kp in kp_list[:3]:
-                    acc = chapter_acc.get(kp, 0.0)
-                    acc_pct = int(acc * 100)
-                    bar = "█" * (acc_pct // 10) + "░" * (10 - acc_pct // 10)
-                    st.caption(f"  {bar} {kp}: {acc_pct}%")
-
-            is_repeat = dr.get("is_repeat", False)
-            repeat_count = dr.get("repeat_count", 0)
-            if is_repeat:
-                st.error(f"⚠️ 该知识点已连续出错 {repeat_count} 次，需要专项复习！")
-
-            # 推荐同类题目
-            if kp_list and dr.get("error_type", "") not in ("无明显错误", ""):
-                st.markdown("---")
-                st.subheader("🎯 专项强化推荐")
-                try:
-                    recs = st.session_state.question_db.search(
-                        knowledge_point=kp_list[0], limit=2
-                    )
-                    for rq in recs:
-                        if st.button(
-                            f"📝 {rq.get('question_id','')} [{rq.get('question_type','')}]",
-                            key=f"rec_grading_{rq.get('question_id','')}",
-                            use_container_width=True,
-                        ):
-                            st.session_state.selected_question = rq
-                            st.session_state.ocr_result = None
-                            st.session_state.grading_result = None
-                            st.session_state.page = "practice"
-                            st.rerun()
-                except Exception:
-                    st.caption("题库搜索暂不可用")
-
-            # 学习建议
-            st.markdown("---")
-            st.subheader("💡 学习建议")
-            recs = st.session_state.memory.get_recommendations()
-            for i, rec in enumerate(recs, 1):
-                st.markdown(f"{i}. {rec}")
+                _render_essay_grading_ui(gr, sa, dr, ocr_data, selected_q)
 
 
 # ==================== 真题库 ====================
@@ -1667,39 +2574,230 @@ elif page == "profile":
 elif page == "settings":
     st.title("⚙️ 系统设置")
 
+    # ── 加载已有 profiles ──
+    profiles = credential_store.load_profiles()
+    profile_names = [p["name"] for p in profiles]
+    active = credential_store.get_active_profile()
+
+    # ═══════════════════════════════════════
+    #  Provider 配置管理
+    # ═══════════════════════════════════════
     with st.container(border=True):
-        st.subheader("LLM API 配置")
-        api_key = st.text_input(
+        st.subheader("🔑 LLM Provider 管理")
+        st.caption("支持多个大模型配置，一键切换。API Key 自动加密保存 15 天，过期自动清除。")
+
+        # ── 已有配置列表 ──
+        if profiles:
+            st.markdown("**已保存的配置：**")
+            for p in profiles:
+                is_active = active and p["name"] == active["name"]
+                badge = "🟢 使用中" if is_active else "⚪"
+                proto_label = p.get("protocol", "openai")
+                col_name, col_info, col_act, col_del = st.columns([2, 3, 1, 1])
+                with col_name:
+                    st.markdown(f"**{p['name']}** {badge}")
+                with col_info:
+                    masked = credential_store.mask_key(p.get("api_key", ""))
+                    days_left = p.get("ttl_days", 15) - int((time.time() - p.get("created_at", 0)) / 86400)
+                    st.caption(f"{p.get('base_url', '')} | {p.get('model', '')} | {proto_label} | Key: {masked} | {max(0, days_left)}天后过期")
+                with col_act:
+                    if not is_active:
+                        if st.button("切换", key=f"switch_{p['name']}"):
+                            credential_store.set_active_profile(p["name"])
+                            st.session_state.api_key = p["api_key"]
+                            st.session_state.base_url = p["base_url"]
+                            st.session_state.model = p["model"]
+                            st.session_state.protocol = p.get("protocol", "openai")
+                            st.session_state.llm_client = create_client(
+                                api_key=p["api_key"],
+                                base_url=p["base_url"],
+                                protocol=p.get("protocol", "openai"),
+                            )
+                            st.toast(f"已切换到 {p['name']}")
+                            st.rerun()
+                with col_del:
+                    if st.button("🗑️", key=f"del_{p['name']}", help=f"删除 {p['name']}"):
+                        credential_store.delete_profile(p["name"])
+                        st.toast(f"已删除 {p['name']}")
+                        st.rerun()
+            st.markdown("---")
+
+        # ── 新增/编辑配置（简化版）──
+        st.markdown("**添加配置：**")
+
+        # 预设: (base_url, model, protocol)
+        presets = {
+            "DeepSeek": ("https://api.deepseek.com/anthropic", "deepseek-v4-pro", "anthropic"),
+            "OpenAI": ("https://api.openai.com/v1", "gpt-4o", "openai"),
+            "通义千问": ("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus", "openai"),
+            "Kimi": ("https://api.moonshot.cn/v1", "moonshot-v1-8k", "openai"),
+            "智谱": ("https://open.bigmodel.cn/api/paas/v4", "glm-4", "openai"),
+        }
+
+        preset = st.selectbox(
+            "选择服务商",
+            list(presets.keys()),
+            key="provider_preset",
+        )
+        default_url, default_model, default_protocol = presets[preset]
+
+        profile_key = st.text_input(
             "API Key",
-            value=st.session_state.get("api_key", LLM_API_KEY),
             type="password",
-            help="支持 DeepSeek / OpenAI 兼容接口",
-        )
-        base_url = st.text_input(
-            "API Base URL",
-            value=st.session_state.get("base_url", LLM_BASE_URL),
-        )
-        model = st.text_input(
-            "模型名称",
-            value=st.session_state.get("model", LLM_MODEL),
+            placeholder="粘贴你的 API Key",
+            key="profile_key_input",
         )
 
-        if st.button("💾 保存配置", type="primary"):
-            st.session_state.api_key = api_key
-            st.session_state.base_url = base_url
-            st.session_state.model = model
-            if api_key:
-                st.session_state.llm_client = OpenAI(api_key=api_key, base_url=base_url)
+        # 高级选项：URL、模型名、协议，默认折叠
+        with st.expander("高级选项（通常无需修改）"):
+            profile_url = st.text_input(
+                "API Base URL", value=default_url, key="profile_url_input",
+            )
+            profile_model = st.text_input(
+                "模型名称", value=default_model, key="profile_model_input",
+            )
+            profile_protocol = st.selectbox(
+                "API 协议",
+                ["openai", "anthropic"],
+                index=0 if default_protocol == "openai" else 1,
+                key="profile_protocol_input",
+                help="OpenAI 兼容接口选 openai，Anthropic 接口选 anthropic",
+            )
+
+        save_col, test_col = st.columns(2)
+        with save_col:
+            if st.button("💾 保存并启用", type="primary", use_container_width=True,
+                         disabled=not profile_key):
+                credential_store.save_profile(
+                    name=preset,
+                    api_key=profile_key,
+                    base_url=profile_url or default_url,
+                    model=profile_model or default_model,
+                    ttl_days=15,
+                    protocol=profile_protocol,
+                )
+                st.session_state.api_key = profile_key
+                st.session_state.base_url = profile_url or default_url
+                st.session_state.model = profile_model or default_model
+                st.session_state.protocol = profile_protocol
+                st.session_state.llm_client = create_client(
+                    api_key=profile_key,
+                    base_url=profile_url or default_url,
+                    protocol=profile_protocol,
+                )
+                st.success(f"✅ {preset} 已保存并启用（协议: {profile_protocol}）")
+                st.rerun()
+
+        with test_col:
+            if st.button("🔍 测试连接", use_container_width=True,
+                         disabled=not profile_key):
+                try:
+                    test_client = create_client(
+                        api_key=profile_key,
+                        base_url=profile_url or default_url,
+                        protocol=profile_protocol,
+                    )
+                    resp = test_client.chat.completions.create(
+                        model=profile_model or default_model,
+                        messages=[{"role": "user", "content": "说一个数字"}],
+                        max_tokens=10,
+                    )
+                    st.success(f"✅ 连接成功: {resp.choices[0].message.content}")
+                except Exception as e:
+                    st.error(f"❌ 连接失败: {e}")
+
+    # ═══════════════════════════════════════
+    #  当前生效配置一览
+    # ═══════════════════════════════════════
+    with st.container(border=True):
+        st.subheader("📋 当前生效配置")
+        if active:
+            ic1, ic2, ic3, ic4, ic5 = st.columns(5)
+            ic1.metric("配置名称", active["name"])
+            ic2.metric("Base URL", active.get("base_url", "-"))
+            ic3.metric("模型", active.get("model", "-"))
+            ic4.metric("协议", active.get("protocol", "openai"))
+            days_left = active.get("ttl_days", 15) - int((time.time() - active.get("created_at", 0)) / 86400)
+            ic5.metric("剩余天数", f"{max(0, days_left)} 天")
+        else:
+            st.info("尚未配置 API Key，请在上方添加 Provider 配置。")
+
+    # ═══════════════════════════════════════
+    #  隐私安全检查
+    # ═══════════════════════════════════════
+    with st.container(border=True):
+        st.subheader("🔒 隐私安全检查")
+        st.caption("扫描项目文件，检测可能泄露的 API Key / Secret")
+
+        if st.button("🔍 扫描隐私泄露风险", use_container_width=True):
+            import re as _re
+            sensitive_patterns = [
+                (r'sk-[a-zA-Z0-9]{20,}', '疑似 OpenAI/DeepSeek API Key'),
+                (r'api_key\s*=\s*["\'][a-zA-Z0-9]{16,}["\']', '硬编码的 API Key'),
+                (r'password\s*=\s*["\'][^"\']{4,}["\']', '硬编码的密码'),
+                (r'token\s*=\s*["\'][a-zA-Z0-9]{16,}["\']', '硬编码的 Token'),
+            ]
+            scan_dirs = ["agents", "prompts", "storage/questions"]
+            scan_exts = {".py", ".json", ".md", ".yaml", ".yml"}
+            findings = []
+
+            for scan_dir in scan_dirs:
+                full_dir = os.path.join(_ROOT, scan_dir)
+                if not os.path.isdir(full_dir):
+                    continue
+                for root, _, files in os.walk(full_dir):
+                    for fname in files:
+                        if os.path.splitext(fname)[1] not in scan_exts:
+                            continue
+                        fpath = os.path.join(root, fname)
+                        try:
+                            with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                                content = f.read()
+                            for pattern, desc in sensitive_patterns:
+                                for m in _re.finditer(pattern, content):
+                                    findings.append((fpath, desc, m.group()[:20] + "..."))
+                        except Exception:
+                            pass
+
+            # 也扫描根目录 py 文件
+            for fname in os.listdir(_ROOT):
+                if fname.endswith(".py"):
+                    fpath = os.path.join(_ROOT, fname)
+                    try:
+                        with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                            content = f.read()
+                        for pattern, desc in sensitive_patterns:
+                            for m in _re.finditer(pattern, content):
+                                findings.append((fpath, desc, m.group()[:20] + "..."))
+                    except Exception:
+                        pass
+
+            if findings:
+                st.warning(f"⚠️ 发现 {len(findings)} 处潜在泄露风险：")
+                for fpath, desc, snippet in findings[:20]:
+                    rel = os.path.relpath(fpath, _ROOT)
+                    st.caption(f"  `{rel}` — {desc}: `{snippet}`")
             else:
-                st.session_state.llm_client = None
-            # 仅持久化非敏感配置。API Key 请使用 LLM_API_KEY 环境变量持久化。
-            save_settings({
-                "base_url": base_url,
-                "model": model,
-            })
-            st.success("✅ 配置已保存；API Key 仅保存在当前会话或环境变量中")
-            st.toast("API 配置已更新")
+                st.success("✅ 未发现明显的 API Key 泄露风险")
 
+        # .gitignore 状态
+        st.markdown("**`.gitignore` 敏感文件覆盖检查：**")
+        gitignore_path = os.path.join(_ROOT, ".gitignore")
+        critical_files = [".env", ".env.*", "storage/.credentials.json", "storage/settings.json"]
+        if os.path.exists(gitignore_path):
+            with open(gitignore_path, "r", encoding="utf-8") as f:
+                gi_content = f.read()
+            for cf in critical_files:
+                if cf in gi_content:
+                    st.caption(f"✅ `{cf}` — 已被 .gitignore 排除")
+                else:
+                    st.error(f"❌ `{cf}` — 未被 .gitignore 排除，有泄露风险！")
+        else:
+            st.error("❌ 项目根目录缺少 .gitignore 文件")
+
+    # ═══════════════════════════════════════
+    #  数据管理
+    # ═══════════════════════════════════════
     with st.container(border=True):
         st.subheader("数据管理")
         col1, col2 = st.columns(2)

@@ -2510,6 +2510,157 @@ SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
 - 易错点2
 """
 
+CANONICAL_SOLVE_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
+
+# 当前任务：生成规范解题轨迹（Canonical Solution Trace）
+
+你是考研数学命题组专家与标准答案编写者。请根据以下信息生成**结构化**的标准解题轨迹。
+这不是简单的解题，而是"阅卷标准生成器"——你需要为每个步骤定义清晰的输入状态、运算操作和输出状态。
+
+## 题目信息
+- 数学类别：{math_type}
+- 题型：{question_type}
+- 知识点：{knowledge_point}
+- 题目内容：{question}
+
+## 输出要求
+
+请以 **JSON 格式**输出，结构如下（不要输出其他内容，只输出 JSON）：
+
+```json
+{{
+  "methods": [
+    {{
+      "method_name": "方法名称（如：洛必达法则、换元积分法、特征值法等）",
+      "steps": [
+        {{
+          "id": "s1",
+          "operation": "操作类型（如：differentiate, integrate, simplify, solve_system, substitute, compute_limit, matrix_op, eigen_solve, apply_theorem）",
+          "input_state": "该步骤的输入数学状态（LaTeX格式，如 f(x) = x^3 - 3x）",
+          "output_state": "该步骤的输出数学状态（LaTeX格式，如 f'(x) = 3x^2 - 3）",
+          "label": "该步骤的自然语言描述（中文，如 '对f(x)求导'）",
+          "goal": "本步目标（如'求驻点'、'判断符号'、'消元'、'降次'，说明这一步要达成什么）",
+          "strategy": "所用策略（如'隐函数求导'、'换元降次'、'配方'、'洛必达法则'）",
+          "reasoning": "为什么这步是合理/必要的（简短教学解释）",
+          "knowledge": ["涉及的知识点列表"],
+          "score_weight": 2
+        }}
+      ],
+      "final_answer": "最终答案（LaTeX格式）",
+      "knowledge_points": ["所有涉及的知识点"],
+      "common_mistakes": ["常见错误1", "常见错误2"]
+    }}
+  ]
+}}
+```
+
+## 关键约束
+1. 每个步骤必须是**一个原子数学操作**（不要把多步合并为一步）
+2. 步骤 N 的 output_state 必须与步骤 N+1 的 input_state **数学等价**
+3. 所有数学表达式必须用 LaTeX 格式
+4. 如果存在多种解法，输出多个 method（最多3种）
+5. score_weight 表示该步骤的得分权重（关键步骤权重高，辅助步骤权重低）
+6. operation 必须使用标准类型名：differentiate, integrate, simplify, solve_system, substitute, compute_limit, matrix_op, eigen_solve, orthogonalize, quadratic_form, probability_calc, expectation, mle_derive, moment_estimate, apply_theorem, expand_series, classify, final_answer
+7. 最后一个步骤的 operation 必须是 "final_answer"，其 output_state 就是最终答案
+
+## 示例（求 f(x)=x^2 在 x=1 处的导数）
+
+```json
+{{
+  "methods": [
+    {{
+      "method_name": "导数定义法",
+      "steps": [
+        {{
+          "id": "s1",
+          "operation": "apply_theorem",
+          "input_state": "f(x) = x^2, a = 1",
+          "output_state": "f'(1) = \\\\lim_{{h \\\\to 0}} \\\\frac{{f(1+h) - f(1)}}{{h}}",
+          "label": "写出导数定义",
+          "knowledge": ["导数定义"],
+          "score_weight": 2
+        }},
+        {{
+          "id": "s2",
+          "operation": "substitute",
+          "input_state": "\\\\lim_{{h \\\\to 0}} \\\\frac{{f(1+h) - f(1)}}{{h}}",
+          "output_state": "\\\\lim_{{h \\\\to 0}} \\\\frac{{(1+h)^2 - 1}}{h} = \\\\lim_{{h \\\\to 0}} \\\\frac{{2h + h^2}}{h}",
+          "label": "代入f(x)=x^2并展开",
+          "knowledge": ["代入化简"],
+          "score_weight": 3
+        }},
+        {{
+          "id": "s3",
+          "operation": "compute_limit",
+          "input_state": "\\\\lim_{{h \\\\to 0}} \\\\frac{{2h + h^2}}{h}",
+          "output_state": "2",
+          "label": "计算极限",
+          "knowledge": ["极限计算"],
+          "score_weight": 3
+        }},
+        {{
+          "id": "s4",
+          "operation": "final_answer",
+          "input_state": "f'(1) = 2",
+          "output_state": "2",
+          "label": "写出最终答案",
+          "knowledge": [],
+          "score_weight": 2
+        }}
+      ],
+      "final_answer": "2",
+      "knowledge_points": ["导数定义", "极限计算"],
+      "common_mistakes": ["忘记约分h", "极限计算错误"]
+    }}
+  ]
+}}
+```
+"""
+
+STUDENT_TRACE_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
+
+# 当前任务：解析学生解题轨迹
+
+你是考研数学阅卷专家。请从学生的原始解题文本中提取**结构化**的推导轨迹。
+这不是生成标准答案，而是"如实记录学生做了什么"。
+
+## 学生作答
+{student_answer}
+
+## 题目信息（参考用）
+{question}
+
+## 输出要求
+
+请以 **JSON 格式**输出（不要输出其他内容，只输出 JSON）：
+
+```json
+{{
+  "steps": [
+    {{
+      "id": "s1",
+      "operation": "操作类型（使用标准名：differentiate, integrate, simplify, solve_system, substitute, compute_limit, matrix_op, eigen_solve, apply_theorem, expand_series, classify, final_answer 等）",
+      "input_state": "该步骤的输入数学状态（LaTeX格式）",
+      "output_state": "该步骤的输出数学状态（LaTeX格式）",
+      "label": "该步骤的自然语言描述（中文）",
+      "has_error": false,
+      "error_description": ""
+    }}
+  ],
+  "final_answer": "学生给出的最终答案（LaTeX格式）",
+  "method_name": "学生使用的解法名称"
+}}
+```
+
+## 关键约束
+1. 严格按照学生实际书写的步骤提取，不要补充、修正或重新推导
+2. 如果某步骤有错误，has_error=true 并在 error_description 中说明错误原因
+3. 如果学生跳步（中间过程缺失），仍然提取可见的步骤，不需要补全
+4. operation 必须使用标准类型名（differentiate, integrate, simplify, solve_system, substitute, compute_limit, matrix_op, eigen_solve, orthogonalize, quadratic_form, probability_calc, expectation, mle_derive, moment_estimate, apply_theorem, expand_series, classify, final_answer）
+5. 如果学生完全没有数学内容，steps 为空数组
+6. 最后一个步骤的 operation 应为 "final_answer"
+"""
+
 GRADING_PROMPT = _SAFE_BASE + """
 
 # 当前任务：批改评分
