@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$5.$ 设矩阵 $A=\\begin{pmatrix}1&1&1\\\\1&2&a\\\\1&4&a^2\\end{pmatrix}$，$b=\\begin{pmatrix}1\\\\ d\\\\ d^2\\end{pmatrix}$。若 $\\Omega=\\{1,2\\}$，则 $Ax=b$ 有无穷多解的充要条件为 $( )$\n\n$(A)$ $a\\notin\\Omega,d\\notin\\Omega \\qquad(B)$ $a\\in\\Omega,d\\in\\Omega$\n\n$(C)$ $a\\in\\Omega,d\\notin\\Omega \\qquad (D)$ $a\\notin\\Omega,d\\in\\Omega$",
+  "question": "$5.$ 设矩阵 $A=\\begin{pmatrix}1&1&1\\\\1&2&a\\\\1&4&a^2\\end{pmatrix}$，$b=\\begin{pmatrix}1\\\\ d\\\\ d^2\\end{pmatrix}$。若 $\\Omega=\\{1,2\\}$，则 $Ax=b$ 有无穷多解的充要条件为 $( )$\n\n$(A)$ $a\\notin\\Omega,d\\notin\\Omega$ \\qquad $(B)$ $a\\in\\Omega,d\\in\\Omega$\n\n$(C)$ $a\\in\\Omega,d\\notin\\Omega$ \\qquad $(D)$ $a\\notin\\Omega,d\\in\\Omega$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

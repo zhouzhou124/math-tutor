@@ -10,7 +10,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$5.$ 设 $\\alpha$ 为 $n$ 维单位列向量，$E$ 为 $n$ 阶单位矩阵，则( )\n\n$(A)$ $E-\\alpha\\alpha^T$ 不可逆 $\\qquad$ $(B)$ $E+\\alpha\\alpha^T$ 不可逆\n\n$(C)$ $E+2\\alpha\\alpha^T$ 不可逆 $\\qquad$ $(D)$ $E-2\\alpha\\alpha^T$ 不可逆",
+  "question": "$5.$ 设 $\\alpha$ 为 $n$ 维单位列向量，$E$ 为 $n$ 阶单位矩阵，则( )\n\n$(A)$ $E-\\alpha\\alpha^T$ 不可逆 \\qquad $(B)$ $E+\\alpha\\alpha^T$ 不可逆\n\n$(C)$ $E+2\\alpha\\alpha^T$ 不可逆 \\qquad $(D)$ $E-2\\alpha\\alpha^T$ 不可逆",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

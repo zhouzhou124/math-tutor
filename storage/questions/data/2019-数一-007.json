@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$7.$ 设 $A,B$ 为随机事件，$P(A)>0,P(B)>0$，若 $P(\\overline{A}B)=P(\\overline{B}A)$，则( )\n\n$(A)$ $P(A)=P(B)$ $\\qquad$ $(B)$ $P(A)=P(\\overline{B})$\n\n$(C)$ $P(A)=P(\\overline{A})$ $\\qquad$ $(D)$ $P(A)=P(B)$",
+  "question": "$7.$ 设 $A,B$ 为随机事件，则 $P(A) = P(B)$ 的充分必要条件是 ( )\n\n$(A)$ $P(A \\cup B) = P(A) + P(B)$ \\quad $(B)$ $P(AB) = P(A)P(B)$\n\n$(C)$ $P(\\bar{A}B) = P(\\bar{B}A)$ \\quad $(D)$ $P(AB) = P(\\bar{A}\\bar{B})$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

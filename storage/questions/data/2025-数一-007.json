@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 5,
-  "question": "$7.$ 设 $n$ 阶矩阵 $A,B,C$ 满足 $r(A)+r(B)+r(C)=r(ABC)+2n$，下列结论：①$r(ABC)+n=r(AB)+r(C)$；②$r(AB)+n=r(A)+r(B)$；③$r(A)=r(B)=r(C)=n$；④$r(AB)=r(BC)=n$。其中正确结论的序号是（ ）\n\n$(A)$ ①②\n$(B)$ ①③\n$(C)$ ②④\n$(D)$ ③④",
+  "question": "$7.$ 设 $n$ 阶矩阵 $A,B,C$ 满足 $r(A)+r(B)+r(C)=r(ABC)+2n$，下列结论：①$r(ABC)+n=r(AB)+r(C)$ ；②$r(AB)+n=r(A)+r(B)$ ；③$r(A)=r(B)=r(C)=n$ ；④$r(AB)=r(BC)=n$ 。其中正确结论的序号是（ ）\n\n$(A)$ ①②\n$(B)$ ①③\n$(C)$ ②④\n$(D)$ ③④",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

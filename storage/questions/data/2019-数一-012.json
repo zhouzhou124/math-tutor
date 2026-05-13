@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 4,
-  "question": "$12.$ 设 $\\Sigma$ 为锥面 $z=\\sqrt{x^2+y^2}$ 介于 $z=0$ 与 $z=2$ 之间的部分，方向取下侧，则 $\\iint\\limits_\\Sigma|y|dxdy=\\underline{\\qquad\\qquad}$",
+  "question": "$12.$ 设 $\\Sigma$ 为曲面 $x^2 + y^2 + 4z^2 = 4$ ($z \\ge 0$) 的上侧，则 $\\iint_\\Sigma \\sqrt{4 - x^2 - 4z^2} dxdy =\\underline{\\qquad\\qquad}$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

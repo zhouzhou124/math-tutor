@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$6.$ 设三张平面两两相交且交线相互平行，则( )\n\n$(A)$ $r(A)=2,r(\\overline{A})=3$ $\\qquad$ $(B)$ $r(A)=2,r(\\overline{A})=2$\n\n$(C)$ $r(A)=1,r(\\overline{A})=2$ $\\qquad$ $(D)$ $r(A)=1,r(\\overline{A})=1$",
+  "question": "$6.$ 如图所示，有3张平面两两相交，交线相互平行，它们的方程 $a_{i1}x + a_{i2}y + a_{i3}z = d_i$ ($i=1,2,3$) 组成的线性方程组的系数矩阵和增广矩阵分别记为 $A, \\bar{A}$，则 $( )$\n\n$(A)$ $r(A)=2,r(\\overline{A})=3$ \\qquad $(B)$ $r(A)=2,r(\\overline{A})=2$\n\n$(C)$ $r(A)=1,r(\\overline{A})=2$ \\qquad $(D)$ $r(A)=1,r(\\overline{A})=1$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

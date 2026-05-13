@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$1.$ 已知极限 $\\lim_{x\\to0}\\frac{x-\\arctan x}{x^k}=c$，其中 $k,c$ 为常数，且 $c\\neq0$，则( )\n\n$(A)$ $k=2,c=-\\frac12 \\qquad(B)$ $k=2,c=\\frac12$ \n\n$(C)$ $k=3,c=-\\frac13 \\qquad(D)$ $k=3,c=\\frac13$",
+  "question": "$1.$ 已知极限 $\\lim_{x\\to0}\\frac{x-\\arctan x}{x^k}=c$，其中 $k,c$ 为常数，且 $c\\neq0$，则( )\n\n$(A)$ $k=2,c=-\\frac12$ \\qquad $(B)$ $k=2,c=\\frac12$ \n\n$(C)$ $k=3,c=-\\frac13$ \\qquad $(D)$ $k=3,c=\\frac13$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

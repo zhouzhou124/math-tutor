@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 10,
-  "question": "$17.$ (本题满分10分)计算 $I=\\iint\\limits_\\Sigma(x+y+z)dS$，其中 $\\Sigma$ 是锥面 $z=\\sqrt{x^2+y^2}$ 被平面 $z=1$ 所截部分的外侧。",
+  "question": "$17.$ (本题满分10分)求曲线 $y = e^{-x}\\sin x$ ($x \\ge 0$) 与 $x$ 轴之间图形的面积。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

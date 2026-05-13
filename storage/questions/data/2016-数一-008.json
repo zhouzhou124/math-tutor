@@ -10,7 +10,7 @@
   ],
   "difficulty": "较难",
   "score": 4,
-  "question": "$8.$ 随机试验 $E$ 有三种两两不相容的结果 $A_1,A_2,A_3$，概率均为 $\\frac13$，独立重复做 $2$ 次。$X$ 为 $A_1$ 发生次数，$Y$ 为 $A_2$ 发生次数，则 $X$ 与 $Y$ 的相关系数为( )\n\n$(A)$ $-\\frac12$ $\\qquad$ $(B)$ $-\\frac13$ $\\qquad$ $(C)$ $\\frac13$ $\\qquad$ $(D)$ $\\frac12$",
+  "question": "$8.$ 随机试验 $E$ 有三种两两不相容的结果 $A_1,A_2,A_3$，概率均为 $\\frac13$，独立重复做 $2$ 次。$X$ 为 $A_1$ 发生次数，$Y$ 为 $A_2$ 发生次数，则 $X$ 与 $Y$ 的相关系数为( )\n\n$(A)$ $-\\frac12$ \\qquad $(B)$ $-\\frac13$ \\qquad $(C)$ $\\frac13$ \\qquad $(D)$ $\\frac12$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$8.$ 设 $X\\sim N(\\mu,\\sigma^2),Y\\sim N(\\mu,\\sigma^2)$，$X$ 与 $Y$ 独立，则 $P\\{|X-Y|<1\\}$( )\n\n$(A)$ 与 $\\mu$ 无关，与 $\\sigma^2$ 有关 $\\qquad$ $(B)$ 与 $\\mu$ 有关，与 $\\sigma^2$ 无关\n\n$(C)$ 与 $\\mu$ 和 $\\sigma^2$ 都有关 $\\qquad$ $(D)$ 与 $\\mu$ 和 $\\sigma^2$ 都无关",
+  "question": "$8.$ 设随机变量 $X$ 与 $Y$ 相互独立，且都服从正态分布 $N(\\mu, \\sigma^2)$，则 $P\\{|X-Y|<1\\}$ $( )$\n\n$(A)$ 与 $\\mu$ 无关，与 $\\sigma^2$ 有关 \\qquad $(B)$ 与 $\\mu$ 有关，与 $\\sigma^2$ 无关\n\n$(C)$ 与 $\\mu$ 和 $\\sigma^2$ 都有关 \\qquad $(D)$ 与 $\\mu$ 和 $\\sigma^2$ 都无关",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

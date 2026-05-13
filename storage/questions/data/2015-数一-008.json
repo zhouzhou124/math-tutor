@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$8.$ 设随机变量 $X,Y$ 不相关，且 $E(X)=2,E(Y)=1,D(X)=3$，则 $E[X(X+Y-2)]=$ $( )$\n\n$(A)$ $-3 \\qquad (B)$ $3 \\qquad(C)$ $-5 \\qquad (D)$ $5$",
+  "question": "$8.$ 设随机变量 $X,Y$ 不相关，且 $E(X)=2,E(Y)=1,D(X)=3$，则 $E[X(X+Y-2)]=$ $( )$\n\n$(A)$ $-3$ \\qquad $(B)$ $3$ \\qquad $(C)$ $-5$ \\qquad $(D)$ $5$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

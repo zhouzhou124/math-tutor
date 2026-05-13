@@ -123,6 +123,18 @@ class QuestionImporter:
         # 自动补全缺失字段
         enriched = self._enrich(item)
 
+        # LaTeX 格式校验 + 自动修复
+        try:
+            from validators import validate_and_repair
+            enriched, latex_result = validate_and_repair(enriched)
+            if not latex_result.valid:
+                for err in latex_result.errors[:5]:
+                    self.log.setdefault("latex_errors", []).append(err)
+            if latex_result.warnings:
+                self.log.setdefault("latex_warnings", []).extend(latex_result.warnings[:5])
+        except ImportError:
+            pass
+
         # 质量检查
         qc = self.db.validate(enriched)
         if not qc["valid"]:

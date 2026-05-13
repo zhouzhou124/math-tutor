@@ -213,6 +213,11 @@ def split_choice_matrix(text: str) -> str:
 # ═══════════════════════════════════════════════
 
 def repair_subquestions(text: str) -> str:
+    # 支持两种格式：$(1)$ 和 $\(1\)$
+    # 在小题之间添加空行
+    text = re.sub(r"([^\n])\n*(\$\((\d+)\)\$)", r"\1\n\n\2", text)
+    text = re.sub(r"(\$\((\d+)\)\$[^\n]*)\n(\$\((\d+)\)\$)", r"\1\n\n\3", text)
+    # 处理不带反斜杠的括号格式
     text = re.sub(r"([^\n])\n*(\$\(\d+\)\$)", r"\1\n\n\2", text)
     text = re.sub(r"(\$\(\d+\)\$[^\n]*)\n(\$\(\d+\)\$)", r"\1\n\n\2", text)
     return text

@@ -1,0 +1,23 @@
+=== 原始输入 ===
+$4.$ 若 $\int_{-\pi}^{\pi} (x - a_1 \cos x - b_1 \sin x)^2 dx = \min\limits_{a,b \in \mathbf{R}} \left\{ \int_{-\pi}^{\pi} (x - a \cos x - b \sin x)^2 dx ight\}$，则 $ a_1 \cos x + b_1 \sin x = $ $( )$ 
+ 
+ $(A)$ $2\sin x$ \qquad $(B)$ $2\cos x$ \qquad $(C)$ $2\pi\sin x$ \qquad $(D)$ $2\pi\cos x$
+
+================================================================================
+
+=== 修复后输出 ===
+$4.$ 若 $\int\limits_{-\pi}^{\pi} (x - a_1 \cos x - b_1 \sin x)^2 \,\mathrm{d}x = \min\limits_{a,b \in \mathbf{R}} \left\{ \int\limits_{-\pi}^{\pi} (x - a \cos x - b \sin x)^2 \,\mathrm{d}x
+ight\}$，则 $ a_1 \cos x + b_1 \sin x = $ $( )$
+
+ $(A)$ $2\sin x$ \qquad $(B)$ $2\cos x$ \qquad $(C)$ $2\pi\sin x$ \qquad $(D)$ $2\pi\cos x$
+
+================================================================================
+
+=== 验证结果 ===
+[OK] $ 分隔符保留
+[FAIL] 下标表达式未被包裹
+[FAIL] 选项 A 标签格式错误
+[FAIL] 选项 B 标签格式错误
+[FAIL] 选项 C 标签格式错误
+[FAIL] 选项 D 标签格式错误
+[OK] 三角函数表达式保留

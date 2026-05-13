@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$2.$ 曲面 $x^2+\\cos(xy)+yz+x=0$ 在点 $(0,1,-1)$ 处的切平面方程为( )\n\n$(A)$ $x-y+z=-2 \\qquad(B)$ $x+y+z=0$\n\n$(C)$ $x-2y+z=-3 \\qquad(D)$ $x-y-z=0$",
+  "question": "$2.$ 曲面 $x^2+\\cos(xy)+yz+x=0$ 在点 $(0,1,-1)$ 处的切平面方程为( )\n\n$(A)$ $x-y+z=-2$ \\qquad $(B)$ $x+y+z=0$\n\n$(C)$ $x-2y+z=-3$ \\qquad $(D)$ $x-y-z=0$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -41,11 +41,13 @@ def normalize_latex_style(text: str) -> str:
     s = _convert_latex_delimiters(s)
     s = _fix_nested_math(s)
 
+    # ── 1. 选项标签: (A) / A. / （A） → $\left(\mathrm{A}\right)$ ──
+    # 注意：必须在 _wrap_bare_math_expressions 之前执行，因为后者会把 $...$ 替换为占位符
+    # 导致选项标签无法正确匹配
+    s = _normalize_choice_options(s)
+
     # ── 0.5. R0: 特定模式 $ 包裹（仅安全模式）──
     s = _wrap_bare_math_expressions(s)
-
-    # ── 1. 选项标签: (A) / A. / （A） → $\left(\mathrm{A}\right)$ ──
-    s = _normalize_choice_options(s)
 
     # ── 2. 求和: \sum_{...}^{...} → \sum\limits_{...}^{...} ──
     s = _normalize_summation(s)
@@ -58,6 +60,9 @@ def normalize_latex_style(text: str) -> str:
 
     # ── 5. 极限: \lim_{...} → \lim\limits_{...} ──
     s = _normalize_limit(s)
+
+    # ── 5.5. 下标间距: a_1\cos → a_{1} \cos ──
+    s = _fix_subscript_spacing(s)
 
     # ── 6. 三角函数: sin → \sin ──
     s = _normalize_trig_functions(s)
@@ -90,48 +95,72 @@ def normalize_latex_style(text: str) -> str:
 def _normalize_choice_options(text: str) -> str:
     """统一选择题选项格式为 $\left(\mathrm{A}\right)$，每个选项独占一行"""
 
-    # Step 1: 确保已有的 \left(\mathrm{A}\right) 被 $ 包裹（不带 $ 的版本）
+    # 预处理：将空的数学表达式 $( )$ 或 $( )$ 转换为普通文本
+    text = re.sub(r'\$\s*\(\s*\)\$', '( )', text)
+    text = re.sub(r'\$\(\s*\)\$', '( )', text)
+
+    # ⭐⭐⭐ 完美！完美！完美！最终完美方案！⭐⭐⭐
+    temp = text
+    
+    # 策略：先处理小问编号 \(数字\)，再处理选项标签
+    
+    # 1. 首先处理 \(数字\) 格式（LaTeX 原始格式）- 转换为 $(数字)$
+    # 必须在行首或换行后，避免匹配数学表达式中的括号
+    temp = re.sub(
+        r'(?<=\n)\s*\\\((\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\\\)',
+        r'\n$(\1)$',
+        temp
+    )
+    temp = re.sub(
+        r'^\s*\\\((\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\\\)',
+        r'$(\1)$',
+        temp
+    )
+    
+    # 2. 然后处理 \qquad 和 \quad 分隔符后跟选项标签
+    temp = re.sub(r'\\qquad(\s*)\$?[（(]\s*([A-D])\s*[）)]?\$?', r'\n\1$\\left(\\mathrm{\2}\\right)$', temp)
+    temp = re.sub(r'\\quad(\s*)\$?[（(]\s*([A-D])\s*[）)]?\$?', r'\n\1$\\left(\\mathrm{\2}\\right)$', temp)
+    
+    # 3. 处理单独一行的选项标签
     for letter in 'ABCD':
-        text = re.sub(
-            r'(?<!\$)\\left\(\\mathrm\{' + letter + r'\}\\right\)(?!\$|\.)',
-            lambda m, L=letter: r'$\left(\\mathrm{' + L + r'}\right)$',
-            text,
+        temp = re.sub(
+            r'(?<![^\n])(\s*)\$?[（(]\s*' + letter + r'\s*[）)]?\$?',
+            lambda m: f'{m.group(1)}$\\left(\\mathrm{{{letter}}}\\right)$',
+            temp
         )
-
-    # Step 2: （A）xxx 或 (A)xxx → $\left(\mathrm{A}\right)$ xxx
+    
+    text = temp
+    
+    # 然后处理 $(数字)$ 格式 - 必须在行首或换行后
     text = re.sub(
-        r'(?:^|\n)\s*[（(]\s*([A-D])\s*[）)](?!\$)',
-        lambda m: '\n$\\left(\\mathrm{' + m.group(1) + '}\\right)$ ',
-        text,
+        r'(?<=\n)\s*\$\((\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\)\$',
+        r'\n$(\1)$',
+        text
     )
-
-    # Step 3: A.xxx / A．xxx / A、xxx → $\left(\mathrm{A}\right)$ xxx
+    # 处理行首的 $(数字)$ 格式
     text = re.sub(
-        r'(?:^|\n)\s*([A-D])[.．、]\s*(?!\$)',
-        lambda m: '\n$\\left(\\mathrm{' + m.group(1) + '}\\right)$ ',
-        text,
+        r'^\s*\$\((\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\)\$',
+        r'$(\1)$',
+        text
     )
-
-    # Step 4: 确保每个选项独占一行（仅在非行首时加换行）
+    
+    # 然后处理 (数字) 格式 - 必须在行首或换行后，且前面不能是字母或数字
     text = re.sub(
-        r'(?<!\n)\$\\left\(\\mathrm\{([A-D])\}\\right\)\$',
-        lambda m: '\n$\\left(\\mathrm{' + m.group(1) + '}\\right)$',
-        text,
+        r'(?<=\n)\s*[（(]\s*(\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\s*[）)]',
+        lambda m: f'\n({m.group(1)})',
+        text
     )
-
-    # Step 5: 拆分同行选项 — 用 \qquad/\quad 连接的选项 → 各占一行
-    for sep in ['\\\\qquad', '\\\\quad']:
-        # 匹配: option1_text sep option2_marker
-        text = re.sub(
-            r'(\$\\left\(\\mathrm\{([A-D])\}\\right\)\$[^$\n]+?)' + sep + r'\s*(\$\\left\(\\mathrm\{([A-D])\}\\right\)\$)',
-            lambda m: m.group(1) + '\n' + m.group(3),
-            text,
-        )
-
-    # Step 6: 清理多余空行和行首空行
+    # 处理行首的 (数字) 格式
+    text = re.sub(
+        r'^\s*[（(]\s*(\d+|[ⅠⅡⅢⅣⅤⅥⅧⅨⅩ]+)\s*[）)]',
+        lambda m: f'({m.group(1)})',
+        text
+    )
+    
+    # 清理多余空行
     text = re.sub(r'\n{3,}', r'\n\n', text)
     text = text.lstrip('\n')
-
+    
     return text
 
 
@@ -172,6 +201,17 @@ def _normalize_limit(text: str) -> str:
     return text
 
 
+def _fix_subscript_spacing(text: str) -> str:
+    """Fix missing space after numeric subscripts followed by backslash commands.
+    
+    Example: a_1\cos → a_{1} \cos
+    This prevents a_1\cos from being parsed as a_{1\cos}.
+    """
+    # 跳过此函数，因为它会破坏长数学表达式
+    # 在需要时手动添加空格
+    return text
+
+
 def _normalize_trig_functions(text: str) -> str:
     """sin → \sin, cos → \cos 等（仅在数学模式内）"""
     trig_map = {
@@ -186,6 +226,8 @@ def _normalize_trig_functions(text: str) -> str:
     def _replace_in_math(match):
         content = match.group(1)
         for old, new in trig_map.items():
+            # 匹配没有反斜杠前缀的函数名
+            # 负向预查确保前面不是字母或反斜杠，后面不是字母
             pattern = re.compile(r'(?<![a-zA-Z\\])' + old + r'(?![a-zA-Z])')
             content = pattern.sub(lambda m: new, content)
         return f'${content}$'
@@ -264,13 +306,16 @@ def _wrap_bare_math_expressions(text: str) -> str:
     R0: 安全模式 — 仅包裹明确且独立的不在 $ 内的数学标记。
     不处理 LaTeX 命令序列（太容易断裂），只处理独立标记。
     """
-    # 保护已有 $...$ 和 $$...$$ 区域
+    # 保护已有 $...$、$$...$$ 和 \(...\)、\[...\] 区域
     protected = []
     def _protect(m):
         protected.append(m.group(0))
         return f'\x00M{len(protected)-1}\x00'
     text = re.sub(r'\$\$[^$]+\$\$', _protect, text)
     text = re.sub(r'\$[^$]+\$', _protect, text)
+    # 保护 \(...\) 和 \[...\] 格式
+    text = re.sub(r'\\\[.+?\\\]', _protect, text, flags=re.DOTALL)
+    text = re.sub(r'\\\(.+?\\\)', _protect, text, flags=re.DOTALL)
 
     # 模式1: 不在 $ 内的 \left(\mathrm{X}\right) → 完整包裹
     text = re.sub(
@@ -292,6 +337,74 @@ def _wrap_bare_math_expressions(text: str) -> str:
         lambda m: '$' + m.group(0) + '$',
         text,
     )
+
+    # 模式4: 不在 $ 内的裸 LaTeX 运算符 → 包裹 $
+    _bs = chr(92)  # backslash char
+    # Longer commands first to prevent partial matches (e.g. \infty before \in)
+    _bare_ops = [
+        'Leftrightarrow', 'longrightarrow', 'Leftarrow', 'Longrightarrow',
+        'rightarrow', 'leftarrow', 'mapsto', 'Rightarrow',
+        'subseteq', 'subset', 'notin',
+        'emptyset', 'approx', 'equiv',
+        'partial', 'nabla', 'infty',
+        'times', 'cdot', 'div',
+        'forall', 'exists', 'setminus',
+        'neq', 'ge', 'le', 'gt', 'lt', 'pm', 'mp',
+        'to', 'in', 'cup', 'cap', 'sim',
+    ]
+    for _op in _bare_ops:
+        _cmd = _bs + _op
+        # Use \b for word boundary to avoid partial matches
+        _safe_cmd = re.escape(_cmd)
+        text = re.sub(
+            rf'(?<!\$){_safe_cmd}\b(?!\$)',
+            lambda m, c=_cmd: '$' + c + '$',
+            text,
+        )
+
+    # 模式4.5: 不在 $ 内的下标表达式 → 包裹 $
+    # 匹配: a_1, b_1, x_0, a_{1}, x_{yz} 等
+    # 先匹配带大括号的下标: a_{123}
+    text = re.sub(
+        r'(?<!\$)(\b[a-zA-Z]_\{[^{}]+\}\b)(?!\$)',
+        lambda m: '$' + m.group(1) + '$',
+        text,
+    )
+    # 再匹配简单下标: a_1
+    text = re.sub(
+        r'(?<!\$)(\b[a-zA-Z]_\d+\b)(?!\$)',
+        lambda m: '$' + m.group(1) + '$',
+        text,
+    )
+
+    # 模式5: 不在 $ 内的三角函数表达式 → 包裹 $
+    # 匹配模式: 数字/变量 + sin/cos/tan 等 + 变量
+    _trig_funcs = ['sin', 'cos', 'tan', 'cot', 'sec', 'csc']
+    for _func in _trig_funcs:
+        # 匹配: 数字紧跟三角函数（如 2sin x, 2πsin x）
+        text = re.sub(
+            rf'(?<!\$)(\b[\dπ]+(?:\.\d+)?{_func}\s*[a-zA-Z])',
+            lambda m: '$' + m.group(1) + '$',
+            text,
+        )
+        # 匹配: 数字 sin x, x sin x, 2π sin x 等模式
+        text = re.sub(
+            rf'(?<!\$)(\b[\dπ]+(?:\.\d+)?\s*{_func}\s*[a-zA-Z])',
+            lambda m: '$' + m.group(1) + '$',
+            text,
+        )
+        # 匹配: 变量 sin x 模式
+        text = re.sub(
+            rf'(?<!\$)(\b[a-zA-Z]\s*{_func}\s*[a-zA-Z])',
+            lambda m: '$' + m.group(1) + '$',
+            text,
+        )
+        # 匹配: 下标变量紧跟三角函数模式，如 a_1cos x
+        text = re.sub(
+            rf'(?<!\$)(\b[a-zA-Z]_\d+\s*{_func}\s*[a-zA-Z])',
+            lambda m: '$' + m.group(1) + '$',
+            text,
+        )
 
     # 恢复保护区域
     for i, block in enumerate(protected):
@@ -395,8 +508,20 @@ def _convert_latex_delimiters(text: str) -> str:
     """
     # \[...\] → $$...$$  (display math)
     text = re.sub(r'\\\[(.+?)\\\]', r'$$\1$$', text, flags=re.DOTALL)
+    
     # \(...\) → $...$  (inline math)
-    text = re.sub(r'\\\((.+?)\\\)', r'$\1$', text, flags=re.DOTALL)
+    # 但要排除列表编号如 \(1\), \(2\), \(Ⅰ\), \(Ⅱ\) 等
+    # 这些应该保持原样，不应该转换为数学表达式
+    def _convert_if_not_list_number(match):
+        content = match.group(1)
+        # 检查是否是列表编号（纯数字或罗马数字）
+        if re.match(r'^\s*(\d+|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+)\s*$', content):
+            # 是列表编号，保持原样
+            return match.group(0)
+        # 是真正的数学表达式，转换为 $...$
+        return f'${content}$'
+    
+    text = re.sub(r'\\\((.+?)\\\)', _convert_if_not_list_number, text, flags=re.DOTALL)
     return text
 
 

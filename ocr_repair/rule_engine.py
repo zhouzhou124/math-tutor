@@ -207,9 +207,19 @@ def _apply_ocr_to_latex(text: str) -> tuple[str, int]:
     result = text
     for symbol, latex in _OCR_TO_LATEX:
         if symbol in result:
-            old = result
-            result = result.replace(symbol, latex)
-            count += 1
+            # 对于字母形式的映射（如 'lim' -> '\lim '），只在不是 LaTeX 命令的一部分时替换
+            # 即前面不能有反斜杠
+            if symbol.isalpha():
+                # 使用正则表达式，确保前面没有反斜杠
+                pattern = re.compile(r'(?<!\\)' + re.escape(symbol))
+                matches = pattern.findall(result)
+                if matches:
+                    result = pattern.sub(latex, result)
+                    count += len(matches)
+            else:
+                old = result
+                result = result.replace(symbol, latex)
+                count += 1
     return result, count
 
 

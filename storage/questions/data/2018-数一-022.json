@@ -10,7 +10,7 @@
   ],
   "difficulty": "较难",
   "score": 11,
-  "question": "$22.$ (本题满分11分)设 $X$ 与 $Y$ 独立，$X$ 的概率分布为 $P(X=1)=P(X=-1)=1/2$，$Y$ 服从参数为 $\\lambda$ 的泊松分布。令 $Z=XY$。\n\n$(1)$ 求 $\\operatorname{Cov}(X,Z)$；\n\n$(2)$ 求 $Z$ 的概率分布。",
+  "question": "$22.$ (本题满分11分)设 $X$ 与 $Y$ 独立，$X$ 的概率分布为 $P(X=1)=P(X=-1)=\\frac12$，$Y$ 服从参数为 $\\lambda$ 的泊松分布。令 $Z=XY$。\n\n$(1)$ 求 $\\operatorname{Cov}(X,Z)$；\n\n$(2)$ 求 $Z$ 的概率分布。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 10,
-  "question": "$19.$ (本题满分10分)已知曲线 $L$ 的方程为 $z=\\sqrt{2-x^2-y^2},z=x$，起点 $A(0,\\sqrt2,0)$，终点 $B(0,-\\sqrt2,0)$，计算 $I=\\int_L(y+z)dx+(z^2-x^2+y)dy+x^2y^2dz$。",
+  "question": "$19.$ (本题满分10分)已知曲线 $L$ 的方程为 $z=\\sqrt{2-x^2-y^2},z=x$，起点 $A(0,\\sqrt2,0)$，终点 $B(0,-\\sqrt2,0)$，计算 $$I=\\int_L(y+z)dx+(z^2-x^2+y)dy+x^2y^2dz.$$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

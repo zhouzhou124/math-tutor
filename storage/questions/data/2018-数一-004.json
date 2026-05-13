@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$4.$ 设 $M=\\int_{-\\pi/2}^{\\pi/2}\\frac{(1+x)^2}{1+x^2}dx,N=\\int_{-\\pi/2}^{\\pi/2}\\frac{1+x}{e^x}dx,K=\\int_{-\\pi/2}^{\\pi/2}(1+\\sqrt{\\cos x})dx$，则( )\n\n$(A)$ $M>N>K$ $\\qquad$ $(B)$ $M>K>N$\n\n$(C)$ $K>M>N$ $\\qquad$ $(D)$ $K>N>M$",
+  "question": "$4.$ 设 $M=\\int_{-\\pi/2}^{\\pi/2}\\frac{(1+x)^2}{1+x^2}dx,N=\\int_{-\\pi/2}^{\\pi/2}\\frac{1+x}{e^x}dx,K=\\int_{-\\pi/2}^{\\pi/2}(1+\\sqrt{\\cos x})dx$，则( )\n\n$(A)$ $M>N>K$ \\qquad $(B)$ $M>K>N$\n\n$(C)$ $K>M>N$ \\qquad $(D)$ $K>N>M$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$6.$ 设 $\\alpha_1,\\alpha_2,\\alpha_3$ 均为3维向量，则对任意常数 $k,l$，向量组 $\\alpha_1 + k\\alpha_3$，$\\alpha_2 + l\\alpha_3$ 线性无关是向量组 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关的 $( )$\n\n$(A)$ 必要非充分 $\\qquad$ $(B)$ 充分非必要 $\\qquad$ $(C)$ 充要 $\\qquad$ $(D)$ 既非充分也非必要",
+  "question": "$6.$ 设 $\\alpha_1,\\alpha_2,\\alpha_3$ 均为3维向量，则对任意常数 $k,l$，向量组 $\\alpha_1 + k\\alpha_3$，$\\alpha_2 + l\\alpha_3$ 线性无关是向量组 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关的 $( )$\n\n$(A)$ 必要非充分 \\qquad $(B)$ 充分非必要 \\qquad $(C)$ 充要 \\qquad $(D)$ 既非充分也非必要",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

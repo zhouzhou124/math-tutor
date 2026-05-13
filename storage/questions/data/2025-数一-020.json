@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 10,
-  "question": "$20.$ （本题满分10分）设 $\\Sigma$ 是由直线 $\\begin{cases} x=0 \\\\ y=0 \\end{cases}$ 绕直线 $\\begin{cases} x=t \\\\ y=t \\\\ z=t \\end{cases}$ 旋转一周得到的曲面，$\\Sigma_1$ 是 $\\Sigma$ 介于 $x+y+z=0$ 与 $x+y+z=1$ 之间部分的外侧，计算 $$I = \\iint_{\\Sigma_1} x dy dz + (y+1) dz dx + (z+2) dx dy$$。",
+  "question": "$20.$ （本题满分10分）设 $\\Sigma$ 是由直线 $\\begin{cases} x=0 \\\\ y=0 \\end{cases}$ 绕直线 $\\begin{cases} x=t \\\\ y=t \\\\ z=t \\end{cases}$ 旋转一周得到的曲面，$\\Sigma_1$ 是 $\\Sigma$ 介于 $x+y+z=0$ 与 $x+y+z=1$ 之间部分的外侧，计算 $I = \\iint_{\\Sigma_1} x dy dz + (y+1) dz dx + (z+2) dx dy$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

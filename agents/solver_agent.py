@@ -49,7 +49,7 @@ class SolverAgent:
 
             # 规范化 LaTeX（修复 $$$ 等破损分隔符，再解析步骤）
             try:
-                from latex_normalizer import normalize_latex_style
+                from latex_utils import normalize_latex_style
                 text = normalize_latex_style(text)
             except Exception:
                 pass

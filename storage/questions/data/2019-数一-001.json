@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$1.$ 当 $x\\to 0$ 时，若 $x-\\tan x$ 与 $x^k$ 是同阶无穷小，则 $k=$ $( )$\n\n$(A)$ $1$ $\\qquad$ $(B)$ $2$ $\\qquad$ $(C)$ $3$ $\\qquad$ $(D)$ $4 $",
+  "question": "$1.$ 当 $x\\to 0$ 时，若 $x-\\tan x$ 与 $x^k$ 是同阶无穷小，则 $k=$ $( )$\n\n$(A)$ $1$ \\qquad $(B)$ $2$ \\qquad $(C)$ $3$ \\qquad $(D)$ $4 $",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

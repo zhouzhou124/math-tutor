@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 11,
-  "question": "$22.$ (本题满分11分)设随机变量 $X$ 的概率密度为 $$f(x) = \\begin{cases} \\frac{1}{9}x^2, & 0 < x < 3 \\\\ 0, & \\text{其他} \\end{cases}$$，令随机变量 $Y = \\begin{cases} 2, & X \\le 1 \\\\ X, & 1 < X < 2 \\\\ 1, & X \\ge 2 \\end{cases}$。\n\n$(1)$ 求 $Y$ 的分布函数；\n\n$(2)$ 求概率 $P\\{X \\le Y\\}$。",
+  "question": "$22.$ (本题满分11分)设随机变量 $X$ 的概率密度为 $$f(x) = \\begin{cases} \\frac{1}{9}x^2, & 0 < x < 3 \\\\ 0, & \\text{其他} \\end{cases}$$ 令随机变量 $Y = \\begin{cases} 2, & X \\le 1 \\\\ X, & 1 < X < 2 \\\\ 1, & X \\ge 2 \\end{cases}$。\n\n$(1)$ 求 $Y$ 的分布函数；\n\n$(2)$ 求概率 $P\\{X \\le Y\\}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

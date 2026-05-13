@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 4,
-  "question": "$10.$ 微分方程 $yy''+(y')^2=yy'$ 满足 $y(0)=1,y'(0)=1$ 的解为 $y=\\underline{\\qquad\\qquad}$",
+  "question": "$10.$ 微分方程 $2yy' - y^2 - 2 = 0$ 满足条件 $y(0)=1$ 的特解 $y =\\underline{\\qquad\\qquad}$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

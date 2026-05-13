@@ -10,7 +10,7 @@
   ],
   "difficulty": "较难",
   "score": 10,
-  "question": "$18.$ (本题满分10分)设 $f(x)$ 在 $[0,1]$ 上连续，$(0,1)$ 内可导，且 $f(0)=0,f(1)=1$，证明：存在 $\\xi\\in(0,1)$ 使得 $f'(\\xi)=2\\xi f(\\xi)$。",
+  "question": "$18.$ (本题满分10分)设 $a_n = \\int_0^1 x^n \\sqrt{1-x^2} dx$ ($n=0,1,2,\\dots$)。\n\n$(1)$ 证明数列 $\\{a_n\\}$ 单调递减，且 $a_n = \\frac{n-1}{n+2} a_{n-2}$ ($n=2,3,\\dots$)；\n\n$(2)$ 求 $\\lim_{n\\to\\infty} \\frac{a_n}{a_{n-1}}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,7 +9,7 @@
   ],
   "difficulty": "基础",
   "score": 4,
-  "question": "$14.$ 设随机变量 $X$ 的概率密度为 $$f(x)=\\begin{cases}\\frac{x}{2},& 0<x<2 \\\\0,& \\text{其他}\\end{cases}$$，则 $P\\{X\\le1\\}=\\underline{\\qquad\\qquad}$",
+  "question": "$14.$ 设随机变量 $X$ 的概率密度为 $$f(x) = \\begin{cases} \\frac{x}{2}, & 0<x<2 \\\\ 0, & \\text{其他} \\end{cases},$$ $F(x)$ 为 $X$ 的分布函数，$E(X)$ 为 $X$ 的数学期望，则 $P\\{F(X) > E(X) - 1\\} =\\underline{\\qquad\\qquad}$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

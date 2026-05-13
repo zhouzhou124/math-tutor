@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 10,
-  "question": "$15.$ (本题满分10分)求不定积分 $\\int e^{2x}\\arctan\\sqrt{e^x-1}dx$。",
+  "question": "$15.$ (本题满分10分)求不定积分 $$\\int e^{2x}\\arctan\\sqrt{e^x-1}dx.$$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

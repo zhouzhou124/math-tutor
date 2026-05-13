@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$4.$ 设 $D$ 是第一象限中曲线 $2xy=1,4xy=1$ 与直线 $y=x,y=\\sqrt3x$ 围成的区域，则 $\\iint\\limits_D f(x,y)dxdy=$( )\n\n$(A)$ $ \\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $\n\n$(B)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $ \n\n$(C)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $\n\n$(D)$ $\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $",
+  "question": "$4.$ 设 $D$ 是第一象限中曲线 $2xy=1,4xy=1$ 与直线 $y=x,y=\\sqrt3x$ 围成的区域，则 $\\iint\\limits_D f(x,y)dxdy=$( )\n\n$(A)$ $$ \\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $$\n\n$(B)$ $$\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) r dr $$ \n\n$(C)$ $$\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{2\\sin 2\\theta}}^{\\frac{1}{\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $$\n\n$(D)$ $$\\int_{\\pi/4}^{\\pi/3} d\\theta \\int_{\\frac{1}{\\sin 2\\theta}}^{\\frac{1}{2\\sin 2\\theta}} f(r\\cos\\theta, r\\sin\\theta) dr $$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

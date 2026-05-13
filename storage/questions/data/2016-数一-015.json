@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 10,
-  "question": "$15.$ (本题满分10分)已知 $D=\\{(r,\\theta)|2\\le r\\le2(1+\\cos\\theta),-\\frac\\pi2\\le\\theta\\le\\frac\\pi2\\}$，计算 $\\iint\\limits_D xdxdy$。",
+  "question": "$15.$ (本题满分10分)已知 $D=\\{(r,\\theta)|2\\le r\\le2(1+\\cos\\theta),-\\frac\\pi2\\le\\theta\\le\\frac\\pi2\\}$，计算 $$\\iint\\limits_D xdxdy.$$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$3.$ 设 $\\{u_n\\}$ 是单调增加的有界数列，则下列级数中收敛的是（ ）\n\n$ (A)\\ \\sum_{n=1}^{\\infty}\\frac{u_n}{n}\\qquad(B)\\ \\sum_{n=1}^{\\infty}(-1)^n\\frac{1}{u_n}$\n\n$ (C)\\ \\sum_{n=1}^{\\infty}\\left(1-\\frac{u_n}{u_{n+1}}\\right)\\qquad(D)\\ \\sum_{n=1}^{\\infty}(u_{n+1}^2-u_n^2)$",
+  "question": "$3.$ 设 $\\{u_n\\}$ 是单调增加的有界数列，则下列级数中收敛的是（ ）\n\n$(A)$ $\\sum_{n=1}^{\\infty}\\frac{u_n}{n}$ \\qquad $(B)$ $\\sum_{n=1}^{\\infty}(-1)^n\\frac{1}{u_n}$\n\n$(C)$ $\\sum_{n=1}^{\\infty}\\left(1-\\frac{u_n}{u_{n+1}}\\right)$ \\qquad $(D)$ $\\sum_{n=1}^{\\infty}(u_{n+1}^2-u_n^2)$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

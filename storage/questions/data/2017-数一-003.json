@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$3.$ 函数 $f(x,y,z)=x^2y+z^2$ 在点 $(1,2,0)$ 处沿向量 $n=(1,2,2)$ 的方向导数为( )\n\n$(A)$ $12$ $\\qquad$ $(B)$ $6$ $\\qquad$ $(C)$ $4$ $\\qquad$ $(D)$ $2$",
+  "question": "$3.$ 函数 $f(x,y,z)=x^2y+z^2$ 在点 $(1,2,0)$ 处沿向量 $n=(1,2,2)$ 的方向导数为( )\n\n$(A)$ $12$ \\qquad $(B)$ $6$ \\qquad $(C)$ $4$ \\qquad $(D)$ $2$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

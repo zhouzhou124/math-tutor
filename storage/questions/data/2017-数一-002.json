@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$2.$ 设函数 $f(x)$ 可导，且 $f(x)f'(x)>0$，则( )\n\n$(A)$ $f(1)>f(-1)$ $\\qquad$ $(B)$ $f(1)<f(-1)$\n\n$(C)$ $|f(1)|>|f(-1)|$ $\\qquad$ $(D)$ $|f(1)|<|f(-1)|$",
+  "question": "$2.$ 设函数 $f(x)$ 可导，且 $f(x)f'(x)>0$，则( )\n\n$(A)$ $f(1)>f(-1)$ \\qquad $(B)$ $f(1)<f(-1)$\n\n$(C)$ $|f(1)|>|f(-1)|$ \\qquad $(D)$ $|f(1)|<|f(-1)|$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

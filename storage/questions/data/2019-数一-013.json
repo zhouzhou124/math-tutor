@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$13.$ 设 $\\alpha_1=(1,0,1)^T,\\alpha_2=(0,1,1)^T,\\alpha_3=(1,1,0)^T$，且 $A\\alpha_1=\\alpha_1,A\\alpha_2=\\alpha_2,A\\alpha_3=-\\alpha_3$，则 $Ax=0$ 的通解为 $\\underline{\\qquad\\qquad}$",
+  "question": "$13.$ 设 $A = (\\alpha_1,\\alpha_2,\\alpha_3)$ 为3阶矩阵。若 $\\alpha_1,\\alpha_2$ 线性无关，且 $\\alpha_3 = -\\alpha_1 + 2\\alpha_2$，则线性方程组 $Ax = 0$ 的通解为 $\\underline{\\qquad\\qquad}$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

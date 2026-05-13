@@ -9,7 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$1.$ 下列函数中，在 $x=0$ 处不可导的是( )\n\n$(A)$ $f(x)=|x|\\sin|x|$ $\\qquad$ $(B)$ $f(x)=|x|\\sin\\sqrt{|x|}$\n\n$(C)$ $f(x)=\\cos|x|$ $\\qquad$ $(D)$ $f(x)=\\cos\\sqrt{|x|}$",
+  "question": "$1.$ 下列函数中，在 $x=0$ 处不可导的是( )\n\n$(A)$ $f(x)=|x|\\sin|x|$ \\qquad $(B)$ $f(x)=|x|\\sin\\sqrt{|x|}$\n\n$(C)$ $f(x)=\\cos|x|$ \\qquad $(D)$ $f(x)=\\cos\\sqrt{|x|}$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [
