@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ 设 $z=f(x,y)$ 可微，且 $z$ 满足 $\\frac{\\partial z}{\\partial x}=-\\cos x\\cdot f'(x,y)+y$，$\\frac{\\partial z}{\\partial y}=\\cos y\\cdot f'(x,y)+x$，则 $\\frac{1}{\\cos x}\\frac{\\partial z}{\\partial x}+\\frac{1}{\\cos y}\\frac{\\partial z}{\\partial y}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$y/\\cos x+x/\\cos y$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$13.$ 设 $2$ 阶矩阵 $A$ 有两个不同特征值，$\\alpha_1,\\alpha_2$ 是 $A$ 的线性无关的特征向量，且满足 $A^2(\\alpha_1+\\alpha_2)=\\alpha_1+\\alpha_2$，则 $|A|=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

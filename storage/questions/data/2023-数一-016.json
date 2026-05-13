@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$16.$ $X,Y$ 独立且均 $N(0,1)$,则 $P\\{X^2+Y^2\\le1\\}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$1-e^{-1/2}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

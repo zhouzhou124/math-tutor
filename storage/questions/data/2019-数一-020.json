@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$20.$ (本题满分11分)设 $R^3$ 中 $\\alpha_1=\\alpha_2+\\beta,\\alpha_2=\\alpha_3+\\beta,\\alpha_3=\\alpha_1+\\beta$。\n\n$(1)$ 求 $\\beta$ 用 $\\alpha_1,\\alpha_2,\\alpha_3$ 表示的表达式；\n\n$(2)$ 若 $\\alpha_1=(1,0,0)^T,\\alpha_2=(1,1,0)^T,\\alpha_3=(1,1,1)^T$，求矩阵 $C$。",
-  "standard_answer": "$(1)$ $\\beta=\\frac12(\\alpha_1+\\alpha_2+\\alpha_3)$。\n$(2)$ $C=\\begin{pmatrix}0&0&1\\\\1&0&1\\\\0&1&1\\end{pmatrix}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

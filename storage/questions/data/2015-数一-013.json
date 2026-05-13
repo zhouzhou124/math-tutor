@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$13.$ $n$ 阶行列式 $\\begin{vmatrix}2&0&\\cdots&0&2\\\\ -1&2&\\cdots&0&2\\\\ \\vdots&\\vdots&\\ddots&\\vdots&\\vdots\\\\ 0&0&\\cdots&2&2\\\\0&0&\\cdots&-1&2\\end{vmatrix}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2^{n+1}-2$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

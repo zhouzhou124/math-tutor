@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$10.$ 设 $f(x)$ 是周期为 $4$ 的可导奇函数，且 $f'(x)=2(x-1),x\\in[0,2]$，则 $f(7)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

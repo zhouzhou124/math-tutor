@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$16.$ 设随机变量 $X$ 服从参数为 $1$ 的泊松分布，随机变量 $Y$ 服从参数为 $3$ 的泊松分布，$X$ 与 $Y-X$ 相互独立，则 $E(XY) = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$4$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

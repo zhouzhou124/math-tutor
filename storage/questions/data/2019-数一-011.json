@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$11.$ 幂级数 $\\sum_{n=0}^\\infty\\frac{(-1)^n}{(2n)!}x^n$ 的和函数为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\cos\\sqrt{x}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

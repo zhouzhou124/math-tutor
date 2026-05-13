@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$11.$ 设 $\\begin{cases} x = \\sin t \\\\ y = t\\sin t + \\cos t \\end{cases}$ ($t$ 为参数)，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\frac{\\pi}{4}} =\\underline{\\qquad\\qquad}$",
-  "standard_answer": "0.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

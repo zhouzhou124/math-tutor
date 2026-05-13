@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$2.$ 设函数 $f(x)=\\begin{cases}x\\ln x,&x>0\\\\0,&x=0\\end{cases}$，则 $x=0$ 是 $f(x)$ 的 $( )$\n\n$(A)$ 可导点，极值点\n$(B)$ 不可导点，极值点\n$(C)$ 可导点，非极值点\n$(D)$ 不可导点，非极值点",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

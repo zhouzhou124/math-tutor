@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$2.$ 设函数 $z=xyf(\\frac{y}{x})$，其中 $f(u)$ 可导，若 $x\\frac{\\partial z}{\\partial x}+y\\frac{\\partial z}{\\partial y}=y^2(\\ln y-\\ln x)$，则（ ）\n\n$(A)$ $f(1)=\\frac12,f'(1)=0$\n$(B)$ $f(1)=0,f'(1)=\\frac12$\n$(C)$ $f(1)=\\frac12,f'(1)=1$\n$(D)$ $f(1)=0,f'(1)=1$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$12.$ 已知函数 $f(x) = \\begin{cases} 0, & 0 \\le x < \\frac{1}{2} \\\\ x^2, & \\frac{1}{2} \\le x \\le 1 \\end{cases}$ 的傅里叶级数为 $\\sum_{n=1}^\\infty b_n \\sin n\\pi x$，$S(x)$ 为和函数，则 $S(-\\frac{7}{2}) = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{1}{8}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

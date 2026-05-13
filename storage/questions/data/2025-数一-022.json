@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$22.$ （本题满分12分）损失事件发生时，赔付额 $Y$ 与损失额 $X$ 的关系为 $$Y=\\begin{cases}0,&X\\le 100\\\\ X-100,&X>100\\end{cases}$$，$X$ 的概率密度为 $f_X(x)=\\frac{2\\cdot 100^2}{(100+x)^3}(x>0)$。\n\n$(1)$ 求 $P\\{Y>0\\}$ 及 $EY$；\n\n$(2)$ 损失事件一年发生 $N\\sim P(8)$ 次，在 $N=n$ 条件下 $M\\sim B(n,p)$，$p=P\\{Y>0\\}$，求 $M$ 的概率分布。",
-  "standard_answer": "$(1)$ $P\\{Y>0\\}=\\frac{1}{4}$，$EY=50$。\n$(2)$ $M\\sim P(2)$，$P\\{M=m\\}=\\frac{2^m}{m!}e^{-2}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

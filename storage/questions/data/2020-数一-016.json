@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$16.$ (本题满分10分)计算 $I=\\oint_L\\frac{(4x-y)dx+(x+y)dy}{4x^2+y^2}$，其中 $L$ 是 $x^2+y^2=2$ 的正向。",
-  "standard_answer": "$\\pi$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

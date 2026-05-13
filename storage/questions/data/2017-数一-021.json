@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$21.$ (本题满分11分)设二次型 $f=2x_1^2-x_2^2+ax_3^2+2x_1x_2-8x_1x_3+2x_2x_3$ 在正交变换下的标准形为 $\\lambda_1y_1^2+\\lambda_2y_2^2$，求 $a$ 及正交矩阵 $Q$。",
-  "standard_answer": "$a=2$。$Q$ 由特征向量正交化构成。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

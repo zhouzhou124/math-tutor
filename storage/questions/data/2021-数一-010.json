@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$10.$ 设 $X_1,\\dots,X_{16}$ 来自 $N(\\mu,4)$，$H_0:\\mu\\le10,H_1:\\mu>10$，拒绝域 $W=\\{\\overline{X}\\ge11\\}$，$\\mu=11.5$ 时犯第二类错误的概率为( )\n\n$(A)$ $1-\\Phi(0.5)$\n$(B)$ $1-\\Phi(1)$\n$(C)$ $1-\\Phi(1.5)$\n$(D)$ $1-\\Phi(2)$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

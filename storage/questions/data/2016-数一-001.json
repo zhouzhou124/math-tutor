@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$1.$ 若反常积分 $\\int_0^{+\\infty}\\frac{1}{x^a(1+x)^b}dx$ 收敛，则( )\n\n$(A)$ $a<1$ 且 $b>1$ $\\qquad$ $(B)$ $a>1$ 且 $b>1$\n\n$(C)$ $a<1$ 且 $a+b>1$ $\\qquad$ $(D)$ $a>1$ 且 $a+b>1$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

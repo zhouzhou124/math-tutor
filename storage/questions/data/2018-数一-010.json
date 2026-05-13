@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$10.$ 设 $f(x)$ 具有 $2$ 阶连续导数。若 $y=f(x)$ 过点 $(0,0)$ 且与 $y=2^x$ 在 $(1,2)$ 处相切，则 $\\int_0^1 xf''(x)dx=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2\\ln2-2$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

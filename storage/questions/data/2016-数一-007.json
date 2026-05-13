@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$7.$ 设 $X\\sim N(\\mu,\\sigma^2)(\\sigma>0)$，记 $p=P\\{X\\le\\mu+\\sigma^2\\}$，则( )\n\n$(A)$ $p$ 随 $\\mu$ 增加而增加\n\n$(B)$ $p$ 随 $\\sigma$ 增加而增加\n\n$(C)$ $p$ 随 $\\mu$ 增加而减少\n\n$(D)$ $p$ 随 $\\sigma$ 增加而减少",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

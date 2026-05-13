@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$5.$ 设 $A$ 为 $m\\times n$ 矩阵，$B$ 为 $n\\times m$ 矩阵，若 $AB$ 可逆，则 $( )$\n\n$(A)$ $r(A)=m,r(B)=m$\n\n$(B)$ $r(A)=m,r(B)=n$\n\n$(C)$ $r(A)=n,r(B)=m$\n\n$(D)$ $r(A)=n,r(B)=n$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

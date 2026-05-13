@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$20.$ (本题满分11分)设 $A = \\begin{pmatrix} 1 & -2 & 3 & -4 \\\\ 0 & 1 & -1 & 1 \\\\ 1 & 2 & 0 & -3 \\end{pmatrix}$，$E$ 为 $3$ 阶单位矩阵。\n\n$(1)$ 求方程组 $Ax = 0$ 的一个基础解系；\n\n$(2)$ 求满足 $AB=E$ 的所有矩阵 $B$。",
-  "standard_answer": "$(1)$ $\\xi_1=(1,1,1,0)^T,\\xi_2=(1,0,0,1)^T$。\n$(2)$ 通解形式。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

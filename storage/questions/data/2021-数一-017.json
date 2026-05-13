@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$17.$ (本题满分10分)求极限 $\\lim_{x\\to0}(\\frac{1+\\int_0^x e^{t^2}dt}{e^x-1}-\\frac{1}{\\sin x})$。",
-  "standard_answer": "$\\frac{1}{2}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

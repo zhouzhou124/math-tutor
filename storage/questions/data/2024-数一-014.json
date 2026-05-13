@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$14.$ 微分方程 $y'=\\frac{1}{(x+y)^2}$ 满足 $y(1)=0$ 的解为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$x=\\tan(y+\\frac{\\pi}{4})-y$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

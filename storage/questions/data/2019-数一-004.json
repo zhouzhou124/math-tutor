@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$4.$ 设函数 $f(x,y)$ 连续，$L$ 为不经过原点的光滑曲线，则曲线积分 $\\int_L\\frac{xdy-ydx}{x^2+y^2}$ 与路径无关的充要条件是( )\n\n$(A)$ $L$ 不包含原点 $\\qquad$ $(B)$ $L$ 包含原点\n\n$(C)$ $L$ 不包含 $x=0$ $\\qquad$ $(D)$ $L$ 不包含 $y=0$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

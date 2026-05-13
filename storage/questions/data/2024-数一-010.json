@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$10.$ 设随机变量 $X,Y$ 相互独立，且均服从参数为 $\\lambda$ 的指数分布，令 $Z=|X-Y|$，则下列随机变量与 $Z$ 同分布的是（ ）\n\n$(A)$ $X+Y$\n$(B)$ $\\frac{X+Y}{2}$\n$(C)$ $2X$\n$(D)$ $X$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

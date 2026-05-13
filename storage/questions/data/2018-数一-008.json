@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$8.$ 设总体 $X\\sim N(\\mu,\\sigma^2)$，$X_1,\\dots,X_n$ 是样本，检验 $H_0:\\mu=\\mu_0,H_1:\\mu\\neq\\mu_0$，则( )\n\n$(A)$ 在 $\\alpha=0.05$ 下拒绝 $H_0$，则 $\\alpha=0.01$ 下必拒绝\n\n$(B)$ 在 $\\alpha=0.05$ 下拒绝 $H_0$，则 $\\alpha=0.01$ 下必接受\n\n$(C)$ 在 $\\alpha=0.05$ 下接受 $H_0$，则 $\\alpha=0.01$ 下必拒绝\n\n$(D)$ 在 $\\alpha=0.05$ 下接受 $H_0$，则 $\\alpha=0.01$ 下必接受",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

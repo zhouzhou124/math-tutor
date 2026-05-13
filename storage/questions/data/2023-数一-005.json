@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$5.$ 已知n阶矩阵A,B,C满足ABC=0,记矩阵的秩分别为$\\gamma_1,\\gamma_2,\\gamma_3$,则( )\n\n$(A)$ $\\gamma_1\\le\\gamma_2\\le\\gamma_3 \\qquad (B) \\gamma_1\\le\\gamma_3\\le\\gamma_2$ \n\n$(C)$ $\\gamma_3\\le\\gamma_1\\le\\gamma_2 \\qquad (D)$ $\\gamma_2\\le\\gamma_1\\le\\gamma_3$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

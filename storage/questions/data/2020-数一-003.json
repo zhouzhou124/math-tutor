@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$3.$ 设 $f(x,y)$ 在 $(0,0)$ 可微，$f(0,0)=0$，$f_x(0,0)=a,f_y(0,0)=b$，则 $\\lim_{(x,y)\\to(0,0)}\\frac{(x,y,f(x,y))\\cdot(x,y,f(x,y))}{\\sqrt{x^2+y^2}}=$ $( )$\n\n$(A)$ $0$ $\\qquad$ $(B)$ $a$ $\\qquad$ $(C)$ $b$ $\\qquad$ $(D)$ $a+b$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

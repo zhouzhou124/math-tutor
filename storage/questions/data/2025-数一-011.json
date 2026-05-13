@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$11.$ $\\lim_{x \\to 0^+} \\frac{x^x - 1}{\\ln x \\cdot \\ln(1-x)} = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$-1$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

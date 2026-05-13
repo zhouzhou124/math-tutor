@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$14.$ 设 $A$ 与 $B$ 独立，$A$ 与 $C$ 独立，$BC=\\emptyset$。若 $P(A)=P(B)=\\frac{1}{2}$，$P(AC|AB\\cup C)=\\frac{1}{4}$，则 $P(C)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "1/4.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

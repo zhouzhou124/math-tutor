@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$21.$ 设 $A$ 为2阶矩阵，$P = (\\alpha, A\\alpha)$，其中 $\\alpha$ 是非零向量且不是 $A$ 的特征向量.\n\n$(1)$ 证明 $P$ 为可逆矩阵；\n\n$(2)$ 若 $A^2\\alpha + A\\alpha - 6\\alpha = 0$，求 $P^{-1}AP$，并判断 $A$ 是否相似于对角矩阵.",
-  "standard_answer": "证明略。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

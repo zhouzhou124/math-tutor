@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$12.$ 设函数 $y=y(x)$ 由参数方程 $x=2e^t+t+1,y=4(t-1)e^t+t^2$ 确定，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=0}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{2}{3}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

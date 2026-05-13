@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$19.$ (本题满分12分)设 $\\Omega$ 由柱面 $x^2+y^2=1$ 与 $z=0$ 和 $x+z=1$ 围成,$\\Sigma$ 为边界外侧,计算曲面积分$$I=\\iint_{\\Sigma} 2xz\\,dy\\,dz + yz\\,dz\\,dx + (z^2+z)\\,dx\\,dy$$.",
-  "standard_answer": "$5\\pi/4$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

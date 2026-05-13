@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$14.$ 设 $X_1,\\dots,X_n$ 为来自 $N(\\mu,\\sigma^2)$ 的样本，$\\overline{X}=9.5$，$\\mu$ 的置信度为 $0.95$ 的双侧置信上限为 $10.8$，则置信区间为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$(8.2,10.8)$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

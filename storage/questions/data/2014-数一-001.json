@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$1.$ 下列曲线中有渐近线的是( )\n\n$(A)$ $y=x+\\sin x$\n$(B)$ $y=x^2+\\sin x$\n$(C)$ $y=x+\\sin\\frac{1}{x}$\n$(D)$ $y=x^2+\\sin\\frac{1}{x}$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

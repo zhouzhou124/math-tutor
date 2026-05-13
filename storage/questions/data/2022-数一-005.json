@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$5.$ 下列四个条件中，使 $3$ 阶矩阵 $A$ 可对角化的一个充分但不必要条件是（ ）\n\n$(A)$ $A$ 有3个互不相等的特征值\n$(B)$ $A$ 有3个线性无关的特征向量\n$(C)$ $A$ 有3个两两线性无关的特征向量\n$(D)$ $A$ 的属于不同特征值的特征向量正交",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

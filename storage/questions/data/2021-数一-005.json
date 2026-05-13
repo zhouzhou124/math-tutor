@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$5.$ 二次型 $f(x_1,x_2,x_3)=(x_1+x_2)^2+(x_2+x_3)^2-(x_3-x_1)^2$ 的正惯性指数与负惯性指数依次为( )\n\n$(A)$ $2:0$\n$(B)$ $1:1$\n$(C)$ $2:1$\n$(D)$ $1:2$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

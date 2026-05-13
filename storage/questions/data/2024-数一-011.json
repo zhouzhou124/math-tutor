@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$11.$ $\\lim_{x\\to 0}\\frac{(1+ax^2)^{\\sin x}-1}{x^3}=6$，则 $a=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$6$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

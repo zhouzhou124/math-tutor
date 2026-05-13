@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\theta)=\\frac{3x^2}{\\theta^3}(0<x<\\theta)$，$X_1,X_2,X_3$ 为样本，$T=\\max\\{X_1,X_2,X_3\\}$。\n\n$(1)$ 求 $T$ 的概率密度；\n\n$(2)$ 确定 $a$ 使得 $aT$ 为 $\\theta$ 的无偏估计。",
-  "standard_answer": "$(1)$ $f_T(t)=9t^8/\\theta^9(0<t<\\theta)$。\n$(2)$ $a=10/9$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

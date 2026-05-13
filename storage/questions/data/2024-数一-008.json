@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$8.$ 设随机变量 $X$ 与 $Y$ 相互独立，且 $X\\sim N(0,1),Y\\sim N(0,1)$，则 $E|X-Y|=$ $( )$\n\n$(A)$ $0$\n$(B)$ $\\sqrt{\\frac{2}{\\pi}}$\n$(C)$ $\\sqrt{\\frac{4}{\\pi}}$\n$(D)$ $1$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

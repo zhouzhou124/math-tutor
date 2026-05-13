@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$6.$ 设 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关,且 $\\beta_1=\\alpha_1+\\alpha_2,\\beta_2=\\alpha_2+\\alpha_3$,则 $( )$\n\n$(A)$ $\\beta_1,\\beta_2,\\alpha_3$ 无关 $\\qquad$ $(B)$ $\\beta_1,\\beta_2,\\alpha_2$ 无关 \n\n$(C)$ $\\beta_1,\\beta_2,\\alpha_1$ 无关 $\\qquad$ $(D)$ $\\beta_1,\\beta_2,\\alpha_3$ 相关",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

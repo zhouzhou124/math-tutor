@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$22.$ （本题满分12分）设 $X_1,\\cdots,X_m$ 来自均值为 $\\theta$ 的指数分布，$Y_1,\\cdots,Y_n$ 来自均值为 $2\\theta$ 的指数分布，独立。求 $\\theta$ 的极大似然估计 $\\hat\\theta$ 及 $D(\\hat\\theta)$。",
-  "standard_answer": "$\\hat\\theta=\\frac{m\\bar X+\\frac n2\\bar Y}{m+n}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\theta)=\\frac{1}{1-\\theta}(\\theta\\le x\\le1)$，$\\theta$ 未知。$X_1,\\dots,X_n$ 为样本。\n\n$(1)$ 求 $\\theta$ 的矩估计量；\n\n$(2)$ 求 $\\theta$ 的最大似然估计量。",
-  "standard_answer": "$(1)$ $\\hat\\theta=2\\overline{X}-1$。\n$(2)$ $\\hat\\theta=X_{(1)}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

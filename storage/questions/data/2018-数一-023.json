@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\sigma)=\\frac{1}{2\\sigma}e^{-|x|/(2\\sigma)}$，$-\\infty<x<+\\infty$，$\\sigma>0$ 未知。$X_1,\\dots,X_n$ 为样本。\n\n$(1)$ 求 $\\sigma$ 的最大似然估计量 $\\hat\\sigma$；\n\n$(2)$ 求 $E(\\hat\\sigma),D(\\hat\\sigma)$。",
-  "standard_answer": "$(1)$ $\\hat\\sigma=\\frac1n\\sum|X_i|$。\n$(2)$ $E(\\hat\\sigma)=\\sigma,D(\\hat\\sigma)=\\sigma^2/n$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

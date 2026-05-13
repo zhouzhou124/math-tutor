@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$20.$ (本题满分11分)设实二次型 $f=(x_1-x_2+x_3)^2+(x_2+x_3)^2+(x_1+ax_3)^2$。\n\n$(1)$ 求 $f=0$ 的解；\n\n$(2)$ 求 $f$ 的规范形。",
-  "standard_answer": "$(1)$ $a\\neq1$ 时仅有零解；$a=1$ 时 $x=(k,0,-k)^T$。\n$(2)$ $a\\neq1$ 时 $y_1^2+y_2^2+y_3^2$；$a=1$ 时 $y_1^2+y_2^2$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

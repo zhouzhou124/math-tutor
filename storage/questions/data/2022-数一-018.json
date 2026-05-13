@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 12,
   "question": "$18.$ （本题满分12分）已知 $D=\\{(x,y)|y-2\\le x\\le\\sqrt{4-y^2},0\\le y\\le2\\}$，计算 $I=\\iint_D\\frac{x}{\\sqrt{x^2+y^2}}dxdy$。",
-  "standard_answer": "2。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

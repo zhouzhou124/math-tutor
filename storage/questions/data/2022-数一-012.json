@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$12.$ $\\int_1^4\\frac{\\ln x}{\\sqrt{x}}dx=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "4.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

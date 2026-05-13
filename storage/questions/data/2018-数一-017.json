@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$17.$ (本题满分10分)设 $\\Sigma$ 是曲面 $x=\\sqrt{1-3y^2-3z^2}$ 的前侧，计算曲面积分 $I=\\iint_\\Sigma xdydz+(y^3+2)dzdx+z^3dxdy$。",
-  "standard_answer": "$4\\pi/3$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

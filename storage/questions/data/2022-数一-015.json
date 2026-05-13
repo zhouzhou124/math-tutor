@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$15.$ 已知矩阵 $A$ 和 $E-A$ 可逆，若 $[E-(E-A)^{-1}]B=A$，则 $B-A=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

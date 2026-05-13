@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 4,
   "question": "$7.$ 若 $A,B$ 为任意两个随机事件，则( )\n\n$(A)$ $P(AB)\\le P(A)P(B)$\n\n$(B)$ $P(AB)\\ge P(A)P(B)$\n\n$(C)$ $P(AB)\\le\\frac{P(A)+P(B)}{2}$\n\n$(D)$ $P(AB)\\ge\\frac{P(A)+P(B)}{2}$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

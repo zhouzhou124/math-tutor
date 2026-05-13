@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$3.$ 设 $y=f(x)$ 由 $x=2t+|t|,y=|t|\\sin t$ 确定,则( )\n\n$(A)$ f连续,f'(0)不存在 $(B)$ f'(0)存在,f'在x=0不连续 $(C)$ f'连续,f''(0)不存在 $(D)$ f''(0)存在",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

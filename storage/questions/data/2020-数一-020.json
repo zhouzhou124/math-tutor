@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$20.$ 设二次型 $f(x_1, x_2) = x_1^2 - 4x_1x_2 + 4x_2^2$ 经正交变换 \n$\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix} = Q \\begin{pmatrix} y_1 \\\\ y_2 \\end{pmatrix}$ 化为二次型 \n$g(y_1, y_2) = a y_1^2 + 4y_1y_2 + b y_2^2$，其中 $a \\ge b$.\n\n$(1)$ 求 $a, b$ 的值；\n\n$(2)$ 求正交矩阵 $Q$.",
-  "standard_answer": "$(1)$ $Q=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$。\n$(2)$ 不存在，矩阵不相似。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

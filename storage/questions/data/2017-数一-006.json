@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$6.$ 已知 $A=\\begin{pmatrix}2&0&0\\\\0&2&1\\\\0&0&1\\end{pmatrix},B=\\begin{pmatrix}2&1&0\\\\0&2&0\\\\0&0&1\\end{pmatrix},C=\\begin{pmatrix}1&0&0\\\\0&2&0\\\\0&0&2\\end{pmatrix}$，则( )\n\n$(A)$ $A$ 与 $C$ 相似，$B$ 与 $C$ 相似\n\n$(B)$ $A$ 与 $C$ 相似，$B$ 与 $C$ 不相似\n\n$(C)$ $A$ 与 $C$ 不相似，$B$ 与 $C$ 相似\n\n$(D)$ $A$ 与 $C$ 不相似，$B$ 与 $C$ 不相似",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

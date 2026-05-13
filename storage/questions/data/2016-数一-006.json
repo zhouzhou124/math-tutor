@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$6.$ 设二次型 $f=x_1^2+x_2^2+x_3^2+4x_1x_2+4x_1x_3+4x_2x_3$，则 $f=2$ 表示的二次曲面为( )\n\n$(A)$ 单叶双曲面 $\\qquad$ $(B)$ 双叶双曲面 $\\qquad$ $(C)$ 椭球面 $\\qquad$ $(D)$ 柱面",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

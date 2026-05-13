@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$20.$ (本题满分12分)已知 $u_n(x)=e^{-nx}+\\frac{x^{n+1}}{n(n+1)}$，求级数 $\\sum_{n=1}^\\infty u_n(x)$ 的收敛域与和函数。",
-  "standard_answer": "收敛域$(0,1]$，和函数 $\\frac{1}{e^x-1}+(1-x)\\ln(1-x)+x$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

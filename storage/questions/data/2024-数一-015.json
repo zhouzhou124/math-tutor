@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$15.$ 已知矩阵 $A=\\begin{pmatrix}a+1& a\\\\ a& a\\end{pmatrix}$，对任意 $\\alpha,\\beta$ 都有 $(\\alpha^T A\\beta)^2\\le\\alpha^T A\\alpha\\cdot\\beta^T A\\beta$，则 $a$ 的取值范围是 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$a\\ge 0$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

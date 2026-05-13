@@ -10,9 +10,21 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$15.$ (本题满分10分)设 $f(u,v)$ 具有 $2$ 阶连续偏导数，$y=f(e^x,\\cos x)$，求 $\\frac{dy}{dx}|_{x=0}$，$\\frac{d^2y}{dx^2}|_{x=0}$。",
-  "standard_answer": "$\frac{dy}{dx}|_{x=0}=f_1(1,1)$，$\frac{d^2y}{dx^2}|_{x=0}=f_{11}(1,1)+f_2(1,1)$。",
-  "solution_steps": [],
-  "common_mistakes": [],
+  "standard_answer": "$\\frac{dy}{dx}|_{x=0}=f_1(1,1)$，$\\frac{d^2y}{dx^2}|_{x=0}=f_{11}(1,1)+f_1(1,1)-f_2(1,1)$。",
+  "solution_steps": [
+    "令 $u=e^x$，$v=\\cos x$，则 $y=f(u,v)$",
+    "由链式法则：$\\frac{dy}{dx}=\\frac{\\partial f}{\\partial u}\\frac{du}{dx}+\\frac{\\partial f}{\\partial v}\\frac{dv}{dx}=f_1\\cdot e^x+f_2\\cdot(-\\sin x)$",
+    "当 $x=0$ 时，$u=1,v=1$，故 $\\frac{dy}{dx}|_{x=0}=f_1(1,1)\\cdot 1+f_2(1,1)\\cdot 0=f_1(1,1)$",
+    "对 $\\frac{dy}{dx}=e^x f_1-\\sin x\\cdot f_2$ 再求导：$\\frac{d^2y}{dx^2}=e^x f_1+e^x\\frac{df_1}{dx}-\\cos x\\cdot f_2-\\sin x\\frac{df_2}{dx}$",
+    "其中 $\\frac{df_1}{dx}=f_{11}e^x+f_{12}(-\\sin x)$，$\\frac{df_2}{dx}=f_{21}e^x+f_{22}(-\\sin x)$",
+    "代入得 $\\frac{d^2y}{dx^2}=e^x f_1+e^{2x}f_{11}-e^x\\sin x\\cdot f_{12}-\\cos x\\cdot f_2-e^x\\sin x\\cdot f_{21}+\\sin^2 x\\cdot f_{22}$",
+    "当 $x=0$ 时，$\\frac{d^2y}{dx^2}|_{x=0}=f_1(1,1)+f_{11}(1,1)-f_2(1,1)$"
+  ],
+  "common_mistakes": [
+    "二阶导漏掉 $e^x f_1$ 项（乘积求导不完整）",
+    "$f_2$ 项符号弄反（$-\\sin x$ 求导得 $-\\cos x$）",
+    "忘记 $f_1,f_2$ 仍是 $u,v$ 的函数，需要继续用链式法则"
+  ],
   "tags": [
     "多元函数微分"
   ],

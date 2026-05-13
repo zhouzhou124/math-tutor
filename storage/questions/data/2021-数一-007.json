@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$7.$ 设 $A,B$ 为 $n$ 阶实矩阵，下列不成立的是( )\n\n$(A)$ $r\\begin{pmatrix}A&O\\\\ O&A^TA\\end{pmatrix}=2r(A)\\qquad(B)$ $r\\begin{pmatrix}A&AB\\\\ O&A^T\\end{pmatrix}=2r(A)$\n\n$(C)$ $r\\begin{pmatrix}A&BA\\\\ O&AA^T\\end{pmatrix}=2r(A)\\qquad (D)$ $r\\begin{pmatrix}A&O\\\\ BA&A^T\\end{pmatrix}=2r(A)$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$13.$ 行列式 $\\begin{vmatrix}a&0&-1&1\\\\0&a&1&-1\\\\-1&1&a&0\\\\1&-1&0&a\\end{vmatrix}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$a^2(a^2-4)$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

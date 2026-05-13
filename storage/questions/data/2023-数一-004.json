@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$4.$ 已知 $a_n<b_n(n=1,2,\\dots)$,若 $\\sum a_n$ 与 $\\sum b_n$ 均收敛,则$\\sum a_n$绝对收敛是$\\sum b_n$绝对收敛的 $( )$\n\n$(A)$ 充要 $(B)$ 充分不必要 $(C)$ 必要不充分 $(D)$ 既不充分也不必要",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

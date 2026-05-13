@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$12.$ 设 $\\Omega$ 是平面 $x+y+z=1$ 与三个坐标平面所围成的空间区域，则 $\\iiint\\limits_\\Omega(x+2y+3z)dxdydz=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "1/2.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

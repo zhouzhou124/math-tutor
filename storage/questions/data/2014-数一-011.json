@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$11.$ 微分方程 $xy'+y(\\ln x-\\ln y)=0$ 满足 $y(1)=e^3$ 的解为 $y=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$y=xe^3$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

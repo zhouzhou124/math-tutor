@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$17.$ (本题满分10分)设 $y=y(x)(x>0)$ 过点 $(1,2)$,任一点 $P(x,y)$ 到 $y$ 轴距离等于该点切线在 $y$ 轴上截距.\n\n$(1)$ 求 $y(x)$;\n\n$(2)$ 求 $f(x)=\\int_1^x y(t)dt$ 在 $(0,+\\infty)$ 上最大值.",
-  "standard_answer": "$(1)$ $y=x(2-\\ln x)$.\n$(2)$ $\\frac14 e^4-\\frac54$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

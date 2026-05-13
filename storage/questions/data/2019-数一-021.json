@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$21.$ (本题满分11分)设 $A=\\begin{pmatrix}2&0&0\\\\0&x&2\\\\0&2&x\\end{pmatrix}$，$B=\\begin{pmatrix}2&0&0\\\\0&y&1\\\\0&1&y\\end{pmatrix}$，且 $A$ 与 $B$ 相似。\n\n$(1)$ 求 $x,y$；\n\n$(2)$ 求可逆矩阵 $P$ 使得 $P^{-1}AP=B$。",
-  "standard_answer": "$(1)$ $x=3,y=-2$。\n$(2)$ $P=\\begin{pmatrix}1&1&1\\\\-2&-1&-2\\\\0&0&-4\\end{pmatrix}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ 曲面 $z=x^2(1-\\sin y)+y^2(1-\\sin x)$ 在点 $(1,0,1)$ 处的切平面方程为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2x-y-z=1$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

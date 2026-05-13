@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$15.$ 设 $A$ 每行元素之和均为 $2$，且 $|A|=3$，$A_{ij}$ 为代数余子式，则 $A_{11}+A_{21}+A_{31}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{3}{2}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

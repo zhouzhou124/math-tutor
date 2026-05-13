@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$4.$ 设函数 $f(x)$ 在区间 $[0,1]$ 上连续，则 $\\int_0^1 f(x)dx=$( )\n\n$(A)$ $\\lim_{n\\to\\infty}\\sum_{k=1}^n f(\\frac{2k-1}{2n})\\frac{1}{2n} \\qquad (B)$ $\\lim_{n\\to\\infty}\\sum_{k=1}^n f(\\frac{2k-1}{2n})\\frac{1}{n}$\n\n$(C)$ $\\lim_{n\\to\\infty}\\sum_{k=1}^{2n} f(\\frac{k-1}{2n})\\frac{1}{n}\\qquad (D)$ $\\lim_{n\\to\\infty}\\sum_{k=1}^{2n} f(\\frac{k}{2n})\\frac{2}{n}$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

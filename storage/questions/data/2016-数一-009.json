@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ $\\lim_{x\\to0}\\frac{\\int_0^xt\\ln(1+t\\sin t)dt}{1-\\cos x^2}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "1/2.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$16.$ (本题满分10分)设 $y(x)$ 满足 $y''+2y'+ky=0$，其中 $0<k<1$。\n\n$(1)$ 证明 $\\int_0^{+\\infty}y(x)dx$ 收敛；\n\n$(2)$ 若 $y(0)=1,y'(0)=1$，求 $\\int_0^{+\\infty}y(x)dx$。",
-  "standard_answer": "$(1)$ 证明略。\n$(2)$ $2/k$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

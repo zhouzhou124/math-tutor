@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$10.$ 设 $X,Y$ 独立且均服从 $[0,1]$ 均匀分布,则 $P\\{X>Y^2\\}=$ $( )$\n\n$(A)$ $\\frac{1}{3}$ $(B)$ $\\frac{1}{2}$ $(C)$ $\\frac{2}{3}$ $(D)$ $\\frac{3}{4}$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

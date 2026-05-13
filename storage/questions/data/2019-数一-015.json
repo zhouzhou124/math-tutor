@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$15.$ (本题满分10分)求 $y'+xy=e^{-x^2/2}$ 满足 $y(0)=0$ 的解，并求该函数的凹凸区间与拐点。",
-  "standard_answer": "$y=xe^{-x^2/2}$，凸区间 $(-\\infty,-\\sqrt3)\\cup(0,\\sqrt3)$，凹区间 $(-\\sqrt3,0)\\cup(\\sqrt3,+\\infty)$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

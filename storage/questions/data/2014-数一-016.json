@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$16.$ (本题满分10分)设函数 $y = f(x)$ 由方程 $y^3 + xy^2 + x^2 y + 6 = 0$ 确定，求 $f(x)$ 的极值。",
-  "standard_answer": "极大值 $f(-2)=1$，极小值 $f(0)=-2$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

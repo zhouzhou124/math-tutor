@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 4,
   "question": "$14.$ 设随机变量 $Y$ 服从参数为 $1$ 的指数分布，$a$ 为常数且大于零，则 $P\\{Y \\le a+1 \\mid Y > a\\} =\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$1-e^{-1}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

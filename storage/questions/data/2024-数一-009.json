@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 5,
   "question": "$9.$ 设随机变量 $X$ 与 $Y$ 相互独立，且均服从 $[0,1]$ 上的均匀分布，则 $\\operatorname{cov}(X,Y)=$（ ）\n\n$(A)$ $\\frac{1}{12}$\n$(B)$ $\\frac{1}{6}$\n$(C)$ $\\frac{1}{4}$\n$(D)$ $\\frac{1}{36}$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$19.$ (本题满分10分)设薄片型物体 $S$ 是圆锥面 $z=\\sqrt{x^2+y^2}$ 被柱面 $z^2=2x$ 割下的有限部分，密度 $\\mu=9\\sqrt{x^2+y^2+z^2}$。\n\n$(1)$ 求交线 $C$ 在 $xOy$ 平面上的投影曲线方程；\n\n$(2)$ 求 $S$ 的质量 $M$。",
-  "standard_answer": "$(1)$ $y^2=2x(x\\ge0)$。\n$(2)$ $M=24\\sqrt2\\pi$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$17.$ (本题满分10分)已知 $f(x,y)=x+y+xy$，曲线 $C:x^2+y^2+xy=3$，求 $f(x,y)$ 在曲线 $C$ 上的最大方向导数。",
-  "standard_answer": "最大方向导数为 $\\sqrt5$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

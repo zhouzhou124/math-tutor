@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$14.$ 设 $X\\sim U(-\\frac{\\pi}{2},\\frac{\\pi}{2})$，$Y=\\sin X$，则 $\\operatorname{Cov}(X,Y)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2/\\pi$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

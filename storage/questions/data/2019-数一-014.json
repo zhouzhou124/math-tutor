@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 4,
   "question": "$14.$ 设随机变量 $X$ 的概率密度为 $$f(x)=\\begin{cases}\\frac{x}{2},& 0<x<2 \\\\0,& \\text{其他}\\end{cases}$$，则 $P\\{X\\le1\\}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2/3$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

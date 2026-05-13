@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$2.$ 幂级数 $\\sum_{n=1}^{\\infty}\\left(\\frac{3+(-1)^n}{4}\\right)^n x^{2n}$ 的收敛域是（ ）\n\n$(A)$ $[-2,2]$\n$(B)$ $[-1,1]$\n$(C)$ $(-2,2)$\n$(D)$ $(-1,1)$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

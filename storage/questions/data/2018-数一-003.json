@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$3.$ $\\sum_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!}=$( )\n\n$(A)$ $\\sin1+\\cos1$\n\n$(B)$ $2\\sin1+\\cos1$\n\n$(C)$ $2\\sin1+2\\cos1$\n\n$(D)$ $2\\sin1+3\\cos1$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$1.$ 已知函数 $f(x)$ 满足 $\\lim_{x\\to 1}\\frac{f(x)}{\\ln x}=1$，则（ ）\n\n$(A)$ $f(1)=0$\n$(B)$ $\\lim_{x\\to 1}f(x)=0$\n$(C)$ $f'(1)=1$\n$(D)$ $\\lim_{x\\to 1}f'(x)=1$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

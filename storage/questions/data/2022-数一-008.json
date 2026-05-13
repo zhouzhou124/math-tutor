@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$8.$ 设 $X\\sim U(0,3)$，$Y$ 服从参数为2的泊松分布，且 $\\operatorname{Cov}(X,Y)=-1$，则 $D(2X-Y+1)=$（ ）\n\n$(A)$ 1\n$(B)$ 5\n$(C)$ 9\n$(D)$ 12",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

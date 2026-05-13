@@ -9,8 +9,7 @@
   ],
   "difficulty": "中等",
   "score": 4,
-  "question": "$1.$ 设函数 $f(x)$ 在 $(-\\infty,+\\infty)$ 上连续，其2阶导函数 $f''(x)$ 的图形如图所示，则曲线 $y=f(x)$ 的拐点个数为( )\n\n$(A)$ $0 \\qquad (B)$ $1 \\qquad (C)$ $2 \\qquad (D)$ $3$",
-  "standard_answer": "C.",
+  "question": "$1.$ 设函数 $f(x)$ 在 $(-\\infty,+\\infty)$ 上连续，其 $2$ 阶导函数 $f''(x)$ 的图形如图所示，则曲线 $y=f(x)$ 的拐点个数为( )\n\n$(A)$ $0 \\qquad (B)$ $1 \\qquad (C)$ $2 \\qquad (D)$ $3$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

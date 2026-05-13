@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$22.$ (本题满分11分)设 $(X,Y)$ 在 $D=\\{0<x<1,x^2<y<\\sqrt{x}\\}$ 上均匀分布，$U=I(X\\le Y)$。\n\n$(1)$ 求 $(X,Y)$ 的概率密度；\n\n$(2)$ $U$ 与 $X$ 是否独立？并说明理由；\n\n$(3)$ 求 $Z = U + X$ 的分布函数 $F(z)$。",
-  "standard_answer": "$(1)$ $f(x,y)=6/5$。\n$(2)$ 不独立。\n$(3)$ $F(z)$ 分段表达式。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

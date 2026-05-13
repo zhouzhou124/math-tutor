@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$5.$ 设 $A$ 为3阶实对称矩阵，且 $A^2+A=2E$，$|A|=4$，则二次型 $x^TAx$ 的规范型为( )\n\n$(A)$ $y_1^2+y_2^2+y_3^2$\n$(B)$ $y_1^2+y_2^2-y_3^2$\n$(C)$ $y_1^2-y_2^2-y_3^2$\n$(D)$ $-y_1^2-y_2^2-y_3^2$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$21.$ (本题满分12分)已知 $A=\\begin{pmatrix}a&1&-1\\\\1&a&-1\\\\-1&-1&a\\end{pmatrix}$。\n\n$(1)$ 求正交矩阵 $P$ 使得 $P^TAP$ 为对角阵；\n\n$(2)$ 求正定矩阵 $C$ 使得 $C^2=(a+3)E-A$。",
-  "standard_answer": "$(1)$ 特征值 $a-1,a-1,a+2$，P由正交化特征向量构成。\n$(2)$ $C=\\frac13\\begin{pmatrix}5&-1&1\\\\-1&5&1\\\\1&1&5\\end{pmatrix}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

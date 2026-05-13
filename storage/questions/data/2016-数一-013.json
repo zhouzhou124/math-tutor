@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$13.$ 行列式 $\\begin{vmatrix}\\lambda&-1&0&0\\\\0&\\lambda&-1&0\\\\0&0&\\lambda&-1\\\\4&3&2&\\lambda+1\\end{vmatrix}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\lambda^4+\\lambda^3+2\\lambda^2+3\\lambda+4$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$20.$ (本题满分12分)设 $f(x)$ 在 $[-a,a]$ 上有二阶连续导数,证明:\n\n$(1)$ 若 $f(0)=0$,则存在 $\\xi$ 使 $f''(\\xi)= \\frac{[f(a)+f(-a)]}{a^2}$;\n\n$(2)$ 若 $f(x)$ 在 $(-a,a)$ 内取得极值,则存在 $\\eta$ 使 $|f''(\\eta)|\\ge \\frac{|f(a)-f(-a)|}{2a^2}$.",
-  "standard_answer": "证明略.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$17.$ (本题满分10分)设 $a_1=1$，$(n+1)a_{n+1}=(n+\\frac{1}{2})a_n$，求幂级数 $\\sum a_nx^n$ 的和函数。",
-  "standard_answer": "$S(x)=2/\\sqrt{1-x}-2$，收敛域 $(-1,1)$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

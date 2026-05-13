@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$1.$ 若函数 $f(x)=\\begin{cases}\\frac{1-\\cos\\sqrt{x}}{ax},& x>0,\\\\ b,& x\\le0\\end{cases}$ 在 $x=0$ 处连续，则 $( )$\n\n$(A)$ $ab=\\frac{1}{2}$ $\\qquad$ $(B)$ $ab=-\\frac{1}{2}$ $\\qquad$ $(C)$ $ab=0$ $\\qquad$ $(D)$ $ab=2$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

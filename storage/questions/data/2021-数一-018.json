@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$18.$ (本题满分12分)已知曲线 $C:\\begin{cases}x^2+2y^2-z=6\\\\4x+2y+z=30\\end{cases}$，求 $C$ 上的点到 $xOy$ 坐标面距离的最大值。",
-  "standard_answer": "最大值为66。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

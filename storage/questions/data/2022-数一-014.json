@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$14.$ 已知级数 $\\sum_{n=1}^{\\infty}\\frac{n!}{n^n}e^{-nx}$ 的收敛域为 $(a,+\\infty)$，则 $a=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

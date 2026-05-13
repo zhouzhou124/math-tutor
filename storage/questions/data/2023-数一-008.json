@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$8.$ 设两独立正态样本,则( )\n\n$(A)$ $S_1^2/S_2^2\\sim F(n,m) \\qquad (B)$ $S_1^2/S_2^2\\sim F(n-1,m-1)$ \n\n$(C)$ $2S_1^2/S_2^2\\sim F(n,m) \\qquad (D)$ $2S_1^2/S_2^2\\sim F(n-1,m-1)$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

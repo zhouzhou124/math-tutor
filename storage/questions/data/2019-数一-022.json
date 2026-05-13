@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$22.$ (本题满分11分)设 $X\\sim E(1)$，$Y$ 服从两点分布 $P(Y=-1)=p,P(Y=1)=1-p$，$X$ 与 $Y$ 独立，令 $Z=XY$。\n\n$(1)$ 求 $Z$ 的概率密度；\n\n$(2)$ $p$ 为何值时 $X$ 与 $Z$ 不相关；\n\n$(3)$ $X$ 与 $Z$ 是否独立？",
-  "standard_answer": "$(1)$ $f_Z(z)=pe^z(z<0),(1-p)e^{-z}(z\\ge0)$。\n$(2)$ $p=1/2$。\n$(3)$ 不独立。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

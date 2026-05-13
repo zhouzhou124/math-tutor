@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$5.$ 设 $A$ 为 $n$ 阶矩阵，$A^*$ 为 $A$ 的伴随矩阵，则（ ）\n\n$(A)$ $r(A^*)=r(A)$\n\n$(B)$ $r(A^*)=n-r(A)$\n\n$(C)$ $r(A^*)=\\begin{cases}n,&r(A)=n\\\\1,&r(A)=n-1\\\\0,&r(A)<n-1\\end{cases}$\n\n$(D)$ $r(A^*)=\\begin{cases}n,&r(A)=n\\\\0,&r(A)<n\\end{cases}$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

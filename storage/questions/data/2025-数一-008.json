@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$8.$ 设二维随机变量 $(X,Y)$ 服从正态分布 $N(0,0;1,1;\\rho)$，$\\rho\\in(-1,1)$。若 $a,b$ 满足 $a^2+b^2=1$，则 $D(aX+bY)$ 的最大值为（ ）\n\n$(A)$ $1$\n$(B)$ $2$\n$(C)$ $1+|\\rho|$\n$(D)$ $1+\\rho^2$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$2.$ 过点 $(1,0,0),(0,1,0)$，且与曲面 $z=x^2+y^2$ 相切的平面为( )\n\n$(A)$ $z=0$ 与 $x+y-z=1$\n\n$(B)$ $z=0$ 与 $2x+2y-z=2$\n\n$(C)$ $x=y$ 与 $x+y-z=1$\n\n$(D)$ $x=y$ 与 $2x+2y-z=2$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

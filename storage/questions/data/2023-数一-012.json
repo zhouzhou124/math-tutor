@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$12.$ 设 $f(x)=\\ln(1+x)$,则 $f^{(n)}(0)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$(-1)^{n-1}(n-1)!$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ 已知函数 $f(x)=\\frac{1}{1+x^2}$，则 $f^{(3)}(0)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "0.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

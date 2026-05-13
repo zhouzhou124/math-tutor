@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$5.$ 设 $A,B,C$ 均为 $n$ 阶矩阵，若 $AB=C$，且 $B$ 可逆，则( )\n\n$(A)$ $C$ 的行向量组与 $A$ 的行向量组等价\n\n$(B)$ $C$ 的列向量组与 $A$ 的列向量组等价\n\n$(C)$ $C$ 的行向量组与 $B$ 的行向量组等价\n\n$(D)$ $C$ 的列向量组与 $B$ 的列向量组等价",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$1.$ 设函数 $z = z(x,y)$ 由方程 $x - a z = e^{y + a z}$（$a$ 是非0常数）确定，则（ ）\n\n$(A)$ $\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$\n$(B)$ $\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$\n$(C)$ $\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$\n$(D)$ $\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

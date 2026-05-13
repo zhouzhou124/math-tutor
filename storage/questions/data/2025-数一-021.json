@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$21.$ （本题满分10分）设矩阵 $A = \\begin{pmatrix} 0 & -1 & 2 \\\\ -1 & 0 & 2 \\\\ -1 & -1 & a \\end{pmatrix}$，已知1是$A$的特征多项式的重根。\n\n$(1)$ 求 $a$；\n\n$(2)$ 求所有满足 $A\\alpha=\\alpha+\\beta$，$A^2\\alpha=\\alpha+2\\beta$ 的非零列向量$\\alpha,\\beta$。",
-  "standard_answer": "$(1)$ $a=3$。\n$(2)$ $\\beta=(2a_3-a_1-a_2)\\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix}$，$\\alpha$ 满足 $a_1+a_2\\neq 2a_3$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

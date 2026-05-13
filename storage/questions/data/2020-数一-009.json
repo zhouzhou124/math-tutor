@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ $\\lim_{x\\to0}(\\frac{1}{e^x-1}-\\frac{1}{\\ln(1+x)})=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

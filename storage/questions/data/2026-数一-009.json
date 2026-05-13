@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$9.$ 设连续型随机变量 $X$ 的分布函数为 $F(x)$，随机变量 $Y$ 的分布函数为 $F(ay+b)$，$X$ 的数学期望为 $\\mu$，方差为 $\\sigma^2(\\sigma>0)$，若 $Y$ 的数学期望和方差分别为 $0$ 和 $1$，则（ ）\n\n$(A)$ $a = \\sigma,\\ b = \\mu$\n\n$(B)$ $a = \\sigma,\\ b = -\\mu$\n\n$(C)$ $a = \\frac{1}{\\sigma},\\ b = \\mu$\n\n$(D)$ $a = \\frac{1}{\\sigma},\\ b = -\\mu$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

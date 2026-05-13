@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$16.$ (本题满分10分)设函数 $z=ax^2+by^2$ 在点 $(3,4)$ 处沿梯度方向的方向导数为 $10$，且该方向与 $(-3,-4)$ 方向相同，求 $a,b$。",
-  "standard_answer": "$a=b=-1/2$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$11.$ 函数 $f(x,y)=x^2+2y^2$ 在点 $(0,1)$ 处的最大方向导数为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "4.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

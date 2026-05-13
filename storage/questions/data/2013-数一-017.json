@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 10,
   "question": "$17.$ (本题满分10分)求函数 $f(x,y) = \\left( y + \\frac{x^3}{3} \\right) e^{x+y}$ 的极值。",
-  "standard_answer": "极小值 $f(-1,-1)=-\\frac{2}{3}e^{-2}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

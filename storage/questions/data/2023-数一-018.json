@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$18.$ (本题满分12分)求 $f(x,y)=(y-x^2)(y-x^3)$ 的极值.",
-  "standard_answer": "极小值 $-4/729$,在(2/3,10/27)处.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

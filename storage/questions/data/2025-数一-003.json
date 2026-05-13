@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$3.$ 设函数 $f(x)$ 在区间 $(0,+\\infty)$ 上可导，则（ ）\n\n$(A)$ 当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}f'(x)$ 存在\n\n$(B)$ 当 $\\lim_{x\\to+\\infty}f'(x)$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在\n\n$(C)$ 当 $\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在\n\n$(D)$ 当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$21.$ （本题满分12分）已知向量组 $\\alpha_1=(1,0,-1,-1)^T,\\alpha_2=(1,-1,0,-2)^T,\\alpha_3=(0,-1,1,-1)^T,\\alpha_4=(0,1,-1,1)^T$，记 $A=(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$，$G=(\\alpha_1,\\alpha_2)$。\n\n$(1)$ 证明 $\\alpha_1,\\alpha_2$ 是极大线性无关组；\n\n$(2)$ 求 $H$ 使 $A=GH$，并求 $A^{10}$。",
-  "standard_answer": "$H=\\begin{pmatrix}1&0&-1&1\\\\0&1&1&-1\\end{pmatrix}$，$A^{10}=\\begin{pmatrix}1&-8&-9&9\\\\0&-1&-2&2\\\\-1&9&10&-10\\\\-1&7&8&-8\\end{pmatrix}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

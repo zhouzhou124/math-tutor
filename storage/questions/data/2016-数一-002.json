@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$2.$ 已知函数 $f(x)=\\begin{cases}2(x-1),&x<1,\\\\ \\ln x,&x\\ge1\\end{cases}$，则 $f(x)$ 的一个原函数是( )\n\n$(A)$ $F(x)=\\{(x-1)^2,x<1;x(\\ln x-1),x\\ge1\\}$\n\n$(B)$ $F(x)=\\{(x-1)^2,x<1;x(\\ln x+1)-1,x\\ge1\\}$\n\n$(C)$ $F(x)=\\{(x-1)^2,x<1;x(\\ln x+1)+1,x\\ge1\\}$\n\n$(D)$ $F(x)=\\{(x-1)^2,x<1;x(\\ln x-1)+1,x\\ge1\\}$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

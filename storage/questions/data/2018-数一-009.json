@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ 若 $\\lim_{x\\to0}(\\frac{1-\\tan x}{1+\\tan x})^{\\frac{1}{\\sin kx}}=e$，则 $k=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-2.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

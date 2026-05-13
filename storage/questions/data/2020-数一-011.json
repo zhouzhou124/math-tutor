@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$11.$ 设 $f(x)$ 满足 $f''(x)+af'(x)+f(x)=0$，且 $f(0)=m,f'(0)=n$，则 $\\int_0^{+\\infty}f(x)dx=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$n+am$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$2.$ 设 $f(x)$ 在 $x=0$ 可导，$f(0)=0$，则 $\\lim_{x\\to0}\\frac{f(x)}{\\sqrt{x}}=0$ 是 $f(x)$ 在 $x=0$ 可导的( )\n\n$(A)$ 充要条件\n$(B)$ 充分不必要\n$(C)$ 必要不充分\n$(D)$ 既不充分也不必要",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

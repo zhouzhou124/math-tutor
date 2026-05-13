@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$17.$ （本题满分10分）求曲线 $y=\\ln(1+x^2)$ 的拐点及凹凸区间。",
-  "standard_answer": "拐点为 $x=\\pm1$，凹区间 $(-\\infty,-1)\\cup(1,+\\infty)$，凸区间 $(-1,1)$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

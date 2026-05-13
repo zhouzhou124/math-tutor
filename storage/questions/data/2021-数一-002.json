@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$2.$ 设函数 $f(x,y)$ 可微，且 $f(x+1,e^x)=x(x+1)^2$，$f(x,x^2)=2x^2\\ln x$，则 $df(1,1)=$ $( )$\n\n$(A)$ $dx+dy$\n$(B)$ $dx-dy$\n$(C)$ $dy$\n$(D)$ $-dy$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

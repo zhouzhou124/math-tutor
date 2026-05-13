@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$12.$ 设 $L$ 是柱面 $x^2 + y^2 = 1$ 与平面 $y + z = 0$ 的交线，从 $z$ 轴正向往 $z$ 轴负向看去为逆时针方向，则曲线积分 $\\oint_L z dx + y dz = $  $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$-\\pi$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

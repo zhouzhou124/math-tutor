@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$10.$ 向量场 $A(x,y,z)=(x+y+z)i+xyj+zk$ 的旋度 $\\operatorname{rot}A=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$(0,-1,y-x)$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$5.$ 行列式 $\\left| \\begin{array}{cccc} 0 & a & b & 0 \\\\ a & 0 & 0 & b \\\\ 0 & c & d & 0 \\\\ c & 0 & 0 & d \\end{array} \\right| =$ $( )$\n\n$(A)$ $(ad-bc)^2 \\qquad (B)$ $-(ad-bc)^2 \\qquad (C)$ $a^2d^2-b^2c^2 \\qquad (D)$ $b^2c^2-a^2d^2$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

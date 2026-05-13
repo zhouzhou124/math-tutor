@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$11.$ 若曲线积分 $\\int_L\\frac{xdx-aydy}{x^2+y^2-1}$ 在 $D=\\{x^2+y^2<1\\}$ 内与路径无关，则 $a=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

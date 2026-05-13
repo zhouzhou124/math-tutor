@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵，记 $r(X)$ 为矩阵 $X$ 的秩，$(X,Y)$ 表示分块矩阵，则( )\n\n$(A)$ $r(A,AB)=r(A)$\n\n$(B)$ $r(A,BA)=r(A)$\n\n$(C)$ $r(A,BA)=\\max\\{r(A),r(B)\\}$\n\n$(D)$ $r(A,B)=r(A^T,B^T)$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

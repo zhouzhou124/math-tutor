@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$6.$ 已知 $\\alpha_1=(1,0,1)^T,\\alpha_2=(1,2,1)^T,\\alpha_3=(3,1,2)^T$，记 $\\beta_1=\\alpha_1,\\beta_2=\\alpha_2-k\\beta_1,\\beta_3=\\alpha_3-l_1\\beta_1-l_2\\beta_2$，若 $\\beta_1,\\beta_2,\\beta_3$ 两两正交，则 $l_1,l_2$ 依次为 $( )$\n\n$(A)$ $\\frac{5}{2},\\frac{1}{2}$\n$(B)$ $-\\frac{5}{2},\\frac{1}{2}$\n$(C)$ $\\frac{5}{2},-\\frac{1}{2}$\n$(D)$ $-\\frac{5}{2},-\\frac{1}{2}$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

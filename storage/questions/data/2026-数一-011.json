@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$11.$ 设向量 $\\vec{v_1} = (0,x,z)$，$\\vec{v_2} = (y,0,1)$，令 $\\vec{F}(x,y,z) = \\vec{v_1} \\times \\vec{v_2}$，则 $\\operatorname{div} \\vec{F} = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$1+z$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

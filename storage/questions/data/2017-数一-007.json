@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$7.$ 设 $A,B$ 为随机事件，$0<P(A)<1,0<P(B)<1$，则 $P(A|B)>P(A|\\overline{B})$ 的充要条件是( )\n\n$(A)$ $P(B|A)>P(B|\\overline{A})$\n\n$(B)$ $P(B|A)<P(B|\\overline{A})$\n\n$(C)$ $P(B|A)>P(B|\\overline{A})$\n\n$(D)$ $P(B|A)<P(B|\\overline{A})$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

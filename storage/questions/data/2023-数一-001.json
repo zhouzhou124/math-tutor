@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$1.$ $y=x\\ln(e+\\frac{1}{x-1})$ 的渐近线方程为( )\n\n$(A)$ $y=x+e$ $(B)$ $y=x+\\frac{1}{e}$ $(C)$ $y=x$ $(D)$ $y=x-\\frac{1}{e}$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

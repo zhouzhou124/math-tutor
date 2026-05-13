@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$6.$ 矩阵 $\\begin{pmatrix}1&a&1\\\\ a&b&a\\\\1&a&1\\end{pmatrix}$ 与 $\\begin{pmatrix}2&0&0\\\\0&b&0\\\\0&0&0\\end{pmatrix}$ 相似的充要条件为( )\n\n$(A)$ $a=0,b=2 \\qquad (B)$ $a=0,b$ 为任意常数\n\n$(C)$ $a=2,b=0 \\qquad (D)$ $a=2,b$ 为任意常数",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

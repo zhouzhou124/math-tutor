@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 5,
   "question": "$15.$ $A=\\begin{pmatrix}1&2&3\\\\0&1&4\\\\0&0&1\\end{pmatrix}$,则 $A^{-1}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\begin{pmatrix}1&-2&5\\\\0&1&-4\\\\0&0&1\\end{pmatrix}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

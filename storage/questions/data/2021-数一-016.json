@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$16.$ 甲乙两盒各装 $2$ 红 $2$ 白，先从甲盒取一球放入乙盒，再从乙盒取一球。令 $X,Y$ 分别为从甲盒和乙盒取到的红球个数，则 $X$ 与 $Y$ 的相关系数为$\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{1}{5}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

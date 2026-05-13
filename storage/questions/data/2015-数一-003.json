@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "若级数 $\\sum_{n=1}^\\infty a_n$ 条件收敛，则 $x = \\sqrt{3}$ 与 $x = 3$ 依次为幂级数 $\\sum_{n=1}^\\infty n a_n (x-1)^n$ 的 $( )$\n\n$(A)$ 收敛点，收敛点\n\n$(B)$ 收敛点，发散点\n\n$(C)$ 发散点，收敛点\n\n$(D)$ 发散点，发散点",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

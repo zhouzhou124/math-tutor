@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$10.$ 设 $X\\sim N(0,1)$，在 $X=x$ 条件下 $Y\\sim N(x,1)$，则 $X$ 与 $Y$ 的相关系数为（ ）\n\n$(A)$ $\\frac14$\n$(B)$ $\\frac12$\n$(C)$ $\\frac{\\sqrt3}{2}$\n$(D)$ $\\frac{\\sqrt2}{2}$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

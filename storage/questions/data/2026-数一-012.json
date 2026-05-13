@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$12.$ $\\lim_{x \\to 0} \\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x \\sin x} \\right) = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{1}{2}$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

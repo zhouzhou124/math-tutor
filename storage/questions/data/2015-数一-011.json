@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$11.$ 若 $z=z(x,y)$ 由 $e^z+xyz+x+\\cos x=2$ 确定，则 $dz|_{(0,1)}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$-dx-dy$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

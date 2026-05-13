@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$4.$ 设函数 $f(x)$ 在区间 $(-1,1)$ 上有定义，且 $\\lim_{x\\to 0}f(x)=0$，则（ ）\n\n$(A)$ 当 $\\lim_{x\\to 0}\\frac{f(x)}{x}=m$ 时，$f'(0)=m$\n\n$(B)$ 当 $f'(0)=m$ 时，$\\lim_{x\\to 0}\\frac{f(x)}{x}=m$\n\n$(C)$ 当 $\\lim_{x\\to 0}f'(x)=m$ 时，$f'(0)=m$\n\n$(D)$ 当 $f'(0)=m$ 时，$\\lim_{x\\to 0}f'(x)=m$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

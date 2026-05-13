@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$21.$ (本题满分12分)已知二次型 $f=x_1^2+2x_2^2+2x_3^2+2x_1x_2-2x_1x_3,g=y_1^2+y_2^2+y_3^2+2y_2y_3$.\n\n$(1)$ 求可逆变换 $x=Py$ 将 $f$ 化为 $g$;\n\n$(2)$ 是否存在正交变换?",
-  "standard_answer": "$(1)$ $P=\\begin{pmatrix}1&-1&1\\\\0&1&0\\\\0&0&1\\end{pmatrix}$.\n$(2)$ 不存在.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

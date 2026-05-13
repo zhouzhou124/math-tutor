@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$9.$ 设 $(X_1,Y_1),\\dots,(X_n,Y_n)$ 为来自总体 $N(\\mu_1,\\mu_2;\\sigma_1^2,\\sigma_2^2;\\rho)$ 的简单随机样本，令 $\\hat\\theta=\\overline{X}-\\overline{Y}$，则 $( )$\n\n$(A)$ 无偏估计，$D=\\frac{\\sigma_1^2+\\sigma_2^2}{n}$\n\n$(B)$ 不是无偏估计\n\n$(C)$ 无偏估计，$D=\\frac{\\sigma_1^2+\\sigma_2^2-2\\rho\\sigma_1\\sigma_2}{n}$\n\n$(D)$ 不是无偏估计",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

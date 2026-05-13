@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$2.$ 若 $y''+ay'+by=0$ 的解在 $(-\\infty,+\\infty)$ 上有界,则( )\n\n$(A)$ $a<0,b>0$ $(B)$ $a>0,b>0$ $(C)$ $a=0,b>0$ $(D)$ $a=0,b<0$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

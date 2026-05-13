@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$9.$ 设 $X_1,\\cdots,X_{20}$ 是来自总体 $B(1,0.1)$ 的简单随机样本。令 $T=\\sum_{i=1}^{20} X_i$，利用泊松分布近似，$P\\{T\\le 1\\}\\approx$（ ）\n\n$(A)$ $\\frac{1}{e^2}$\n$(B)$ $\\frac{2}{e^2}$\n$(C)$ $\\frac{3}{e^2}$\n$(D)$ $\\frac{4}{e^2}$",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

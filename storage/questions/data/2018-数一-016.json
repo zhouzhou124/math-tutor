@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$16.$ (本题满分10分)将长为 $2$ m的铁丝分成三段，依次围成圆、正方形与正三角形。三个图形的面积之和是否存在最小值？若存在，求出最小值。",
-  "standard_answer": "存在最小值，为 $\\frac{4\\pi}{\\pi+4+3\\sqrt3}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

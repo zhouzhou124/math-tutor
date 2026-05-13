@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 5,
   "question": "$5.$ 二次型 $f(x_1,x_2,x_3) = x_1^2 + 2x_1x_2 + 2x_1x_3$ 的正惯性指数为（ ）\n\n$(A)$ $0$\n$(B)$ $1$\n$(C)$ $2$\n$(D)$ $3$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

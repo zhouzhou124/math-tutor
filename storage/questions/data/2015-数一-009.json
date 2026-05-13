@@ -10,7 +10,6 @@
   "difficulty": "基础",
   "score": 4,
   "question": "$9.$ $\\lim_{x\\to0}\\frac{\\ln(\\cos x)}{x^2}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1/2.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

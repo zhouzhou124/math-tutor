@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$1.$ 当 $x\\to 0$ 时，下列无穷小量中阶数最高的是( )\n\n$(A)$ $\\int_0^x(e^{t^2}-1)dt$ $\\qquad$ $(B)$ $\\int_0^x\\ln(1+\\sqrt{t^3})dt$\n\n$(C)$ $\\int_0^{\\sin x}\\sin t^2dt$ $\\qquad$ $(D)$ $\\int_0^{1-\\cos x}\\sqrt{\\sin^3 t}dt$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

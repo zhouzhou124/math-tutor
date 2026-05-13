@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$9.$ 设 $X_1,\\cdots,X_n$ 独立同分布，4阶矩存在，记 $\\mu_k=E(X_i^k)$，则由切比雪夫不等式，$P\\{|\\frac1n\\sum X_i^2-\\mu_2|\\ge\\varepsilon\\}\\le$（ ）\n\n$(A)$ $\\frac{\\mu_4-\\mu_2^2}{n\\varepsilon^2}$\n$(B)$ $\\frac{\\mu_4-\\mu_2^2}{\\sqrt{n}\\varepsilon^2}$\n$(C)$ $\\frac{\\mu_4-\\mu_2^2}{n\\varepsilon}$\n$(D)$ $\\frac{\\mu_4-\\mu_2^2}{\\sqrt{n}\\varepsilon}$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

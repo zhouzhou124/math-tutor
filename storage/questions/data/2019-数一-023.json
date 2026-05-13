@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\sigma^2)=\\frac{A}{\\sigma}e^{-(x-\\mu)^2/(2\\sigma^2)}(x\\ge\\mu)$，$\\sigma>0$ 未知，$\\mu$ 已知。\n\n$(1)$ 求常数 $A$；\n\n$(2)$ 求 $\\sigma^2$ 的最大似然估计量。",
-  "standard_answer": "$(1)$ $A=\\sqrt{2/\\pi}$。\n$(2)$ $\\hat\\sigma^2=\\frac1n\\sum(X_i-\\mu)^2$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

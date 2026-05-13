@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$17.$ （本题满分10分）设 $y(x)$ 是 $y'+\\frac{1}{2\\sqrt{x}}y=2+\\sqrt{x}$ 满足 $y(1)=3$ 的解，求曲线 $y=y(x)$ 的渐近线。",
-  "standard_answer": "$y=2x$ 和 $y=0$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

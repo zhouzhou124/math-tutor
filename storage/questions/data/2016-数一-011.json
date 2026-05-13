@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$11.$ 设函数 $f(u,v)$ 可微，$z=z(x,y)$ 由 $(x+1)z-y^2=x^2f(x-z,y)$ 确定，则 $dz|_{(0,1)}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$dx-dy$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$13.$ 欧拉方程 $x^2y''+xy'-4y=0$ 满足 $y(1)=1,y'(1)=2$ 的解为 $y=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$y=x^2$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

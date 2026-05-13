@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$1.$ $f(x) = \\begin{cases} \\frac{e^x - 1}{x}, & x \\neq 0, \\\\ 1, & x = 0 \\end{cases}$ 在 $x=0$ 处 $( )$\n\n$(A)$ 连续且取极大值 $\\qquad$ $(B)$ 连续且取极小值\n\n$(C)$ 可导且导数为 $0$ $\\qquad$ $(D)$ 可导且导数不为 $0$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

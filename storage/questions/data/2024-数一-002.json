@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$2.$ 设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）\n\n$(A)$ $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(B)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(C)$ $\\iint_{\\Sigma}(\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$\n\n$(D)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

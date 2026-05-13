@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$8.$ 设连续型随机变量 $X_1$ 与 $X_2$ 相互独立且方差均存在，$X_1$ 与 $X_2$ 的概率密度分别为 $f_1(x)$ 与 $f_2(x)$，随机变量 $Y_1$ 的概率密度为 $f_{Y_1}(y) = \\frac{1}{2}[f_1(y) + f_2(y)]$，随机变量 $Y_2 = \\frac{1}{2}(X_1 + X_2),$ 则( )\n\n$(A)$ $E(Y_1)>E(Y_2),D(Y_1)>D(Y_2)$\n\n$(B)$ $E(Y_1)=E(Y_2),D(Y_1)=D(Y_2)$\n\n$(C)$ $E(Y_1)=E(Y_2),D(Y_1)<D(Y_2)$\n\n$(D)$ $E(Y_1)=E(Y_2),D(Y_1)>D(Y_2)$",
-  "standard_answer": "D.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

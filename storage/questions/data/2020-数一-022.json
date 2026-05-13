@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$22.$ 设随机变量 $X_1, X_2, X_3$ 相互独立，其中 $X_1$ 与 $X_2$ 均服从标准正态分布，$X_3$ 的概率分布为 \n$\\{X_3 = 0\\} = P\\{X_3 = 1\\} = \\frac{1}{2}$，$Y = X_3X_1 + (1 - X_3)X_2$.\n\n$(1)$ 求二维随机变量 $(X_1, Y)$ 的分布函数，结果用标准正态分布函数 $\\Phi(x)$ 表示；\n\n$(2)$ 证明随机变量 $Y$ 服从标准正态分布.",
-  "standard_answer": "$(1)$ $F(x,y)=\\frac12\\Phi(x)\\Phi(y)+\\frac12\\Phi(\\min(x,y))$。\n$(2)$ $Y\\sim N(0,1)$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

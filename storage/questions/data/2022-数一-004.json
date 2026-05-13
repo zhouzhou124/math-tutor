@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$4.$ 已知 $I_1=\\int_0^1\\frac{x}{2(1+\\cos x)}dx$，$I_2=\\int_0^1\\frac{\\ln(1+x)}{1+\\cos x}dx$，$I_3=\\int_0^1\\frac{2x}{1+\\sin x}dx$，则（ ）\n\n$(A)$ $I_1<I_2<I_3$\n$(B)$ $I_2<I_1<I_3$\n$(C)$ $I_1<I_3<I_2$\n$(D)$ $I_3<I_2<I_1$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

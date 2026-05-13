@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$12.$ 幂级数 $\\sum_{n=1}^\\infty(-1)^{n-1}nx^{n-1}$ 在 $(-1,1)$ 内的和函数 $S(x)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$1/(1+x)^2$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

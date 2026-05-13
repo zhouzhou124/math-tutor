@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$2.$ 设 $y=\\frac12e^{2x}+(x-\\frac13)e^x$ 是 $y''+ay'+by=ce^x$ 的一个特解，则( )\n\n$(A)$ $a=-3,b=2,c=-1$\n\n$(B)$ $a=3,b=2,c=-1$\n\n$(C)$ $a=-3,b=2,c=1$\n\n$(D)$ $a=3,b=2,c=1$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

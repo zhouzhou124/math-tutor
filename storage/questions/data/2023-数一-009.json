@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$9.$ 设 $X_1,X_2$ 来自 $N(\\mu,\\sigma^2)$,若 $\\hat\\sigma=a|X_1-X_2|$ 为无偏估计,则 $a=$ $( )$\n\n$(A)$ $\\frac{\\sqrt\\pi}{2}$ $(B)$ $\\frac{\\sqrt{2\\pi}}{2}$ $(C)$ $\\sqrt\\pi$ $(D)$ $\\sqrt{2\\pi}$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

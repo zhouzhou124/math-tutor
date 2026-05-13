@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$14.$ 设 $\\Sigma$ 为空间区域 $\\{x^2+4y^2\\le4,0\\le z\\le2\\}$ 表面的外侧，则 $\\iint\\limits_\\Sigma x^2dydz+y^2dzdx+zdxdy=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$4\\pi$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

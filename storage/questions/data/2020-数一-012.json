@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$12.$ 设 $f(x,y)$ 二阶连续偏导，$\\frac{\\partial f}{\\partial y}=xe^{xy}$，$f(x,1)=x^2$，则 $\\left.\\frac{\\partial^2 f}{\\partial x\\partial y}\\right|_{(1,1)}=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$4e$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

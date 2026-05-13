@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$20.$ （本题满分12分）设可导函数 $f(x)$ 严格单调递增且满足 $\\int_{-1}^1 f(x)dx=0$，记 $a=\\int_0^1 f(x)dx$。\n\n$(1)$ 证明 $a>0$；\n\n$(2)$ 令 $F(x)=a(1-x^2)+\\int_1^x f(t)dt$，证明存在 $\\xi\\in(-1,1)$ 使 $F''(\\xi)=0$。",
-  "standard_answer": "$(1)$ $2a=\\int_0^1[f(x)-f(-x)]dx>0$。\n$(2)$ 由罗尔定理可证。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

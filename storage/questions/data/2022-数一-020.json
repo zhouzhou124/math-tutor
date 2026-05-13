@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$20.$ （本题满分12分）设 $f(x)$ 在 $(-\\infty,+\\infty)$ 上有二阶连续导数，证明：$f''(x)\\ge0$ 的充要条件是对 $a\\neq b$ 有 $f(\\frac{a+b}{2})\\le\\frac{1}{b-a}\\int_a^b f(t)dt$。",
-  "standard_answer": "证明略。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

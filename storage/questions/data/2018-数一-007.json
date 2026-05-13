@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$7.$ 设随机变量 $X$ 的概率密度 $f(x)$ 满足 $f(1+x)=f(1-x)$，且 $\\int_0^2 f(x)dx=0.6$，则 $P\\{X<0\\}=$( )\n\n$(A)$ $0.2$ $\\qquad$ $(B)$ $0.3$ $\\qquad$ $(C)$ $0.4$ $\\qquad$ $(D)$ $0.5$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

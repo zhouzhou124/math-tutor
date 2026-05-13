@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$4.$ 设幂级数 $\\sum a_nx^n$ 的收敛半径为 $R$，则 $\\sum a_{2n}x^{2n}$ 的收敛半径为( )\n\n$(A)$ $R \\qquad (B)$ $\\sqrt{R}\\qquad(C)$ $R^2 \\qquad (D)$ $\\frac{R}{2}$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

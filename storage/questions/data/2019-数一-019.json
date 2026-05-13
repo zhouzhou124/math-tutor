@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 10,
   "question": "$19.$ (本题满分10分)设空间区域 $\\Omega$ 由锥面 $z=\\sqrt{x^2+y^2}$ 与平面 $z=1$ 围成，求 $\\Omega$ 的形心坐标。",
-  "standard_answer": "形心 $(0,1/4,1/4)$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

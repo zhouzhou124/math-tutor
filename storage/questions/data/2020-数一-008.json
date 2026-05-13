@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$8.$ 设 $X_1,\\dots,X_{100}$ 独立同分布，$P(X_i=0)=P(X_i=1)=1/2$，则 $\\sum_{i=1}^{100}X_i$ 近似服从( )\n\n$(A)$ $N(50,25)\\qquad(B)$ $N(50,100)$\n\n$(C)$ $N(100,25)\\qquad(D)$ $N(100,100)$",
-  "standard_answer": "A.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -9,8 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 4,
-  "question": "$3.$ 设 $f(x)=|x-1/2|$，$b_n=2\\int_0^1 f(x)\\sin n\\pi xdx$。令 $S(x)=\\sum b_n\\sin n\\pi x$，则 $S(-9/4)=$( )\n\n$(A)$ $3/4$\n$(B)$ $1/4$\n$(C)$ $-1/4$\n$(D)$ $-3/4$",
-  "standard_answer": "C.",
+  "question": "$3.$ 设 $f(x)=|x-\\frac12|$，$b_n=2\\int_0^1 f(x)\\sin n\\pi xdx$。令 $S(x)=\\sum_{n = 1}^{\\infty} b_n\\sin n\\pi x$，则 $S(-\\frac94)=$( )\n\n$(A)$ $\\frac34 \\qquad(B)$ $\\frac14 \\qquad(C)$ $-\\frac14 \\qquad(D)$ $-\\frac34$",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

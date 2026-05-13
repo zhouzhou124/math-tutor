@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 11,
   "question": "$23.$ (本题满分11分)设某元件的使用寿命 $T$ 的分布函数为 $$F(t) = \\begin{cases} \n1 - e^{-(t/\\theta)^m}, & t \\ge 0, \\\\ 0, & \\text{其他},\\end{cases}$$\n其中 $\\theta, m$ 为参数且大于零.\n\n$(1)$ 求概率 $P\\{T > t\\}$ 与 $P\\{T > s + t \\mid T > s\\}$，其中 $s > 0, t > 0$；\n$(2)$ 任取 $n$ 个这种元件做寿命试验，测得它们的寿命分别为 $t_1, t_2, \\dots, t_n$，若 $m$ 已知，求 $\\theta$ 的最大似然估计值 $\\hat{\\theta}$.",
-  "standard_answer": "$(1)$ $e^{-(t/\\theta)^m}$。\n$(2)$ $\\hat\\theta=\\sqrt[m]{\\frac1n\\sum t_i^m}$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

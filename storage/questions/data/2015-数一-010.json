@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$10.$ $\\int_{-\\pi/2}^{\\pi/2}(\\frac{\\sin x}{1+\\cos x}+|x|)dx=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\pi^2/4$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

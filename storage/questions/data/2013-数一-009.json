@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$9.$ 设函数 $y = f(x)$ 由方程 $y - x = e^{x(1-y)}$ 确定，则 $\\lim_{n\\to\\infty} n\\left[ f\\left(\\frac{1}{n}\\right) - 1 \\right] =\\underline{\\qquad\\qquad}$",
-  "standard_answer": "-1.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

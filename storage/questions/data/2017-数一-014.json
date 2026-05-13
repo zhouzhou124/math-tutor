@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 4,
   "question": "$14.$ 设随机变量 $X$ 的分布函数为 $F(x)=0.5\\Phi(x)+0.5\\Phi(\\frac{x-4}{2})$，则 $E(X)=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "2.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

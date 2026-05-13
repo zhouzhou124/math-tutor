@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 5,
   "question": "$6.$ 设 $A,B$ 均为 $n$ 阶矩阵，$E$ 为单位矩阵，若方程组 $AX=0$ 与 $BX=0$ 同解，则（ ）\n\n$(A)$ $\\begin{pmatrix}A&O\\\\O&B\\end{pmatrix}Y=0$ 只有零解\n$(B)$ $\\begin{pmatrix}A&O\\\\O&AB\\end{pmatrix}Y=0$ 只有零解\n$(C)$ $\\begin{pmatrix}A&B\\\\O&B\\end{pmatrix}Y=0$ 与 $\\begin{pmatrix}B&A\\\\O&A\\end{pmatrix}Y=0$ 同解\n$(D)$ $\\begin{pmatrix}A&O\\\\O&B\\end{pmatrix}Y=0$ 与 $\\begin{pmatrix}B&O\\\\O&A\\end{pmatrix}Y=0$ 同解",
-  "standard_answer": "C.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

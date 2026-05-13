@@ -11,7 +11,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$14.$ $\\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2} dx = \\underline{\\qquad\\qquad}$",
-  "standard_answer": "$2\\ln2$.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

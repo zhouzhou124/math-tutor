@@ -10,7 +10,6 @@
   "difficulty": "较难",
   "score": 4,
   "question": "$4.$ 若 $\\int_{-\\pi}^{\\pi} (x - a_1 \\cos x - b_1 \\sin x)^2 dx = \\min\\limits_{a,b \\in \\mathbf{R}} \\left\\{ \\int_{-\\pi}^{\\pi} (x - a \\cos x - b \\sin x)^2 dx \\right\\}$，则 $a_1 \\cos x + b_1 \\sin x =$ $( )$\n\n$(A)$ $2\\sin x \\qquad(B)$ $2\\cos x \\qquad (C)$ $2\\pi\\sin x \\qquad(D)$ $2\\pi\\cos x$",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

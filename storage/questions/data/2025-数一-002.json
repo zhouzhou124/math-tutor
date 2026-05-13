@@ -10,7 +10,6 @@
   "difficulty": "中等",
   "score": 5,
   "question": "$2.$ 已知级数：① $\\sum_{n=1}^{\\infty} \\frac{\\sin (n\\pi + \\frac{\\pi}{3})}{n^2 + 1}$；② $\\sum_{n=1}^{\\infty} (-1)^{n-1} \\left( \\frac{1}{n} - \\tan \\frac{1}{n} \\right)$，则（ ）\n\n$(A)$ ①与②均条件收敛\n\n$(B)$ ①条件收敛，②绝对收敛\n\n$(C)$ ①绝对收敛，②条件收敛\n\n$(D)$ ①与②均绝对收敛",
-  "standard_answer": "B.",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [

@@ -11,7 +11,6 @@
   "difficulty": "较难",
   "score": 12,
   "question": "$19.$ (本题满分12分)设 $D\\subset\\mathbb{R}^2$ 是有界单连通闭区域，$I(D)=\\iint_D(4-x^2-y^2)dxdy$ 取得最大值的积分区域记为 $D_1$。\n\n$(1)$ 求 $I(D_1)$；\n\n$(2)$ 求 $\\int_{\\partial D_1}\\frac{(xe^{x^2+4y^2}+y)dx+(4ye^{x^2+4y^2}-x)dy}{x^2+4y^2}$。",
-  "standard_answer": "$(1)$ $8\\pi$。\n$(2)$ $0$。",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [
