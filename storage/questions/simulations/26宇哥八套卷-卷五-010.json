@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-010",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "question": "$10.$ 已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为 $(A)$ $1$ $(B)$ $2$ $(C)$ $3$ $(D)$ $4$",
+  "source": "import_v5",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "A"
+}

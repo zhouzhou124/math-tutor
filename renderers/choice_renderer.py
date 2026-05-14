@@ -18,7 +18,7 @@ def _to_ast(q) -> QuestionAST:
     return parse_legacy(q)
 
 
-def render_choice_question(q, show_answer: bool = False) -> None:
+def render_choice_question(q, show_answer: bool = False, show_actions: bool = True) -> None:
     """Render a multiple-choice question.
 
     Components:
@@ -27,12 +27,18 @@ def render_choice_question(q, show_answer: bool = False) -> None:
     ast = _to_ast(q)
 
     # ── Card: open (renders header) ──
-    qid = CardOpen(ast)
+    qid = CardOpen(ast) if show_actions else ast.question_id
 
     # ── Stem ──
     if ast.stem:
         try:
-            render_ast(split_latex_text(ast.stem))
+            # 对包含中文数字序号的题目内容进行分段处理
+            stem_text = ast.stem
+            # 在①②③④等序号前添加换行符，使每个结论单独占一行
+            # 但不在开头的序号前添加换行
+            import re
+            stem_text = re.sub(r'(?<!^)(?<!\n)([①②③④⑤⑥⑦⑧⑨⑩])', r'\n\1', stem_text)
+            render_ast(split_latex_text(stem_text))
         except Exception:
             st.markdown(ast.stem)
 
@@ -48,11 +54,9 @@ def render_choice_question(q, show_answer: bool = False) -> None:
     # ── Close body ──
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Meta tags ──
-    render_meta_tags(ast)
-
     # ── Actions ──
-    render_actions(qid)
-
-    # ── Card: close ──
-    CardClose()
+    if show_actions:
+        render_actions(qid)
+        CardClose()
+    else:
+        st.markdown('</div>', unsafe_allow_html=True)

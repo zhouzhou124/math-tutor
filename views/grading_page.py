@@ -48,7 +48,15 @@ def render_grading_page(db, render_latex):
         with col1:
             with st.container(border=True):
                 st.caption("📋 题目")
-                render_latex(question)
+                selected_q = st.session_state.get("selected_question") or {}
+                if selected_q and isinstance(selected_q, dict) and selected_q.get("question"):
+                    from renderers import render_question
+                    try:
+                        render_question(selected_q, show_actions=False)
+                    except Exception:
+                        render_latex(question)
+                else:
+                    render_latex(question)
         with col2:
             with st.container(border=True):
                 st.caption("✍️ 学生作答")
@@ -84,12 +92,33 @@ def render_grading_page(db, render_latex):
                 # Step 1: 获取标准答案（优先用数据库缓存，跳过LLM生成）
                 # 题库已预计算标准答案，直接读取无需AI重新求解
                 cached_answer = selected_q.get("standard_answer", "")
-                if cached_answer and len(cached_answer.strip()) > 1:
+                q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
+                has_cached = cached_answer and (
+                    len(cached_answer.strip()) > 1 or q_type == "选择题"
+                )
+                if has_cached:
+                    # Build enriched solution steps from available data
+                    enriched_answer = cached_answer
+                    enriched_steps = selected_q.get("solution_steps", []) or []
+                    
+                    if not enriched_steps:
+                        if q_type == "选择题":
+                            correct = cached_answer.strip()
+                            opts = selected_q.get("options") or {}
+                            if correct in opts:
+                                enriched_answer = f"正确选项: {correct}. {opts[correct]}"
+                            else:
+                                enriched_answer = f"正确选项: {correct}"
+                        elif q_type == "填空题":
+                            enriched_answer = cached_answer
+                        else:
+                            enriched_answer = cached_answer
+                    
                     solution = {
                         "success": True,
-                        "standard_answer": cached_answer,
+                        "standard_answer": enriched_answer,
                         "total_score": selected_q.get("score", 10),
-                        "steps": selected_q.get("solution_steps", []),
+                        "steps": enriched_steps,
                     }
                     status.write("✓ 标准答案已加载（缓存）")
                 else:

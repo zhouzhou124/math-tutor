@@ -275,13 +275,26 @@ def _normalize_katex_compat(text: str) -> str:
     for num, circled in _CIRCLED_NUMBERS.items():
         text = text.replace(f'\\textcircled{num}', circled)
 
-    # 数学模式内的 < 和 > → \lt 和 \gt（避免被 Streamlit HTML 解析器误食）
-    def _fix_lt_gt_in_math(match):
-        content = match.group(1)
+    # 定义通用的 lt/gt 修复函数
+    def _fix_lt_gt(content):
+        # 处理双重转义的情况：&amp;lt; → &lt; → <
+        content = content.replace('&amp;lt;', '&lt;').replace('&amp;gt;', '&gt;')
+        content = content.replace('&amp;lt', '&lt;').replace('&amp;gt', '&gt;')
+        # 处理单重转义的情况：&lt; → <
+        content = content.replace('&lt;', '<').replace('&gt;', '>')
+        content = content.replace('&lt', '<').replace('&gt', '>')
+        # 然后转换为 LaTeX 命令
         content = content.replace('<', r'\lt ')
         content = content.replace('>', r'\gt ')
         # 修复多余的 \lt\lt → \lt \lt
-        content = content.replace(r'\lt \lt', r'\lt \lt')
+        content = content.replace(r'\lt\lt', r'\lt \lt')
+        content = content.replace(r'\gt\gt', r'\gt \gt')
+        return content
+
+    # 数学模式内的 < 和 > → \lt 和 \gt（避免被 Streamlit HTML 解析器误食）
+    def _fix_lt_gt_in_math(match):
+        content = match.group(1)
+        content = _fix_lt_gt(content)
         return '$' + content + '$'
 
     text = re.sub(r'\$([^$]+)\$', _fix_lt_gt_in_math, text)
@@ -289,8 +302,7 @@ def _normalize_katex_compat(text: str) -> str:
     # 同样处理 $$...$$ 块
     def _fix_lt_gt_in_display(match):
         content = match.group(1)
-        content = content.replace('<', r'\lt ')
-        content = content.replace('>', r'\gt ')
+        content = _fix_lt_gt(content)
         return '$$' + content + '$$'
 
     text = re.sub(r'\$\$([^$]+)\$\$', _fix_lt_gt_in_display, text)

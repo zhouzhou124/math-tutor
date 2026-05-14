@@ -25,9 +25,9 @@ def _to_ast(q) -> QuestionAST:
 # SOLUTION
 # ============================================================
 
-def render_solution_question(q, show_steps: bool = False, show_answer: bool = False) -> None:
+def render_solution_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
     ast = _to_ast(q)
-    qid = CardOpen(ast)
+    qid = CardOpen(ast) if show_actions else ast.question_id
 
     if ast.stem:
         try:
@@ -49,13 +49,10 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
     if show_answer and ast.answer:
         st.markdown("---")
         try:
-            # 检查答案是否已经包含 $ 符号
             answer_text = ast.answer.strip()
             if '$' in answer_text:
-                # 如果已经包含 $ 符号，直接渲染（可能已经有部分或全部公式被包裹）
                 st.markdown(f"**答案** &nbsp; {answer_text}")
             else:
-                # 如果没有 $ 符号，添加 $ 后渲染
                 safe = safe_latex(f"${answer_text}$")
                 if safe.startswith("$") and safe.endswith("$"):
                     safe = safe[1:-1]
@@ -64,18 +61,20 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
             st.markdown(f"**答案** {ast.answer}")
 
     st.markdown('</div>', unsafe_allow_html=True)
-    render_meta_tags(ast)
-    render_actions(qid)
-    CardClose()
+    if show_actions:
+        render_actions(qid)
+        CardClose()
+    else:
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================
 # PROOF
 # ============================================================
 
-def render_proof_question(q, show_steps: bool = False, show_answer: bool = False) -> None:
+def render_proof_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
     ast = _to_ast(q)
-    qid = CardOpen(ast)
+    qid = CardOpen(ast) if show_actions else ast.question_id
 
     if ast.stem:
         try:
@@ -133,9 +132,11 @@ def render_proof_question(q, show_steps: bool = False, show_answer: bool = False
             st.markdown(f"**答案** {ast.answer}")
 
     st.markdown('</div>', unsafe_allow_html=True)
-    render_meta_tags(ast)
-    render_actions(qid)
-    CardClose()
+    if show_actions:
+        render_actions(qid)
+        CardClose()
+    else:
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================
@@ -153,8 +154,6 @@ def render_generic_question(q) -> None:
             st.markdown(ast.stem)
 
     st.markdown('</div>', unsafe_allow_html=True)
-    render_meta_tags(ast)
-    render_actions(qid)
     CardClose()
 
 
@@ -162,20 +161,20 @@ def render_generic_question(q) -> None:
 # Type-aware dispatch (THE entry point)
 # ============================================================
 
-def render_question(q, show_steps: bool = False, show_answer: bool = False) -> None:
+def render_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
     """THE entry point. Accepts QuestionAST or legacy dict."""
     ast = _to_ast(q)
 
     if ast.question_type == "选择题":
         from .choice_renderer import render_choice_question
-        render_choice_question(ast, show_answer=show_answer)
+        render_choice_question(ast, show_answer=show_answer, show_actions=show_actions)
     elif ast.question_type == "填空题":
         from .fill_renderer import render_fill_question
-        render_fill_question(ast, show_answer=show_answer)
+        render_fill_question(ast, show_answer=show_answer, show_actions=show_actions)
     elif ast.question_type == "解答题":
-        render_solution_question(ast, show_steps=show_steps, show_answer=show_answer)
+        render_solution_question(ast, show_steps=show_steps, show_answer=show_answer, show_actions=show_actions)
     elif ast.question_type == "证明题":
-        render_proof_question(ast, show_steps=show_steps, show_answer=show_answer)
+        render_proof_question(ast, show_steps=show_steps, show_answer=show_answer, show_actions=show_actions)
     else:
         render_generic_question(ast)
 

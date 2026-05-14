@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷四-022",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "question": "(本题满分12分) 设 $t(\\ge 0)$ 时刻已进入某商场的顾客人数是 $N_t$，$N_t$ 服从参数为 $\\frac{t}{2}$ 的泊松分布，令 $T$ 表示第 $1$ 个顾客到来的时刻。\n$(1)$ 求 $T$ 的概率密度；\n$(2)$ 当 $T_1,T_2,\\dots,T_n,\\dots$ 独立同分布于总体 $T$ 时，$\\frac{1}{n} \\sum_{i=1}^n T_i^2$ 在 $n\\to\\infty$ 的条件下依概率收敛于 $a$，求 $a$ 的值.",
+  "source": "import_v4",
+  "options": {}
+}

@@ -13,9 +13,9 @@ def _to_ast(q) -> QuestionAST:
     return parse_legacy(q)
 
 
-def render_fill_question(q, show_answer: bool = False) -> None:
+def render_fill_question(q, show_answer: bool = False, show_actions: bool = True) -> None:
     ast = _to_ast(q)
-    qid = CardOpen(ast)
+    qid = CardOpen(ast) if show_actions else ast.question_id
 
     if ast.stem:
         try:
@@ -38,6 +38,8 @@ def render_fill_question(q, show_answer: bool = False) -> None:
             st.markdown(f"**答案** {ast.answer}")
 
     st.markdown('</div>', unsafe_allow_html=True)
-    render_meta_tags(ast)
-    render_actions(qid)
-    CardClose()
+    if show_actions:
+        render_actions(qid)
+        CardClose()
+    else:
+        st.markdown('</div>', unsafe_allow_html=True)

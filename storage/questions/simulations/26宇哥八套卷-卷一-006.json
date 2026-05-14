@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型"
+  ],
+  "tags": [
+    "二次型"
+  ],
+  "question": "设二次型 $f(x_1,x_2,x_3)$ 在正交变换 $x = Py$ 下的标准形为 $y_1^2 + y_2^2 - 2y_3^2$，其中 $P = (e_1, e_2, e_3)$。若 $Q = (-e_3, e_2, e_1)$，则 $f(x_1,x_2,x_3)$ 在正交变换 $x = Qy$ 下的标准形为",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$2y_1^2 - y_2^2 + y_3^2$",
+    "B": "$2y_1^2 + y_2^2 - y_3^2$",
+    "C": "$-2y_1^2 + y_2^2 + y_3^2$",
+    "D": "$-2y_1^2 - y_2^2 + y_3^2$"
+  },
+  "correct_option": "C"
+}

@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷五-014",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "$14.$ $\\lim_{n\\to\\infty}\\sum_{i=1}^n\\frac{1}{\\sqrt{in}} =$ ______",
+  "source": "import_v5"
+}

@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷三-015",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "$15.$ 设 $A = \\begin{pmatrix} a & 2 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}$ 与 $B = \\begin{pmatrix} 2 & b & c \\\\ c & 2 & b \\\\ b & c & 2 \\end{pmatrix}$ 相似，则实向量 $(a,b,c) =$ ______",
+  "source": "import_v3"
+}

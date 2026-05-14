@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥八套卷-卷一-001",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "无穷小量比较"
+  ],
+  "tags": [
+    "极限",
+    "无穷小量比较"
+  ],
+  "question": "当 $x \\to 0$ 时，以下无穷小量阶数最高的是",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$\\int_0^{\\sin x} [(1+t)^t - 1] dt$",
+    "B": "$\\int_0^{\\sin x^2} (1+t)^{\\frac{1}{t}} dt$",
+    "C": "$\\int_0^{\\sin x} [e-(1+t)^{\\frac{1}{t}}] dt$",
+    "D": "$\\int_0^{\\sin^2 x} (te^t - t) dt$"
+  },
+  "correct_option": "A"
+}

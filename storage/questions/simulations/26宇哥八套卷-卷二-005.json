@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷二-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 $A$ 为 $n$ 阶实矩阵，则",
+  "source": "import_v2",
+  "options": {
+    "A": "$\\begin{pmatrix} A & O \\\\ E & A^T A \\end{pmatrix} x = 0$ 只有零解",
+    "B": "$\\begin{pmatrix} O & A \\\\ A^T A & AA^T A \\end{pmatrix} x = 0$ 只有零解",
+    "C": "$\\begin{pmatrix} A & A^T A \\\\ O & A^T A \\end{pmatrix} x = 0$ 与 $\\begin{pmatrix} A^T A & A \\\\ O & A \\end{pmatrix} x = 0$ 同解",
+    "D": "$\\begin{pmatrix} AA^T A & A^T A \\\\ O & A \\end{pmatrix} x = 0$ 与 $\\begin{pmatrix} A^T A^2 & A \\\\ O & A^T A \\end{pmatrix} x = 0$ 同解"
+  },
+  "correct_option": "C"
+}

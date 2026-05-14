@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷四-019",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "中值定理"
+  ],
+  "tags": [
+    "中值定理"
+  ],
+  "question": "(本题满分12分) 设函数 $f(x)$ 在 $[0,1]$ 上连续，$g(x)$ 在 $[0,1]$ 上可积且非负。证明：存在一点 $\\xi \\in (0,1)$，使 $\\int_0^1 f(x)g(x) dx = f(\\xi) \\int_0^1 g(x) dx$.",
+  "source": "import_v4",
+  "options": {}
+}

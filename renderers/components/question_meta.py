@@ -13,13 +13,14 @@ def render_meta_tags(ast) -> None:
 
     Single source of truth — no duplication with right-side panels.
     """
-    kps = ast.knowledge_points if hasattr(ast, 'knowledge_points') else ast.get('knowledge_points', [])
+    # 使用 getattr 处理 dataclass 对象，避免使用 dict.get() 方法
+    kps = getattr(ast, 'knowledge_points', [])
     if not kps:
-        kps = ast.tags if hasattr(ast, 'tags') else ast.get('tags', [])
+        kps = getattr(ast, 'tags', [])
 
-    difficulty = ast.difficulty if hasattr(ast, 'difficulty') else ast.get('difficulty', '')
-    year = ast.year if hasattr(ast, 'year') else ast.get('year', '')
-    category = ast.category if hasattr(ast, 'category') else ast.get('category', '')
+    difficulty = getattr(ast, 'difficulty', '')
+    year = getattr(ast, 'year', '')
+    category = getattr(ast, 'category', '')
 
     parts = []
 
@@ -32,13 +33,25 @@ def render_meta_tags(ast) -> None:
     meta_parts = []
     if difficulty:
         meta_parts.append(diff_badge_html(difficulty))
-    if year:
+    
+    volume = getattr(ast, 'volume', '')
+    
+    # 对于宇哥八套卷，显示为 "26宇哥八套卷-卷一" 格式
+    if category and '宇哥' in category:
+        display_text = f"{category}"
+        if volume:
+            display_text += f"-{volume}"
+        meta_parts.append(
+            f'<span style="font-size:0.74rem;color:#94a3b8;font-weight:500;">{display_text}</span>'
+        )
+    elif year:
         yr = f"{year}"
         if category:
             yr += f" · {category}"
         meta_parts.append(
             f'<span style="font-size:0.74rem;color:#94a3b8;font-weight:500;">{yr}</span>'
         )
+    
     if meta_parts:
         parts.append(" &nbsp; ".join(meta_parts))
 

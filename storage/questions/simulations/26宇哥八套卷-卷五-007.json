@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "$7.$ 设 $A=\\begin{pmatrix}1&0&a\\\\b&2&0\\\\0&c&3\\end{pmatrix}$，$abc=-6$，则 $A^*$ 有非零特征值 $(A)$ $-8$ $(B)$ $8$ $(C)$ $-11$ $(D)$ $11$",
+  "source": "import_v5",
+  "options": {
+    "A": "$-8$",
+    "B": "$8$",
+    "C": "$-11$",
+    "D": "$11$"
+  },
+  "correct_option": "C"
+}

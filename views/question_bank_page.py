@@ -142,10 +142,8 @@ def render_question_bank_page(db, render_latex):
         with fc2:
             # 宇哥八套卷显示"卷号"，真题显示"年份"
             if search_math_type == "26宇哥八套卷":
-                # Get volumes from category index
-                cat_idx = db._load_index().get("categories", {}).get("26宇哥八套卷", {})
-                volumes = sorted(cat_idx.keys()) if cat_idx else ["第一套"]
-                vol_opts = ["全部"] + volumes
+                volumes = db.get_volumes("26宇哥八套卷")
+                vol_opts = ["全部"] + volumes if volumes else ["全部", "第一套"]
                 search_year = st.selectbox("卷号", vol_opts, key="qb_year")
                 year_is_volume = True
             else:
@@ -191,16 +189,32 @@ def render_question_bank_page(db, render_latex):
             if editing == qid:
                 with st.container(border=True):
                     st.caption(f"编辑 {qid}")
+                    edit_value = q.get("question", "")
+                    opts = q.get("options") or {}
+                    if opts:
+                        has_inline = any(
+                            ('(' + l + ')' in edit_value)
+                            for l in 'ABCD' if l in opts
+                        )
+                        if not has_inline:
+                            parts = []
+                            for l in 'ABCD':
+                                if l in opts:
+                                    parts.append('$(' + l + ')$ ' + opts[l])
+                            if parts:
+                                edit_value = edit_value.rstrip() + ' ' + ' '.join(parts)
                     new_text = st.text_area(
                         "编辑 LaTeX 源码",
-                        value=q.get("question", ""),
+                        value=edit_value,
                         height=200,
                         key=f"edit_text_{qid}",
                     )
                     c1, c2 = st.columns(2)
                     with c1:
                         if st.button("💾 保存修改", key=f"save_{qid}", type="primary"):
-                            db.update(qid, {"question": new_text})
+                            from exam_parser.simple_parser import parse_latex_question
+                            parsed = parse_latex_question(new_text)
+                            db.update(qid, parsed)
                             st.session_state.editing_question = None
                             st.rerun()
                     with c2:
@@ -209,7 +223,10 @@ def render_question_bank_page(db, render_latex):
                             st.rerun()
                     st.caption("渲染预览")
                     preview_q = dict(q)
-                    preview_q["question"] = new_text
+                    # 更新完整的题目内容，包括选项
+                    from exam_parser.simple_parser import parse_latex_question
+                    parsed = parse_latex_question(new_text)
+                    preview_q.update(parsed)
                     from question_ast import parse_legacy
                     ast_preview = parse_legacy(preview_q)
                     render_question(ast_preview)

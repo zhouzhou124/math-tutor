@@ -475,7 +475,154 @@ def split_latex_text(text: str) -> list[dict]:
     text = re.sub(r'\x00M\d+\x00', '', text)
     text = re.sub(r'\x00MATH\d+\x00', '', text)
 
-    # 修复丢失的反斜杠
+    # ── Step 1: 修复被分割的命令 ──
+    # 例如: \s in x → \sin x, \c os x → \cos x
+    # 注意：替换字符串必须使用原始字符串 r''，否则 \s 会被解释为空白字符
+    split_cmds = [
+        (r'\arcsin', r'\\arcs\s*in'),
+        (r'\arccos', r'\\arcc\s*os'),
+        (r'\arctan', r'\\arct\s*an'),
+        (r'\arccot', r'\\arcc\s*ot'),
+        (r'\arcsec', r'\\arcsec'),
+        (r'\arccsc', r'\\arccsc'),
+        (r'\sinh', r'\\sin\s*h'),
+        (r'\cosh', r'\\cos\s*h'),
+        (r'\tanh', r'\\tan\s*h'),
+        (r'\coth', r'\\cot\s*h'),
+        (r'\sech', r'\\sec\s*h'),
+        (r'\csch', r'\\csc\s*h'),
+        (r'\limsup', r'\\lim\s*sup'),
+        (r'\liminf', r'\\lim\s*inf'),
+        (r'\varlimsup', r'\\varlim\s*sup'),
+        (r'\varliminf', r'\\varlim\s*inf'),
+        (r'\sin', r'\\s\s*in'),
+        (r'\cos', r'\\c\s*os'),
+        (r'\tan', r'\\t\s*an'),
+        (r'\cot', r'\\c\s*ot'),
+        (r'\sec', r'\\s\s*ec'),
+        (r'\csc', r'\\c\s*sc'),
+        (r'\log', r'\\l\s*og'),
+        (r'\ln', r'\\l\s*n'),
+        (r'\exp', r'\\e\s*xp'),
+        (r'\min', r'\\m\s*in'),
+        (r'\max', r'\\m\s*ax'),
+        (r'\sup', r'\\s\s*up'),
+        (r'\inf', r'\\i\s*nf'),
+        (r'\det', r'\\d\s*et'),
+        (r'\dim', r'\\d\s*im'),
+        (r'\deg', r'\\d\s*eg'),
+        (r'\arg', r'\\a\s*rg'),
+        (r'\rank', r'\\r\s*ank'),
+    ]
+    
+    for target, pattern in split_cmds:
+        # 使用 lambda 函数避免替换字符串被解析为模板
+        text = re.sub(pattern, lambda m, t=target: t, text)
+
+    # ── Step 2: Unicode数学符号转换为LaTeX命令 ──
+    unicode_to_latex = {
+        '∈': r'\in',
+        '∉': r'\notin',
+        '⊂': r'\subset',
+        '⊃': r'\supset',
+        '⊆': r'\subseteq',
+        '⊇': r'\supseteq',
+        '∩': r'\cap',
+        '∪': r'\cup',
+        '∅': r'\emptyset',
+        '∞': r'\infty',
+        '≤': r'\leq',
+        '≥': r'\geq',
+        '≠': r'\neq',
+        '≡': r'\equiv',
+        '≈': r'\approx',
+        '∼': r'\sim',
+        '≃': r'\simeq',
+        '≅': r'\cong',
+        '→': r'\rightarrow',
+        '←': r'\leftarrow',
+        '⇒': r'\Rightarrow',
+        '⇐': r'\Leftarrow',
+        '⇔': r'\Leftrightarrow',
+        '↔': r'\leftrightarrow',
+        '×': r'\times',
+        '·': r'\cdot',
+        '÷': r'\div',
+        '±': r'\pm',
+        '∓': r'\mp',
+        '∀': r'\forall',
+        '∃': r'\exists',
+        '∂': r'\partial',
+        '∇': r'\nabla',
+        '√': r'\sqrt',
+        '∑': r'\sum',
+        '∏': r'\prod',
+        '∫': r'\int',
+        '∬': r'\iint',
+        '∭': r'\iiint',
+        '∮': r'\oint',
+        '∠': r'\angle',
+        '⊥': r'\perp',
+        '∥': r'\parallel',
+        '△': r'\triangle',
+        '□': r'\square',
+        '°': r'^\circ',
+        '′': r'\prime',
+        '″': r'\prime\prime',
+        'α': r'\alpha',
+        'β': r'\beta',
+        'γ': r'\gamma',
+        'δ': r'\delta',
+        'ε': r'\epsilon',
+        'ζ': r'\zeta',
+        'η': r'\eta',
+        'θ': r'\theta',
+        'ι': r'\iota',
+        'κ': r'\kappa',
+        'λ': r'\lambda',
+        'μ': r'\mu',
+        'ν': r'\nu',
+        'ξ': r'\xi',
+        'π': r'\pi',
+        'ρ': r'\rho',
+        'σ': r'\sigma',
+        'τ': r'\tau',
+        'υ': r'\upsilon',
+        'φ': r'\phi',
+        'χ': r'\chi',
+        'ψ': r'\psi',
+        'ω': r'\omega',
+        'Γ': r'\Gamma',
+        'Δ': r'\Delta',
+        'Θ': r'\Theta',
+        'Λ': r'\Lambda',
+        'Ξ': r'\Xi',
+        'Π': r'\Pi',
+        'Σ': r'\Sigma',
+        'Υ': r'\Upsilon',
+        'Φ': r'\Phi',
+        'Ψ': r'\Psi',
+        'Ω': r'\Omega',
+    }
+    
+    # 只在数学模式外替换Unicode符号
+    protected_math = []
+    def _protect_math(m):
+        protected_math.append(m.group(0))
+        return f'\x00MATH{len(protected_math)-1}\x00'
+    
+    temp_text = re.sub(r'\$\$.*?\$\$', _protect_math, text, flags=re.DOTALL)
+    temp_text = re.sub(r'(?<!\$)\$[^$\n]+?\$(?!\$)', _protect_math, temp_text)
+    
+    for unicode_char, latex_cmd in unicode_to_latex.items():
+        temp_text = temp_text.replace(unicode_char, latex_cmd)
+    
+    for i, block in enumerate(protected_math):
+        temp_text = temp_text.replace(f'\x00MATH{i}\x00', block)
+    
+    text = temp_text
+
+    # ── Step 3: 恢复丢失的反斜杠 ──
     # 常见的 LaTeX 命令可能在数据存储/传输过程中丢失反斜杠
     # 检测并恢复这些命令前的反斜杠
     latex_commands = [

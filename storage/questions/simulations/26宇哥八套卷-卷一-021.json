@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷一-021",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "(本题满分12分) 设矩阵 $A = \\begin{pmatrix} -1 & 0 & 1 \\\\ 1 & 2 & 0 \\\\ a & 0 & 3 \\end{pmatrix}$ 与 $B = \\begin{pmatrix} 1 & b & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$ 相似，且 $Ax = x + (b, -b, 2b)^{\\mathrm{T}}$ 的一个解为 $(0, -1, 1)^{\\mathrm{T}}$，求\n$(1)$ $a, b$ 的值；\n$(2)$ $A^{100}$.",
+  "source": "import_zhangyu_v1",
+  "options": {}
+}

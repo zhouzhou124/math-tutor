@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-009",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机变量的数字特征"
+  ],
+  "tags": [
+    "随机变量的数字特征"
+  ],
+  "question": "设 $X_1,X_2,\\dots,X_n (n \\ge 2)$ 为来自正态总体 $X$ 的简单随机样本，$E(X) = \\mu$，$D(X) = \\sigma^2$，$\\sigma > 0$，记 $Y = \\frac{1}{n} \\sum_{i=1}^n |X_i - \\mu|$，则 $D(Y) =$",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$\\frac{\\sigma^2}{n} (1 - \\frac{2}{\\pi})$",
+    "B": "$\\frac{\\sigma^2}{n} (1 - \\frac{\\pi}{2})$",
+    "C": "$\\frac{\\sigma^2}{n^2} (1 - \\frac{2}{\\pi})$",
+    "D": "$\\frac{\\sigma^2}{n^2} (1 - \\frac{\\pi}{2})$"
+  },
+  "correct_option": "A"
+}

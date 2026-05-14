@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷四-013",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "$13.$ $z = \\ln(e^{-y} + \\frac{y^2}{x})$ 在点 $(1,1)$ 处沿 $l = (1,0)$ 的方向导数为 ______",
+  "source": "import_v4"
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷三-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "一元函数微分学"
+  ],
+  "tags": [
+    "一元函数微分学"
+  ],
+  "question": "(本题满分10分) 求曲线 $y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)$ 的全部渐近线.",
+  "source": "import_v3",
+  "options": {}
+}

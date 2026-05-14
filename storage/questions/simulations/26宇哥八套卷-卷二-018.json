@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷二-018",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "(本题满分12分) 设 $f(x,y)$ 满足 $f_x'(x,y) = y(1 + x)e^{x-y}$，$f(1,y) = ye^{1-y}$。求\n$(1)$ $f(x,y)$ 的表达式；\n$(2)$ $f(x,y)$ 的极值.",
+  "source": "import_v2",
+  "options": {}
+}

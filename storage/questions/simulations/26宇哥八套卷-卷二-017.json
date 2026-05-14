@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷二-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "$17.$ (本题满分10分) 求 $f(x) = \\int_0^1 |\\ln|x - t|| dt$（$0 \\le x \\le 1$）的最大值。",
+  "source": "import_v2"
+}

@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷三-013",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "重积分"
+  ],
+  "tags": [
+    "重积分"
+  ],
+  "question": "$13.$ 设 $\\Omega$ 是由上半球面 $z = \\sqrt{4 - x^2 - y^2}$ 与曲面 $x^2 + y^2 = 3z$ 所围成的空间有界闭区域，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______",
+  "source": "import_v3"
+}

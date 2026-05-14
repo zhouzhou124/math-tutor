@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷二-014",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "$14.$ 设 $I = \\oint_L (2x - \\frac{x^3}{3}) dy + (y + \\frac{1}{6} y^3) dx$，其中 $L$ 为平面上的简单闭曲线，方向为逆时针，若 $I$ 达到最大值，则 $L$ 的表达式为 ______",
+  "source": "import_v2"
+}

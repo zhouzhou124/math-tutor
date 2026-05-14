@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷六-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "(本题满分10分) 设 $f(x) = 1 - x^2$ $(0 \\leq x \\leq \\pi)$，$S(x) = \\frac{a_0}{2} + \\sum_{n=1}^{\\infty} a_n \\cos n x$，$x \\in \\mathbf{R}$，其中 $a_n = \\frac{2}{\\pi} \\int_0^\\pi f(x) \\cos n x \\, \\mathrm{d}x$，计算 $$S(-\\pi) + \\sum_{n=1}^{\\infty} \\frac{(-1)^{n+1}}{n^2}.$$",
+  "source": "import_v6",
+  "options": {}
+}

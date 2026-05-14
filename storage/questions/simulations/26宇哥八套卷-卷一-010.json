@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-010",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "假设检验"
+  ],
+  "tags": [
+    "假设检验"
+  ],
+  "question": "设总体 $X \\sim N(\\mu,1)$，$H_0: \\mu = 0$，$H_1: \\mu = 1$。来自总体 $X$ 的样本容量为9的简单随机样本均值为 $\\overline{X}$，设拒绝域为 $W = \\{\\overline{X} \\ge 0.55\\}$，则不犯第二类错误的概率为",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$1 - \\Phi(1.35)$",
+    "B": "$\\Phi(1.35)$",
+    "C": "$\\Phi(1.65)$",
+    "D": "$1 - \\Phi(1.65)$"
+  },
+  "correct_option": "B"
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷六-012",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "常微分方程"
+  ],
+  "tags": [
+    "常微分方程"
+  ],
+  "question": "设 \\(y \\geq -2\\)，则微分方程 \\(x' - \\sqrt{x+y^2} = -2y\\) 满足 \\(x(0) = 1\\) 的特解为 \\(\\underline{\\hspace{3cm}}\\)",
+  "source": "import_v6",
+  "options": {}
+}

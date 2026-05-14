@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷三-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型"
+  ],
+  "tags": [
+    "二次型"
+  ],
+  "question": "设 $A$ 为 $n$ 阶方阵，有下列结论：\n① 若 $A$ 的全部顺序主子式为正，则 $A$ 正定；\n② 若 $A$ 相似于对角矩阵 $\\Lambda$，则 $A$ 与 $\\Lambda$ 合同；\n③ 若 $A$ 与正定矩阵合同，则 $A$ 为正定矩阵。\n则正确结论的个数为",
+  "source": "import_v3",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "B"
+}

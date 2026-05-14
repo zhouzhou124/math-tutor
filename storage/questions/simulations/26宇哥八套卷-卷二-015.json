@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷二-015",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "question": "$15.$ 设向量组 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 2 \\\\ 1 \\\\ 1 \\end{pmatrix}$ 不可由向量组 $\\beta_1 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} 2 \\\\ 3 \\\\ 7 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a \\\\ 0 \\\\ -a \\end{pmatrix}$ 线性表示，则 $a$ 的取值范围为 ______",
+  "source": "import_v2"
+}

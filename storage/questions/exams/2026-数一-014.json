@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "$14.$ $\\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2} dx = \\_\\_\\_\\_\\_\\_$",
+  "source": "import_2026",
+  "standard_answer": "\\ln 2",
+  "question_id": "2026-数一-014"
+}

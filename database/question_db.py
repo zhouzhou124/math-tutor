@@ -18,9 +18,17 @@ from difflib import SequenceMatcher
 
 from config import STORAGE_DIR, MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS
 
-DATA_DIR = Path(STORAGE_DIR) / "questions" / "data"
+# 分离存储结构
+EXAM_DIR = Path(STORAGE_DIR) / "questions" / "exams"      # 历年真题
+SIMUL_DIR = Path(STORAGE_DIR) / "questions" / "simulations"  # 模拟卷
 INDEX_PATH = Path(STORAGE_DIR) / "questions" / "_index.json"
 PENDING_PATH = Path(STORAGE_DIR) / "questions" / "_pending_review.json"
+
+def get_question_path(qid: str) -> Path:
+    """根据题目ID获取文件路径"""
+    if '宇哥八套卷' in qid:
+        return SIMUL_DIR / f"{qid}.json"
+    return EXAM_DIR / f"{qid}.json"
 
 # 知识点标签全集
 KNOWLEDGE_TAGS = [
@@ -42,11 +50,15 @@ KNOWLEDGE_TAGS = [
 
 
 def _ensure_dirs():
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    EXAM_DIR.mkdir(parents=True, exist_ok=True)
+    SIMUL_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def make_question_id(year: int, math_type: str, number: int) -> str:
-    """生成标准题号: 2024-数一-016"""
+def make_question_id(year: int, math_type: str, number: int, volume: str = None) -> str:
+    """生成标准题号: 2024-数一-016 或 26宇哥八套卷-卷一-001"""
+    if volume:
+        # 有卷号的情况（如宇哥八套卷），不包含年份
+        return f"{math_type}-{volume}-{number:03d}"
     abbr = {"数学一": "数一"}
     return f"{year}-{abbr.get(math_type, math_type)}-{number:03d}"
 
@@ -64,6 +76,12 @@ class QuestionDB:
     def __init__(self):
         _ensure_dirs()
         self._init_index()
+        # 索引缓存
+        self._index_cache = None
+        self._index_cache_time = 0
+        # 题目缓存（LRU，最多缓存100题）
+        self._question_cache = {}
+        self._cache_max_size = 100
 
     # ==================== 索引管理 ====================
 
@@ -82,8 +100,32 @@ class QuestionDB:
             }
             self._save_json(INDEX_PATH, index)
 
-    def _load_index(self) -> dict:
-        return self._load_json(INDEX_PATH)
+    def _load_index(self, force_reload: bool = False) -> dict:
+        """加载索引，支持缓存（5秒内不重新加载）"""
+        now = time.time()
+        if not force_reload and self._index_cache is not None and (now - self._index_cache_time) < 5:
+            return self._index_cache
+        
+        self._index_cache = self._load_json(INDEX_PATH)
+        self._index_cache_time = now
+        return self._index_cache
+
+    def _clear_index_cache(self):
+        """清除索引缓存（在索引更新后调用）"""
+        self._index_cache = None
+        self._index_cache_time = 0
+
+    def _cache_question(self, qid: str, question: dict):
+        """缓存题目，LRU策略"""
+        if len(self._question_cache) >= self._cache_max_size:
+            # 移除最旧的缓存（FIFO策略）
+            oldest_key = next(iter(self._question_cache))
+            del self._question_cache[oldest_key]
+        self._question_cache[qid] = question
+
+    def _get_cached_question(self, qid: str) -> dict:
+        """从缓存获取题目"""
+        return self._question_cache.get(qid)
 
     def _save_index(self, index: dict):
         index["metadata"]["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%S")
@@ -122,15 +164,16 @@ class QuestionDB:
                 "warnings": [f"疑似重复: 与 {dup['existing_id']} 相似度 {dup['similarity']:.1%}"],
             }
 
-        # 生成ID
+        # 生成ID（考虑卷号，避免卷一和卷二ID碰撞）
         year = question["year"]
         math_type = question["category"]
-        number = self._next_number(year, math_type)
-        qid = make_question_id(year, math_type, number)
+        volume = question.get("volume", "")
+        number = self._next_number(year, math_type, volume)
+        qid = make_question_id(year, math_type, number, volume)
         question["question_id"] = qid
 
         # 写入数据文件
-        data_path = DATA_DIR / f"{qid}.json"
+        data_path = get_question_path(qid)
         self._save_json(data_path, question)
 
         # 更新索引
@@ -144,9 +187,16 @@ class QuestionDB:
         return {"success": True, "question_id": qid, "warnings": warnings}
 
     def get(self, question_id: str) -> dict | None:
-        data_path = DATA_DIR / f"{question_id}.json"
+        # 先从缓存获取
+        cached = self._get_cached_question(question_id)
+        if cached is not None:
+            return cached
+        
+        data_path = get_question_path(question_id)
         if data_path.exists():
-            return self._load_json(data_path)
+            q = self._load_json(data_path)
+            self._cache_question(question_id, q)
+            return q
         return None
 
     def update(self, question_id: str, updates: dict) -> bool:
@@ -157,7 +207,12 @@ class QuestionDB:
         # 保护 ID 不被修改
         updates.pop("question_id", None)
         existing.update(updates)
-        self._save_json(DATA_DIR / f"{question_id}.json", existing)
+        self._save_json(get_question_path(question_id), existing)
+        # 更新后清除缓存
+        if question_id in self._question_cache:
+            del self._question_cache[question_id]
+        self._clear_index_cache()
+        self._clear_stats_cache()
 
         # 重建相关索引
         index = self._load_index()
@@ -170,7 +225,7 @@ class QuestionDB:
         return True
 
     def delete(self, question_id: str) -> bool:
-        data_path = DATA_DIR / f"{question_id}.json"
+        data_path = get_question_path(question_id)
         if not data_path.exists():
             return False
 
@@ -182,6 +237,12 @@ class QuestionDB:
         self._remove_from_index(index, question)
         index["metadata"]["total_questions"] -= 1
         self._save_index(index)
+        
+        # 清除缓存
+        if question_id in self._question_cache:
+            del self._question_cache[question_id]
+        self._clear_index_cache()
+        self._clear_stats_cache()
         return True
 
     # ==================== 搜索 ====================
@@ -201,10 +262,12 @@ class QuestionDB:
         limit = filters.pop("limit", 50)
         candidate_ids = None
 
+        # 只加载一次索引
+        index = self._load_index()
+
         # 卷号过滤：从 categories 索引获取该卷的题目 ID
         if filters.get("volume"):
             vol = filters.pop("volume")
-            index = self._load_index()
             mt = filters.get("math_type", "")
             if mt:
                 vol_ids = index.get("categories", {}).get(mt, {}).get(vol, {})
@@ -215,25 +278,32 @@ class QuestionDB:
         # 用最精确的索引缩小范围
         if filters.get("knowledge_point"):
             kp = filters["knowledge_point"]
-            index = self._load_index()
             ki = index.get("knowledge_index", {})
             matches = [ids for key, ids in ki.items() if kp in key]
             if matches:
-                candidate_ids = set()
-                for m in matches:
-                    candidate_ids.update(m)
+                if candidate_ids is not None:
+                    # 交集优化
+                    kp_ids = set()
+                    for m in matches:
+                        kp_ids.update(m)
+                    candidate_ids.intersection_update(kp_ids)
+                else:
+                    candidate_ids = set()
+                    for m in matches:
+                        candidate_ids.update(m)
             else:
                 return []  # 知识点不匹配
 
         if candidate_ids is None and filters.get("difficulty"):
-            index = self._load_index()
             di = index.get("difficulty_index", {})
             candidate_ids = set(di.get(filters["difficulty"], []))
 
         # 加载候选题
+        questions = []
         if candidate_ids is not None:
-            questions = []
-            for qid in list(candidate_ids)[:limit * 3]:
+            # 优先使用索引，只加载需要的题目
+            candidate_list = list(candidate_ids)[:limit * 3]
+            for qid in candidate_list:
                 q = self.get(qid)
                 if q:
                     questions.append(q)
@@ -279,7 +349,13 @@ class QuestionDB:
     # ==================== 统计 ====================
 
     def stats(self) -> dict:
-        """数据库统计"""
+        """数据库统计（带缓存）"""
+        # 使用缓存，5秒内不重新计算
+        now = time.time()
+        if hasattr(self, '_stats_cache') and hasattr(self, '_stats_cache_time'):
+            if (now - self._stats_cache_time) < 5:
+                return self._stats_cache
+        
         index = self._load_index()
         cats = index.get("categories", {})
 
@@ -307,7 +383,7 @@ class QuestionDB:
                 if y.isdigit():
                     years.add(int(y))
 
-        return {
+        result = {
             "total": index["metadata"]["total_questions"],
             "by_math_type": by_math_type,
             "by_question_type": by_type,
@@ -316,6 +392,18 @@ class QuestionDB:
             "missing_data": index["metadata"].get("missing_data", []),
             "pending_review": index["metadata"].get("pending_review", []),
         }
+
+        # 缓存结果
+        self._stats_cache = result
+        self._stats_cache_time = now
+        return result
+
+    def _clear_stats_cache(self):
+        """清除统计缓存"""
+        if hasattr(self, '_stats_cache'):
+            delattr(self, '_stats_cache')
+        if hasattr(self, '_stats_cache_time'):
+            delattr(self, '_stats_cache_time')
 
     # ==================== 质量验证 ====================
 
@@ -374,12 +462,25 @@ class QuestionDB:
         index = self._load_index()
         return sorted(index.get("knowledge_index", {}).keys())
 
+    def get_volumes(self, math_type: str) -> list[str]:
+        """获取指定数学类别的卷号列表（用于宇哥八套卷等）"""
+        index = self._load_index()
+        cat_idx = index.get("categories", {}).get(math_type, {})
+        if not cat_idx:
+            return []
+        _cn = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8}
+        return sorted(cat_idx.keys(), key=lambda v: next((_cn.get(ch, 99) for ch in v if ch in _cn), 99))
+
     # ==================== 内部方法 ====================
 
-    def _next_number(self, year: int, math_type: str) -> int:
-        """获取下一个题号"""
+    def _next_number(self, year: int, math_type: str, volume: str = "") -> int:
+        """获取下一个题号（考虑卷号，避免不同卷号的题目ID碰撞）"""
         index = self._load_index()
-        cat = index["categories"].get(math_type, {}).get(str(year), {})
+        # 如果有卷号，使用卷号作为二级分类；否则使用年份
+        if volume:
+            cat = index["categories"].get(math_type, {}).get(volume, {})
+        else:
+            cat = index["categories"].get(math_type, {}).get(str(year), {})
         max_num = 0
         for qtype, ids in cat.items():
             if qtype in QUESTION_TYPES:
@@ -452,12 +553,23 @@ class QuestionDB:
     def _load_all(self, limit: int = 100000) -> list[dict]:
         """加载所有题目（供搜索遍历）"""
         questions = []
-        if DATA_DIR.exists():
-            for f in sorted(DATA_DIR.glob("*.json"))[:limit]:
+        
+        # 加载真题
+        if EXAM_DIR.exists():
+            for f in sorted(EXAM_DIR.glob("*.json"))[:limit]:
                 try:
                     questions.append(self._load_json(f))
                 except Exception:
                     pass
+        
+        # 加载模拟卷
+        if SIMUL_DIR.exists():
+            for f in sorted(SIMUL_DIR.glob("*.json"))[:limit]:
+                try:
+                    questions.append(self._load_json(f))
+                except Exception:
+                    pass
+        
         return questions
 
     def _update_categories(self, index: dict, question: dict):

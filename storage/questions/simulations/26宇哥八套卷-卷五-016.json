@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷五-016",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "question": "$16.$ 设 $X\\sim N(0,\\sigma^2)$，使 $P\\{\\frac{1}{e^2}<X<e\\}$ 最大的 $\\sigma^2=$ ______",
+  "source": "import_v5"
+}

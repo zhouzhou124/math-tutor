@@ -2,190 +2,141 @@
 Operation Taxonomy — 标准化数学推导操作类型
 
 所有模块统一使用这些枚举值，避免自由文本导致的匹配混乱。
+
+注意：此类已迁移到 common_enums.OperationType
+此文件保留用于向后兼容。
 """
 
-from enum import Enum
+from common_enums import OperationType
 
+# 向后兼容别名
+Op = OperationType
 
-class Op(str, Enum):
-    """数学推导操作类型"""
-
-    # ── 微积分 ──
-    DIFFERENTIATE = "differentiate"
-    INTEGRATE = "integrate"
-    COMPUTE_LIMIT = "compute_limit"
-    PARTIAL_DIFF = "partial_diff"
-
-    # ── 代数变换 ──
-    EXPAND = "expand"
-    FACTOR = "factor"
-    SIMPLIFY = "simplify"
-    SUBSTITUTE = "substitute"
-    COLLECT = "collect"         # 合并同类项
-    CANCEL = "cancel"           # 约分
-
-    # ── 方程 / 系统 ──
-    SOLVE_EQUATION = "solve_equation"
-    SOLVE_SYSTEM = "solve_system"
-    SOLVE_INEQUALITY = "solve_inequality"
-
-    # ── 线性代数 ──
-    MATRIX_OP = "matrix_op"
-    ROW_REDUCE = "row_reduce"
-    EIGEN_SOLVE = "eigen_solve"
-    DETERMINANT = "determinant"
-    ORTHOGONALIZE = "orthogonalize"
-    QUADRATIC_FORM = "quadratic_form"
-
-    # ── 级数 ──
-    EXPAND_SERIES = "expand_series"
-    SUM_SERIES = "sum_series"
-    CONVERGENCE_TEST = "convergence_test"
-
-    # ── 概率统计 ──
-    PROBABILITY_CALC = "probability_calc"
-    EXPECTATION = "expectation"
-    MLE_DERIVE = "mle_derive"
-    MOMENT_ESTIMATE = "moment_estimate"
-    HYPOTHESIS_TEST = "hypothesis_test"
-
-    # ── 证明 / 逻辑 ──
-    APPLY_THEOREM = "apply_theorem"
-    CLASSIFY = "classify"
-    INDUCTION_STEP = "induction_step"
-    CONTRADICTION = "contradiction"
-
-    # ── 通用 ──
-    COMPUTE = "compute"         # 通用计算
-    DEFINE = "define"           # 引入定义
-    FINAL_ANSWER = "final_answer"
-
-    # ── 几何 / 向量 ──
-    CROSS_PRODUCT = "cross_product"
-    DOT_PRODUCT = "dot_product"
-    NORM = "norm"
-
-
-# 别名映射：非标准名称 → 标准 Op
+# 保留别名映射供外部使用
 _ALIASES = {
     # differentiate
-    "diff": Op.DIFFERENTIATE,
-    "derivative": Op.DIFFERENTIATE,
-    "compute_derivative": Op.DIFFERENTIATE,
-    "求导": Op.DIFFERENTIATE,
-    "微分": Op.DIFFERENTIATE,
-    "偏导": Op.PARTIAL_DIFF,
+    "diff": OperationType.DIFFERENTIATE,
+    "derivative": OperationType.DIFFERENTIATE,
+    "compute_derivative": OperationType.DIFFERENTIATE,
+    "求导": OperationType.DIFFERENTIATE,
+    "微分": OperationType.DIFFERENTIATE,
+    "偏导": OperationType.PARTIAL_DIFF,
     # integrate
-    "integral": Op.INTEGRATE,
-    "积分": Op.INTEGRATE,
+    "integral": OperationType.INTEGRATE,
+    "积分": OperationType.INTEGRATE,
     # limit
-    "limit": Op.COMPUTE_LIMIT,
-    "极限": Op.COMPUTE_LIMIT,
-    # expand
-    "展开": Op.EXPAND,
-    "泰勒": Op.EXPAND_SERIES,
+    "limit": OperationType.LIMIT_COMPUTE,
+    "极限": OperationType.LIMIT_COMPUTE,
+    # taylor
+    "泰勒": OperationType.TAYLOR_EXPANSION,
     # factor
-    "因式分解": Op.FACTOR,
-    "分解": Op.FACTOR,
+    "因式分解": OperationType.FACTOR,
+    "分解": OperationType.FACTOR,
     # simplify
-    "化简": Op.SIMPLIFY,
-    "整理": Op.SIMPLIFY,
-    "合并": Op.COLLECT,
-    "约分": Op.CANCEL,
+    "化简": OperationType.SIMPLIFY,
+    "整理": OperationType.SIMPLIFY,
     # solve
-    "solve": Op.SOLVE_EQUATION,
-    "求解": Op.SOLVE_EQUATION,
-    "解方程": Op.SOLVE_EQUATION,
-    "方程组": Op.SOLVE_SYSTEM,
+    "solve": OperationType.SOLVE_EQUATION,
+    "求解": OperationType.SOLVE_EQUATION,
+    "解方程": OperationType.SOLVE_EQUATION,
+    "方程组": OperationType.SOLVE_SYSTEM,
     # matrix
-    "矩阵": Op.MATRIX_OP,
-    "行列式": Op.DETERMINANT,
-    "det": Op.DETERMINANT,
-    "行变换": Op.ROW_REDUCE,
-    "特征值": Op.EIGEN_SOLVE,
-    "特征向量": Op.EIGEN_SOLVE,
+    "矩阵": OperationType.MATRIX_OP,
+    "行列式": OperationType.DETERMINANT,
+    "det": OperationType.DETERMINANT,
+    "行变换": OperationType.ROW_REDUCE,
+    "特征值": OperationType.EIGEN_SOLVE,
+    "特征向量": OperationType.EIGEN_SOLVE,
     # probability
-    "概率": Op.PROBABILITY_CALC,
-    "期望": Op.EXPECTATION,
-    "方差": Op.EXPECTATION,
-    "似然": Op.MLE_DERIVE,
+    "概率": OperationType.PROBABILITY_CALC,
+    "期望": OperationType.EXPECTATION,
+    "方差": OperationType.EXPECTATION,
+    "似然": OperationType.MLE_DERIVE,
     # theorem
-    "定理": Op.APPLY_THEOREM,
-    # classify
-    "分类": Op.CLASSIFY,
-    "讨论": Op.CLASSIFY,
+    "定理": OperationType.APPLY_THEOREM,
     # final
-    "答案": Op.FINAL_ANSWER,
-    "最终": Op.FINAL_ANSWER,
-    "所以": Op.FINAL_ANSWER,
+    "答案": OperationType.FINAL_ANSWER,
+    "最终": OperationType.FINAL_ANSWER,
+    "所以": OperationType.FINAL_ANSWER,
 }
 
-# 关键词模式 → Op（用于从文本推断，按优先级排列）
-KEYWORD_PATTERNS: list[tuple[str, Op]] = [
-    (r'求导|导数|f\'|\'\'|微分|偏导', Op.DIFFERENTIATE),
-    (r'积分|∫|\\int', Op.INTEGRATE),
-    (r'极限|lim|\\lim|趋近', Op.COMPUTE_LIMIT),
-    (r'代入|把.*代入|将.*代入', Op.SUBSTITUTE),
-    (r'化简|整理|约分', Op.SIMPLIFY),
-    (r'合并同类项', Op.COLLECT),
-    (r'展开|泰勒|麦克劳林|幂级数', Op.EXPAND_SERIES),
-    (r'因式分解|分解因式', Op.FACTOR),
-    (r'解方程|求解|令.*=.*0', Op.SOLVE_EQUATION),
-    (r'方程组|线性方程', Op.SOLVE_SYSTEM),
-    (r'特征值|特征向量|\\lambda', Op.EIGEN_SOLVE),
-    (r'矩阵|行列式|det', Op.MATRIX_OP),
-    (r'行变换|初等变换|行阶梯', Op.ROW_REDUCE),
-    (r'概率|P\(|条件概率', Op.PROBABILITY_CALC),
-    (r'期望|方差|E\[|D\[|标准差', Op.EXPECTATION),
-    (r'极大似然|似然函数|MLE', Op.MLE_DERIVE),
-    (r'矩估计', Op.MOMENT_ESTIMATE),
-    (r'正交化|施密特', Op.ORTHOGONALIZE),
-    (r'二次型|标准形', Op.QUADRATIC_FORM),
-    (r'定理|根据.*定理|由.*得', Op.APPLY_THEOREM),
-    (r'分类讨论|当.*时|情形', Op.CLASSIFY),
-    (r'所以|故|因此|最终|答案', Op.FINAL_ANSWER),
-    (r'级数|收敛|发散', Op.CONVERGENCE_TEST),
+# 关键词模式 → OperationType（用于从文本推断，按优先级排列）
+KEYWORD_PATTERNS: list[tuple[str, OperationType]] = [
+    # 高优先级：特定操作
+    (r'求解.*方程|解方程|令.*=.*0|求.*的根', OperationType.SOLVE_EQUATION),
+    (r'分部积分', OperationType.INTEGRATION_BY_PARTS),
+    (r'换元积分|换元', OperationType.SUBSTITUTION),
+    (r'泰勒展开|麦克劳林展开', OperationType.TAYLOR_EXPANSION),
+    (r'幂级数展开', OperationType.SERIES_EXPANSION),
+    (r'因式分解|分解因式', OperationType.FACTOR),
+    (r'行列式|计算行列式', OperationType.DETERMINANT),
+    (r'行变换|初等变换|行阶梯', OperationType.ROW_REDUCE),
+    (r'特征值|特征向量', OperationType.EIGEN_SOLVE),
+    (r'极大似然|似然函数|MLE', OperationType.MLE_DERIVE),
+    (r'矩估计', OperationType.MOMENT_ESTIMATE),
+    (r'假设检验', OperationType.HYPOTHESIS_TEST),
+    (r'数学归纳法', OperationType.PROOF_BY_INDUCTION),
+    (r'反证法', OperationType.PROOF_BY_CONTRADICTION),
+
+    # 中优先级：通用操作
+    (r'求导|导数|微分|偏导数|偏导', OperationType.DIFFERENTIATE),
+    (r'f\'|\'\'|y\'|y\'\'|dy/dx|d/dx|\\frac{d}{dx}', OperationType.DIFFERENTIATE),
+    (r'积分|∫|\\int', OperationType.INTEGRATE),
+    (r'极限|lim|\\lim|趋近', OperationType.LIMIT_COMPUTE),
+    (r'代入|把.*代入|将.*代入', OperationType.SUBSTITUTION),
+    (r'化简|整理|约分', OperationType.SIMPLIFY),
+    (r'展开', OperationType.SERIES_EXPANSION),
+    (r'方程组|线性方程', OperationType.SOLVE_SYSTEM),
+    (r'矩阵', OperationType.MATRIX_OP),
+    (r'概率|P\(|条件概率', OperationType.PROBABILITY_CALC),
+    (r'期望|方差|E\[|D\[|标准差', OperationType.EXPECTATION),
+    (r'定理|根据.*定理|由.*得|应用.*定理', OperationType.APPLY_THEOREM),
+    (r'级数|收敛|发散', OperationType.CONVERGENCE_TEST),
+
+    # 低优先级：通用词汇
+    (r'所以|故|因此|最终|答案', OperationType.FINAL_ANSWER),
 ]
 
 
-def normalize_op(raw: str) -> Op:
-    """将任意字符串规范化为 Op 枚举。"""
+def normalize_op(raw: str) -> OperationType:
+    """将任意字符串规范化为 OperationType 枚举。"""
     if not raw:
-        return Op.COMPUTE
-    if isinstance(raw, Op):
+        return OperationType.COMPUTE
+    if isinstance(raw, OperationType):
         return raw
     # 直接匹配枚举值
     try:
-        return Op(raw)
+        return OperationType(raw)
     except ValueError:
         pass
     # 别名匹配
     low = raw.strip().lower()
     if low in _ALIASES:
         return _ALIASES[low]
-    return Op.COMPUTE
+    return OperationType.COMPUTE
 
 
-def infer_op_from_text(text: str) -> Op:
+def infer_op_from_text(text: str) -> OperationType:
     """从步骤文本推断操作类型。"""
     import re
     for pattern, op in KEYWORD_PATTERNS:
         if re.search(pattern, text):
             return op
-    return Op.COMPUTE
+    return OperationType.COMPUTE
 
 
 # 操作兼容性表：允许哪些操作互相匹配（图匹配时使用）
-COMPATIBLE_OPS: dict[Op, set[Op]] = {
-    Op.DIFFERENTIATE: {Op.DIFFERENTIATE, Op.PARTIAL_DIFF},
-    Op.INTEGRATE: {Op.INTEGRATE},
-    Op.EXPAND: {Op.EXPAND, Op.EXPAND_SERIES, Op.SIMPLIFY},
-    Op.FACTOR: {Op.FACTOR, Op.SIMPLIFY},
-    Op.SIMPLIFY: {Op.SIMPLIFY, Op.EXPAND, Op.FACTOR, Op.COLLECT, Op.CANCEL},
-    Op.SOLVE_EQUATION: {Op.SOLVE_EQUATION, Op.SOLVE_SYSTEM},
-    Op.MATRIX_OP: {Op.MATRIX_OP, Op.ROW_REDUCE, Op.DETERMINANT},
-    Op.EIGEN_SOLVE: {Op.EIGEN_SOLVE, Op.MATRIX_OP},
-    Op.FINAL_ANSWER: {Op.FINAL_ANSWER},
+COMPATIBLE_OPS: dict[OperationType, set[OperationType]] = {
+    OperationType.DIFFERENTIATE: {OperationType.DIFFERENTIATE, OperationType.PARTIAL_DIFF},
+    OperationType.INTEGRATE: {OperationType.INTEGRATE, OperationType.INTEGRATION_BY_PARTS},
+    OperationType.TAYLOR_EXPANSION: {OperationType.TAYLOR_EXPANSION, OperationType.SERIES_EXPANSION},
+    OperationType.SERIES_EXPANSION: {OperationType.SERIES_EXPANSION, OperationType.TAYLOR_EXPANSION},
+    OperationType.FACTOR: {OperationType.FACTOR, OperationType.SIMPLIFY},
+    OperationType.SIMPLIFY: {OperationType.SIMPLIFY, OperationType.FACTOR},
+    OperationType.SOLVE_EQUATION: {OperationType.SOLVE_EQUATION, OperationType.SOLVE_SYSTEM},
+    OperationType.MATRIX_OP: {OperationType.MATRIX_OP, OperationType.ROW_REDUCE, OperationType.DETERMINANT},
+    OperationType.EIGEN_SOLVE: {OperationType.EIGEN_SOLVE, OperationType.MATRIX_OP},
+    OperationType.FINAL_ANSWER: {OperationType.FINAL_ANSWER},
 }
 
 

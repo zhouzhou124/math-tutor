@@ -1,0 +1,22 @@
+{
+  "question_id": "2023-数一-015",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "基础",
+  "score": 5,
+  "question": "$15.$ 已知向量 $\\alpha_1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, $\\alpha_2 = \\begin{bmatrix} -1 \\\\ 1 \\\\ 0 \\end{bmatrix}$, $\\alpha_3 = \\begin{bmatrix} 0 \\\\ 1 \\\\ -1 \\end{bmatrix}$, $\\beta = \\begin{bmatrix} 1 \\\\ 1 \\\\ -1 \\end{bmatrix}$, $\\gamma = k_1\\alpha_1 + k_2\\alpha_2 + k_3\\alpha_3$. \n若 $\\gamma^T\\alpha_i = \\beta^T\\alpha_i$ $(i = 1,2,3)$, 则 $k_1^2 + k_2^2 + k_3^2 = \\underline{\\qquad \\qquad}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 矩阵运算 数学概念: 矩阵运算 基础题 5分题 2023-数一-015"
+}

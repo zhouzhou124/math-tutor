@@ -24,6 +24,7 @@ def view_solution(qid: str) -> None:
 def start_edit(qid: str) -> None:
     """Enter edit mode for this question."""
     st.session_state.editing_question = qid
+    st.rerun()
 
 
 def delete_question(qid: str) -> None:

@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "$17.$ (本题满分10分) 求函数 $f(x,y) = (2x^2 - y^2)e^x$ 的极值。",
+  "source": "import_2026",
+  "standard_answer": "极大值 f(0,0) = 0，极小值 f(1,\\pm 2) = -2e",
+  "question_id": "2026-数一-017"
+}

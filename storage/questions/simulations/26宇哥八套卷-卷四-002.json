@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷四-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "函数 $f(x,y) = x^2 + y^2$ 在约束条件 $(x-1)^3 = y^2$ 下",
+  "source": "import_v4",
+  "options": {
+    "A": "有最大值，无最小值",
+    "B": "无最大值，有最小值",
+    "C": "有最大值，有最小值",
+    "D": "无最大值，无最小值"
+  },
+  "correct_option": "B"
+}

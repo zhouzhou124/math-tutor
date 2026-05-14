@@ -36,6 +36,7 @@ def render_practice_page(db):
 
         if st.button("↩️ 返回题库", key="back_to_bank_from_practice"):
             st.session_state.selected_question = None
+            st.session_state.page = "question_bank"
             st.rerun()
 
         # ── 题目展示 ──

@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "重积分"
+  ],
+  "tags": [
+    "重积分"
+  ],
+  "question": "设函数 $f(x,y)$ 连续，且 $f(x,y) = f(y,x) = f(-x,y)$，则 $\\int_{-2}^{2}\\mathrm{d}x\\int_{\\sqrt{4 - x^{2}}}^{2}f(x,y)\\mathrm{d}y = $",
+  "source": "import_v6",
+  "options": {
+    "A": "\\int_{0}^{2}\\left[\\int_{-2}^{-\\sqrt{4 - y^{2}}}f(x,y)\\mathrm{d}x + \\int_{-\\sqrt{4 - y^{2}}}^{2}f(x,y)\\mathrm{d}x\\right]\\mathrm{d}y",
+    "B": "2\\int_{0}^{2}\\left[\\int_{\\sqrt{4 - y^{2}}}^{2}f(x,y)\\mathrm{d}y\\right]\\mathrm{d}x",
+    "C": "4\\int_{0}^{\\frac{\\pi}{2}}\\mathrm{d}\\theta \\int_{2}^{2\\sec\\theta}f(r\\cos\\theta ,r\\sin\\theta)\\mathrm{d}r",
+    "D": "4\\int_{0}^{2\\sec\\theta}\\mathrm{d}\\theta \\int_{2}^{2\\sec\\theta}f(r\\cos\\theta ,r\\sin\\theta)\\mathrm{d}r"
+  },
+  "correct_option": "A"
+}

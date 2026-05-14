@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷五-020",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "$20.$ (12分) 锥面 $\\Sigma$ 顶点为原点，准线 $\\Gamma:\\{z=y^2,x=1\\}(|y|\\le1)$。(1) 求 $\\Sigma$ 方程；(2) 计算 $I=\\iint_{\\Sigma}2x^2dydz+xydzdx+(z+1)dxdy$，取上侧。",
+  "source": "import_v5"
+}

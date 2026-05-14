@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "重积分"
+  ],
+  "tags": [
+    "重积分"
+  ],
+  "question": "设 $I_i = \\iint_{D_i} e^{-(x^2+y^2)} d\\sigma$，$i=1,2,3$，其中 $D_1 = \\{(x,y) \\mid x^2+y^2 \\le R^2\\}$，$D_2 = \\{(x,y) \\mid x^2+y^2 \\ge 2R^2\\}$，$D_3 = \\{(x,y) \\mid |x| \\le R, |y| \\le R\\}$，$R>0$，则",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$I_1 < I_2 < I_3$",
+    "B": "$I_2 < I_3 < I_1$",
+    "C": "$I_1 < I_3 < I_2$",
+    "D": "$I_3 < I_2 < I_1$"
+  },
+  "correct_option": "B"
+}

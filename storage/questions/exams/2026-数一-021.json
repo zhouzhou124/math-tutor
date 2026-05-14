@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "question": "$21.$ (本题满分12分) 已知向量组 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ -1 \\\\ 0 \\\\ -2 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 0 \\\\ -1 \\\\ 1 \\\\ -1 \\end{pmatrix}$，$\\alpha_4 = \\begin{pmatrix} 0 \\\\ 1 \\\\ -1 \\\\ 1 \\end{pmatrix}$，记 $A = (\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$，$G = (\\alpha_1,\\alpha_2)$。\n$(1)$ 证明：$\\alpha_1,\\alpha_2$ 是极大线性无关组；\n$(2)$ 求矩阵 $H$ 使得 $A = GH$，并求 $A^{10}$。",
+  "source": "import_2026",
+  "standard_answer": "A^{10} = A",
+  "question_id": "2026-数一-021"
+}

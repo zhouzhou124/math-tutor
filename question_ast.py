@@ -9,7 +9,10 @@ import re
 import json as _json
 from latex_utils import normalize_latex_style
 from dataclasses import dataclass, field
-from typing import Optional as _Optional
+from typing import Optional as _Optional, List as _List, Dict as _Dict
+
+# 语义增强器
+from semantic_enhancer import get_semantic_enhancer, get_parser_enhancer
 
 
 # ============================================================
@@ -33,6 +36,65 @@ class SolutionStep:
     label: str = ""       # "步骤1"
     content: str = ""     # LaTeX / text
     operation: str = ""   # "differentiate", "solve", etc.
+    input_expr: _Optional['ExprNode'] = None    # 输入表达式 AST
+    output_expr: _Optional['ExprNode'] = None   # 输出表达式 AST
+    
+    def get_operation(self):
+        """获取规范化的操作类型"""
+        from operations import normalize_op
+        return normalize_op(self.operation)
+    
+    def set_operation(self, op):
+        """设置操作类型（支持 Op 枚举或字符串）"""
+        from operations import normalize_op
+        normalized = normalize_op(op)
+        self.operation = normalized.value
+    
+    def parse_input_expr(self, latex: str):
+        """解析输入表达式 LaTeX 为 AST"""
+        from expression_parser import parse_latex
+        try:
+            self.input_expr = parse_latex(latex)
+        except:
+            self.input_expr = None
+    
+    def parse_output_expr(self, latex: str):
+        """解析输出表达式 LaTeX 为 AST"""
+        from expression_parser import parse_latex
+        try:
+            self.output_expr = parse_latex(latex)
+        except:
+            self.output_expr = None
+    
+    def evaluate_input(self, variables: dict = None) -> _Optional[float]:
+        """计算输入表达式的值"""
+        if self.input_expr:
+            try:
+                return self.input_expr.evaluate(variables or {})
+            except:
+                return None
+        return None
+    
+    def evaluate_output(self, variables: dict = None) -> _Optional[float]:
+        """计算输出表达式的值"""
+        if self.output_expr:
+            try:
+                return self.output_expr.evaluate(variables or {})
+            except:
+                return None
+        return None
+    
+    def get_input_latex(self) -> str:
+        """获取输入表达式的 LaTeX 表示"""
+        if self.input_expr:
+            return self.input_expr.to_latex()
+        return ""
+    
+    def get_output_latex(self) -> str:
+        """获取输出表达式的 LaTeX 表示"""
+        if self.output_expr:
+            return self.output_expr.to_latex()
+        return ""
 
 
 @dataclass
@@ -51,6 +113,139 @@ class QuestionAST:
     # Type-specific fields
     options: list = field(default_factory=list)    # list[ChoiceOption] for choice
     steps: list = field(default_factory=list)      # list[SolutionStep] for solution/proof
+    # Reasoning DAG for tracking logical flow
+    reasoning_dag: _Optional['ReasoningDAG'] = None
+    
+    def build_reasoning_dag(self) -> 'ReasoningDAG':
+        """从解答步骤构建推理图"""
+        from reasoning_dag import DagBuilder, NodeType
+        
+        builder = DagBuilder()
+        
+        # 添加前提节点（题目描述）
+        premise_id = builder.add_premise(self.stem)
+        
+        # 添加目标节点
+        goal_id = builder.add_goal(f"求答案: {self.answer}")
+        
+        # 跟踪上一步的输出节点ID
+        prev_output_id = premise_id
+        
+        # 遍历步骤构建推理链
+        for i, step in enumerate(self.steps):
+            # 添加操作节点
+            op_type = step.get_operation()
+            op_id = builder.add_operation(op_type, step.content)
+            
+            # 如果有输入表达式，添加表达式节点
+            if step.input_expr:
+                input_expr_id = builder.add_expression(
+                    step.get_input_latex(), 
+                    step.input_expr
+                )
+                builder.connect_input(input_expr_id, op_id, "输入")
+                # 连接上一步的输出到当前输入
+                if prev_output_id:
+                    builder.connect_depends(prev_output_id, input_expr_id, "前置")
+            
+            # 如果有输出表达式，添加表达式节点
+            if step.output_expr:
+                output_expr_id = builder.add_expression(
+                    step.get_output_latex(), 
+                    step.output_expr
+                )
+                builder.connect_output(op_id, output_expr_id, "输出")
+                prev_output_id = output_expr_id
+        
+        # 添加结论节点
+        conclusion_id = builder.add_conclusion(self.answer)
+        if prev_output_id:
+            builder.connect_derives(prev_output_id, conclusion_id, "推导")
+        builder.connect_depends(goal_id, conclusion_id, "达成")
+        
+        self.reasoning_dag = builder.build()
+        return self.reasoning_dag
+    
+    def get_reasoning_mermaid(self) -> str:
+        """获取推理图的 Mermaid 表示"""
+        if self.reasoning_dag is None:
+            self.build_reasoning_dag()
+        return self.reasoning_dag.to_mermaid()
+    
+    def validate_reasoning(self) -> dict:
+        """验证推理链的正确性"""
+        if self.reasoning_dag is None:
+            self.build_reasoning_dag()
+        
+        result = {
+            'valid': True,
+            'has_cycles': False,
+            'errors': [],
+            'warnings': []
+        }
+        
+        # 检查是否有环
+        cycles = self.reasoning_dag.find_cycles()
+        if cycles:
+            result['has_cycles'] = True
+            result['valid'] = False
+            result['errors'].append(f"发现 {len(cycles)} 个循环依赖")
+        
+        # 检查是否有孤立节点
+        for node_id, node in self.reasoning_dag.nodes.items():
+            in_edges = self.reasoning_dag.get_edges_to(node_id)
+            out_edges = self.reasoning_dag.get_edges_from(node_id)
+            if not in_edges and not out_edges and node.type != NodeType.PREMISE:
+                result['warnings'].append(f"孤立节点: {node.label}")
+        
+        return result
+    
+    def enhance_semantics(self) -> 'QuestionAST':
+        """增强AST的语义信息"""
+        enhancer = get_semantic_enhancer()
+        
+        # 为步骤补充操作语义
+        enhanced_steps = []
+        for i, step in enumerate(self.steps):
+            if isinstance(step, SolutionStep):
+                content = step.content
+                operation = step.operation
+            elif isinstance(step, dict):
+                content = step.get("content", "")
+                operation = step.get("operation", "")
+            else:
+                content = str(step)
+                operation = ""
+            
+            # 如果没有操作类型，自动推断
+            if not operation:
+                op = enhancer.infer_operation(content)
+                operation = op.value
+            
+            enhanced_steps.append(SolutionStep(
+                label=f"步骤{i+1}",
+                content=content,
+                operation=operation,
+            ))
+        
+        self.steps = enhanced_steps
+        
+        return self
+    
+    def validate_semantics(self) -> dict:
+        """完整语义验证"""
+        enhancer = get_semantic_enhancer()
+        return enhancer.full_validation(self)
+    
+    def validate_structure(self) -> dict:
+        """验证结构完整性"""
+        enhancer = get_semantic_enhancer()
+        return enhancer.validate_structure(self)
+    
+    def validate_knowledge_consistency(self) -> dict:
+        """验证知识点一致性"""
+        enhancer = get_semantic_enhancer()
+        return enhancer.validate_knowledge_consistency(self)
 
 
 # ============================================================
@@ -64,6 +259,7 @@ def _extract_stem_and_options(text: str) -> tuple[str, list[ChoiceOption]]:
       $(A)$ content \\qquad $(B)$ content
       (A) content (B) content
       A. content  B. content
+      $(A)$ $y=x+e$ $(B)$ $y=x+1$ (无 \qquad 分隔)
     """
     options = []
     stem = text
@@ -71,21 +267,43 @@ def _extract_stem_and_options(text: str) -> tuple[str, list[ChoiceOption]]:
     # 预处理：先把 \qquad 和 \quad 替换为换行，这样选项就会出现在单独的行
     processed_text = text.replace('\\qquad', '\n').replace('\\quad', '\n')
 
-    # Pattern 1: $(A)$ content \\qquad $(B)$ content  etc.
-    # 重要：只匹配行首或换行后的选项标签，避免匹配数学表达式中的括号（如 P(B)）
-    # Note: 不在末尾匹配 $，避免吃掉后面选项内容开头的 $
+    # Pattern: 匹配选项标签
+    # 支持以下位置的选项标签：
+    # 1. 行首或换行后
+    # 2. 数学表达式后（$ 符号后）
+    # 3. 右括号后（\) 或 \right\) 或普通 )）
+    # 4. 中文括号后（））
     opt_pattern = re.compile(
         r'(?:^|\n)(?:\s*\$\\left\(\\mathrm\{([A-D])\}\\right\))'
         r'|'
         r'(?:^|\n)(?:\s*\$\(([A-D])\))'
         r'|'
         r'(?:^|\n)(?:\s*[（(]\s*([A-D])\s*[）)])'
+        r'|'
+        # 新增：匹配 $ 符号后的选项标签（如 $(A)$ $y=x+e$ $(B)$ ...）
+        r'(?<=\$)(?:\s*\$\(([A-D])\))'
+        r'|'
+        r'(?<=\$)(?:\s*\$\\left\(\\mathrm\{([A-D])\}\\right\))'
+        r'|'
+        # 新增：匹配右括号后的选项标签（如 ...\) $(A)$）
+        r'(?<=\\\))(?:\s*\$\(([A-D])\))'
+        r'|'
+        r'(?<=\\right\))(?:\s*\$\(([A-D])\))'
+        r'|'
+        # 新增：匹配普通右括号后的选项标签（如 ...) $(A)$）
+        r'(?<=\))(?:\s*\$\(([A-D])\))'
+        r'|'
+        # 新增：匹配中文右括号后的选项标签（如 ...） $(A)$）
+        r'(?<=）)(?:\s*\$\(([A-D])\))'
     )
 
     # Find all option markers with positions
     markers = []
     for m in opt_pattern.finditer(processed_text):
-        label = m.group(1) or m.group(2) or m.group(3)
+        # 支持9个捕获组
+        label = m.group(1) or m.group(2) or m.group(3) or \
+                m.group(4) or m.group(5) or m.group(6) or \
+                m.group(7) or m.group(8) or m.group(9)
         if label and label not in [x[0] for x in markers]:
             markers.append((label, m.start(), m.end()))
 
@@ -163,17 +381,13 @@ def parse_legacy(q: dict) -> QuestionAST:
     if qtype == "选择题":
         stem, options = _extract_stem_and_options(raw_text)
         # Use existing options dict if the parser didn't find inline options
-        if not options and options_raw:
+        if options_raw and len(options_raw) >= len(options):
+            # Replace parsed options with explicit dict (more reliable)
+            options = []
             for label in "ABCDEFGH":
                 if label in options_raw:
-                    content = options_raw[label]
-                    # Preserve $ delimiters - the renderer will handle them appropriately
-                    c = content.strip()
-                    # Handle legacy "1706" marker (single pair only)
-                    if c.startswith("1706") and c.endswith("1706") and c.count("1706") == 2:
-                        c = c[2:-2].strip()
-                    content = c
-                    options.append(ChoiceOption(label=label, content=normalize_latex_style(content)))
+                    c = options_raw[label].strip()
+                    options.append(ChoiceOption(label=label, content=normalize_latex_style(c)))
         answer = correct or raw_answer
 
     elif qtype == "填空题":
@@ -182,7 +396,12 @@ def parse_legacy(q: dict) -> QuestionAST:
 
     elif qtype in ("解答题", "证明题"):
         answer = raw_answer
+        # 移除题号前缀
         stem = re.sub(r'^\s*\$?\d+\.?\$?\s*', '', raw_text)
+        # 移除"(本题满分XX分)"标记，因为界面已经显示分数
+        stem = re.sub(r'\(本题满分\d+分\)', '', stem)
+        stem = re.sub(r'\(本题满\d+分\)', '', stem)
+        stem = stem.strip()
         if not answer and raw_text:
             answer = _extract_answer(raw_text, qtype)
 

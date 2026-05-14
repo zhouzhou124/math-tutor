@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷三-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "设函数 $f(x)$ 具有二阶导数，$f'(x) > 0, f''(x) < 0$，记 $I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x dx, I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x dx$，则",
+  "source": "import_v3",
+  "options": {
+    "A": "$I_1 > 0, I_2 < 0$",
+    "B": "$I_1 < 0, I_2 > 0$",
+    "C": "$I_1 < 0, I_2 < 0$",
+    "D": "$I_1 > 0, I_2 > 0$"
+  },
+  "correct_option": "D"
+}

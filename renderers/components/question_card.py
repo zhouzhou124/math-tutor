@@ -14,8 +14,16 @@ def CardOpen(ast) -> str:
     """
     year = ast.year
     category = ast.category
-    subject_short = str(category).replace("数学", "数") if category else ""
-    year_label = f"{year} {subject_short}" if year and subject_short else str(year or ast.question_id)
+    volume = getattr(ast, 'volume', '')
+    
+    # 对于宇哥八套卷，显示为 "26宇哥八套卷-卷一" 格式
+    if category and '宇哥' in category:
+        year_label = f"{category}"
+        if volume:
+            year_label += f"-{volume}"
+    else:
+        subject_short = str(category).replace("数学", "数") if category else ""
+        year_label = f"{year} {subject_short}" if year and subject_short else str(year or ast.question_id)
 
     type_badge = qtype_badge_html(ast.question_type) if ast.question_type else ""
     diff_badge = diff_badge_html(ast.difficulty)

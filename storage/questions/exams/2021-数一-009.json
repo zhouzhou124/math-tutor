@@ -1,0 +1,22 @@
+{
+  "question_id": "2021-数一-009",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$9.$ 设 \\( (X_1, Y_1), (X_2, Y_2), \\cdots, (X_n, Y_n) \\) 为来自总体 \\( N(\\mu_1, \\mu_2; \\sigma_1^2, \\sigma_2^2; \\rho) \\) 的简单随机样本，令 \\( \\theta = \\mu_1 - \\mu_2 \\)，\\( \\overline{X} = \\frac{1}{n} \\sum_{i=1}^n X_i \\)，\\( \\overline{Y} = \\frac{1}{n} \\sum_{i=1}^n Y_i \\)，\\( \\hat{\\theta} = \\overline{X} - \\overline{Y} \\)，则 $( )$\n\n$(A)$ $\\hat{\\theta}$ 是 $\\theta$ 的无偏估计，$D(\\hat{\\theta}) = \\frac{\\sigma_1^2 + \\sigma_2^2}{n}$\n\n$(B)$ $\\hat{\\theta}$ 不是 $ \\theta $ 的无偏估计，$ D(\\hat{\\theta}) = \\frac{\\sigma_1^2 + \\sigma_2^2}{n} $\n\n$(C)$ $\\hat{\\theta}$ 是 $ \\theta $ 的无偏估计，$D=\\frac{\\sigma_1^2+\\sigma_2^2-2\\rho\\sigma_1\\sigma_2}{n}$\n\n$(D)$ $\\hat{\\theta}$ 不是 $ \\theta $ 的无偏估计，$D=\\frac{\\sigma_1^2+\\sigma_2^2-2\\rho\\sigma_1\\sigma_2}{n}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2021年 选择题 知识点: 数理统计 数学概念: 参数估计 极大似然 较难题 5分题 2021-数一-009"
+}

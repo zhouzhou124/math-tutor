@@ -1,0 +1,20 @@
+{
+  "question_id": "26宇哥八套卷-卷二-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "设可微函数 $f(x,y)$ 在点 $(0,0)$ 处的最小方向导数为 $a$，$a \\neq 0$ 且 $a \\neq -1$，$b,c$ 是满足 $b^2 + c^2$ 为正常数的任意实数，则 $\\operatorname{grad} f(0,0)$ 与 $(b,c)$ 内积的最大值为",
+  "source": "import_v2",
+  "options": {},
+  "correct_option": "B"
+}

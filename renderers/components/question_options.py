@@ -66,9 +66,8 @@ def _dedupe(options):
 def render_options(options, cols: int = 2) -> None:
     """Render choice options in a grid.
 
-    Label as HTML, content as LaTeX — separate rendering for correct display.
-      (A)                    ← HTML label
-      k=2, c=-1/2           ← st.latex(content)
+    Label + content on same line.
+      (A) k=2, c=-1/2      ← combined label + content
     """
     options = _dedupe(options)
     if not options:
@@ -84,25 +83,29 @@ def render_options(options, cols: int = 2) -> None:
             if i >= cols:
                 st.markdown("")
 
-            # Label as styled inline HTML
-            st.markdown(
-                f'<span style="font-weight:700;color:#6d28d9;margin-right:6px;">'
-                f'({label})</span>',
-                unsafe_allow_html=True,
-            )
-
             # Content rendering: detect pure math vs mixed text+LaTeX
             clean = _clean(content)
+            
+            # Combine label and content on same line
             if clean:
+                # Label as styled inline HTML combined with content
                 try:
-                    # If content has Chinese chars, render directly (preserve internal $)
-                    if _has_chinese(clean):
-                        st.markdown(clean)
-                    elif '$' in clean:
-                        # Has $ delimiters but no Chinese - render as markdown
-                        st.markdown(clean)
+                    if _has_chinese(clean) or '$' in clean:
+                        # Mixed content - use markdown with styled label
+                        label_html = f'<span style="font-weight:700;color:#6d28d9;">({label})</span>'
+                        st.markdown(f'{label_html} {clean}', unsafe_allow_html=True)
                     else:
-                        # Pure math without $ - use st.latex
+                        # Pure math - combine label HTML with latex content
+                        st.markdown(
+                            f'<span style="font-weight:700;color:#6d28d9;">({label})</span>',
+                            unsafe_allow_html=True,
+                        )
                         st.latex(clean)
                 except Exception:
-                    st.caption(clean[:200])
+                    st.markdown(f'({label}) {clean[:200]}')
+            else:
+                # Empty content - just show label
+                st.markdown(
+                    f'<span style="font-weight:700;color:#6d28d9;">({label})</span>',
+                    unsafe_allow_html=True,
+                )

@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-004",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "$4.$ 设 $\\{a_n\\},\\{b_n\\}$ 满足 $0\\le a_{n+1}\\le a_n+b_n$，则 $\\{a_n\\}$ 收敛是 $\\sum b_n$ 收敛的 $(A)$ 充分非必要 $(B)$ 必要非充分 $(C)$ 充要 $(D)$ 既不充分也不必要",
+  "source": "import_v5",
+  "options": {
+    "A": "充分非必要",
+    "B": "必要非充分",
+    "C": "充要",
+    "D": "既不充分也不必要"
+  },
+  "correct_option": "B"
+}

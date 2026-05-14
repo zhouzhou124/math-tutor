@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷五-018",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "常微分方程"
+  ],
+  "tags": [
+    "常微分方程"
+  ],
+  "question": "$18.$ (12分) $y=y(x)$ 满足 $(xy-1)dx+x^2dy=0,x>0,y(1)=0$。(1) 求 $y(x)$；(2) 求拐点和渐近线。",
+  "source": "import_v5"
+}

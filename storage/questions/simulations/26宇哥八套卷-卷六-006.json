@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设矩阵 $A = \\begin{pmatrix} 1 & -1 & 1 \\\\ -2 & 2 & 1 \\\\ 1 & -1 & k \\end{pmatrix}$，$r((3E - A)^2) < r(3E - A)$，其中 $E$ 是 $3$ 阶单位矩阵，则常数 $k =$",
+  "source": "import_v6",
+  "options": {
+    "A": "$3$",
+    "B": "$4$",
+    "C": "$5$",
+    "D": "$6$"
+  },
+  "correct_option": "C"
+}

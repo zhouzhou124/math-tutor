@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "$19.$ (本题满分12分) 设有向曲线 $L$ 为椭圆 $x^2 + 3y^2 = 1$ 上沿逆时针方向从点 $A\\left(-\\frac{1}{2}, -\\frac{1}{2}\\right)$ 到点 $B\\left(\\frac{1}{2}, \\frac{1}{2}\\right)$ 的部分，计算曲线积分 $$I = \\int_L (e^{x^2} \\sin x - 2xy) dx + (6x - x^2 - y \\cos^4 y) dy.$$",
+  "source": "import_2026",
+  "standard_answer": "0",
+  "question_id": "2026-数一-019"
+}

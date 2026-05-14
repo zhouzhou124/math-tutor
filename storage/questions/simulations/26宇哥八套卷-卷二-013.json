@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷二-013",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "$13.$ 设 $L$ 为圆周 $x^2 + y^2 = 1$，则 $\\oint_L (x^3 + y^2) ds =$ ______",
+  "source": "import_v2"
+}

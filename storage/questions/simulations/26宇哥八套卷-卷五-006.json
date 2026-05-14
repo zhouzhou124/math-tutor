@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵且 $A^2-A=3E$，则与 $\\binom{A}{B}x=0$ 不一定同解的是 $(A)$ $\\binom{A-B}{A+AB}x=0$ $(B)$ $\\binom{A+B}{A+AB-B}x=0$ $(C)$ $\\binom{A-B}{2A+B}x=0$ $(D)$ $\\binom{A+B}{BA+B^2}x=0$",
+  "source": "import_v5",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "D"
+}

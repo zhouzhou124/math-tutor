@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-003",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "设级数 $\\sum_{n=1}^\\infty \\frac{1}{n^{1+\\frac{1}{n}}}$，② $\\sum_{n=2}^\\infty \\frac{1}{n^{1+\\frac{1}{\\sqrt{\\ln n}}}}$，则",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "①收敛，②发散",
+    "B": "①发散，②收敛",
+    "C": "①②均收敛",
+    "D": "①②均发散"
+  },
+  "correct_option": "A"
+}

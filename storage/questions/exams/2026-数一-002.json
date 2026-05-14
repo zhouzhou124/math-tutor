@@ -1,0 +1,25 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "$2.$ 幂级数 $\\sum_{n=1}^{\\infty} \\left(\\frac{3 + (-1)^n}{4}\\right)^n x^{2n}$ 的收敛域是 ( )\n$(A)$ $[-2,2]$ \n$(B)$ $[-1,1]$ \n$(C)$ $(-2,2)$ \n$(D)$ $(-1,1)$",
+  "source": "import_2026",
+  "options": {
+    "A": "$[-2,2]$",
+    "B": "$[-1,1]$",
+    "C": "$(-2,2)$",
+    "D": "$(-1,1)$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "question_id": "2026-数一-002"
+}

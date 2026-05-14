@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-009",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量的数字特征"
+  ],
+  "tags": [
+    "随机变量的数字特征"
+  ],
+  "question": "$9.$ 设 $X_1,\\dots,X_n$ 来自 $X\\sim B(1,\\frac{1}{5})$，若 $E[(\\overline{X}-\\frac{1}{5})^2]<0.01$，则 $n$ 最小为 $(A)$ $17$ $(B)$ $18$ $(C)$ $19$ $(D)$ $20$",
+  "source": "import_v5",
+  "options": {
+    "A": "17",
+    "B": "18",
+    "C": "19",
+    "D": "20"
+  },
+  "correct_option": "B"
+}
