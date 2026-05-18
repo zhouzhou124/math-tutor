@@ -10,7 +10,7 @@
   ],
   "difficulty": "中等",
   "score": 5,
-  "question": "$3.$ 设函数 $f(x)$ 在区间 $(0,+\\infty)$ 上可导，则（ ）\n\n$(A)$ 当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}f'(x)$ 存在\n\n$(B)$ 当 $\\lim_{x\\to+\\infty}f'(x)$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在\n\n$(C)$ 当 $\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在\n\n$(D)$ 当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在",
+  "question": "设函数 $f(x)$ 在区间 $(0,+\\infty)$ 上可导，则（ ）",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [
@@ -19,10 +19,10 @@
   ],
   "source": "manual_2025",
   "options": {
-    "A": "A",
-    "B": "B",
-    "C": "C",
-    "D": "D"
+    "A": "当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}f'(x)$ 存在",
+    "B": "当 $\\lim_{x\\to+\\infty}f'(x)$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在",
+    "C": "当 $\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在时，$\\lim_{x\\to+\\infty}f(x)$ 存在",
+    "D": "当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在"
   },
   "correct_option": "D",
   "embedding_text": "考研数学一 2025年 选择题 知识点: 导数与微分 极限与连续 数学概念: 极限 积分 中等难度 5分题 2025-数一-003"

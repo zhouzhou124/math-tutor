@@ -237,6 +237,56 @@ def render_settings_page(db, render_latex):
     #  数据管理
     # ═══════════════════════════════════════
     with st.container(border=True):
+        # ── Mathpix OCR 配置 ──
+        st.markdown("---")
+        st.subheader("🔢 数学公式 OCR（Mathpix）")
+        st.caption("Mathpix 是专业数学公式识别服务，支持手写和印刷体。注册获取 API Key：https://mathpix.com")
+
+        from vision.mathpix_client import is_available as _mp_avail, get_mathpix_credentials as _mp_cred
+        _mp_id, _mp_key = _mp_cred()
+        _mp_configured = bool(_mp_id and _mp_key)
+
+        if _mp_configured:
+            st.success(f"✅ Mathpix 已配置（App ID: {_mp_id[:8]}...）")
+        else:
+            st.info("ℹ️ Mathpix 未配置，OCR 将使用本地引擎（准确率较低）")
+
+        mp_col1, mp_col2 = st.columns(2)
+        with mp_col1:
+            new_mp_id = st.text_input(
+                "Mathpix App ID",
+                value=_mp_id or "",
+                type="default",
+                placeholder="输入 Mathpix App ID",
+                key="mathpix_app_id_input",
+            )
+        with mp_col2:
+            new_mp_key = st.text_input(
+                "Mathpix App Key",
+                value=_mp_key or "",
+                type="password",
+                placeholder="输入 Mathpix App Key",
+                key="mathpix_app_key_input",
+            )
+
+        if st.button("💾 保存 Mathpix 配置", type="primary", use_container_width=True,
+                     disabled=not (new_mp_id and new_mp_key)):
+            import json
+            settings_path = "storage/settings.json"
+            try:
+                with open(settings_path, "r", encoding="utf-8") as f:
+                    settings = json.load(f)
+            except Exception:
+                settings = {}
+            settings["mathpix_app_id"] = new_mp_id
+            settings["mathpix_app_key"] = new_mp_key
+            with open(settings_path, "w", encoding="utf-8") as f:
+                json.dump(settings, f, ensure_ascii=False, indent=2)
+            st.session_state.mathpix_app_id = new_mp_id
+            st.session_state.mathpix_app_key = new_mp_key
+            st.success("✅ Mathpix 配置已保存！")
+            st.rerun()
+
         st.subheader("数据管理")
         col1, col2 = st.columns(2)
         with col1:
@@ -245,6 +295,6 @@ def render_settings_page(db, render_latex):
                 st.warning("错题本和画像已重置")
                 st.rerun()
         with col2:
-            st.caption(f"错题数: {st.session_state.memory.get_error_stats().get('total_errors', 0)}")
+            st.caption(f"错题数: {st.session_state.memory.get_error_stats(st.session_state.auth['user_id']).total_errors}")
             st.caption(f"数据位置: `E:\\math_tutor\\storage\\`")
 

@@ -475,154 +475,7 @@ def split_latex_text(text: str) -> list[dict]:
     text = re.sub(r'\x00M\d+\x00', '', text)
     text = re.sub(r'\x00MATH\d+\x00', '', text)
 
-    # ── Step 1: 修复被分割的命令 ──
-    # 例如: \s in x → \sin x, \c os x → \cos x
-    # 注意：替换字符串必须使用原始字符串 r''，否则 \s 会被解释为空白字符
-    split_cmds = [
-        (r'\arcsin', r'\\arcs\s*in'),
-        (r'\arccos', r'\\arcc\s*os'),
-        (r'\arctan', r'\\arct\s*an'),
-        (r'\arccot', r'\\arcc\s*ot'),
-        (r'\arcsec', r'\\arcsec'),
-        (r'\arccsc', r'\\arccsc'),
-        (r'\sinh', r'\\sin\s*h'),
-        (r'\cosh', r'\\cos\s*h'),
-        (r'\tanh', r'\\tan\s*h'),
-        (r'\coth', r'\\cot\s*h'),
-        (r'\sech', r'\\sec\s*h'),
-        (r'\csch', r'\\csc\s*h'),
-        (r'\limsup', r'\\lim\s*sup'),
-        (r'\liminf', r'\\lim\s*inf'),
-        (r'\varlimsup', r'\\varlim\s*sup'),
-        (r'\varliminf', r'\\varlim\s*inf'),
-        (r'\sin', r'\\s\s*in'),
-        (r'\cos', r'\\c\s*os'),
-        (r'\tan', r'\\t\s*an'),
-        (r'\cot', r'\\c\s*ot'),
-        (r'\sec', r'\\s\s*ec'),
-        (r'\csc', r'\\c\s*sc'),
-        (r'\log', r'\\l\s*og'),
-        (r'\ln', r'\\l\s*n'),
-        (r'\exp', r'\\e\s*xp'),
-        (r'\min', r'\\m\s*in'),
-        (r'\max', r'\\m\s*ax'),
-        (r'\sup', r'\\s\s*up'),
-        (r'\inf', r'\\i\s*nf'),
-        (r'\det', r'\\d\s*et'),
-        (r'\dim', r'\\d\s*im'),
-        (r'\deg', r'\\d\s*eg'),
-        (r'\arg', r'\\a\s*rg'),
-        (r'\rank', r'\\r\s*ank'),
-    ]
-    
-    for target, pattern in split_cmds:
-        # 使用 lambda 函数避免替换字符串被解析为模板
-        text = re.sub(pattern, lambda m, t=target: t, text)
-
-    # ── Step 2: Unicode数学符号转换为LaTeX命令 ──
-    unicode_to_latex = {
-        '∈': r'\in',
-        '∉': r'\notin',
-        '⊂': r'\subset',
-        '⊃': r'\supset',
-        '⊆': r'\subseteq',
-        '⊇': r'\supseteq',
-        '∩': r'\cap',
-        '∪': r'\cup',
-        '∅': r'\emptyset',
-        '∞': r'\infty',
-        '≤': r'\leq',
-        '≥': r'\geq',
-        '≠': r'\neq',
-        '≡': r'\equiv',
-        '≈': r'\approx',
-        '∼': r'\sim',
-        '≃': r'\simeq',
-        '≅': r'\cong',
-        '→': r'\rightarrow',
-        '←': r'\leftarrow',
-        '⇒': r'\Rightarrow',
-        '⇐': r'\Leftarrow',
-        '⇔': r'\Leftrightarrow',
-        '↔': r'\leftrightarrow',
-        '×': r'\times',
-        '·': r'\cdot',
-        '÷': r'\div',
-        '±': r'\pm',
-        '∓': r'\mp',
-        '∀': r'\forall',
-        '∃': r'\exists',
-        '∂': r'\partial',
-        '∇': r'\nabla',
-        '√': r'\sqrt',
-        '∑': r'\sum',
-        '∏': r'\prod',
-        '∫': r'\int',
-        '∬': r'\iint',
-        '∭': r'\iiint',
-        '∮': r'\oint',
-        '∠': r'\angle',
-        '⊥': r'\perp',
-        '∥': r'\parallel',
-        '△': r'\triangle',
-        '□': r'\square',
-        '°': r'^\circ',
-        '′': r'\prime',
-        '″': r'\prime\prime',
-        'α': r'\alpha',
-        'β': r'\beta',
-        'γ': r'\gamma',
-        'δ': r'\delta',
-        'ε': r'\epsilon',
-        'ζ': r'\zeta',
-        'η': r'\eta',
-        'θ': r'\theta',
-        'ι': r'\iota',
-        'κ': r'\kappa',
-        'λ': r'\lambda',
-        'μ': r'\mu',
-        'ν': r'\nu',
-        'ξ': r'\xi',
-        'π': r'\pi',
-        'ρ': r'\rho',
-        'σ': r'\sigma',
-        'τ': r'\tau',
-        'υ': r'\upsilon',
-        'φ': r'\phi',
-        'χ': r'\chi',
-        'ψ': r'\psi',
-        'ω': r'\omega',
-        'Γ': r'\Gamma',
-        'Δ': r'\Delta',
-        'Θ': r'\Theta',
-        'Λ': r'\Lambda',
-        'Ξ': r'\Xi',
-        'Π': r'\Pi',
-        'Σ': r'\Sigma',
-        'Υ': r'\Upsilon',
-        'Φ': r'\Phi',
-        'Ψ': r'\Psi',
-        'Ω': r'\Omega',
-    }
-    
-    # 只在数学模式外替换Unicode符号
-    protected_math = []
-    def _protect_math(m):
-        protected_math.append(m.group(0))
-        return f'\x00MATH{len(protected_math)-1}\x00'
-    
-    temp_text = re.sub(r'\$\$.*?\$\$', _protect_math, text, flags=re.DOTALL)
-    temp_text = re.sub(r'(?<!\$)\$[^$\n]+?\$(?!\$)', _protect_math, temp_text)
-    
-    for unicode_char, latex_cmd in unicode_to_latex.items():
-        temp_text = temp_text.replace(unicode_char, latex_cmd)
-    
-    for i, block in enumerate(protected_math):
-        temp_text = temp_text.replace(f'\x00MATH{i}\x00', block)
-    
-    text = temp_text
-
-    # ── Step 3: 恢复丢失的反斜杠 ──
+    # 修复丢失的反斜杠
     # 常见的 LaTeX 命令可能在数据存储/传输过程中丢失反斜杠
     # 检测并恢复这些命令前的反斜杠
     latex_commands = [
@@ -717,38 +570,156 @@ def split_latex_text(text: str) -> list[dict]:
                 in_math_region[i] = True
     
     # 匹配连续的裸数学表达式区域
-    # 模式：从\命令开始，匹配所有连续的数学内容直到遇到中文或标点
     # 支持：\命令、花括号内容、数字、字母、下划线、上标、运算符、空格等
-    # 注意：连字符必须放在字符类的开头或结尾，或者转义
-    bare_math_pattern = r'\\[a-zA-Z]+(?:\{[^{}]*\})*(?:\{[^{}]*\})?(?:[-\w_^^{} \s+*/=<>()\[\]|\\]+|\\[a-zA-Z]+(?:\{[^{}]*\})*(?:\{[^{}]*\})?)*'
+    # 现在支持以字母开头的表达式（如 S\left(...\right)）
     
-    # 排除的纯间距命令（这些不是数学表达式）
-    skip_commands = {'\\quad', '\\qquad', '\\hspace', '\\vspace', '\\hfill', '\\vfill'}
+    def find_math_expression(text, start_pos):
+        """从指定位置开始查找完整的数学表达式，处理嵌套花括号"""
+        pos = start_pos
+        length = len(text)
+        brace_count = 0
+        in_math = False
+        math_start = -1
+        
+        # 定义数学命令前缀（以反斜杠开头）
+        cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+        
+        while pos < length:
+            char = text[pos]
+            
+            if char == '{':
+                brace_count += 1
+                if not in_math:
+                    in_math = True
+                    math_start = pos
+                    # 向前查找是否有 \命令 在 { 之前
+                    temp_pos = pos - 1
+                    while temp_pos >= 0 and text[temp_pos] in ' \t':
+                        temp_pos -= 1
+                    if temp_pos >= 0:
+                        # 检查是否是 \命令
+                        cmd_match = cmd_pattern.search(text, max(0, temp_pos - 10), temp_pos + 1)
+                        if cmd_match and cmd_match.end() >= temp_pos:
+                            math_start = cmd_match.start()
+            elif char == '}':
+                brace_count -= 1
+                if in_math and brace_count == 0:
+                    # 找到匹配的闭合花括号，继续检查后面是否还有数学内容
+                    end_pos = pos + 1
+                    # 检查后面是否有 \right 等命令
+                    while end_pos < length:
+                        # 跳过空格
+                        if text[end_pos] in ' \t':
+                            end_pos += 1
+                            continue
+                        # 检查是否是 \right 或其他命令
+                        right_match = cmd_pattern.match(text, end_pos)
+                        if right_match and right_match.group(0) in ('\\right', '\\left'):
+                            # 继续查找直到匹配的花括号或括号
+                            temp_pos = right_match.end()
+                            inner_brace = 0
+                            while temp_pos < length:
+                                if text[temp_pos] == '{':
+                                    inner_brace += 1
+                                elif text[temp_pos] == '}':
+                                    inner_brace -= 1
+                                    if inner_brace == 0:
+                                        end_pos = temp_pos + 1
+                                        break
+                                elif text[temp_pos] in '()[]|' and inner_brace == 0:
+                                    end_pos = temp_pos + 1
+                                    break
+                                temp_pos += 1
+                            if temp_pos >= length:
+                                end_pos = length
+                        else:
+                            break
+                    return (math_start, end_pos)
+            elif char == '\\' and pos + 1 < length and text[pos + 1].isalpha():
+                # 找到反斜杠命令，开始数学区域
+                if not in_math:
+                    in_math = True
+                    math_start = pos
+                    # 匹配完整的命令
+                    cmd_match = cmd_pattern.match(text, pos)
+                    if cmd_match:
+                        pos = cmd_match.end() - 1  # 让循环继续处理
+            
+            pos += 1
+        
+        # 如果还在数学区域中，返回找到的部分
+        if in_math and math_start >= 0:
+            return (math_start, pos)
+        
+        return None
     
     # 扫描文本，找到所有裸数学表达式区域
     bare_matches = []
-    for match in re.finditer(bare_math_pattern, text):
-        # 检查匹配是否完全在非数学区域内
-        is_in_math = False
-        for i in range(match.start(), min(match.end(), len(in_math_region))):
-            if in_math_region[i]:
-                is_in_math = True
-                break
-        if not is_in_math:
-            # 只保留看起来像数学表达式的匹配
-            content = match.group(0).strip()
-            if content and len(content) > 1:
-                # 排除纯间距命令
-                if content not in skip_commands:
-                    bare_matches.append(match)
+    pos = 0
+    while pos < len(text):
+        # 跳过空白
+        while pos < len(text) and text[pos] in ' \t\n\r':
+            pos += 1
+        
+        # 检查当前位置是否在已标记的数学区域内
+        if pos < len(in_math_region) and in_math_region[pos]:
+            pos += 1
+            continue
+        
+        # 检查是否以 \ 开头或字母开头后跟 \
+        if pos < len(text):
+            if text[pos] == '\\' and pos + 1 < len(text) and text[pos + 1].isalpha():
+                result = find_math_expression(text, pos)
+                if result:
+                    start, end = result
+                    # 检查是否完全在非数学区域内
+                    is_valid = True
+                    for i in range(start, min(end, len(in_math_region))):
+                        if in_math_region[i]:
+                            is_valid = False
+                            break
+                    if is_valid:
+                        content = text[start:end].strip()
+                        # 排除纯间距命令
+                        skip_commands = {'\\quad', '\\qquad', '\\hspace', '\\vspace', '\\hfill', '\\vfill'}
+                        if content and len(content) > 1 and content not in skip_commands:
+                            bare_matches.append((start, end))
+                    pos = end
+                    continue
+            elif text[pos].isalpha():
+                # 检查字母后面是否紧跟 \ 命令（如 S\left）
+                temp_pos = pos + 1
+                while temp_pos < len(text) and text[temp_pos] in ' \t':
+                    temp_pos += 1
+                if temp_pos < len(text) and text[temp_pos] == '\\':
+                    # 这是一个以字母开头的数学表达式
+                    result = find_math_expression(text, temp_pos)
+                    if result:
+                        start, end = result
+                        # 扩展开始位置到字母
+                        start = pos
+                        # 检查是否完全在非数学区域内
+                        is_valid = True
+                        for i in range(start, min(end, len(in_math_region))):
+                            if in_math_region[i]:
+                                is_valid = False
+                                break
+                        if is_valid:
+                            content = text[start:end].strip()
+                            if content and len(content) > 1:
+                                bare_matches.append((start, end))
+                        pos = end
+                        continue
+        
+        pos += 1
     
     # 如果找到裸数学表达式，用$包裹它们（从后往前处理避免位置偏移）
     if bare_matches:
         new_text = text
         # 按位置从后往前处理
-        for match in reversed(bare_matches):
+        for start, end in reversed(bare_matches):
             # 在匹配前后添加$
-            new_text = new_text[:match.start()] + '$' + new_text[match.start():match.end()] + '$' + new_text[match.end():]
+            new_text = new_text[:start] + '$' + new_text[start:end] + '$' + new_text[end:]
         text = new_text
 
     # 在选择题选项之间添加换行符，使每个选项独立一行
@@ -1847,7 +1818,7 @@ def extract_choices(text: str) -> list[dict]:
     从文本中提取选择题选项。
 
     支持的格式:
-      - $\left(\mathrm{A}\right)$ 内容
+      - $\\left(\\mathrm{A}\\right)$ 内容
       - (A) 内容  /  （A）内容
       - A. 内容  /  A．内容  /  A、内容  /  A) 内容
       - A 内容 (同行)
@@ -2034,3 +2005,115 @@ def render_choice_question(text: str, cols: int = 2) -> None:
 
     stem = stem.strip()
     render_choices(stem, options, cols=cols)
+
+
+# ═══════════════════════════════════════════════
+# 9. 统一渲染入口 — safe_render (修复渲染混乱的核心)
+# ═══════════════════════════════════════════════
+#
+# 问题根源:
+#   OCR/用户输入 → 直接 st.markdown() → LaTeX 源码显示
+#
+# 解决方案:
+#   OCR/用户输入 → UnifiedRenderer (语义驱动渲染)
+#
+# 完整管道:
+#   原始文本
+#     → LaTeXFixer.fix()        # 修复双反斜杠、OCR符号、花括号平衡
+#     → clean_markdown()         # 清理 Markdown 污染
+#     → DocumentParser           # 文本 → Document AST (语义分类)
+#     → LayoutEngine             # Document AST → Markdown/LaTeX
+#     → Frontend Render          # st.latex / st.markdown
+#
+# 关键升级:
+#   - 不再使用 regex split (无法处理嵌套)
+#   - 使用 ContentClassifier 做语义分类
+#   - 使用 DocumentParser 构建结构化 AST
+#   - 使用 LayoutEngine 做 proper layout
+#
+# 使用方式:
+#   from latex_utils import safe_render
+#   safe_render(student_answer, role="student_answer")
+# ═══════════════════════════════════════════════
+
+# 渲染器单例缓存
+_renderer_instance = None
+
+def _get_renderer():
+    """获取渲染器单例，避免重复初始化"""
+    global _renderer_instance
+    if _renderer_instance is None:
+        from rendering.unified_renderer import UnifiedRenderer
+        _renderer_instance = UnifiedRenderer()
+    return _renderer_instance
+
+def safe_render(text: str, role: str = "") -> None:
+    """
+    统一渲染入口 — 修复 LaTeX 渲染混乱的终极方案。
+
+    管道:
+      Layer 0: 空值检查
+      Layer 1: LaTeXFixer — 修复双反斜杠、OCR符号、失衡括号
+      Layer 2: clean_markdown — 移除 Markdown 污染
+      Layer 3: DocumentParser — 文本 → Document AST (语义分类)
+      Layer 4: LayoutEngine — Document AST → Markdown
+      Layer 5: Frontend Render — st.latex / st.markdown
+
+    适用场景:
+      - OCR 识别结果渲染
+      - 用户作答渲染
+      - 题目文本渲染
+      - 标准答案渲染
+      - 任何包含 LaTeX 的文本渲染
+
+    慎用场景:
+      - 已结构化的 JSON (用 render_structured)
+      - 需要保留 Markdown 格式的场景
+
+    性能优化:
+      - 使用单例模式复用渲染器实例
+      - 添加渲染结果缓存减少重复计算
+    """
+    import streamlit as st
+
+    if not text:
+        return
+
+    if not isinstance(text, str):
+        text = str(text)
+
+    try:
+        renderer = _get_renderer()
+        renderer.render_to_streamlit(text, role=role)
+    except Exception:
+        import traceback
+        traceback.print_exc()
+        st.markdown(text, unsafe_allow_html=True)
+
+
+def safe_render_markdown(text: str, role: str = "") -> str:
+    """
+    返回处理后的 Markdown 字符串（用于需要返回内容的场景）。
+
+    与 safe_render 的区别:
+      - safe_render: 直接渲染到 Streamlit (void 函数)
+      - safe_render_markdown: 返回处理后的字符串，可进一步处理
+
+    管道: fix → clean → DocumentParser → LayoutEngine
+
+    性能优化:
+      - 使用单例模式复用渲染器实例
+    """
+    if not text:
+        return text
+
+    if not isinstance(text, str):
+        text = str(text)
+
+    try:
+        renderer = _get_renderer()
+        return renderer.render(text, role=role)
+    except Exception:
+        import traceback
+        traceback.print_exc()
+        return text

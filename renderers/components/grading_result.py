@@ -96,75 +96,51 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
 
 
 def _restore_backslashes(text: str) -> str:
-    r"""恢复丢失的反斜杠和修复数学符号。
+    r"""恢复丢失的反斜杠。
     
     LLM输出或JSON传输过程中，反斜杠可能丢失或被转义。
-    例如: \s in x → \sin x, \c os x → \cos x
+    例如: \x 应该是 \\x, \bigl 应该是 \\bigl
     
-    同时处理Unicode数学符号到LaTeX命令的转换。
+    ═══════════════════════════════════════════════
+    关键保护：防止误匹配
+    ═══════════════════════════════════════════════
+    问题：
+    1. \sin x → \s ∈ x："in" 被误认为 \in
+    2. \sqrt → \d："s" 后跟空格被误认为 \s
+    
+    解决方案：
+    - 先保护已存在的 \命令，避免它们被误处理
+    - 按长度降序排序，优先匹配长命令（如 \sqrt 优先于 \s）
+    - 使用严格的匹配条件
+    ═══════════════════════════════════════════════
     """
     if not text:
         return text
     
-    result = text
-    
-    # ── Step 1: 修复被分割的命令（必须在保护之前）──
-    # 例如: \s in x → \sin x, \c os x → \cos x
-    # 按长度降序排列，优先匹配长命令
-    split_cmds = [
-        (r'\arcsin', r'\\arcs\s*in'),
-        (r'\arccos', r'\\arcc\s*os'),
-        (r'\arctan', r'\\arct\s*an'),
-        (r'\arccot', r'\\arcc\s*ot'),
-        (r'\arcsec', r'\\arcsec'),
-        (r'\arccsc', r'\\arccsc'),
-        (r'\sinh', r'\\sin\s*h'),
-        (r'\cosh', r'\\cos\s*h'),
-        (r'\tanh', r'\\tan\s*h'),
-        (r'\coth', r'\\cot\s*h'),
-        (r'\sech', r'\\sec\s*h'),
-        (r'\csch', r'\\csc\s*h'),
-        (r'\limsup', r'\\lim\s*sup'),
-        (r'\liminf', r'\\lim\s*inf'),
-        (r'\varlimsup', r'\\varlim\s*sup'),
-        (r'\varliminf', r'\\varlim\s*inf'),
-        (r'\sin', r'\\s\s*in'),
-        (r'\cos', r'\\c\s*os'),
-        (r'\tan', r'\\t\s*an'),
-        (r'\cot', r'\\c\s*ot'),
-        (r'\sec', r'\\s\s*ec'),
-        (r'\csc', r'\\c\s*sc'),
-        (r'\log', r'\\l\s*og'),
-        (r'\ln', r'\\l\s*n'),
-        (r'\exp', r'\\e\s*xp'),
-        (r'\min', r'\\m\s*in'),
-        (r'\max', r'\\m\s*ax'),
-        (r'\sup', r'\\s\s*up'),
-        (r'\inf', r'\\i\s*nf'),
-        (r'\det', r'\\d\s*et'),
-        (r'\dim', r'\\d\s*im'),
-        (r'\deg', r'\\d\s*eg'),
-        (r'\arg', r'\\a\s*rg'),
-        (r'\rank', r'\\r\s*ank'),
-    ]
-    
-    for target, pattern in split_cmds:
-        # 使用 lambda 函数避免替换字符串被解析为模板
-        result = re.sub(pattern, lambda m, t=target: t, result)
-    
-    # ── Step 2: 保护所有已存在的反斜杠命令 ──
-    # 这可以防止像 \sin 被错误地添加反斜杠变成 \\sin
+    # ═══════════════════════════════════════════════
+    # 步骤1：先保护所有已存在的 \命令，避免被误处理
+    # ═══════════════════════════════════════════════
     protected = {}
+    temp_text = text
     cmd_count = 0
-    matches = list(re.finditer(r'\\[a-zA-Z]+', result))
+    
+    # 匹配所有已存在的 \命令
+    existing_cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+    matches = list(existing_cmd_pattern.finditer(temp_text))
+    
+    # 从后往前处理，避免位置偏移
     for match in reversed(matches):
         full_cmd = match.group(0)
-        placeholder = f'\x00CMD{cmd_count}\x00'
-        result = result[:match.start()] + placeholder + result[match.end():]
+        placeholder = f'\x00REST{cmd_count}\x00'
+        temp_text = temp_text[:match.start()] + placeholder + temp_text[match.end():]
         protected[placeholder] = full_cmd
         cmd_count += 1
     
-    # ── Step 3: 恢复常见的LaTeX命令前缀（没有反斜杠的命令）──
+    # ═══════════════════════════════════════════════
+    # 步骤2：恢复丢失的反斜杠
+    # ═══════════════════════════════════════════════
+    
+    # 常见的LaTeX命令前缀，需要恢复反斜杠
     # 使用原始字符串定义，确保反斜杠不被解释
     latex_prefixes = (
         r'\Biggl', r'\biggl', r'\big', r'\Bigg', r'\bigg', r'\Big',
@@ -172,163 +148,46 @@ def _restore_backslashes(text: str) -> str:
         r'\frac', r'\sum', r'\int', r'\prod', r'\lim',
         r'\sin', r'\cos', r'\tan', r'\log', r'\ln',
         r'\sqrt', r'\partial',
-        r'\mathbf', r'\mathrm', r'\mathcal', r'\mathit', r'\mathtt', r'\mathsf', r'\mathbb',
-        r'\cdot', r'\times', r'\div', r'\equiv', r'\approx', r'\sim', r'\simeq',
-        r'\in', r'\notin', r'\subset', r'\supset', r'\subseteq', r'\supseteq', r'\cup', r'\cap',
-        r'\rightarrow', r'\leftarrow', r'\mapsto', r'\Rightarrow', r'\Leftarrow', 
-        r'\Leftrightarrow', r'\leftrightarrow', r'\hookleftarrow', r'\hookrightarrow',
-        r'\alpha', r'\beta', r'\gamma', r'\delta', r'\epsilon', r'\varepsilon',
-        r'\zeta', r'\eta', r'\theta', r'\vartheta', r'\iota', r'\kappa',
-        r'\lambda', r'\mu', r'\nu', r'\xi', r'\pi', r'\varpi',
-        r'\rho', r'\varrho', r'\sigma', r'\varsigma', r'\tau', r'\upsilon', r'\phi',
-        r'\varphi', r'\chi', r'\psi', r'\omega',
+        r'\mathbf', r'\mathrm', r'\mathcal', r'\mathit',
+        r'\cdot', r'\times', r'\equiv', r'\approx', r'\sim',
+        r'\in', r'\subset', r'\supset', r'\cup', r'\cap',
+        r'\rightarrow', r'\leftarrow', r'\Rightarrow', r'\Leftarrow',
+        r'\alpha', r'\beta', r'\gamma', r'\delta', r'\epsilon',
+        r'\zeta', r'\eta', r'\theta', r'\iota', r'\kappa',
+        r'\lambda', r'\mu', r'\nu', r'\xi', r'\pi',
+        r'\rho', r'\sigma', r'\tau', r'\upsilon', r'\phi',
+        r'\chi', r'\psi', r'\omega',
         r'\Gamma', r'\Delta', r'\Theta', r'\Lambda', r'\Xi',
         r'\Pi', r'\Sigma', r'\Upsilon', r'\Phi', r'\Psi', r'\Omega',
-        r'\oplus', r'\otimes', r'\odot', r'\coprod', r'\bigcup', r'\bigcap', r'\bigsqcup',
-        r'\setminus', r'\\',
-        r'\neq', r'\leq', r'\geq', r'\le', r'\ge', r'\lt', r'\gt',
-        r'\forall', r'\exists', r'\emptyset', r'\infty', r'\partial', r'\nabla',
-        r'\triangle', r'\square', r'\diamond', r'\circ', r'\bullet',
-        r'\hat', r'\widehat', r'\tilde', r'\widetilde',
-        r'\bar', r'\vec', r'\dot', r'\ddot', r'\prime', r'\dagger', r'\ddagger',
-        r'\pm', r'\mp', r'\cap', r'\cup', r'\setminus',
-        r'\to', r'\times', r'\cdot',
-        r'\frac', r'\dfrac', r'\cfrac', r'\tfrac', r'\root', r'\abs', r'\norm',
-        r'\oint', r'\iint', r'\iiint', r'\iiiint', r'\idotsint',
-        r'\ldots', r'\cdots', r'\vdots', r'\ddots',
     )
     
-    # 按长度降序排序，避免短命令匹配优先
+    # 按长度降序排序，避免短命令匹配优先（如 \sqrt 优先于 \s）
     latex_prefixes = sorted(latex_prefixes, key=len, reverse=True)
     
-    # 匹配模式：前面不是反斜杠，后面是字母、{、空白或行尾
+    # 匹配模式：前面不是反斜杠，后面是字母或{
     for prefix in latex_prefixes:
         # 获取不带反斜杠的部分
         cmd = prefix[1:]  # 去掉开头的 \
-        # 匹配：前面不是 \，后面跟着命令
-        pattern = r'(?<!\\)' + re.escape(cmd) + r'(?=[a-zA-Z]|\{|\s|$|\\)'
+        
+        # 对于短命令（2个字符及以下），使用更严格的匹配条件
+        # 避免误匹配：如 "in" 在单词中间不应该被认为是 \in
+        if len(cmd) <= 2:
+            # 更严格的条件：前面是空格或行首，后面是空格、{或行尾
+            pattern = r'(?<![a-zA-Z])' + re.escape(cmd) + r'(?![a-zA-Z])'
+        else:
+            # 普通条件：前面不是反斜杠，后面跟着字母或{或空格或行尾
+            pattern = r'(?<!\\)' + re.escape(cmd) + r'(?=[a-zA-Z]|\{|\s|$)'
+        
         # 使用 lambda 函数来避免替换字符串中的反斜杠被解释
-        result = re.sub(pattern, lambda m, p=prefix: p, result)
+        temp_text = re.sub(pattern, lambda m, p=prefix: p, temp_text)
     
-    # ── Step 4: 恢复被保护的命令 ──
+    # ═══════════════════════════════════════════════
+    # 步骤3：恢复被保护的命令
+    # ═══════════════════════════════════════════════
     for placeholder, original in protected.items():
-        result = result.replace(placeholder, original)
+        temp_text = temp_text.replace(placeholder, original)
     
-    # ── Step 3: Unicode数学符号转换为LaTeX命令 ──
-    unicode_to_latex = {
-        '∈': r'\in',
-        '∉': r'\notin',
-        '⊂': r'\subset',
-        '⊃': r'\supset',
-        '⊆': r'\subseteq',
-        '⊇': r'\supseteq',
-        '∩': r'\cap',
-        '∪': r'\cup',
-        '∅': r'\emptyset',
-        '∞': r'\infty',
-        '≤': r'\leq',
-        '≥': r'\geq',
-        '≠': r'\neq',
-        '≡': r'\equiv',
-        '≈': r'\approx',
-        '∼': r'\sim',
-        '≃': r'\simeq',
-        '≅': r'\cong',
-        '→': r'\rightarrow',
-        '←': r'\leftarrow',
-        '⇒': r'\Rightarrow',
-        '⇐': r'\Leftarrow',
-        '⇔': r'\Leftrightarrow',
-        '↔': r'\leftrightarrow',
-        '×': r'\times',
-        '·': r'\cdot',
-        '÷': r'\div',
-        '±': r'\pm',
-        '∓': r'\mp',
-        '∀': r'\forall',
-        '∃': r'\exists',
-        '∂': r'\partial',
-        '∇': r'\nabla',
-        '√': r'\sqrt',
-        '∑': r'\sum',
-        '∏': r'\prod',
-        '∫': r'\int',
-        '∬': r'\iint',
-        '∭': r'\iiint',
-        '∮': r'\oint',
-        '∠': r'\angle',
-        '⊥': r'\perp',
-        '∥': r'\parallel',
-        '△': r'\triangle',
-        '□': r'\square',
-        '°': r'^\circ',
-        '′': r'\prime',
-        '″': r'\prime\prime',
-        '‴': r'\prime\prime\prime',
-        '⁻¹': r'^{-1}',
-        '²': r'^2',
-        '³': r'^3',
-        'ⁿ': r'^n',
-        '₁': r'_1',
-        '₂': r'_2',
-        '₃': r'_3',
-        'ₙ': r'_n',
-        'α': r'\alpha',
-        'β': r'\beta',
-        'γ': r'\gamma',
-        'δ': r'\delta',
-        'ε': r'\epsilon',
-        'ζ': r'\zeta',
-        'η': r'\eta',
-        'θ': r'\theta',
-        'ι': r'\iota',
-        'κ': r'\kappa',
-        'λ': r'\lambda',
-        'μ': r'\mu',
-        'ν': r'\nu',
-        'ξ': r'\xi',
-        'π': r'\pi',
-        'ρ': r'\rho',
-        'σ': r'\sigma',
-        'τ': r'\tau',
-        'υ': r'\upsilon',
-        'φ': r'\phi',
-        'χ': r'\chi',
-        'ψ': r'\psi',
-        'ω': r'\omega',
-        'Γ': r'\Gamma',
-        'Δ': r'\Delta',
-        'Θ': r'\Theta',
-        'Λ': r'\Lambda',
-        'Ξ': r'\Xi',
-        'Π': r'\Pi',
-        'Σ': r'\Sigma',
-        'Υ': r'\Upsilon',
-        'Φ': r'\Phi',
-        'Ψ': r'\Psi',
-        'Ω': r'\Omega',
-    }
-    
-    # 只在数学模式外替换Unicode符号（避免替换已经正确的LaTeX命令）
-    # 先保护 $...$ 内的内容
-    protected = []
-    def _protect(m):
-        protected.append(m.group(0))
-        return f'\x00M{len(protected)-1}\x00'
-    temp = re.sub(r'\$[^$]+\$', _protect, result)
-    temp = re.sub(r'\$\$[^$]+\$\$', _protect, temp)
-    
-    # 在保护区域外替换Unicode符号
-    for unicode_char, latex_cmd in unicode_to_latex.items():
-        temp = temp.replace(unicode_char, latex_cmd)
-    
-    # 恢复保护区域
-    for i, block in enumerate(protected):
-        temp = temp.replace(f'\x00M{i}\x00', block)
-    
-    result = temp
-    
-    return result
+    return temp_text
 
 
 def _split_mixed_steps(text: str) -> list:
@@ -350,11 +209,14 @@ def _split_mixed_steps(text: str) -> list:
     # 模式1: #### 步骤X：（带分隔线的）
     # 模式2: 步骤X：
     # 模式3: 【X分】作为分隔符
+    # 支持中文数字（一二三四五六七八九十）和阿拉伯数字（0-9）
     patterns = [
-        # #### 步骤二：（优先匹配带####的）
+        # #### 步骤二：或 #### 步骤2：（优先匹配带####的）
         re.compile(r'(####\s*步骤[一二三四五六七八九十\d]+[：:])'),
-        # 步骤二：（不带####的）
+        # 步骤二：或 步骤2：（不带####的）
         re.compile(r'(步骤[一二三四五六七八九十\d]+[：:])'),
+        # step2: 或 Step 2: 格式
+        re.compile(r'(\b[Ss]tep\s*\d+:)'),
     ]
     
     # 使用第一个匹配的模式进行分割
@@ -405,6 +267,20 @@ def render_standard_solution(solution: dict) -> None:
     if not steps and not answer:
         return
 
+    # 去重步骤：移除内容完全相同的重复步骤
+    unique_steps = []
+    seen_contents = set()
+    for step in steps:
+        if isinstance(step, dict):
+            content = step.get("content", "")
+        else:
+            content = str(step)
+        # 只保留内容不重复的步骤
+        if content and content not in seen_contents:
+            seen_contents.add(content)
+            unique_steps.append(step)
+    steps = unique_steps
+
     with st.expander("📖 查看标准解法", expanded=False):
         if steps:
             for i, step in enumerate(steps):
@@ -439,11 +315,16 @@ def render_standard_solution(solution: dict) -> None:
                                 segments = split_latex_text(sub_content)
                                 render_ast(segments)
                             except Exception:
+                                # 使用 STLatexRenderer 正确渲染 LaTeX
                                 try:
-                                    safe = safe_latex(sub_content)
-                                    st.markdown(safe)
+                                    from rendering.renderers.st_latex_renderer import STLatexRenderer
+                                    STLatexRenderer.render(sub_content)
                                 except Exception:
-                                    st.markdown(sub_content)
+                                    try:
+                                        safe = safe_latex(sub_content)
+                                        st.markdown(safe)
+                                    except Exception:
+                                        st.markdown(sub_content)
                             # 添加分隔线
                             if j < len(sub_steps) - 1:
                                 st.markdown("---")
@@ -454,11 +335,16 @@ def render_standard_solution(solution: dict) -> None:
                             segments = split_latex_text(step_content)
                             render_ast(segments)
                         except Exception as e:
+                            # 使用 STLatexRenderer 正确渲染 LaTeX
                             try:
-                                safe = safe_latex(step_content)
-                                st.markdown(safe)
+                                from rendering.renderers.st_latex_renderer import STLatexRenderer
+                                STLatexRenderer.render(step_content)
                             except Exception:
-                                st.markdown(step_content)
+                                try:
+                                    safe = safe_latex(step_content)
+                                    st.markdown(safe)
+                                except Exception:
+                                    st.markdown(step_content)
                     
                     # 步骤之间添加分隔线
                     if i < len(steps) - 1:
@@ -466,19 +352,31 @@ def render_standard_solution(solution: dict) -> None:
 
         elif answer:
             # 没有步骤，只有答案
-            # 恢复丢失的反斜杠
+            import re as _re
             answer = _restore_backslashes(answer)
+            
+            # Normalize LaTeX: fix inconsistent formatting
+            try:
+                from latex_normalizer import normalize_latex_style
+                answer = normalize_latex_style(answer)
+            except Exception:
+                pass
             
             st.markdown("**答案**")
             try:
                 segments = split_latex_text(answer)
                 render_ast(segments)
             except Exception:
+                # 使用 STLatexRenderer 正确渲染 LaTeX
                 try:
-                    safe = safe_latex(answer)
-                    st.markdown(safe)
+                    from rendering.renderers.st_latex_renderer import STLatexRenderer
+                    STLatexRenderer.render(answer)
                 except Exception:
-                    st.markdown(answer)
+                    try:
+                        safe = safe_latex(answer)
+                        st.markdown(safe)
+                    except Exception:
+                        st.markdown(answer)
 
 
 def render_recommendations(dr: dict, question_db=None, current_question=None) -> None:

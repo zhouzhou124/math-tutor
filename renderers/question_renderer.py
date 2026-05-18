@@ -64,8 +64,6 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
     if show_actions:
         render_actions(qid)
         CardClose()
-    else:
-        st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================
@@ -135,8 +133,6 @@ def render_proof_question(q, show_steps: bool = False, show_answer: bool = False
     if show_actions:
         render_actions(qid)
         CardClose()
-    else:
-        st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================================

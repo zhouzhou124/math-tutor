@@ -2,6 +2,9 @@
 import streamlit as st
 from config import SUBJECTS, ERROR_TYPES, DIFFICULTY_LEVELS
 
+# 性能优化：限制默认展开的条目数量
+MAX_EXPANDED_ITEMS = 1
+
 
 def render_mistakes_page(db, render_latex):
     """..."""
@@ -13,21 +16,37 @@ def render_mistakes_page(db, render_latex):
     filter_type = cf2.selectbox("错误类型", ["全部"] + ERROR_TYPES, key="filter_type")
     filter_diff = cf3.selectbox("难度", ["全部"] + DIFFICULTY_LEVELS, key="filter_diff")
 
-    errors = st.session_state.memory.get_errors(
-        subject=filter_subject if filter_subject != "全部" else None,
-        error_type=filter_type if filter_type != "全部" else None,
-    )
+    # 性能优化：使用缓存减少重复查询
+    cache_key = f"mistakes_{filter_subject}_{filter_type}_{filter_diff}"
+    if cache_key not in st.session_state or st.session_state.get("mistakes_cache_invalidated"):
+        errors = st.session_state.memory.get_errors(
+            user_id=st.session_state.auth['user_id'],
+            subject=filter_subject if filter_subject != "全部" else None,
+            error_type=filter_type if filter_type != "全部" else None,
+        )
+        st.session_state[cache_key] = errors
+        st.session_state.mistakes_cache_invalidated = False
+    else:
+        errors = st.session_state[cache_key]
 
-    stats = st.session_state.memory.get_error_stats()
+    # 性能优化：缓存统计数据
+    stats_cache_key = "mistakes_stats"
+    if stats_cache_key not in st.session_state or st.session_state.get("mistakes_cache_invalidated"):
+        stats = st.session_state.memory.get_error_stats(st.session_state.auth['user_id'])
+        st.session_state[stats_cache_key] = stats
+        st.session_state.mistakes_cache_invalidated = False
+    else:
+        stats = st.session_state[stats_cache_key]
+
     sc1, sc2, sc3, sc4 = st.columns(4)
-    sc1.metric("错题总数", stats.get("total_errors", 0))
-    sc2.metric("重复率", f"{stats.get('repeat_rate', 0):.1%}")
+    sc1.metric("错题总数", stats.total_errors)
+    sc2.metric("重复率", f"{stats.repeat_rate:.1%}")
     sc3.metric("主要错误类型",
-               max(stats.get("by_type", {}), key=stats.get("by_type", {}).get)
-               if stats.get("by_type") else "暂无")
+               max(stats.by_type, key=stats.by_type.get)
+               if stats.by_type else "暂无")
 
     # 按知识点错误分布
-    by_chapter = stats.get("by_chapter", {})
+    by_chapter = stats.by_chapter
     if by_chapter:
         top_chapter = max(by_chapter, key=by_chapter.get)
         sc4.metric("高频错误章节", top_chapter[:12] if top_chapter else "暂无")
@@ -59,12 +78,13 @@ def render_mistakes_page(db, render_latex):
                         st.session_state.page = "practice"
                         st.rerun()
 
+        # 性能优化：限制默认展开的条目数量
         for i, err in enumerate(errors):
             with st.expander(
                 f"[{err.get('date', '?')}] {err.get('knowledge_point', '未分类')[:30]} "
                 f"— 得分 {err.get('score', '?')}/{err.get('total_score', '?')} "
                 f"{'🔁 重复' if err.get('is_repeat') else ''}",
-                expanded=(i == 0),
+                expanded=(i < MAX_EXPANDED_ITEMS),
             ):
                 # 上面：题目和作答
                 with st.container(border=True):

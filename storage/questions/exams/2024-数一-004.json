@@ -10,7 +10,7 @@
   ],
   "difficulty": "中等",
   "score": 5,
-  "question": "$4.$ 设函数 $f(x)$ 在区间 $(-1,1)$ 上有定义，且 $\\lim_{x\\to 0}f(x)=0$，则（ ）\n\n$(A)$ 当 $\\lim_{x\\to 0}\\frac{f(x)}{x}=m$ 时，$f'(0)=m$\n\n$(B)$ 当 $f'(0)=m$ 时，$\\lim_{x\\to 0}\\frac{f(x)}{x}=m$\n\n$(C)$ 当 $\\lim_{x\\to 0}f'(x)=m$ 时，$f'(0)=m$\n\n$(D)$ 当 $f'(0)=m$ 时，$\\lim_{x\\to 0}f'(x)=m$",
+  "question": "设函数 $f(x)$ 在区间 $(-1,1)$ 上有定义，且 $\\lim_{x\\to 0}f(x)=0$，则（ ）",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [
@@ -19,10 +19,10 @@
   ],
   "source": "manual_2024",
   "options": {
-    "A": "A",
-    "B": "B",
-    "C": "C",
-    "D": "D"
+    "A": "当 $\\lim_{x\\to 0}\\frac{f(x)}{x}=m$ 时，$f'(0)=m$",
+    "B": "当 $f'(0)=m$ 时，$\\lim_{x\\to 0}\\frac{f(x)}{x}=m$",
+    "C": "当 $\\lim_{x\\to 0}f'(x)=m$ 时，$f'(0)=m$",
+    "D": "当 $f'(0)=m$ 时，$\\lim_{x\\to 0}f'(x)=m$"
   },
   "correct_option": "B",
   "embedding_text": "考研数学一 2024年 选择题 知识点: 导数与微分 极限与连续 数学概念: 极限 中等难度 5分题 2024-数一-004"

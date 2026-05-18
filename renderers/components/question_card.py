@@ -35,9 +35,16 @@ def CardOpen(ast) -> str:
     parts.append(f'<span class="qcard-dot">·</span> {diff_badge}')
 
     st.markdown(f'''
-    <div class="qcard">
-        <div class="qcard-year">{html.escape(year_label)}</div>
-        <div class="qcard-subtitle">{" ".join(parts)}</div>
+    <div style="
+        background: #fafafa;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    ">
+        <div style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin-bottom: 4px;">{html.escape(year_label)}</div>
+        <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 12px;">{" ".join(parts)}</div>
         <div class="qcard-body">
     ''', unsafe_allow_html=True)
     return ast.question_id

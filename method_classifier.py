@@ -275,3 +275,4 @@ def _unknown_result(reason: str) -> dict:
         "recommendation": "semantic_fallback",
         "canonical_count": 0,
     }
+

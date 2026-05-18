@@ -31,15 +31,20 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any, Tuple
+from enum import Enum
 from dataclasses_json import dataclass_json
 
-# 导入通用枚举（StepStatus 已移至 common_enums）
-from common_enums import StepStatus, STEP_STATUS_LABELS
-
 
 # ═══════════════════════════════════════════════
-# 步骤状态枚举已移至 common_enums
+# 步骤状态枚举
 # ═══════════════════════════════════════════════
+
+class StepStatus(Enum):
+    """步骤状态"""
+    CORRECT = "correct"           # ✓ 正确
+    PARTIAL = "partial"           # ⚠ 部分正确
+    WRONG = "wrong"               # ✗ 错误
+    MISSING = "missing"            # ○ 缺失
 
 
 STEP_STATUS_SYMBOLS = {

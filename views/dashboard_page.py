@@ -1,93 +1,99 @@
-"""pages/dashboard_page.py — 仪表盘"""
+"""Dashboard 页面 - 用户首页仪表盘"""
+
 import streamlit as st
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-import numpy as np
-from config import ERROR_TYPES, STAGES
+from .auth.session_state import get_current_user_id, get_current_username
 
 
-def render_dashboard_page(db, render_latex):
-    """..."""
-    profile = st.session_state.get("student_profile", {})
-    st.title("📊 学习仪表盘")
-
-    # 4 个统计卡片
-    c1, c2, c3, c4 = st.columns(4)
-    errors = st.session_state.memory.get_error_stats()
-    total_errors = errors.get("total_errors", 0)
-    total_q_all = profile.get("total_questions", 0)
-    accuracy = max(0, 100 - total_errors * 3) if total_q_all > 0 else 100
-    q_stats = st.session_state.question_db.stats()
-
-    c1.metric("📈 总正确率", f"{min(100, accuracy):.1f}%", delta="↑ 5.2% 较上周")
-    c2.metric("📚 累计刷题", total_q_all, delta=f"题库共 {q_stats['total']} 题")
-    c3.metric("⏱️ 错题数", total_errors, delta=f"{'需注意' if total_errors > 10 else '控制良好'}")
-    c4.metric("🔥 连续打卡", "15 天", delta="保持中")
-
-    # 图表区域
-    col_left, col_right = st.columns(2)
-
-    with col_left:
-        st.subheader("章节正确率分布")
-        chapter_acc = profile.get("chapter_accuracy", {})
-        if chapter_acc:
-            fig, ax = plt.subplots(figsize=(6, 4))
-            labels = list(chapter_acc.keys())[:8]
-            values = [chapter_acc[k] * 100 for k in labels]
-            colors = plt.cm.Blues([0.3 + 0.7 * (v / max(values)) for v in values])
-            bars = ax.barh(range(len(labels)), values, color=colors)
-            ax.set_yticks(range(len(labels)))
-            ax.set_yticklabels([l[:15] for l in labels], fontsize=8)
-            ax.set_xlabel("估计正确率 (%)")
-            ax.set_xlim(0, 100)
-            for bar, val in zip(bars, values):
-                ax.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2,
-                        f"{val:.0f}%", va="center", fontsize=8)
-            ax.spines["top"].set_visible(False)
-            ax.spines["right"].set_visible(False)
-            st.pyplot(fig)
-            plt.close()
-        else:
-            st.info("暂无数据 — 开始刷题后这里会显示各章节正确率")
-
-    with col_right:
-        st.subheader("错题类型分布")
-        by_type = errors.get("by_type", {})
-        if by_type:
-            fig, ax = plt.subplots(figsize=(6, 4))
-            labels = list(by_type.keys())
-            values = list(by_type.values())
-            wedges, texts, autotexts = ax.pie(
-                values, labels=[f"{l}\n({v}次)" for l, v in zip(labels, values)],
-                autopct="%1.1f%%", colors=plt.cm.Set2(range(len(labels))),
-                startangle=90,
-            )
-            st.pyplot(fig)
-            plt.close()
-        else:
-            st.info("暂无数据")
-
-    # 今日推荐
-    st.subheader("⚡ 今日复习建议")
-    recs = st.session_state.memory.get_recommendations()
-    weak_pts = profile.get("weak_points", [])
-    if not recs:
-        recs = [
-            "开始刷题吧！系统会根据你的错题自动生成个性化复习建议",
-            "建议从高等数学的极限与连续章节开始",
-            "每日目标：10-15题，先易后难",
-        ]
-    for i, rec in enumerate(recs, 1):
-        st.markdown(f"""
-        <div style="display:flex;gap:1rem;padding:1rem;background:#f8fafc;border-radius:12px;
-                    border-left:3px solid #2563eb;margin-bottom:0.5rem;">
-            <div style="width:24px;height:24px;background:#2563eb;color:white;border-radius:50%;
-                        display:flex;align-items:center;justify-content:center;font-size:0.75rem;
-                        font-weight:700;flex-shrink:0;">{i}</div>
-            <div style="font-size:0.875rem;color:#334155;">{rec}</div>
+def render_dashboard():
+    """渲染仪表盘页面"""
+    user_id = get_current_user_id()
+    username = get_current_username()
+    
+    # 创建服务
+    from pathlib import Path
+    from services import DashboardService, MemoryService
+    db_path = Path("storage/math_tutor.db")
+    data_dir = Path("storage/data")
+    
+    dashboard_service = DashboardService(db_path, data_dir)
+    memory_service = MemoryService(db_path, data_dir)
+    
+    # 获取仪表盘数据
+    dashboard = dashboard_service.get_dashboard_data(user_id)
+    
+    # 欢迎信息
+    st.markdown(f"""
+        <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin-bottom: 20px;">
+            <h2 style="color: white; font-size: 1.5rem;">欢迎回来，{username} 👋</h2>
+            <p style="color: rgba(255,255,255,0.8);">继续你的数学学习之旅吧！</p>
         </div>
-        """, unsafe_allow_html=True)
-
-
-    # ==================== 智能刷题 ====================
-
+    """, unsafe_allow_html=True)
+    
+    # 今日学习统计
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric(
+            label="已完成题目",
+            value=dashboard.total_questions,
+            delta=f"+{dashboard.total_questions} 题"
+        )
+    
+    with col2:
+        st.metric(
+            label="正确率",
+            value=f"{dashboard.overall_accuracy:.1%}",
+            delta="今日表现"
+        )
+    
+    with col3:
+        st.metric(
+            label="连续学习",
+            value=f"{dashboard.streak_days} 天",
+            delta="坚持就是胜利！"
+        )
+    
+    # 薄弱点分析
+    st.subheader("📊 薄弱点分析")
+    if dashboard.weak_points:
+        for idx, point in enumerate(dashboard.weak_points, 1):
+            st.warning(f"{idx}. {point}")
+    else:
+        st.info("暂无薄弱点记录，继续保持！")
+    
+    # 推荐练习
+    st.subheader("🎯 推荐练习")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("专项训练", use_container_width=True):
+            st.session_state.page = "practice"
+            st.rerun()
+    
+    with col2:
+        if st.button("错题回顾", use_container_width=True):
+            st.session_state.page = "error_notebook"
+            st.rerun()
+    
+    # 学习进度
+    st.subheader("📈 学习进度")
+    if dashboard.chapter_stats:
+        chapters = list(dashboard.chapter_stats.keys())[:5]
+        accuracies = [dashboard.chapter_stats[c] * 100 for c in chapters]
+        
+        st.bar_chart(
+            {"章节": chapters, "正确率": accuracies},
+            x="章节",
+            y="正确率",
+            use_container_width=True
+        )
+    else:
+        st.info("开始做题，查看你的学习进度！")
+    
+    # 最近错题
+    st.subheader("📝 最近错题")
+    if dashboard.recent_errors:
+        for error in dashboard.recent_errors[:5]:
+            st.write(f"- **{error.knowledge_point}**: {error.question_id}")
+    else:
+        st.info("暂无错题记录")

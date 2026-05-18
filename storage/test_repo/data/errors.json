@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.2",
+  "data": {
+    "user_1778925882": {
+      "records": [
+        {
+          "record_id": "err_1778925883_74",
+          "user_id": "user_1778925882",
+          "date": "2026-05-16",
+          "time": "18:04",
+          "question_id": "2024-数一-001",
+          "question_type": "选择题",
+          "knowledge_point": "高等数学 - 极限",
+          "error_type": "概念错误",
+          "difficulty": "中等",
+          "student_answer": "A",
+          "correct_answer": "B",
+          "score": 0,
+          "max_score": 4,
+          "is_repeat": false,
+          "repeat_count": 1
+        }
+      ],
+      "stats": {
+        "total_errors": 1,
+        "by_chapter": {
+          "高等数学": 1
+        },
+        "by_type": {
+          "概念错误": 1
+        },
+        "by_difficulty": {
+          "中等": 1
+        },
+        "repeat_rate": 0.0
+      }
+    },
+    "user_1778925883": {
+      "records": [
+        {
+          "record_id": "err_1778925883_739",
+          "user_id": "user_1778925883",
+          "date": "2026-05-16",
+          "time": "18:04",
+          "question_id": "2024-数一-002",
+          "question_type": "解答题",
+          "knowledge_point": "线性代数 - 矩阵",
+          "error_type": "计算错误",
+          "difficulty": "较难",
+          "student_answer": "计算错误",
+          "score": 5,
+          "max_score": 10,
+          "is_repeat": false,
+          "repeat_count": 1
+        },
+        {
+          "record_id": "err_1778925883_906",
+          "user_id": "user_1778925883",
+          "date": "2026-05-16",
+          "time": "18:04",
+          "question_id": "2024-数一-003",
+          "question_type": "解答题",
+          "knowledge_point": "未知知识点",
+          "error_type": "计算错误",
+          "difficulty": "中等",
+          "student_answer": "我的答案",
+          "score": 6,
+          "max_score": 10,
+          "is_repeat": false,
+          "repeat_count": 1
+        }
+      ],
+      "stats": {
+        "total_errors": 2,
+        "by_chapter": {
+          "线性代数": 1,
+          "未知知识点": 1
+        },
+        "by_type": {
+          "计算错误": 2
+        },
+        "by_difficulty": {
+          "较难": 1,
+          "中等": 1
+        },
+        "repeat_rate": 0.0
+      }
+    }
+  }
+}

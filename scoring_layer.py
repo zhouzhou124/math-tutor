@@ -33,45 +33,99 @@ from dataclasses_json import dataclass_json
 
 # 导入验证层
 from verification_layer import (
-    VerificationResult,
-    StepTransitionResult,
+    VerificationResult, 
+    StepTransitionResult, 
     FullVerificationResult,
+    ErrorLevel,
     get_verifier
 )
 
-# 导入通用枚举
-from common_enums import (
-    ErrorLevel,
-    OperationType,
-    StepStatus,
-    OPERATION_PATTERNS,
-    CriticalStepType
-)
-
 
 # ═══════════════════════════════════════════════
-# 向后兼容别名
+# 关键步骤定义
 # ═══════════════════════════════════════════════
 
-CRITICAL_STEP_PATTERNS = OPERATION_PATTERNS
+class CriticalStepType(Enum):
+    """关键步骤类型枚举"""
+    TAYLOR_EXPANSION = "taylor_expansion"
+    SUBSTITUTION = "substitution"
+    AUXILIARY_FUNCTION = "auxiliary_function"
+    CHARACTERISTIC_EQUATION = "characteristic_equation"
+    INTEGRATION_BY_PARTS = "integration_by_parts"
+    L_HOSPITAL = "l_hospital"
+    MEAN_VALUE_THEOREM = "mean_value_theorem"
+    CHANGE_OF_VARIABLES = "change_of_variables"
+    SEPARATION_OF_VARIABLES = "separation_of_variables"
+    MATRIX_DIAGONALIZATION = "matrix_diagonalization"
+    EIGENVALUE = "eigenvalue"
+    SERIES_EXPANSION = "series_expansion"
+    INDUCTION = "induction"
+    CONTRADICTION = "contradiction"
+    OTHER = "other"
+
+# 关键步骤关键词映射
+CRITICAL_STEP_PATTERNS: Dict[CriticalStepType, List[str]] = {
+    CriticalStepType.TAYLOR_EXPANSION: [
+        "taylor", "泰勒", "展开", "级数展开", "麦克劳林", "mclaurin"
+    ],
+    CriticalStepType.SUBSTITUTION: [
+        "换元", "变量替换", "substitution", "令", "设", "let"
+    ],
+    CriticalStepType.AUXILIARY_FUNCTION: [
+        "辅助函数", "构造函数", "construct", "define", "设函数"
+    ],
+    CriticalStepType.CHARACTERISTIC_EQUATION: [
+        "特征方程", "特征根", "characteristic", "齐次方程", "通解"
+    ],
+    CriticalStepType.INTEGRATION_BY_PARTS: [
+        "分部积分", "integration by parts", "uv积分"
+    ],
+    CriticalStepType.L_HOSPITAL: [
+        "洛必达", "洛必达法则", "l_hospital", "0/0", "∞/∞"
+    ],
+    CriticalStepType.MEAN_VALUE_THEOREM: [
+        "中值定理", "拉格朗日", "罗尔", "柯西中值", "mean value"
+    ],
+    CriticalStepType.CHANGE_OF_VARIABLES: [
+        "变量替换", "坐标变换", "变量代换", "transform"
+    ],
+    CriticalStepType.SEPARATION_OF_VARIABLES: [
+        "分离变量", "变量分离", "separation"
+    ],
+    CriticalStepType.MATRIX_DIAGONALIZATION: [
+        "对角化", "相似变换", "相似对角化", "diagonalize"
+    ],
+    CriticalStepType.EIGENVALUE: [
+        "特征值", "特征向量", "eigenvalue", "eigenvector"
+    ],
+    CriticalStepType.SERIES_EXPANSION: [
+        "级数展开", "幂级数", "傅里叶", "fourier", "series"
+    ],
+    CriticalStepType.INDUCTION: [
+        "归纳法", "数学归纳", "induction", "归纳证明"
+    ],
+    CriticalStepType.CONTRADICTION: [
+        "反证法", "矛盾", "contradiction", "假设"
+    ],
+}
 
 # 关键步骤默认权重（关键步骤权重更高）
-CRITICAL_STEP_WEIGHTS: Dict[OperationType, float] = {
-    OperationType.TAYLOR_EXPANSION: 0.5,
-    OperationType.SUBSTITUTION: 0.4,
-    OperationType.CONSTRUCT_AUXILIARY: 0.5,
-    OperationType.CHARACTERISTIC_EQUATION: 0.4,
-    OperationType.INTEGRATION_BY_PARTS: 0.3,
-    OperationType.L_HOSPITAL: 0.4,
-    OperationType.MEAN_VALUE_THEOREM: 0.5,
-    OperationType.CHANGE_OF_VARIABLES: 0.4,
-    OperationType.SEPARATION_OF_VARIABLES: 0.3,
-    OperationType.DIAGONALIZE: 0.4,
-    OperationType.EIGEN_SOLVE: 0.4,
-    OperationType.SERIES_EXPANSION: 0.4,
-    OperationType.PROOF_BY_INDUCTION: 0.5,
-    OperationType.PROOF_BY_CONTRADICTION: 0.5,
-    OperationType.OTHER: 0.2,
+CRITICAL_STEP_WEIGHTS: Dict[CriticalStepType, float] = {
+    CriticalStepType.TAYLOR_EXPANSION: 0.5,
+    CriticalStepType.SUBSTITUTION: 0.4,
+    CriticalStepType.AUXILIARY_FUNCTION: 0.5,
+    CriticalStepType.CHARACTERISTIC_EQUATION: 0.4,
+    CriticalStepType.INTEGRATION_BY_PARTS: 0.3,
+    CriticalStepType.L_HOSPITAL: 0.4,
+    CriticalStepType.MEAN_VALUE_THEOREM: 0.5,
+    CriticalStepType.CHANGE_OF_VARIABLES: 0.4,
+    CriticalStepType.SEPARATION_OF_VARIABLES: 0.3,
+    CriticalStepType.MATRIX_DIAGONALIZATION: 0.4,
+    CriticalStepType.EIGENVALUE: 0.4,
+    CriticalStepType.SERIES_EXPANSION: 0.4,
+    CriticalStepType.INDUCTION: 0.5,
+    CriticalStepType.CONTRADICTION: 0.5,
+    CriticalStepType.OTHER: 0.2,
 }
 
 

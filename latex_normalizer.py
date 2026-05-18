@@ -93,7 +93,7 @@ def normalize_latex_style(text: str) -> str:
 # ═══════════════════════════════════════════════
 
 def _normalize_choice_options(text: str) -> str:
-    """统一选择题选项格式为 $\left(\mathrm{A}\right)$，每个选项独占一行"""
+    r"""统一选择题选项格式为 $\left(\mathrm{A}\right)$，每个选项独占一行"""
 
     # 预处理：将空的数学表达式 $( )$ 或 $( )$ 转换为普通文本
     text = re.sub(r'\$\s*\(\s*\)\$', '( )', text)
@@ -165,7 +165,7 @@ def _normalize_choice_options(text: str) -> str:
 
 
 def _normalize_summation(text: str) -> str:
-    """\sum_{a}^{b} → \sum\limits_{a}^{b}"""
+    r"""\sum_{a}^{b} → \sum\limits_{a}^{b}"""
     text = text.replace('\\sum_{', '\\sum\\limits_{')
     text = text.replace('\\sum _{', '\\sum\\limits_{')
     return text
@@ -180,18 +180,49 @@ def _normalize_integral(text: str) -> str:
 
 
 def _normalize_differential(text: str) -> str:
-    """dx → \,\mathrm{d}x (仅在数学模式内)"""
-    # 替换数学模式内的裸 dx
+    r"""dx → \,\mathrm{d}x (仅在数学模式内)"""
+    if not text:
+        return text
+    
+    # ═══════════════════════════════════════════════
+    # 关键保护步骤：防止 \sqrt 被错误转换
+    # \sqrt → \s + qrt → 如果 s 后跟空格和变量，会被误认为 ds
+    # ═══════════════════════════════════════════════
+    
+    # 先保护所有已存在的 \命令，避免被错误处理
+    # 使用占位符保护 \sin, \sqrt, \s, \d 等命令
+    protected = {}
+    temp_text = text
+    cmd_count = 0
+    
+    # 匹配所有 \命令形式（\后面跟字母）
+    cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+    matches = list(cmd_pattern.finditer(temp_text))
+    
+    # 从后往前处理，避免位置偏移
+    for match in reversed(matches):
+        full_cmd = match.group(0)  # 如 \sin, \sqrt, \s 等
+        placeholder = f'\x00DIFF{cmd_count}\x00'
+        temp_text = temp_text[:match.start()] + placeholder + temp_text[match.end():]
+        protected[placeholder] = full_cmd
+        cmd_count += 1
+    
+    # 替换数学模式内的裸 dx（只替换前面有空格的，避免误处理 \mathrm{d} 中的 d）
     for var in ['x', 'y', 'z', 't', 'r', 's', 'u', 'v', 'w']:
         # 在 $...$ 内替换
         def _replace_in_math(match):
             content = match.group(1)
-            # 只替换前面有空格的 dx
+            # 只替换前面有空格的 dx（避免误处理 \mathrm{d}x 或其他命令）
             content = content.replace(' d' + var, r' \,\mathrm{d}' + var)
             content = content.replace(' d' + var + ' ', r' \,\mathrm{d}' + var + ' ')
             return '$' + content + '$'
-        text = re.sub(r'\$([^$]+)\$', _replace_in_math, text)
-    return text
+        temp_text = re.sub(r'\$([^$]+)\$', _replace_in_math, temp_text)
+    
+    # 恢复被保护的命令
+    for placeholder, original in protected.items():
+        temp_text = temp_text.replace(placeholder, original)
+    
+    return temp_text
 
 
 def _normalize_limit(text: str) -> str:

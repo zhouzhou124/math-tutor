@@ -11,6 +11,7 @@ def start_practice(qid: str) -> None:
     q = st.session_state.question_db.get(qid)
     st.session_state.selected_question = q if q else qid
     st.session_state.page = "practice"
+    st.rerun()
 
 
 def view_solution(qid: str) -> None:

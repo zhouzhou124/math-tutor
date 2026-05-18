@@ -26,6 +26,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from typing import List, Dict, Set, Optional, Tuple, Any, Callable
+from enum import Enum
 
 # 尝试导入 SymPy
 try:
@@ -35,12 +36,74 @@ except ImportError:
     sp = None
     _HAS_SYMPY = False
 
-from common_enums import ErrorLevel
-
 
 # ═══════════════════════════════════════════════
-# 错误级别定义已移至 common_enums
+# 错误级别定义（三级错误扣分系统）
 # ═══════════════════════════════════════════════
+
+_ERROR_LEVEL_LABELS = {
+    -1: "正确",
+    0: "解题路径缺失",
+    1: "三级错误（轻）- 计算错误",
+    2: "二级错误（中）- 代数错误",
+    3: "一级错误（重）- 概念错误",
+    4: "警告",
+}
+
+_ERROR_LEVEL_DESCRIPTIONS = {
+    -1: "完全正确",
+    0: "未执行任何数学计算",
+    1: "Arithmetic Error: +/- 算错、数值计算错误",
+    2: "Algebraic Error: 化简错误、代数运算错误",
+    3: "Conceptual Error: 用错定理、方法错误、推导方向错误",
+    4: "警告（不影响正确性）",
+}
+
+class ErrorLevel(Enum):
+    """
+    错误级别枚举（三级错误扣分系统）
+    
+    一级错误（重）Conceptual Error
+      - 用错定理、方法错误、推导方向错误
+      - 扣分：30~70%
+    
+    二级错误（中）Algebraic Error
+      - 化简错误、代数运算错误
+      - 扣分：5~20%
+    
+    三级错误（轻）Arithmetic Error
+      - +/- 算错、数值计算错误
+      - 扣分：1~5%
+    """
+    CORRECT = -1           # 完全正确
+    LEVEL_0 = 0            # 未执行任何数学计算
+    LEVEL_1 = 1            # 三级错误（轻）- Arithmetic Error
+    LEVEL_2 = 2            # 二级错误（中）- Algebraic Error
+    LEVEL_3 = 3            # 一级错误（重）- Conceptual Error
+    WARNING = 4            # 警告（不影响正确性）
+
+    @property
+    def label(self) -> str:
+        return _ERROR_LEVEL_LABELS.get(self.value, "未知")
+    
+    @property
+    def description(self) -> str:
+        return _ERROR_LEVEL_DESCRIPTIONS.get(self.value, "未知")
+
+    @property
+    def is_error(self) -> bool:
+        return self.value >= 1
+    
+    @property
+    def error_tier(self) -> str:
+        """返回错误等级名称"""
+        if self == ErrorLevel.LEVEL_1:
+            return "三级错误（轻）"
+        elif self == ErrorLevel.LEVEL_2:
+            return "二级错误（中）"
+        elif self == ErrorLevel.LEVEL_3:
+            return "一级错误（重）"
+        return ""
 
 
 # ═══════════════════════════════════════════════

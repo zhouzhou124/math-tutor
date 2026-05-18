@@ -1,0 +1,33 @@
+[01:23:37.694] ============================================================
+[01:23:37.700] 模拟 Streamlit 执行流程
+[01:23:37.716] STEP 1: 导入 streamlit
+[01:23:41.255] STEP 2: streamlit 导入完成
+[01:23:41.259] STEP 3: 跳过 set_page_config (非 Streamlit 运行模式)
+[01:23:41.272] STEP 4: 导入 session_state
+[01:23:41.321] STEP 5: session_state 导入完成
+[01:23:41.327] STEP 6: 检查登录状态
+[01:23:41.349] STEP 7: is_logged_in = False
+[01:23:41.365] STEP 8: 尝试自动登录
+[01:23:41.830] STEP 9: try_auto_login = True
+[01:23:41.833] STEP 10: 模拟 render_main_app
+[01:23:41.860] STEP 11: main_page 导入完成
+[01:23:41.865] STEP 12: 模拟 render_dashboard 数据加载
+[01:23:41.887] STEP 13: 创建 DashboardService
+[01:23:41.919] STEP 14: DashboardService 创建完成 (0.01s)
+[01:23:41.926] STEP 15: 获取 dashboard 数据
+[01:23:41.994] STEP 16: dashboard 数据获取完成 (0.05s)
+[01:23:41.997]   - total_questions: 0
+[01:23:42.013]   - overall_accuracy: 0.0
+[01:23:42.029]   - weak_points: []
+[01:23:42.033]   - chapter_stats: {}
+[01:23:42.048]   - recent_errors: 0
+[01:23:42.065] STEP 17: 模拟 MemoryService
+[01:23:42.084] STEP 18: MemoryService 创建完成 (0.01s)
+[01:23:42.087] STEP 19: 模拟 QuestionDB
+[01:23:42.112] STEP 20: QuestionDB 创建完成 (0.01s)
+[01:23:42.116]   - stats: {'total': 448, 'by_math_type': {'数学一': 316, '26宇哥八套卷': 132}, 'by_question_type': {'选择题': 184, '填空题': 120, '解答题': 130, '证明题': 14}, 'years_covered': [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], 'knowledge_points_covered': 43, 'missing_data': [], 'pending_review': []}
+[01:23:42.130] STEP 21: 测试 latex_engine 是否会卡死
+[01:23:42.538] STEP 21-28 FAILED: cannot import name 'Expr' from 'latex_engine.ast' (E:\math_tutor\latex_engine\ast.py)
+[01:23:42.553] ============================================================
+[01:23:42.564] 所有测试完成!
+[01:23:42.596] ============================================================

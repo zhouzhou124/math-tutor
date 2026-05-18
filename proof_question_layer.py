@@ -23,15 +23,36 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any, Tuple, Set
+from enum import Enum
 from dataclasses_json import dataclass_json
 
-# 导入通用枚举（ProofStrategy 已移至 common_enums）
-from common_enums import (
-    ProofStrategy,
-    PROOF_STRATEGY_PATTERNS,
-    NodeType,
-    EdgeType
-)
+
+# ═══════════════════════════════════════════════
+# 证明策略定义
+# ═══════════════════════════════════════════════
+
+class ProofStrategy(Enum):
+    """证明策略"""
+    DIRECT = "direct"                    # 直接证明
+    CONTRADICTION = "contradiction"       # 反证法
+    INDUCTION = "induction"               # 数学归纳法
+    CONSTRUCT = "construct"               # 构造法
+    EQUIVALENCE = "equivalence"           # 等价变换
+    ANALYSIER = "analysier"               # 分析法
+    SYNTHESIS = "synthesis"               # 综合法
+    FORWARD = "forward"                   # 正向证明
+    BACKWARD = "backward"                 # 逆向证明
+
+
+PROOF_STRATEGY_PATTERNS = {
+    ProofStrategy.DIRECT: ["直接证明", "直接得", "可得", "因此", "所以", "于是"],
+    ProofStrategy.CONTRADICTION: ["反证法", "假设", "矛盾", "若不然", "假设不成立"],
+    ProofStrategy.INDUCTION: ["归纳法", "数学归纳法", "假设当n=k时", "验证n=1"],
+    ProofStrategy.CONSTRUCT: ["构造", "构造辅助函数", "构造函数", "构造序列"],
+    ProofStrategy.EQUIVALENCE: ["等价", "充要条件", "当且仅当", "iff"],
+    ProofStrategy.ANALYSIER: ["分析法", "要证", "只需证", "等价于"],
+    ProofStrategy.SYNTHESIS: ["综合法", "由已知", "因为", "由题设"],
+}
 
 
 # ═══════════════════════════════════════════════

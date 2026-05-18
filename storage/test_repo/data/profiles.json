@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.2",
+  "data": {
+    "user_1778925882": {
+      "user_id": "user_1778925882",
+      "level": "冲刺阶段",
+      "total_questions": 50,
+      "overall_accuracy": 0.0,
+      "chapter_accuracy": {},
+      "weak_points": [],
+      "recommendations": [],
+      "created_at": "2026-05-16T18:04:42.959213",
+      "updated_at": "2026-05-16T18:04:42.959632",
+      "schema_version": "0.2"
+    },
+    "user_1778925883": {
+      "user_id": "user_1778925883",
+      "level": "强化阶段",
+      "total_questions": 1,
+      "overall_accuracy": 0.0,
+      "chapter_accuracy": {
+        "线性代数 - 矩阵": 0.8333333333333334
+      },
+      "weak_points": [
+        "线性代数 - 矩阵"
+      ],
+      "recommendations": [
+        "重点复习 线性代数 - 矩阵 相关题型，当前掌握程度较弱"
+      ],
+      "created_at": "2026-05-16T18:04:43.811159",
+      "updated_at": "2026-05-16T18:04:43.811809",
+      "schema_version": "0.2"
+    }
+  }
+}

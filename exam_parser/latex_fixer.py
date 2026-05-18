@@ -72,9 +72,22 @@ class LaTeXFixer:
 
     # OCR常见错误: 数学符号被识别为相似字母
     _OCR_SYMBOLS_IN_MATH = [
-        # ∫ → f (当f出现在积分的上下限位置时)
+        # 积分符号 ∫ 被识别为 f (增强版本)
+        (re.compile(r'(?<![a-zA-Z])f(?=\s*\{|\s*\()'), r'\\int'),
+        (re.compile(r'(?<![a-zA-Z])f\s*_'), r'\\int_'),
+        # f f(x) 模式：积分号后紧跟被积函数
+        (re.compile(r'(?<![a-zA-Z])f\s+(?=[a-zA-Z]\()'), r'\\int '),
+        # f_{下限}^{上限} 模式
+        (re.compile(r'(?<![a-zA-Z])f\s*_\s*\{'), r'\\int_{'),
+        (re.compile(r'(?<![a-zA-Z])f\s*_\s*(\w+)'), r'\\int_{\1}'),
         # ∞ → oo
         (re.compile(r'(?<!\\)oo(?=\s*[\.\)\]\}_,;:\n]|\s*$)'), r'\\infty'),
+        # ∑ → E
+        (re.compile(r'(?<![a-zA-Z])E(?=\s*\{|\s*\^)'), r'\\sum'),
+        # π → pi
+        (re.compile(r'(?<![a-zA-Z])pi(?=\s*[\.\)\]\}_,;:\n]|\s*$)'), r'\\pi'),
+        # λ -> lambda
+        (re.compile(r'(?<![a-zA-Z])lambda(?=\s*[\.\)\]\}_,;:\n]|\s*$)'), r'\\lambda'),
     ]
 
     def fix(self, text: str) -> LaTeXReport:

@@ -2,7 +2,7 @@
 import os
 import streamlit as st
 import time
-from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, LLM_BASE_URL, KNOWLEDGE_POINTS
+from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, LLM_BASE_URL, KNOWLEDGE_POINTS, LLM_MODEL
 from agents import OCR_Agent, SolverAgent
 from ._shared import chip as _chip
 from renderers import render_question
@@ -54,6 +54,25 @@ def render_practice_page(db):
         st.subheader("✍️ 输入你的作答")
         st.caption("文本和图片可同时使用，系统会合并两者内容后再批改。")
 
+        # ── 选择题：添加选项选择界面 ──
+        selected_option = None
+        if qt == "选择题":
+            st.markdown("### 🎯 选择你的答案")
+            options = selected_bank.get("options", {})
+            if options:
+                cols = st.columns(len(options))
+                for i, (key, value) in enumerate(options.items()):
+                    with cols[i]:
+                        if st.button(f"**{key}**\n\n{value}", key=f"opt_{key}", use_container_width=True,
+                                    type="primary" if st.session_state.get("selected_option") == key else "secondary"):
+                            st.session_state.selected_option = key
+                            selected_option = key
+                selected_option = st.session_state.get("selected_option")
+                if selected_option:
+                    st.success(f"✓ 已选择选项: {selected_option}")
+                else:
+                    st.info("请选择一个选项")
+
         # ── 左右两栏：文本输入 + 拍照上传 ──
         col_text, col_photo = st.columns(2)
 
@@ -67,15 +86,43 @@ def render_practice_page(db):
 
         with col_photo:
             st.markdown("**📷 拍照上传**")
+            with st.expander("📸 拍照建议", expanded=False):
+                from agents.ocr_agent import OCR_Agent
+                from vision.mathpix_client import is_available as mathpix_available  # direct import, avoids cv2 dep
+                pix2tex_ok = OCR_Agent.is_pix2tex_available()
+                mp_ok = mathpix_available()
+                if mp_ok:
+                    engine_status = "✅ Mathpix公式识别引擎已启用（手写+印刷）"
+                elif pix2tex_ok:
+                    engine_status = "✅ pix2tex公式识别引擎已启用（印刷体）"
+                else:
+                    engine_status = "⚠️ 公式识别引擎未安装 (pip install pix2tex)"
+                st.markdown(f"""
+                <div style="font-size:0.82rem;color:#64748b;line-height:1.7;">
+                {engine_status}<br><br>
+                ✅ <b>平整放置</b>：纸张平铺，正上方拍摄<br>
+                ✅ <b>光线均匀</b>：避免阴影和反光<br>
+                ✅ <b>字迹清晰</b>：用黑色或蓝色笔书写<br>
+                ✅ <b>留白适当</b>：周围保留少量边距<br>
+                ⚠️ <b>手写识别准确率有限</b>，复杂公式建议配合文本输入
+                </div>
+                """, unsafe_allow_html=True)
             bank_photo_answer = st.file_uploader(
                 "上传作答图片", type=["png", "jpg", "jpeg"],
                 key="bank_photo_answer", label_visibility="collapsed",
             )
             if bank_photo_answer:
                 st.image(bank_photo_answer, use_container_width=True)
+                st.caption("💡 提示：OCR识别手写数学公式准确率有限，建议同时在左侧文本框中输入关键公式")
 
         has_text = bool(bank_text_answer and bank_text_answer.strip())
         has_photo = bank_photo_answer is not None
+        has_option = bool(st.session_state.get("selected_option"))
+        
+        # 选择题：选项选择即可提交
+        can_submit = has_text or has_photo
+        if qt == "选择题":
+            can_submit = can_submit or has_option
 
         # 状态提示
         if has_text and has_photo:
@@ -84,36 +131,126 @@ def render_practice_page(db):
             st.info("📝 文本输入已就绪")
         elif has_photo:
             st.info("📷 图片已就绪，提交后将 OCR 识别")
+        elif has_option and qt == "选择题":
+            st.success(f"✓ 已选择选项 {st.session_state.selected_option}")
 
         # ── 提交按钮 ──
         if st.button("🚀 提交批改", type="primary", use_container_width=True,
-                     disabled=not (has_text or has_photo)):
+                     disabled=not can_submit):
             client = _get_client()
             if client is None:
                 st.warning("请先在「系统设置」中配置 API Key")
             else:
                 student_answer_parts = []
 
-                # 处理图片 OCR
+                # 处理图片 OCR（带进度显示和超时机制）
                 if has_photo:
-                    with st.spinner("OCR 识别答案图片中..."):
-                        import tempfile
-                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
-                            f.write(bank_photo_answer.read())
-                            a_path = f.name
+                    from views.components.ocr_progress import show_ocr_progress, reset_ocr_progress, progress_callback
+                    
+                    reset_ocr_progress()
+                    
+                    # 创建一个容器来显示进度
+                    progress_container = st.empty()
+                    with progress_container.container():
+                        show_ocr_progress()
+                    
+                    import tempfile
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
+                        f.write(bank_photo_answer.read())
+                        a_path = f.name
 
-                        ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
-                        ocr_text = ocr_agent._local_ocr(a_path)
-                        if client and ocr_text:
-                            cleaned = ocr_agent._llm_cleanup("", ocr_text)
-                            if cleaned:
-                                ocr_text = cleaned.get("student_answer", ocr_text)
-                        if ocr_text and ocr_text.strip():
-                            student_answer_parts.append(ocr_text.strip())
-                        try:
-                            os.unlink(a_path)
-                        except Exception:
-                            pass
+                    # 使用改进的OCR Agent（带进度回调和超时机制）
+                    ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
+                    
+                    try:
+                        # 调用识别（带进度追踪）
+                        ocr_result = ocr_agent.recognize(
+                            answer_image_path=a_path,
+                            progress_callback=progress_callback
+                        )
+                        
+                        # 更新进度显示
+                        progress_container.empty()
+                        
+                        # ── 降级策略：根据置信度分级反馈 ──
+                        ocr_text = (ocr_result.get("student_answer") or "").strip()
+                        ocr_conf = ocr_result.get("confidence", 0)
+                        ocr_warnings = ocr_result.get("warnings", [])
+                        ocr_quality = ocr_result.get("image_quality", {})
+                        ocr_engine = ocr_result.get("engine", "unknown")
+
+                        if ocr_text:
+                            student_answer_parts.append(ocr_text)
+
+                            if ocr_conf >= 0.7:
+                                # 高置信度：直接使用
+                                st.success(
+                                    f"✅ OCR识别成功（置信度: {ocr_conf:.0%}，引擎: {ocr_engine}）"
+                                )
+                                with st.expander("📝 查看识别结果", expanded=False):
+                                    st.code(ocr_text[:500], language="latex")
+
+                            elif ocr_conf >= 0.3:
+                                # 中置信度：可用但建议复核
+                                st.warning(
+                                    f"⚠️ OCR置信度较低（{ocr_conf:.0%}），建议人工复核识别结果"
+                                )
+                                with st.expander("📝 识别结果（可编辑后提交）", expanded=True):
+                                    edited = st.text_area(
+                                        "确认或修改识别内容",
+                                        value=ocr_text[:500],
+                                        height=150,
+                                        key="ocr_edited_text",
+                                    )
+                                    if edited != ocr_text:
+                                        student_answer_parts[-1] = edited
+
+                            else:
+                                # 低置信度：很可能错误
+                                st.error(
+                                    f"❌ OCR置信度过低（{ocr_conf:.0%}），手写内容无法可靠识别"
+                                )
+                                st.info("💡 建议在左侧文本框中手动输入作答过程的LaTeX公式")
+                                with st.expander("📝 原始识别结果（仅供参考）", expanded=False):
+                                    st.code(ocr_text[:500], language="latex")
+
+                            # 显示图片质量报告
+                            if ocr_quality and ocr_quality.get("issues"):
+                                with st.expander("🔍 图片质量分析", expanded=False):
+                                    for issue in ocr_quality["issues"]:
+                                        st.caption(f"• {issue}")
+                                    if ocr_quality.get("score", 0) < 0.3:
+                                        st.caption("💡 建议：使用扫描APP（如CamScanner）或确保光线充足后重拍")
+
+                        else:
+                            # 完全失败
+                            st.error("❌ OCR未能识别出任何内容")
+                            if ocr_warnings:
+                                for w in ocr_warnings:
+                                    st.caption(f"• {w}")
+                            st.info("💡 请在左侧文本框中手动输入作答内容（使用 $...$ 包裹公式）")
+                            if ocr_quality and ocr_quality.get("issues"):
+                                with st.expander("🔍 图片质量问题", expanded=True):
+                                    for issue in ocr_quality["issues"]:
+                                        st.caption(f"• {issue}")
+                                    st.caption("💡 建议：重拍时确保纸张平整、光线均匀、字迹清晰")
+                                
+                    except Exception as e:
+                        progress_container.empty()
+                        st.error(f"识别过程出错: {str(e)}")
+                        st.warning("OCR识别失败，建议手动输入作答内容")
+
+                    try:
+                        os.unlink(a_path)
+                    except Exception:
+                        pass
+
+                # 处理选择题选项
+                selected_option = st.session_state.get("selected_option")
+                # 直接从 session state 获取题目类型，确保正确性
+                current_qt = selected_bank.get("question_type", "解答题")
+                if current_qt == "选择题" and selected_option:
+                    student_answer_parts.insert(0, f"选项: {selected_option}")
 
                 # 处理文本输入
                 if has_text:
@@ -121,15 +258,20 @@ def render_practice_page(db):
 
                 merged_answer = "\n\n".join(student_answer_parts)
 
+                # 如果只有选择题选项而没有其他内容，确保 merged_answer 不为空
+                if not merged_answer and selected_option:
+                    merged_answer = f"选项: {selected_option}"
+
                 st.session_state.ocr_result = {
                     "success": True,
                     "question": selected_bank["question"],
                     "student_answer": merged_answer,
                     "math_type": mt,
-                    "question_type": qt,
+                    "question_type": current_qt,
                     "knowledge_point": kps,
                     "confidence": 0.9 if has_photo else 1.0,
                     "warnings": [],
+                    "selected_option": selected_option,  # 保存选中的选项
                 }
                 st.session_state.answer_view_mode = False
                 st.session_state.page = "grading"
@@ -145,6 +287,26 @@ def render_practice_page(db):
             col_q, col_a = st.columns(2)
             with col_q:
                 st.subheader("📋 上传题目图片")
+                with st.expander("📸 拍照建议", expanded=False):
+                    from agents.ocr_agent import OCR_Agent
+                    from vision.mathpix_client import is_available as mathpix_available  # direct import, avoids cv2 dep2
+                    mp_ok2 = mathpix_available()
+                    pix2tex_ok2 = OCR_Agent.is_pix2tex_available()
+                    if mp_ok2:
+                        engine2 = "✅ Mathpix已启用（手写+印刷）"
+                    elif pix2tex_ok2:
+                        engine2 = "✅ pix2tex已启用（印刷体）"
+                    else:
+                        engine2 = "⚠️ 公式识别引擎未安装"
+                    st.markdown(f"""
+                    <div style="font-size:0.82rem;color:#64748b;line-height:1.7;">
+                    {engine2}<br>
+                    ✅ 纸张平铺，正上方拍摄<br>
+                    ✅ 光线均匀，避免阴影<br>
+                    ✅ 字迹清晰，黑/蓝色笔<br>
+                    ⚠️ 手写公式识别率有限
+                    </div>
+                    """, unsafe_allow_html=True)
                 question_file = st.file_uploader(
                     "题目图片", type=["png", "jpg", "jpeg"],
                     key="q_upload", label_visibility="collapsed"
@@ -202,8 +364,8 @@ def render_practice_page(db):
         with tab_text:
             # 智能推荐：基于薄弱知识点
             st.subheader("🎯 智能推荐")
-            profile = st.session_state.memory.get_profile()
-            weak_points = profile.get("weak_points", [])
+            profile = st.session_state.memory.get_profile(st.session_state.auth['user_id'])
+            weak_points = profile.weak_points if profile else []
             if weak_points:
                 w1, w2, w3 = st.columns(3)
                 for i, wp in enumerate(weak_points[:3]):
@@ -240,7 +402,8 @@ def render_practice_page(db):
                 )
                 if student_answer:
                     with st.container(border=True):
-                        st.markdown(student_answer)
+                        from latex_utils import safe_render
+                        safe_render(student_answer, role="student_answer")
 
             mc1, mc2, mc3, mc4 = st.columns(4)
             math_type_t = mc1.selectbox("数学类别", MATH_TYPES, key="mt_text")
@@ -249,24 +412,28 @@ def render_practice_page(db):
             kp_t = mc4.selectbox("知识点", sum(KNOWLEDGE_POINTS.values(), []), key="kp_text")
 
             if st.button("🚀 提交批改", type="primary", use_container_width=True,
-                         disabled=not question_text):
-                client = _get_client()
-                if client is None:
-                    st.warning("请先在「系统设置」中配置 API Key")
-                else:
-                    st.session_state.ocr_result = {
-                        "success": True,
-                        "question": question_text,
-                        "student_answer": student_answer,
-                        "math_type": math_type_t,
-                        "question_type": q_type_t,
-                        "knowledge_point": kp_t,
-                        "confidence": 1.0,
-                        "warnings": [],
-                    }
-                    st.session_state.answer_view_mode = False
-                    st.session_state.page = "grading"
-                    st.rerun()
+                         disabled=not (question_text and student_answer)):
+                    client = _get_client()
+                    if client is None:
+                        st.warning("请先在「系统设置」中配置 API Key")
+                    else:
+                        st.session_state.ocr_result = {
+                            "success": True,
+                            "question": question_text,
+                            "student_answer": student_answer,
+                            "math_type": math_type_t,
+                            "question_type": q_type_t,
+                            "knowledge_point": kp_t,
+                            "confidence": 1.0,
+                            "warnings": [],
+                        }
+                        st.session_state.answer_view_mode = False
+                        st.session_state.page = "grading"
+                        st.rerun()
+            
+            # 验证学生答案是否为空
+            if question_text and not student_answer:
+                st.warning("⚠️ 请输入你的解答后再提交批改")
 
 
     # ==================== AI 批改 ====================

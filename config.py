@@ -87,6 +87,11 @@ VISION_API_KEY = os.getenv("VISION_API_KEY", "")
 VISION_BASE_URL = os.getenv("VISION_BASE_URL", "https://api.openai.com/v1")
 VISION_MODEL = os.getenv("VISION_MODEL", "gpt-4o")
 
+# ── Mathpix OCR（商业级数学公式识别，优先级最高） ──
+# 获取方式：https://dashboard.mathpix.com/
+MATHPIX_APP_ID = os.getenv("MATHPIX_APP_ID", "")
+MATHPIX_APP_KEY = os.getenv("MATHPIX_APP_KEY", "")
+
 # 规范解题轨迹生成
 CANONICAL_SOLVE_MODEL = os.getenv("CANONICAL_SOLVE_MODEL", "")
 VERIFY_STEPS = os.getenv("VERIFY_STEPS", "true").lower() == "true"
@@ -95,3 +100,7 @@ VERIFY_STEPS = os.getenv("VERIFY_STEPS", "true").lower() == "true"
 STORAGE_DIR = os.path.join(os.path.dirname(__file__), "storage")
 ERROR_NOTEBOOK_PATH = os.path.join(STORAGE_DIR, "error_notebook.json")
 STUDENT_PROFILE_PATH = os.path.join(STORAGE_DIR, "student_profile.json")
+
+# Repository Layer 配置
+REPOSITORY_DB_PATH = os.path.join(STORAGE_DIR, "app.db")
+REPOSITORY_USERS_DATA_DIR = os.path.join(STORAGE_DIR, "users_data")

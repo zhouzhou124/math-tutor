@@ -30,16 +30,62 @@ from scoring_layer import (
     UnifiedScorer,
     ScoringResult,
     StepScore,
+    CriticalStepType,
     get_scorer
 )
 
-# 导入通用枚举（OperationSemantic 已移至 common_enums）
-from common_enums import (
-    OperationType as OperationSemantic,
-    OPERATION_PATTERNS,
-    ErrorLevel,
-    ProofStrategy
-)
+
+# ═══════════════════════════════════════════════
+# 操作语义定义 (Operation Semantic)
+# ═══════════════════════════════════════════════
+
+class OperationSemantic(Enum):
+    """
+    操作语义枚举
+
+    这是解答题系统的核心！
+    每个操作不只是标签，而是有明确的数学语义。
+    """
+
+    # ===== 基础操作 =====
+    START = "start"                    # 起始：题目输入
+    COMPUTE = "compute"                # 计算：直接计算
+    SIMPLIFY = "simplify"              # 化简：代数化简
+    REWRITE = "rewrite"                 # 重写：等价变形
+
+    # ===== 微积分操作 =====
+    DIFFERENTIATE = "differentiate"     # 求导
+    INTEGRATE = "integrate"            # 积分
+    INTEGRATION_BY_PARTS = "integration_by_parts"  # 分部积分
+    SUBSTITUTION = "substitution"       # 换元
+
+    # ===== 极限操作 =====
+    TAYLOR_EXPANSION = "taylor_expansion"  # 泰勒展开
+    L_HOSPITAL = "l_hospital"          # 洛必达
+    LIMIT_COMPUTE = "limit_compute"     # 极限计算
+
+    # ===== 方程操作 =====
+    SOLVE_EQUATION = "solve_equation"   # 解方程
+    FACTOR = "factor"                   # 因式分解
+    ROOTS = "roots"                    # 求根
+
+    # ===== 证明操作 =====
+    ASSUME = "assume"                   # 假设
+    DERIVE = "derive"                   # 推导
+    APPLY_THEOREM = "apply_theorem"     # 应用定理
+    CONSTRUCT_AUXILIARY = "construct_auxiliary"  # 构造辅助函数
+    PROOF_BY_CONTRADICTION = "proof_by_contradiction"  # 反证法
+    PROOF_BY_INDUCTION = "proof_by_induction"  # 数学归纳法
+
+    # ===== 不等式操作 =====
+    INEQUALITY_COMPARE = "inequality_compare"  # 不等式比较
+    Jensen = "jensen"                  # Jensen不等式
+
+    # ===== 特殊操作 =====
+    OBSERVATION = "observation"         # 观察/注意到
+    EQUIVALENT_TRANSFORM = "equivalent_transform"  # 等价变换
+    DEFINITION = "definition"           # 定义
+    SUBSTITUTE = "substitute"           # 代入
 
 
 # ═══════════════════════════════════════════════
@@ -174,6 +220,7 @@ class SolutionMethod(Enum):
 METHOD_TO_OPERATIONS = {
     SolutionMethod.SUBSTITUTION_METHOD: [
         OperationSemantic.SUBSTITUTION,
+        OperationSemantic.SUBSTITUTE
     ],
     SolutionMethod.INTEGRATION_BY_PARTS: [
         OperationSemantic.INTEGRATION_BY_PARTS

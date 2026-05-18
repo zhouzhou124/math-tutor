@@ -16,13 +16,11 @@ def render_actions(qid: str) -> None:
         if st.button("▶ 开始练习", key=f"practice_{qid}",
                      use_container_width=True, type="primary"):
             start_practice(qid)
-            st.rerun()
 
     with b2:
         if st.button("👁 查看解析", key=f"view_{qid}",
                      use_container_width=True, type="secondary"):
             view_solution(qid)
-            st.rerun()
 
     with b3:
         if st.button("✏ 编辑", key=f"edit_{qid}", use_container_width=True):

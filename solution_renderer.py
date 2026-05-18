@@ -115,36 +115,8 @@ def render_step_tree(method: SolutionMethod) -> dict:
 
 def _op_type_cn(op: str) -> str:
     """操作类型 -> 中文名。"""
-    return {
-        "differentiate": "求导",
-        "integrate": "积分",
-        "compute_limit": "求极限",
-        "partial_diff": "偏导数",
-        "expand": "展开",
-        "factor": "因式分解",
-        "simplify": "化简",
-        "substitute": "代换/换元",
-        "collect": "合并同类项",
-        "cancel": "约分",
-        "solve_equation": "解方程",
-        "solve_system": "解方程组",
-        "matrix_op": "矩阵运算",
-        "row_reduce": "行变换",
-        "eigen_solve": "特征值/特征向量",
-        "determinant": "行列式计算",
-        "orthogonalize": "正交化",
-        "quadratic_form": "二次型标准化",
-        "expand_series": "级数展开",
-        "convergence_test": "收敛性判别",
-        "probability_calc": "概率计算",
-        "expectation": "期望/方差",
-        "mle_derive": "极大似然推导",
-        "apply_theorem": "应用定理",
-        "classify": "分类讨论",
-        "final_answer": "最终答案",
-        "compute": "计算",
-        "define": "定义",
-    }.get(op, op)
+    from operations import op_display_cn
+    return op_display_cn(op)
 
 
 def _generate_explanation(node: GraphNode) -> str:
