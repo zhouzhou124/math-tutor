@@ -161,31 +161,39 @@ def has_remembered_login() -> bool:
 
 
 def try_auto_login():
-    """尝试自动登录，返回是否成功"""
+    """尝试自动登录，返回是否成功。
+    仅在本地开发环境生效——Streamlit Cloud 共享容器中禁用，
+    防止一个用户的 remember_me.json 让所有人都自动登录为同一用户。"""
+    # 检测是否在 Streamlit Cloud 上运行
+    if os.getenv("STREAMLIT_SHARING_MODE") or os.getenv("STREAMLIT_RUNTIME_ENV"):
+        return False  # Cloud 环境：不自动登录，每人必须手动登录
+
     info = _load_remember_info()
     username = info.get("username", "")
     token = info.get("token", "")
-    
+
     if not username or not token:
         return False
-    
+
     # 验证 token 是否有效
     from services import AuthService
     db_path = Path("storage/math_tutor.db")
     data_dir = Path("storage/data")
     auth_service = AuthService(db_path, data_dir)
-    
+
     user = auth_service.get_user_by_username(username)
     if user and _verify_token(token, user.hashed_password):
         init_user_session(user, remember=True)
         return True
-    
+
     _clear_remember_info()
     return False
 
 
 def _save_remember_info(username: str):
-    """保存记住登录信息"""
+    """保存记住登录信息（仅本地有效，Cloud 上跳过）"""
+    if os.getenv("STREAMLIT_SHARING_MODE") or os.getenv("STREAMLIT_RUNTIME_ENV"):
+        return  # Cloud 环境：不保存，防止多用户共享登录
     from services import AuthService
     db_path = Path("storage/math_tutor.db")
     data_dir = Path("storage/data")

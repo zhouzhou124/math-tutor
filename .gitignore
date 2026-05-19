@@ -10,6 +10,7 @@ __pycache__/
 !.env.example
 storage/.credentials.json
 storage/settings.json
+storage/remember_me.json
 *.pem
 *.key
 *.p12
