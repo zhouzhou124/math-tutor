@@ -15,6 +15,7 @@ storage/settings.json
 *.p12
 *.pfx
 *secret*
+*secrets*
 *credential*
 !credential_store.py
 

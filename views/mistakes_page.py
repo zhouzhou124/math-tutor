@@ -62,18 +62,35 @@ def _render_record(err, render_latex, i):
     ):
         with st.container(border=True):
             st.caption("📋 题目")
-            render_latex(err.get("question", ""))
+            _q = err.get("question", "")
+            if _q:
+                try:
+                    render_latex(_q)
+                except Exception:
+                    st.markdown(_q)
+            else:
+                st.markdown("*（暂无题目内容）*")
             st.markdown("---")
             st.caption("✍️ 你的作答")
             student_ans = err.get("student_answer", "")
             if student_ans:
-                render_latex(student_ans)
+                try:
+                    render_latex(student_ans)
+                except Exception:
+                    st.markdown(student_ans)
             else:
                 st.markdown("*（未作答，仅查看标准答案）*")
 
         with st.container(border=True):
             st.caption("📖 标准答案")
-            render_latex(err.get("standard_answer", ""))
+            _sa = err.get("standard_answer", "")
+            if _sa:
+                try:
+                    render_latex(_sa)
+                except Exception:
+                    st.text(_sa[:2000])
+            else:
+                st.markdown("*（暂无标准答案）*")
             solution_steps = err.get("solution_steps", [])
             if solution_steps:
                 with st.expander("📝 解题步骤", expanded=False):

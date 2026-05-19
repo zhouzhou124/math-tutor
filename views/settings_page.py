@@ -3,6 +3,7 @@ import streamlit as st
 import os
 import time
 from config import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
+from llm_client import create_client
 import credential_store
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # views/ parent
