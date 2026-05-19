@@ -329,12 +329,13 @@ def generate_detailed_answer(
         ]
         text_parts = []
 
-        for round_idx in range(3):
+        for round_idx in range(2):  # 最多续写1次
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
                 temperature=0.2 if round_idx == 0 else 0.1,
                 max_tokens=4096,
+                timeout=45,  # 单次LLM调用最长等45秒
             )
             choice = response.choices[0]
             chunk = choice.message.content or ""
@@ -343,20 +344,18 @@ def generate_detailed_answer(
 
             combined = "".join(text_parts).strip()
             finish_reason = getattr(choice, "finish_reason", "")
-            if finish_reason != "length" and _is_detailed_answer_complete(combined):
+
+            # 内容够了就停，不纠结是否"完整"
+            if len(combined) > 500 and finish_reason != "length":
+                return combined or known_answer
+            if _is_answer_good_enough(combined):
                 return combined or known_answer
 
             messages = [
-                {"role": "system", "content": "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"},
+                {"role": "system", "content": "你是考研数学辅导专家。"},
                 {"role": "user", "content": prompt},
                 {"role": "assistant", "content": combined},
-                {
-                    "role": "user",
-                    "content": (
-                        "上面的标准答案还没有完整结束。请从中断处继续，"
-                        "不要重复已经写过的内容，只输出后续内容，直到完整写完。"
-                    ),
-                },
+                {"role": "user", "content": "请继续写，不要重复已有内容，只输出后续部分。"},
             ]
 
         return "".join(text_parts).strip() or known_answer
@@ -366,30 +365,26 @@ def generate_detailed_answer(
         return known_answer
 
 
+def _is_answer_good_enough(text: str) -> bool:
+    """Return True when the generated answer is long enough and looks complete."""
+    s = (text or "").strip()
+    if len(s) < 200:
+        return False
+    # Has at least one step marker or structured section
+    has_steps = bool(re.search(r'(?:步骤\d+|## (?:标准答案|详细步骤|关键知识点|易错提示))', s))
+    if not has_steps:
+        return False
+    # Doesn't end mid-sentence
+    if s[-1] in "，、；：,;:（([【":
+        return False
+    # Math delimiters balanced
+    if s.count("$$") % 2 != 0:
+        return False
+    if (s.replace("$$", "").count("$")) % 2 != 0:
+        return False
+    return True
+
+
 def _is_detailed_answer_complete(text: str) -> bool:
     """Heuristic guard against token-limit truncation in detailed answers."""
-    if not text or len(text.strip()) < 80:
-        return False
-
-    stripped = text.strip()
-    required_sections = ("## 标准答案", "## 详细步骤")
-    if not all(section in stripped for section in required_sections):
-        return False
-
-    # The prompt asks for this final section. If it is missing or empty, the
-    # model likely stopped before the answer was fully rendered.
-    if "## 易错提示" not in stripped:
-        return False
-
-    tail = stripped[-12:]
-    if tail.endswith(("，", "、", "；", "：", ",", ";", ":", "（", "(", "【", "[")):
-        return False
-
-    # Unbalanced math delimiters frequently indicate a hard cutoff.
-    if stripped.count("$$") % 2 != 0:
-        return False
-    single_dollars = stripped.replace("$$", "").count("$")
-    if single_dollars % 2 != 0:
-        return False
-
-    return True
+    return _is_answer_good_enough(text)
