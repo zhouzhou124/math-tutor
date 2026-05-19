@@ -1,5 +1,8 @@
 """pages/grading_page.py — AI 批改"""
 import time
+import json
+import threading
+import traceback
 import streamlit as st
 import logging
 from concurrent.futures import ThreadPoolExecutor
@@ -7,21 +10,44 @@ from config import LLM_BASE_URL, LLM_MODEL
 from agents import GradingAgent, DiagnosisAgent, SolverAgent
 from renderers.components.grading_result import render_grading_result_cards
 from ._shared import get_client
+from storage.grading_task_store import (
+    create_task, complete_task, fail_task, get_task,
+    get_recent_task, mark_viewed, cleanup_old,
+)
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+# ═══════════════════════════════════════════════
+#  Helpers for thread-safe state access
+# ═══════════════════════════════════════════════
+
+def _ss_get(key, default=None, *, _state=None):
+    """Read from _state dict (bg thread) or st.session_state (main thread)."""
+    if _state is not None:
+        return _state.get(key, default)
+    return st.session_state.get(key, default)
+
+
+def _ss_set(key, value, *, _state=None):
+    """Write to _state dict (bg thread) or st.session_state (main thread)."""
+    if _state is not None:
+        _state[key] = value
+    else:
+        st.session_state[key] = value
+
+
 def _clear_grading_state():
     """清理所有批改相关的状态，用于重新开始批改时确保干净的状态"""
     keys_to_clear = [
-        'grading_result', 
-        'diagnosis_result', 
-        'standard_answer', 
+        'grading_result',
+        'diagnosis_result',
+        'standard_answer',
         'standard_answer_structured',
-        'answer_view_mode', 
-        'grading_triggered'
+        'answer_view_mode',
+        'grading_triggered',
     ]
     for key in keys_to_clear:
         if key in st.session_state:
@@ -41,11 +67,9 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> b
     if any(p in text for p in placeholders):
         return True
 
-    # 选择题只有选项字母（如"A"）、填空题只有数字（如"1/2"）→ 需要展开详细过程
     if q_type in ("选择题", "填空题") and len(text) < 80:
         return True
 
-    # 解答题/证明题的短答案（<120字符）也需要展开
     return len(text) < 120
 
 
@@ -156,15 +180,17 @@ class _ThreadSafeStatus:
 
 
 def _build_standard_solution(question, ocr_data, selected_q, client, status,
-                             force_expansion: bool = False) -> dict:
+                             force_expansion: bool = False, *, _state=None, model=None) -> dict:
     """获取/生成标准解答。空作答和正常批改共用同一逻辑。
-    force_expansion=True 时所有题型都生成详细步骤（空作答查看答案场景）。
-    status 可以是 Streamlit status 或 _ThreadSafeStatus。"""
+
+    _state=None 时使用 st.session_state（主线程），传入 dict 时使用 dict（后台线程）。
+    model 参数覆盖 _state 中的 model 配置。
+    """
     cached_answer = selected_q.get("standard_answer", "")
     correct_option = selected_q.get("correct_option", "")
     q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
     opts = selected_q.get("options") or {}
-    model = st.session_state.get("model", LLM_MODEL)
+    _model = model or _ss_get("model", LLM_MODEL, _state=_state)
 
     # 确定已知答案信息（用于 AI 生成详细解答时作为上下文）
     _known_answer = cached_answer or ""
@@ -204,7 +230,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 question=full_question_dict,
                 known_answer=_known_answer,
                 question_type=q_type or ocr_data.get("question_type", "解答题"),
-                client=client, model=model,
+                client=client, model=_model,
             )
             solution = {
                 "success": True,
@@ -244,7 +270,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 question=full_question_dict,
                 known_answer="",
                 question_type=q_type or ocr_data.get("question_type", "解答题"),
-                client=client, model=model,
+                client=client, model=_model,
             )
             solution = {
                 "success": True,
@@ -268,7 +294,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
             if selected_q.get("options"):
                 for key in sorted(selected_q.get("options", {}).keys()):
                     full_question += f"\n({key}) {selected_q['options'][key]}"
-            solver = SolverAgent(client, model)
+            solver = SolverAgent(client, _model)
             solution = solver.solve(
                 question=full_question,
                 math_type=ocr_data.get("math_type", "数学一"),
@@ -307,38 +333,68 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     except Exception:
         pass
 
-    st.session_state.standard_answer = solution
+    _ss_set("standard_answer", solution, _state=_state)
     # 构建 _structured（如果还没有）
     if solution.get("_structured"):
-        st.session_state.standard_answer_structured = solution["_structured"]
+        _ss_set("standard_answer_structured", solution["_structured"], _state=_state)
     else:
         try:
             from latex_utils import from_legacy_text
             raw = _solution_to_text(solution)
             if raw:
-                st.session_state.standard_answer_structured = from_legacy_text(raw)
-                solution["_structured"] = st.session_state.standard_answer_structured
+                _ss_set("standard_answer_structured", from_legacy_text(raw), _state=_state)
+                solution["_structured"] = _ss_get("standard_answer_structured", _state=_state)
         except Exception:
-            st.session_state.standard_answer_structured = None
+            _ss_set("standard_answer_structured", None, _state=_state)
 
     return solution
 
 
-def _execute_grading_process(question, student_ans, ocr_data, selected_q, container=None):
-    """执行批改流程，封装为独立函数"""
+def _execute_grading_process(question, student_ans, ocr_data, selected_q, container=None,
+                             *, _state=None, model=None, user_id=None, memory=None,
+                             client=None):
+    """执行批改流程。
+
+    Args:
+        _state: None=使用 st.session_state（主线程），dict=使用 dict（后台线程）
+        model: LLM model 名称
+        user_id: 用户ID（用于错题本）
+        memory: MemoryService 实例（用于错题本）
+        client: LLM client（None 则从 _state 获取 API key 自行创建）
+
+    Returns:
+        dict: results with keys grading_result, diagnosis_result, standard_answer,
+              standard_answer_structured, error_record (for saving to error notebook).
+              返回 None 表示前置条件不满足（如无 API key）。
+    """
     ctx = container or st
-    client = get_client()  # 提前获取，空作答和正常批改都可能用到
+    _model = model or _ss_get("model", LLM_MODEL, _state=_state)
+    _user_id = user_id or (_ss_get("auth", {}, _state=_state).get("user_id", ""))
+    _memory = memory or _ss_get("memory", _state=_state)
+
+    # 获取或创建 LLM client
+    if client is None:
+        if _state is not None:
+            # 后台线程：从 _state 获取配置自行创建
+            api_key = str(_state.get("api_key", "") or "")
+            if api_key:
+                from llm_client import create_client
+                base_url = str(_state.get("base_url", LLM_BASE_URL) or "")
+                protocol = str(_state.get("protocol", "openai") or "openai")
+                client = create_client(api_key=api_key, base_url=base_url, protocol=protocol)
+        else:
+            client = get_client()
 
     # ── 空作答快速通道：只展示标准答案，不进行AI批改和诊断 ──
     if not (student_ans or "").strip():
         status = ctx.status("📖 查看标准答案...", expanded=True)
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
-                                             force_expansion=True)
+                                             force_expansion=True, _state=_state, model=_model)
         if solution is None:
-            st.session_state.grading_triggered = False
-            return
+            _ss_set("grading_triggered", False, _state=_state)
+            return None
 
-        st.session_state.standard_answer = solution
+        _ss_set("standard_answer", solution, _state=_state)
         gresult = {
             "success": True, "total": 0, "step_score": 0, "result_score": 0,
             "step_analysis": [], "deductions": [],
@@ -346,12 +402,10 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "engine": "view_only",
         }
         _q_kps = (selected_q or {}).get("knowledge_points", []) or []
-        # 如果题目没有知识点，用 OCR 识别到的知识点作为兜底
         if not _q_kps:
             _ocr_kp = ocr_data.get("knowledge_point", "") if ocr_data else ""
             _q_kps = [_ocr_kp] if _ocr_kp and _ocr_kp != "未指定" else []
         _q_mistakes = (selected_q or {}).get("common_mistakes", []) or []
-        # 将易错提示注入 selected_q，供 render_knowledge_points 展示
         if _q_mistakes and selected_q:
             selected_q["common_mistakes"] = selected_q.get("common_mistakes") or _q_mistakes
         dresult = {
@@ -366,25 +420,33 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                 "可对照标准答案逐步骤检查自己的思路差异",
             ],
         }
-        st.session_state.grading_result = gresult
-        st.session_state.diagnosis_result = dresult
+        _ss_set("grading_result", gresult, _state=_state)
+        _ss_set("diagnosis_result", dresult, _state=_state)
         status.write("✓ 完成")
-        st.session_state.answer_view_mode = True
-        st.session_state.grading_triggered = False
+        _ss_set("answer_view_mode", True, _state=_state)
+        _ss_set("grading_triggered", False, _state=_state)
         status.update(label="✅ 查看答案完成", state="complete", expanded=False)
-        st.rerun()
+        return {
+            "grading_result": gresult,
+            "diagnosis_result": dresult,
+            "standard_answer": solution,
+            "standard_answer_structured": _ss_get("standard_answer_structured", _state=_state),
+            "error_record": None,
+        }
 
     # client 已在函数开头获取，此处检查是否可用
     if client is None:
+        if _state is not None:
+            # 后台线程：标记失败
+            return None  # caller will handle
         st.warning("请先在「系统设置」中配置 API Key")
-        st.session_state.grading_triggered = False
-        return
+        _ss_set("grading_triggered", False, _state=_state)
+        return None
 
     _t_start = time.time()
     status = ctx.status("🔍 正在准备批改...", expanded=True)
     status.write("⏳ 获取标准答案...")
-    model = st.session_state.get("model", LLM_MODEL)
-    selected_q = selected_q or st.session_state.get("selected_question") or {}
+    selected_q = selected_q or _ss_get("selected_question", _state=_state) or {}
     q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
 
     # 解答题/证明题：标准答案生成 与 lock_question 可并行
@@ -394,19 +456,19 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     _ts_status = None
 
     if is_complex and selected_q.get("question_id"):
-        # 启动标准答案生成到后台线程（用线程安全的 status 包装器）
         _ts_status = _ThreadSafeStatus()
         _executor = ThreadPoolExecutor(max_workers=1)
         _future_solution = _executor.submit(
-            _build_standard_solution, question, ocr_data, selected_q, client, _ts_status
+            _build_standard_solution, question, ocr_data, selected_q, client, _ts_status,
+            force_expansion=False, _state=_state, model=_model,
         )
         status.write("⏳ 标准答案与规范解并行生成中...")
     else:
-        # 选择题/填空题：直接生成（<1s 缓存命中）
-        solution = _build_standard_solution(question, ocr_data, selected_q, client, status)
+        solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
+                                            _state=_state, model=_model)
         if solution is None:
-            st.session_state.grading_triggered = False
-            return
+            _ss_set("grading_triggered", False, _state=_state)
+            return None
 
     # Step 2: 批改 — Engine A 快速路径(选择/填空) vs Engine B LLM路径(解答/证明)
     std_ans = ""
@@ -414,7 +476,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     is_fast_path = q_type in ("选择题", "填空题")
 
     if is_fast_path and not is_complex:
-        # 等待 solution（如果还没获取）
         if _future_solution:
             solution = _future_solution.result()
             _ts_status.flush(status)
@@ -425,7 +486,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         stu = (student_ans or "").strip()
         correct_option = selected_q.get("correct_option", "")
         if q_type == "选择题" and correct_option:
-            # 提取学生答案中的选项字母
             stu_letter = None
             for m in re.finditer(r'[A-D]', stu.upper()):
                 stu_letter = m.group(0)
@@ -437,7 +497,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                 "comment": "正确" if is_correct else f"错误, 正确选项为 {correct_option}",
             }
         else:
-            # 填空题: 符号等价比较 (SymPy symbolic compare)
             from symbolic_executor import quick_compare, ErrorLevel
             result = quick_compare(stu, std_ans)
             is_correct = result["equivalent"]
@@ -457,7 +516,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                 "affects_future": False, "weak_points": [],
             }
         else:
-            # 选择题：简洁的错因分析
             if q_type == "选择题":
                 correct_opt = selected_q.get("correct_option", "")
                 dresult = {
@@ -467,7 +525,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                     "affects_future": False, "weak_points": selected_q.get("knowledge_points", []),
                 }
             else:
-                # 填空题
                 dresult = {
                     "error_type": "填空题错误",
                     "root_cause": "答案与标准答案不等价，请查看标准解法了解正确答案。",
@@ -486,18 +543,17 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             try:
                 from question_locker import lock_question
                 from graph_matching import grade_with_graph
-                locked = lock_question(selected_q, st.session_state.question_db, client, model)
+                _qdb = _ss_get("question_db", _state=_state)
+                locked = lock_question(selected_q, _qdb, client, _model)
                 _canonical = locked.get("canonical_trace")
 
-                # 提取学生轨迹（只做一次，后续 evolver 复用）
                 from student_trace_extractor import extract_student_trace
                 from symbolic_executor import build_student_graph_from_trace
                 _trace_result = extract_student_trace(
-                    student_ans or "", question, client, model
+                    student_ans or "", question, client, _model
                 )
                 student_graph = build_student_graph_from_trace(_trace_result)
 
-                # 等待后台标准答案生成完成（与 lock+extract 并行）
                 if _future_solution:
                     solution = _future_solution.result()
                     _ts_status.flush(status)
@@ -506,7 +562,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                 total_score = solution.get("total_score", 10)
                 status.write("✓ 标准答案与规范解就绪")
 
-                # Best-Match：遍历所有 canonical methods，取最高分
                 best_score = -1.0
                 best_gresult = None
                 best_method_name = ""
@@ -553,7 +608,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
 
                 if best_gresult is not None:
                     gresult = best_gresult
-                    # 方法分类结果
                     try:
                         from method_classifier import classify_student_method
                         classification = classify_student_method(_trace_result, _canonical)
@@ -567,7 +621,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                         )
                     except Exception:
                         pass
-                    # 记录匹配到的方法并增加 usage_count
                     if best_method_name and _canonical:
                         gresult["method_matched"] = best_method_name
                         for m in _canonical.methods:
@@ -575,7 +628,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                                 m.usage_count += 1
                                 break
 
-                    # 更新 solution 为 lock_question 的标准答案
                     if locked.get("standard_answer"):
                         solution["standard_answer"] = locked["standard_answer"]
                         std_ans = _solution_to_text(solution) or solution["standard_answer"]
@@ -584,7 +636,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             except Exception as _e_c:
                 logger.error(f"[Engine C 失败] {_e_c}")
 
-        # 如果后台线程还没取结果（question_id 为空的边缘情况）
         if _future_solution and solution is None:
             solution = _future_solution.result()
             _ts_status.flush(status)
@@ -593,9 +644,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             total_score = solution.get("total_score", 10)
 
         if not engine_c_ok:
-            # Engine B: LLM 批改 (解答题/证明题, 或缓存未命中)
-            # 传入 canonical_trace 让 LLM 参考结构化标准解
-            grading = GradingAgent(client, model)
+            grading = GradingAgent(client, _model)
             gresult = grading.grade(
                 question=question, standard_answer=std_ans,
                 student_answer=student_ans, total_score=total_score,
@@ -612,27 +661,30 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         _is_high_score = _max > 0 and _score / _max >= 0.9
 
         if _is_high_score:
-            # 高正确率 → 本地诊断，无需LLM
-            diagnosis = DiagnosisAgent(None, model)
+            diagnosis = DiagnosisAgent(None, _model)
             history = []
             dresult = diagnosis._local_diagnose(gresult, history)
             status.write("✓ 诊断完成（高分快速通道）")
         else:
-            diagnosis = DiagnosisAgent(client, model)
-            history = st.session_state.memory.get_errors(
-                user_id=st.session_state.auth['user_id'],
-                knowledge_point=ocr_data.get("knowledge_point", "")
-            )
+            diagnosis = DiagnosisAgent(client, _model)
+            history = []
+            if _memory and _user_id:
+                try:
+                    history = _memory.get_errors(
+                        user_id=_user_id,
+                        knowledge_point=ocr_data.get("knowledge_point", "")
+                    )
+                except Exception:
+                    pass
             dresult = diagnosis.diagnose(
                 question=question, student_answer=student_ans,
                 standard_answer=std_ans, grading_result=gresult,
                 error_history=history,
             )
             status.write("✓ 诊断完成")
-    st.session_state.grading_result = gresult
-    st.session_state.diagnosis_result = dresult
+    _ss_set("grading_result", gresult, _state=_state)
+    _ss_set("diagnosis_result", dresult, _state=_state)
     status.write("⏳ 检查候选方法...")
-
 
     # Step 3.5: 候选方法提交 — 高分低匹配时提交到人工审核队列
     try:
@@ -658,21 +710,20 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
 
     status.write("⏳ 保存到错题本...")
 
-    # Step 4: 保存到错题本（完整批改结果）
+    # Step 4: 构建错题记录
+    error_record = None
     if gresult.get("total", 0) < solution.get("total_score", 10) * 0.9:
         full_standard_answer = _solution_to_text(solution) or solution.get("standard_answer", "")
 
-        # Build solution_steps from structured data if legacy steps are empty
         saved_steps = solution.get("steps", [])
         if not saved_steps:
-            structured = solution.get("_structured") or st.session_state.get("standard_answer_structured")
+            structured = solution.get("_structured") or _ss_get("standard_answer_structured", _state=_state)
             if isinstance(structured, dict):
                 struct_steps = structured.get("steps", [])
                 if struct_steps:
                     saved_steps = struct_steps
 
         error_record = {
-            # 题目信息
             "question_id": selected_q.get("question_id", ""),
             "question": question,
             "math_type": ocr_data.get("math_type", ""),
@@ -680,11 +731,9 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "knowledge_point": ocr_data.get("knowledge_point", ""),
             "knowledge_points": selected_q.get("knowledge_points", []) or dresult.get("knowledge_points", []),
             "difficulty": selected_q.get("difficulty", "中等"),
-            # 作答信息
             "student_answer": student_ans,
             "standard_answer": full_standard_answer,
             "solution_steps": saved_steps,
-            # 评分结果
             "score": gresult.get("total", 0),
             "max_score": solution.get("total_score", 10),
             "is_correct": gresult.get("total", 0) >= solution.get("total_score", 10) * 0.9,
@@ -693,31 +742,210 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "method_matched": gresult.get("method_matched", ""),
             "engine": gresult.get("engine", gresult.get("_engine", "unknown")),
             "confidence": gresult.get("confidence", 0.0),
-            # 诊断结果
             "error_type": dresult.get("error_type", ""),
             "root_cause": dresult.get("root_cause", ""),
             "weak_points": dresult.get("weak_points", []),
             "recommendations": dresult.get("recommendations", []),
             "common_mistakes": dresult.get("common_mistakes", []),
             "is_repeat_diagnosis": dresult.get("is_repeat", False),
-            # 时间戳
             "timestamp": time.strftime("%Y-%m-%d %H:%M"),
         }
-        st.session_state.memory.add_error_record(st.session_state.auth['user_id'], error_record)
-        # 清除错题本缓存，确保下次打开时加载最新数据
-        st.session_state.mistakes_force_reload = True
+
+        # 保存到错题本（如果 memory service 可用）
+        if _memory and _user_id:
+            try:
+                _memory.add_error_record(_user_id, error_record)
+            except Exception:
+                pass  # 错题本保存失败不影响主流程
+        if _state is not None:
+            _state["mistakes_force_reload"] = True
+        else:
+            st.session_state.mistakes_force_reload = True
 
     _elapsed = time.time() - _t_start
     status.write(f"✓ 批改完成！（总耗时 {_elapsed:.1f} 秒）")
-    st.session_state.answer_view_mode = True  # 设置为查看答案模式
-    st.session_state.grading_triggered = False  # 重置触发标志，防止重复执行
+    _ss_set("answer_view_mode", True, _state=_state)
+    _ss_set("grading_triggered", False, _state=_state)
     status.update(label=f"✅ 批改完成（{_elapsed:.1f}s）", state="complete", expanded=False)
-    st.rerun()
 
+    return {
+        "grading_result": gresult,
+        "diagnosis_result": dresult,
+        "standard_answer": solution,
+        "standard_answer_structured": _ss_get("standard_answer_structured", _state=_state),
+        "error_record": error_record,
+    }
+
+
+# ═══════════════════════════════════════════════
+#  Background grading — runs grading in a daemon
+#  thread so the user can leave the page and come
+#  back later without losing results.
+# ═══════════════════════════════════════════════
+
+def _build_client_from_state(state: dict):
+    """Create an LLM client from the flat config stored in *state* (or session_state)."""
+    api_key = state.get("api_key", "")
+    if not api_key:
+        return None
+    from llm_client import create_client
+    return create_client(
+        api_key=str(api_key),
+        base_url=str(state.get("base_url", LLM_BASE_URL)),
+        protocol=str(state.get("protocol", "openai")),
+    )
+
+
+def _run_grading_bg(task_id: str, task_data: dict):
+    """Execute grading in a background thread — writes results to SQLite."""
+    try:
+        _state = task_data["_state"]
+        _model = task_data["model"]
+        _user_id = task_data["user_id"]
+        _memory = task_data["memory"]
+        _client = task_data["client"]
+
+        results = _execute_grading_process(
+            question=task_data["question"],
+            student_ans=task_data["student_ans"],
+            ocr_data=task_data["ocr_data"],
+            selected_q=task_data["selected_q"],
+            container=None,
+            _state=_state,
+            model=_model,
+            user_id=_user_id,
+            memory=_memory,
+            client=_client,
+        )
+
+        if results is None:
+            fail_task(task_id, "LLM client unavailable or grading returned no results")
+            return
+
+        complete_task(task_id, results)
+    except Exception as exc:
+        logger.error(f"Background grading failed for task {task_id}: {exc}")
+        logger.error(traceback.format_exc())
+        fail_task(task_id, str(exc))
+
+
+def _submit_grading_async(question, student_ans, ocr_data, selected_q):
+    """Create task, start background thread, return task_id.
+
+    Extracts all needed state from st.session_state before spawning the thread.
+    """
+    user_id = st.session_state.auth.get("user_id", "unknown")
+    model = st.session_state.get("model", LLM_MODEL)
+    memory = st.session_state.get("memory")
+
+    # Create the task row
+    task_id = create_task(user_id, question, student_ans, ocr_data, selected_q)
+
+    # Build a plain dict with everything the background thread needs
+    _state = {
+        "model": model,
+        "api_key": st.session_state.get("api_key", ""),
+        "base_url": st.session_state.get("base_url", LLM_BASE_URL),
+        "protocol": st.session_state.get("protocol", "openai"),
+        "question_db": st.session_state.get("question_db"),
+        "grading_result": None,
+        "diagnosis_result": None,
+        "standard_answer": None,
+        "standard_answer_structured": None,
+        "answer_view_mode": False,
+        "grading_triggered": False,
+        "mistakes_force_reload": False,
+    }
+
+    client = _build_client_from_state(_state)
+
+    task_data = {
+        "_state": _state,
+        "question": question,
+        "student_ans": student_ans,
+        "ocr_data": ocr_data,
+        "selected_q": selected_q,
+        "model": model,
+        "user_id": user_id,
+        "memory": memory,
+        "client": client,
+    }
+
+    thread = threading.Thread(
+        target=_run_grading_bg,
+        args=(task_id, task_data),
+        daemon=True,
+    )
+    thread.start()
+
+    return task_id
+
+
+def _restore_results_to_session(task: dict):
+    """Load grading results from a SQLite task row into st.session_state."""
+    for key, json_key in [
+        ("grading_result", "grading_result_json"),
+        ("diagnosis_result", "diagnosis_result_json"),
+        ("standard_answer", "standard_answer_json"),
+        ("standard_answer_structured", "standard_answer_structured_json"),
+        ("ocr_result", "ocr_data_json"),
+    ]:
+        val = task.get(json_key)
+        if val:
+            try:
+                st.session_state[key] = json.loads(val)
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+    st.session_state["answer_view_mode"] = True
+
+    # Restore selected_question from task
+    sq_json = task.get("selected_q_json")
+    if sq_json:
+        try:
+            st.session_state["selected_question"] = json.loads(sq_json)
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+    # Save error record to 错题本 (deferred from background thread)
+    error_json = task.get("error_record_json")
+    if error_json:
+        try:
+            error_record = json.loads(error_json)
+            if error_record and st.session_state.get("memory"):
+                st.session_state.memory.add_error_record(
+                    task["user_id"], error_record
+                )
+                st.session_state.mistakes_force_reload = True
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+    # Mark as viewed so it won't be auto-restored again
+    mark_viewed(task["task_id"])
+
+
+# ═══════════════════════════════════════════════
+#  Page renderer
+# ═══════════════════════════════════════════════
 
 def render_grading_page(db, render_latex):
     """..."""
     st.title("📖 查看答案" if st.session_state.get("answer_view_mode", False) else "📝 AI 批改")
+
+    user_id = st.session_state.auth.get("user_id", "") if st.session_state.get("auth") else ""
+
+    # ── Recovery: check SQLite for a recent completed/pending task ──
+    if "ocr_result" not in st.session_state and user_id:
+        recent = get_recent_task(user_id)
+        if recent:
+            status = recent.get("status", "")
+            if status == "completed":
+                _restore_results_to_session(recent)
+                st.session_state.page = "grading"
+                st.rerun()
+            elif status == "processing":
+                # Still running — store task_id for polling below
+                st.session_state["pending_task_id"] = recent["task_id"]
 
     # 检查 ocr_result 是否已初始化
     if "ocr_result" not in st.session_state:
@@ -725,36 +953,31 @@ def render_grading_page(db, render_latex):
 
     ocr_data = st.session_state.ocr_result
 
-    # 如果 ocr_result 为空，但有选中的题目，尝试从 session state 恢复学生答案
+    # 如果 ocr_data 为空，但有选中的题目，尝试从 session state 恢复学生答案
     if ocr_data is None:
         selected_q = st.session_state.get("selected_question")
         if selected_q and isinstance(selected_q, dict) and selected_q.get("question"):
-            # 尝试从 session state 中恢复学生答案
             student_answer_parts = []
-            
-            # 恢复选择题选项
+
             selected_option = st.session_state.get("selected_option")
             q_type = selected_q.get("question_type", "")
             if q_type == "选择题" and selected_option:
                 student_answer_parts.append(f"选项: {selected_option}")
-            
-            # 恢复文本答案
+
             bank_text_answer = st.session_state.get("bank_text_answer", "")
             if bank_text_answer and bank_text_answer.strip():
                 student_answer_parts.append(bank_text_answer.strip())
-            
-            # 恢复文本输入模式的答案
+
             text_answer = st.session_state.get("a_text", "")
             if text_answer and text_answer.strip() and text_answer != bank_text_answer:
                 student_answer_parts.append(text_answer.strip())
-            
+
             merged_answer = "\n\n".join(student_answer_parts)
-            
-            # 构建 ocr_result
+
             mt = selected_q.get("category", "数学一")
             qt = selected_q.get("question_type", "解答题")
             kps = ", ".join(selected_q.get("knowledge_points", []))
-            
+
             ocr_data = {
                 "success": True,
                 "question": selected_q["question"],
@@ -774,113 +997,146 @@ def render_grading_page(db, render_latex):
                 st.rerun()
             return
 
-    # 确保 ocr_data 不为空（上一步可能已将 None 恢复为 dict）
+    # 确保 ocr_data 不为空
     if ocr_data is None:
         st.info("请先在「智能刷题」页面上传或输入题目")
         if st.button("➡️ 前往刷题", key="goto_practice_2"):
             st.session_state.page = "practice"
             st.rerun()
         return
-    else:
-        question = ocr_data.get("question", "")
-        student_ans = ocr_data.get("student_answer", "")
-        answer_view_mode = st.session_state.get("answer_view_mode", False)
 
-        # 题目信息
-        mc1, mc2, mc3, mc4 = st.columns(4)
-        mc1.markdown(f"**数学类别**: {ocr_data.get('math_type', '未指定')}")
-        mc2.markdown(f"**题型**: {ocr_data.get('question_type', '未识别')}")
-        mc3.markdown(f"**知识点**: {ocr_data.get('knowledge_point', '未识别')}")
-        mc4.markdown(f"**OCR置信度**: {ocr_data.get('confidence', 0):.0%}")
+    question = ocr_data.get("question", "")
+    student_ans = ocr_data.get("student_answer", "")
+    answer_view_mode = st.session_state.get("answer_view_mode", False)
 
-        # 两栏：题目 + 学生作答
-        col1, col2 = st.columns(2)
-        with col1:
-            with st.container(border=True):
-                st.caption("📋 题目")
-                selected_q = st.session_state.get("selected_question") or {}
-                if selected_q and isinstance(selected_q, dict) and selected_q.get("question"):
-                    from renderers import render_question
-                    try:
-                        render_question(selected_q, show_actions=False)
-                    except Exception:
-                        render_latex(question)
-                else:
+    # 题目信息
+    mc1, mc2, mc3, mc4 = st.columns(4)
+    mc1.markdown(f"**数学类别**: {ocr_data.get('math_type', '未指定')}")
+    mc2.markdown(f"**题型**: {ocr_data.get('question_type', '未识别')}")
+    mc3.markdown(f"**知识点**: {ocr_data.get('knowledge_point', '未识别')}")
+    mc4.markdown(f"**OCR置信度**: {ocr_data.get('confidence', 0):.0%}")
+
+    # 两栏：题目 + 学生作答
+    col1, col2 = st.columns(2)
+    with col1:
+        with st.container(border=True):
+            st.caption("📋 题目")
+            selected_q = st.session_state.get("selected_question") or {}
+            if selected_q and isinstance(selected_q, dict) and selected_q.get("question"):
+                from renderers import render_question
+                try:
+                    render_question(selected_q, show_actions=False)
+                except Exception:
                     render_latex(question)
-        with col2:
-            with st.container(border=True):
-                st.caption("✍️ 学生作答")
-                if student_ans:
-                    render_latex(student_ans)
-                else:
-                    st.markdown("（未作答）")
+            else:
+                render_latex(question)
+    with col2:
+        with st.container(border=True):
+            st.caption("✍️ 学生作答")
+            if student_ans:
+                render_latex(student_ans)
+            else:
+                st.markdown("（未作答）")
 
-        # 知识点提示
-        selected_q = st.session_state.get("selected_question") or {}
-        kp_list = selected_q.get("knowledge_points", [])
-        if kp_list:
-            kp_tags = " · ".join(kp_list[:6])
-            st.caption(f"🏷️ 考查知识点: {kp_tags}")
+    # 知识点提示
+    selected_q = st.session_state.get("selected_question") or {}
+    kp_list = selected_q.get("knowledge_points", [])
+    if kp_list:
+        kp_tags = " · ".join(kp_list[:6])
+        st.caption(f"🏷️ 考查知识点: {kp_tags}")
 
-        # 批改按钮
-        if not answer_view_mode and st.button("🔍 开始批改", type="primary", width="stretch"):
-            # 清除之前的批改结果和状态
-            _clear_grading_state()
-            st.session_state.grading_triggered = True
-            # 使用 st.rerun() 进行完全刷新
+    # ── Async polling block ──
+    pending_task_id = st.session_state.get("pending_task_id")
+    if pending_task_id:
+        task = get_task(pending_task_id)
+        if task is None:
+            # Task vanished (shouldn't happen) — clear and proceed
+            del st.session_state["pending_task_id"]
             st.rerun()
+        elif task["status"] == "processing":
+            st.info("⏳ 批改任务已提交，正在后台处理中... 页面将自动刷新。")
+            st.caption(f"任务ID: `{pending_task_id}`")
+            time.sleep(3)
+            st.rerun()
+        elif task["status"] == "completed":
+            # Task finished — restore results and show them
+            _restore_results_to_session(task)
+            del st.session_state["pending_task_id"]
+            st.rerun()
+        elif task["status"] == "failed":
+            st.error(f"批改失败: {task.get('error_msg', '未知错误')}")
+            if st.button("🔄 重试", key="retry_grading"):
+                del st.session_state["pending_task_id"]
+                st.rerun()
+        return
 
-        # 结果/处理区域：用占位符统一管理，确保新状态直接替换旧内容而非置灰
-        result_placeholder = st.empty()
+    # ── 批改按钮 ──
+    if not answer_view_mode and st.button("🔍 开始批改", type="primary", use_container_width=True):
+        _clear_grading_state()
+        # Submit async: create task → start bg thread → store task_id for polling
+        task_id = _submit_grading_async(question, student_ans, ocr_data, selected_q)
+        st.session_state["pending_task_id"] = task_id
+        st.rerun()
 
-        # 检查是否需要开始批改流程（rerun后执行）
-        if st.session_state.get("grading_triggered"):
-            with result_placeholder.container():
-                _execute_grading_process(question, student_ans, ocr_data, selected_q, container=st)
-            return
+    # 结果/处理区域：用占位符统一管理
+    result_placeholder = st.empty()
 
-        # 显示结果 — Card-based layout
-        grading_result = st.session_state.get("grading_result")
-        if grading_result:
-            with result_placeholder.container():
-                gr = grading_result
-                sa = st.session_state.standard_answer or {}
-                dr = st.session_state.diagnosis_result or {}
-                total = sa.get("total_score", 10)
+    # 检查是否需要开始批改流程（同步回退 — 当 pending_task_id 未设置时）
+    if st.session_state.get("grading_triggered"):
+        # Synchronous fallback path (kept for backward compatibility)
+        model = st.session_state.get("model", LLM_MODEL)
+        user_id = st.session_state.auth.get("user_id", "")
+        memory = st.session_state.get("memory")
+        client = get_client()
 
-                # 获取题目信息用于知识点展示和相似题目推荐
-                selected_q = st.session_state.get("selected_question") or {}
-                knowledge_points = selected_q.get("knowledge_points", []) or ocr_data.get("knowledge_point", "").split(",")
+        with result_placeholder.container():
+            results = _execute_grading_process(
+                question, student_ans, ocr_data, selected_q, container=st,
+                model=model, user_id=user_id, memory=memory, client=client,
+            )
+        if results:
+            # Results already written to st.session_state, just need to trigger rerun
+            st.rerun()
+        return
 
-                render_grading_result_cards(
-                    gr, sa, dr, total,
-                    knowledge_points=knowledge_points,
-                    question=selected_q,
-                    question_db=db
-                )
+    # 显示结果 — Card-based layout
+    grading_result = st.session_state.get("grading_result")
+    if grading_result:
+        with result_placeholder.container():
+            gr = grading_result
+            sa = st.session_state.standard_answer or {}
+            dr = st.session_state.diagnosis_result or {}
+            total = sa.get("total_score", 10)
+
+            selected_q = st.session_state.get("selected_question") or {}
+            knowledge_points = selected_q.get("knowledge_points", []) or ocr_data.get("knowledge_point", "").split(",")
+
+            render_grading_result_cards(
+                gr, sa, dr, total,
+                knowledge_points=knowledge_points,
+                question=selected_q,
+                question_db=db
+            )
 
         return  # 提前返回，不执行后续的真题库部分
-
 
     # ==================== 真题库 ====================
     st.divider()
     st.subheader("📚 真题库")
-    
-    # 知识点筛选
+
     all_knowledge_points = []
     if db:
         try:
             all_knowledge_points = db.get_all_knowledge_points()
         except Exception:
             pass
-    
+
     selected_kp = st.selectbox(
-        "按知识点筛选", 
-        ["全部"] + sorted(all_knowledge_points), 
+        "按知识点筛选",
+        ["全部"] + sorted(all_knowledge_points),
         key="grading_kp_filter"
     )
-    
-    # 显示推荐题目
+
     if db and selected_kp != "全部":
         try:
             related_questions = db.search(knowledge_point=selected_kp, limit=3)
@@ -899,4 +1155,3 @@ def render_grading_page(db, render_latex):
         except Exception as e:
             logger.error(f"Failed to fetch related questions: {e}")
             st.error("获取相关题目失败")
-

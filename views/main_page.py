@@ -52,9 +52,80 @@ def invalidate_cache(key: str):
         del st.session_state[time_key]
 
 
+def _try_recover_grading_session():
+    """Check SQLite for an unviewed completed grading task and restore it.
+
+    Called at the beginning of every render_main_app() so that a user who
+    returns after their browser tab was killed lands directly on their result.
+    """
+    page = st.session_state.get("page", "dashboard")
+    if page != "dashboard":
+        return  # Only intercept the default landing page
+
+    auth = st.session_state.get("auth", {})
+    user_id = auth.get("user_id", "")
+    if not user_id:
+        return
+
+    try:
+        from storage.grading_task_store import get_recent_task, mark_viewed
+        recent = get_recent_task(user_id)
+        if not recent:
+            return
+        status = recent.get("status", "")
+        if status != "completed":
+            return
+
+        import json
+        # Restore grading results into session state
+        for key, json_key in [
+            ("grading_result", "grading_result_json"),
+            ("diagnosis_result", "diagnosis_result_json"),
+            ("standard_answer", "standard_answer_json"),
+            ("standard_answer_structured", "standard_answer_structured_json"),
+            ("ocr_result", "ocr_data_json"),
+        ]:
+            val = recent.get(json_key)
+            if val:
+                try:
+                    st.session_state[key] = json.loads(val)
+                except (json.JSONDecodeError, TypeError):
+                    pass
+
+        st.session_state["answer_view_mode"] = True
+
+        sq_json = recent.get("selected_q_json")
+        if sq_json:
+            try:
+                st.session_state["selected_question"] = json.loads(sq_json)
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        # Save deferred error record to 错题本
+        error_json = recent.get("error_record_json")
+        if error_json:
+            try:
+                error_record = json.loads(error_json)
+                if error_record and st.session_state.get("memory"):
+                    st.session_state.memory.add_error_record(
+                        recent["user_id"], error_record
+                    )
+                    st.session_state.mistakes_force_reload = True
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        mark_viewed(recent["task_id"])
+        st.session_state["page"] = "grading"
+    except Exception:
+        pass  # Recovery is best-effort; never block normal rendering
+
+
 def render_main_app():
     """渲染主应用"""
-    
+
+    # ── Recovery: on fresh session, check for unviewed grading results ──
+    _try_recover_grading_session()
+
     # 侧边栏
     with st.sidebar:
         st.title("📘 Math Tutor")

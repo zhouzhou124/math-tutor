@@ -71,6 +71,7 @@ def render_settings_page(db, render_latex):
             "通义千问": ("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus", "openai"),
             "Kimi": ("https://api.moonshot.cn/v1", "moonshot-v1-8k", "openai"),
             "智谱": ("https://open.bigmodel.cn/api/paas/v4", "glm-4", "openai"),
+            "小米MiMo": ("https://api.xiaomimimo.com/v1", "mimo-v2.5-pro", "openai"),
         }
 
         preset = st.selectbox(
