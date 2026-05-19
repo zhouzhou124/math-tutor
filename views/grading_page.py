@@ -346,7 +346,14 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "engine": "view_only",
         }
         _q_kps = (selected_q or {}).get("knowledge_points", []) or []
+        # 如果题目没有知识点，用 OCR 识别到的知识点作为兜底
+        if not _q_kps:
+            _ocr_kp = ocr_data.get("knowledge_point", "") if ocr_data else ""
+            _q_kps = [_ocr_kp] if _ocr_kp and _ocr_kp != "未指定" else []
         _q_mistakes = (selected_q or {}).get("common_mistakes", []) or []
+        # 将易错提示注入 selected_q，供 render_knowledge_points 展示
+        if _q_mistakes and selected_q:
+            selected_q["common_mistakes"] = selected_q.get("common_mistakes") or _q_mistakes
         dresult = {
             "error_type": "未作答",
             "root_cause": "学生未输入任何作答内容，建议先尝试独立解题再看答案",
@@ -355,8 +362,8 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "common_mistakes": _q_mistakes[:4],
             "recommendations": [
                 "先独立尝试解答，再对照标准答案检查思路",
-                f"重点掌握【{'、'.join(_q_kps[:3])}】相关知识点" if _q_kps else "",
-                "可在错题本中回顾同类题目的易错点",
+                f"重点掌握【{'、'.join(_q_kps[:3])}】相关知识点" if _q_kps else "可在错题本中回顾同类题",
+                "可对照标准答案逐步骤检查自己的思路差异",
             ],
         }
         st.session_state.grading_result = gresult
