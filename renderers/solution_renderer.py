@@ -1,7 +1,7 @@
 """solution_renderer.py — 解答步骤渲染器"""
 
 import streamlit as st
-from latex_utils import safe_latex, split_latex_text, render_ast
+from latex_utils import split_latex_text, render_ast, sanitize_latex_for_render
 
 _OP_COLORS = {
     "classify": ("识别题型", "#6b7280"),
@@ -63,12 +63,10 @@ def render_solution_steps(steps: list[dict], final_answer: str = "") -> None:
         # 步骤公式
         if latex:
             try:
-                safe = safe_latex(f"${latex}$")
-                if safe.startswith("$") and safe.endswith("$"):
-                    safe = safe[1:-1]
+                safe = sanitize_latex_for_render(latex)
                 st.latex(safe)
             except Exception:
-                st.text(latex[:500])
+                render_ast(split_latex_text(latex))
 
         # 步骤间分隔
         if i < len(steps) - 1:
@@ -79,9 +77,7 @@ def render_solution_steps(steps: list[dict], final_answer: str = "") -> None:
         st.markdown("---")
         st.markdown("**📌 答案**")
         try:
-            safe = safe_latex(f"${final_answer}$")
-            if safe.startswith("$") and safe.endswith("$"):
-                safe = safe[1:-1]
+            safe = sanitize_latex_for_render(final_answer)
             st.latex(f"\\boxed{{{safe}}}")
         except Exception:
-            st.text(final_answer[:500])
+            render_ast(split_latex_text(final_answer))

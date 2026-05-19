@@ -72,18 +72,45 @@ class QuestionImporter:
     def import_from_file(self, file_path: str, math_type: str = "数学一",
                          year: int = None) -> dict:
         """
-        从上传文件导入（PDF/图片先OCR，TXT/MD直接读取）
+        从上传文件导入（TEX/MD/TXT/JSON；PDF/图片需 OCR）
         返回导入报告。
         """
+        self._reset_log()
         path = Path(file_path)
         suffix = path.suffix.lower()
 
         if suffix in [".json"]:
             return self.import_json(file_path)
 
+        elif suffix in [".tex"]:
+            try:
+                from exam_parser import LatexExamParser
+                result = LatexExamParser().parse_file(
+                    file_path, year=year, math_type=math_type,
+                )
+                if result.errors:
+                    self.log["stats"]["warnings"].extend(result.errors[:10])
+                for q in result.questions:
+                    self._import_one(q)
+                return self._generate_report()
+            except Exception as e:
+                self.log["stats"]["failed"] += 1
+                self.log["stats"]["warnings"].append(f"LaTeX 解析失败: {e}")
+                return self._generate_report()
+
         elif suffix in [".txt", ".md"]:
-            text = path.read_text(encoding="utf-8")
-            return self.import_from_ocr(text, math_type, year)
+            try:
+                from exam_parser import ExamParserPipeline
+                pipeline = ExamParserPipeline(db=self.db)
+                result = pipeline.process_file(file_path, math_type=math_type, year=year)
+                for q in result.questions:
+                    self._import_one(q)
+                if result.warnings:
+                    self.log["stats"]["warnings"].extend(result.warnings[:10])
+                return self._generate_report()
+            except Exception:
+                text = path.read_text(encoding="utf-8")
+                return self.import_from_ocr(text, math_type, year)
 
         elif suffix in [".pdf", ".png", ".jpg", ".jpeg"]:
             # 尝试 OCR

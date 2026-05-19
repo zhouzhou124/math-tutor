@@ -1,0 +1,13 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "求极限 $$\\lim_{x\\to 0} \\left[ \\frac{\\ln(1+x)}{x} \\right]^{\\frac{1}{x-1}}$$.",
+  "standard_answer": "$e^{\\frac{1}{2}}$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2011",
+  "question_id": "2011-数一-015",
+  "options": {}
+}

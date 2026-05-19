@@ -294,9 +294,14 @@ class QuestionDB:
             else:
                 return []  # 知识点不匹配
 
-        if candidate_ids is None and filters.get("difficulty"):
+        if filters.get("difficulty"):
             di = index.get("difficulty_index", {})
-            candidate_ids = set(di.get(filters["difficulty"], []))
+            diff_ids = set(di.get(filters["difficulty"], []))
+            if diff_ids:
+                if candidate_ids is not None:
+                    candidate_ids.intersection_update(diff_ids)
+                else:
+                    candidate_ids = diff_ids
 
         # 加载候选题
         questions = []

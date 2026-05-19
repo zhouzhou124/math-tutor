@@ -295,7 +295,7 @@ class SymbolicEquivalenceVerifier:
                             standard_val = float(N(s_standard.subs(variable, val)))
                             if abs(student_val - standard_val) < 1e-9:
                                 matches += 1
-                        except:
+                        except Exception:
                             pass
                     confidence = matches / len(test_values)
                     return matches == len(test_values), confidence
@@ -324,7 +324,7 @@ class SymbolicEquivalenceVerifier:
             val_standard = float(eval(norm_standard))
             if abs(val_student - val_standard) < 1e-9:
                 return True, 1.0
-        except:
+        except Exception:
             pass
 
         return False, 0.0
@@ -401,12 +401,12 @@ class NumericalStabilityVerifier:
                     den = float(parts[1])
                     if den != 0:
                         return num / den
-                except:
+                except Exception:
                     pass
 
         try:
             return float(eval(expr))
-        except:
+        except Exception:
             return None
 
     @staticmethod
@@ -429,7 +429,7 @@ class NumericalStabilityVerifier:
             val_standard = float(eval(norm_standard))
             rel_diff = diff / (abs(val_standard) + 1e-15)
             return rel_diff <= relative_tolerance, diff
-        except:
+        except Exception:
             return False, diff
 
 
@@ -477,7 +477,7 @@ class MultiAnswerVerifier:
                     start = float(parts[0].strip())
                     end = float(parts[1].strip())
                     return [str(start), str(end)]
-                except:
+                except Exception:
                     pass
 
         return [answer]
@@ -611,7 +611,7 @@ class DomainChecker:
             val_answer = float(eval(ExpressionNormalizer.normalize_expression(answer)))
             val_not = float(eval(ExpressionNormalizer.normalize_expression(not_value)))
             return abs(val_answer - val_not) > 1e-9
-        except:
+        except Exception:
             return True
 
     @staticmethod
@@ -621,7 +621,7 @@ class DomainChecker:
             val_answer = float(eval(ExpressionNormalizer.normalize_expression(answer)))
             val_threshold = float(eval(ExpressionNormalizer.normalize_expression(threshold)))
             return val_answer > val_threshold
-        except:
+        except Exception:
             return True
 
     @staticmethod
@@ -631,7 +631,7 @@ class DomainChecker:
             val_answer = float(eval(ExpressionNormalizer.normalize_expression(answer)))
             val_threshold = float(eval(ExpressionNormalizer.normalize_expression(threshold)))
             return val_answer < val_threshold
-        except:
+        except Exception:
             return True
 
     @staticmethod
@@ -647,7 +647,7 @@ class DomainChecker:
                 if abs(val_answer - domain_val) < 1e-9:
                     return True
             return False
-        except:
+        except Exception:
             return True
 
     @staticmethod
@@ -656,7 +656,7 @@ class DomainChecker:
         try:
             val_answer = float(eval(ExpressionNormalizer.normalize_expression(answer)))
             return val_answer > 0
-        except:
+        except Exception:
             return True
 
     @staticmethod
@@ -665,7 +665,7 @@ class DomainChecker:
         try:
             val_answer = float(eval(ExpressionNormalizer.normalize_expression(answer)))
             return abs(val_answer) > 1e-9
-        except:
+        except Exception:
             return True
 
 

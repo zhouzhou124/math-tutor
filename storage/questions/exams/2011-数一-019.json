@@ -1,0 +1,13 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "已知函数 $f(x,y)$ 具有二阶连续偏导数，且 $f(1,y)=0$，$f(x,1)=0$，$\\iint_D f(x,y) dxdy = a$，其中 $D = \\{(x,y) \\mid 0 \\le x \\le 1, 0 \\le y \\le 1\\}$，计算二重积分 $$I = \\iint_D xy f_{xy}(x,y) dxdy$$",
+  "standard_answer": "$I = a$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 11,
+  "source": "manual_import_2011",
+  "question_id": "2011-数一-019",
+  "options": {}
+}

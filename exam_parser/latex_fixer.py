@@ -90,8 +90,12 @@ class LaTeXFixer:
         (re.compile(r'(?<![a-zA-Z])lambda(?=\s*[\.\)\]\}_,;:\n]|\s*$)'), r'\\lambda'),
     ]
 
-    def fix(self, text: str) -> LaTeXReport:
-        """主入口: 应用所有修复策略"""
+    def fix(self, text: str, ocr_mode: bool = False) -> LaTeXReport:
+        """主入口: 应用修复策略。
+
+        ocr_mode=False: 只修复双反斜杠 + 括号平衡（安全，不改数学语义）
+        ocr_mode=True:  额外应用 OCR 符号映射（f→∫ 等，仅限 OCR 输出）
+        """
         if not text:
             return LaTeXReport(original="", fixed="")
 
@@ -103,10 +107,12 @@ class LaTeXFixer:
             report.fixes_applied.append(f"修复{n}处双反斜杠")
             report.fix_count += n
 
-        current, n = self._fix_ocr_infty(current)
-        if n > 0:
-            report.fixes_applied.append(f"修复{n}处OCR ∞→oo")
-            report.fix_count += n
+        # OCR 符号映射仅在被显式请求时启用
+        if ocr_mode:
+            current, n = self._fix_ocr_infty(current)
+            if n > 0:
+                report.fixes_applied.append(f"修复{n}处OCR符号")
+                report.fix_count += n
 
         current, issues = self._fix_unmatched_braces(current)
         if issues:
@@ -118,7 +124,6 @@ class LaTeXFixer:
             report.fixes_applied.append(f"修复{n}处$配对")
             report.fix_count += n
 
-        # 最终验证
         if not self._validate_dollar_balance(current):
             report.unresolved.append("$ 配对仍有问题")
 

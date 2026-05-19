@@ -51,5 +51,5 @@ def CardOpen(ast) -> str:
 
 
 def CardClose() -> None:
-    """Close the card and its body div."""
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    """Close the outer card div (qcard-body is closed separately by caller)."""
+    st.markdown('</div>', unsafe_allow_html=True)

@@ -1,77 +1,14 @@
 """
-latex_utils.py — 统一LaTeX工具集
+latex_utils.py — LaTeX 结构化渲染引擎
 
-集中管理所有 LaTeX 处理函数，提供单一导入点。
-所有需要处理数学内容的地方都应从这里导入。
-
-架构:
-  Layer 0 — LLM 输出结构化 JSON（不再输出 markdown）
-  Layer 1 — schema 验证 + 从旧格式转换
-  Layer 2 — render_structured() 控制全部显示
-
-完整管道: structured JSON → validate → render_structured
-
-子模块来源:
-  math_sanitizer       — 安全层（分隔符修复、HTML转义、裸公式包裹）
-  latex_normalizer     — 风格规范化（15条确定性规则）
-  latex_repair         — LLM输出修复（破损标记、选项分析）
-  math_structure_validator — 入库前结构验证
+结构化管道: LLM JSON → Pydantic validate → render_structured → st.latex / st.markdown
+不再需要 regex 修复链（latex_repair, math_sanitizer 已退役）。
 """
 
 import re
 from dataclasses import dataclass, field
-
-# ═══════════════════════════════════════════════
-# Re-exports: math_sanitizer
-# ═══════════════════════════════════════════════
-from math_sanitizer import safe_latex, is_valid_latex, validate_expression
-
-# ═══════════════════════════════════════════════
-# Re-exports: latex_normalizer
-# ═══════════════════════════════════════════════
 from latex_normalizer import normalize_latex_style, is_normalized, validate_normalization
-
-# ═══════════════════════════════════════════════
-# Re-exports: latex_repair
-# ═══════════════════════════════════════════════
-from latex_repair import (
-    repair_latex_delimiters,
-    ensure_math_wrap,
-    repair_option_analysis_text,
-)
-
-# ═══════════════════════════════════════════════
-# Re-exports: math_structure_validator
-# ═══════════════════════════════════════════════
 from math_structure_validator import validate as validate_structure, ValidationReport
-
-
-# ═══════════════════════════════════════════════
-# 管道便捷函数
-# ═══════════════════════════════════════════════
-
-def process_latex(text: str) -> str:
-    """
-    完整 LaTeX 处理管道: repair → sanitize → normalize。
-
-    适用于所有不可信来源（LLM输出、用户输入、OCR结果）。
-    纯函数，相同输入永远返回相同输出。
-    """
-    if not text:
-        return text
-    text = repair_latex_delimiters(text)
-    text = safe_latex(text)
-    text = normalize_latex_style(text)
-    return text
-
-
-def clean_latex(text: str) -> str:
-    """轻量管道: sanitize → normalize（跳过 repair）。"""
-    if not text:
-        return text
-    text = safe_latex(text)
-    text = normalize_latex_style(text)
-    return text
 
 
 # ═══════════════════════════════════════════════
@@ -424,9 +361,23 @@ def clean_markdown(text: str) -> str:
     if not text:
         return text
 
-    result = text
+    # Protect math regions before cleaning — Markdown patterns like _([^_]+)_
+    # (italics) will otherwise destroy LaTeX subscripts like _{n+1}.
+    math_regions = []
+    def _protect(m):
+        math_regions.append(m.group(0))
+        return '\x00MATH' + str(len(math_regions) - 1) + '\x00'
+
+    # Protect display math first (longer pattern), then inline
+    result = re.sub(r'\$\$.*?\$\$', _protect, text, flags=re.DOTALL)
+    result = re.sub(r'\$(?!\$).*?\$(?!\$)', _protect, result)
+
     for pattern, replacement in _MD_POLLUTION:
         result = pattern.sub(replacement, result)
+
+    # Restore math regions
+    for i, region in enumerate(math_regions):
+        result = result.replace('\x00MATH' + str(i) + '\x00', region)
 
     # 清理多余空行
     result = re.sub(r'\n{3,}', '\n\n', result)
@@ -444,6 +395,111 @@ class Segment:
     """内容片段"""
     type: str       # "text" | "inline_math" | "display_math"
     content: str
+
+
+def _pre_wrap_bare_latex(text: str) -> str:
+    """Wrap bare LaTeX commands in $ delimiters before they reach markdown.
+
+    When LLM/OCR output contains LaTeX commands outside math delimiters,
+    markdown eats the backslashes and KaTeX never sees them. This finds
+    such fragments using balanced-brace parsing and wraps them in $...$.
+    """
+    if not text:
+        return text
+
+    # Only act on text that has backslash-commands but no math delimiters yet.
+    # If the text already has $ or \[, split_latex_text will handle it.
+    if '$' in text:
+        return text
+
+    # Find all \command positions that are candidates for wrapping
+    cmd_positions = [(m.start(), m.group(0)) for m in re.finditer(r'\\[a-zA-Z]+', text)]
+    if not cmd_positions:
+        return text
+
+    # For each command, find the balanced-brace extent
+    def _scan_math_extent(text, start):
+        """Scan from start to find the full extent of a math expression.
+        Tracks balanced {} and continues past operators/relations/brackets
+        to include multi-arg commands like \\frac{a}{b} and chains like
+        \\left(...\\right) + \\int_c^d."""
+        pos = start
+        L = len(text)
+        depth = 0
+        while pos < L:
+            ch = text[pos]
+            if ch == '{':
+                depth += 1
+            elif ch == '}':
+                depth -= 1
+                if depth <= 0:
+                    pos += 1
+                    depth = 0
+                    # After closing the outermost brace, check for continuation:
+                    # another {arg}, an operator, a relation, a letter/digit
+                    # (for cases like \frac{1}{3} r^3 or \cos x + \sin y),
+                    # or another \command
+                    after = text[pos:pos + 30].lstrip()
+                    if after and (after[0] == '{' or
+                                  after[0] == '[' or
+                                  after[0] == '(' or
+                                  re.match(r'[=<>+\-*/×÷±]', after) or
+                                  re.match(r'\\[a-zA-Z]', after) or
+                                  re.match(r'[_^]', after) or
+                                  re.match(r'[A-Za-z0-9]', after)):
+                        pos = text.index(after[0], pos) if after[0] != '{' else pos
+                        continue
+                    break
+            elif ch in '\\' and depth == 0:
+                # Another command at brace-level 0 — include it
+                pass  # keep scanning
+            elif ch in ' \t' and depth == 0:
+                after = text[pos + 1:pos + 30].lstrip()
+                if after and (after[0] == '{' or re.match(r'\\[a-zA-Z]', after) or
+                              re.match(r'[=<>+\-*/×÷±]', after)):
+                    pos += 1
+                    continue
+                # Also continue if the next non-space is a letter/digit (argument
+                # to a bare command like \int f(x)dx or \cos x)
+                if after and re.match(r'[A-Za-z0-9]', after[0]):
+                    pos += 1
+                    continue
+                break
+            elif ch in '\n\r' and depth == 0:
+                break
+            elif depth == 0 and ord(ch) > 127:
+                # Non-ASCII character at brace-level 0 (CJK, emoji, etc.) →
+                # not part of a LaTeX math expression, ends the fragment
+                break
+            pos += 1
+        return pos
+
+    # Build output with wrapped fragments
+    out = []
+    cursor = 0
+    for start, cmd in cmd_positions:
+        if start < cursor:
+            continue  # Already covered by a previous fragment
+        # Append text before this command
+        out.append(text[cursor:start])
+        # Find the extent
+        end = _scan_math_extent(text, start + len(cmd))
+        fragment = text[start:end].strip()
+        if fragment:
+            # Wrap: use display math for multi-line, inline otherwise
+            if '\n' in fragment or '\\begin' in fragment:
+                out.append(f'$$\n{fragment}\n$$')
+            else:
+                out.append(f'${fragment}$')
+        else:
+            out.append(text[start:end])
+        cursor = end
+
+    if not out:
+        return text
+
+    out.append(text[cursor:])
+    return ''.join(out)
 
 
 def split_latex_text(text: str) -> list[dict]:
@@ -469,6 +525,12 @@ def split_latex_text(text: str) -> list[dict]:
     if not text:
         return []
 
+    # Step 1: Wrap entire lines that look like standalone math in $$...$$
+    text = _normalize_math_lines_for_split(text)
+
+    # Step 2: Wrap remaining bare LaTeX commands inside text lines in $...$
+    text = _pre_wrap_bare_latex(text)
+
     # 清理未被正确恢复的占位符
     # 这些占位符来自 latex_normalizer._wrap_bare_math_expressions 或 ocr_repair.layout_recovery
     # 格式: \x00M{i}\x00 或 \x00MATH{i}\x00
@@ -479,36 +541,86 @@ def split_latex_text(text: str) -> list[dict]:
     # 常见的 LaTeX 命令可能在数据存储/传输过程中丢失反斜杠
     # 检测并恢复这些命令前的反斜杠
     latex_commands = [
+        # 环境命令
+        'begin', 'end',
+        # 运算符名称
+        'operatorname',
+        # 极限相关
         'limsup', 'liminf', 'varlimsup', 'varliminf',
+        # 三角函数（反三角函数）
         'arcsin', 'arccos', 'arctan', 'arccot', 'arcsec', 'arccsc',
         'arcsinh', 'arccosh', 'arctanh', 'arccoth', 'arcsech', 'arccsch',
+        # 字体命令
         'mathrm', 'mathbf', 'mathcal', 'mathit', 'mathtt', 'mathsf', 'mathbb',
+        # 省略号
         'ldots', 'cdots', 'vdots', 'ddots',
+        # 箭头
         'Rightarrow', 'Leftarrow', 'leftrightarrow', 'Leftrightarrow',
         'rightarrow', 'leftarrow', 'mapsto', 'hookleftarrow', 'hookrightarrow',
-        'Biggl', 'biggr', 'Biggr',
+        'xrightarrow', 'xleftarrow', 'xRightarrow', 'xLeftarrow',
+        # 大括号命令
+        'Biggl', 'biggr', 'Biggr', 'Big', 'bigg', 'bigl', 'bigr',
+        # 符号
         'partial', 'nabla', 'triangle', 'square', 'diamond', 'circ', 'bullet',
         'oplus', 'otimes', 'odot', 'coprod', 'bigcup', 'bigcap', 'bigsqcup',
         'subseteq', 'supseteq', 'approx', 'cong', 'equiv', 'sim', 'simeq',
-        'triangle', 'square', 'diamond', 'circ', 'bullet',
+        # 数学函数
         'frac', 'dfrac', 'cfrac', 'tfrac', 'sqrt', 'root', 'abs', 'norm',
         'sin', 'cos', 'tan', 'cot', 'sec', 'csc',
         'sinh', 'cosh', 'tanh', 'coth', 'sech', 'csch',
         'log', 'ln', 'exp', 'lg', 'min', 'max', 'sum', 'prod', 'int',
         'oint', 'iint', 'iiint', 'iiiint', 'idotsint',
         'lim', 'inf', 'sup', 'arg', 'dim', 'deg', 'det', 'rank',
+        # 上标下标等
         'over', 'atop', 'choose', 'binom', 'hat', 'widehat', 'tilde', 'widetilde',
         'bar', 'vec', 'dot', 'ddot', 'prime', 'dagger', 'ddagger',
+        # 运算符
         'cdot', 'times', 'div', 'pm', 'mp', 'cap', 'cup', 'setminus',
+        # 关系符号
         'leq', 'geq', 'neq', 'equiv', 'sim', 'simeq', 'approx', 'cong',
         'in', 'notin', 'ni', 'exists', 'forall', 'emptyset', 'infty',
         'to', 'partial', 'nabla',
+        # 希腊字母（小写）
         'pi', 'theta', 'phi', 'psi', 'omega', 'alpha', 'beta', 'gamma', 'delta',
         'epsilon', 'zeta', 'eta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi',
         'rho', 'sigma', 'tau', 'upsilon', 'chi',
+        # 希腊字母（大写）
         'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon', 'Phi', 'Psi', 'Omega',
-        'left', 'right', 'middle', 'Big', 'bigg',
+        # 括号命令
+        'left', 'right', 'middle',
+        # 比较符号简写
         'le', 'ge', 'lt', 'gt',
+        # 矩阵环境
+        'bmatrix', 'matrix', 'pmatrix', 'vmatrix', 'Vmatrix', 'aligned', 'cases', 'array',
+        # 堆叠命令
+        'substack', 'underset', 'overset',
+        # 其他常用
+        'cdot', 'times', 'sum', 'prod', 'int', 'lim', 'sqrt',
+        # 方程组相关
+        'cases', 'aligned', 'gathered', 'split',
+        # 特殊符号
+        'aleph', 'beth', 'gimel', 'daleth',
+        # 箭头扩展
+        'longrightarrow', 'longleftarrow', 'Longrightarrow', 'Longleftarrow',
+        'leftharpoonup', 'leftharpoondown', 'rightharpoonup', 'rightharpoondown',
+        # 括号扩展
+        'bigl', 'bigr', 'Bigl', 'Bigr',
+        # 分数和根号
+        'cfrac', 'dfrac', 'tfrac', 'root',
+        # 求和积分
+        'sum', 'prod', 'int', 'oint', 'iint', 'iiint', 'idotsint',
+        # 极限
+        'lim', 'liminf', 'limsup', 'varliminf', 'varlimsup',
+        # 模运算
+        'mod', 'pmod', 'bmod',
+        # 对齐
+        'hfill', 'vfill', 'hspace', 'vspace',
+        # 文本模式
+        'text', 'mbox', 'fbox',
+        # 空格
+        'quad', 'qquad', 'enspace', 'thinspace', 'negthinspace', 'medspace', 'negmedspace',
+        # 颜色
+        'color', 'textcolor', 'colorbox', 'fcolorbox',
     ]
     
     # 按命令长度降序排序，优先匹配长命令
@@ -574,7 +686,7 @@ def split_latex_text(text: str) -> list[dict]:
     # 现在支持以字母开头的表达式（如 S\left(...\right)）
     
     def find_math_expression(text, start_pos):
-        """从指定位置开始查找完整的数学表达式，处理嵌套花括号"""
+        r"""从指定位置开始查找完整的数学表达式，处理嵌套花括号和\begin...\end环境"""
         pos = start_pos
         length = len(text)
         brace_count = 0
@@ -583,6 +695,9 @@ def split_latex_text(text: str) -> list[dict]:
         
         # 定义数学命令前缀（以反斜杠开头）
         cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+        
+        # 追踪\begin环境的嵌套
+        begin_stack = []
         
         while pos < length:
             char = text[pos]
@@ -603,13 +718,14 @@ def split_latex_text(text: str) -> list[dict]:
                             math_start = cmd_match.start()
             elif char == '}':
                 brace_count -= 1
-                if in_math and brace_count == 0:
+                # 如果在 \begin 环境中，只在环境结束时才返回
+                if in_math and brace_count == 0 and not begin_stack:
                     # 找到匹配的闭合花括号，继续检查后面是否还有数学内容
                     end_pos = pos + 1
                     # 检查后面是否有 \right 等命令
                     while end_pos < length:
-                        # 跳过空格
-                        if text[end_pos] in ' \t':
+                        # 跳过空格和换行
+                        if text[end_pos] in ' \t\n\r':
                             end_pos += 1
                             continue
                         # 检查是否是 \right 或其他命令
@@ -637,12 +753,74 @@ def split_latex_text(text: str) -> list[dict]:
                     return (math_start, end_pos)
             elif char == '\\' and pos + 1 < length and text[pos + 1].isalpha():
                 # 找到反斜杠命令，开始数学区域
-                if not in_math:
-                    in_math = True
-                    math_start = pos
-                    # 匹配完整的命令
-                    cmd_match = cmd_pattern.match(text, pos)
-                    if cmd_match:
+                cmd_match = cmd_pattern.match(text, pos)
+                if cmd_match:
+                    cmd = cmd_match.group(0)
+                    
+                    # 处理 \begin{环境名}
+                    if cmd == '\\begin':
+                        if not in_math:
+                            in_math = True
+                            math_start = pos
+                        # 查找环境名
+                        temp_pos = cmd_match.end()
+                        # 跳过空格和换行
+                        while temp_pos < length and text[temp_pos] in ' \t\n\r':
+                            temp_pos += 1
+                        # 找到 { 并解析环境名
+                        if temp_pos < length and text[temp_pos] == '{':
+                            temp_pos += 1
+                            env_name = ''
+                            while temp_pos < length and text[temp_pos] != '}':
+                                env_name += text[temp_pos]
+                                temp_pos += 1
+                            begin_stack.append(env_name)
+                            # 跳过 } 后面的内容，继续查找
+                            temp_pos += 1
+                            # 处理环境内部内容，包括换行符 \\
+                            inner_brace_count = 0
+                            while temp_pos < length:
+                                if text[temp_pos] == '{':
+                                    inner_brace_count += 1
+                                elif text[temp_pos] == '}':
+                                    inner_brace_count -= 1
+                                elif text[temp_pos] == '\\' and temp_pos + 1 < length:
+                                    # 检查是否是 \\ 换行符
+                                    if text[temp_pos + 1] == '\\':
+                                        temp_pos += 2
+                                        continue
+                                    # 检查是否是 \end
+                                    end_match = cmd_pattern.match(text, temp_pos)
+                                    if end_match and end_match.group(0) == '\\end':
+                                        # 找到 \end，让外层循环处理
+                                        temp_pos -= 1
+                                        break
+                                temp_pos += 1
+                        pos = temp_pos - 1  # 让循环继续处理
+                    
+                    # 处理 \end{环境名}
+                    elif cmd == '\\end':
+                        # 查找环境名
+                        temp_pos = cmd_match.end()
+                        while temp_pos < length and text[temp_pos] in ' \t\n\r':
+                            temp_pos += 1
+                        if temp_pos < length and text[temp_pos] == '{':
+                            temp_pos += 1
+                            env_name = ''
+                            while temp_pos < length and text[temp_pos] != '}':
+                                env_name += text[temp_pos]
+                                temp_pos += 1
+                            # 弹出匹配的 \begin
+                            if begin_stack and begin_stack[-1] == env_name:
+                                begin_stack.pop()
+                            # 如果栈为空，说明这是环境的结束
+                            if not begin_stack and in_math:
+                                return (math_start, temp_pos + 1)
+                        pos = temp_pos - 1  # 让循环继续处理
+                    
+                    elif not in_math:
+                        in_math = True
+                        math_start = pos
                         pos = cmd_match.end() - 1  # 让循环继续处理
             
             pos += 1
@@ -786,6 +964,34 @@ def split_latex_text(text: str) -> list[dict]:
         if plain:
             segments.append({"type": "text", "content": plain})
 
+    # 合并相邻的短文本片段，避免过度分割
+    # 当连续的文本片段都很短时，合并成一个片段
+    if segments:
+        merged = []
+        current_text = []
+        for seg in segments:
+            if seg["type"] == "text":
+                # 检查是否是短文本（少于20个字符且不是空行）
+                content = seg["content"].strip()
+                if len(content) < 20 and content:
+                    current_text.append(seg["content"])
+                else:
+                    # 合并之前累积的短文本
+                    if current_text:
+                        merged.append({"type": "text", "content": ''.join(current_text)})
+                        current_text = []
+                    merged.append(seg)
+            else:
+                # 非文本类型，先合并累积的短文本
+                if current_text:
+                    merged.append({"type": "text", "content": ''.join(current_text)})
+                    current_text = []
+                merged.append(seg)
+        # 处理剩余的短文本
+        if current_text:
+            merged.append({"type": "text", "content": ''.join(current_text)})
+        segments = merged
+
     return segments
 
 
@@ -817,51 +1023,334 @@ def has_math(text: str) -> bool:
     return bool(re.search(r'[\$\\\^_{}]|\\[a-zA-Z]+', text))
 
 
+def _strip_math_delimiters(text: str) -> str:
+    """Remove Markdown/KaTeX math delimiters from a string intended for st.latex()."""
+    if not text:
+        return text
+
+    s = str(text).strip()
+    # LLMs often put only an opening $$ in JSON latex blocks. st.latex() is
+    # already in math mode, so all delimiter dollars are display pollution here.
+    while s.startswith("$$"):
+        s = s[2:].lstrip()
+    while s.endswith("$$"):
+        s = s[:-2].rstrip()
+    while s.startswith("$"):
+        s = s[1:].lstrip()
+    while s.endswith("$"):
+        s = s[:-1].rstrip()
+    return s.replace("$$", "").replace("$", "").strip()
+
+
+def sanitize_latex_for_render(text: str) -> str:
+    """Normalize arbitrary LLM LaTeX into a string safe for st.latex().
+
+    This is intentionally conservative: it does not solve math, it only removes
+    delimiters/escape pollution and repairs token-level issues that commonly make
+    KaTeX show raw red source instead of rendered math.
+    """
+    if text is None:
+        return ""
+
+    s = _strip_math_delimiters(str(text))
+    if not s:
+        return ""
+
+    # Fix Python/JSON escape-sequence corruption of common LaTeX commands.
+    # When LaTeX passes through non-raw-string Python or improperly escaped JSON,
+    # \f → form feed (\x0c), \b → backspace (\x08), \t → tab (\x09), etc.
+    # This destroys \frac, \begin, \times, \theta and many other commands.
+    # We use str.replace with the control char + common following letters.
+    _bs = chr(92)  # backslash
+    _escape_fixes = [
+        ('\x0c', _bs + 'f'),   # form feed  → \f (frac, flat, forall, ...)
+        ('\x08', _bs + 'b'),   # backspace  → \b (begin, binom, bar, big, ...)
+    ]
+    for _corrupted, _prefix in _escape_fixes:
+        s = s.replace(_corrupted, _prefix)
+
+    # Tab (\x09) → only fix if followed by known LaTeX letters
+    for _suffix in ('imes', 'ext', 'an', 'heta', 'au', 'ilde', 'frac', 'o'):
+        s = s.replace('\x09' + _suffix, _bs + 't' + _suffix)
+
+    # Newline (\x0a) in math context → restore \n command
+    for _suffix in ('eq ', 'eq.', 'eq,', 'eq;', 'otin', 'abla'):
+        s = s.replace('\x0a' + _suffix, _bs + 'n' + _suffix)
+    # Bare \ne (newline + 'e' without more letters → likely \ne)
+    s = s.replace('\x0ae ', _bs + 'ne ')
+    s = s.replace('\x0ae,', _bs + 'ne,')
+
+    # Carriage return (\x0d) → restore \r commands
+    for _suffix in ('ight', 'ho', 'ightarrow', 'ightharpoonup'):
+        s = s.replace('\x0d' + _suffix, _bs + 'r' + _suffix)
+
+    # JSON or Markdown escape leftovers.
+    s = s.replace("\\\\(", "\\(").replace("\\\\)", "\\)")
+    s = s.replace("\\\\[", "\\[").replace("\\\\]", "\\]")
+    s = s.replace("\\'", "'")
+
+    # Double-escaped commands: \\frac, \\lim, \\alpha -> \frac, \lim, \alpha.
+    # Preserve matrix row separators because they are followed by whitespace or &,
+    # not a command letter.
+    s = re.sub(r'\\\\(?=[A-Za-z])', r'\\', s)
+
+    # Quantifier + variable frequently arrives glued as \forallx or \existsx_1.
+    s = re.sub(r'\\(forall|exists)(?=([A-Za-z]|[A-Za-z]_\d|[A-Za-z]_\{))', r'\\\1 ', s)
+
+    # Common textual shorthands that KaTeX handles better with explicit spacing.
+    s = re.sub(r'\\in(?=\()', r'\\in ', s)
+    s = re.sub(r'\\to(?=[A-Za-z0-9])', r'\\to ', s)
+
+    # Some LLMs emit \neq split by markdown fragments; normalize common variants.
+    s = s.replace("\\ne q", "\\ne").replace("\\neq", "\\ne")
+
+    # Remove outer \( \) / \[ \] if they slipped through.
+    if s.startswith("\\(") and s.endswith("\\)"):
+        s = s[2:-2].strip()
+    if s.startswith("\\[") and s.endswith("\\]"):
+        s = s[2:-2].strip()
+
+    return auto_fix_brackets(s).strip()
+
+
+_MATHY_COMMAND_RE = re.compile(
+    r'\\(?:'
+    r'frac|dfrac|tfrac|cfrac|sqrt|lim|sum|prod|int|iint|iiint|oint|'
+    r'sin|cos|tan|cot|sec|csc|ln|log|exp|arcsin|arccos|arctan|'
+    r'forall|exists|in|notin|subset|subseteq|cup|cap|to|Rightarrow|'
+    r'Leftarrow|rightarrow|leftarrow|leq|geq|ne|neq|approx|sim|'
+    r'alpha|beta|gamma|delta|epsilon|theta|lambda|mu|pi|xi|rho|'
+    r'sigma|phi|omega|Gamma|Delta|Theta|Lambda|Pi|Sigma|Omega|'
+    r'begin|end|boxed|left|right|mathrm|mathbf|mathbb|mathcal'
+    r')(?=\b|[_{([<\s]|$)'
+)
+
+
+def _looks_like_standalone_math(line: str) -> bool:
+    """Heuristic for lines that should be rendered as one display formula."""
+    s = (line or "").strip()
+    if not s:
+        return False
+
+    raw = _strip_math_delimiters(s)
+    if not raw:
+        return False
+
+    # A line containing CJK text is never standalone display math \u2014 it's
+    # mixed text+math that should be split by $...$ delimiters, not wrapped
+    # entirely in $$...$$. Lines starting with $ like $(1)$, $(2)$ are
+    # inline sub-question markers, not display math wrappers.
+    has_cjk = bool(re.search(r'[\u4e00-\u9fff]', raw))
+    if has_cjk:
+        return False
+
+    # 判断是否是短的简单表达式（如 f(x), f(0)=0, f'(x)=2x-2）
+    # 这些应该作为 inline math 处理，而不是独立的块级公式
+    if len(raw) < 30:
+        # 检查是否包含等号或箭头
+        if '=' in raw or '→' in raw or '\\to' in raw:
+            # 简单的赋值或等式，作为 inline math
+            return False
+        # 简单的函数表达式如 f(x), g'(x) 等
+        if re.match(r'^[a-zA-Z]+\'?\([^)]*\)$', raw):
+            return False
+        # 简单的区间表示如 [0,2]
+        if re.match(r'^\[?\s*\d+\s*,\s*\d+\s*\]?$', raw):
+            return False
+
+    # 只有复杂的数学命令才触发块级公式识别
+    # 排除简单的函数如 ln, sin, cos 等，它们应该作为 inline math
+    complex_commands = [r'\\frac', r'\\dfrac', r'\\sum', r'\\prod', r'\\int', 
+                        r'\\iint', r'\\iiint', r'\\oint', r'\\sqrt', r'\\lim',
+                        r'\\begin', r'\\left', r'\\right', r'\\boxed', r'\\int_', r'\\sum_']
+    has_complex_command = any(cmd in raw for cmd in complex_commands)
+    
+    if has_complex_command:
+        return True
+
+    # Unicode 数学符号：只有大型运算符才作为块级公式
+    if re.search(r'[∑∫∏√∞]', raw):
+        return True
+
+    # 对于其他情况，不作为独立的块级公式
+    # 它们会在后续的 split_latex_text 中被正确处理为 inline math
+    return False
+
+
+def _normalize_math_lines_for_split(text: str) -> str:
+    """Wrap standalone math lines and repair unbalanced delimiters before splitting."""
+    if not text:
+        return text
+
+    normalized_lines = []
+    for line in str(text).replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        stripped = line.strip()
+        if _looks_like_standalone_math(stripped):
+            latex = sanitize_latex_for_render(stripped)
+            normalized_lines.append(f"$$\n{latex}\n$$" if latex else "")
+        else:
+            normalized_lines.append(line)
+
+    out = "\n".join(normalized_lines)
+
+    # Merge consecutive short text lines into paragraphs.
+    # LLMs often break a sentence across multiple lines ("曲线\n的渐近线"),
+    # causing st.markdown to render a line break mid-sentence.
+    out = _merge_short_text_lines(out)
+
+    return out
+
+
+def _merge_short_text_lines(text: str) -> str:
+    """Merge consecutive short non-math lines into paragraphs.
+
+    Protects math structure from being damaged by over-eager merging:
+      - Display math ($$...$$) is never merged
+      - Lines with inline math ($...$) flush the buffer to keep math context
+      - List items (1. 2. ①) start new blocks
+      - Structural markers (证明：解：定理：) start new blocks
+      - Sentence-ending lines (。！？) flush when long enough
+    """
+    _SENTENCE_END = re.compile(r'[。！？.!?]$')
+    _BLANK = re.compile(r'^\s*$')
+    _LIST_ITEM = re.compile(r'^\s*(?:\d+[.、．)]|\(?\d+\)|[①②③④⑤⑥⑦⑧⑨⑩])')
+    _STRUCT_MARKER = re.compile(
+        r'^\s*(?:证明|解|答|解析|定理|引理|推论|定义|注|分析|已知|求证|求|试证|试求)\s*[：:]\s*'
+    )
+    _HAS_INLINE_MATH = re.compile(r'(?<!\$)\$(?!\$).*?(?<!\$)\$(?!\$)')
+
+    lines = text.split('\n')
+    merged = []
+    buf = []
+
+    def _flush_buf():
+        if buf:
+            merged.append(''.join(buf))
+            buf.clear()
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Structural boundaries: never merge across these
+        is_boundary = (
+            stripped.startswith('$$') or         # display math
+            _BLANK.match(stripped) or            # blank line
+            _LIST_ITEM.match(stripped) or        # list item
+            _STRUCT_MARKER.match(stripped)       # 证明：/ 解：/ 定理：
+        )
+
+        if is_boundary:
+            _flush_buf()
+            merged.append(line)
+            continue
+
+        # Line with inline math: flush buffer first, then add as its own line
+        # to prevent math from being buried in merged text
+        if _HAS_INLINE_MATH.search(stripped):
+            _flush_buf()
+            merged.append(line)
+            continue
+
+        # Sentence-ending line: flush as a complete paragraph
+        if _SENTENCE_END.search(stripped):
+            _flush_buf()
+            merged.append(line)
+            continue
+
+        # Otherwise: short continuation text, merge with buffer
+        buf.append(line)
+
+    _flush_buf()
+    return '\n'.join(merged)
+
+
 # ═══════════════════════════════════════════════
 # 5. AST-first 渲染器（推荐）
 # ═══════════════════════════════════════════════
 
 def _is_inline_math(content: str) -> bool:
-    """判断 LaTeX 表达式是否应为 inline 模式。
+    """Determine if a LaTeX expression should render as inline ($...$) or block (display).
 
-    规则:
-      - 长度 >= 80 → block
-      - 含 \\begin, \\\\ (LaTeX 换行), align, cases, array → block
-      - 含 \\displaystyle, \\sum, \\int, \\prod, 嵌套 \\frac → block
-      - 否则 → inline
+    Rules (order matters):
+      - Contains \\begin, \\\\, \\displaystyle, align, cases, array → block
+      - Contains multi-line content → block
+      - Contains display-oriented commands (\\sum, \\int, \\prod) with limits → block
+      - Otherwise → inline
+
+    Length is NOT used as a heuristic — it causes adjacent formulas of similar
+    type but different length to render inconsistently. The segment type already
+    encodes the author's intent: display_math always renders as st.latex(),
+    inline_math always renders as st.markdown("$...$").
     """
-    if len(content) >= 80:
-        return False
-    # LaTeX 换行符：两个连续反斜杠
-    if chr(92) + chr(92) in content:
-        return False
-    # 其他 block 模式标记
-    _bs = chr(92)  # backslash
+    _bs = chr(92)
+    # Structural block markers — always force display mode
     _block_cmds = [
         _bs + 'begin', _bs + 'displaystyle',
-        _bs + 'sum', _bs + 'int', _bs + 'prod',
-        _bs + 'lim' + _bs + 'limits',  # \lim\limits
-        'align', 'cases', 'array',
+        _bs + 'align', _bs + 'cases', _bs + 'array',
     ]
     for cmd in _block_cmds:
         if cmd in content:
             return False
+    # LaTeX line breaks
+    if _bs + _bs in content:
+        return False
+    # Multi-line content
     if '\n' in content:
         return False
     return True
+
+
+def _inject_katex_css() -> None:
+    """Inject KaTeX display fix CSS once per session.
+
+    Fixes:
+      - Prevent overflow:hidden from clipping superscripts/radicals
+      - Ensure display math has consistent margins
+      - Set adequate line-height for inline math with CJK text
+    """
+    import streamlit as st
+    if st.session_state.get("_katex_css_injected"):
+        return
+    st.session_state["_katex_css_injected"] = True
+    st.markdown("""
+        <style>
+        /* Prevent clipping of superscripts, radicals, and fractions */
+        .katex-display,
+        .katex-display > .katex {
+            overflow: visible !important;
+        }
+        .katex {
+            overflow: visible !important;
+        }
+        /* Ensure display math has breathing room */
+        .katex-display {
+            margin: 1em 0 !important;
+        }
+        /* Fix CJK + inline math baseline */
+        .katex-html {
+            overflow: visible !important;
+        }
+        /* Ensure Streamlit containers don't clip math */
+        [data-testid="stVerticalBlock"] .katex-display {
+            overflow: visible !important;
+            max-width: 100%;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 
 def render_ast(segments: list[dict]) -> None:
     """
     AST-first 渲染器：inline vs block 严格区分。
 
-    关键：连续的 text + inline_math 合并为单个 st.markdown() 调用，
-    避免每个片段单独渲染导致的换行碎片化。
+    关键：连续的 text + inline_math 合并为单个 st.markdown() 调用。
+    display_math 在单独调用 flush 关闭前一个 markdown 段落后，
+    用 st.latex() 独立渲染，确保不会出现 <p><div> 非法嵌套。
 
     分派规则:
       - text + inline_math → 合并 → st.markdown(连续段落)
-      - display_math       → st.latex(content)
-      - latex (兼容)       → 智能检测
+      - display_math       → 先 flush → st.latex(content)  [独立块级元素]
+      - latex (兼容)       → 先 flush → 智能检测
 
     使用示例:
         from latex_utils import split_latex_text, render_ast
@@ -870,12 +1359,13 @@ def render_ast(segments: list[dict]) -> None:
     """
     import streamlit as st
 
+    _inject_katex_css()
+
     # 合并连续的 text + inline_math 为单个 markdown 块
     buf = []
     def _flush():
         if buf:
             md = "".join(buf)
-            # 只去除首尾空白字符，保留换行符
             md = md.rstrip('\n').lstrip()
             if md:
                 try:
@@ -895,6 +1385,9 @@ def render_ast(segments: list[dict]) -> None:
                 buf.append(c)
                 last_was_inline_math = False
             elif t == "inline_math":
+                c = sanitize_latex_for_render(c)
+                if not c:
+                    continue
                 # 在连续的 inline_math 之间添加空格，避免 $$ 相邻
                 if last_was_inline_math:
                     buf.append(" ")
@@ -902,10 +1395,16 @@ def render_ast(segments: list[dict]) -> None:
                 last_was_inline_math = True
             elif t == "display_math":
                 _flush()
+                c = sanitize_latex_for_render(c)
+                if not c:
+                    continue
                 st.latex(c)
                 last_was_inline_math = False
             elif t == "latex":
                 _flush()
+                c = sanitize_latex_for_render(c)
+                if not c:
+                    continue
                 if _is_inline_math(c):
                     st.markdown(f"${c}$")
                 else:
@@ -936,6 +1435,17 @@ def render_latex_ast(text: str) -> None:
     text = clean_markdown(text)
     segments = split_latex_text(text)
     render_ast(segments)
+
+
+def safe_latex(text: str) -> str:
+    """Backward-compatible safe LaTeX sanitizer used by legacy renderers."""
+    try:
+        from math_sanitizer import safe_latex as _safe_latex
+        return _safe_latex(text)
+    except Exception:
+        if not text:
+            return text
+        return auto_fix_brackets(normalize_latex_style(str(text)))
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1180,119 +1690,444 @@ def validate_structured(solution: dict) -> tuple[bool, list[str]]:
 
 
 # ═══════════════════════════════════════════════
-# 6c. 结构化渲染器 — 根本解决方案的核心
+# 6b2. Pydantic Schema + 自动修复（Phase 3）
 # ═══════════════════════════════════════════════
 
-def render_structured(solution: dict) -> None:
+from pydantic import BaseModel, Field, field_validator, model_validator
+from typing import Literal, Optional as _PydanticOptional, Union, Annotated
+from pydantic import Discriminator
+
+_VALID_DISPLAYS = Literal["inline", "block", "hidden"]
+_VALID_OPERATIONS = Literal[
+    "classify", "recall", "substitute", "simplify", "expand", "factor",
+    "differentiate", "integrate", "solve", "evaluate", "apply_theorem",
+    "transform", "conclude", "check", "",
+]
+
+# LLM常见的operation拼写错误 → 自动映射
+_OPERATION_ALIASES = {
+    "applytheorem": "apply_theorem",
+    "finalanswer": "",
+    "differentation": "differentiate",
+    "intergrate": "integrate",
+    "eval": "evaluate",
+    "simpify": "simplify",
+    "substitution": "substitute",
+    "diff": "differentiate",
+    "int": "integrate",
+    "expand_series": "expand",
+}
+
+
+class LatexBlock(BaseModel):
+    """Pure LaTeX block. Content is a standalone renderable expression.
+
+    RULES (violations are auto-fixed or rejected):
+      - NO Chinese characters (these go in TextBlock)
+      - NO $ delimiters (st.latex() is already in math mode)
+      - NO markdown syntax (*, _, #, -, bullets)
+      - NO natural language explanation words
+      - NO emoji
     """
-    结构化数学渲染器 — 根本解决方案。
+    type: Literal["latex"] = "latex"
+    content: str = Field(..., min_length=1)
+    display: _VALID_DISPLAYS = "inline"
 
-    LLM 输出结构化 JSON，Renderer 控制全部显示。
-    不是 markdown-first，而是 structure-first。
+    @field_validator("content", mode="after")
+    @classmethod
+    def enforce_purity(cls, v: str) -> str:
+        import re, logging
+        log = logging.getLogger("latex_utils")
+        v = v.strip()
 
-    渲染规则:
-      - 每个 step → 一个带标签+操作徽章的容器
-      - text block → st.markdown()
-      - latex block (inline) → st.markdown("$...$")
-      - latex block (block) → st.latex()
-      - final_answer → 高亮答案框
+        # 1. Strip $ delimiters (fatal if nested)
+        if '$' in v:
+            log.warning("LatexBlock: stripped $ delimiters. Content: %s", v[:80])
+            v = v.replace('$$', '').replace('$', '').strip()
 
-    使用:
-        solution = {
-            "steps": [
-                {"label": "步骤1", "blocks": [...], "operation": "classify"},
-            ],
-            "final_answer": {"type": "latex", "content": "1"}
-        }
-        render_structured(solution)
+        # 2. Fix double-escaped LaTeX: \\frac → \frac
+        v = re.sub(r'\\\\([a-zA-Z]+)', r'\\\1', v)
+
+        # 3. Strip markdown syntax
+        if re.search(r'^\s*[-*#]\s|\*\*|__|\b(bullet|emoji)\b', v):
+            log.warning("LatexBlock: stripped markdown syntax. Content: %s", v[:80])
+            v = re.sub(r'^\s*[-*#]\s+', '', v)
+            v = v.replace('**', '').replace('__', '')
+
+        # 4. Remove emoji (safe range: only emoji blocks, NOT overlapping CJK)
+        v = re.sub(r'[\U0001F300-\U0001F9FF☀-➿⭐]', '', v)
+
+        # 5. Hard reject: Chinese OUTSIDE \\text{{}} → error
+        # (Chinese inside \\text{{}} is valid LaTeX, e.g. \\text{{线性无关}})
+        if _has_chinese(v):
+            raise ValueError(
+                f"LatexBlock contains Chinese characters (outside \\text{{}}). "
+                f"Move natural language to a TextBlock. Content: {v[:80]}"
+            )
+
+        # 6. Hard reject: natural language OUTSIDE \\text{{}}
+        v_notext = re.sub(r'\\text\{[^}]*\}', '', v)
+        if re.search(r'(?:设|令|则|因此|所以|代入|得到|解得|求|计算|展开|合并|化简|整理|移项|配方|构造|假设|定义|记|取|作|由|根据|利用|应用|考虑|注意|显然|易知)', v_notext):
+            raise ValueError(
+                f"LatexBlock contains natural language. "
+                f"Move explanation to a TextBlock. Content: {v[:80]}"
+            )
+
+        return v.strip()
+
+    model_config = {"extra": "ignore"}
+
+
+class TextBlock(BaseModel):
+    """Pure text block. Content is natural language. ZERO LaTeX commands allowed.
+
+    RULES: \\frac, \\int, \\sum, etc. are FORBIDDEN in text blocks.
+    These must go in separate LatexBlocks.
     """
-    import streamlit as st
+    type: Literal["text"] = "text"
+    content: str = Field(..., min_length=1)
 
-    # 验证
-    is_valid, errors = validate_structured(solution)
-    if not is_valid:
-        st.error(f"结构化方案验证失败: {'; '.join(errors)}")
-
-    # ── 渲染每个步骤 ──
-    for i, step in enumerate(solution.get("steps", [])):
-        label = step.get("label", f"步骤{i+1}")
-        operation = step.get("operation", "")
-        blocks = step.get("blocks", [])
-
-        # 步骤标题行：标签 + 操作徽章
-        op_label, op_color = _OP_META.get(operation, ("", ""))
-        if op_label:
-            st.markdown(
-                f"**{label}** &nbsp; "
-                f"<span style='color:{op_color};border:1px solid {op_color};"
-                f"border-radius:4px;padding:1px 8px;font-size:0.8em;'>{op_label}</span>",
-                unsafe_allow_html=True,
+    @field_validator("content", mode="after")
+    @classmethod
+    def reject_latex_commands(cls, v: str) -> str:
+        import re
+        # Any LaTeX command (backslash + letters) in text block → reject
+        if re.search(r'\\[a-zA-Z]+', v):
+            raise ValueError(
+                f"TextBlock contains LaTeX commands. "
+                f"Move math expressions to a LatexBlock. Content: {v[:80]}"
             )
-        else:
-            st.markdown(f"**{label}**")
-
-        # 渲染本步骤的 blocks
-        for block in blocks:
-            _render_block(block)
-
-        # 步骤间分隔
-        if i < len(solution["steps"]) - 1:
-            st.markdown("---")
-
-    # ── 渲染最终答案 ──
-    fa = solution.get("final_answer")
-    if fa and fa.get("content"):
-        st.markdown("---")
-        st.markdown("**📌 答案**")
-        _render_block(fa, highlight=True)
-
-    # ── 渲染元数据 ──
-    meta = solution.get("metadata")
-    if meta:
-        kps = meta.get("knowledge_points", [])
-        if kps:
-            tags = " ".join(
-                f"<span style='background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:0.8em;'>{kp}</span>"
-                for kp in kps
+        # $ delimiters in text → reject
+        if '$' in v:
+            raise ValueError(
+                f"TextBlock contains $ delimiters. "
+                f"Math must be in a separate LatexBlock. Content: {v[:80]}"
             )
-            st.markdown(f"**知识点**: {tags}", unsafe_allow_html=True)
+        return v
+
+    model_config = {"extra": "ignore"}
 
 
-def _render_block(block: dict, highlight: bool = False) -> None:
-    """渲染单个 MathBlock。"""
-    import streamlit as st
+# Discriminated union: LLM must choose exactly one block type
+SolutionBlock = Annotated[
+    Union[LatexBlock, TextBlock],
+    Discriminator("type"),
+]
 
-    t = block.get("type", "text")
-    c = block.get("content", "")
-    display = block.get("display", "inline")
 
-    if not c:
-        return
+class MathStepPydantic(BaseModel):
+    """One solution step containing separated text and latex blocks."""
+    label: str = ""
+    blocks: list[SolutionBlock] = Field(..., min_length=1)
+    operation: str = ""
 
+    @field_validator("label", mode="after")
+    @classmethod
+    def label_not_empty(cls, v: str) -> str:
+        if not v or not v.strip():
+            return "步骤"
+        return v
+
+    model_config = {"extra": "ignore"}
+
+
+class FinalAnswerPydantic(BaseModel):
+    """Final answer block — usually a single LaTeX expression."""
+    type: Literal["latex", "text"] = "latex"
+    content: str = Field(..., min_length=1)
+
+    model_config = {"extra": "ignore"}
+
+
+class SolutionMetadataPydantic(BaseModel):
+    """Optional metadata."""
+    knowledge_points: list[str] = Field(default_factory=list)
+    difficulty: str = "中等"
+    total_score: float = 10.0
+    common_mistakes: list[str] = Field(default_factory=list)
+
+    model_config = {"extra": "ignore"}
+
+
+class StructuredSolutionPydantic(BaseModel):
+    """THE only format LLM should output. Validated at system boundary."""
+    steps: list[MathStepPydantic] = Field(..., min_length=1)
+    final_answer: _PydanticOptional[FinalAnswerPydantic] = None
+    metadata: SolutionMetadataPydantic = Field(default_factory=SolutionMetadataPydantic)
+
+    model_config = {"extra": "ignore"}
+
+    @classmethod
+    def from_llm_output(cls, data: dict) -> "StructuredSolutionPydantic":
+        """THE single entry point. Validates + repairs LLM output. Raises on unrepairable input."""
+        model, errors, _ = validate_and_repair(data)
+        if errors:
+            raise ValueError(f"StructuredSolution validation failed: {'; '.join(errors[:5])}")
+        _assert_no_double_escape(model)
+        return model
+
+    @classmethod
+    def model_validate_strict(cls, data: dict) -> "StructuredSolutionPydantic":
+        """Like from_llm_output but without auto-repair — strict validation only."""
+        return cls(**data)
+
+
+def _assert_no_double_escape(model: StructuredSolutionPydantic) -> None:
+    """Catch double-escaped LaTeX early. \\\\frac in content means escape was applied twice."""
+    import re
+    _double_escape_re = re.compile(r'\\\\[a-zA-Z]+')
+    for i, step in enumerate(model.steps):
+        for j, block in enumerate(step.blocks):
+            content = block.content if hasattr(block, 'content') else ''
+            if _double_escape_re.search(content):
+                import logging
+                logging.getLogger(__name__).warning(
+                    "Double-escaped LaTeX detected in steps[%d].blocks[%d]: %s",
+                    i, j, content[:80]
+                )
+
+
+def _has_chinese(s: str) -> bool:
+    """Check if string contains Chinese characters OUTSIDE of \\text{{}} commands.
+
+    Chinese inside \\text{{...}} is valid LaTeX and should not be flagged.
+    """
+    import re
+    if not re.search(r'[一-鿿]', s):
+        return False
+    # Remove \\text{{...}} protected regions before checking
+    protected = re.sub(r'\\text\{[^}]*\}', '', s)
+    return bool(re.search(r'[一-鿿]', protected))
+
+
+def _split_mixed_latex_block(content: str, display: str = "inline") -> list[dict]:
+    """Split a latex block that illegally contains Chinese text.
+
+    Uses split_latex_text to separate natural language from LaTeX,
+    then converts segments to proper text/latex blocks.
+    """
     try:
-        if t == "text":
-            if highlight:
-                st.markdown(f"**{c}**")
-            else:
-                st.markdown(c)
-
-        elif t == "latex":
-            if display == "block":
-                if highlight:
-                    st.latex(f"\\boxed{{{c}}}")
-                else:
-                    st.latex(c)
-            else:
-                if highlight:
-                    st.markdown(f"$\\boxed{{{c}}}$")
-                else:
-                    st.markdown(f"${c}$")
-
+        segments = split_latex_text(content)
     except Exception:
-        try:
-            st.text(c[:500])
-        except Exception:
-            pass
+        # Can't split → convert entire block to text
+        return [{"type": "text", "content": content}]
+
+    result = []
+    for seg in segments:
+        t = seg.get("type", "text")
+        c = seg.get("content", "").strip()
+        if not c:
+            continue
+        if t in ("inline_math", "display_math"):
+            result.append({"type": "latex", "content": c, "display": display})
+        else:
+            result.append({"type": "text", "content": c})
+    return result if result else [{"type": "text", "content": content}]
+
+
+def validate_and_repair(data: dict) -> tuple[StructuredSolutionPydantic | None, list[str], list[str]]:
+    """Validate + auto-repair LLM JSON output against Pydantic schema.
+
+    Returns:
+        (model, errors, repair_log)
+        - model: validated Pydantic model, or None if unrepairable
+        - errors: remaining validation errors (empty = success)
+        - repair_log: what was fixed
+    """
+    repairs = []
+
+    if not isinstance(data, dict):
+        return None, ["input must be a dict"], []
+
+    # ── Repair 1: drop root-level extra fields ──
+    allowed_root = {"steps", "final_answer", "metadata"}
+    extra_root = [k for k in data if k not in allowed_root]
+    if extra_root:
+        repairs.append(f"dropped extra root fields: {extra_root}")
+        data = {k: v for k, v in data.items() if k in allowed_root}
+
+    # ── Repair 2: ensure steps is a list ──
+    if "steps" not in data:
+        return None, ["missing required field: steps"], repairs
+    if not isinstance(data["steps"], list):
+        return None, [f"steps must be a list, got {type(data['steps']).__name__}"], repairs
+
+    # ── Repair 3: fix each step ──
+    for i, step in enumerate(data["steps"]):
+        if not isinstance(step, dict):
+            repairs.append(f"steps[{i}]: replaced non-dict with empty step")
+            data["steps"][i] = {"label": f"步骤{i+1}", "blocks": [{"type": "text", "content": "(empty)"}]}
+            continue
+
+        # drop extra fields
+        allowed_step = {"label", "blocks", "operation"}
+        extra_step = [k for k in step if k not in allowed_step]
+        if extra_step:
+            repairs.append(f"steps[{i}]: dropped extra fields: {extra_step}")
+            for k in extra_step:
+                step.pop(k, None)
+
+        # auto-fix common LLM operation typos
+        op = step.get("operation", "")
+        _valid_op_set = {"classify", "recall", "substitute", "simplify", "expand", "factor",
+                         "differentiate", "integrate", "solve", "evaluate", "apply_theorem",
+                         "transform", "conclude", "check", ""}
+        if op and op not in _valid_op_set:
+            alias = _OPERATION_ALIASES.get(op)
+            if alias is not None:
+                step["operation"] = alias
+                repairs.append(f"steps[{i}]: operation '{op}' -> '{alias}'")
+            else:
+                step["operation"] = "simplify"
+                repairs.append(f"steps[{i}]: operation '{op}' -> 'simplify'")
+
+        # auto-fill label
+        if not step.get("label"):
+            step["label"] = f"步骤{i+1}"
+            repairs.append(f"steps[{i}]: auto-filled label")
+
+        # ensure blocks is a list
+        if "blocks" not in step:
+            repairs.append(f"steps[{i}]: added empty blocks")
+            step["blocks"] = [{"type": "text", "content": "(missing)"}]
+        elif not isinstance(step["blocks"], list):
+            repairs.append(f"steps[{i}]: blocks replaced (was {type(step['blocks']).__name__})")
+            step["blocks"] = [{"type": "text", "content": str(step["blocks"])}]
+
+        # ── Repair 4: fix each block ──
+        for j, block in enumerate(step["blocks"]):
+            if not isinstance(block, dict):
+                repairs.append(f"steps[{i}].blocks[{j}]: replaced non-dict")
+                step["blocks"][j] = {"type": "text", "content": str(block)}
+                continue
+
+            # auto-fix type: anything not "latex" or "text" becomes "text"
+            bt = block.get("type", "")
+            if bt not in ("text", "latex"):
+                old = bt or "missing"
+                block["type"] = "text"
+                repairs.append(f"steps[{i}].blocks[{j}]: type '{old}' -> 'text'")
+
+            # ── Hard rule: latex block must NOT contain natural language ──
+            if block.get("type") == "latex":
+                content = block.get("content", "")
+                import re as _re2
+                has_chinese = _has_chinese(content)
+                # Check natural language OUTSIDE \text{} (same protection as _has_chinese)
+                content_no_text = _re2.sub(r'\\text\{[^}]*\}', '', content)
+                has_natural = bool(_re2.search(
+                    r'(?:设|令|则|因此|所以|代入|得到|解得|求|计算|展开|合并|化简'
+                    r'|整理|移项|配方|构造|假设|定义|记|取|作|由|根据|利用|应用'
+                    r'|考虑|注意|显然|易知|解得|其中|于是|从而|进而|即)',
+                    content_no_text
+                ))
+                if has_chinese or has_natural:
+                    new_blocks = _split_mixed_latex_block(content, block.get("display", "inline"))
+                    step["blocks"][j:j+1] = new_blocks
+                    reason = "Chinese" if has_chinese else "natural language"
+                    repairs.append(
+                        f"steps[{i}].blocks[{j}]: latex block had {reason}, "
+                        f"split into {len(new_blocks)} blocks"
+                    )
+                    continue
+
+            # latex block: strip $ delimiters, fix display, restore lost backslashes
+            if block.get("type") == "latex":
+                if block.get("display") not in ("inline", "block", "hidden"):
+                    block["display"] = "inline"
+                content = block.get("content", "")
+                if content.strip():
+                    content = content.strip()
+                    # Fix lost backslashes: bare LaTeX commands (from JSON escape corruption)
+                    # e.g., "begin{pmatrix}" → "\\begin{pmatrix}"
+                    # "end{pmatrix}" → "\\end{pmatrix}"
+                    # "frac12" → "\\frac{1}{2}" (harder, just flag)
+                    for bare_cmd in ['begin', 'end', 'Rightarrow', 'Leftarrow', 'rightarrow',
+                                     'leftarrow', 'cdot', 'times', 'neq', 'leq', 'geq']:
+                        if bare_cmd in content and f'\\{bare_cmd}' not in content:
+                            content = content.replace(bare_cmd, f'\\{bare_cmd}')
+                            repairs.append(
+                                f"steps[{i}].blocks[{j}]: restored \\\\{bare_cmd} (backslash was lost)"
+                            )
+                    # Hard rule: strip ALL $ from latex blocks (st.latex() is already in math mode)
+                    if '$' in content:
+                        repairs.append(
+                            f"steps[{i}].blocks[{j}]: stripped $ delimiters from latex block "
+                            f"(LLM must NOT output $ in latex content)"
+                        )
+                        content = content.replace('$$', '').replace('$', '').strip()
+                    block["content"] = content
+                # drop non-latex fields
+                for k in list(block.keys()):
+                    if k not in ("type", "content", "display"):
+                        block.pop(k, None)
+
+            # text block: drop display (not a text field)
+            if block.get("type") == "text":
+                block.pop("display", None)
+                block.pop("operation", None)
+
+            # auto-fix missing content
+            if not block.get("content", "").strip():
+                block["content"] = "(empty)"
+                repairs.append(f"steps[{i}].blocks[{j}]: filled empty content")
+
+    # ── Repair 5: fix final_answer ──
+    fa = data.get("final_answer")
+    if fa is not None and isinstance(fa, dict):
+        if fa.get("type") not in ("text", "latex"):
+            fa["type"] = "latex"
+            repairs.append("final_answer: fixed type -> latex")
+        if not fa.get("content", "").strip():
+            repairs.append("final_answer: removed (empty content)")
+            data.pop("final_answer", None)
+        # drop extra fields
+        allowed_fa = {"type", "content"}
+        extra_fa = [k for k in fa if k not in allowed_fa]
+        if extra_fa:
+            repairs.append(f"final_answer: dropped extra: {extra_fa}")
+            for k in extra_fa:
+                fa.pop(k, None)
+
+    # ── Repair 6: fix metadata ──
+    meta = data.get("metadata")
+    if meta is not None and isinstance(meta, dict):
+        allowed_meta = {"knowledge_points", "difficulty", "total_score", "common_mistakes"}
+        extra_meta = [k for k in meta if k not in allowed_meta]
+        if extra_meta:
+            repairs.append(f"metadata: dropped extra: {extra_meta}")
+            for k in extra_meta:
+                meta.pop(k, None)
+        # coerce types
+        diff_val = meta.get("difficulty")
+        if diff_val is not None and not isinstance(diff_val, str):
+            meta["difficulty"] = str(diff_val)
+            repairs.append("metadata: coerced difficulty to str")
+        if "total_score" in meta:
+            try:
+                meta["total_score"] = float(meta["total_score"])
+            except (ValueError, TypeError):
+                meta["total_score"] = 10.0
+                repairs.append("metadata: total_score invalid, defaulted to 10")
+        if "knowledge_points" in meta and not isinstance(meta["knowledge_points"], list):
+            if isinstance(meta["knowledge_points"], str):
+                meta["knowledge_points"] = [meta["knowledge_points"]]
+            else:
+                meta["knowledge_points"] = []
+            repairs.append("metadata: fixed knowledge_points type")
+        if "common_mistakes" in meta and not isinstance(meta["common_mistakes"], list):
+            if isinstance(meta["common_mistakes"], str):
+                meta["common_mistakes"] = [meta["common_mistakes"]]
+            else:
+                meta["common_mistakes"] = []
+            repairs.append("metadata: fixed common_mistakes type")
+
+    # ── Final validation ──
+    try:
+        model = StructuredSolutionPydantic(**data)
+        return model, [], repairs
+    except Exception as e:
+        return None, [str(e)], repairs
 
 
 # ═══════════════════════════════════════════════
@@ -1312,12 +2147,20 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
     if not text:
         return make_solution(steps=[make_step("", [make_text("(无内容)")])])
 
-    _STEP_RE = re.compile(r'(?:步骤|第)\s*(\d+)\s*(?:步|题|问)?\s*[：:]\s*')
+    # Match step markers: "步骤1：", "第1步：", "1. ", "(1) ", "### 步骤1："
+    _STEP_RE = re.compile(
+        r'(?:步骤|第)\s*(\d+)\s*(?:步|题|问)?\s*[：:]\s*|'
+        r'(?:###\s*)?步骤\s*(\d+)\s*[：:]\s*|'
+        r'(?:^|\n)\s*(\d+)\s*[.、．)]\s+',
+        re.MULTILINE,
+    )
 
     # Step 1: 检测步骤边界
     step_boundaries = []  # [(step_num, start_pos, end_pos)]
     for m in _STEP_RE.finditer(text):
-        step_boundaries.append((int(m.group(1)), m.start(), m.end()))
+        num_str = m.group(1) or m.group(2) or m.group(3)
+        if num_str:
+            step_boundaries.append((int(num_str), m.start(), m.end()))
 
     if not step_boundaries:
         # 没有步骤标记，整段作为一个 step
@@ -1328,7 +2171,14 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
 
     # Step 2: 按边界拆分
     steps = []
+    seen_step_nums = set()  # 记录已处理的步骤号，避免重复
+    
     for i, (step_num, start, end) in enumerate(step_boundaries):
+        # 跳过重复的步骤号
+        if step_num in seen_step_nums:
+            continue
+        seen_step_nums.add(step_num)
+        
         # 本步骤内容：从标记结束到下一个标记开始
         next_start = step_boundaries[i + 1][1] if i + 1 < len(step_boundaries) else len(text)
         chunk = text[end:next_start].strip()
@@ -1352,9 +2202,9 @@ def _segments_to_blocks(segments: list[dict]) -> list[dict]:
         if t == "text":
             blocks.append(make_text(c))
         elif t == "inline_math":
-            blocks.append(make_latex(c, display="inline"))
+            blocks.append(make_latex(sanitize_latex_for_render(c), display="inline"))
         elif t == "display_math":
-            blocks.append(make_latex(c, display="block"))
+            blocks.append(make_latex(sanitize_latex_for_render(c), display="block"))
     return blocks
 
 
@@ -1611,6 +2461,76 @@ def as_canonical(source) -> dict:
 # 7b. 渲染层 + 安全层 + UI层 — 四层管道
 # ═══════════════════════════════════════════════
 
+def _render_blocks_safe(blocks: list[dict], highlight: bool = False) -> None:
+    """Render MathBlock list — merge consecutive text + inline latex into one paragraph.
+
+    Each separate st.markdown() creates a block-level element in Streamlit.
+    LLM/legacy pipelines often emit one block per word or formula; without merging,
+    sentences break across many lines (the grading-page line-break bug).
+    """
+    import streamlit as st
+
+    buf: list[str] = []
+    last_was_inline = False
+
+    def _flush() -> None:
+        nonlocal last_was_inline
+        if not buf:
+            return
+        md = "".join(buf).strip()
+        if not md:
+            buf.clear()
+            last_was_inline = False
+            return
+        try:
+            if highlight and "$" not in md:
+                st.markdown(f"**{md}**")
+            else:
+                st.markdown(md)
+        except Exception:
+            try:
+                st.text(md[:500])
+            except Exception:
+                pass
+        buf.clear()
+        last_was_inline = False
+
+    for block in blocks or []:
+        t = block.get("type", "text")
+        c = block.get("content", "")
+        display = block.get("display", "inline")
+        if not c:
+            continue
+        try:
+            if t == "text":
+                if has_math(str(c)):
+                    _flush()
+                    _render_block_safe(block, highlight=highlight)
+                else:
+                    buf.append(str(c))
+                    last_was_inline = False
+            elif t == "latex":
+                c = sanitize_latex_for_render(c)
+                if not c:
+                    continue
+                if display == "block" or not _is_inline_math(c):
+                    _flush()
+                    _render_block_safe(block, highlight=highlight)
+                else:
+                    if last_was_inline:
+                        buf.append(" ")
+                    buf.append(f"${c}$")
+                    last_was_inline = True
+        except Exception:
+            _flush()
+            try:
+                _render_block_safe(block, highlight=highlight)
+            except Exception:
+                pass
+
+    _flush()
+
+
 def _render_block_safe(block: dict, highlight: bool = False) -> None:
     """
     渲染单个 MathBlock — 经过完整的安全层。
@@ -1631,34 +2551,40 @@ def _render_block_safe(block: dict, highlight: bool = False) -> None:
 
     try:
         if t == "text":
-            # 纯文本 → 直接 UI 层
-            if highlight:
+            # Text blocks may still contain LLM-leaked LaTeX. Route them
+            # through the mixed renderer instead of letting Markdown expose raw
+            # backslash commands.
+            if has_math(str(c)):
+                render_ast(split_latex_text(str(c)))
+            elif highlight:
                 st.markdown(f"**{c}**")
             else:
                 st.markdown(c)
 
         elif t == "latex":
-            # ── Layer 3: 安全层 ──
-            safe = safe_latex(f"${c}$")  # 临时包裹以通过 sanitize
-            # 去除 safe_latex 添加的外层 $...$
-            if safe.startswith("$") and safe.endswith("$"):
-                safe = safe[1:-1]
-
-            # ── Layer 4: UI 层 ──
+            c = sanitize_latex_for_render(c)
+            if not c:
+                return
             if display == "block":
                 if highlight:
-                    st.latex(f"\\boxed{{{safe}}}")
+                    st.latex(f"\\boxed{{{c}}}")
                 else:
-                    st.latex(safe)
+                    st.latex(c)
             else:
                 if highlight:
-                    st.markdown(f"$\\boxed{{{safe}}}$")
+                    st.latex(f"\\boxed{{{c}}}")
                 else:
-                    st.markdown(f"${safe}$")
+                    if _is_inline_math(c):
+                        st.markdown(f"${c}$")
+                    else:
+                        st.latex(c)
 
     except Exception:
         try:
-            st.text(c[:500])
+            if t == "latex":
+                st.code(sanitize_latex_for_render(c) or str(c), language="latex")
+            else:
+                render_ast(split_latex_text(str(c)))
         except Exception:
             pass
 
@@ -1677,6 +2603,8 @@ def render_structured_safe(solution: dict) -> None:
     """
     import streamlit as st
 
+    _inject_katex_css()
+
     # ── Layer 1: 验证 CanonicalTrace ──
     is_valid, errors = validate_structured(solution)
     if not is_valid:
@@ -1689,31 +2617,28 @@ def render_structured_safe(solution: dict) -> None:
         operation = step.get("operation", "")
         blocks = step.get("blocks", [])
 
-        # Layer 2: 操作徽章
+        # Step header: label with subtle operation badge
         op_label, op_color = _OP_META.get(operation, ("", ""))
-        if op_label:
-            st.markdown(
-                f"**{label}** &nbsp; "
-                f"<span style='color:{op_color};border:1px solid {op_color};"
-                f"border-radius:4px;padding:1px 8px;font-size:0.8em;'>{op_label}</span>",
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(f"**{label}**")
+        with st.container(border=True):
+            if op_label:
+                st.markdown(
+                    f"**{label}** &nbsp;"
+                    f"<span style='color:{op_color};background:{op_color}15;"
+                    f"border:1px solid {op_color}40;border-radius:4px;"
+                    f"padding:1px 8px;font-size:0.75em;'>{op_label}</span>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(f"**{label}**")
 
-        # Layer 3-4: 渲染每个 block
-        for block in blocks:
-            _render_block_safe(block)
-
-        if i < len(solution["steps"]) - 1:
-            st.markdown("---")
+            _render_blocks_safe(blocks)
 
     # ── final_answer ──
     fa = solution.get("final_answer")
     if fa and fa.get("content"):
-        st.markdown("---")
-        st.markdown("**答案**")
-        _render_block_safe(fa, highlight=True)
+        with st.container(border=True):
+            st.markdown("**📌 答案**")
+            _render_blocks_safe([fa], highlight=True)
 
     # ── metadata ──
     meta = solution.get("metadata")

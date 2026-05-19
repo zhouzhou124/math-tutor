@@ -1,0 +1,13 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "设 $P$ 为椭球面 $S: x^2 + y^2 + z^2 - yz = 1$ 上的动点，若 $S$ 在点 $P$ 处的切平面与 $xOy$ 面垂直，求点 $P$ 的轨迹 $C$，并计算曲面积分 $$I = \\iint_{\\Sigma} \\frac{(x+\\sqrt{3})}{|x-y-z|} dS$$\n其中 $\\Sigma$ 是椭球面 $S$ 位于曲线 $C$ 上方的部分.",
+  "standard_answer": "轨迹 $C: 2y - z = 0$，$I = \\frac{2\\pi}{3}$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2010",
+  "question_id": "2010-数一-019",
+  "options": {}
+}

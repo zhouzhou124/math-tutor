@@ -1,0 +1,19 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设 $A$ 为 $m\\times n$ 矩阵，$B$ 为 $n\\times m$ 矩阵，$E$ 为 $m$ 阶单位矩阵，若 $AB = E$，则",
+  "standard_answer": "A",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2010",
+  "options": {
+    "A": "$r(A)=m，r(B)=m$",
+    "B": "$r(A)=m，r(B)=n$",
+    "C": "$r(A)=n，r(B)=m$",
+    "D": "$r(A)=n，r(B)=n$"
+  },
+  "correct_option": "A",
+  "question_id": "2010-数一-005"
+}

@@ -1,0 +1,13 @@
+{
+  "year": 2012,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question": "设 $\\Sigma = \\{(x,y,z) \\mid x+y+z=1, x\\ge 0, y\\ge 0, z\\ge 0\\}$，则 $$\\iint\\limits_\\Sigma y^2 dS =\\_\\_\\_\\_\\_$$",
+  "standard_answer": "$\\frac{\\sqrt{3}}{12}$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2012",
+  "question_id": "2012-数一-025",
+  "options": {}
+}

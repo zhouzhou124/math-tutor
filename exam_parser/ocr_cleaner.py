@@ -107,7 +107,7 @@ class OCRCleaner:
         text = re.sub(r'(选择|填空|解答|证明|计算)\s+(题)', r'\1\2', text)
 
         # 5. LaTeX修复
-        latex_report = self.latex_fixer.fix(text)
+        latex_report = self.latex_fixer.fix(text, ocr_mode=True)
         return latex_report.fixed
 
     def _clean_llm(self, text: str) -> str:

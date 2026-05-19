@@ -1,0 +1,13 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "设 $A = \\begin{pmatrix} \\lambda & 1 & 1 \\\\ 0 & \\lambda-1 & 0 \\\\ 1 & 1 & \\lambda \\end{pmatrix}$，$b = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$.已知线性方程组 $Ax = b$ 存在$2$个不同的解.\n$(1)$ 求 $\\lambda, a$；\n$(2)$ 求 $Ax = b$ 的通解.",
+  "standard_answer": "(I) $\\lambda = 1$，$a = -1$；(II) 通解 $x = \\begin{pmatrix} -2 \\\\ 1 \\\\ 0 \\end{pmatrix} + k\\begin{pmatrix} -1 \\\\ 0 \\\\ 1 \\end{pmatrix}$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 11,
+  "source": "manual_import_2010",
+  "question_id": "2010-数一-020",
+  "options": {}
+}

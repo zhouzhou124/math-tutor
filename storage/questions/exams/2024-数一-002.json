@@ -9,7 +9,7 @@
   ],
   "difficulty": "较难",
   "score": 5,
-  "question": "$2.$ 设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）\n\n$(A)$ $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(B)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n$(C)$ $\\iint_{\\Sigma}(\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$\n\n$(D)$ $\\iint_{\\Sigma}(-\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$",
+  "question": "设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）",
   "solution_steps": [],
   "common_mistakes": [],
   "tags": [
@@ -17,11 +17,12 @@
   ],
   "source": "manual_2024",
   "options": {
-    "A": "A",
-    "B": "B",
-    "C": "C",
-    "D": "D"
+    "A": "$\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$",
+    "B": "$\\iint_{\\Sigma}(-\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$",
+    "C": "$\\iint_{\\Sigma}(\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$",
+    "D": "$\\iint_{\\Sigma}(-\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$"
   },
   "correct_option": "A",
-  "embedding_text": "考研数学一 2024年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 5分题 2024-数一-002"
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 5分题 2024-数一-002",
+  "standard_answer": "## 标准答案\n正确选项为 **(A)** $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$。\n\n步骤1：分析题意与确定转化方法\n本题要求将第二类曲面积分 $\\iint_{\\Sigma} P dy dz + Q dz dx$ 转化为 $dxdy$ 形式的曲面积分。已知曲面 $\\Sigma$ 为 $z=\\sqrt{1-x^2-y^2}\\ (x\\le 0,y\\ge 0)$ 的上侧。由于曲面方程能写成 $z=z(x,y)$ 的显式形式，可利用两类曲面积分之间的联系，将 $dydz$ 与 $dzdx$ 投影到 $xOy$ 平面上，转化为对 $dxdy$ 的积分。\n\n步骤2：写出曲面在指定侧的投影关系\n对于由 $z=z(x,y)$ 给出的曲面，若取上侧（法向量与 $z$ 轴正向夹角为锐角），则面积微元之间有如下关系：\n$$dydz = -z_x\\,dxdy,\\quad dzdx = -z_y\\,dxdy.$$\n这是因为有向曲面微元 $(dydz, dzdx, dxdy) = \\left(\\frac{\\cos\\alpha}{\\cos\\gamma},\\frac{\\cos\\beta}{\\cos\\gamma},1\\right)dxdy$，而法向量为 $(-z_x,-z_y,1)$，其方向余弦满足 $\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n步骤3：计算偏导数 $z_x$ 与 $z_y$\n由 $z=\\sqrt{1-x^2-y^2}$，分别对 $x$ 和 $y$ 求偏导：\n$$z_x = \\frac{1}{2\\sqrt{1-x^2-y^2}}\\cdot(-2x) = -\\frac{x}{z},$$\n$$z_y = \\frac{1}{2\\sqrt{1-x^2-y^2}}\\cdot(-2y) = -\\frac{y}{z}.$$\n\n步骤4：代入投影关系并化简\n将 $z_x, z_y$ 代入步骤2的公式：\n$$dydz = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,$$\n$$dzdx = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.$$\n于是原积分化为：\n$$\\iint_{\\Sigma} P\\,dydz + Q\\,dzdx = \\iint_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy = \\iint_{\\Sigma}\\left(\\frac{x}{z}P+\\frac{y}{z}Q\\right)dxdy.$$\n这与选项 (A) 完全一致。\n\n## 关键知识点\n1. **两类曲面积分的转化**：掌握由 $z=z(x,y)$ 上侧时 $dydz=-z_x dxdy$、$dzdx=-z_y dxdy$ 的公式，其本质是法向量的方向余弦之比。\n2. **曲面侧的判断**：上侧对应法向量与 $z$ 轴正向成锐角，即 $\\cos\\gamma>0$，决定了投影公式中的正负号。\n3. **隐函数或显函数求偏导**：准确计算 $z=\\sqrt{1-x^2-y^2}$ 的偏导数，注意复合函数求导法则及化简。\n\n## 易错提示\n1. **符号错误**：上侧对应 $dydz = -z_x dxdy$，如果误记成 $+z_x$ 会错选 (C) 或 (D)。务必熟练掌握侧与符号的对应关系。\n2. **偏导数计算失误**：求 $z_x$ 时容易漏掉负号，导致 $\\frac{x}{z}$ 前符号错误，可能会错选含 $-\\frac{x}{z}$ 的选项。\n3. **忽略曲面范围**：题目中 $x\\le 0,y\\ge 0$ 只界定积分区域，不影响微元转化公式本身的形式。转化公式对整张曲面均成立，只需在最终计算定积分时代入区域限制。\n4. **混淆投影平面**：本题要求统一转为 $dxdy$，注意 $dydz$ 和 $dzdx$ 均要正确转为 $xOy$ 平面的投影，切勿将其误投影到其他坐标面。综上，正确选项为 A. $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$。解答完毕。故正确答案为 (A)。解答完毕。"
 }

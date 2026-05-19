@@ -1,7 +1,10 @@
 """Grading Agent — 按考研标准批改评分"""
 
+import json as _json
+
 from prompts.system_prompts import GRADING_PROMPT
 from config import GRADING_RULES
+from .solver_agent import _extract_json
 
 
 class GradingAgent:
@@ -15,7 +18,17 @@ class GradingAgent:
               student_answer: str, total_score: int = 10,
               knowledge_points: str = "", difficulty: str = "中等",
               canonical_trace=None) -> dict:
-        """标准批改入口（Engine B 主路径）。"""
+        """标准批改入口（Engine B 主路径）。双栈：先试结构化，失败回退 Markdown。"""
+        from config import USE_STRUCTURED_OUTPUT
+
+        if USE_STRUCTURED_OUTPUT:
+            result = self._grade_structured(
+                question, standard_answer, student_answer,
+                total_score, knowledge_points, difficulty, canonical_trace,
+            )
+            if result.get("success"):
+                return result
+
         return self._do_grade(question, standard_answer, student_answer,
                               total_score, knowledge_points, difficulty,
                               canonical_trace)
@@ -55,6 +68,64 @@ class GradingAgent:
             canonical_trace,
             extra_context=evidence_text,
         )
+
+    def _grade_structured(self, question: str, standard_answer: str,
+                           student_answer: str, total_score: int,
+                           knowledge_points: str, difficulty: str,
+                           canonical_trace=None) -> dict:
+        """结构化批改：LLM 输出 JSON，直接映射到结果字典"""
+        if not self.client:
+            return {"success": False}
+
+        from prompts.structured_prompts import _STRUCTURED_GRADING_PROMPT
+
+        step_total = round(total_score * 0.5, 1)
+        result_total = round(total_score * 0.5, 1)
+
+        system = _STRUCTURED_GRADING_PROMPT.format(
+            question=question, standard_answer=standard_answer,
+            student_answer=student_answer if student_answer else "（学生未作答）",
+            grading_rules=GRADING_RULES,
+            knowledge_points=knowledge_points or "未指定",
+            difficulty=difficulty,
+            step_total=step_total, result_total=result_total, total=total_score,
+        )
+
+        for attempt in range(2):
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": "请批改这位学生的作答。只输出 JSON。"},
+                    ],
+                    temperature=0.1,
+                    max_tokens=4096,
+                )
+                text = response.choices[0].message.content
+                json_text = _extract_json(text)
+                if not json_text:
+                    continue
+
+                data = _json.loads(json_text)
+                score_data = data.get("score", {})
+                return {
+                    "success": True,
+                    "total": float(score_data.get("total", 0)),
+                    "step_score": float(score_data.get("step_score", 0)),
+                    "result_score": float(score_data.get("result_score", 0)),
+                    "step_analysis": data.get("step_analysis", []),
+                    "deductions": data.get("deductions", []),
+                    "comment": data.get("comment", ""),
+                    "method_matched": data.get("method_matched", ""),
+                    "confidence": float(data.get("confidence", 0.85)),
+                    "_engine": "B_structured",
+                }
+            except Exception:
+                if attempt == 1:
+                    return {"success": False}
+
+        return {"success": False}
 
     def _do_grade(self, question: str, standard_answer: str,
                   student_answer: str, total_score: int,
@@ -111,7 +182,7 @@ class GradingAgent:
                     {"role": "user", "content": "请批改这位学生的作答。"},
                 ],
                 temperature=0.1,
-                max_tokens=2048,
+                max_tokens=4096,
             )
             text = response.choices[0].message.content
             return self._parse_grading_result(text, total_score)

@@ -1,12 +1,10 @@
-import html
-import re
 """grading_result.py — Grading result cards.
 
 Card layout:
   Score → Knowledge Points → Diagnosis → Step Comparison → Standard Solution → Recommendations
 """
 import streamlit as st
-from latex_utils import safe_latex, split_latex_text, render_ast
+from latex_utils import split_latex_text, render_ast
 
 
 def render_score_card(gr: dict, total_score: int = 10) -> None:
@@ -95,288 +93,95 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
             st.markdown(f"**薄弱知识点**: {tags}", unsafe_allow_html=True)
 
 
-def _restore_backslashes(text: str) -> str:
-    r"""恢复丢失的反斜杠。
-    
-    LLM输出或JSON传输过程中，反斜杠可能丢失或被转义。
-    例如: \x 应该是 \\x, \bigl 应该是 \\bigl
-    
-    ═══════════════════════════════════════════════
-    关键保护：防止误匹配
-    ═══════════════════════════════════════════════
-    问题：
-    1. \sin x → \s ∈ x："in" 被误认为 \in
-    2. \sqrt → \d："s" 后跟空格被误认为 \s
-    
-    解决方案：
-    - 先保护已存在的 \命令，避免它们被误处理
-    - 按长度降序排序，优先匹配长命令（如 \sqrt 优先于 \s）
-    - 使用严格的匹配条件
-    ═══════════════════════════════════════════════
-    """
-    if not text:
-        return text
-    
-    # ═══════════════════════════════════════════════
-    # 步骤1：先保护所有已存在的 \命令，避免被误处理
-    # ═══════════════════════════════════════════════
-    protected = {}
-    temp_text = text
-    cmd_count = 0
-    
-    # 匹配所有已存在的 \命令
-    existing_cmd_pattern = re.compile(r'\\[a-zA-Z]+')
-    matches = list(existing_cmd_pattern.finditer(temp_text))
-    
-    # 从后往前处理，避免位置偏移
-    for match in reversed(matches):
-        full_cmd = match.group(0)
-        placeholder = f'\x00REST{cmd_count}\x00'
-        temp_text = temp_text[:match.start()] + placeholder + temp_text[match.end():]
-        protected[placeholder] = full_cmd
-        cmd_count += 1
-    
-    # ═══════════════════════════════════════════════
-    # 步骤2：恢复丢失的反斜杠
-    # ═══════════════════════════════════════════════
-    
-    # 常见的LaTeX命令前缀，需要恢复反斜杠
-    # 使用原始字符串定义，确保反斜杠不被解释
-    latex_prefixes = (
-        r'\Biggl', r'\biggl', r'\big', r'\Bigg', r'\bigg', r'\Big',
-        r'\left', r'\right', r'\middle',
-        r'\frac', r'\sum', r'\int', r'\prod', r'\lim',
-        r'\sin', r'\cos', r'\tan', r'\log', r'\ln',
-        r'\sqrt', r'\partial',
-        r'\mathbf', r'\mathrm', r'\mathcal', r'\mathit',
-        r'\cdot', r'\times', r'\equiv', r'\approx', r'\sim',
-        r'\in', r'\subset', r'\supset', r'\cup', r'\cap',
-        r'\rightarrow', r'\leftarrow', r'\Rightarrow', r'\Leftarrow',
-        r'\alpha', r'\beta', r'\gamma', r'\delta', r'\epsilon',
-        r'\zeta', r'\eta', r'\theta', r'\iota', r'\kappa',
-        r'\lambda', r'\mu', r'\nu', r'\xi', r'\pi',
-        r'\rho', r'\sigma', r'\tau', r'\upsilon', r'\phi',
-        r'\chi', r'\psi', r'\omega',
-        r'\Gamma', r'\Delta', r'\Theta', r'\Lambda', r'\Xi',
-        r'\Pi', r'\Sigma', r'\Upsilon', r'\Phi', r'\Psi', r'\Omega',
-    )
-    
-    # 按长度降序排序，避免短命令匹配优先（如 \sqrt 优先于 \s）
-    latex_prefixes = sorted(latex_prefixes, key=len, reverse=True)
-    
-    # 匹配模式：前面不是反斜杠，后面是字母或{
-    for prefix in latex_prefixes:
-        # 获取不带反斜杠的部分
-        cmd = prefix[1:]  # 去掉开头的 \
-        
-        # 对于短命令（2个字符及以下），使用更严格的匹配条件
-        # 避免误匹配：如 "in" 在单词中间不应该被认为是 \in
-        if len(cmd) <= 2:
-            # 更严格的条件：前面是空格或行首，后面是空格、{或行尾
-            pattern = r'(?<![a-zA-Z])' + re.escape(cmd) + r'(?![a-zA-Z])'
-        else:
-            # 普通条件：前面不是反斜杠，后面跟着字母或{或空格或行尾
-            pattern = r'(?<!\\)' + re.escape(cmd) + r'(?=[a-zA-Z]|\{|\s|$)'
-        
-        # 使用 lambda 函数来避免替换字符串中的反斜杠被解释
-        temp_text = re.sub(pattern, lambda m, p=prefix: p, temp_text)
-    
-    # ═══════════════════════════════════════════════
-    # 步骤3：恢复被保护的命令
-    # ═══════════════════════════════════════════════
-    for placeholder, original in protected.items():
-        temp_text = temp_text.replace(placeholder, original)
-    
-    return temp_text
-
-
-def _split_mixed_steps(text: str) -> list:
-    """将混合的步骤文本分割成独立步骤。
-    
-    识别步骤分隔模式：
-    - #### 步骤二：
-    - 步骤二：
-    - step2:
-    - 【2分】等分数标记
-    """
-    if not text:
-        return [text]
-    
-    # 先处理可能的JSON转义问题
-    text = text.replace('\\\\', '\\')
-    
-    # 步骤分隔模式（按优先级排序）
-    # 模式1: #### 步骤X：（带分隔线的）
-    # 模式2: 步骤X：
-    # 模式3: 【X分】作为分隔符
-    # 支持中文数字（一二三四五六七八九十）和阿拉伯数字（0-9）
-    patterns = [
-        # #### 步骤二：或 #### 步骤2：（优先匹配带####的）
-        re.compile(r'(####\s*步骤[一二三四五六七八九十\d]+[：:])'),
-        # 步骤二：或 步骤2：（不带####的）
-        re.compile(r'(步骤[一二三四五六七八九十\d]+[：:])'),
-        # step2: 或 Step 2: 格式
-        re.compile(r'(\b[Ss]tep\s*\d+:)'),
-    ]
-    
-    # 使用第一个匹配的模式进行分割
-    for pattern in patterns:
-        matches = list(pattern.finditer(text))
-        if matches:
-            result = []
-            last_end = 0
-            for match in matches:
-                # 获取匹配前的内容
-                prefix = text[last_end:match.start()].strip()
-                # 获取匹配的标记
-                mark = match.group(1)
-                # 获取标记后的内容（直到下一个标记或结尾）
-                if match != matches[-1]:
-                    content = text[match.end():matches[matches.index(match)+1].start()].strip()
-                else:
-                    content = text[match.end():].strip()
-                
-                # 如果前缀有内容且不是空白，作为第一个步骤
-                if last_end == 0 and prefix:
-                    result.append(prefix)
-                
-                # 添加标记+内容
-                step_content = mark + content
-                if step_content.strip():
-                    result.append(step_content)
-                
-                last_end = match.end()
-            
-            # 过滤空内容
-            return [p.strip() for p in result if p.strip()]
-    
-    # 如果没有找到步骤标记，尝试按特殊标记分割
-    # 检查是否包含多个步骤混在一起的标记
-    if '####' in text:
-        parts = re.split(r'####+', text)
-        return [p.strip() for p in parts if p.strip()]
-    
-    return [text]
-
-
 def render_standard_solution(solution: dict) -> None:
     """Standard solution card — collapsed by default."""
     steps = solution.get("steps") or []
     answer = solution.get("standard_answer", "")
 
-    if not steps and not answer:
-        return
+    # Check structured data first (may have content even when legacy steps/answer are empty).
+    # Prefer the current solution payload over session state to avoid rendering stale answers
+    # after a new grading run.
+    structured = solution.get("_structured") or st.session_state.get("standard_answer_structured")
 
-    # 去重步骤：移除内容完全相同的重复步骤
-    unique_steps = []
-    seen_contents = set()
-    for step in steps:
-        if isinstance(step, dict):
-            content = step.get("content", "")
+    if not steps and not answer:
+        if isinstance(structured, dict) and structured.get("steps"):
+            pass  # Has structured data, proceed to rendering
         else:
-            content = str(step)
-        # 只保留内容不重复的步骤
-        if content and content not in seen_contents:
-            seen_contents.add(content)
-            unique_steps.append(step)
-    steps = unique_steps
+            # Truly no content available
+            with st.expander("📖 查看标准解法", expanded=False):
+                st.info("暂无标准解法数据")
+            return
 
     with st.expander("📖 查看标准解法", expanded=False):
-        if steps:
-            for i, step in enumerate(steps):
-                if isinstance(step, dict):
-                    label = step.get("label", f"步骤{i+1}")
-                    step_content = step.get("content", "")
-                else:
-                    label = f"步骤{i+1}"
-                    step_content = str(step)
-                
-                if step_content:
-                    # 恢复丢失的反斜杠
-                    step_content = _restore_backslashes(step_content)
-                    
-                    # 检查是否包含多个步骤混在一起
-                    sub_steps = _split_mixed_steps(step_content)
-                    
-                    if len(sub_steps) > 1:
-                        # 多个子步骤，分开渲染
-                        for j, sub_step in enumerate(sub_steps):
-                            # 尝试提取标签
-                            label_match = re.match(r'(步骤[一二三四五六七八九十\d]+[：:]|####\s*步骤[一二三四五六七八九十\d]+[：:])', sub_step)
-                            if label_match:
-                                sub_label = label_match.group(1)
-                                sub_content = sub_step[len(sub_label):].strip()
-                            else:
-                                sub_label = f"{label}-{j+1}"
-                                sub_content = sub_step
-                            
-                            st.markdown(f"**{sub_label}**")
-                            try:
-                                segments = split_latex_text(sub_content)
-                                render_ast(segments)
-                            except Exception:
-                                # 使用 STLatexRenderer 正确渲染 LaTeX
-                                try:
-                                    from rendering.renderers.st_latex_renderer import STLatexRenderer
-                                    STLatexRenderer.render(sub_content)
-                                except Exception:
-                                    try:
-                                        safe = safe_latex(sub_content)
-                                        st.markdown(safe)
-                                    except Exception:
-                                        st.markdown(sub_content)
-                            # 添加分隔线
-                            if j < len(sub_steps) - 1:
-                                st.markdown("---")
-                    else:
-                        # 单个步骤，正常渲染
-                        st.markdown(f"**{label}**")
-                        try:
-                            segments = split_latex_text(step_content)
-                            render_ast(segments)
-                        except Exception as e:
-                            # 使用 STLatexRenderer 正确渲染 LaTeX
-                            try:
-                                from rendering.renderers.st_latex_renderer import STLatexRenderer
-                                STLatexRenderer.render(step_content)
-                            except Exception:
-                                try:
-                                    safe = safe_latex(step_content)
-                                    st.markdown(safe)
-                                except Exception:
-                                    st.markdown(step_content)
-                    
-                    # 步骤之间添加分隔线
-                    if i < len(steps) - 1:
-                        st.markdown("---")
-
-        elif answer:
-            # 没有步骤，只有答案
-            import re as _re
-            answer = _restore_backslashes(answer)
-            
-            # Normalize LaTeX: fix inconsistent formatting
-            try:
-                from latex_normalizer import normalize_latex_style
-                answer = normalize_latex_style(answer)
-            except Exception:
-                pass
-            
-            st.markdown("**答案**")
-            try:
-                segments = split_latex_text(answer)
-                render_ast(segments)
-            except Exception:
-                # 使用 STLatexRenderer 正确渲染 LaTeX
+        # ── 优先：结构化渲染路径 ──
+        if isinstance(structured, dict):
+            # 检查是否有步骤
+            struct_steps = structured.get("steps", [])
+            if struct_steps:
                 try:
-                    from rendering.renderers.st_latex_renderer import STLatexRenderer
-                    STLatexRenderer.render(answer)
+                    from latex_utils import render_structured_safe, validate_structured
+                    is_valid, _ = validate_structured(structured)
+                    if is_valid:
+                        render_structured_safe(structured)
+                        return
+                except Exception:
+                    pass
+            else:
+                # 结构化数据存在但没有步骤，尝试获取最终答案
+                fa = structured.get("final_answer", {})
+                if fa and isinstance(fa, dict):
+                    fa_content = fa.get("content", "")
+                    if fa_content:
+                        answer = fa_content
+
+        # ── 回退：将 steps + answer 组装为统一文本 ──
+        content_parts = []
+        for i, step in enumerate(steps):
+            if isinstance(step, dict):
+                label = step.get("label", f"步骤{i+1}")
+                if step.get("content"):
+                    content_parts.append(f"### {label}\n{step['content']}")
+                elif step.get("blocks"):
+                    block_texts = []
+                    for b in step["blocks"]:
+                        bc = str(b.get("content", ""))
+                        # Safety: never render dict/list as text
+                        if b.get("type") == "latex" and bc:
+                            block_texts.append(f"${bc}$")
+                        elif bc:
+                            block_texts.append(bc)
+                    if block_texts:
+                        content_parts.append(f"### {label}\n" + "\n".join(block_texts))
+                # If step has neither content nor blocks, skip it (don't str() it)
+            elif isinstance(step, str):
+                content_parts.append(f"### 步骤{i+1}\n{step}")
+        
+        # 确保最终答案被添加
+        if answer and isinstance(answer, str) and answer.strip():
+            # 如果没有步骤，只显示答案会显得单薄，添加一些说明
+            if not content_parts:
+                content_parts.append("### 标准解答")
+            content_parts.append(f"**最终答案**：{answer}")
+
+        if content_parts:
+            raw = "\n\n".join(content_parts)
+            try:
+                from latex_utils import from_legacy_text, render_structured_safe
+                render_structured_safe(from_legacy_text(raw))
+            except Exception:
+                try:
+                    from latex_utils import split_latex_text, render_ast
+                    render_ast(split_latex_text(raw))
                 except Exception:
                     try:
-                        safe = safe_latex(answer)
-                        st.markdown(safe)
+                        from latex_utils import safe_render
+                        safe_render(raw)
                     except Exception:
-                        st.markdown(answer)
+                        # Absolute last resort: plain text, refuse JSON-like content
+                        if '"blocks"' in raw or '"type"' in raw[:200]:
+                            st.error("标准解法数据结构异常，请重新批改")
+                        else:
+                            st.text(raw[:2000])
 
 
 def render_recommendations(dr: dict, question_db=None, current_question=None) -> None:
@@ -413,12 +218,15 @@ def render_recommendations(dr: dict, question_db=None, current_question=None) ->
                             qid = q.get("question_id", "")
                             qtype = q.get("question_type", "")
                             year = q.get("year", "")
-                            st.button(
+                            if st.button(
                                 f"📝 {qid}",
                                 key=f"similar_q_{qid}",
-                                use_container_width=True,
+                                width="stretch",
                                 help=f"{year}年 {qtype}"
-                            )
+                            ):
+                                st.session_state.selected_question = q
+                                st.session_state.page = "practice"
+                                st.rerun()
             except Exception as e:
                 # 如果推荐功能不可用，显示原有提示
                 st.caption("建议在错题本中查看同类题目进行针对性练习")
@@ -469,19 +277,18 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
 
 
 def _render_step_comparison_body(gr: dict) -> None:
-    """Step comparison body — rendered inside expander."""
-    import html as _html
+    """Step comparison body — renders each step with proper text/latex separation."""
     steps = gr.get("step_analysis") or []
     if not steps:
         return
 
     h1, h2, h3 = st.columns([1, 0.15, 1])
     with h1:
-        st.markdown("<span style='color:#64748b;font-size:0.78rem;font-weight:700;'>📝 你的作答</span>", unsafe_allow_html=True)
+        st.caption("📝 你的作答")
     with h2:
         st.markdown("")
     with h3:
-        st.markdown("<span style='color:#64748b;font-size:0.78rem;font-weight:700;'>📋 标准步骤</span>", unsafe_allow_html=True)
+        st.caption("📋 标准步骤")
 
     for s in steps:
         num = s.get("num", "?")
@@ -491,31 +298,41 @@ def _render_step_comparison_body(gr: dict) -> None:
         comment = s.get("comment", "")
 
         if judgment == "正确":
-            icon, jcolor = "✅", "#16a34a"
+            icon = "✅"
         elif "缺失" in str(judgment) or "错误" in str(judgment):
-            icon, jcolor = "❌", "#dc2626"
+            icon = "❌"
         else:
-            icon, jcolor = "⚠️", "#f59e0b"
+            icon = "⚠️"
 
         student_desc = comment if comment else judgment
-        bg = {"#dc2626": "#fef2f2", "#16a34a": "#f0fdf4", "#f59e0b": "#fffbeb"}.get(jcolor, "#f8fafc")
 
         c1, c2, c3 = st.columns([1, 0.15, 1])
         with c1:
-            st.markdown(
-                f"<div style='padding:8px;border-radius:8px;background:{bg};"
-                f"border-left:3px solid {jcolor};'>"
-                f"<span style='font-size:0.82rem;color:#334155;'>{_html.escape(student_desc[:120])}</span>"
-                f"</div>", unsafe_allow_html=True)
+            _render_text_or_latex(student_desc)
         with c2:
             st.markdown(f"<div style='text-align:center;font-size:1.2em;'>{icon}</div>", unsafe_allow_html=True)
         with c3:
-            st.markdown(
-                f"<div style='padding:8px;border-radius:8px;background:#f8fafc;"
-                f"border-left:3px solid #3b82f6;'>"
-                f"<span style='font-size:0.8rem;color:#64748b;font-weight:600;'>步骤{num}</span><br>"
-                f"<span style='font-size:0.82rem;color:#334155;'>{_html.escape(content[:120])}</span>"
-                f"</div>", unsafe_allow_html=True)
+            st.caption(f"步骤{num}")
+            _render_text_or_latex(content)
         st.caption(f"得分: {score_str}分")
         if s != steps[-1]:
             st.markdown("---")
+
+
+def _render_text_or_latex(text: str) -> None:
+    """Render content with proper text/latex block separation.
+
+    If content contains LaTeX commands → split and render block by block.
+    If content is plain text → render as markdown.
+    """
+    if not text:
+        return
+    try:
+        from latex_utils import split_latex_text, render_ast
+        segments = split_latex_text(str(text))
+        if len(segments) == 1 and segments[0].get("type") == "text":
+            st.markdown(segments[0]["content"])
+        else:
+            render_ast(segments)
+    except Exception:
+        st.markdown(str(text))

@@ -221,10 +221,12 @@ class LaTeXParser:
             return text
 
         # 修复常见的格式问题
-        # 1. 修复破损的 $ 配对
-        dollar_count = text.count('$') - text.count('$$') * 2
-        if dollar_count % 2 != 0:
-            text = text.rstrip('$') + '$'
+        # 1. 修复破损的 $ 配对 — only append if the unmatched $ is at the end
+        inline_dollars = text.count('$') - text.count('$$') * 2
+        if inline_dollars % 2 != 0 and text.rstrip().endswith('$'):
+            pass  # already ends with $, no fix needed
+        elif inline_dollars % 2 != 0:
+            text = text.rstrip() + '$'
 
         # 2. 规范化空格
         text = re.sub(r'\\ +', r'\\ ', text)  # 多个空格合并

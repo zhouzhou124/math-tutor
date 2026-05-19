@@ -1,0 +1,13 @@
+[server]
+# 允许手机/平板通过局域网 IP 访问（同一 WiFi）
+address = "0.0.0.0"
+port = 8501
+headless = true
+# 禁用文件保存时热重载，避免残留 worker 进程堆积
+runOnSave = false
+
+# 限制上传大小，按需调整
+maxUploadSize = 50
+
+[browser]
+gatherUsageStats = false

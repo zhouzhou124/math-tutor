@@ -4,20 +4,8 @@ import streamlit as st
 import time
 from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, LLM_BASE_URL, KNOWLEDGE_POINTS, LLM_MODEL
 from agents import OCR_Agent, SolverAgent
-from ._shared import chip as _chip
+from ._shared import chip as _chip, get_client
 from renderers import render_question
-from llm_client import create_client
-
-
-def _get_client():
-    """Get or create LLM client."""
-    if st.session_state.llm_client is None and st.session_state.get("api_key"):
-        st.session_state.llm_client = create_client(
-            api_key=st.session_state.api_key,
-            base_url=st.session_state.get("base_url", LLM_BASE_URL),
-            protocol=st.session_state.get("protocol", "openai"),
-        )
-    return st.session_state.llm_client
 
 
 def render_practice_page(db):
@@ -134,10 +122,9 @@ def render_practice_page(db):
         elif has_option and qt == "选择题":
             st.success(f"✓ 已选择选项 {st.session_state.selected_option}")
 
-        # ── 提交按钮 ──
-        if st.button("🚀 提交批改", type="primary", use_container_width=True,
-                     disabled=not can_submit):
-            client = _get_client()
+        # ── 提交按钮（始终可点击，允许空作答查看答案）──
+        if st.button("🚀 提交批改", type="primary", use_container_width=True):
+            client = get_client()
             if client is None:
                 st.warning("请先在「系统设置」中配置 API Key")
             else:
@@ -333,7 +320,7 @@ def render_practice_page(db):
 
             if st.button("🔍 识别并批改", type="primary", use_container_width=True,
                          disabled=not question_file):
-                client = _get_client()
+                client = get_client()
                 if client is None:
                     st.warning("请先在「系统设置」中配置 API Key")
                 else:
@@ -413,7 +400,7 @@ def render_practice_page(db):
 
             if st.button("🚀 提交批改", type="primary", use_container_width=True,
                          disabled=not (question_text and student_answer)):
-                    client = _get_client()
+                    client = get_client()
                     if client is None:
                         st.warning("请先在「系统设置」中配置 API Key")
                     else:
@@ -430,7 +417,7 @@ def render_practice_page(db):
                         st.session_state.answer_view_mode = False
                         st.session_state.page = "grading"
                         st.rerun()
-            
+
             # 验证学生答案是否为空
             if question_text and not student_answer:
                 st.warning("⚠️ 请输入你的解答后再提交批改")

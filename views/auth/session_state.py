@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import json
 import hashlib
 from pathlib import Path
@@ -55,11 +56,18 @@ def init_user_session(user: User, remember: bool = False):
     from database import QuestionDB
     st.session_state.question_db = QuestionDB()
     
-    # AI 记忆服务
+    # AI 记忆服务 — Supabase 优先（云端持久），不可用时回退本地 JSON
     from services import MemoryService
     db_path = Path("storage/math_tutor.db")
     data_dir = Path("storage/data")
-    st.session_state.memory = MemoryService(db_path, data_dir)
+    supabase_url = os.getenv("SUPABASE_URL", "") or getattr(st.secrets, "SUPABASE_URL", "")
+    supabase_key = os.getenv("SUPABASE_KEY", "") or getattr(st.secrets, "SUPABASE_KEY", "")
+    if supabase_url and supabase_key:
+        st.session_state.memory = MemoryService.with_supabase(
+            db_path, data_dir, supabase_url, supabase_key
+        )
+    else:
+        st.session_state.memory = MemoryService(db_path, data_dir)
     
     # LLM 客户端（延迟初始化）
     st.session_state.llm_client = None

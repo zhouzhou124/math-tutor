@@ -210,6 +210,93 @@ class UnifiedRenderer:
 
     def _fix_latex(self, text: str) -> str:
         try:
+            # 首先将 HTML 实体直接替换为 LaTeX 命令（在 unescape 之前）
+            html_to_latex = {
+                '&times;': r'\times',
+                '&times': r'\times',
+                '&RightArrow;': r'\Rightarrow',
+                '&RightArrow': r'\Rightarrow',
+                '&rightarrow;': r'\rightarrow',
+                '&rightarrow': r'\rightarrow',
+                '&le;': r'\le',
+                '&le': r'\le',
+                '&ge;': r'\ge',
+                '&ge': r'\ge',
+                '&lt;': r'\lt',
+                '&lt': r'\lt',
+                '&gt;': r'\gt',
+                '&gt': r'\gt',
+                '&ne;': r'\ne',
+                '&ne': r'\ne',
+                '&equiv;': r'\equiv',
+                '&equiv': r'\equiv',
+                '&approx;': r'\approx',
+                '&approx': r'\approx',
+                '&sum;': r'\sum',
+                '&sum': r'\sum',
+                '&int;': r'\int',
+                '&int': r'\int',
+                '&infty;': r'\infty',
+                '&infty': r'\infty',
+                '&partial;': r'\partial',
+                '&partial': r'\partial',
+                '&cdot;': r'\cdot',
+                '&cdot': r'\cdot',
+                '&alpha;': r'\alpha',
+                '&alpha': r'\alpha',
+                '&beta;': r'\beta',
+                '&beta': r'\beta',
+                '&gamma;': r'\gamma',
+                '&gamma': r'\gamma',
+                '&delta;': r'\delta',
+                '&delta': r'\delta',
+                '&epsilon;': r'\varepsilon',
+                '&epsilon': r'\varepsilon',
+                '&zeta;': r'\zeta',
+                '&zeta': r'\zeta',
+                '&eta;': r'\eta',
+                '&eta': r'\eta',
+                '&theta;': r'\theta',
+                '&theta': r'\theta',
+                '&iota;': r'\iota',
+                '&iota': r'\iota',
+                '&kappa;': r'\kappa',
+                '&kappa': r'\kappa',
+                '&lambda;': r'\lambda',
+                '&lambda': r'\lambda',
+                '&mu;': r'\mu',
+                '&mu': r'\mu',
+                '&nu;': r'\nu',
+                '&nu': r'\nu',
+                '&xi;': r'\xi',
+                '&xi': r'\xi',
+                '&pi;': r'\pi',
+                '&pi': r'\pi',
+                '&rho;': r'\rho',
+                '&rho': r'\rho',
+                '&sigma;': r'\sigma',
+                '&sigma': r'\sigma',
+                '&tau;': r'\tau',
+                '&tau': r'\tau',
+                '&upsilon;': r'\upsilon',
+                '&upsilon': r'\upsilon',
+                '&phi;': r'\phi',
+                '&phi': r'\phi',
+                '&chi;': r'\chi',
+                '&chi': r'\chi',
+                '&psi;': r'\psi',
+                '&psi': r'\psi',
+                '&omega;': r'\omega',
+                '&omega': r'\omega',
+            }
+            
+            for html_entity, latex_cmd in html_to_latex.items():
+                text = text.replace(html_entity, latex_cmd)
+            
+            # 然后解码剩余的 HTML 实体
+            from html import unescape
+            text = unescape(text)
+            
             from exam_parser.latex_fixer import LaTeXFixer
             fixer = LaTeXFixer()
             report = fixer.fix(text)
@@ -255,85 +342,275 @@ class UnifiedRenderer:
         if not text:
             return text
 
-        in_math_region = [False] * len(text)
+        n = len(text)
+        in_math_region = [False] * n
 
         double_dollar_pattern = r'\$\$.*?\$\$'
         for m in re.finditer(double_dollar_pattern, text, re.DOTALL):
-            for i in range(m.start(), min(m.end(), len(in_math_region))):
+            for i in range(m.start(), min(m.end(), n)):
                 in_math_region[i] = True
 
         single_dollar_pattern = r'(?<!\$)\$[^$\n]+?\$(?!\$)'
         for m in re.finditer(single_dollar_pattern, text):
             is_in_double = False
-            for i in range(m.start(), min(m.end(), len(in_math_region))):
+            for i in range(m.start(), min(m.end(), n)):
                 if in_math_region[i]:
                     is_in_double = True
                     break
             if not is_in_double:
-                for i in range(m.start(), min(m.end(), len(in_math_region))):
+                for i in range(m.start(), min(m.end(), n)):
                     in_math_region[i] = True
 
+        # 定义中文标点符号
+        chinese_punctuation = set('，。！？；：""''（）【】《》、·…\n\r')
+
+        def is_chinese_char(c):
+            return '\u4e00' <= c <= '\u9fff'
+
+        def find_closing_paren(start_pos, open_char, close_char):
+            """查找匹配的闭合括号"""
+            count = 1
+            pos = start_pos + 1
+            while pos < n and count > 0:
+                if text[pos] == open_char:
+                    count += 1
+                elif text[pos] == close_char:
+                    count -= 1
+                pos += 1
+            if count == 0:
+                return pos - 1
+            return -1
+
         bare_matches = []
-        n = len(text)
-        i = 0
+        pos = 0
 
-        while i < n:
-            if i < n and in_math_region[i]:
-                while i < n and in_math_region[i]:
-                    i += 1
-                continue
+        while pos < n:
+            # 跳过空白和已标记区域
+            while pos < n and (text[pos] in ' \t\n\r' or in_math_region[pos]):
+                pos += 1
+            
+            if pos >= n:
+                break
 
-            if i < n and text[i] == '\\' and i + 1 < n and text[i + 1].isalpha():
-                cmd_end = i + 1
-                while cmd_end < n and text[cmd_end].isalpha():
-                    cmd_end += 1
-
-                cmd = text[i:cmd_end]
-
-                if cmd in {'\\quad', '\\qquad', '\\hspace', '\\vspace', '\\hfill', '\\vfill'}:
-                    i = cmd_end
+            # 模式1: 查找以 \命令 开头的数学表达式
+            if text[pos] == '\\' and pos + 1 < n and text[pos + 1].isalpha():
+                cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+                cmd_match = cmd_pattern.match(text, pos)
+                if cmd_match:
+                    cmd = cmd_match.group(0)
+                    
+                    # 跳过纯间距命令
+                    skip_commands = {'\\quad', '\\qquad', '\\hspace', '\\vspace', '\\hfill', '\\vfill'}
+                    if cmd in skip_commands:
+                        pos = cmd_match.end()
+                        continue
+                    
+                    # 找到命令后的花括号内容
+                    brace_count = 0
+                    paren_count = 0
+                    end_pos = cmd_match.end()
+                    while end_pos < n:
+                        c = text[end_pos]
+                        if c == '{':
+                            brace_count += 1
+                        elif c == '}':
+                            brace_count -= 1
+                        elif c == '(':
+                            paren_count += 1
+                        elif c == ')':
+                            paren_count -= 1
+                        elif c == '\\' and end_pos + 1 < n and text[end_pos + 1].isalpha():
+                            pass
+                        
+                        end_pos += 1
+                        
+                        # 当所有括号都匹配完毕时检查是否应该结束
+                        if brace_count == 0 and paren_count == 0:
+                            temp_pos = end_pos
+                            while temp_pos < n and text[temp_pos] in ' \t':
+                                temp_pos += 1
+                            
+                            if temp_pos >= n:
+                                break
+                            
+                            next_char = text[temp_pos]
+                            if is_chinese_char(next_char) or next_char in chinese_punctuation:
+                                break
+                    
+                    # 检查是否找到有效区域
+                    is_valid = True
+                    for i in range(pos, min(end_pos, n)):
+                        if in_math_region[i]:
+                            is_valid = False
+                            break
+                    
+                    if is_valid:
+                        content = text[pos:end_pos].strip()
+                        if content and len(content) > 1:
+                            bare_matches.append((pos, end_pos))
+                    
+                    pos = end_pos
                     continue
-
-                start = i
-                brace_stack = []
-                j = cmd_end
-                in_expression = True
-
-                while j < n and in_expression:
-                    if in_math_region[j]:
-                        break
-
-                    c = text[j]
-
-                    if c == '{':
-                        brace_stack.append('{')
-                    elif c == '}':
-                        if brace_stack:
-                            brace_stack.pop()
-                    elif c == '\\':
-                        pass
-
-                    if not brace_stack:
-                        next_pos = j + 1
-                        while next_pos < n and text[next_pos] in ' \t':
-                            next_pos += 1
-
-                        if next_pos >= n:
-                            in_expression = False
+            
+            # 模式2: 查找以字母开头后面跟着 ( 的函数调用
+            if text[pos].isalpha() and pos + 1 < n and text[pos + 1] == '(':
+                # 找到函数名
+                func_end = pos + 1
+                while func_end < n and text[func_end - 1].isalpha():
+                    func_end += 1
+                
+                # 找到匹配的闭合括号
+                close_paren = find_closing_paren(pos + 1, '(', ')')
+                if close_paren >= 0:
+                    # 这是一个函数调用，继续查找后面的数学内容
+                    end_pos = close_paren + 1
+                    
+                    # 继续查找后面的数学表达式（如 =, +, -, \命令等）
+                    while end_pos < n:
+                        # 检查是否应该结束
+                        temp_pos = end_pos
+                        while temp_pos < n and text[temp_pos] in ' \t':
+                            temp_pos += 1
+                        
+                        if temp_pos >= n:
+                            break
+                        
+                        next_char = text[temp_pos]
+                        if is_chinese_char(next_char) or next_char in chinese_punctuation:
+                            break
+                        
+                        # 检查是否是数学相关字符
+                        if next_char == '\\' and temp_pos + 1 < n and text[temp_pos + 1].isalpha():
+                            # 遇到 \命令，继续扩展
+                            cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+                            cmd_match = cmd_pattern.match(text, temp_pos)
+                            if cmd_match:
+                                brace_count = 0
+                                paren_count = 0
+                                cmd_end = cmd_match.end()
+                                while cmd_end < n:
+                                    c = text[cmd_end]
+                                    if c == '{':
+                                        brace_count += 1
+                                    elif c == '}':
+                                        brace_count -= 1
+                                    elif c == '(':
+                                        paren_count += 1
+                                    elif c == ')':
+                                        paren_count -= 1
+                                    cmd_end += 1
+                                    if brace_count == 0 and paren_count == 0:
+                                        temp_pos_check = cmd_end
+                                        while temp_pos_check < n and text[temp_pos_check] in ' \t':
+                                            temp_pos_check += 1
+                                        if temp_pos_check >= n or is_chinese_char(text[temp_pos_check]) or text[temp_pos_check] in chinese_punctuation:
+                                            break
+                                end_pos = cmd_end
+                            else:
+                                end_pos += 1
+                        elif next_char.isalpha() or next_char.isdigit() or next_char in '+-*/=<>^_()[]{}':
+                            end_pos += 1
                         else:
-                            next_char = text[next_pos]
-                            if '\u4e00' <= next_char <= '\u9fff' or next_char in '，。！？；：""''（）【】《》、·…\n\r':
-                                in_expression = False
-
-                    j += 1
-
-                matched_text = text[start:j].strip()
-                if len(matched_text) > 1:
-                    bare_matches.append((start, j))
-
-                i = j
-            else:
-                i += 1
+                            break
+                    
+                    # 检查是否与已有数学区域重叠
+                    is_valid = True
+                    for i in range(pos, min(end_pos, n)):
+                        if in_math_region[i]:
+                            is_valid = False
+                            break
+                    
+                    if is_valid:
+                        content = text[pos:end_pos].strip()
+                        if content and len(content) > 1:
+                            bare_matches.append((pos, end_pos))
+                    
+                    pos = end_pos
+                    continue
+            
+            # 模式3: 查找以字母开头后面跟着 = 的变量赋值
+            if text[pos].isalpha():
+                # 找到变量名（包括下标如 F_x）
+                var_end = pos + 1
+                while var_end < n:
+                    c = text[var_end]
+                    if c.isalpha() or c.isdigit() or c == '_':
+                        var_end += 1
+                    else:
+                        break
+                
+                # 检查后面是否是 =
+                temp_pos = var_end
+                while temp_pos < n and text[temp_pos] in ' \t':
+                    temp_pos += 1
+                
+                if temp_pos < n and text[temp_pos] == '=':
+                    # 这是一个变量赋值，继续查找后面的数学内容
+                    end_pos = temp_pos + 1
+                    
+                    # 继续查找后面的数学表达式
+                    while end_pos < n:
+                        temp_pos_check = end_pos
+                        while temp_pos_check < n and text[temp_pos_check] in ' \t':
+                            temp_pos_check += 1
+                        
+                        if temp_pos_check >= n:
+                            break
+                        
+                        next_char = text[temp_pos_check]
+                        if is_chinese_char(next_char) or next_char in chinese_punctuation:
+                            break
+                        
+                        # 检查是否是数学相关字符
+                        if next_char == '\\' and temp_pos_check + 1 < n and text[temp_pos_check + 1].isalpha():
+                            # 遇到 \命令，继续扩展
+                            cmd_pattern = re.compile(r'\\[a-zA-Z]+')
+                            cmd_match = cmd_pattern.match(text, temp_pos_check)
+                            if cmd_match:
+                                brace_count = 0
+                                paren_count = 0
+                                cmd_end = cmd_match.end()
+                                while cmd_end < n:
+                                    c = text[cmd_end]
+                                    if c == '{':
+                                        brace_count += 1
+                                    elif c == '}':
+                                        brace_count -= 1
+                                    elif c == '(':
+                                        paren_count += 1
+                                    elif c == ')':
+                                        paren_count -= 1
+                                    cmd_end += 1
+                                    if brace_count == 0 and paren_count == 0:
+                                        temp_pos_check2 = cmd_end
+                                        while temp_pos_check2 < n and text[temp_pos_check2] in ' \t':
+                                            temp_pos_check2 += 1
+                                        if temp_pos_check2 >= n or is_chinese_char(text[temp_pos_check2]) or text[temp_pos_check2] in chinese_punctuation:
+                                            break
+                                end_pos = cmd_end
+                            else:
+                                end_pos += 1
+                        elif next_char.isalpha() or next_char.isdigit() or next_char in '+-*/=<>^_()[]{}':
+                            end_pos += 1
+                        else:
+                            break
+                    
+                    # 检查是否与已有数学区域重叠
+                    is_valid = True
+                    for i in range(pos, min(end_pos, n)):
+                        if in_math_region[i]:
+                            is_valid = False
+                            break
+                    
+                    if is_valid:
+                        content = text[pos:end_pos].strip()
+                        if content and len(content) > 1:
+                            bare_matches.append((pos, end_pos))
+                    
+                    pos = end_pos
+                    continue
+            
+            pos += 1
 
         if bare_matches:
             new_text = text

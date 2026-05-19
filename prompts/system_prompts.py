@@ -2472,11 +2472,11 @@ MR6: 子题编号保持 $(1)$ 格式
 
 _SAFE_BASE = UNIFIED_MATH_PROMPT.replace("{", "{{").replace("}", "}}")
 
-SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
+SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + r"""
 
-# 当前任务：生成标准解答
+# 当前任务：生成标准解答（只输出 JSON）
 
-你是考研数学命题组专家。请根据以下信息生成标准解答过程。
+你是考研数学命题组专家。只输出 JSON，禁止输出 markdown。
 
 ## 题目信息
 - 数学类别：{math_type}
@@ -2484,30 +2484,37 @@ SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
 - 知识点：{knowledge_point}
 - 题目内容：{question}
 
-## 输出要求
-1. 推导严谨，每一步都要写出，不跳步，关键步骤标注所用定理
-2. 每一步标注得分点（用【N分】标注）
-3. 如果存在多种解法，给出最优解法
-4. 最终答案用 \\boxed{{}} 框出
+## 输出格式（严格的 JSON）
 
-## 输出格式
+```json
+{{
+  "steps": [
+    {{
+      "label": "步骤1：求导",
+      "blocks": [
+        {{"type": "text", "content": "对函数求一阶导数"}},
+        {{"type": "latex", "content": "f'(x) = 3x^2 - 3", "display": "block"}}
+      ],
+      "operation": "differentiate"
+    }}
+  ],
+  "final_answer": {{"type": "latex", "content": "x = 1"}},
+  "metadata": {{
+    "knowledge_points": ["导数", "极值"],
+    "difficulty": "中等",
+    "total_score": 10,
+    "common_mistakes": ["漏解"]
+  }}
+}}
+```
 
-### 步骤一【X分】
-（推导过程）
-
-### 步骤二【X分】
-（推导过程）
-
-### 最终答案
-\\[ \\boxed{{答案}} \\]
-
-## 涉及知识点
-- 知识点1
-- 知识点2
-
-## 常见错误提醒
-- 易错点1
-- 易错点2
+## 字段规则
+- steps: 解题步骤数组，每个步骤有 label、blocks（text/latex 块数组）、operation
+- block.type: "text"（纯文本，不含 LaTeX）或 "latex"（纯 LaTeX，不含中文）
+- block.display: "inline" 或 "block"
+- latex 块中**严禁出现 $ 符号**。$ 会导致 KaTeX 嵌套数学模式崩溃。系统使用 st.latex() 渲染，已自动进入数学模式，不需要也不允许 $ 包裹
+- LaTeX 反斜杠在 JSON 中必须双写：\frac → \\frac
+- operation: classify / recall / substitute / simplify / expand / factor / differentiate / integrate / solve / evaluate / apply_theorem / transform / conclude / check
 """
 
 CANONICAL_SOLVE_PROMPT = CORE_MATH_SEMANTIC_PROMPT + """
@@ -2701,29 +2708,22 @@ GRADING_PROMPT = _SAFE_BASE + """
 8. 总分必须精确到小数点后一位
 9. 明确指出学生在知识点上的掌握程度
 
-## 输出格式
+## 输出格式（严格的 JSON，禁止 markdown）
 
-### 评分总览
-| 项目 | 得分 |
-|------|------|
-| 步骤分 | X / {step_total} |
-| 结果分 | X / {result_total} |
-| 总分 | X / {total} |
+```json
+{{
+  "score": {{"step_score": 0.0, "result_score": 0.0, "total": 0.0}},
+  "step_analysis": [
+    {{"num": 1, "content": "学生步骤摘要", "judgment": "正确", "score": "3.0/5.0", "comment": "评语"}}
+  ],
+  "deductions": [{{"reason": "错误原因", "points": 2.0}}],
+  "comment": "整体评价，一句中文",
+  "method_matched": "",
+  "confidence": 0.85
+}}
+```
 
-### 逐步骤分析
-按以下格式逐步骤分析：
-
-### 步骤1：（学生作答内容摘要）
-- 判断：✓正确 / ~部分正确 / ✗错误
-- 得分：X分 / 满分Y分
-- 评语：（扣分原因或肯定）
-
-### 扣分汇总
-- 扣分项1：类型（概念/计算/推导），扣X分
-- 扣分项2：...
-
-### 整体评价
-（一句话总结）
+judgment 只取："正确" / "部分正确" / "错误"
 """ + SEMANTIC_EQUIVALENCE_GRADING_RULES.replace("{", "{{").replace("}", "}}")
 
 DIAGNOSIS_PROMPT = _SAFE_BASE + """
@@ -2754,23 +2754,20 @@ DIAGNOSIS_PROMPT = _SAFE_BASE + """
 4. 对比历史记录，判断是否为高频/重复错误
 5. 如果同一知识点连续出错 ≥2 次，必须明确警告
 
-## 输出格式
+## 输出格式（严格的 JSON，禁止 markdown）
 
-### 错误类型
-（主类型 + 副类型，如果有）
-
-### 根本原因
-（深入分析，2-3句话）
-
-### 是否高频错误
-是/否 — （说明，如"该知识点近30天内出错3次"）
-
-### 是否影响后续学习
-是/否 — （说明影响哪个章节）
-
-### 薄弱知识点
-- 知识点1（掌握程度：弱/中等）
-- 知识点2
+```json
+{{
+  "error_type": "概念错误",
+  "root_cause": "根本原因分析，2-3句中文",
+  "weak_points": ["薄弱知识点1", "薄弱知识点2"],
+  "recommendations": ["改进建议1"],
+  "common_mistakes": ["常见错误1"],
+  "is_repeat": false,
+  "affects_future": false,
+  "knowledge_points": ["涉及的知识点"]
+}}
+```
 """ + SEMANTIC_EQUIVALENCE_GRADING_RULES.replace("{", "{{").replace("}", "}}")
 
 OCR_CLEANUP_PROMPT = _SAFE_BASE + """

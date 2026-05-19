@@ -1,0 +1,12 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "求函数 $f(x) = \\int_1^{x^2} (x^2 - t) e^{-t^2} dt$ 的单调区间与极值。",
+  "standard_answer": "单调递增区间为 $(-\\infty,0)$ 和 $(1,+\\infty)$，单调递减区间为 $(0,1)$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2010",
+  "question_id": "2010-数一-016"
+}

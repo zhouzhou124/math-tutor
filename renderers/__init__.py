@@ -10,6 +10,16 @@
   数据层      → QuestionDB / CanonicalTrace
 """
 
+from question_ast import QuestionAST, parse_legacy
+
+
+def to_ast(q) -> QuestionAST:
+    """Convert dict or QuestionAST to QuestionAST. Shared by all renderers."""
+    if isinstance(q, QuestionAST):
+        return q
+    return parse_legacy(q)
+
+
 from .question_renderer import (
     render_question,            # 推荐入口：题型感知分发
     render_solution_question,   # 解答题

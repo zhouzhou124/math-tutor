@@ -1,21 +1,18 @@
 """fill_renderer.py — Fill-in-the-blank question renderer."""
 import streamlit as st
-from latex_utils import safe_latex, split_latex_text, render_ast
-from question_ast import QuestionAST, parse_legacy
+from math_sanitizer import safe_latex
+from latex_utils import split_latex_text, render_ast
 from renderers.components import (
     CardOpen, CardClose, render_actions, render_meta_tags,
 )
 
 
-def _to_ast(q) -> QuestionAST:
-    if isinstance(q, QuestionAST):
-        return q
-    return parse_legacy(q)
+from . import to_ast as _to_ast
 
 
 def render_fill_question(q, show_answer: bool = False, show_actions: bool = True) -> None:
     ast = _to_ast(q)
-    qid = CardOpen(ast) if show_actions else ast.question_id
+    qid = CardOpen(ast)
 
     if ast.stem:
         try:
@@ -37,9 +34,9 @@ def render_fill_question(q, show_answer: bool = False, show_actions: bool = True
         except Exception:
             st.markdown(f"**答案** {ast.answer}")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)  # close qcard-body
     if show_actions:
         render_actions(qid)
         CardClose()
     else:
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)  # close outer card

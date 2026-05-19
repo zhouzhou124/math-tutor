@@ -45,7 +45,7 @@ def render_login_form():
     default_remember = bool(remembered_username)
     remember_me = st.checkbox("记住登录状态", value=default_remember, key="login_remember")
 
-    if st.button("登录", use_container_width=True, key="login_btn"):
+    if st.button("登录", width="stretch", key="login_btn"):
         # 验证输入
         if not username or not password:
             st.error("请输入用户名和密码")
@@ -88,7 +88,7 @@ def render_register_form():
     password = st.text_input("密码", type="password", placeholder="请输入密码", key="register_password")
     confirm_password = st.text_input("确认密码", type="password", placeholder="请再次输入密码", key="register_confirm_password")
 
-    if st.button("注册", use_container_width=True, key="register_btn"):
+    if st.button("注册", width="stretch", key="register_btn"):
         # 验证输入
         if not username:
             st.error("请输入用户名")

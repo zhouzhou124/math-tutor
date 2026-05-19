@@ -1,7 +1,7 @@
 """grading_renderer.py — 批改结果渲染器"""
 
 import streamlit as st
-from latex_utils import safe_latex, split_latex_text, render_ast
+from latex_utils import split_latex_text, render_ast, sanitize_latex_for_render
 
 
 def render_grading_result(result: dict) -> None:
@@ -97,23 +97,17 @@ def render_grading_result(result: dict) -> None:
                 st.caption("你的作答")
                 if student:
                     try:
-                        safe = safe_latex(f"${student}$")
-                        if safe.startswith("$") and safe.endswith("$"):
-                            safe = safe[1:-1]
-                        st.latex(safe)
+                        st.latex(sanitize_latex_for_render(student))
                     except Exception:
-                        st.text(student[:200])
+                        render_ast(split_latex_text(student))
 
             with col2:
                 st.caption("标准答案")
                 if standard:
                     try:
-                        safe = safe_latex(f"${standard}$")
-                        if safe.startswith("$") and safe.endswith("$"):
-                            safe = safe[1:-1]
-                        st.latex(safe)
+                        st.latex(sanitize_latex_for_render(standard))
                     except Exception:
-                        st.text(standard[:200])
+                        render_ast(split_latex_text(standard))
 
             if comment:
                 st.caption(comment)
@@ -126,19 +120,13 @@ def render_grading_result(result: dict) -> None:
             st.markdown("**你的答案**")
             if student_answer:
                 try:
-                    safe = safe_latex(f"${student_answer}$")
-                    if safe.startswith("$") and safe.endswith("$"):
-                        safe = safe[1:-1]
-                    st.latex(safe)
+                    st.latex(sanitize_latex_for_render(student_answer))
                 except Exception:
-                    st.text(student_answer[:200])
+                    render_ast(split_latex_text(student_answer))
         with col_b:
             st.markdown("**标准答案**")
             if standard_answer:
                 try:
-                    safe = safe_latex(f"${standard_answer}$")
-                    if safe.startswith("$") and safe.endswith("$"):
-                        safe = safe[1:-1]
-                    st.latex(safe)
+                    st.latex(sanitize_latex_for_render(standard_answer))
                 except Exception:
-                    st.text(standard_answer[:200])
+                    render_ast(split_latex_text(standard_answer))

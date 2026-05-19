@@ -172,7 +172,7 @@ def apply(text: str, policy: RepairPolicy | None = None) -> tuple[str, RepairTra
 
     # Step 4: 双反斜杠修复（复用 exam_parser 的 LaTeXFixer）
     latex_fixer = LaTeXFixer()
-    latex_report = latex_fixer.fix(after)
+    latex_report = latex_fixer.fix(after, ocr_mode=True)
     if latex_report.fix_count > 0:
         after = latex_report.fixed
         mods.append(f"双反斜杠修复: {latex_report.fix_count}处")

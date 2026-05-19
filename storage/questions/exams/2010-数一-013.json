@@ -1,0 +1,13 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question": "设 $\\alpha_1 = (1,2,-1,0)^{\\mathrm{T}}$，$\\alpha_2 = (1,1,0,2)^{\\mathrm{T}}$，$\\alpha_3 = (2,1,1,a)^{\\mathrm{T}}$。若由 $\\alpha_1,\\alpha_2,\\alpha_3$ 生成的向量空间的维数为$2$，则 $a =$ ______",
+  "standard_answer": "6",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2010",
+  "question_id": "2010-数一-013",
+  "options": {}
+}

@@ -245,7 +245,7 @@ class BinaryOp(ExprNode):
         if isinstance(simplified_left, Number) and isinstance(simplified_right, Number):
             try:
                 return Number(self.evaluate())
-            except:
+            except Exception:
                 pass
         
         # 简化规则
@@ -288,6 +288,8 @@ class UnaryOp(ExprNode):
     
     def evaluate(self, variables: Dict[str, float] = None) -> float:
         val = self.operand.evaluate(variables)
+        if val is None:
+            return None
         if self.type == ExprType.NEG:
             return -val
         return val
@@ -333,10 +335,12 @@ class Function(ExprNode):
     
     def evaluate(self, variables: Dict[str, float] = None) -> float:
         import math
-        
+
         args_val = [arg.evaluate(variables) for arg in self.args]
+        if not args_val or any(v is None for v in args_val):
+            return None
         name = self.name.lower()
-        
+
         if name == 'sin':
             return math.sin(args_val[0])
         elif name == 'cos':
@@ -376,7 +380,7 @@ class Function(ExprNode):
         if all(isinstance(arg, Number) for arg in simplified_args):
             try:
                 return Number(self.evaluate())
-            except:
+            except Exception:
                 pass
         
         return Function(self.name, simplified_args)
@@ -528,17 +532,17 @@ class Limit(ExprNode):
         try:
             f_plus = self.expr.evaluate(vars_plus)
             f_minus = self.expr.evaluate(vars_minus)
-            
+
             # 返回平均值
             return (f_plus + f_minus) / 2
-        except:
+        except Exception:
             # 如果一边失败，尝试另一边
             try:
                 return self.expr.evaluate(vars_plus)
-            except:
+            except Exception:
                 try:
                     return self.expr.evaluate(vars_minus)
-                except:
+                except Exception:
                     raise ValueError("无法计算极限")
     
     def to_latex(self) -> str:

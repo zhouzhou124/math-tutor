@@ -97,7 +97,7 @@ class Interval:
             return 2 * 3.1415926535
         try:
             return float(value)
-        except:
+        except (ValueError, TypeError):
             return float('-inf')
 
 

@@ -210,7 +210,8 @@ def _resolve_solution_graph_for_solution(
                 if best and best.graph and len(best.graph.nodes) >= 1:
                     return best.graph, "canonical_generated"
         except Exception as e:
-            _log.error("trace 生成失败 (%s): %s", qid, e)
+            import traceback
+            _log.error("trace 生成失败 (%s): %s\n%s", qid, e, traceback.format_exc())
 
     # 步骤2：尝试 graph_compiler
     try:

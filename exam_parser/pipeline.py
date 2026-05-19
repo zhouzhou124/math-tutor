@@ -70,13 +70,19 @@ class ExamParserPipeline:
 
     def process_file(self, file_path: str, math_type: str = None,
                      year: int = None) -> PipelineResult:
-        """处理单份试卷文件（MD或TXT）"""
+        """处理单份试卷文件（MD / TXT / TEX）"""
         path = Path(file_path)
         if not path.exists():
             return PipelineResult(
                 year=year or 0, math_type=math_type or "", format="unknown",
                 total_questions=0, questions=[],
                 errors=[f"文件不存在: {file_path}"],
+            )
+
+        if path.suffix.lower() == ".tex":
+            from .latex_exam_parser import LatexExamParser
+            return LatexExamParser().parse_file(
+                str(path), year=year, math_type=math_type or "数学一", pipeline=self,
             )
 
         text = path.read_text(encoding="utf-8")
@@ -94,7 +100,7 @@ class ExamParserPipeline:
 
         # ---- Stage 1: LaTeX修复 ----
         t0 = time.time()
-        latex_report = self.latex_fixer.fix(text)
+        latex_report = self.latex_fixer.fix(text, ocr_mode=True)
         cleaned_text = latex_report.fixed
         stages.append(StageResult(
             stage="latex_fix", success=True,
@@ -451,7 +457,7 @@ def cmd_batch(args):
 def cmd_fix_latex(args):
     fixer = LaTeXFixer()
     text = Path(args.file).read_text(encoding="utf-8")
-    report = fixer.fix(text)
+    report = fixer.fix(text, ocr_mode=True)
 
     output = report.fixed
     if args.output:

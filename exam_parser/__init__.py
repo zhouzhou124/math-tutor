@@ -19,3 +19,4 @@ from .answer_extractor import AnswerExtractor, ExtractedAnswer
 from .solution_matcher import SolutionMatcher, SolutionMatch
 from .ocr_cleaner import OCRCleaner, OCRReport
 from .pipeline import ExamParserPipeline, PipelineResult, StageResult
+from .latex_exam_parser import LatexExamParser, LatexNormalizeReport

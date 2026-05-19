@@ -4,7 +4,7 @@ Runs before DB insert. Catches broken LaTeX early.
 """
 import re
 from dataclasses import dataclass, field
-from latex_utils import safe_latex, is_valid_latex
+from math_sanitizer import safe_latex, is_valid_latex
 
 
 @dataclass
@@ -181,6 +181,13 @@ def validate_and_repair(q: dict) -> tuple[dict, ValidationResult]:
     """
     result = validate_question(q)
     repaired = dict(q)
+
+    # Deep copy options to avoid mutating the original via shared dict ref
+    raw_options = repaired.get("options")
+    if isinstance(raw_options, dict):
+        repaired["options"] = dict(raw_options)
+    elif isinstance(raw_options, list):
+        repaired["options"] = list(raw_options)
 
     # Apply fixes from validation
     if result.fixed_fields:

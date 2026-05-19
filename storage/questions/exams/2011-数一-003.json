@@ -1,0 +1,19 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设函数 $f(x)$ 具有二阶连续导数，且 $f'(x) > 0$，$f''(0) = 0$，则函数 $z = f(x)\\ln f(y)$ 在点 $(0,0)$ 处取得极小值的一个充分条件是",
+  "standard_answer": "A",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2011",
+  "options": {
+    "A": "$f(0) > 1, f''(0) > 0$",
+    "B": "$f(0) > 1, f''(0) < 0$",
+    "C": "$f(0) < 1, f''(0) > 0$",
+    "D": "$f(0) < 1, f''(0) < 0$"
+  },
+  "correct_option": "A",
+  "question_id": "2011-数一-003"
+}

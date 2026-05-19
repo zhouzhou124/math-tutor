@@ -1,0 +1,13 @@
+{
+  "year": 2009,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "设二次型 $f(x_1,x_2,x_3) = a x_1^2 + a x_2^2 + (a-1)x_3^2 + 2x_1x_3 - 2x_2x_3$.\n$(1)$ 求二次型 $f$ 的矩阵的所有特征值；\n$(2)$ 若二次型 $f$ 的规范形为 $y_1^2 + y_2^2$，求 $a$ 的值.",
+  "standard_answer": "(I) $\\lambda_1 = a-1$, $\\lambda_2 = a-1$, $\\lambda_3 = a+1$；(II) $a = 0$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 11,
+  "source": "manual_import_2009",
+  "question_id": "2009-数一-021",
+  "options": {}
+}

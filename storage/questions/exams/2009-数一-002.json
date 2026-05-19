@@ -1,0 +1,14 @@
+{
+  "year": 2009,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "如图，正方形 $\\{(x,y) \\mid |x|\\le 1, |y|\\le 1\\}$ 被其对角线划分为四个区域 $D_k (k=1,2,3,4)$，$I_k = \\iint_{D_k} y\\cos x dxdy$，则 $\\max\\limits_{1\\le k\\le 4} |I_k| =$ $(A)$ $I_1$ $(B)$ $I_2$ $(C)$ $I_3$ $(D)$ $I_4$",
+  "standard_answer": "B",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2009",
+  "options": {},
+  "correct_option": "B",
+  "question_id": "2009-数一-002"
+}

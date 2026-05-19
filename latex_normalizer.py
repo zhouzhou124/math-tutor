@@ -70,6 +70,9 @@ def normalize_latex_style(text: str) -> str:
     # ── 7. 可伸缩括号: (...) → \left( ... \right) ──
     s = _normalize_delimiters(s)
 
+    # ── 7.5. 修复 \bigl\left 冲突 ──
+    s = _fix_big_left_conflict(s)
+
     # ── 8. 中文必须在数学模式外 ──
     s = _fix_chinese_in_math(s)
 
@@ -264,6 +267,44 @@ def _normalize_trig_functions(text: str) -> str:
         return f'${content}$'
 
     text = re.sub(r'\$([^$]+)\$', _replace_in_math, text)
+    return text
+
+
+def _fix_big_left_conflict(text: str) -> str:
+    r"""修复 \bigl\left 和 \bigr\right 冲突。
+
+    LLM 有时会错误地同时输出固定尺寸和自适应尺寸命令:
+      \bigl\left( ... \bigr\right)  →  \left( ... \right)
+      \left\bigl( ... \right\bigr)  →  \left( ... \right)
+
+    \big* 系列和 \left/\right 是互斥的，同时出现会导致 KaTeX 渲染失败。
+    策略：保留 \left/\right（自适应），移除前缀/后缀的 \big*。
+    """
+    # \big* 变体 + \left  →  \left
+    text = re.sub(r'\\big[lr]?\\left', r'\\left', text)
+    # \big* 变体 + \right  →  \right
+    text = re.sub(r'\\big[lr]?\\right', r'\\right', text)
+    # \left + \big* 变体  →  \left
+    text = re.sub(r'\\left\\big[lr]?', r'\\left', text)
+    # \right + \big* 变体  →  \right
+    text = re.sub(r'\\right\\big[lr]?', r'\\right', text)
+
+    # 大写版本: \Bigl, \biggl, \Biggl 等
+    text = re.sub(r'\\Big[lr]?\\left', r'\\left', text)
+    text = re.sub(r'\\Big[lr]?\\right', r'\\right', text)
+    text = re.sub(r'\\bigg[lr]?\\left', r'\\left', text)
+    text = re.sub(r'\\bigg[lr]?\\right', r'\\right', text)
+    text = re.sub(r'\\Bigg[lr]?\\left', r'\\left', text)
+    text = re.sub(r'\\Bigg[lr]?\\right', r'\\right', text)
+
+    # 反向: \left\Bigl 等
+    text = re.sub(r'\\left\\Big[lr]?', r'\\left', text)
+    text = re.sub(r'\\right\\Big[lr]?', r'\\right', text)
+    text = re.sub(r'\\left\\bigg[lr]?', r'\\left', text)
+    text = re.sub(r'\\right\\bigg[lr]?', r'\\right', text)
+    text = re.sub(r'\\left\\Bigg[lr]?', r'\\left', text)
+    text = re.sub(r'\\right\\Bigg[lr]?', r'\\right', text)
+
     return text
 
 

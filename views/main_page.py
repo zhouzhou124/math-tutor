@@ -3,48 +3,53 @@
 import streamlit as st
 import time
 from .auth.login_page import render_logout_button
+from ._shared import NAV_MAP
 from .auth.session_state import is_admin, get_current_username
 from .dashboard_page import render_dashboard
 
 
-# 防抖配置
-DEBOUNCE_DELAY = 300  # 毫秒，快速点击防抖延迟
+# 数据缓存配置
+CACHE_TTL = 300  # 缓存有效期（秒），5分钟
 
 
-def debounce_page_switch(page_name: str) -> bool:
+def get_cached_data(key: str, fetch_fn, ttl: int = CACHE_TTL):
     """
-    页面切换防抖函数
+    获取缓存数据，如果缓存过期则重新获取
     
     Args:
-        page_name: 目标页面名称
+        key: 缓存键
+        fetch_fn: 数据获取函数
+        ttl: 缓存有效期（秒）
         
     Returns:
-        bool: 是否应该执行页面切换
+        缓存的数据
     """
-    now = time.time() * 1000  # 毫秒
+    now = time.time()
     
-    # 初始化状态
-    if "last_switch_time" not in st.session_state:
-        st.session_state.last_switch_time = 0
-    if "last_switch_page" not in st.session_state:
-        st.session_state.last_switch_page = ""
+    # 检查缓存是否存在且未过期
+    cache_key = f"cache_{key}"
+    time_key = f"cache_{key}_time"
     
-    # 如果是同一页面，允许切换（用于刷新）
-    if st.session_state.last_switch_page == page_name:
-        st.session_state.last_switch_time = now
-        return True
+    if cache_key in st.session_state:
+        cache_time = st.session_state.get(time_key, 0)
+        if (now - cache_time) < ttl:
+            return st.session_state[cache_key]
     
-    # 检查是否在防抖时间内
-    time_since_last_switch = now - st.session_state.last_switch_time
-    
-    if time_since_last_switch < DEBOUNCE_DELAY:
-        # 在防抖时间内，忽略这次点击
-        return False
-    
-    # 更新状态
-    st.session_state.last_switch_time = now
-    st.session_state.last_switch_page = page_name
-    return True
+    # 缓存过期或不存在，重新获取
+    data = fetch_fn()
+    st.session_state[cache_key] = data
+    st.session_state[time_key] = now
+    return data
+
+
+def invalidate_cache(key: str):
+    """清除指定缓存"""
+    cache_key = f"cache_{key}"
+    time_key = f"cache_{key}_time"
+    if cache_key in st.session_state:
+        del st.session_state[cache_key]
+    if time_key in st.session_state:
+        del st.session_state[time_key]
 
 
 def render_main_app():
@@ -69,16 +74,11 @@ def render_main_app():
         else:
             all_options = nav_options
         
-        # 设置当前页面
-        nav_map = {
-            "仪表盘": "dashboard",
-            "智能刷题": "practice",
-            "AI批改": "grading",
-            "真题库": "question_bank",
-            "错题本": "error_notebook",
+        # 设置当前页面映射 (extend shared NAV_MAP with extra entries)
+        nav_map = dict(NAV_MAP, **{
             "学习报告": "report",
             "系统设置": "settings",
-        }
+        })
         
         if is_admin():
             admin_map = {
@@ -91,20 +91,44 @@ def render_main_app():
             }
             nav_map.update(admin_map)
         
-        # 获取当前页面对应的导航索引
+        # ── 导航 radio ──
         current_page = st.session_state.get("page", "dashboard")
-        default_index = 0
-        for i, option in enumerate(all_options):
-            if nav_map.get(option) == current_page:
-                default_index = i
-                break
-        
-        selected_nav = st.radio("", all_options, index=default_index)
-        target_page = nav_map.get(selected_nav, "dashboard")
-        
-        # 使用防抖机制
-        if debounce_page_switch(target_page):
-            st.session_state.page = target_page
+        nav_key = "nav_radio"
+
+        # 首次加载：根据当前页面初始化 radio
+        if nav_key not in st.session_state:
+            for label, pid in nav_map.items():
+                if pid == current_page:
+                    st.session_state[nav_key] = label
+                    break
+            else:
+                st.session_state[nav_key] = all_options[0]
+
+        # 先检测用户是否点击了 radio（必须在 sync 之前）
+        _prev_nav = st.session_state.get("_prev_nav_radio", "")
+        _curr_nav = st.session_state.get(nav_key, "")
+        _user_clicked_radio = (_prev_nav != _curr_nav and _prev_nav != "")
+
+        if _user_clicked_radio:
+            # 用户点击 radio → 更新页面
+            st.session_state.page = nav_map.get(_curr_nav, "dashboard")
+        else:
+            # 按钮跳转后页面变了但 radio 没变 → 同步 radio 到页面
+            _radio_val = st.session_state.get(nav_key, "")
+            if nav_map.get(_radio_val, "") != current_page:
+                for label, pid in nav_map.items():
+                    if pid == current_page:
+                        st.session_state[nav_key] = label
+                        break
+
+        st.session_state["_prev_nav_radio"] = st.session_state.get(nav_key, "")
+
+        st.radio(
+            "导航菜单",
+            all_options,
+            key=nav_key,
+            label_visibility="collapsed",
+        )
         
         st.divider()
         
@@ -115,44 +139,46 @@ def render_main_app():
         # 登出按钮
         render_logout_button()
     
-    # 主内容区域
-    page = st.session_state.get("page", "dashboard")
-    
-    # 学生页面
-    if page == "dashboard":
-        render_dashboard()
-    elif page == "practice":
-        render_practice_page()
-    elif page == "question_bank":
-        render_question_bank_page()
-    elif page == "grading":
-        render_grading_page()
-    elif page == "error_notebook":
-        render_error_notebook_page()
-    elif page == "report":
-        render_report_page()
-    elif page == "settings":
-        render_settings_page()
-    
-    # 管理员页面
-    elif page == "admin_overview":
-        from .admin_dashboard import render_overview
-        render_overview()
-    elif page == "admin_users":
-        from .admin_dashboard import render_user_management
-        render_user_management()
-    elif page == "admin_grading":
-        from .admin_dashboard import render_grading_monitor
-        render_grading_monitor()
-    elif page == "admin_bank_status":
-        from .admin_dashboard import render_question_bank_status
-        render_question_bank_status()
-    elif page == "admin_replay":
-        from .admin_dashboard import render_data_replay
-        render_data_replay()
-    elif page == "admin_questions":
-        from .admin_dashboard import render_question_management
-        render_question_management()
+    # 主内容区域 — 隔离容器，确保页面切换时旧内容被完整替换
+    main_container = st.container()
+    with main_container:
+        page = st.session_state.get("page", "dashboard")
+
+        # 学生页面
+        if page == "dashboard":
+            render_dashboard()
+        elif page == "practice":
+            render_practice_page()
+        elif page == "question_bank":
+            render_question_bank_page()
+        elif page == "grading":
+            render_grading_page()
+        elif page == "error_notebook":
+            render_error_notebook_page()
+        elif page == "report":
+            render_report_page()
+        elif page == "settings":
+            render_settings_page()
+
+        # 管理员页面
+        elif page == "admin_overview":
+            from .admin_dashboard import render_overview
+            render_overview()
+        elif page == "admin_users":
+            from .admin_dashboard import render_user_management
+            render_user_management()
+        elif page == "admin_grading":
+            from .admin_dashboard import render_grading_monitor
+            render_grading_monitor()
+        elif page == "admin_bank_status":
+            from .admin_dashboard import render_question_bank_status
+            render_question_bank_status()
+        elif page == "admin_replay":
+            from .admin_dashboard import render_data_replay
+            render_data_replay()
+        elif page == "admin_questions":
+            from .admin_dashboard import render_question_management
+            render_question_management()
 
 
 def render_practice_page():
@@ -169,10 +195,21 @@ def render_grading_page():
 
 
 def render_question_bank_page():
-    """渲染真题库页面"""
+    """渲染真题库页面（优化版）"""
     from .question_bank_page import render_question_bank_page
     from latex_utils import safe_render
-    render_question_bank_page(st.session_state.question_db, safe_render)
+    
+    # 使用缓存机制
+    db = st.session_state.question_db
+    
+    # 获取缓存的统计数据
+    def fetch_stats():
+        return db.stats()
+    
+    stats = get_cached_data("question_bank_stats", fetch_stats, ttl=60)
+    
+    # 渲染页面（传递缓存的统计数据）
+    render_question_bank_page(db, safe_render, cached_stats=stats)
 
 
 def render_error_notebook_page():

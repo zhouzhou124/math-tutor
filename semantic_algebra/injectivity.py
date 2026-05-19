@@ -290,7 +290,7 @@ class InjectivityAnalyzer:
             numbers = re.findall(r'-?[\d.]+', interval)
             if len(numbers) >= 2:
                 return abs(float(numbers[-1]) - float(numbers[0]))
-        except:
+        except (ValueError, TypeError):
             pass
         return None
     

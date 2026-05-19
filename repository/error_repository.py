@@ -77,22 +77,97 @@ class ErrorRecordRepository(JSONRepository):
         all_errors = self._load_json(self.file_path)
         user_data = all_errors.get(user_id, {"records": []})
         records = user_data["records"]
-        
+
         # 应用筛选条件
         if "subject" in filters and filters["subject"]:
-            records = [r for r in records 
+            records = [r for r in records
                        if filters["subject"] in r.get("knowledge_point", "")]
         if "knowledge_point" in filters and filters["knowledge_point"]:
-            records = [r for r in records 
+            records = [r for r in records
                        if filters["knowledge_point"] in r.get("knowledge_point", "")]
         if "error_type" in filters and filters["error_type"]:
-            records = [r for r in records 
+            records = [r for r in records
                        if filters["error_type"] in r.get("error_type", "")]
         if "limit" in filters:
             records = records[:filters["limit"]]
-        
+
         return sorted(records, key=lambda r: r.get("date", ""), reverse=True)
-    
+
+    def get_records_with_stats(self, user_id: str, **filters) -> tuple:
+        """一次读取同时返回记录和统计，避免重复 JSON 解析"""
+        all_errors = self._load_json(self.file_path)
+        user_data = all_errors.get(user_id, {"records": [], "stats": {}})
+        records = user_data.get("records", [])
+
+        # 应用筛选条件
+        if "subject" in filters and filters.get("subject"):
+            records = [r for r in records
+                       if filters["subject"] in r.get("knowledge_point", "")]
+        if "knowledge_point" in filters and filters.get("knowledge_point"):
+            records = [r for r in records
+                       if filters["knowledge_point"] in r.get("knowledge_point", "")]
+        if "error_type" in filters and filters.get("error_type"):
+            records = [r for r in records
+                       if filters["error_type"] in r.get("error_type", "")]
+
+        records = sorted(records, key=lambda r: r.get("date", ""), reverse=True)
+        if "limit" in filters:
+            records = records[:filters["limit"]]
+
+        # 从已加载的 user_data 构建 stats，无需再次读文件
+        raw_stats = user_data.get("stats", {})
+        stats = ErrorStats(
+            user_id=user_id,
+            total_errors=raw_stats.get("total_errors", 0),
+            by_chapter=raw_stats.get("by_chapter", {}),
+            by_type=raw_stats.get("by_type", {}),
+            by_difficulty=raw_stats.get("by_difficulty", {}),
+            repeat_rate=raw_stats.get("repeat_rate", 0.0),
+        )
+        return records, stats
+
+    def delete_record(self, user_id: str, record_id: str) -> bool:
+        """删除指定错题记录，返回是否成功"""
+        all_errors = self._load_json(self.file_path)
+        user_data = all_errors.get(user_id)
+        if not user_data:
+            return False
+
+        records = user_data.get("records", [])
+        new_records = [r for r in records if r.get("record_id") != record_id]
+
+        if len(new_records) == len(records):
+            return False  # 未找到匹配记录
+
+        # Incremental stats update: just decrement counters
+        deleted = next((r for r in records if r.get("record_id") == record_id), None)
+        if deleted:
+            stats = user_data.get("stats", {})
+            stats["total_errors"] = max(0, stats.get("total_errors", 0) - 1)
+            chapter = deleted.get("knowledge_point", "未知").split(" - ")[0]
+            if chapter in stats.get("by_chapter", {}):
+                stats["by_chapter"][chapter] = max(0, stats["by_chapter"][chapter] - 1)
+                if stats["by_chapter"][chapter] == 0:
+                    del stats["by_chapter"][chapter]
+            etype = deleted.get("error_type", "未分类")
+            if etype in stats.get("by_type", {}):
+                stats["by_type"][etype] = max(0, stats["by_type"][etype] - 1)
+                if stats["by_type"][etype] == 0:
+                    del stats["by_type"][etype]
+            diff = deleted.get("difficulty", "中等")
+            if diff in stats.get("by_difficulty", {}):
+                stats["by_difficulty"][diff] = max(0, stats["by_difficulty"][diff] - 1)
+                if stats["by_difficulty"][diff] == 0:
+                    del stats["by_difficulty"][diff]
+            total = stats.get("total_errors", 0)
+            repeats = sum(1 for r in new_records if r.get("is_repeat"))
+            stats["repeat_rate"] = repeats / total if total else 0
+            user_data["stats"] = stats
+
+        user_data["records"] = new_records
+        self._save_json(self.file_path, all_errors)
+        return True
+
     def get_stats(self, user_id: str) -> ErrorStats:
         """获取错题统计"""
         all_errors = self._load_json(self.file_path)

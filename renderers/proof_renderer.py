@@ -1,7 +1,8 @@
 """proof_renderer.py — 证明题渲染器"""
 
 import streamlit as st
-from latex_utils import safe_latex, split_latex_text, render_ast
+from math_sanitizer import safe_latex
+from latex_utils import split_latex_text, render_ast
 
 
 def render_proof(steps: list[dict]) -> None:

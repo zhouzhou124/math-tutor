@@ -1,0 +1,13 @@
+__pycache__
+*.pyc
+.git
+.claude
+storage/*
+!storage/.gitkeep
+*.db
+.env
+.credentials.json
+remember_me.json
+node_modules
+.DS_Store
+*.log

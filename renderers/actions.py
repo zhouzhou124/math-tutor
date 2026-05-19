@@ -8,7 +8,8 @@ import streamlit as st
 
 def start_practice(qid: str) -> None:
     """Navigate to practice page with full question data."""
-    q = st.session_state.question_db.get(qid)
+    db = st.session_state.get("question_db")
+    q = db.get(qid) if db else None
     st.session_state.selected_question = q if q else qid
     st.session_state.page = "practice"
     st.rerun()
@@ -16,7 +17,8 @@ def start_practice(qid: str) -> None:
 
 def view_solution(qid: str) -> None:
     """Navigate to grading page in answer-view mode with full question data."""
-    q = st.session_state.question_db.get(qid)
+    db = st.session_state.get("question_db")
+    q = db.get(qid) if db else None
     st.session_state.selected_question = q if q else qid
     st.session_state.answer_view_mode = True
     st.session_state.page = "grading"
@@ -30,4 +32,6 @@ def start_edit(qid: str) -> None:
 
 def delete_question(qid: str) -> None:
     """Delete a question from the database."""
-    st.session_state.question_db.delete(qid)
+    db = st.session_state.get("question_db")
+    if db:
+        db.delete(qid)

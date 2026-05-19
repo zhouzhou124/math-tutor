@@ -273,19 +273,27 @@ DETAILED_ANSWER_PROMPT = """你是一位考研数学辅导专家。请为以下�
 ## 知识点
 {knowledge_points}
 
-请按以下格式输出详细解答：
+请严格按照以下格式输出详细解答。每个步骤必须用"步骤N："开头，公式必须用 $...$ 包裹：
 
 ## 标准答案
-（给出最终答案）
+（用一两行给出最终答案）
 
-## 详细步骤
-（每一步的推理过程，用 $...$ 包裹公式。每一步编号。）
+步骤1：（第一步的标题，如"分析题意"、"确定方法"等）
+（这一步的推理过程。所有公式用 $...$ 包裹，如 $f(x)=x^2+1$。）
+
+步骤2：（第二步的标题）
+（这一步的推理过程。所有公式用 $...$ 包裹。）
+
+步骤3：（第三步的标题）
+（继续推理，直到得出最终答案。每步一个核心操作。）
+
+（根据需要继续步骤4、步骤5...）
 
 ## 关键知识点
-（本题考察的核心知识点）
+（本题考察的核心知识点，列出2-4个）
 
 ## 易错提示
-（学生容易犯的错误）
+（学生容易犯的错误，列出2-4个）
 """
 
 
@@ -315,18 +323,73 @@ def generate_detailed_answer(
     )
 
     try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
+        messages = [
+            {"role": "system", "content": "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"},
+            {"role": "user", "content": prompt},
+        ]
+        text_parts = []
+
+        for round_idx in range(3):
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=0.2 if round_idx == 0 else 0.1,
+                max_tokens=4096,
+            )
+            choice = response.choices[0]
+            chunk = choice.message.content or ""
+            if chunk:
+                text_parts.append(chunk)
+
+            combined = "".join(text_parts).strip()
+            finish_reason = getattr(choice, "finish_reason", "")
+            if finish_reason != "length" and _is_detailed_answer_complete(combined):
+                return combined or known_answer
+
+            messages = [
                 {"role": "system", "content": "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"},
                 {"role": "user", "content": prompt},
-            ],
-            temperature=0.2,
-            max_tokens=1536,
-        )
-        text = response.choices[0].message.content
-        return text or known_answer
+                {"role": "assistant", "content": combined},
+                {
+                    "role": "user",
+                    "content": (
+                        "上面的标准答案还没有完整结束。请从中断处继续，"
+                        "不要重复已经写过的内容，只输出后续内容，直到完整写完。"
+                    ),
+                },
+            ]
+
+        return "".join(text_parts).strip() or known_answer
     except Exception as e:
         import streamlit as st
         st.warning(f"详细答案生成失败: {e}")
         return known_answer
+
+
+def _is_detailed_answer_complete(text: str) -> bool:
+    """Heuristic guard against token-limit truncation in detailed answers."""
+    if not text or len(text.strip()) < 80:
+        return False
+
+    stripped = text.strip()
+    required_sections = ("## 标准答案", "## 详细步骤")
+    if not all(section in stripped for section in required_sections):
+        return False
+
+    # The prompt asks for this final section. If it is missing or empty, the
+    # model likely stopped before the answer was fully rendered.
+    if "## 易错提示" not in stripped:
+        return False
+
+    tail = stripped[-12:]
+    if tail.endswith(("，", "、", "；", "：", ",", ";", ":", "（", "(", "【", "[")):
+        return False
+
+    # Unbalanced math delimiters frequently indicate a hard cutoff.
+    if stripped.count("$$") % 2 != 0:
+        return False
+    single_dollars = stripped.replace("$$", "").count("$")
+    if single_dollars % 2 != 0:
+        return False
+
+    return True

@@ -1,0 +1,14 @@
+{
+  "year": 2012,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设随机变量 $X$ 与 $Y$ 相互独立，且分别服从参数为 $1$ 与参数为 $4$ 的指数分布，则 $P\\{X<Y\\} =$ $(A)$ $\\frac{1}{5}$ $(B)$ $\\frac{1}{3}$ $(C)$ $\\frac{2}{3}$ $(D)$ $\\frac{4}{5}$",
+  "options": {},
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2012",
+  "question_id": "2012-数一-020"
+}

@@ -2,6 +2,11 @@
 
 import os
 
+# ── 结构化输出开关（Phase 1: 双栈运行） ──
+# True  → LLM 输出 JSON，走 render_structured() 管道
+# False → LLM 输出 Markdown，走 legacy regex 解析 + 4层回退渲染
+USE_STRUCTURED_OUTPUT = os.getenv("USE_STRUCTURED_OUTPUT", "true").lower() == "true"
+
 # ── LLM API（主模型） ──
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com")
@@ -20,7 +25,7 @@ CREDENTIAL_STORE_PATH = os.path.join(
 KEY_ROTATION_DAYS = int(os.getenv("KEY_ROTATION_DAYS", "15"))
 
 # 考研数学类别
-MATH_TYPES = ["数学一", "26宇哥八套卷"]
+MATH_TYPES = ["数学一", "数学二", "数学三", "26宇哥八套卷"]
 
 # 学科
 SUBJECTS = ["高等数学", "线性代数", "概率论与数理统计"]

@@ -55,32 +55,32 @@ class SolutionStep:
         from expression_parser import parse_latex
         try:
             self.input_expr = parse_latex(latex)
-        except:
+        except Exception:
             self.input_expr = None
-    
+
     def parse_output_expr(self, latex: str):
         """解析输出表达式 LaTeX 为 AST"""
         from expression_parser import parse_latex
         try:
             self.output_expr = parse_latex(latex)
-        except:
+        except Exception:
             self.output_expr = None
-    
+
     def evaluate_input(self, variables: dict = None) -> _Optional[float]:
         """计算输入表达式的值"""
         if self.input_expr:
             try:
                 return self.input_expr.evaluate(variables or {})
-            except:
+            except Exception:
                 return None
         return None
-    
+
     def evaluate_output(self, variables: dict = None) -> _Optional[float]:
         """计算输出表达式的值"""
         if self.output_expr:
             try:
                 return self.output_expr.evaluate(variables or {})
-            except:
+            except Exception:
                 return None
         return None
     

@@ -1,0 +1,19 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设随机变量 $X$ 的分布函数 $F(x) = \\begin{cases} 0, & x<0 \\\\ \\frac{1}{2}, & 0\\le x<1 \\\\ 1-e^{-x}, & x\\ge 1 \\end{cases}$，则 $P\\{X=1\\} =$",
+  "standard_answer": "C",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2010",
+  "options": {
+    "A": "0",
+    "B": "$\\frac{1}{2}$",
+    "C": "$1-e^{-1}$",
+    "D": "$e^{-1}$"
+  },
+  "correct_option": "C",
+  "question_id": "2010-数一-007"
+}

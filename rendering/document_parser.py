@@ -2,7 +2,7 @@ from typing import Optional
 from rendering.document_ast import (
     Document, DocumentNode, BlockType,
     StepBlock, ProofBlock, MatrixBlock, EquationBlock,
-    TableBlock, WarningBlock
+    TableBlock, WarningBlock, FinalAnswerBlock
 )
 from rendering.content_classifier import ContentClassifier, ContentSegment, ContentType
 

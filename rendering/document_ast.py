@@ -296,6 +296,31 @@ class WarningBlock:
 
 
 @dataclass(frozen=True)
+class FinalAnswerBlock:
+    answer: str = ""
+    answer_expr: str = ""
+    is_boxed: bool = True
+
+    def __str__(self) -> str:
+        return self.answer_expr or self.answer
+
+    def to_dict(self) -> dict:
+        return {
+            "answer": self.answer,
+            "answer_expr": self.answer_expr,
+            "is_boxed": self.is_boxed,
+        }
+
+    @classmethod
+    def from_dict(cls, d: dict) -> FinalAnswerBlock:
+        return cls(
+            answer=d.get("answer", ""),
+            answer_expr=d.get("answer_expr", ""),
+            is_boxed=d.get("is_boxed", True),
+        )
+
+
+@dataclass(frozen=True)
 class TableBlock:
     headers: tuple[str, ...] = ()
     rows: tuple[tuple[str, ...], ...] = ()
@@ -405,6 +430,7 @@ class DocumentNode:
                 "MatrixBlock": MatrixBlock.from_dict,
                 "EquationBlock": EquationBlock.from_dict,
                 "WarningBlock": WarningBlock.from_dict,
+                "FinalAnswerBlock": FinalAnswerBlock.from_dict,
                 "TableBlock": TableBlock.from_dict,
             }
             ctor = _CTORS.get(content_type)

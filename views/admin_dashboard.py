@@ -335,7 +335,7 @@ def render_ocr_step(ocr_result):
             st.write(f"**图片路径**: {ocr_result.image_path}")
             try:
                 st.image(ocr_result.image_path)
-            except:
+            except Exception:
                 st.info("图片无法加载")
     
     with col2:

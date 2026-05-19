@@ -1,0 +1,12 @@
+{
+  "year": 2012,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "求函数 $f(x,y) = x e^{-\\frac{x^2+y^2}{2}}$ 的极值。",
+  "standard_answer": "极大值 $f(1,0) = e^{-\\frac{1}{2}}$，极小值 $f(-1,0) = -e^{-\\frac{1}{2}}$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2012",
+  "question_id": "2012-数一-029"
+}

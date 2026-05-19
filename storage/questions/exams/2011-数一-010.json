@@ -1,0 +1,12 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question": "微分方程 $y' + y = e^{-x} \\cos x$ 满足条件 $y(0)=0$ 的解为 $y =$ ______",
+  "standard_answer": "$e^{-x}\\sin x$",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2011",
+  "question_id": "2011-数一-010"
+}

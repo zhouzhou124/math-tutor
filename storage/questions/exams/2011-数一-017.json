@@ -1,0 +1,12 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "求方程 $k \\arctan x - x = 0$ 不同实根的个数，其中 $k$ 为参数。",
+  "standard_answer": "当 $k \\le 1$ 时，只有 $x=0$ 一个实根；当 $k > 1$ 时，有三个不同实根",
+  "knowledge_points": [],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2011",
+  "question_id": "2011-数一-017"
+}
