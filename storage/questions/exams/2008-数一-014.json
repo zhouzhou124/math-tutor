@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-014",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设随机变量 $X$ 服从参数为$1$的泊松分布，则 $P\\{X = E(X^2)\\} =$ ______",
+  "standard_answer": "$e^{-1}$",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-017",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 11,
+  "question": "已知曲线 $C: \\begin{cases} x^2 + y^2 - 2z^2 = 0 \\\\ x + y + 3z = 5 \\end{cases}$，求曲线 $C$ 上距离 $xOy$ 面最远的点和最近的点.",
+  "standard_answer": "最远点为 $(-2, -2, 3)$，最近点为 $(1, 1, 1)$",
+  "knowledge_points": [
+    "多元函数微分",
+    "空间解析几何"
+  ],
+  "tags": [
+    "多元函数微分",
+    "空间解析几何"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

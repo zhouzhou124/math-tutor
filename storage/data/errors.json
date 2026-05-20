@@ -1,4 +1,138 @@
 {
   "schema_version": "0.2",
-  "data": {}
+  "data": {
+    "user_1778947351": {
+      "records": [
+        {
+          "record_id": "err_1779215038_242",
+          "user_id": "user_1778947351",
+          "date": "2026-05-20",
+          "time": "02:23",
+          "question_id": "2024-数一-002",
+          "question": "设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）",
+          "math_type": "数学一",
+          "question_type": "选择题",
+          "knowledge_point": "曲线曲面积分",
+          "knowledge_points": [
+            "曲线曲面积分"
+          ],
+          "difficulty": "较难",
+          "student_answer": "B",
+          "standard_answer": "### 步骤1\n分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。\n\n### 步骤2\n回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n### 步骤3\n计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$\n\n### 步骤4\n代入公式得到 $dy \\,\\mathrm{d}z$ 与 $dz \\,\\mathrm{d}x$ 的 $dxdy$ 表示\n将偏导数代入步骤2的公式：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,\n\n$$\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n$$\n\n### 步骤5\n写出原积分的等价形式\n将上述关系代入原积分：\n$$\n\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x = \\iint\\limits_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy.\n$$\n此时积分区域为 $\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma>0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。\n\n### 最终答案\n## 标准答案\n正确选项: A. $\\iint\\limits_{\\Sigma}\\left(\\frac{x}{z}P+\\frac{y}{z}Q\\right)dxdy$\n\n步骤1：分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。\n\n步骤2：回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n步骤3：计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$\n\n步骤4：代入公式得到 $dy dz$ 与 $dz dx$ 的 $dxdy$$表示$$将偏导数代入步骤$2$的公式：$\u0000M2\u0000\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n\u0000M3\u0000$此时积分区域为$$\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma\\gt 0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。",
+          "solution_steps": [
+            {
+              "label": "步骤1",
+              "content": "分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。"
+            },
+            {
+              "label": "步骤2",
+              "content": "回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。"
+            },
+            {
+              "label": "步骤3",
+              "content": "计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$"
+            },
+            {
+              "label": "步骤4",
+              "content": "代入公式得到 $dy \\,\\mathrm{d}z$ 与 $dz \\,\\mathrm{d}x$ 的 $dxdy$ 表示\n将偏导数代入步骤2的公式：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,\n\n$$\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n$$"
+            },
+            {
+              "label": "步骤5",
+              "content": "写出原积分的等价形式\n将上述关系代入原积分：\n$$\n\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x = \\iint\\limits_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy.\n$$\n此时积分区域为 $\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma>0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。"
+            }
+          ],
+          "score": 0,
+          "max_score": 5,
+          "is_correct": false,
+          "comment": "错误, 正确选项为 A",
+          "step_analysis": [],
+          "method_matched": "",
+          "engine": "unknown",
+          "confidence": 0.0,
+          "error_type": "选择题答案错误",
+          "root_cause": "正确答案是 A，你选择了 B。请分析每个选项的数学含义。",
+          "weak_points": [
+            "曲线曲面积分"
+          ],
+          "recommendations": [],
+          "common_mistakes": [],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-20 02:23",
+          "is_repeat": false,
+          "repeat_count": 1
+        },
+        {
+          "record_id": "err_1779215041_472",
+          "user_id": "user_1778947351",
+          "date": "2026-05-20",
+          "time": "02:24",
+          "question_id": "2024-数一-002",
+          "question": "设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）",
+          "math_type": "数学一",
+          "question_type": "选择题",
+          "knowledge_point": "曲线曲面积分",
+          "knowledge_points": [
+            "曲线曲面积分"
+          ],
+          "difficulty": "较难",
+          "student_answer": "B",
+          "standard_answer": "### 步骤1\n分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。\n\n### 步骤2\n回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n### 步骤3\n计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$\n\n### 步骤4\n代入公式得到 $dy \\,\\mathrm{d}z$ 与 $dz \\,\\mathrm{d}x$ 的 $dxdy$ 表示\n将偏导数代入步骤2的公式：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,\n\n$$\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n$$\n\n### 步骤5\n写出原积分的等价形式\n将上述关系代入原积分：\n$$\n\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x = \\iint\\limits_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy.\n$$\n此时积分区域为 $\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma>0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。\n\n### 最终答案\n## 标准答案\n正确选项: A. $\\iint\\limits_{\\Sigma}\\left(\\frac{x}{z}P+\\frac{y}{z}Q\\right)dxdy$\n\n步骤1：分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。\n\n步骤2：回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n步骤3：计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$\n\n步骤4：代入公式得到 $dy dz$ 与 $dz dx$ 的 $dxdy$$表示$$将偏导数代入步骤$2$的公式：$\u0000M2\u0000\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n\u0000M3\u0000$此时积分区域为$$\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma\\gt 0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。",
+          "solution_steps": [
+            {
+              "label": "步骤1",
+              "content": "分析题意，明确转化目标\n本题要求将第二类曲面积分 $\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\leq 0,y\\geq 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy \\,\\mathrm{d}z$、$dz \\,\\mathrm{d}x$ 与 $dxdy$ 之间的关系。"
+            },
+            {
+              "label": "步骤2",
+              "content": "回顾第二类曲面积分的投影转化公式\n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy,\\quad \\,\\mathrm{d}z \\,\\mathrm{d}x = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。"
+            },
+            {
+              "label": "步骤3",
+              "content": "计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数\n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n\n$$\nz_y = \\frac{$\\partial$ z}{$\\partial$ y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$"
+            },
+            {
+              "label": "步骤4",
+              "content": "代入公式得到 $dy \\,\\mathrm{d}z$ 与 $dz \\,\\mathrm{d}x$ 的 $dxdy$ 表示\n将偏导数代入步骤2的公式：\n$$\ndy \\,\\mathrm{d}z = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,\n\n$$\ndz \\,\\mathrm{d}x = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n$$"
+            },
+            {
+              "label": "步骤5",
+              "content": "写出原积分的等价形式\n将上述关系代入原积分：\n$$\n\\iint\\limits_{\\Sigma} P \\,\\mathrm{d}y \\,\\mathrm{d}z + Q \\,\\mathrm{d}z \\,\\mathrm{d}x = \\iint\\limits_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy.\n$$\n此时积分区域为 $\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\leq0,y\\geq0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。\n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma>0$）。\n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。\n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。\n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。\n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。"
+            }
+          ],
+          "score": 0,
+          "max_score": 5,
+          "is_correct": false,
+          "comment": "错误, 正确选项为 A",
+          "step_analysis": [],
+          "method_matched": "",
+          "engine": "unknown",
+          "confidence": 0.0,
+          "error_type": "选择题答案错误",
+          "root_cause": "正确答案是 A，你选择了 B。请分析每个选项的数学含义。",
+          "weak_points": [
+            "曲线曲面积分"
+          ],
+          "recommendations": [],
+          "common_mistakes": [],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-20 02:23",
+          "is_repeat": true,
+          "repeat_count": 2
+        }
+      ],
+      "stats": {
+        "total_errors": 2,
+        "by_chapter": {
+          "曲线曲面积分": 2
+        },
+        "by_type": {
+          "选择题答案错误": 2
+        },
+        "by_difficulty": {
+          "较难": 2
+        },
+        "repeat_rate": 0.5
+      }
+    }
+  }
 }

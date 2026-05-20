@@ -1,0 +1,25 @@
+{
+  "question_id": "2012-数一-005",
+  "year": 2012,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $\\alpha_1 = \\begin{pmatrix} 0 \\\\ 0 \\\\ c_1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 1 \\\\ c_2 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 1 \\\\ -1 \\\\ c_3 \\end{pmatrix}$，$\\alpha_4 = \\begin{pmatrix} -1 \\\\ 1 \\\\ c_4 \\end{pmatrix}$，其中 $c_1,c_2,c_3,c_4$ 为任意常数，则下列向量组线性相关的为\nA. $\\alpha_1,\\alpha_2,\\alpha_3$  B. $\\alpha_1,\\alpha_2,\\alpha_4$  C. $\\alpha_1,\\alpha_3,\\alpha_4$  D. $\\alpha_2,\\alpha_3,\\alpha_4$",
+  "options": {
+    "A": "$\\alpha_1,\\alpha_2,\\alpha_3$",
+    "B": "$\\alpha_1,\\alpha_2,\\alpha_4$",
+    "C": "$\\alpha_1,\\alpha_3,\\alpha_4$",
+    "D": "$\\alpha_2,\\alpha_3,\\alpha_4$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "solution_steps": []
+}

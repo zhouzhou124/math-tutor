@@ -4,7 +4,10 @@
   "question_type": "选择题",
   "question": "设 $A$ 为4阶实对称矩阵，且 $A^2 + A = O$。若 $A$ 的秩为$3$，则 $A$ 相似于",
   "standard_answer": "B",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "矩阵",
+    "秩"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
@@ -15,5 +18,9 @@
     "D": "$\\begin{pmatrix} -1 & 0 & 0 & 0 \\\\ 0 & -1 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\end{pmatrix}$"
   },
   "correct_option": "B",
-  "question_id": "2010-数一-006"
+  "question_id": "2010-数一-006",
+  "tags": [
+    "矩阵",
+    "秩"
+  ]
 }

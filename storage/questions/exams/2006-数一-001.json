@@ -1,0 +1,19 @@
+{
+  "question_id": "2006-数一-001",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$$\\lim_{x\\to 0} \\frac{x\\ln(1+x)}{1-\\cos x} =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "2",
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "tags": [
+    "极限与连续"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

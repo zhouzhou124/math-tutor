@@ -1,0 +1,18 @@
+{
+  "question_id": "2006-数一-004",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "点 $(2,1,0)$ 到平面 $3x+4y+5z=0$ 的距离 $d =$ ______",
+  "standard_answer": "$\\frac{3\\sqrt{2}}{5}$",
+  "knowledge_points": [
+    "空间解析几何"
+  ],
+  "tags": [
+    "空间解析几何"
+  ],
+  "solution_steps": []
+}

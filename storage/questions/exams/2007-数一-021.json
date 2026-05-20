@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-021",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 11,
+  "question": "设线性方程组\n$\\begin{cases} x_1 + x_2 + x_3 = 0 \\\\ x_1 + 2x_2 + a x_3 = 0 \\\\ x_1 + 4x_2 + a^2 x_3 = 0 \\end{cases}$\n与方程 $x_1 + 2x_2 + x_3 = a-1$ 有公共解，求 $a$ 的值及所有公共解.",
+  "standard_answer": "当 $a=1$ 时，公共解为 $k(1,-2,1)^{\\mathrm{T}}$；当 $a=2$ 时，公共解为 $(0,-1,1)^{\\mathrm{T}}$",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

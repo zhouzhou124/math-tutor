@@ -33,19 +33,32 @@ def render_score_card(gr: dict, total_score: int = 10) -> None:
             st.caption(comment)
 
 
-def render_knowledge_points(knowledge_points: list, question: dict = None) -> None:
-    """独立展示知识点卡片 — 不在标准解法中隐藏"""
-    if not knowledge_points:
-        return
+def render_knowledge_points(knowledge_points: list, question: dict = None, question_db=None) -> None:
+    """独立展示知识点卡片 — 不在标准解法中隐藏
+
+    当 *knowledge_points* 为空且 *question_db* 可用时，尝试从题目文本自动检测知识点。
+    """
+    # Auto-detect on the fly when the question JSON lacks tags
+    if not knowledge_points and question_db and question:
+        try:
+            q_text = question.get("question", "")
+            if q_text:
+                knowledge_points = question_db.auto_tag(q_text)
+        except Exception:
+            pass
 
     with st.container(border=True):
         st.markdown("**📚 考查知识点**")
-        tags_html = " ".join(
-            f"<span style='background:#eef2ff;color:#4338ca;padding:4px 10px;"
-            f"border-radius:16px;font-size:0.85em;border:1px solid #c7d2fe;margin:2px;'>{kp}</span>"
-            for kp in knowledge_points[:6]
-        )
-        st.markdown(f"<div style='display:flex;flex-wrap:wrap;gap:6px;'>{tags_html}</div>", unsafe_allow_html=True)
+
+        if not knowledge_points:
+            st.info("暂无知识点标注，请查看标准解法了解本题涉及的知识点")
+        else:
+            tags_html = " ".join(
+                f"<span style='background:#eef2ff;color:#4338ca;padding:4px 10px;"
+                f"border-radius:16px;font-size:0.85em;border:1px solid #c7d2fe;margin:2px;'>{kp}</span>"
+                for kp in knowledge_points[:6]
+            )
+            st.markdown(f"<div style='display:flex;flex-wrap:wrap;gap:6px;'>{tags_html}</div>", unsafe_allow_html=True)
 
         # 知识点详情
         if question:
@@ -59,6 +72,10 @@ def render_knowledge_points(knowledge_points: list, question: dict = None) -> No
                     for cm in common_mistakes[:4]
                 )
                 st.markdown(f"<div style='display:flex;flex-wrap:wrap;gap:4px;'>{cm_tags}</div>", unsafe_allow_html=True)
+            elif not knowledge_points:
+                st.markdown("")
+                st.markdown("**⚠️ 常见易错点**")
+                st.info("暂无常见易错点标注")
 
 
 def render_diagnosis_card(dr: dict, gr: dict) -> None:
@@ -68,17 +85,23 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
     is_repeat = dr.get("is_repeat", False)
     weak_points = dr.get("weak_points", [])
 
-    if not error_type and not root_cause:
-        return
-
     with st.container(border=True):
         st.markdown("**🔍 错因诊断**")
 
+        if not error_type and not root_cause:
+            # 检查是否是未作答状态
+            comment = gr.get("comment", "")
+            if "未作答" in comment:
+                error_type = "未作答"
+                root_cause = "学生未输入任何作答内容，建议先尝试独立解题再查看标准答案"
+            
         if error_type:
             st.markdown(f"**错误类型**: {error_type}")
 
         if root_cause:
             st.info(root_cause)
+        elif not error_type:
+            st.info("暂无诊断信息")
 
         if is_repeat:
             repeat_count = dr.get("repeat_count", 0)
@@ -91,10 +114,13 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
                 for w in weak_points[:5]
             )
             st.markdown(f"**薄弱知识点**: {tags}", unsafe_allow_html=True)
+        elif error_type:
+            st.markdown("**薄弱知识点**:")
+            st.info("暂无薄弱知识点分析")
 
 
-def render_standard_solution(solution: dict) -> None:
-    """Standard solution card — collapsed by default."""
+def render_standard_solution(solution: dict, expanded: bool = False) -> None:
+    """Standard solution card — collapsed by default. Pass expanded=True to show open."""
     steps = solution.get("steps") or []
     answer = solution.get("standard_answer", "")
 
@@ -108,11 +134,11 @@ def render_standard_solution(solution: dict) -> None:
             pass  # Has structured data, proceed to rendering
         else:
             # Truly no content available
-            with st.expander("📖 查看标准解法", expanded=False):
+            with st.expander("📖 查看标准解法", expanded=expanded):
                 st.info("暂无标准解法数据")
             return
 
-    with st.expander("📖 查看标准解法", expanded=False):
+    with st.expander("📖 查看标准解法", expanded=expanded):
         # ── 优先：结构化渲染路径 ──
         if isinstance(structured, dict):
             # 检查是否有步骤
@@ -187,19 +213,21 @@ def render_standard_solution(solution: dict) -> None:
 def render_recommendations(dr: dict, question_db=None, current_question=None) -> None:
     """Learning recommendations card with similar question links."""
     weak_points = dr.get("weak_points", [])
-    if not weak_points:
-        return
 
     with st.container(border=True):
         st.markdown("**📖 巩固建议**")
-        recs = [
-            f"重点复习 **{wp}** 相关知识点" for wp in weak_points[:3]
-        ]
-        for i, rec in enumerate(recs, 1):
-            st.markdown(f"{i}. {rec}")
+        
+        if weak_points:
+            recs = [
+                f"重点复习 **{wp}** 相关知识点" for wp in weak_points[:3]
+            ]
+            for i, rec in enumerate(recs, 1):
+                st.markdown(f"{i}. {rec}")
+        else:
+            st.info("建议先完成作答，系统将根据答题情况提供个性化巩固建议")
 
         # 相似题目推荐
-        if question_db and current_question and weak_points:
+        if question_db and current_question:
             try:
                 from similar_question_recommender import recommend_similar
                 similar_questions = recommend_similar(
@@ -227,16 +255,24 @@ def render_recommendations(dr: dict, question_db=None, current_question=None) ->
                                 st.session_state.selected_question = q
                                 st.session_state.page = "practice"
                                 st.rerun()
+                else:
+                    st.markdown("")
+                    st.markdown("**🎯 同类练习推荐**")
+                    st.info("暂无相似题目推荐")
             except Exception as e:
                 # 如果推荐功能不可用，显示原有提示
+                st.markdown("")
+                st.markdown("**🎯 同类练习推荐**")
                 st.caption("建议在错题本中查看同类题目进行针对性练习")
         else:
+            st.markdown("")
+            st.markdown("**🎯 同类练习推荐**")
             st.caption("建议在错题本中查看同类题目进行针对性练习")
 
 
-def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10, 
-                                 knowledge_points: list = None, question: dict = None, 
-                                 question_db=None) -> None:
+def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10,
+                                 knowledge_points: list = None, question: dict = None,
+                                 question_db=None, solution_expanded: bool = False) -> None:
     """Progressive disclosure: score + knowledge points + main error visible, details collapsed.
 
     Default view:
@@ -255,8 +291,8 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     render_score_card(gr, total_score)
 
     # ═══ Always visible: Knowledge Points — 独立展示，不在标准解法中隐藏 ═══
-    kp_list = knowledge_points or question.get("knowledge_points", []) if question else []
-    render_knowledge_points(kp_list, question)
+    kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
+    render_knowledge_points(kp_list, question, question_db)
 
     # ═══ Always visible: Diagnosis ═══
     render_diagnosis_card(dr, gr)
@@ -266,14 +302,12 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
         with st.expander("📊 步骤对比分析", expanded=False):
             _render_step_comparison_body(gr)
 
-    # ═══ Collapsed: Standard solution ═══
-    render_standard_solution(sa)
+    # ═══ Collapsed / Expanded: Standard solution ═══
+    render_standard_solution(sa, expanded=solution_expanded)
 
     # ═══ Collapsed: Recommendations ═══
-    weak_points = dr.get("weak_points", [])
-    if weak_points:
-        with st.expander("📖 巩固建议", expanded=False):
-            render_recommendations(dr, question_db, question)
+    with st.expander("📖 巩固建议", expanded=False):
+        render_recommendations(dr, question_db, question)
 
 
 def _render_step_comparison_body(gr: dict) -> None:

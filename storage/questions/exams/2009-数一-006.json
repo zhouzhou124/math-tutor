@@ -4,7 +4,9 @@
   "question_type": "选择题",
   "question": "设 $A,B$ 均为$2$阶矩阵，$A^*, B^*$ 分别为 $A,B$ 的伴随矩阵，若 $|A|=2, |B|=3$，则分块矩阵 $\\begin{pmatrix} O & A \\\\ B & O \\end{pmatrix}$ 的伴随矩阵为",
   "standard_answer": "## 标准答案\n正确选项: B. $\\begin{pmatrix} O & 2B^* \\\\ 3A^* & O \\end{pmatrix}$\n\n步骤1：设分块矩阵并计算其行列式  \n记 $M = \\begin{pmatrix} O & A \\\\ B & O \\end{pmatrix}$，其中 $A,B$ 均为 $2$ 阶方阵。  \n根据分块矩阵行列式的计算公式：$\\begin{vmatrix} O & A \\\\ B & O \\end{vmatrix} = (-1)^{2 \\times 2} |A| \\cdot |B| = |A| \\cdot |B|$。  \n已知 $|A|=2, |B|=3$，故 $|M| = 2 \\times 3 = 6$。\n\n步骤2：求分块矩阵 $M$ 的逆矩阵  \n设 $M^{-1} = \\begin{pmatrix} X & Y \\\\ Z & W \\end{pmatrix}$，由 $M M^{-1} = I$ 得：\n$\\begin{pmatrix} O & A \\\\ B & O \\end{pmatrix} \\begin{pmatrix} X & Y \\\\ Z & W \\end{pmatrix} = \\begin{pmatrix} AZ & AW \\\\ BX & BY \\end{pmatrix} = \\begin{pmatrix} I & O \\\\ O & I \\end{pmatrix}.$\n比较对应块可得：$AZ=I \\Rightarrow Z=A^{-1}$；$AW=O \\Rightarrow W=O$；$BX=O \\Rightarrow X=O$；$BY=I \\Rightarrow Y=B^{-1}$。  \n因此 $M^{-1} = \\begin{pmatrix} O & B^{-1} \\\\ A^{-1} & O \\end{pmatrix}$。\n\n步骤3：利用伴随矩阵与逆矩阵的关系求伴随矩阵  \n对于可逆矩阵 $M$，伴随矩阵满足 $M^* = |M| M^{-1}$。  \n代入已求得的结果：$M^* = 6 \\cdot \\begin{pmatrix} O & B^{-1} \\\\ A^{-1} & O \\end{pmatrix} = \\begin{pmatrix} O & 6B^{-1} \\\\ 6A^{-1} & O \\end{pmatrix}$。\n\n步骤4：将 $A^{-1}, B^{-1}$ 用伴随矩阵 $A^*, B^*$ 表示  \n因为 $A,B$ 均为 $2$ 阶方阵，由伴随矩阵与逆矩阵的关系 $A^{-1} = \\frac{A^*}{|A|}$ 得：  \n$A^{-1} = \\frac{A^*}{2}$，$B^{-1} = \\frac{B^*}{3}$。  \n代入步骤3的表达式：  \n$M^* = \\begin{pmatrix} O & 6 \\cdot \\frac{B^*}{3} \\\\ 6 \\cdot \\frac{A^*}{2} & O \\end{pmatrix} = \\begin{pmatrix} O & 2B^* \\\\ 3A^* & O \\end{pmatrix}$。\n\n步骤5：对比选项，选择正确答案  \n所得伴随矩阵为 $\\begin{pmatrix} O & 2B^* \\\\ 3A^* & O \\end{pmatrix}$，对应选项 (B)。\n\n## 关键知识点\n1. 分块矩阵行列式的计算：$\\begin{vmatrix} O & A \\\\ B & O \\end{vmatrix} = (-1)^{mn}|A||B|$（其中 $A$ 为 $m\\times n$ 矩阵）。\n2. 分块矩阵的求逆方法：利用块矩阵相等列方程组解出各子块。\n3. 伴随矩阵与逆矩阵的关系：对 $n$ 阶可逆矩阵 $M$，有 $M^* = |M| M^{-1}$，及 $A^{-1} = \\frac{A^*}{|A|}$。\n\n## 易错提示\n1. 计算分块矩阵行列式时，容易遗漏符号 $(-1)^{mn}$ 或将其指数弄错（本题中指数为 $2\\times2=4$，符号为正，但若块不是方阵需特别小心）。\n2. 求分块矩阵的逆时，容易把 $A^{-1}$ 与 $B^{-1}$ 的位置写反（正确逆矩阵为 $\\begin{pmatrix} O & B^{-1} \\\\ A^{-1} & O \\end{pmatrix}$，而非 $\\begin{pmatrix} O & A^{-1} \\\\ B^{-1} & O \\end{pmatrix}$）。\n3. 在利用 $A^{-1}=\\frac{A^*}{|A|}$ 时，容易将分子分母颠倒，或将 $|A|=2,|B|=3$ 的系数乘错，得到错误的选项（如误乘出 $3B^*$ 与 $2A^*$ 的组合）。以上即为本题完整的标准答案。综上所述，正确选项为 (B) $\\begin{pmatrix} O & 2B^* \\\\ 3A^* & O \\end{pmatrix}$。",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "矩阵"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2009",
@@ -16,5 +18,8 @@
   },
   "correct_option": "B",
   "question_id": "2009-数一-006",
-  "solution_steps": []
+  "solution_steps": [],
+  "tags": [
+    "矩阵"
+  ]
 }

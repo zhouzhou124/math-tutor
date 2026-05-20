@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷八-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "difficulty": "难题",
+  "score": 10,
+  "question": "设 $u(x,y) = f(x) + g(y)$ 具有二阶连续偏导数，且满足\n$\\left[1 + \\left(\\frac{\\partial u}{\\partial y}\\right)^2\\right] \\frac{\\partial^2 u}{\\partial x^2} - 2 \\frac{\\partial u}{\\partial x} \\frac{\\partial u}{\\partial y} \\frac{\\partial^2 u}{\\partial x \\partial y} + \\left[1 + \\left(\\frac{\\partial u}{\\partial x}\\right)^2\\right] \\frac{\\partial^2 u}{\\partial y^2} = 0$，\n又已知 $f''(x) \\neq 0$，求 $u = u(x,y)$ 的表达式。",
+  "standard_answer": "$u(x,y) = \\pm \\frac{x^2}{2} + C_1x + C_2y + C_3$",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

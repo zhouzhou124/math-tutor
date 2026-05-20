@@ -1,0 +1,25 @@
+{
+  "question_id": "2007-数一-009",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "某人向同一目标独立重复射击，每次射击命中目标的概率为 $p(0<p<1)$，则此人第$4$次射击恰好第$2$次命中目标的概率为",
+  "options": {
+    "A": "$3p(1-p)^2$",
+    "B": "$6p(1-p)^2$",
+    "C": "$3p^2(1-p)^2$",
+    "D": "$6p^2(1-p)^2$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "solution_steps": []
+}

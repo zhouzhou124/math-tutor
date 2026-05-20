@@ -1,0 +1,19 @@
+{
+  "question_id": "2006-数一-016",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设数列 $\\{x_n\\}$ 满足 $0<x_1<\\pi$，$x_{n+1} = \\sin x_n$（$n=1,2,\\dots$）.\n$(1)$ 证明 $\\lim_{n\\to\\infty} x_n$ 存在，并求该极限；\n$(2)$ 计算 $\\lim_{n\\to\\infty} \\left(\\frac{x_{n+1}}{x_n}\\right)^{\\frac{1}{n}}$.",
+  "standard_answer": "(I) $\\lim_{n\\to\\infty} x_n = 0$\n(II) $\\lim_{n\\to\\infty} \\left(\\frac{x_{n+1}}{x_n}\\right)^{\\frac{1}{n}} = 1$",
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "tags": [
+    "极限与连续"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

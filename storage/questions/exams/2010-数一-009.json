@@ -4,9 +4,14 @@
   "question_type": "填空题",
   "question": "设 $\\begin{cases} x = e^{-t} \\\\ y = \\int_0^t \\ln(1+u^2) du \\end{cases}$，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=0} =$ ______",
   "standard_answer": "$0$",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "导数与微分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
-  "question_id": "2010-数一-009"
+  "question_id": "2010-数一-009",
+  "tags": [
+    "导数与微分"
+  ]
 }

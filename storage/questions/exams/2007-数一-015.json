@@ -1,0 +1,18 @@
+{
+  "question_id": "2007-数一-015",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设矩阵 $A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix}$，则 $A^3$ 的秩为 ______",
+  "standard_answer": "0",
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "tags": [
+    "矩阵运算"
+  ],
+  "solution_steps": []
+}

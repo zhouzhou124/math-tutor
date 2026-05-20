@@ -51,17 +51,30 @@ def _ensure_table(conn: sqlite3.Connection):
     conn.commit()
 
 
+_init_called = False
+
 def init_db():
-    """One-time initialisation — safe to call on every import."""
+    """One-time initialisation for the current server process.
+
+    Only marks *stale* processing tasks (older than 10 minutes) as failed,
+    so a server restart doesn't leave zombies, but a live task created by
+    the current process is never accidentally killed.
+    """
+    global _init_called
     conn = _connect()
     try:
         _ensure_table(conn)
-        # Stamp stale processing tasks as failed so the UI never spins forever.
-        conn.execute(
-            "UPDATE grading_tasks SET status='failed', error_msg='Server restarted before completion' "
-            "WHERE status='processing'"
-        )
-        conn.commit()
+        if not _init_called:
+            # First init in this process — clean up any zombies from a
+            # previous crashed server run (tasks stuck in 'processing' >10 min).
+            conn.execute(
+                "UPDATE grading_tasks SET status='failed', "
+                "error_msg='Server restarted before completion' "
+                "WHERE status='processing' "
+                "AND created_at < datetime('now', '-10 minutes')"
+            )
+            conn.commit()
+            _init_called = True
     finally:
         conn.close()
 
@@ -153,7 +166,7 @@ def get_task(task_id: str) -> Optional[dict]:
 def get_recent_task(user_id: str, minutes: int = RECOVERY_WINDOW_MINUTES) -> Optional[dict]:
     """Return the most recent completed-or-processing task for *user_id*
     within the recovery window.  Processing tasks are only returned if they
-    are less than 5 minutes old (the server-side thread may still be running)."""
+    are less than 30 minutes old (the server-side thread may still be running)."""
     conn = _connect()
     try:
         # Use SQLite's datetime functions so timestamps are compared in the
@@ -165,7 +178,7 @@ def get_recent_task(user_id: str, minutes: int = RECOVERY_WINDOW_MINUTES) -> Opt
                  AND created_at > datetime('now', ?)
                  AND viewed = 0
                  AND (status = 'completed'
-                      OR (status = 'processing' AND created_at > datetime('now', '-5 minutes')))
+                      OR (status = 'processing' AND created_at > datetime('now', '-30 minutes')))
                ORDER BY created_at DESC
                LIMIT 1""",
             (user_id, f'-{minutes} minutes'),

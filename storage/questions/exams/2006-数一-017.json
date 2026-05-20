@@ -1,0 +1,18 @@
+{
+  "question_id": "2006-数一-017",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 12,
+  "question": "将函数 $f(x) = \\frac{x}{2+x-x^2}$ 展开成 $x$ 的幂级数。",
+  "standard_answer": "$f(x) = \\sum_{n=0}^\\infty \\left(\\frac{1}{2^{n+1}} - (-1)^n\\right) x^{n+1}$，收敛域为 $(-1,1)$",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "solution_steps": []
+}

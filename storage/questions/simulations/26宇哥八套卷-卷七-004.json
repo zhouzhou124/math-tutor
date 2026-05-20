@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷七-004",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$I_1 = \\int_0^{2\\pi} \\frac{\\sin x}{x} dx$，$I_2 = \\int_0^{2\\pi} \\frac{\\sin x}{2\\pi - x} dx$，$I_3 = \\int_0^{2\\pi} \\frac{\\sin x}{x(2\\pi - x)} dx$，则",
+  "options": {
+    "A": "$I_3 < I_1 < I_2$",
+    "B": "$I_3 < I_2 < I_1$",
+    "C": "$I_2 < I_3 < I_1$",
+    "D": "$I_1 < I_2 < I_3$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "solution_steps": []
+}

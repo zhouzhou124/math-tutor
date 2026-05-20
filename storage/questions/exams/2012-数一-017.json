@@ -1,19 +1,18 @@
 {
+  "question_id": "2012-数一-017",
   "year": 2012,
   "category": "数学一",
-  "question_type": "选择题",
-  "question": "设 $I_k = \\int_0^{k\\pi} e^{x^2} \\sin x dx$ ($k=1,2,3$)，则有",
-  "options": {
-    "A": "$I_1 < I_2 < I_3$",
-    "B": "$I_3 < I_2 < I_1$",
-    "C": "$I_2 < I_3 < I_1$",
-    "D": "$I_2 < I_1 < I_3$"
-  },
-  "correct_option": "D",
-  "standard_answer": "D",
-  "knowledge_points": [],
-  "difficulty": "中等",
-  "score": 4,
-  "source": "manual_import_2012",
-  "question_id": "2012-数一-017"
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 10,
+  "question": "求幂级数 $\\sum_{n=0}^\\infty \\frac{4n^2 + 4n + 3}{2n+1} x^{2n}$ 的收敛域及和函数。",
+  "standard_answer": "收敛域为 $(-1,1)$，和函数 $S(x) = \\frac{1}{1-x^2} + \\frac{1}{2}\\ln\\frac{1+x}{1-x}$",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "solution_steps": []
 }

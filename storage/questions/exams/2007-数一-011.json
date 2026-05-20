@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-011",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$$\\int_1^2 \\frac{1}{x^3} e^{\\frac{1}{x}} dx =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "$\\frac{3}{2}e^{\\frac{1}{2}} - \\frac{1}{2}e$",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

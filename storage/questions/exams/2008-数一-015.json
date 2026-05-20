@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-015",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 9,
+  "question": "求极限 $$\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4} \\sin x$$",
+  "standard_answer": "$\\frac{1}{6}$",
+  "knowledge_points": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "tags": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

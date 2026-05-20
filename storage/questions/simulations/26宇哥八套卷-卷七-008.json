@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷七-008",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设存在非零常数 $a$ 使得 $P\\{aX + Y = 0\\} = 1$，则随机变量 $X$ 与 $Y$ 的相关系数 $\\rho$ 满足",
+  "options": {
+    "A": "$\\rho = \\frac{a}{|a|}$",
+    "B": "$\\rho = -\\frac{a}{|a|}$",
+    "C": "$-1 < \\rho < 1$",
+    "D": "$|\\rho| = |a|$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "solution_steps": []
+}

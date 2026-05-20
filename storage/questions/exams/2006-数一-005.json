@@ -1,0 +1,21 @@
+{
+  "question_id": "2006-数一-005",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设矩阵 $A = \\begin{pmatrix} 2 & 1 \\\\ -1 & 2 \\end{pmatrix}$，$E$ 为$2$阶单位矩阵，矩阵 $B$ 满足 $BA = B + 2E$，则 $|B| =$ ______",
+  "standard_answer": "2",
+  "knowledge_points": [
+    "矩阵运算",
+    "行列式"
+  ],
+  "tags": [
+    "矩阵运算",
+    "行列式"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "26宇哥八套卷-卷七-019",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设数列 $\\{x_n\\}$ 满足 $x_{n+1} = \\frac{a + x_n}{1 + x_n}$，$0<a<1$，$x_1 \\ge 0$.\n$(1)$ 证明 $\\sum_{n=1}^\\infty (x_{n+1} - x_n)$ 绝对收敛；\n$(2)$ 求 $\\lim_{n\\to\\infty} \\sum_{i=1}^n (x_{i+1} - x_i)$.",
+  "standard_answer": "(1) 证明略\n(2) $\\lim_{n\\to\\infty} \\sum_{i=1}^n (x_{i+1} - x_i) = 1 - a$",
+  "knowledge_points": [
+    "极限与连续",
+    "无穷级数"
+  ],
+  "tags": [
+    "极限与连续",
+    "无穷级数"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷八-012",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "函数 $u(x,y,z) = xy^2 + z^3 - xyz$ 在点 $P(1,1,1)$ 处沿任意方向的方向导数中，最大值为 ______",
+  "standard_answer": "$\\sqrt{6}$",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

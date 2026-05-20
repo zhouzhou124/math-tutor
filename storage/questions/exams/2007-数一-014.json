@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-014",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设曲面 $\\Sigma: |x| + |y| + |z| = 1$，则 $$\\iint_{\\Sigma} (x + |y|) dS =\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "$\\frac{4}{3}\\sqrt{3}$",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

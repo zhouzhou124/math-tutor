@@ -1,0 +1,20 @@
+{
+  "question_id": "26宇哥八套卷-卷七-018",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 12,
+  "question": "设 $u = u(x,y)$ 具有二阶连续偏导数，且满足 $\\frac{\\partial^2 u}{\\partial x \\partial y} = x^2 y$，$u(x,0) = -x^2 + 2$，$u(1,y) = \\cos y$.求\n$(1)$ $u = u(x,y)$ 的表达式；\n$(2)$ $u(x,y) - \\cos y$ 的极值.",
+  "standard_answer": "(1) $u(x,y) = -x^2 + 2 + \\cos y + \\frac{1}{2}x^2 y^2 - \\frac{1}{2}y^2$\n(2) 极小值 $u(1,0) - \\cos 0 = -1$",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,27 @@
+{
+  "question_id": "2008-数一-001",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设函数 $f(x) = \\int_0^x \\ln(2+t) dt$，则 $f'(x)$ 的零点个数为",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "定积分",
+    "导数与微分"
+  ],
+  "tags": [
+    "定积分",
+    "导数与微分"
+  ],
+  "solution_steps": []
+}

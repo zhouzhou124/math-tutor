@@ -1,0 +1,25 @@
+{
+  "question_id": "2007-数一-007",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设向量组 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关，则下列向量组线性相关的是",
+  "options": {
+    "A": "$\\alpha_1-\\alpha_2, \\alpha_2-\\alpha_3, \\alpha_3-\\alpha_1$",
+    "B": "$\\alpha_1+\\alpha_2, \\alpha_2+\\alpha_3, \\alpha_3+\\alpha_1$",
+    "C": "$\\alpha_1-2\\alpha_2, \\alpha_2-2\\alpha_3, \\alpha_3-2\\alpha_1$",
+    "D": "$\\alpha_1+2\\alpha_2, \\alpha_2+2\\alpha_3, \\alpha_3+2\\alpha_1$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "solution_steps": []
+}

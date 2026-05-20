@@ -4,7 +4,10 @@
   "question_type": "选择题",
   "question": "$\\lim_{n\\to\\infty} \\sum_{i=1}^n \\sum_{j=1}^n \\frac{n}{(n+i)(n^2+j^2)} =$",
   "standard_answer": "D",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "定积分",
+    "极限与连续"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
@@ -15,5 +18,9 @@
     "D": "$\\int_0^1 dx \\int_0^1 \\frac{1}{(1+x)(1+y^2)} dy$"
   },
   "correct_option": "D",
-  "question_id": "2010-数一-004"
+  "question_id": "2010-数一-004",
+  "tags": [
+    "定积分",
+    "极限与连续"
+  ]
 }

@@ -1,0 +1,21 @@
+{
+  "question_id": "2007-数一-020",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 10,
+  "question": "设幂级数 $\\sum_{n=0}^\\infty a_n x^n$ 在 $(-\\infty,+\\infty)$ 内收敛，其和函数 $y(x)$ 满足 $y'' - 2xy' - 4y = 0$，$y(0)=0$，$y'(0)=1$.\n$(1)$ 证明 $a_{n+2} = \\frac{2}{n+1} a_n$，$n=1,2,\\dots$；\n$(2)$ 求 $y(x)$ 的表达式.",
+  "standard_answer": "(I) 证明略\n(II) $y(x) = x e^{x^2}$",
+  "knowledge_points": [
+    "无穷级数",
+    "微分方程"
+  ],
+  "tags": [
+    "无穷级数",
+    "微分方程"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

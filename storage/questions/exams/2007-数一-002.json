@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-002",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "曲线 $y = \\frac{1}{x} + \\ln(1+e^x)$ 渐近线的条数为",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "tags": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "solution_steps": []
+}

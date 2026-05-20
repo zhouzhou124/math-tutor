@@ -4,7 +4,9 @@
   "question_type": "选择题",
   "question": "设 $m,n$ 均是正整数，则反常积分 $\\int_0^1 \\frac{\\sqrt[m]{\\ln^2(1-x)}}{\\sqrt[n]{x}} dx$ 的收敛性",
   "standard_answer": "D",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "反常积分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
@@ -15,5 +17,8 @@
     "D": "与 $m,n$ 的取值都无关"
   },
   "correct_option": "D",
-  "question_id": "2010-数一-003"
+  "question_id": "2010-数一-003",
+  "tags": [
+    "反常积分"
+  ]
 }

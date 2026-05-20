@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-008",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设袋中红球数与黑球数之比为 $r$，且无其他颜色的球，现有放回地抽取 $n$ 次，每次取一球，共取出 $k$ 个红球，则 $r$ 的最大似然估计值为",
+  "options": {
+    "A": "$\\frac{n}{k}$",
+    "B": "$\\frac{n-k}{k}$",
+    "C": "$\\frac{k}{n}$",
+    "D": "$\\frac{k}{n-k}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "参数估计"
+  ],
+  "tags": [
+    "参数估计"
+  ],
+  "solution_steps": []
+}

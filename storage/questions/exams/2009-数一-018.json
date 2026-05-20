@@ -4,10 +4,17 @@
   "question_type": "解答题",
   "question": "$(1)$ 证明拉格朗日中值定理；\n$(2)$ 证明：若函数 $f(x)$ 在 $x=0$ 处连续，在 $(0,\\delta)(\\delta>0)$ 内可导，且 $\\lim_{x\\to 0^+} f'(x) = A$，则 $f'_+(0)$ 存在，且 $f'_+(0) = A$。",
   "standard_answer": "证明略。",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "连续",
+    "中值定理"
+  ],
   "difficulty": "中等",
   "score": 11,
   "source": "manual_import_2009",
   "question_id": "2009-数一-018",
-  "options": {}
+  "options": {},
+  "tags": [
+    "连续",
+    "中值定理"
+  ]
 }

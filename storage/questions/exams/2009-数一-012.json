@@ -4,10 +4,15 @@
   "question_type": "填空题",
   "question": "设 $\\Omega = \\{(x,y,z) \\mid x^2 + y^2 + z^2 \\le 1\\}$，则 $$\\iiint_\\Omega z^2 dx dy dz = \\_\\_\\_\\_\\_\\_$$",
   "standard_answer": "$\\frac{4\\pi}{15}$",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "三重积分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2009",
   "question_id": "2009-数一-012",
-  "options": {}
+  "options": {},
+  "tags": [
+    "三重积分"
+  ]
 }

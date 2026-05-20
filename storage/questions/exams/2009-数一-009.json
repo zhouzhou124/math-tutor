@@ -4,9 +4,15 @@
   "question_type": "填空题",
   "question": "设函数 $f(u,v)$ 具有二阶连续偏导数，$z = f(x,xy)$，则 $\\frac{\\partial^2 z}{\\partial x \\partial y} =$ ______",
   "standard_answer": "$f_{12} + xy f_{22}$",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "多元函数微分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2009",
-  "question_id": "2009-数一-009"
+  "question_id": "2009-数一-009",
+  "solution_steps": [],
+  "tags": [
+    "多元函数微分"
+  ]
 }

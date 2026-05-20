@@ -92,6 +92,17 @@ def _render_record(err, render_latex, i):
             else:
                 st.markdown("*（暂无标准答案）*")
             solution_steps = err.get("solution_steps", [])
+            
+            # 如果没有结构化步骤，尝试从标准答案中解析
+            if not solution_steps and _sa:
+                try:
+                    from latex_utils import from_legacy_text
+                    structured = from_legacy_text(_sa)
+                    if structured and structured.get("steps"):
+                        solution_steps = structured["steps"]
+                except Exception:
+                    pass
+            
             if solution_steps:
                 with st.expander("📝 解题步骤", expanded=False):
                     for step in solution_steps:
@@ -112,6 +123,15 @@ def _render_record(err, render_latex, i):
                                 render_latex(step["content"])
                         elif isinstance(step, str):
                             render_latex(step)
+            elif _sa:
+                # 如果没有步骤但有标准答案，尝试显示格式化的答案
+                with st.expander("📝 解题步骤", expanded=False):
+                    try:
+                        from latex_utils import from_legacy_text, render_structured_safe
+                        structured = from_legacy_text(_sa)
+                        render_structured_safe(structured)
+                    except Exception:
+                        render_latex(_sa)
 
         with st.container(border=True):
             st.caption("🔍 批改详情")

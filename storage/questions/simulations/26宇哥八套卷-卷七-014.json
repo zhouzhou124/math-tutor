@@ -1,0 +1,20 @@
+{
+  "question_id": "26宇哥八套卷-卷七-014",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $l$ 是从点 $(1,1,1)$ 到点 $(4,4,4)$ 的直线段，则 $\\int_l \\frac{x dx + y dy + z dz}{\\sqrt{x^2 + y^2 + z^2 - x - y + 2z}} =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "$4\\ln 2$",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

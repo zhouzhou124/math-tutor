@@ -1,14 +1,18 @@
 {
+  "question_id": "2012-数一-019",
   "year": 2012,
   "category": "数学一",
-  "question_type": "选择题",
-  "question": "设 $A$ 为 $3$ 阶矩阵，$P$ 为 $3$ 阶可逆矩阵，且 $P^{-1}AP = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$。若 $P = (\\alpha_1,\\alpha_2,\\alpha_3)$，$Q = (\\alpha_1 + \\alpha_2,\\alpha_2,\\alpha_3)$，则 $Q^{-1}AQ =$ $(A)$ $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$ $(B)$ $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$ $(C)$ $\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$ $(D)$ $\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
-  "options": {},
-  "correct_option": "A",
-  "standard_answer": "A",
-  "knowledge_points": [],
+  "math_type": "数学一",
+  "question_type": "解答题",
   "difficulty": "中等",
-  "score": 4,
-  "source": "manual_import_2012",
-  "question_id": "2012-数一-019"
+  "score": 10,
+  "question": "已知 $L$ 是第一象限中从点 $(0,0)$ 沿圆周 $x^2+y^2=2x$ 到点 $(2,0)$，再沿圆周 $x^2+y^2=4$ 到点 $(0,2)$ 的曲线段，计算曲线积分 $I = \\int_L 3x^2y dx + (x^3 + x - 2y) dy$。",
+  "standard_answer": "$\\frac{4}{3}$",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "solution_steps": []
 }

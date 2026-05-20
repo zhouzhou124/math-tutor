@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-010",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设有$5$个盒子，$100$个球，每个球等可能地放入任一盒子中，根据中心极限定理，指定的某一个盒子中不超过$22$个球的概率近似为",
+  "options": {
+    "A": "$1-\\Phi(1)$",
+    "B": "$\\Phi(1)$",
+    "C": "$1-\\Phi(0.5)$",
+    "D": "$\\Phi(0.5)$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "大数定律与中心极限定理"
+  ],
+  "tags": [
+    "大数定律与中心极限定理"
+  ],
+  "solution_steps": []
+}

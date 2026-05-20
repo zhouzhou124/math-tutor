@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-022",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 11,
+  "question": "设$3$阶实对称矩阵 $A$ 的特征值 $\\lambda_1 = 1$，$\\lambda_2 = 2$，$\\lambda_3 = -2$，且 $\\alpha_1 = (1,-1,1)^{\\mathrm{T}}$ 是 $A$ 的属于 $\\lambda_1$ 的一个特征向量.记 $B = A^5 - 4A^3 + E$，其中 $E$ 为$3$阶单位矩阵.\n$(1)$ 验证 $\\alpha_1$ 是矩阵 $B$ 的特征向量，并求 $B$ 的全部特征值与特征向量；\n$(2)$ 求矩阵 $B$.",
+  "standard_answer": "(I) $B$ 的特征值为 $-2$（对应特征向量 $k(1,-1,1)^{\\mathrm{T}}$），$1$（对应特征向量 $k\\alpha_2$），$1$（对应特征向量 $k\\alpha_3$）\n(II) $B = E$（3阶单位矩阵）",
+  "knowledge_points": [
+    "特征值与特征向量"
+  ],
+  "tags": [
+    "特征值与特征向量"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

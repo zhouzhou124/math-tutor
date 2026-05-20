@@ -4,9 +4,14 @@
   "question_type": "填空题",
   "question": "设 $\\Omega = \\{(x,y,z) \\mid x^2+y^2 \\le z \\le 1\\}$，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______",
   "standard_answer": "$\\frac{2}{3}$",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "三重积分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
-  "question_id": "2010-数一-012"
+  "question_id": "2010-数一-012",
+  "tags": [
+    "三重积分"
+  ]
 }

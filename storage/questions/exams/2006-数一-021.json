@@ -1,0 +1,21 @@
+{
+  "question_id": "2006-数一-021",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 9,
+  "question": "设$3$阶实对称矩阵 $A$ 的各行元素之和均为$3$.向量 $\\alpha_1 = (-1,2,-1)^{\\mathrm{T}}$，$\\alpha_2 = (0,-1,1)^{\\mathrm{T}}$ 是线性方程组 $Ax=0$ 的两个解.\n$(1)$ 求 $A$ 的特征值与特征向量；\n$(2)$ 求正交矩阵 $Q$ 和对角矩阵 $\\Lambda$，使得 $Q^{\\mathrm{T}}AQ = \\Lambda$.",
+  "standard_answer": "(I) 特征值 $\\lambda_1=3$（对应特征向量 $k(1,1,1)^{\\mathrm{T}}$），$\\lambda_2=\\lambda_3=0$（对应特征向量 $k_1(-1,2,-1)^{\\mathrm{T}}+k_2(0,-1,1)^{\\mathrm{T}}$）\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{3}} & -\\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{2}} \\\\ \\frac{1}{\\sqrt{3}} & \\frac{2}{\\sqrt{6}} & 0 \\\\ \\frac{1}{\\sqrt{3}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{2}} \\end{pmatrix}$，$\\Lambda = \\begin{pmatrix} 3 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

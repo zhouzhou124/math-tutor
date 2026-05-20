@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-004",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设函数 $f(x)$ 在 $x=0$ 处连续，下列命题错误的是",
+  "options": {
+    "A": "若 $\\lim_{x\\to 0} \\frac{f(x)}{x}$ 存在，则 $f(0)=0$",
+    "B": "若 $\\lim_{x\\to 0} \\frac{f(x)+f(-x)}{x}$ 存在，则 $f(0)=0$",
+    "C": "若 $\\lim_{x\\to 0} \\frac{f(x)}{x}$ 存在，则 $f'(0)$ 存在",
+    "D": "若 $\\lim_{x\\to 0} \\frac{f(x)-f(-x)}{x}$ 存在，则 $f'(0)$ 存在"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "tags": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "solution_steps": []
+}

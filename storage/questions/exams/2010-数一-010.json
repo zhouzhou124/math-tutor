@@ -4,9 +4,14 @@
   "question_type": "填空题",
   "question": "$\\int_0^{\\pi^2} \\sqrt{x} \\cos\\sqrt{x} dx =$ ______",
   "standard_answer": "2",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "定积分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2010",
-  "question_id": "2010-数一-010"
+  "question_id": "2010-数一-010",
+  "tags": [
+    "定积分"
+  ]
 }

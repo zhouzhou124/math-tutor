@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-009",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设随机变量 $X \\sim N(0,1)$，则与 $Y = \\begin{cases} X, & |X|\\le 1 \\\\ -X, & |X|>1 \\end{cases}$ 同分布的是",
+  "options": {
+    "A": "$X$",
+    "B": "$2X$",
+    "C": "$\\frac{X+Y}{2}$",
+    "D": "$X+Y$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "solution_steps": []
+}

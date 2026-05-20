@@ -322,8 +322,22 @@ class QuestionDB:
             if self._match(q, filters) and len(results) < limit:
                 results.append(q)
 
-        # Stable sort by question_no (numeric)
-        results.sort(key=lambda q: q.get("question_no", 0))
+        # Sort by question_no (题号顺序), fallback to extracting from question_id
+        def _get_sort_key(q):
+            qno = q.get("question_no")
+            if qno:
+                return qno
+            # 从question_id提取题号，格式如 "26宇哥八套卷-卷八-001" 或 "2026-数一-001"
+            qid = q.get("question_id", "")
+            parts = qid.split("-")
+            if len(parts) >= 3:
+                try:
+                    return int(parts[-1])
+                except ValueError:
+                    pass
+            return 0
+        
+        results.sort(key=_get_sort_key)
         return results
 
     def browse(self, math_type: str = None, year: int = None,
@@ -365,31 +379,52 @@ class QuestionDB:
         cats = index.get("categories", {})
 
         by_type = {}
-        for mt_name, mt_data in cats.items():
-            for year_str, year_data in mt_data.items():
+        by_math_type = {}
+        
+        # 检测索引结构类型
+        # 结构1: categories -> 年份 -> 题型 (旧结构)
+        # 结构2: categories -> 数学类别 -> 年份 -> 题型 (新结构)
+        has_math_type = False
+        first_key = next(iter(cats.keys()), None)
+        if first_key and first_key in ["数学一", "数学二", "数学三", "26宇哥八套卷"]:
+            has_math_type = True
+        
+        if has_math_type:
+            # 新结构: categories -> 数学类别 -> 年份 -> 题型
+            for mt_name, mt_data in cats.items():
+                count = 0
+                for year_str, year_data in mt_data.items():
+                    if isinstance(year_data, dict):
+                        for qtype, ids in year_data.items():
+                            if qtype in QUESTION_TYPES:
+                                by_type[qtype] = by_type.get(qtype, 0) + len(ids)
+                                count += len(ids)
+                by_math_type[mt_name] = count
+        else:
+            # 旧结构: categories -> 年份 -> 题型
+            # 默认数学类别为"数学一"
+            by_math_type["数学一"] = 0
+            for year_str, year_data in cats.items():
                 if isinstance(year_data, dict):
                     for qtype, ids in year_data.items():
                         if qtype in QUESTION_TYPES:
                             by_type[qtype] = by_type.get(qtype, 0) + len(ids)
-
-        by_math_type = {}
-        for mt_name, mt_data in cats.items():
-            count = 0
-            for year_str, year_data in mt_data.items():
-                if isinstance(year_data, dict):
-                    for qtype, ids in year_data.items():
-                        if qtype in QUESTION_TYPES:
-                            count += len(ids)
-            by_math_type[mt_name] = count
+                            by_math_type["数学一"] += len(ids)
 
         years = set()
-        for mt_data in cats.values():
-            for y in mt_data.keys():
+        if has_math_type:
+            for mt_data in cats.values():
+                for y in mt_data.keys():
+                    if y.isdigit():
+                        years.add(int(y))
+        else:
+            # 旧结构直接从 categories 键中获取年份
+            for y in cats.keys():
                 if y.isdigit():
                     years.add(int(y))
 
         result = {
-            "total": index["metadata"]["total_questions"],
+            "total": index["metadata"].get("total_questions", 0),
             "by_math_type": by_math_type,
             "by_question_type": by_type,
             "years_covered": sorted(list(years)),

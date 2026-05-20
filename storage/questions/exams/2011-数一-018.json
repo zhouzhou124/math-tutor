@@ -4,10 +4,17 @@
   "question_type": "解答题",
   "question": "$(1)$ 证明：对任意的正整数 $n$，都有 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立；\n$(2)$ 设 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$，证明数列 $\\{a_n\\}$ 收敛.",
   "standard_answer": "证明略。",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "无穷级数",
+    "极限与连续"
+  ],
   "difficulty": "中等",
   "score": 10,
   "source": "manual_import_2011",
   "question_id": "2011-数一-018",
-  "options": {}
+  "options": {},
+  "tags": [
+    "无穷级数",
+    "极限与连续"
+  ]
 }

@@ -1,0 +1,21 @@
+{
+  "question_id": "26宇哥八套卷-卷八-016",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $X_1,X_2$ 为来自总体 $N(0,1)$ 的简单随机样本，记 $\\hat{\\sigma} = a|X_1-X_2| (a>0)$，若 $D(\\hat{\\sigma}) = 1$，则 $a =$ ______",
+  "standard_answer": "$\\frac{\\sqrt{\\pi}}{2}$",
+  "knowledge_points": [
+    "参数估计",
+    "数字特征"
+  ],
+  "tags": [
+    "参数估计",
+    "数字特征"
+  ],
+  "solution_steps": []
+}

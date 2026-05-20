@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "较难",
+  "score": 5,
+  "question": "设 $\\alpha_1,\\alpha_2,\\dots,\\alpha_n$ 是 $n$ 个 $n$ 维的线性无关向量，$\\alpha_{n+1} = k_1\\alpha_1 + k_2\\alpha_2 + \\cdots + k_n\\alpha_n$，其中 $k_1,k_2,\\dots,k_n$ 全不为 $0$，则下列结论\n① $\\alpha_2,\\alpha_3,\\dots,\\alpha_{n+1}$ 线性相关；\n② $\\alpha_1,\\alpha_3,\\dots,\\alpha_{n+1}$ 线性相关；\n③ $\\alpha_1,\\alpha_2,\\alpha_4,\\dots,\\alpha_{n+1}$ 线性相关。\n正确的个数为",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "solution_steps": []
+}

@@ -4,9 +4,14 @@
   "question_type": "填空题",
   "question": "若二次曲面的方程 $x^2 + 3y^2 + z^2 + 2a xy + 2xz + 2yz = 4$ 经正交变换化为 $y_1^2 + 4z_1^2 = 4$，则 $a =$ ______",
   "standard_answer": "1",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "二次型"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2011",
-  "question_id": "2011-数一-013"
+  "question_id": "2011-数一-013",
+  "tags": [
+    "二次型"
+  ]
 }

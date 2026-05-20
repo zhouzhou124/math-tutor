@@ -48,6 +48,7 @@ def _clear_grading_state():
         'standard_answer_structured',
         'answer_view_mode',
         'grading_triggered',
+        '_poll_start',
     ]
     for key in keys_to_clear:
         if key in st.session_state:
@@ -55,7 +56,11 @@ def _clear_grading_state():
 
 
 def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> bool:
-    """Return True when a cached answer is too thin for LLM grading/rendering."""
+    """Return True when a cached answer is too thin for LLM grading/rendering.
+
+    An answer is "good enough" (returns False) ONLY when it already contains
+    explicit step markers (步骤N：) — mere length is not sufficient.
+    """
     if steps:
         return False
 
@@ -67,10 +72,13 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> b
     if any(p in text for p in placeholders):
         return True
 
-    if q_type in ("选择题", "填空题") and len(text) < 80:
-        return True
+    # Already has detailed step markers → cache is good enough
+    import re
+    if re.search(r'步骤\s*\d+\s*[：:]', text):
+        return False
 
-    return len(text) < 120
+    # No step markers → needs AI expansion regardless of length
+    return True
 
 
 def _solution_to_text(solution: dict) -> str:
@@ -179,6 +187,48 @@ class _ThreadSafeStatus:
         self._buffer.clear()
 
 
+class _NoOpStatus:
+    """A status-like object that silently discards all writes.
+
+    Used in background threads where no Streamlit script context exists.
+    """
+    def write(self, msg: str): pass
+    def update(self, *, label=None, state=None, expanded=None): pass
+
+
+class _NoOpContext:
+    """A st-like object whose .status() returns a _NoOpStatus.
+
+    Used as the *container* argument to _execute_grading_process when
+    running in a background thread.
+    """
+    def status(self, label: str, expanded: bool = True) -> _NoOpStatus:
+        return _NoOpStatus()
+
+
+def _parse_steps_from_text(text: str) -> list:
+    """从 AI 生成的详细解答文本中提取步骤列表。
+
+    匹配 "步骤N：" 或 "步骤N: " 标记，返回 [{"label": "步骤1", "content": "..."}, ...]。
+    用于在 from_legacy_text 解析失败时给旧版渲染路径提供兜底。
+    """
+    if not text:
+        return []
+    import re
+    markers = list(re.finditer(r'步骤\s*(\d+)\s*[：:]\s*', text))
+    if not markers:
+        return []
+    steps = []
+    for i, m in enumerate(markers):
+        step_num = int(m.group(1))
+        start = m.end()
+        end = markers[i + 1].start() if i + 1 < len(markers) else len(text)
+        content = text[start:end].strip()
+        if content:
+            steps.append({"label": f"步骤{step_num}", "content": content})
+    return steps
+
+
 def _build_standard_solution(question, ocr_data, selected_q, client, status,
                              force_expansion: bool = False, *, _state=None, model=None) -> dict:
     """获取/生成标准解答。空作答和正常批改共用同一逻辑。
@@ -236,7 +286,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else _known_answer,
                 "total_score": selected_q.get("score", 10),
-                "steps": [],
+                "steps": _parse_steps_from_text(expanded) if expanded else [],
             }
             if expanded:
                 try:
@@ -276,7 +326,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else "解答生成失败",
                 "total_score": selected_q.get("score", 10),
-                "steps": [],
+                "steps": _parse_steps_from_text(expanded) if expanded else [],
             }
             if expanded:
                 try:
@@ -367,7 +417,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
               standard_answer_structured, error_record (for saving to error notebook).
               返回 None 表示前置条件不满足（如无 API key）。
     """
-    ctx = container or st
+    ctx = container if container is not None else _NoOpContext()
     _model = model or _ss_get("model", LLM_MODEL, _state=_state)
     _user_id = user_id or (_ss_get("auth", {}, _state=_state).get("user_id", ""))
     _memory = memory or _ss_get("memory", _state=_state)
@@ -464,8 +514,9 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         )
         status.write("⏳ 标准答案与规范解并行生成中...")
     else:
+        # 选择题和填空题也需要详细解答，方便用户查看标准解法
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
-                                            _state=_state, model=_model)
+                                            force_expansion=True, _state=_state, model=_model)
         if solution is None:
             _ss_set("grading_triggered", False, _state=_state)
             return None
@@ -715,13 +766,16 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     if gresult.get("total", 0) < solution.get("total_score", 10) * 0.9:
         full_standard_answer = _solution_to_text(solution) or solution.get("standard_answer", "")
 
+        # 获取解题步骤 - 优先从solution.steps获取，其次从solution._structured.steps获取
         saved_steps = solution.get("steps", [])
         if not saved_steps:
-            structured = solution.get("_structured") or _ss_get("standard_answer_structured", _state=_state)
-            if isinstance(structured, dict):
-                struct_steps = structured.get("steps", [])
-                if struct_steps:
-                    saved_steps = struct_steps
+            structured = solution.get("_structured")
+            if structured and isinstance(structured, dict):
+                saved_steps = structured.get("steps", [])
+        if not saved_steps:
+            structured_from_state = _ss_get("standard_answer_structured", _state=_state)
+            if isinstance(structured_from_state, dict):
+                saved_steps = structured_from_state.get("steps", [])
 
         error_record = {
             "question_id": selected_q.get("question_id", ""),
@@ -833,8 +887,16 @@ def _submit_grading_async(question, student_ans, ocr_data, selected_q):
     """Create task, start background thread, return task_id.
 
     Extracts all needed state from st.session_state before spawning the thread.
+    Guards against duplicate submission: if user already has a processing task
+    that is less than 2 minutes old, re-attach to it instead of creating a new one.
     """
     user_id = st.session_state.auth.get("user_id", "unknown")
+
+    # Guard: re-attach to an existing processing task
+    existing = get_recent_task(user_id, minutes=2)
+    if existing and existing.get("status") == "processing":
+        return existing["task_id"]
+
     model = st.session_state.get("model", LLM_MODEL)
     memory = st.session_state.get("memory")
 
@@ -934,18 +996,16 @@ def render_grading_page(db, render_latex):
 
     user_id = st.session_state.auth.get("user_id", "") if st.session_state.get("auth") else ""
 
-    # ── Recovery: check SQLite for a recent completed/pending task ──
+    # ── Recovery: check SQLite for a recent completed task only ──
+    # Note: Only recover completed tasks, not processing tasks.
+    # Processing tasks from previous sessions may be stale (server crashed).
+    # If user wants to retry, they should explicitly click "开始批改".
     if "ocr_result" not in st.session_state and user_id:
         recent = get_recent_task(user_id)
-        if recent:
-            status = recent.get("status", "")
-            if status == "completed":
-                _restore_results_to_session(recent)
-                st.session_state.page = "grading"
-                st.rerun()
-            elif status == "processing":
-                # Still running — store task_id for polling below
-                st.session_state["pending_task_id"] = recent["task_id"]
+        if recent and recent.get("status") == "completed":
+            _restore_results_to_session(recent)
+            st.session_state.page = "grading"
+            st.rerun()
 
     # 检查 ocr_result 是否已初始化
     if "ocr_result" not in st.session_state:
@@ -1050,23 +1110,42 @@ def render_grading_page(db, render_latex):
     if pending_task_id:
         task = get_task(pending_task_id)
         if task is None:
-            # Task vanished (shouldn't happen) — clear and proceed
             del st.session_state["pending_task_id"]
             st.rerun()
-        elif task["status"] == "processing":
+
+        # Track when polling started to enforce a 30‑minute timeout
+        poll_start = st.session_state.get("_poll_start", 0)
+        if poll_start == 0:
+            st.session_state["_poll_start"] = time.time()
+            poll_start = st.session_state["_poll_start"]
+
+        if task["status"] == "processing":
+            elapsed = time.time() - poll_start
+            if elapsed > 1800:  # 30 minutes
+                fail_task(pending_task_id, "批改超时（超过30分钟未完成），请重试")
+                del st.session_state["_poll_start"]
+                st.rerun()
             st.info("⏳ 批改任务已提交，正在后台处理中... 页面将自动刷新。")
-            st.caption(f"任务ID: `{pending_task_id}`")
+            st.caption(f"任务ID: `{pending_task_id}` | 已等待 {elapsed:.0f} 秒")
             time.sleep(3)
             st.rerun()
         elif task["status"] == "completed":
-            # Task finished — restore results and show them
+            del st.session_state["_poll_start"]
             _restore_results_to_session(task)
             del st.session_state["pending_task_id"]
             st.rerun()
         elif task["status"] == "failed":
-            st.error(f"批改失败: {task.get('error_msg', '未知错误')}")
-            if st.button("🔄 重试", key="retry_grading"):
+            del st.session_state["_poll_start"]
+            err_msg = task.get("error_msg", "未知错误")
+            # If server restarted mid-task, suggest a fresh retry
+            if "Server restarted" in err_msg:
+                st.warning("检测到服务曾重启，批改任务已中断。请重新提交。")
+            else:
+                st.error(f"批改失败: {err_msg}")
+            if st.button("🔄 重新批改", key="retry_grading"):
+                # Clear the failed task so a fresh one is created
                 del st.session_state["pending_task_id"]
+                _clear_grading_state()
                 st.rerun()
         return
 
@@ -1115,7 +1194,8 @@ def render_grading_page(db, render_latex):
                 gr, sa, dr, total,
                 knowledge_points=knowledge_points,
                 question=selected_q,
-                question_db=db
+                question_db=db,
+                solution_expanded=(gr.get("engine") == "view_only"),
             )
 
         return  # 提前返回，不执行后续的真题库部分

@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-023",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 11,
+  "question": "设 $X_1,X_2,\\dots,X_n$ 是总体 $N(\\mu,\\sigma^2)$ 的简单随机样本，记 $\\overline{X} = \\frac{1}{n}\\sum_{i=1}^n X_i$，$S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\overline{X})^2$，$T = \\overline{X}^2 - \\frac{1}{n}S^2$.\n$(1)$ 证明 $T$ 是 $\\mu^2$ 的无偏估计量；\n$(2)$ 当 $\\mu = 0$，$\\sigma = 1$ 时，求 $D(T)$.",
+  "standard_answer": "(I) 证明略\n(II) $D(T) = \\frac{2}{n}$",
+  "knowledge_points": [
+    "参数估计",
+    "数字特征"
+  ],
+  "tags": [
+    "参数估计",
+    "数字特征"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

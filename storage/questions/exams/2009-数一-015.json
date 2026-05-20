@@ -4,9 +4,14 @@
   "question_type": "解答题",
   "question": "求二元函数 $f(x,y) = x^2(2 + y^2) + y \\ln y$ 的极值。",
   "standard_answer": "极小值 $f(0,\\frac{1}{e}) = -\\frac{1}{e}$，无极大值",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "多元函数微分"
+  ],
   "difficulty": "中等",
   "score": 9,
   "source": "manual_import_2009",
-  "question_id": "2009-数一-015"
+  "question_id": "2009-数一-015",
+  "tags": [
+    "多元函数微分"
+  ]
 }

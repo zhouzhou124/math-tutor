@@ -4,7 +4,9 @@
   "question_type": "选择题",
   "question": "设 $A$ 为3阶矩阵，将 $A$ 的第2列加到第1列得矩阵 $B$，再交换 $B$ 的第2行与第3行得单位矩阵。记 $P_1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，则 $A =$",
   "standard_answer": "D",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "矩阵运算"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2011",
@@ -15,5 +17,8 @@
     "D": "$P_2 P_1^{-1}$"
   },
   "correct_option": "D",
-  "question_id": "2011-数一-005"
+  "question_id": "2011-数一-005",
+  "tags": [
+    "矩阵运算"
+  ]
 }

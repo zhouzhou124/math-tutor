@@ -1,0 +1,27 @@
+{
+  "question_id": "2012-数一-003",
+  "year": 2012,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "如果函数 $f(x,y)$ 在点 $(0,0)$ 处连续，那么下列命题正确的是\nA. 若极限 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{|x|+|y|}$ 存在，则 $f(x,y)$ 在点 $(0,0)$ 处可微\nB. 若极限 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{x^2+y^2}$ 存在，则 $f(x,y)$ 在点 $(0,0)$ 处可微\nC. 若 $f(x,y)$ 在点 $(0,0)$ 处可微，则极限 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{|x|+|y|}$ 存在\nD. 若 $f(x,y)$ 在点 $(0,0)$ 处可微，则极限 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{x^2+y^2}$ 存在",
+  "options": {
+    "A": "A",
+    "B": "B",
+    "C": "C",
+    "D": "D"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "多元函数微分",
+    "极限与连续"
+  ],
+  "tags": [
+    "多元函数微分",
+    "极限与连续"
+  ],
+  "solution_steps": []
+}

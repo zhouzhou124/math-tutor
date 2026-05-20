@@ -4,9 +4,16 @@
   "question_type": "解答题",
   "question": "设 $a_n$ 为曲线 $y = x^n$ 与 $y = x^{n+1} (n=1,2,\\dots)$ 所围成区域的面积，记 $S_1 = \\sum_{n=1}^\\infty a_n$，$S_2 = \\sum_{n=1}^\\infty a_{2n-1}$，求 $S_1$ 与 $S_2$ 的值。",
   "standard_answer": "$S_1 = \\frac{1}{2}$，$S_2 = \\frac{1}{2}$",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "定积分应用",
+    "无穷级数"
+  ],
   "difficulty": "中等",
   "score": 9,
   "source": "manual_import_2009",
-  "question_id": "2009-数一-016"
+  "question_id": "2009-数一-016",
+  "tags": [
+    "定积分应用",
+    "无穷级数"
+  ]
 }

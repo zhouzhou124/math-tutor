@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-020",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "证明题",
+  "difficulty": "中等",
+  "score": 10,
+  "question": "设 $\\alpha,\\beta$ 为$3$维列向量，矩阵 $A = \\alpha \\alpha^{\\mathrm{T}} + \\beta \\beta^{\\mathrm{T}}$，其中 $\\alpha^{\\mathrm{T}},\\beta^{\\mathrm{T}}$ 分别是 $\\alpha,\\beta$ 的转置.\n证明：\n$(1)$ 秩 $r(A) \\le 2$；\n$(2)$ 若 $\\alpha,\\beta$ 线性相关，则秩 $r(A) < 2$.",
+  "standard_answer": "证明略",
+  "knowledge_points": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

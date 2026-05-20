@@ -1,0 +1,21 @@
+{
+  "question_id": "2006-数一-019",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "证明题",
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设在上半平面 $D = \\{(x,y) \\mid y>0\\}$ 内，函数 $f(x,y)$ 具有连续偏导数，且对任意的 $t>0$ 都有 $f(tx,ty) = t^{-2} f(x,y)$。证明：对 $D$ 内的任意分段光滑的有向简单闭曲线 $L$，都有 $$\\oint_L y f(x,y) dx - x f(x,y) dy = 0$$.",
+  "standard_answer": "证明略",
+  "knowledge_points": [
+    "曲线积分",
+    "多元函数微分"
+  ],
+  "tags": [
+    "曲线积分",
+    "多元函数微分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

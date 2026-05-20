@@ -1,0 +1,21 @@
+{
+  "question_id": "26宇哥八套卷-卷七-012",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim_{x\\to 0^+} [y(x)]^x =$ ______",
+  "standard_answer": "1",
+  "knowledge_points": [
+    "微分方程",
+    "极限与连续"
+  ],
+  "tags": [
+    "微分方程",
+    "极限与连续"
+  ],
+  "solution_steps": []
+}

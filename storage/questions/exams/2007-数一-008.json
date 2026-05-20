@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-008",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设矩阵 $A = \\begin{pmatrix} 2 & -1 & -1 \\\\ -1 & 2 & -1 \\\\ -1 & -1 & 2 \\end{pmatrix}$，$B = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$，则 $A$ 与 $B$",
+  "options": {
+    "A": "合同，且相似",
+    "B": "合同，但不相似",
+    "C": "不合同，但相似",
+    "D": "既不合同，也不相似"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "solution_steps": []
+}

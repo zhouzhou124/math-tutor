@@ -4,7 +4,9 @@
   "question_type": "选择题",
   "question": "设 $I = \\int_0^{\\frac{\\pi}{4}} \\ln(\\sin x) dx$，$J = \\int_0^{\\frac{\\pi}{4}} \\ln(\\cot x) dx$，$K = \\int_0^{\\frac{\\pi}{4}} \\ln(\\cos x) dx$，则 $I,J,K$ 的大小关系为",
   "standard_answer": "B",
-  "knowledge_points": [],
+  "knowledge_points": [
+    "定积分"
+  ],
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2011",
@@ -15,5 +17,8 @@
     "D": "$K < J < I$"
   },
   "correct_option": "B",
-  "question_id": "2011-数一-004"
+  "question_id": "2011-数一-004",
+  "tags": [
+    "定积分"
+  ]
 }

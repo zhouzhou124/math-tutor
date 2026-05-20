@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-005",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设函数 $f(x)$ 在 $(0,+\\infty)$ 上具有二阶导数，且 $f''(x)>0$，令 $u_n = f(n)$（$n=1,2,\\dots$），则下列结论正确的是",
+  "options": {
+    "A": "若 $u_1 > u_2$，则 $\\{u_n\\}$ 必收敛",
+    "B": "若 $u_1 > u_2$，则 $\\{u_n\\}$ 必发散",
+    "C": "若 $u_1 < u_2$，则 $\\{u_n\\}$ 必收敛",
+    "D": "若 $u_1 < u_2$，则 $\\{u_n\\}$ 必发散"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "tags": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "solution_steps": []
+}

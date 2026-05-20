@@ -1,0 +1,19 @@
+{
+  "question_id": "2006-数一-020",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 9,
+  "question": "已知非齐次线性方程组\n$\\begin{cases} x_1 + x_2 + x_3 + x_4 = -1 \\\\ 4x_1 + 3x_2 + 5x_3 - x_4 = -1 \\\\ a x_1 + x_2 + 3x_3 + b x_4 = 1 \\end{cases}$\n有$3$个线性无关的解.\n$(1)$ 证明方程组系数矩阵 $A$ 的秩 $r(A)=2$；\n$(2)$求 $a,b$ 的值及方程组的通解.",
+  "standard_answer": "(I) 证明略\n(II) $a=2$，$b=-3$，通解为 $x = \\begin{pmatrix} -2 \\\\ 0 \\\\ 1 \\\\ 0 \\end{pmatrix} + k_1 \\begin{pmatrix} -1 \\\\ 1 \\\\ 0 \\\\ 0 \\end{pmatrix} + k_2 \\begin{pmatrix} -1 \\\\ 0 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$k_1,k_2 \\in \\mathbf{R}$",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

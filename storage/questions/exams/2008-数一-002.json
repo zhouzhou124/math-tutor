@@ -1,0 +1,25 @@
+{
+  "question_id": "2008-数一-002",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "函数 $f(x,y) = \\arctan \\frac{x}{y}$ 在点 $(0,1)$ 处的梯度等于",
+  "options": {
+    "A": "$\\mathbf{i}$",
+    "B": "$\\mathbf{-i}$",
+    "C": "$\\mathbf{j}$",
+    "D": "$\\mathbf{-j}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

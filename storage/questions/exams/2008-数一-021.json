@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-021",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "难题",
+  "score": 12,
+  "question": "设 $n$ 元线性方程组 $Ax = b$，其中 $A = \\begin{pmatrix} 2a & 1 & & & \\\\ a^2 & 2a & 1 & & \\\\ & \\ddots & \\ddots & \\ddots & \\\\ & & a^2 & 2a & 1 \\\\ & & & a^2 & 2a \\end{pmatrix}$，$x = \\begin{pmatrix} x_1 \\\\ x_2 \\\\ \\vdots \\\\ x_n \\end{pmatrix}$，$b = \\begin{pmatrix} 1 \\\\ 0 \\\\ \\vdots \\\\ 0 \\end{pmatrix}$.\n$(1)$ 证明行列式 $|A| = (n+1)a^n$；\n$(2)$ 当 $a$ 为何值时，该方程组有唯一解，并求 $x_1$；\n$(3)$ 当 $a$ 为何值时，该方程组有无穷多解，并求通解.",
+  "standard_answer": "(I) 证明略\n(II) 当 $a \\neq 0$ 时，有唯一解，$x_1 = \\frac{1}{(n+1)a^n}$\n(III) 当 $a = 0$ 时，有无穷多解，通解为 $x = (1,0,\\dots,0)^{\\mathrm{T}} + k(0,\\dots,0,1)^{\\mathrm{T}}$，$k \\in \\mathbf{R}$",
+  "knowledge_points": [
+    "行列式",
+    "线性方程组"
+  ],
+  "tags": [
+    "行列式",
+    "线性方程组"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

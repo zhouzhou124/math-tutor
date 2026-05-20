@@ -1,0 +1,21 @@
+{
+  "question_id": "26宇哥八套卷-卷七-016",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设随机变量 $X$ 的分布函数为 $F(x) = k\\left(\\frac{\\pi}{2} + \\arctan x\\right)$，$x\\in\\mathbf{R}$，$Y = \\min\\{1,|X|\\}$，则 $E(Y) =$ ______",
+  "standard_answer": "$\\frac{2}{\\pi}\\ln(1+\\sqrt{2})$",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "solution_steps": []
+}

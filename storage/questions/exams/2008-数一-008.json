@@ -1,0 +1,27 @@
+{
+  "question_id": "2008-数一-008",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设随机变量 $X \\sim N(0,1)$，$Y \\sim N(1,4)$，且相关系数 $\\rho_{XY} = 1$，则",
+  "options": {
+    "A": "$P\\{Y = -2X-1\\} = 1$",
+    "B": "$P\\{Y = 2X-1\\} = 1$",
+    "C": "$P\\{Y = -2X+1\\} = 1$",
+    "D": "$P\\{Y = 2X+1\\} = 1$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "数字特征",
+    "随机变量及其分布"
+  ],
+  "solution_steps": []
+}

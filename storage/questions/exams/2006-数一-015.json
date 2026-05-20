@@ -1,0 +1,19 @@
+{
+  "question_id": "2006-数一-015",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 10,
+  "question": "设区域 $D = \\{(x,y) \\mid x^2+y^2 \\le 1, x \\ge 0\\}$，计算二重积分 $$I = \\iint\\limits_D \\frac{1+xy}{1+x^2+y^2} dxdy$$",
+  "standard_answer": "$I = \\frac{\\pi}{2} \\ln 2$",
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "tags": [
+    "二重积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-019",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "证明题",
+  "difficulty": "较难",
+  "score": 11,
+  "question": "设函数 $f(x),g(x)$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内具有二阶导数且存在相等的最大值，$f(a)=g(a)$，$f(b)=g(b)$，证明：存在 $\\xi \\in (a,b)$，使得 $f''(\\xi) = g''(\\xi)$.",
+  "standard_answer": "证明略",
+  "knowledge_points": [
+    "中值定理"
+  ],
+  "tags": [
+    "中值定理"
+  ],
+  "solution_steps": [],
+  "options": {}
+}
