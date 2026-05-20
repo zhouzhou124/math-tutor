@@ -58,8 +58,9 @@ def _clear_grading_state():
 def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> bool:
     """Return True when a cached answer is too thin for LLM grading/rendering.
 
-    An answer is "good enough" (returns False) ONLY when it already contains
-    explicit step markers (步骤N：) — mere length is not sufficient.
+    An answer is "good enough" (returns False) when it already contains
+    explicit step markers (步骤N：), OR is sufficiently long (previously
+    AI-expanded).  Short placeholder answers always need expansion.
     """
     if steps:
         return False
@@ -77,8 +78,12 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> b
     if re.search(r'步骤\s*\d+\s*[：:]', text):
         return False
 
-    # No step markers → needs AI expansion regardless of length
-    return True
+    # Short answer for MC / fill-in-the-blank → needs expansion
+    if q_type in ("选择题", "填空题") and len(text) < 80:
+        return True
+
+    # Short answer for proof / free-response → needs expansion
+    return len(text) < 120
 
 
 def _solution_to_text(solution: dict) -> str:
@@ -286,7 +291,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else _known_answer,
                 "total_score": selected_q.get("score", 10),
-                "steps": _parse_steps_from_text(expanded) if expanded else [],
+                "steps": [],
             }
             if expanded:
                 try:
@@ -326,7 +331,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else "解答生成失败",
                 "total_score": selected_q.get("score", 10),
-                "steps": _parse_steps_from_text(expanded) if expanded else [],
+                "steps": [],
             }
             if expanded:
                 try:
@@ -759,6 +764,25 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     except Exception as _evo_err:
         pass  # 非关键路径
 
+    # Step 3.6: VerifierAgent — post-hoc reasoning quality check.
+    #   SolverAgent → generates standard answer   (pure solve)
+    #   VerifierAgent → checks bidirectional logic, missing conditions,
+    #                    illegal derivations (pure verify)
+    #   Renderer → displays results                (pure display)
+    try:
+        from agents.verifier_agent import VerifierAgent
+        verifier = VerifierAgent()
+        report = verifier.verify(
+            reasoning_text=gresult.get("comment", ""),
+            step_analysis=gresult.get("step_analysis", []),
+            diagnosis_text=dresult.get("root_cause", ""),
+        )
+        if not report.passed:
+            gresult["_verification"] = report.to_dict()
+            gresult["_obligation_warning"] = report.summary
+    except Exception:
+        pass  # Verification is advisory; never block grading
+
     status.write("⏳ 保存到错题本...")
 
     # Step 4: 构建错题记录
@@ -766,16 +790,22 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     if gresult.get("total", 0) < solution.get("total_score", 10) * 0.9:
         full_standard_answer = _solution_to_text(solution) or solution.get("standard_answer", "")
 
-        # 获取解题步骤 - 优先从solution.steps获取，其次从solution._structured.steps获取
-        saved_steps = solution.get("steps", [])
-        if not saved_steps:
-            structured = solution.get("_structured")
-            if structured and isinstance(structured, dict):
-                saved_steps = structured.get("steps", [])
+        # Prefer structured steps (blocks, LaTeX-aware) over simple steps (content, plain text).
+        # 1) _structured from from_legacy_text (blocks format)
+        # 2) standard_answer_structured from session state
+        # 3) _parse_steps_from_text on the raw answer (simple content format, last resort)
+        saved_steps = []
+        structured = solution.get("_structured")
+        if isinstance(structured, dict) and structured.get("steps"):
+            saved_steps = structured["steps"]
         if not saved_steps:
             structured_from_state = _ss_get("standard_answer_structured", _state=_state)
-            if isinstance(structured_from_state, dict):
-                saved_steps = structured_from_state.get("steps", [])
+            if isinstance(structured_from_state, dict) and structured_from_state.get("steps"):
+                saved_steps = structured_from_state["steps"]
+        if not saved_steps:
+            raw_answer = solution.get("standard_answer", "")
+            if raw_answer:
+                saved_steps = _parse_steps_from_text(raw_answer)
 
         error_record = {
             "question_id": selected_q.get("question_id", ""),
@@ -796,6 +826,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "method_matched": gresult.get("method_matched", ""),
             "engine": gresult.get("engine", gresult.get("_engine", "unknown")),
             "confidence": gresult.get("confidence", 0.0),
+            "obligation_warning": gresult.get("_obligation_warning", ""),
             "error_type": dresult.get("error_type", ""),
             "root_cause": dresult.get("root_cause", ""),
             "weak_points": dresult.get("weak_points", []),
@@ -805,12 +836,18 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "timestamp": time.strftime("%Y-%m-%d %H:%M"),
         }
 
-        # 保存到错题本（如果 memory service 可用）
+        # Save to 错题本.  In the background thread (_state is not None) we
+        # defer the actual save to _restore_results_to_session() on the main
+        # thread, avoiding a duplicate when both paths write.
         if _memory and _user_id:
-            try:
-                _memory.add_error_record(_user_id, error_record)
-            except Exception:
-                pass  # 错题本保存失败不影响主流程
+            if _state is None:
+                # Main thread — save immediately
+                try:
+                    _memory.add_error_record(_user_id, error_record)
+                except Exception:
+                    pass
+            # Background thread — error_record is returned in results;
+            # _restore_results_to_session will save it.
         if _state is not None:
             _state["mistakes_force_reload"] = True
         else:
@@ -969,16 +1006,24 @@ def _restore_results_to_session(task: dict):
         except (json.JSONDecodeError, TypeError):
             pass
 
-    # Save error record to 错题本 (deferred from background thread)
+    # Save error record to 错题本 (deferred from background thread).
+    # Guard: skip if a record with the same question_id was already saved
+    # in this session (avoids duplicates from multi-path saves).
     error_json = task.get("error_record_json")
     if error_json:
         try:
             error_record = json.loads(error_json)
             if error_record and st.session_state.get("memory"):
-                st.session_state.memory.add_error_record(
-                    task["user_id"], error_record
-                )
-                st.session_state.mistakes_force_reload = True
+                qid = error_record.get("question_id", "")
+                _seen = st.session_state.get("_saved_error_qids", set())
+                _dedup_key = f"{task['user_id']}:{qid}"
+                if _dedup_key not in _seen:
+                    _seen.add(_dedup_key)
+                    st.session_state["_saved_error_qids"] = _seen
+                    st.session_state.memory.add_error_record(
+                        task["user_id"], error_record
+                    )
+                    st.session_state.mistakes_force_reload = True
         except (json.JSONDecodeError, TypeError):
             pass
 
@@ -1094,7 +1139,14 @@ def render_grading_page(db, render_latex):
         with st.container(border=True):
             st.caption("✍️ 学生作答")
             if student_ans:
-                render_latex(student_ans)
+                try:
+                    render_latex(student_ans)
+                except Exception:
+                    try:
+                        from latex_utils import from_legacy_text, render_structured_safe
+                        render_structured_safe(from_legacy_text(student_ans))
+                    except Exception:
+                        st.text(str(student_ans)[:2000])
             else:
                 st.markdown("（未作答）")
 

@@ -107,10 +107,16 @@ def _try_recover_grading_session():
             try:
                 error_record = json.loads(error_json)
                 if error_record and st.session_state.get("memory"):
-                    st.session_state.memory.add_error_record(
-                        recent["user_id"], error_record
-                    )
-                    st.session_state.mistakes_force_reload = True
+                    qid = error_record.get("question_id", "")
+                    _seen = st.session_state.get("_saved_error_qids", set())
+                    _dedup_key = f"{recent['user_id']}:{qid}"
+                    if _dedup_key not in _seen:
+                        _seen.add(_dedup_key)
+                        st.session_state["_saved_error_qids"] = _seen
+                        st.session_state.memory.add_error_record(
+                            recent["user_id"], error_record
+                        )
+                        st.session_state.mistakes_force_reload = True
             except (json.JSONDecodeError, TypeError):
                 pass
 
@@ -162,44 +168,38 @@ def render_main_app():
             }
             nav_map.update(admin_map)
         
-        # ── 导航 radio ──
+        # ── 导航 selectbox ──
+        # Sync the selectbox to current_page ONLY when the page was changed
+        # externally (e.g. "开始练习" button).  When the user clicks the
+        # selectbox itself we must NOT overwrite their choice.
+        nav_key = "nav_select"
         current_page = st.session_state.get("page", "dashboard")
-        nav_key = "nav_radio"
+        _prev_page = st.session_state.get("_prev_page", "")
 
-        # 首次加载：根据当前页面初始化 radio
-        if nav_key not in st.session_state:
-            for label, pid in nav_map.items():
-                if pid == current_page:
-                    st.session_state[nav_key] = label
-                    break
-            else:
-                st.session_state[nav_key] = all_options[0]
+        current_label = all_options[0]
+        for label, pid in nav_map.items():
+            if pid == current_page:
+                current_label = label
+                break
 
-        # 先检测用户是否点击了 radio（必须在 sync 之前）
-        _prev_nav = st.session_state.get("_prev_nav_radio", "")
-        _curr_nav = st.session_state.get(nav_key, "")
-        _user_clicked_radio = (_prev_nav != _curr_nav and _prev_nav != "")
+        if _prev_page != current_page:
+            # External page change → sync selectbox
+            st.session_state[nav_key] = current_label
 
-        if _user_clicked_radio:
-            # 用户点击 radio → 更新页面
-            st.session_state.page = nav_map.get(_curr_nav, "dashboard")
-        else:
-            # 按钮跳转后页面变了但 radio 没变 → 同步 radio 到页面
-            _radio_val = st.session_state.get(nav_key, "")
-            if nav_map.get(_radio_val, "") != current_page:
-                for label, pid in nav_map.items():
-                    if pid == current_page:
-                        st.session_state[nav_key] = label
-                        break
-
-        st.session_state["_prev_nav_radio"] = st.session_state.get(nav_key, "")
-
-        st.radio(
+        selected_label = st.selectbox(
             "导航菜单",
             all_options,
             key=nav_key,
             label_visibility="collapsed",
         )
+
+        st.session_state["_prev_page"] = current_page
+
+        # User clicked a different option → navigate
+        selected_page = nav_map.get(selected_label, "dashboard")
+        if selected_page != current_page:
+            st.session_state.page = selected_page
+            st.rerun()
         
         st.divider()
         

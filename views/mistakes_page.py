@@ -37,7 +37,7 @@ def _invalidate_mistakes_cache():
     st.session_state.mistakes_force_reload = True
 
 
-def _render_record(err, render_latex, i):
+def _render_record(err, render_latex, i, db=None):
     """Render a single error record expander."""
     score = err.get('score', '?')
     max_score = err.get('max_score', err.get('total_score', err.get('full_mark', '?')))
@@ -62,13 +62,30 @@ def _render_record(err, render_latex, i):
     ):
         with st.container(border=True):
             st.caption("📋 题目")
+            # Prefer the structured question dict from the bank (same rendering
+            # path as the grading page), falling back to raw-text rendering.
+            _qid = err.get("question_id", "")
             _q = err.get("question", "")
-            if _q:
+            _rendered = False
+            if _qid and db:
+                try:
+                    db_q = db.get(_qid)
+                    if db_q and isinstance(db_q, dict) and db_q.get("question"):
+                        from renderers import render_question
+                        render_question(db_q, show_actions=False)
+                        _rendered = True
+                except Exception:
+                    pass
+            if not _rendered and _q:
                 try:
                     render_latex(_q)
                 except Exception:
-                    st.markdown(_q)
-            else:
+                    try:
+                        from latex_utils import from_legacy_text, render_structured_safe
+                        render_structured_safe(from_legacy_text(_q))
+                    except Exception:
+                        st.text(str(_q)[:2000])
+            elif not _rendered:
                 st.markdown("*（暂无题目内容）*")
             st.markdown("---")
             st.caption("✍️ 你的作答")
@@ -77,7 +94,11 @@ def _render_record(err, render_latex, i):
                 try:
                     render_latex(student_ans)
                 except Exception:
-                    st.markdown(student_ans)
+                    try:
+                        from latex_utils import from_legacy_text, render_structured_safe
+                        render_structured_safe(from_legacy_text(student_ans))
+                    except Exception:
+                        st.text(str(student_ans)[:2000])
             else:
                 st.markdown("*（未作答，仅查看标准答案）*")
 
@@ -88,7 +109,11 @@ def _render_record(err, render_latex, i):
                 try:
                     render_latex(_sa)
                 except Exception:
-                    st.text(_sa[:2000])
+                    try:
+                        from latex_utils import from_legacy_text, render_structured_safe
+                        render_structured_safe(from_legacy_text(_sa))
+                    except Exception:
+                        st.text(str(_sa)[:2000])
             else:
                 st.markdown("*（暂无标准答案）*")
             solution_steps = err.get("solution_steps", [])
@@ -109,20 +134,32 @@ def _render_record(err, render_latex, i):
                         if isinstance(step, dict):
                             label = step.get("label", step.get("num", ""))
                             st.markdown(f"**{label}**")
+                            _rendered = False
+                            _sc = str(step.get("content", ""))
+                            # Route A — blocks format (from from_legacy_text)
                             if step.get("blocks"):
-                                from latex_utils import render_ast, split_latex_text, sanitize_latex_for_render
-                                for b in step["blocks"]:
-                                    if b.get("type") == "latex":
-                                        try:
-                                            st.latex(sanitize_latex_for_render(b.get("content", "")))
-                                        except Exception:
-                                            render_ast(split_latex_text(b.get("content", "")))
-                                    else:
-                                        render_ast(split_latex_text(b.get("content", "")))
-                            elif step.get("content"):
-                                render_latex(step["content"])
+                                from latex_utils import _render_blocks_safe
+                                try:
+                                    _render_blocks_safe(step["blocks"])
+                                    _rendered = True
+                                except Exception:
+                                    pass
+                            # Route B — content format (from _parse_steps_from_text)
+                            if not _rendered and _sc:
+                                try:
+                                    from latex_utils import from_legacy_text, render_structured_safe
+                                    render_structured_safe(from_legacy_text(_sc))
+                                    _rendered = True
+                                except Exception:
+                                    pass
+                            # Ultimate fallback
+                            if not _rendered and _sc:
+                                st.text(_sc[:2000])
                         elif isinstance(step, str):
-                            render_latex(step)
+                            try:
+                                render_latex(step)
+                            except Exception:
+                                st.text(str(step)[:2000])
             elif _sa:
                 # 如果没有步骤但有标准答案，尝试显示格式化的答案
                 with st.expander("📝 解题步骤", expanded=False):
@@ -132,6 +169,11 @@ def _render_record(err, render_latex, i):
                         render_structured_safe(structured)
                     except Exception:
                         render_latex(_sa)
+
+        # ── Proof obligation warning ──
+        _obl_warn = err.get("obligation_warning", "")
+        if _obl_warn:
+            st.warning(_obl_warn)
 
         with st.container(border=True):
             st.caption("🔍 批改详情")
@@ -191,15 +233,63 @@ def _render_record(err, render_latex, i):
         st.markdown("---")
         if st.button("🗑 删除此记录", key=f"del_{record_id}",
                     help="从错题本中移除此记录"):
-            st.session_state.memory.delete_error_record(
-                st.session_state.auth['user_id'], record_id
-            )
-            _invalidate_mistakes_cache()
+            st.session_state["_delete_id"] = record_id
             st.rerun()
+
+
+def _delete_in_background(memory, user_id: str, record_id: str):
+    """Delete from Supabase/local in a daemon thread — never blocks the caller.
+
+    A watchdog thread force-kills the delete thread if it exceeds 15 seconds,
+    preventing hung HTTP connections from leaking resources.
+    """
+    import ctypes
+
+    _result = {"done": False, "error": None}
+
+    def _do_delete():
+        try:
+            memory.delete_error_record(user_id, record_id)
+            _result["done"] = True
+        except Exception as exc:
+            _result["error"] = str(exc)
+
+    def _watchdog(worker_thread):
+        worker_thread.join(timeout=15)
+        if worker_thread.is_alive():
+            try:
+                tid = worker_thread.ident
+                if tid:
+                    ctypes.pythonapi.PyThreadState_SetAsyncExc(
+                        ctypes.c_ulong(tid), ctypes.py_object(SystemExit)
+                    )
+            except Exception:
+                pass
+
+    worker = threading.Thread(target=_do_delete, daemon=True)
+    worker.start()
+    threading.Thread(target=_watchdog, args=(worker,), daemon=True).start()
 
 
 def render_mistakes_page(db, render_latex):
     st.title("📚 错题本")
+
+    # ── Deferred delete: flag set by button → processed at top of next
+    #     render cycle.  The actual Supabase call runs in a daemon thread
+    #     so the UI is never blocked waiting for the network.
+    _delete_id = st.session_state.pop("_delete_id", None)
+    if _delete_id:
+        # Guard: ignore duplicate delete requests for the same record
+        _pending = st.session_state.get("_pending_deletes", set())
+        if _delete_id not in _pending:
+            _pending.add(_delete_id)
+            st.session_state["_pending_deletes"] = _pending
+            _delete_in_background(
+                st.session_state.memory,
+                st.session_state.auth["user_id"],
+                _delete_id,
+            )
+        _invalidate_mistakes_cache()
 
     cf1, cf2, cf3 = st.columns(3)
     filter_subject = cf1.selectbox("科目", ["全部"] + SUBJECTS, key="filter_subject")
@@ -278,7 +368,7 @@ def render_mistakes_page(db, render_latex):
                 st.session_state[page_key] = total_pages; st.rerun()
 
     for i, err in enumerate(errors[start_idx:end_idx]):
-        _render_record(err, render_latex, i)
+        _render_record(err, render_latex, i, db=db)
 
     if total_pages > 1:
         st.caption(f"显示第 {start_idx + 1}-{end_idx} 条，共 {len(errors)} 条")

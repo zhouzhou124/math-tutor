@@ -2488,10 +2488,16 @@ def _render_blocks_safe(blocks: list[dict], highlight: bool = False) -> None:
             else:
                 st.markdown(md)
         except Exception:
+            # st.markdown can fail on complex LaTeX; fall back through
+            # safe_render → plain text, never truncating user-visible content.
             try:
-                st.text(md[:500])
+                from latex_utils import safe_render
+                safe_render(md)
             except Exception:
-                pass
+                try:
+                    st.text(md)
+                except Exception:
+                    pass
         buf.clear()
         last_was_inline = False
 
@@ -2582,7 +2588,13 @@ def _render_block_safe(block: dict, highlight: bool = False) -> None:
     except Exception:
         try:
             if t == "latex":
-                st.code(sanitize_latex_for_render(c) or str(c), language="latex")
+                # Don't show raw LaTeX code (red garbled text).
+                # Try inline markdown math first, then plain text.
+                sc = sanitize_latex_for_render(c) or str(c)
+                try:
+                    st.markdown(f"${sc}$")
+                except Exception:
+                    st.text(sc)
             else:
                 render_ast(split_latex_text(str(c)))
         except Exception:

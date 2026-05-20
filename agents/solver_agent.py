@@ -69,6 +69,7 @@ class SolverAgent:
                 ],
                 temperature=0.2,
                 max_tokens=8192,
+                timeout=90,
             )
             text = response.choices[0].message.content
             json_text = _extract_json(text)
@@ -164,6 +165,7 @@ class SolverAgent:
                     ],
                     temperature=0.2 if attempt == 0 else 0.1,
                     max_tokens=8192,
+                    timeout=90,
                 )
                 text = response.choices[0].message.content
                 json_text = _extract_json(text)
@@ -426,6 +428,7 @@ class SolverAgent:
                     ],
                     temperature=0.1 if attempt > 0 else 0.2,
                     max_tokens=8192,
+                    timeout=90,
                 )
                 text = response.choices[0].message.content
                 json_text = _extract_json(text)

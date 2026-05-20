@@ -101,6 +101,7 @@ class GradingAgent:
                     ],
                     temperature=0.1,
                     max_tokens=4096,
+                    timeout=60,
                 )
                 text = response.choices[0].message.content
                 json_text = _extract_json(text)
@@ -183,6 +184,7 @@ class GradingAgent:
                 ],
                 temperature=0.1,
                 max_tokens=4096,
+                timeout=60,
             )
             text = response.choices[0].message.content
             return self._parse_grading_result(text, total_score)

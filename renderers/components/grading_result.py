@@ -207,7 +207,7 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                         if '"blocks"' in raw or '"type"' in raw[:200]:
                             st.error("标准解法数据结构异常，请重新批改")
                         else:
-                            st.text(raw[:2000])
+                            st.text(raw)
 
 
 def render_recommendations(dr: dict, question_db=None, current_question=None) -> None:
@@ -289,6 +289,26 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
 
     # ═══ Always visible: Score ═══
     render_score_card(gr, total_score)
+
+    # ═══ Verification report — always visible when triggered ═══
+    _verification = gr.get("_verification")
+    if _verification:
+        try:
+            from agents.verifier_agent import VerificationReport, ObligationIssue, ConditionIssue, DerivationIssue
+            report = VerificationReport(
+                passed=_verification.get("passed", True),
+                obligation_issues=[ObligationIssue(**o) for o in _verification.get("obligation_issues", [])],
+                condition_issues=[ConditionIssue(**c) for c in _verification.get("condition_issues", [])],
+                derivation_issues=[DerivationIssue(**d) for d in _verification.get("derivation_issues", [])],
+                summary=_verification.get("summary", ""),
+            )
+            from agents.verifier_agent import render_verification_report
+            render_verification_report(report)
+        except Exception:
+            # Fallback: display raw summary
+            _obl_warn = gr.get("_obligation_warning", "")
+            if _obl_warn:
+                st.warning(_obl_warn)
 
     # ═══ Always visible: Knowledge Points — 独立展示，不在标准解法中隐藏 ═══
     kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
