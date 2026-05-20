@@ -13,6 +13,7 @@
   "tags": [
     "极限"
   ],
-  "question": "$14.$ $\\lim_{n\\to\\infty}\\sum_{i=1}^n\\frac{1}{\\sqrt{in}} =$ ______",
-  "source": "import_v5"
+  "question": "$$\\lim_{n\\to\\infty} \\sum_{i=1}^n \\frac{1}{\\sqrt{in}} = \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "source": "import_v5",
+  "options": {}
 }

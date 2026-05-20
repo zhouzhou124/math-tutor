@@ -13,7 +13,7 @@
   "tags": [
     "矩阵"
   ],
-  "question": "$7.$ 设 $A=\\begin{pmatrix}1&0&a\\\\b&2&0\\\\0&c&3\\end{pmatrix}$，$abc=-6$，则 $A^*$ 有非零特征值 $(A)$ $-8$ $(B)$ $8$ $(C)$ $-11$ $(D)$ $11$",
+  "question": "设$A = \\begin{pmatrix} 1 & 0 & a \\\\ b & 2 & 0 \\\\ 0 & c & 3 \\end{pmatrix}$，$abc=-6$，则 $A$ 的伴随矩阵 $A^*$ 有非零特征值",
   "source": "import_v5",
   "options": {
     "A": "$-8$",

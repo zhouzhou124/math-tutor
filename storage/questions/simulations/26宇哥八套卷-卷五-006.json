@@ -13,13 +13,13 @@
   "tags": [
     "线性方程组"
   ],
-  "question": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵且 $A^2-A=3E$，则与 $\\binom{A}{B}x=0$ 不一定同解的是 $(A)$ $\\binom{A-B}{A+AB}x=0$ $(B)$ $\\binom{A+B}{A+AB-B}x=0$ $(C)$ $\\binom{A-B}{2A+B}x=0$ $(D)$ $\\binom{A+B}{BA+B^2}x=0$",
+  "question": "设 $A,B$ 为 $n$ 阶矩阵且 $A^2-A=3E$，则与 $\\begin{pmatrix} A \\\\ B \\end{pmatrix} x = 0$不一定同解的是",
   "source": "import_v5",
   "options": {
-    "A": "A",
-    "B": "B",
-    "C": "C",
-    "D": "D"
+    "A": "$\\begin{pmatrix} A - B \\\\ A + AB \\end{pmatrix} x = 0$",
+    "B": "$\\begin{pmatrix} A + B \\\\ A + AB - B \\end{pmatrix} x = 0$",
+    "C": "$\\begin{pmatrix} A - B \\\\ 2A + B \\end{pmatrix} x = 0$",
+    "D": "$\\begin{pmatrix} A + B \\\\ BA + B^2 \\end{pmatrix} x = 0$"
   },
   "correct_option": "D"
 }

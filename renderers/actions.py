@@ -16,12 +16,32 @@ def start_practice(qid: str) -> None:
 
 
 def view_solution(qid: str) -> None:
-    """Navigate to grading page in answer-view mode with full question data."""
+    """Navigate to grading page in answer-view mode, auto-triggering the
+    empty-answer path so the AI generates detailed step-by-step solution."""
     db = st.session_state.get("question_db")
     q = db.get(qid) if db else None
     st.session_state.selected_question = q if q else qid
+
+    # Build a minimal ocr_result so the grading page sees a "view only" request
+    # with an empty student answer — this triggers the AI to generate the
+    # detailed standard solution automatically.
+    mt = q.get("category", q.get("math_type", "数学一")) if q else "数学一"
+    qt = q.get("question_type", "解答题") if q else "解答题"
+    kps = ", ".join(q.get("knowledge_points", [])) if q else ""
+    st.session_state.ocr_result = {
+        "success": True,
+        "question": q.get("question", "") if q else "",
+        "student_answer": "",          # empty → triggers view-only path
+        "math_type": mt,
+        "question_type": qt,
+        "knowledge_point": kps,
+        "confidence": 1.0,
+        "warnings": [],
+    }
     st.session_state.answer_view_mode = True
+    st.session_state.grading_triggered = True  # auto-start the grading
     st.session_state.page = "grading"
+    st.rerun()
 
 
 def start_edit(qid: str) -> None:

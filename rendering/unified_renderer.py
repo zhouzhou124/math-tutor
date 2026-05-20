@@ -159,6 +159,10 @@ class UnifiedRenderer:
         if not text:
             return
 
+        # Replace KaTeX-unsupported commands before the pipeline
+        from latex_utils import _preprocess_latex
+        text = _preprocess_latex(text)
+
         try:
             fixed = self._fix_latex(text)
             validated = self._validate_and_fix(fixed)

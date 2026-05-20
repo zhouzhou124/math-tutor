@@ -526,22 +526,467 @@
           "timestamp": "2026-05-20 18:52",
           "is_repeat": false,
           "repeat_count": 1
+        },
+        {
+          "record_id": "err_1779289483_478",
+          "user_id": "user_1778947351",
+          "date": "2026-05-20",
+          "time": "23:04",
+          "question_id": "26宇哥八套卷-卷四-012",
+          "question": "$12.$ 设 $y = y(x)$ 满足 $xy' = \\sqrt{1 - x^2}$，$y(1)=0$，则 $\\int_0^1 y(x) dx =$ ______",
+          "math_type": "26宇哥八套卷",
+          "question_type": "填空题",
+          "knowledge_point": "常微分方程",
+          "knowledge_points": [
+            "常微分方程"
+          ],
+          "difficulty": "中等",
+          "student_answer": "1",
+          "standard_answer": "### 步骤1\n分析题意，写出微分方程并确定求解思路\n题目给出 \n$y=y(x)$\n 满足一阶微分方程 \n$xy' = \\sqrt{1-x^2}$\n，且 \n$y(1)=0$\n。我们需要求定积分 \n$\\int_0^1 y(x)dx$\n。有两种思路：①先求出 \n$y(x)$\n 的表达式再积分；②利用分部积分法直接将积分转化为已知积分。此处先用第一种方法展示完整过程，再用第二种方法验证。\n\n### 步骤2\n解微分方程，求 \n$y(x)$\n 的通解\n由 \n$xy' = \\sqrt{1-x^2}$\n 得 \n$y' = \\dfrac{\\sqrt{1-x^2}}{x}$\n（\n$0 < x \\le 1$\n）。积分得\n\n$$y = \\int \\frac{\\sqrt{1-x^2}}{x} dx + C.$$\n计算不定积分：令 \n$x = \\sin t$\n（\n$t \\in (0, \\pi/2)$\n），则 \n$dx = \\cos t\\,dt$\n，\n$\\sqrt{1-x^2} = \\cos t$\n，于是\n\n$$\\begin{aligned}\\int \\frac{\\sqrt{1-x^2}}{x} dx &= \\int \\frac{\\cos t}{\\sin t} \\cdot \\cos t\\,dt = \\int \\frac{\\cos^2 t}{\\sin t} dt = \\int \\frac{1 - \\sin^2 t}{\\sin t} dt \\\\&= \\int (\\csc t - \\sin t) dt \n= \\ln|\\csc t - \\cot t| + \\cos t + C.\n\\end{aligned}$$\n回代 \n$x = \\sin t$\n：\n$\\csc t = \\dfrac{1}{x}$\n，\n$\\cot t = \\dfrac{\\sqrt{1-x^2}}{x}$\n，\n$\\cos t = \\sqrt{1-x^2}$\n，因为 \n$x>0$\n，绝对值可去掉：\n\n$$y(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2} + C.$$\n\n### 步骤3\n利用初始条件确定特解\n代入 \n$y(1)=0$\n：\n\n$$y(1) = \\ln\\left( \\frac{1 - 0}{1} \\right) + 0 + C = 0 + C = 0 \\quad \\Rightarrow \\quad C = 0.$$\n所以特解为\n\n$$y(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2}, \\quad x \\in (0,1.)$$\n\n### 步骤4\n计算定积分 \n$\\int_0^1 y(x)dx$\n（分部积分法简化）\n直接积分较繁琐，利用原方程 \n$xy' = \\sqrt{1-x^2}$\n 分部积分：\n\n$$\\begin{aligned}\\int_0^1 y(x)dx \n&= \\Big[ x y(x) \\Big]_0^1 - \\int_0^1 x y'(x) dx.\n\\end{aligned}$$\n计算边界项：在 \n$x=1$\n，\n$y(1)=0$\n，故 \n$1 \\cdot y(1) = 0$\n。在 \n$x \\to 0^+$\n，\n\n$$\\lim_{x\\to 0^+} x y(x) = \\lim_{x\\to 0^+} \\left[ x \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + x\\sqrt{1-x^2} \\right].$$\n当 \n$x\\to 0^+$\n，\n$\\sqrt{1-x^2} = 1 - \\frac{x^2}{2} + O(x^4)$\n，\n$\\frac{1-\\sqrt{1-x^2}}{x} \\sim \\frac{x}{2}$\n，故 \n$x\\ln(\\cdots) \\sim x\\ln x \\to 0$\n，且 \n$x\\sqrt{1-x^2}\\to 0$\n，所以边界项为 \n$0$\n。于是\n\n$$\\int_0^1 y(x)dx = - \\int_0^1 x y'(x) dx.$$\n代入 \n$y'(x) = \\dfrac{\\sqrt{1-x^2}}{x}$\n：\n\n$$\\int_0^1 y(x)dx = - \\int_0^1 x \\cdot \\frac{\\sqrt{1-x^2}}{x} dx = - \\int_0^1 \\sqrt{1-x^2}\\, dx.$$\n\n### 步骤5\n计算 \n$\\int_0^1 \\sqrt{1-x^2}\\,dx$\n 并得出结果\n\n$\\int_0^1 \\sqrt{1-x^2}\\,dx$\n 表示单位圆在第一象限的面积，其值为 \n$\\dfrac{\\pi}{4}$\n。因此\n\n$$\\int_0^1 y(x) dx = -\\frac{\\pi}{4}.$$\n\n\n关键知识点\n\n### 最终答案\n## 标准答案\n$-\\dfrac{\\pi}{4}$\n\n## 详细解答\n\n步骤1：分析题意，写出微分方程并确定求解思路\n题目给出 $y=y(x)$ 满足一阶微分方程 $xy' = \\sqrt{1-x^2}$，且 $y(1)=0$。我们需要求定积分 $\\int_0^1 y(x)dx$。有两种思路：①先求出 $y(x)$ 的表达式再积分；②利用分部积分法直接将积分转化为已知积分。此处先用第一种方法展示完整过程，再用第二种方法验证。\n\n步骤2：解微分方程，求 $y(x)$ 的通解\n由 $xy' = \\sqrt{1-x^2}$ 得 $y' = \\dfrac{\\sqrt{1-x^2}}{x}$（$0 \\lt  x \\leq 1$）。积分得\n$$y = \\int \\frac{\\sqrt{1-x^2}}{x} \\,\\mathrm{d}x + C.$$\n计算不定积分：令 $x = \\sin t$（$t \\in (0, \\pi/2]$），则 $dx = \\cos t\\,dt$，$\\sqrt{1-x^2} = \\cos t$，于是\n$$\n\\begin{aligned}\n\\int \\frac{\\sqrt{1-x^2}}{x} \\,\\mathrm{d}x\n&= \\int \\frac{\\cos t}{\\sin t} \\cdot \\cos t\\,dt\n= \\int \\frac{\\cos^2 t}{\\sin t} \\,\\mathrm{d}t\n= \\int \\frac{1 - \\sin^2 t}{\\sin t} \\,\\mathrm{d}t \\\\\n&= \\int (\\csc t - \\sin t) \\,\\mathrm{d}t\n= \\ln|\\csc t - \\cot t| + \\cos t + C.\n\\end{aligned}\n$$\n回代 $x = \\sin t$：$\\csc t = \\dfrac{1}{x}$，$\\cot t = \\dfrac{\\sqrt{1-x^2}}{x}$，$\\cos t = \\sqrt{1-x^2}$，因为 $x>0$，绝对值可去掉：\n$$\ny(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2} + C.\n$$\n\n步骤3：利用初始条件确定特解\n代入 y(1)=0：\n$$\ny(1) = \\ln\\left( \\frac{1 - 0}{1} \\right) + 0 + C = 0 + C = 0 \\quad \\Rightarrow \\quad C = 0.\n$$$所以特解为$y(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2}, \\quad x$\\in$ (0,1].\n$$\n\n步骤4：计算定积分 $\\int_0^1 y(x)dx$（分部积分法简化）\n直接积分较繁琐，利用原方程 $xy' = \\sqrt{1-x^2}$ 分部积分：\n\u0000M4\u0000\n计算边界项：在 $x=1$，$y(1)=0$，故 $1 $\\cdot$ y(1) = 0$。在 $x $\\to$ 0^+$，\n\u0000M5\u0000\n当 $x$\\to$ 0^+$，$\\sqrt{1-x^2} = 1 - \\frac{x^2}{2} + O(x^4)$，$\\frac{1-\\sqrt{1-x^2}}{x} $\\sim$ \\frac{x}{2}$，故 $x\\ln(\\cdots) $\\sim$ x\\ln x $\\to$ 0$，且 $x\\sqrt{1-x^2}$\\to$ 0$，所以边界项为 $0$。$于是$\u0000M6\u0000$代入$y'(x) = \\dfrac{\\sqrt{1-x^2}}{x}$$：$$\u0000M7\u0000$步骤$5$：计算$$\\int_0^1 \\sqrt{1-x^2}\\,dx$ 并得出结果\n$\\int_0^1 \\sqrt{1-x^2}\\,dx$ 表示单位圆在第一象限的面积，其值为 $\\dfrac{\\pi}{4}$。因此\n\u0000M8\u0000\n\n## 关键知识点\n1. 一阶微分方程的求解：分离变量后直接积分。\n2. 不定积分的三角代换：$\\sqrt{a^2-x^2}$ 型用 $x=a\\sin t$。\n3. 定积分的分部积分法：通过构造边界项简化被积函数。\n4. 利用几何意义计算定积分：$\\int_0^1 \\sqrt{1-x^2}dx$ 表示单位圆面积的四分之一。\n\n## 易错提示\n1. 积分时常数 $C$ 容易遗漏，必须用初始条件确定。\n2. 三角代换回代时要注意表达式定义域，正确去掉绝对值和根号。\n3. 用分部积分法时，需验证 $x=0$ 处边界项是否为 $0$，避免出错。\n4. 积分结果带负号，容易在分部积分时符号弄反。",
+          "solution_steps": [
+            {
+              "label": "步骤1",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "分析题意，写出微分方程并确定求解思路\n题目给出 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y=y(x)"
+                },
+                {
+                  "type": "text",
+                  "content": " 满足一阶微分方程 "
+                },
+                {
+                  "type": "latex",
+                  "content": "xy' = \\sqrt{1-x^2}"
+                },
+                {
+                  "type": "text",
+                  "content": "，且 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y(1)=0"
+                },
+                {
+                  "type": "text",
+                  "content": "。我们需要求定积分 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 y(x)dx"
+                },
+                {
+                  "type": "text",
+                  "content": "。有两种思路：①先求出 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y(x)"
+                },
+                {
+                  "type": "text",
+                  "content": " 的表达式再积分；②利用分部积分法直接将积分转化为已知积分。此处先用第一种方法展示完整过程，再用第二种方法验证。"
+                }
+              ]
+            },
+            {
+              "label": "步骤2",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "解微分方程，求 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y(x)"
+                },
+                {
+                  "type": "text",
+                  "content": " 的通解\n由 "
+                },
+                {
+                  "type": "latex",
+                  "content": "xy' = \\sqrt{1-x^2}"
+                },
+                {
+                  "type": "text",
+                  "content": " 得 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y' = \\dfrac{\\sqrt{1-x^2}}{x}"
+                },
+                {
+                  "type": "text",
+                  "content": "（"
+                },
+                {
+                  "type": "latex",
+                  "content": "0 < x \\le 1"
+                },
+                {
+                  "type": "text",
+                  "content": "）。积分得\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "y = \\int \\frac{\\sqrt{1-x^2}}{x} dx + C.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "计算不定积分：令 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x = \\sin t"
+                },
+                {
+                  "type": "text",
+                  "content": "（"
+                },
+                {
+                  "type": "latex",
+                  "content": "t \\in (0, \\pi/2)"
+                },
+                {
+                  "type": "text",
+                  "content": "），则 "
+                },
+                {
+                  "type": "latex",
+                  "content": "dx = \\cos t\\,dt"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sqrt{1-x^2} = \\cos t"
+                },
+                {
+                  "type": "text",
+                  "content": "，于是\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\begin{aligned}\\int \\frac{\\sqrt{1-x^2}}{x} dx &= \\int \\frac{\\cos t}{\\sin t} \\cdot \\cos t\\,dt = \\int \\frac{\\cos^2 t}{\\sin t} dt = \\int \\frac{1 - \\sin^2 t}{\\sin t} dt \\\\&= \\int (\\csc t - \\sin t) dt \n= \\ln|\\csc t - \\cot t| + \\cos t + C.\n\\end{aligned}",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "回代 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x = \\sin t"
+                },
+                {
+                  "type": "text",
+                  "content": "："
+                },
+                {
+                  "type": "latex",
+                  "content": "\\csc t = \\dfrac{1}{x}"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cot t = \\dfrac{\\sqrt{1-x^2}}{x}"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cos t = \\sqrt{1-x^2}"
+                },
+                {
+                  "type": "text",
+                  "content": "，因为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x>0"
+                },
+                {
+                  "type": "text",
+                  "content": "，绝对值可去掉：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "y(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2} + C.",
+                  "display": "block"
+                }
+              ]
+            },
+            {
+              "label": "步骤3",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "利用初始条件确定特解\n代入 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y(1)=0"
+                },
+                {
+                  "type": "text",
+                  "content": "：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "y(1) = \\ln\\left( \\frac{1 - 0}{1} \\right) + 0 + C = 0 + C = 0 \\quad \\Rightarrow \\quad C = 0.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "所以特解为\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "y(x) = \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + \\sqrt{1-x^2}, \\quad x \\in (0,1.)",
+                  "display": "block"
+                }
+              ]
+            },
+            {
+              "label": "步骤4",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "计算定积分 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 y(x)dx"
+                },
+                {
+                  "type": "text",
+                  "content": "（分部积分法简化）\n直接积分较繁琐，利用原方程 "
+                },
+                {
+                  "type": "latex",
+                  "content": "xy' = \\sqrt{1-x^2}"
+                },
+                {
+                  "type": "text",
+                  "content": " 分部积分：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\begin{aligned}\\int_0^1 y(x)dx \n&= \\Big[ x y(x) \\Big]_0^1 - \\int_0^1 x y'(x) dx.\n\\end{aligned}",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "计算边界项：在 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x=1"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "y(1)=0"
+                },
+                {
+                  "type": "text",
+                  "content": "，故 "
+                },
+                {
+                  "type": "latex",
+                  "content": "1 \\cdot y(1) = 0"
+                },
+                {
+                  "type": "text",
+                  "content": "。在 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x \\to 0^+"
+                },
+                {
+                  "type": "text",
+                  "content": "，\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\lim_{x\\to 0^+} x y(x) = \\lim_{x\\to 0^+} \\left[ x \\ln\\left( \\frac{1 - \\sqrt{1-x^2}}{x} \\right) + x\\sqrt{1-x^2} \\right].",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "当 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x\\to 0^+"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sqrt{1-x^2} = 1 - \\frac{x^2}{2} + O(x^4)"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\frac{1-\\sqrt{1-x^2}}{x} \\sim \\frac{x}{2}"
+                },
+                {
+                  "type": "text",
+                  "content": "，故 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x\\ln(\\cdots) \\sim x\\ln x \\to 0"
+                },
+                {
+                  "type": "text",
+                  "content": "，且 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x\\sqrt{1-x^2}\\to 0"
+                },
+                {
+                  "type": "text",
+                  "content": "，所以边界项为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "0"
+                },
+                {
+                  "type": "text",
+                  "content": "。于是\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 y(x)dx = - \\int_0^1 x y'(x) dx.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "代入 "
+                },
+                {
+                  "type": "latex",
+                  "content": "y'(x) = \\dfrac{\\sqrt{1-x^2}}{x}"
+                },
+                {
+                  "type": "text",
+                  "content": "：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 y(x)dx = - \\int_0^1 x \\cdot \\frac{\\sqrt{1-x^2}}{x} dx = - \\int_0^1 \\sqrt{1-x^2}\\, dx.",
+                  "display": "block"
+                }
+              ]
+            },
+            {
+              "label": "步骤5",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "计算 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 \\sqrt{1-x^2}\\,dx"
+                },
+                {
+                  "type": "text",
+                  "content": " 并得出结果\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 \\sqrt{1-x^2}\\,dx"
+                },
+                {
+                  "type": "text",
+                  "content": " 表示单位圆在第一象限的面积，其值为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\dfrac{\\pi}{4}"
+                },
+                {
+                  "type": "text",
+                  "content": "。因此\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\int_0^1 y(x) dx = -\\frac{\\pi}{4}.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "\n\n关键知识点"
+                }
+              ]
+            }
+          ],
+          "score": 0,
+          "max_score": 5,
+          "is_correct": false,
+          "comment": "计算错误",
+          "step_analysis": [],
+          "method_matched": "",
+          "engine": "unknown",
+          "confidence": 0.0,
+          "obligation_warning": "",
+          "error_type": "填空题错误",
+          "root_cause": "答案与标准答案不等价，请查看标准解法了解正确答案。",
+          "weak_points": [
+            "常微分方程"
+          ],
+          "recommendations": [],
+          "common_mistakes": [],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-20 23:04",
+          "is_repeat": false,
+          "repeat_count": 1
         }
       ],
       "stats": {
-        "total_errors": 3,
+        "total_errors": 4,
         "by_chapter": {
           "曲线曲面积分": 2,
-          "二次型, 特征值与特征向量": 1
+          "二次型, 特征值与特征向量": 1,
+          "常微分方程": 1
         },
         "by_type": {
           "选择题答案错误": 2,
-          "concept error": 1
+          "concept error": 1,
+          "填空题错误": 1
         },
         "by_difficulty": {
-          "较难": 3
+          "较难": 3,
+          "中等": 1
         },
-        "repeat_rate": 0.3333333333333333
+        "repeat_rate": 0.25
       }
     }
   }

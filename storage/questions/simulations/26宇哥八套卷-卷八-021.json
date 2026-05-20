@@ -7,7 +7,7 @@
   "question_type": "解答题",
   "difficulty": "较难",
   "score": 12,
-  "question": "设 $A$ 为 $3$ 阶矩阵，$\\lambda_1,\\lambda_2,\\lambda_3$ 是 $A$ 的3个不同的特征值，其对应的特征向量为 $\\xi_1,\\xi_2,\\xi_3$，$a = \\xi_1 + \\xi_2 + \\xi_3$，$P = (a, Aa, A^2a)$。\n$(1)$ 证明 $P$ 可逆；\n$(2)$ 若 $(A^3 - A)a = 0$，求 $|A-3E|$.",
+  "question": "设 $A$ 为 $3$ 阶矩阵，$\\lambda_1,\\lambda_2,\\lambda_3$ 是 $A$ 的 $3$ 个不同的特征值，其对应的特征向量为 $\\xi_1,\\xi_2,\\xi_3$，$a = \\xi_1 + \\xi_2 + \\xi_3$，$P = (a, Aa, A^2a)$.\n$(1)$ 证明 $P$ 可逆；\n$(2)$ 若 $(A^3 - A)a = 0$，求 $|A-3E|$.",
   "standard_answer": "(1) 证明略\n(2) $|A-3E| = 0$",
   "knowledge_points": [
     "特征值与特征向量",

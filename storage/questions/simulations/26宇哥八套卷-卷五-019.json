@@ -13,6 +13,7 @@
   "tags": [
     "中值定理"
   ],
-  "question": "$19.$ (12分) $f$ 在 $[a,b]$ 可导，$c\\in(a,b)$。证：(1) $\\exists\\xi\\in(a,c),f(c)-f(a)=f'(\\xi)(c-a)$；(2) $\\exists\\eta\\in(a,b),f(b)-f(a)=f'(\\eta)(b-a)$ 且 $\\eta>\\xi$。",
-  "source": "import_v5"
+  "question": "$f$ 在 $[a,b]$ 可导，$c\\in(a,b)$.证明：\n$(1)$ 存在一点 $\\xi \\in (a,c)$，使得 $f(c) - f(a) = f'(\\xi)(c-a)$；\n$(2)$ 存在一点 $\\eta \\in (a,b)$，使得 $f(b) - f(a) = f'(\\eta)(b-a)$ 且 $\\eta > \\xi$.",
+  "source": "import_v5",
+  "options": {}
 }

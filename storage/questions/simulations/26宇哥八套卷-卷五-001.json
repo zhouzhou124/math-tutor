@@ -13,7 +13,7 @@
   "tags": [
     "极限"
   ],
-  "question": "$1.$ 设 $f(\\frac{1}{x}) = x + \\sqrt{1 + x^2}$ ($x \\neq 0$)，则 $x = 0$ 是 $f(x)$ 的 $(A)$ 连续点 $(B)$ 跳跃间断点 $(C)$ 可去间断点 $(D)$ 第二类间断点",
+  "question": "设 $f(\\frac{1}{x}) = x + \\sqrt{1 + x^2}$ ($x \\neq 0$)，则 $x = 0$ 是 $f(x)$ 的",
   "source": "import_v5",
   "options": {
     "A": "连续点",

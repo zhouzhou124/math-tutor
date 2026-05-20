@@ -13,6 +13,7 @@
   "tags": [
     "向量组与线性空间"
   ],
-  "question": "$21.$ (12分) $\\alpha_1=(1,0,1)^T,\\alpha_2=(0,1,1)^T,\\alpha_3=(1,1,0)^T$。(1) 正交单位化为 $\\gamma_1,\\gamma_2,\\gamma_3$；(2) 若 $(\\alpha_1,\\alpha_2,\\alpha_3)=(\\gamma_1,\\gamma_2,\\gamma_3)C$，求 $C$。",
-  "source": "import_v5"
+  "question": "设向量 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 0 \\end{pmatrix}$.\n$(1)$将 $\\alpha_1,\\alpha_2,\\alpha_3$ 化成正交单位向量组 $\\gamma_1,\\gamma_2,\\gamma_3$；\n$(2)$ 若 $(\\alpha_1,\\alpha_2,\\alpha_3) = (\\gamma_1,\\gamma_2,\\gamma_3)C$，求 $C$.",
+  "source": "import_v5",
+  "options": {}
 }

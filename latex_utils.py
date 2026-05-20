@@ -2984,12 +2984,33 @@ def _get_renderer():
         _renderer_instance = UnifiedRenderer()
     return _renderer_instance
 
+def _preprocess_latex(text: str) -> str:
+    """Replace KaTeX-unsupported LaTeX commands before rendering.
+
+    Runs BEFORE any rendering pipeline so downstream code never sees
+    commands that KaTeX cannot handle.
+    """
+    if not text:
+        return text
+    import re as _re
+    # \textcircled{n} → Unicode circled digit (KaTeX doesn't support \textcircled)
+    _CIRCLED_MAP = {str(i): chr(0x245F + i) for i in range(1, 10)}
+    text = _re.sub(
+        r'\\textcircled\s*\{\s*(\d)\s*\}',
+        lambda m: _CIRCLED_MAP.get(m.group(1), m.group(1)),
+        text,
+    )
+    # \textcircled{anything else} → (anything)
+    text = _re.sub(r'\\textcircled\s*\{([^}]*)\}', r'(\1)', text)
+    return text
+
+
 def safe_render(text: str, role: str = "") -> None:
     """
     统一渲染入口 — 修复 LaTeX 渲染混乱的终极方案。
 
     管道:
-      Layer 0: 空值检查
+      Layer 0: 空值检查 + KaTeX-unsupported command replacement
       Layer 1: LaTeXFixer — 修复双反斜杠、OCR符号、失衡括号
       Layer 2: clean_markdown — 移除 Markdown 污染
       Layer 3: DocumentParser — 文本 → Document AST (语义分类)
@@ -3018,6 +3039,9 @@ def safe_render(text: str, role: str = "") -> None:
 
     if not isinstance(text, str):
         text = str(text)
+
+    # Layer 0: replace KaTeX-unsupported commands before they enter the pipeline
+    text = _preprocess_latex(text)
 
     try:
         renderer = _get_renderer()

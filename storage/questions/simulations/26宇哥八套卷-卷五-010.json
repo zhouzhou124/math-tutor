@@ -13,13 +13,13 @@
   "tags": [
     "随机事件与概率"
   ],
-  "question": "$10.$ 已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为 $(A)$ $1$ $(B)$ $2$ $(C)$ $3$ $(D)$ $4$",
+  "question": "已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为",
   "source": "import_v5",
   "options": {
-    "A": "1",
-    "B": "2",
-    "C": "3",
-    "D": "4"
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
   },
   "correct_option": "A"
 }
