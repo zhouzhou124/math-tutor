@@ -243,7 +243,7 @@ def _delete_in_background(memory, user_id: str, record_id: str):
     A watchdog thread force-kills the delete thread if it exceeds 15 seconds,
     preventing hung HTTP connections from leaking resources.
     """
-    import ctypes
+    import ctypes, threading
 
     _result = {"done": False, "error": None}
 
