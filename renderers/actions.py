@@ -39,7 +39,9 @@ def view_solution(qid: str) -> None:
         "warnings": [],
     }
     st.session_state.answer_view_mode = True
-    st.session_state.grading_triggered = True  # auto-start the grading
+    # Don't set grading_triggered — the grading page will auto-submit
+    # via the async pipeline, avoiding a blocking 30-60 s API call.
+    st.session_state["_auto_submit_view_solution"] = True
     st.session_state.page = "grading"
     st.rerun()
 

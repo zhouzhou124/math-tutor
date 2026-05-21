@@ -1202,6 +1202,13 @@ def render_grading_page(db, render_latex):
                 st.rerun()
         return
 
+    # ── Auto-submit for "查看解析" (view-only mode) ──
+    if st.session_state.pop("_auto_submit_view_solution", None):
+        _clear_grading_state()
+        task_id = _submit_grading_async(question, student_ans, ocr_data, selected_q)
+        st.session_state["pending_task_id"] = task_id
+        st.rerun()
+
     # ── 批改按钮 ──
     if not answer_view_mode and st.button("🔍 开始批改", type="primary", use_container_width=True):
         _clear_grading_state()
