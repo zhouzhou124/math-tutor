@@ -313,8 +313,29 @@ class QuestionDB:
                 if q:
                     questions.append(q)
         else:
-            # 全量扫描（首次或没有精确索引）
-            questions = self._load_all(100000)  # 加载全部题目
+            # No index filter — collect a sample of IDs from the category tree
+            # instead of _load_all(100000) which reads every single JSON file.
+            sample_ids = []
+            cats = index.get("categories", {})
+            for mt_name, mt_data in cats.items():
+                for year_key in sorted(mt_data.keys()):
+                    year_data = mt_data[year_key]
+                    if isinstance(year_data, dict):
+                        for qtype in sorted(year_data.keys()):
+                            for qid in year_data[qtype]:
+                                sample_ids.append(qid)
+                                if len(sample_ids) >= limit * 3:
+                                    break
+                            if len(sample_ids) >= limit * 3:
+                                break
+                    if len(sample_ids) >= limit * 3:
+                        break
+                if len(sample_ids) >= limit * 3:
+                    break
+            for qid in sample_ids:
+                q = self.get(qid)
+                if q:
+                    questions.append(q)
 
         # 精确过滤
         results = []
