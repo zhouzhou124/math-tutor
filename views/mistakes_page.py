@@ -4,9 +4,9 @@ import math
 import time
 from config import SUBJECTS, ERROR_TYPES, DIFFICULTY_LEVELS
 
-MAX_EXPANDED_ITEMS = 1
-PAGE_SIZE = 20
-DATA_CACHE_TTL = 5  # 同一轮渲染内缓存有效期（秒）
+MAX_EXPANDED_ITEMS = 0  # Don't auto-expand — reduces serialize cost on nav
+PAGE_SIZE = 10           # Fewer records per page = lighter render
+DATA_CACHE_TTL = 30      # Longer cache so nav doesn't re-parse JSON
 
 
 def _get_mistakes_data(user_id: str, subject: str, error_type: str):
