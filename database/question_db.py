@@ -306,31 +306,41 @@ class QuestionDB:
         # 加载候选题
         questions = []
         if candidate_ids is not None:
-            # 优先使用索引，只加载需要的题目
-            candidate_list = list(candidate_ids)[:limit * 3]
-            for qid in candidate_list:
+            # 优先使用索引，加载所有候选（已被索引精确过滤）
+            for qid in candidate_ids:
                 q = self.get(qid)
                 if q:
                     questions.append(q)
         else:
-            # No index filter — collect a sample of IDs from the category tree
-            # instead of _load_all(100000) which reads every single JSON file.
-            sample_ids = []
+            # No index filter — collect IDs from the category tree, targeting
+            # the right year/subset when filters are present.
             cats = index.get("categories", {})
+            target_year = str(filters.get("year", "")) if filters.get("year") else ""
+            target_mt = filters.get("math_type", "")
+            has_filters = bool(target_year or target_mt or filters.get("question_type")
+                              or filters.get("keyword"))
+            # When filters are active, load everything from the targeted subset
+            # so results aren't cut off by an arbitrary sample-size cap.
+            max_load = 100000 if has_filters else limit * 3
+            sample_ids = []
             for mt_name, mt_data in cats.items():
+                if target_mt and mt_name != target_mt:
+                    continue
                 for year_key in sorted(mt_data.keys()):
+                    if target_year and year_key != target_year:
+                        continue
                     year_data = mt_data[year_key]
                     if isinstance(year_data, dict):
                         for qtype in sorted(year_data.keys()):
                             for qid in year_data[qtype]:
                                 sample_ids.append(qid)
-                                if len(sample_ids) >= limit * 3:
+                                if len(sample_ids) >= max_load:
                                     break
-                            if len(sample_ids) >= limit * 3:
+                            if len(sample_ids) >= max_load:
                                 break
-                    if len(sample_ids) >= limit * 3:
+                    if len(sample_ids) >= max_load:
                         break
-                if len(sample_ids) >= limit * 3:
+                if len(sample_ids) >= max_load:
                     break
             for qid in sample_ids:
                 q = self.get(qid)

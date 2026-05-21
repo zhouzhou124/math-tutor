@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "填空题",
   "question": "设 $\\begin{cases} x = e^{-t} \\\\ y = \\int_0^t \\ln(1+u^2) du \\end{cases}$，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=0} =$ ______",
-  "standard_answer": "$0$",
+  "standard_answer": "## 题目重述\n给定由参数方程 $x=e^{-t}$ 和 $y=\\int_{0}^{t} \\ln(1+u^2)\\,du$ 确定的函数 $y=y(x)$，求该函数在参数 $t=0$ 处的二阶导数 $\\left.\\dfrac{d^2y}{dx^2}\\right|_{t=0}$ 的值。\n\n## 标准答案\n$0$\n\n步骤1：计算一阶导数 $\\dfrac{dy}{dx}$  \n先对参数 $t$ 求导：\n$$\n\\frac{dy}{dt} = \\frac{d}{dt}\\int_{0}^{t} \\ln(1+u^2)\\,du = \\ln(1+t^2) \\quad \\text{(变上限积分求导)}\n$$\n$$\n\\frac{dx}{dt} = \\frac{d}{dt}e^{-t} = -e^{-t}\n$$\n由参数方程求导法则，一阶导数为\n$$\n\\frac{dy}{dx} = \\frac{dy/dt}{dx/dt} = \\frac{\\ln(1+t^2)}{-e^{-t}} = -e^{t}\\ln(1+t^2).\n$$\n\n步骤2：计算二阶导数 $\\dfrac{d^2y}{dx^2}$  \n二阶导数是一阶导数对 $x$ 的导数，需再次使用参数方程求导公式：\n$$\n\\frac{d^2y}{dx^2} = \\frac{d(dy/dx)}{dx} = \\frac{d(dy/dx)/dt}{dx/dt}.\n$$\n先对 $t$ 求 $\\dfrac{dy}{dx}$ 的导数：\n$$\n\\frac{d}{dt}\\left(-e^{t}\\ln(1+t^2)\\right) = -\\left[ e^{t}\\ln(1+t^2) + e^{t} \\cdot \\frac{2t}{1+t^2} \\right] = -e^{t}\\left[ \\ln(1+t^2) + \\frac{2t}{1+t^2} \\right].\n$$\n于是\n$$\n\\frac{d^2y}{dx^2} = \\frac{-e^{t}\\left[ \\ln(1+t^2) + \\frac{2t}{1+t^2} \\right]}{-e^{-t}} = e^{2t}\\left[ \\ln(1+t^2) + \\frac{2t}{1+t^2} \\right].\n$$\n\n步骤3：代入 $t=0$ 求值  \n将 $t=0$ 代入二阶导数表达式：\n$$\ne^{2\\cdot 0} = 1,\\quad \\ln(1+0^2) = \\ln 1 = 0,\\quad \\frac{2\\cdot 0}{1+0^2} = 0,\n$$\n所以\n$$\n\\left.\\frac{d^2y}{dx^2}\\right|_{t=0} = 1 \\times (0+0) = 0.\n$$\n\n## 结论\n所求二阶导数的值为 $0$。\n\n## 关键知识点\n- 参数方程求导法则：一阶导数 $\\dfrac{dy}{dx} = \\dfrac{dy/dt}{dx/dt}$，二阶导数 $\\dfrac{d^2y}{dx^2} = \\dfrac{d(dy/dx)/dt}{dx/dt}$。\n- 微积分基本定理（变上限积分求导）：$\\dfrac{d}{dt}\\int_{a}^{t} f(u)\\,du = f(t)$。\n- 乘积求导法则：$(uv)' = u'v + uv'$。\n\n## 易错提示\n- 求二阶导数时，误将 $\\dfrac{d(dy/dx)}{dt}$ 当作最终结果，忘记再除以 $\\dfrac{dx}{dt}$。\n- 求导过程中符号遗漏，尤其 $x=e^{-t}$ 的导数为 $-e^{-t}$，分数上下负号处理不当会导致错误。\n- 忽略变上限积分求导法则，对 $y$ 求导时错误地积分后再求导，或忘记求导。",
   "knowledge_points": [
     "导数与微分"
   ],
@@ -13,5 +13,8 @@
   "question_id": "2010-数一-009",
   "tags": [
     "导数与微分"
-  ]
+  ],
+  "_original_answer": "$0$",
+  "solution_steps": [],
+  "_ai_expanded_at": "2026-05-21 23:04"
 }

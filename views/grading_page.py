@@ -55,12 +55,16 @@ def _clear_grading_state():
             del st.session_state[key]
 
 
-def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> bool:
+def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str,
+                                    selected_q: dict = None) -> bool:
     """Return True when a cached answer is too thin for LLM grading/rendering.
 
-    An answer is "good enough" (returns False) when it already contains
-    explicit step markers (步骤N：), OR is sufficiently long (previously
-    AI-expanded).  Short placeholder answers always need expansion.
+    An answer is "good enough" (returns False) ONLY when it already contains
+    explicit step-by-step derivation.  Short final answers (MC option letters,
+    fill-in-the-blank values) are NEVER treated as sufficient — students need
+    to see the derivation process, not just the result.
+
+    The _ai_expanded_at field is a hint, not a lock.
     """
     if steps:
         return False
@@ -69,21 +73,164 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str) -> b
     if not text:
         return True
 
+    # Corrupted/incomplete cached data → re-expand
+    if '\x00' in text:
+        return True
+
     placeholders = ("证明略", "略", "解析略", "过程略", "答案略", "方法略")
     if any(p in text for p in placeholders):
         return True
 
-    # Already has detailed step markers → cache is good enough
     import re
+    # Already has detailed step markers → genuinely good enough
     if re.search(r'步骤\s*\d+\s*[：:]', text):
         return False
+    # Has multiple structured sections (heading + content) → detailed enough
+    if len(text) >= 300 and re.search(r'##\s*\S+', text):
+        return False
 
-    # Short answer for MC / fill-in-the-blank → needs expansion
-    if q_type in ("选择题", "填空题") and len(text) < 80:
+    # ── MC / fill-in-the-blank: the stored answer is just the RESULT,
+    #     not a derivation.  Always expand unless already really detailed
+    #     (step markers caught above, or very long text with structure).
+    if q_type in ("选择题", "填空题"):
+        # Detailed enough: has step markers (caught above) or is long with structure
+        if len(text) >= 250:
+            return False  # genuinely detailed
+        return True  # short final answer → must expand
+
+    # ── 解答题 / 证明题 ──
+    if len(text) >= 200:
+        return False  # long enough to be a real solution
+    # _ai_expanded_at tiebreaker: 80+ chars with prior expansion is plausible
+    if selected_q and selected_q.get("_ai_expanded_at") and len(text) >= 80:
+        return False
+    return True
+
+
+def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
+    """Check whether the AI-generated detailed answer is consistent with the known correct answer.
+
+    Extracts the final answer from the generated text (looking for "最终答案",
+    "标准答案", "结论" sections) and compares it against known_answer
+    using symbolic comparison. Returns True when consistent or when comparison
+    is inconclusive (don't block on uncertain results).
+    """
+    if not known_answer or not expanded:
+        return True  # Can't verify → assume OK
+
+    known = known_answer.strip()
+    if not known:
         return True
 
-    # Short answer for proof / free-response → needs expansion
-    return len(text) < 120
+    import re
+
+    # Extract final answer from generated text — try multiple patterns
+    final_candidates = []
+
+    # Pattern 1: "## 标准答案" or "## 最终答案" section
+    for section_name in ["标准答案", "最终答案"]:
+        m = re.search(
+            rf'##\s*{section_name}\s*\n(.*?)(?=\n##|\n\Z|\Z)',
+            expanded, re.DOTALL,
+        )
+        if m:
+            final_candidates.append(m.group(1).strip())
+
+    # Pattern 2: "## 结论" section
+    m = re.search(r'##\s*结论\s*\n(.*?)(?=\n##|\n\Z|\Z)', expanded, re.DOTALL)
+    if m:
+        final_candidates.append(m.group(1).strip())
+
+    # Pattern 3: Last LaTeX block in the text (often the final answer)
+    latex_blocks = re.findall(r'\$\$([^$]+)\$\$', expanded)
+    if latex_blocks:
+        final_candidates.append(latex_blocks[-1].strip())
+    else:
+        inline_blocks = re.findall(r'\$([^$]+)\$', expanded)
+        if inline_blocks:
+            final_candidates.append(inline_blocks[-1].strip())
+
+    if not final_candidates:
+        return True  # Can't extract → assume OK
+
+    # Compare each candidate against known_answer
+    from symbolic_executor import quick_compare
+
+    for candidate in final_candidates:
+        candidate = candidate.strip()
+        if not candidate:
+            continue
+        result = quick_compare(candidate, known)
+        if result.get("equivalent"):
+            return True  # At least one candidate matches → consistent
+
+    # No candidate matched — this is suspicious. Check if the known answer
+    # text appears anywhere in the expanded text (fuzzy match).
+    known_clean = re.sub(r'[\s$]+', '', known)[:30]
+    expanded_clean = re.sub(r'[\s$]+', '', expanded)
+    if known_clean in expanded_clean:
+        return True  # Known answer found in text → likely consistent
+
+    return False  # Contradiction detected
+
+
+def _validate_latex_quality(expanded: str) -> tuple[bool, list[str]]:
+    """Validate LaTeX quality of AI-generated detailed answer.
+
+    Returns (is_valid, list_of_issues). Issues are non-fatal warnings about
+    potential rendering problems. Only critical issues (unbalanced $$) cause
+    rejection.
+    """
+    issues = []
+    if not expanded:
+        return True, issues
+
+    import re
+
+    # Check 1: $$ balance (critical — causes rendering failure)
+    display_count = len(re.findall(r'\$\$', expanded))
+    if display_count % 2 != 0:
+        issues.append("$$ 分隔符不平衡，可能无法渲染")
+        return False, issues
+
+    # Check 1b: $ balance in non-$$ context (critical)
+    text_no_display = re.sub(r'\$\$.*?\$\$', '', expanded, flags=re.DOTALL)
+    inline_dollars = text_no_display.count('$')
+    if inline_dollars % 2 != 0:
+        issues.append("$ 行内分隔符不平衡，部分公式可能断裂")
+        return False, issues
+
+    # Check 2: Common corrupted LaTeX patterns
+    if '\x0c' in expanded:
+        issues.append("检测到损坏的LaTeX字符(form feed)，可能是frac命令断裂")
+
+    # Check 3: Empty \underline{} — won't render
+    if re.search(r'\\underline\{\s*\}', expanded):
+        issues.append("存在空 \\underline{}，填空线未正确闭合")
+
+    # Check 4: Unclosed \begin without \end
+    begins = re.findall(r'\\begin\{(\w+)\}', expanded)
+    ends = re.findall(r'\\end\{(\w+)\}', expanded)
+    if sorted(begins) != sorted(ends):
+        issues.append("\\begin{} 和 \\end{} 不匹配")
+
+    # Check 5: Nested math delimiters — 3+ consecutive $ signs always bad
+    if re.search(r'\${3,}', expanded):
+        issues.append("检测到嵌套数学分隔符($$$)，可能导致渲染失败")
+
+    # Check 6: Stray backslash — backslash not followed by a known LaTeX command
+    # letter, another backslash, or a common LaTeX punctuation escape
+    # Valid LaTeX escapes: \$ \% \# \& \_ \{ \} \, \; \: \! \space
+    valid_escapes = r'[a-zA-Z\\$%#&_{},;:! \t\n\r\[\]\{\}\(\)\^\~]'
+    stray = re.findall(r'(?<!\\)\\(?!' + valid_escapes + r')', expanded)
+    if len(stray) > 10:
+        issues.append(f"检测到过多孤立反斜杠({len(stray)}处)，LaTeX可能已损坏")
+
+    # Check 7: Minimum length
+    if len(expanded.strip()) < 50:
+        issues.append("生成内容过短，可能不完整")
+
+    return True, issues  # Non-critical issues don't block
 
 
 def _solution_to_text(solution: dict) -> str:
@@ -108,9 +255,9 @@ def _solution_to_text(solution: dict) -> str:
                 else:
                     block_parts.append(str(content))
             if block_parts:
-                parts.append(f"### {label}\n" + "\n".join(block_parts))
+                parts.append(f"### {label.rstrip('：:')}：\n" + "\n".join(block_parts))
         elif isinstance(step, str) and step.strip():
-            parts.append(f"### 步骤{i + 1}\n{step.strip()}")
+            parts.append(f"### 步骤{i + 1}：\n{step.strip()}")
 
     structured = solution.get("_structured") or {}
     if not parts and isinstance(structured, dict):
@@ -126,7 +273,7 @@ def _solution_to_text(solution: dict) -> str:
                 else:
                     block_parts.append(str(content))
             if block_parts:
-                parts.append(f"### {label}\n" + "\n".join(block_parts))
+                parts.append(f"### {label.rstrip('：:')}：\n" + "\n".join(block_parts))
 
     answer = (solution.get("standard_answer") or "").strip()
     final_answer = ""
@@ -143,7 +290,16 @@ def _solution_to_text(solution: dict) -> str:
 
 
 def _cache_detailed_answer(selected_q: dict, expanded: str):
-    """将 AI 生成的详细解答缓存到题目 JSON 文件，下次批改同一题直接命中。"""
+    """将 AI 生成的详细解答缓存到题目 JSON 文件，下次批改同一题直接命中。
+
+    安全策略：
+    1. 原始简略答案迁移到 _original_answer 字段保留
+    2. solution_steps 不置空 — 如果已有结构化步骤则保留
+    3. LaTeX 严重损坏时不缓存
+    4. 新答案比旧答案短很多时不覆盖
+    5. 原子写入（先写临时文件再重命名）防止中断导致文件损坏
+    6. JSON 解析失败时保留原文件不动
+    """
     if not selected_q or not expanded:
         return
     qid = selected_q.get("question_id", "")
@@ -154,13 +310,57 @@ def _cache_detailed_answer(selected_q: dict, expanded: str):
         path = get_question_path(qid)
         if not path.exists():
             return
-        import json
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        import json, os, tempfile
+
+        # 读取现有数据，JSON 解析失败则放弃本次缓存
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return
+
+        old_answer = data.get("standard_answer", "")
+        # 如果新答案比旧答案还短很多，不覆盖（防止 AI 退化）
+        if old_answer and len(expanded.strip()) < len(old_answer.strip()) * 0.5:
+            return
+
+        # LaTeX 验证：严重损坏时不缓存
+        is_valid, issues = _validate_latex_quality(expanded)
+        if not is_valid:
+            import logging
+            logging.getLogger(__name__).warning(
+                "AI generated answer has LaTeX issues, not caching: %s", issues)
+            return
+
+        # 迁移原始简略答案到备份字段
+        if not data.get("_original_answer") and old_answer and len(old_answer) < 200:
+            data["_original_answer"] = old_answer
+
         data["standard_answer"] = expanded
-        data["solution_steps"] = []  # 详细解答已包含完整步骤
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        # 保留已有的结构化步骤，仅当没有旧步骤时才置空
+        existing_steps = data.get("solution_steps") or []
+        if not existing_steps:
+            data["solution_steps"] = []
+        data["_ai_expanded_at"] = __import__("time").strftime("%Y-%m-%d %H:%M")
+
+        # 记录 LaTeX 非关键警告
+        if issues:
+            data["_ai_latex_warnings"] = issues
+
+        # 原子写入：先写临时文件，成功后再重命名
+        tmp_fd, tmp_path = tempfile.mkstemp(
+            suffix=".json", prefix=".cache_", dir=path.parent,
+        )
+        try:
+            with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            os.replace(tmp_path, path)  # 原子重命名
+        except Exception:
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
+            raise
     except Exception:
         pass  # 缓存失败不影响主流程
 
@@ -214,23 +414,80 @@ class _NoOpContext:
 def _parse_steps_from_text(text: str) -> list:
     """从 AI 生成的详细解答文本中提取步骤列表。
 
-    匹配 "步骤N：" 或 "步骤N: " 标记，返回 [{"label": "步骤1", "content": "..."}, ...]。
+    支持多种步骤标记格式：
+      - "步骤N：" / "步骤N: "（N 为阿拉伯数字）
+      - "第N步：" / "第N步: "
+      - "### 步骤N：" / "### 步骤N: "
+      - Markdown 标题后的内容块
+      - 中文数字：第一步、第二步...
     用于在 from_legacy_text 解析失败时给旧版渲染路径提供兜底。
     """
     if not text:
         return []
     import re
-    markers = list(re.finditer(r'步骤\s*(\d+)\s*[：:]\s*', text))
-    if not markers:
+
+    cn_num_map = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+                  "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
+
+    # Pattern: match "步骤N：" / "第N步：" / "### 步骤N：" with Arabic or Chinese numbers
+    patterns = [
+        # 步骤1： or 步骤1: or ### 步骤1：
+        r'(?:###\s*)?步骤\s*(\d+|[一二三四五六七八九十]+)\s*(?:步)?\s*[：:]\s*',
+        # 第1步： or 第一步：
+        r'第\s*(\d+|[一二三四五六七八九十]+)\s*步\s*[：:]\s*',
+    ]
+
+    markers = []
+    for pattern in patterns:
+        for m in re.finditer(pattern, text):
+            num_str = m.group(1)
+            if num_str.isdigit():
+                step_num = int(num_str)
+            else:
+                step_num = cn_num_map.get(num_str, 0)
+            if step_num > 0:
+                markers.append((m.start(), m.end(), step_num))
+
+    # Deduplicate by position and step number
+    markers.sort()
+    seen_positions = set()
+    seen_step_nums = set()
+    unique_markers = []
+    for start, end, step_num in markers:
+        if start in seen_positions or step_num in seen_step_nums:
+            continue
+        seen_positions.add(start)
+        seen_step_nums.add(step_num)
+        unique_markers.append((start, end, step_num))
+
+    if not unique_markers:
         return []
+
+    # Find content boundaries: stop at metadata section headings
+    boundary_pattern = re.compile(
+        r'^#{1,3}\s*(?:关键知识点|易错提示|常见误区|秒杀技巧|结论|题目重述|'
+        r'题型补充|标准答案|最终答案|知识点总结|注意事项|解题技巧)\s*$',
+        re.MULTILINE,
+    )
+
     steps = []
-    for i, m in enumerate(markers):
-        step_num = int(m.group(1))
-        start = m.end()
-        end = markers[i + 1].start() if i + 1 < len(markers) else len(text)
-        content = text[start:end].strip()
+    for i, (start, end, step_num) in enumerate(unique_markers):
+        content_start = end
+        if i + 1 < len(unique_markers):
+            content_end = unique_markers[i + 1][0]
+        else:
+            content_end = len(text)
+
+        content = text[content_start:content_end].strip()
+
+        # Trim trailing sections that belong to metadata, not steps
+        boundary_match = boundary_pattern.search(content)
+        if boundary_match:
+            content = content[:boundary_match.start()].strip()
+
         if content:
             steps.append({"label": f"步骤{step_num}", "content": content})
+
     return steps
 
 
@@ -250,14 +507,24 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     # 确定已知答案信息（用于 AI 生成详细解答时作为上下文）
     _known_answer = cached_answer or ""
     if q_type == "选择题" and correct_option:
-        if correct_option in opts:
-            _known_answer = f"正确选项: {correct_option}. {opts[correct_option]}"
-        else:
-            _known_answer = f"正确选项: {correct_option}"
+        # Only use the short option-text form when *cached_answer* is not
+        # already a detailed solution (AI-expanded in a previous run).
+        # Otherwise keep the detailed text so the cache can be reused and
+        # we don't throw away a perfectly good multi-step explanation.
+        is_detailed = (
+            len(_known_answer) >= 120
+            or (selected_q.get("_ai_expanded_at") and len(_known_answer) >= 80)
+        )
+        if not is_detailed:
+            if correct_option in opts:
+                _known_answer = f"正确选项: {correct_option}. {opts[correct_option]}"
+            else:
+                _known_answer = f"正确选项: {correct_option}"
 
     # 判断是否需要 AI 生成详细解答
     _needs_exp = _standard_answer_needs_expansion(
         _known_answer, selected_q.get("solution_steps", []) or [], q_type,
+        selected_q=selected_q,
     ) or force_expansion
 
     # 路径1：缓存够详细 → 直接用
@@ -291,21 +558,26 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else _known_answer,
                 "total_score": selected_q.get("score", 10),
-                "steps": [],
+                "steps": _parse_steps_from_text(expanded) if expanded else [],
             }
             if expanded:
-                # Only cache if the LLM actually produced new content (not
-                # just regurgitating the short known_answer as a fallback).
+                # Parse structured steps from whatever the LLM returned.
+                # Even if it looks like the known_answer, we still need
+                # _structured for the renderer to show anything useful.
+                try:
+                    from latex_utils import from_legacy_text
+                    solution["_structured"] = from_legacy_text(expanded)
+                except Exception:
+                    pass
+
                 if expanded != _known_answer:
-                    try:
-                        from latex_utils import from_legacy_text
-                        solution["_structured"] = from_legacy_text(expanded)
-                    except Exception:
-                        pass
-                    _cache_detailed_answer(selected_q, expanded)
+                    consistent = _verify_answer_consistency(expanded, _known_answer)
+                    if consistent:
+                        _cache_detailed_answer(selected_q, expanded)
+                    else:
+                        status.write("⚠️ AI 生成的答案与已知正确答案不一致，已保留为参考但未缓存")
+                        solution["_ai_consistency_warning"] = True
                 else:
-                    # LLM returned the known_answer → generation failed.
-                    # Don't cache — next time will try again.
                     status.write("⚠️ AI 未生成新内容，将使用简略答案")
             status.write("✓ 详细解答已生成")
         except Exception as exc:
@@ -316,6 +588,53 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "standard_answer": _known_answer or "解答生成失败",
                 "total_score": selected_q.get("score", 10), "steps": [],
             }
+
+        # 降级：如果 main answer 仍然太短（AI 生成失败或返回简略答案），
+        # 尝试用 SolverAgent 再生成一次。SolverAgent 使用不同的 prompt 路径
+        # 可能在主提示词失败时仍然成功。
+        # 注意：不能仅用 standard_answer 长度判断（选择题的最终答案本身就短），
+        # 必须检查整体内容（steps + _structured + standard_answer）。
+        _ans = solution.get("standard_answer", "")
+        _steps = solution.get("steps") or []
+        _struc = solution.get("_structured") or {}
+        _total_content = len(_ans.strip()) + sum(
+            len(str(b.get("content", ""))) for s in (_struc.get("steps") or [])
+            for b in (s.get("blocks") or []) if isinstance(s, dict)
+        ) + sum(len(str(s.get("content", ""))) for s in _steps)
+        if _total_content < 80:
+            status.write("⏳ 主生成路径未产生详细解答，尝试 SolverAgent 降级...")
+            try:
+                full_question = question
+                if selected_q.get("options"):
+                    for key in sorted(selected_q.get("options", {}).keys()):
+                        full_question += f"\n({key}) {selected_q['options'][key]}"
+                from agents.solver_agent import SolverAgent
+                solver = SolverAgent(client, _model)
+                fallback_solution = solver.solve(
+                    question=full_question,
+                    math_type=ocr_data.get("math_type", "数学一"),
+                    question_type=q_type or ocr_data.get("question_type", "解答题"),
+                    knowledge_point=ocr_data.get("knowledge_point", "未指定"),
+                )
+                if fallback_solution.get("success"):
+                    fb_steps = fallback_solution.get("steps") or []
+                    fb_struc = fallback_solution.get("_structured") or {}
+                    fb_answer = fallback_solution.get("standard_answer", "")
+                    fb_total = len(fb_answer.strip()) + sum(
+                        len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
+                        for b in (s.get("blocks") or []) if isinstance(s, dict)
+                    ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
+                    if fb_total >= 80:
+                        solution["standard_answer"] = fb_answer
+                        solution["steps"] = fb_steps
+                        solution["_structured"] = fb_struc
+                        solution["_solver_fallback"] = True
+                        status.write("✓ SolverAgent 降级成功，已生成详细解答")
+                        _cache_detailed_answer(selected_q,
+                            _solution_to_text(fallback_solution) or fb_answer)
+            except Exception as _fb_exc:
+                logging.getLogger(__name__).warning(
+                    "SolverAgent fallback also failed: %s", _fb_exc)
 
     # 路径3：无任何已知答案 → 直接使用 generate_detailed_answer 生成详细解答（1次LLM）
     elif client is not None:
@@ -338,7 +657,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "success": True,
                 "standard_answer": expanded if expanded else "解答生成失败",
                 "total_score": selected_q.get("score", 10),
-                "steps": [],
+                "steps": _parse_steps_from_text(expanded) if expanded else [],
             }
             if expanded:
                 try:
@@ -346,24 +665,61 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                     solution["_structured"] = from_legacy_text(expanded)
                 except Exception:
                     pass
+                # No known_answer to verify against — mark as unverified AI content
+                solution["_ai_unverified"] = True
                 _cache_detailed_answer(selected_q, expanded)
             status.write("✓ 详细解答已生成")
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Detailed answer generation failed: %s", exc)
-            # 降级到 SolverAgent
-            full_question = question
-            if selected_q.get("options"):
-                for key in sorted(selected_q.get("options", {}).keys()):
-                    full_question += f"\n({key}) {selected_q['options'][key]}"
-            solver = SolverAgent(client, _model)
-            solution = solver.solve(
-                question=full_question,
-                math_type=ocr_data.get("math_type", "数学一"),
-                question_type=ocr_data.get("question_type", "解答题"),
-                knowledge_point=ocr_data.get("knowledge_point", "未指定"),
-            )
-            status.write("✓ 标准解答已生成（AI求解）")
+            solution = {
+                "success": True,
+                "standard_answer": "解答生成失败",
+                "total_score": selected_q.get("score", 10), "steps": [],
+            }
+
+        # 降级：路径3 产物太短时，同样尝试 SolverAgent
+        _ans3 = solution.get("standard_answer", "")
+        _steps3 = solution.get("steps") or []
+        _struc3 = solution.get("_structured") or {}
+        _total3 = len(_ans3.strip()) + sum(
+            len(str(b.get("content", ""))) for s in (_struc3.get("steps") or [])
+            for b in (s.get("blocks") or []) if isinstance(s, dict)
+        ) + sum(len(str(s.get("content", ""))) for s in _steps3)
+        if _total3 < 80:
+            status.write("⏳ 主生成路径未产生详细解答，尝试 SolverAgent 降级...")
+            try:
+                full_question = question
+                if selected_q.get("options"):
+                    for key in sorted(selected_q.get("options", {}).keys()):
+                        full_question += f"\n({key}) {selected_q['options'][key]}"
+                from agents.solver_agent import SolverAgent
+                solver = SolverAgent(client, _model)
+                fallback_solution = solver.solve(
+                    question=full_question,
+                    math_type=ocr_data.get("math_type", "数学一"),
+                    question_type=q_type or ocr_data.get("question_type", "解答题"),
+                    knowledge_point=ocr_data.get("knowledge_point", "未指定"),
+                )
+                if fallback_solution.get("success"):
+                    fb_steps = fallback_solution.get("steps") or []
+                    fb_struc = fallback_solution.get("_structured") or {}
+                    fb_answer = fallback_solution.get("standard_answer", "")
+                    fb_total = len(fb_answer.strip()) + sum(
+                        len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
+                        for b in (s.get("blocks") or []) if isinstance(s, dict)
+                    ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
+                    if fb_total >= 80:
+                        solution["standard_answer"] = fb_answer
+                        solution["steps"] = fb_steps
+                        solution["_structured"] = fb_struc
+                        solution["_solver_fallback"] = True
+                        status.write("✓ SolverAgent 降级成功，已生成详细解答")
+                        _cache_detailed_answer(selected_q,
+                            _solution_to_text(fallback_solution) or fb_answer)
+            except Exception as _fb_exc3:
+                logging.getLogger(__name__).warning(
+                    "SolverAgent fallback also failed: %s", _fb_exc3)
 
     # 路径4：无 API Key → 显示已有内容
     else:
@@ -526,9 +882,16 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         )
         status.write("⏳ 标准答案与规范解并行生成中...")
     else:
-        # 选择题和填空题也需要详细解答，方便用户查看标准解法
+        # 选择题和填空题也需要详细解答，方便用户查看标准解法。
+        # 但如果题库中已有详细解答则不再强制展开，避免浪费 LLM 调用。
+        _cached = selected_q.get("standard_answer", "")
+        _cached_detailed = (
+            (_cached or "").strip()
+            and len(_cached) >= 120
+        )
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
-                                            force_expansion=True, _state=_state, model=_model)
+                                            force_expansion=not _cached_detailed,
+                                            _state=_state, model=_model)
         if solution is None:
             _ss_set("grading_triggered", False, _state=_state)
             return None

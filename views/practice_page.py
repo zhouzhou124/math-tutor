@@ -67,10 +67,16 @@ def render_practice_page(db):
                 cols = st.columns(len(options))
                 for i, (key, value) in enumerate(options.items()):
                     with cols[i]:
-                        if st.button(f"**{key}**\n\n{value}", key=f"opt_{key}", use_container_width=True,
-                                    type="primary" if st.session_state.get("selected_option") == key else "secondary"):
+                        is_selected = st.session_state.get("selected_option") == key
+                        if st.button(key, key=f"opt_{key}", use_container_width=True,
+                                    type="primary" if is_selected else "secondary"):
                             st.session_state.selected_option = key
                             selected_option = key
+                        # Render option content below the button with LaTeX support.
+                        # Option values are already wrapped in $...$ or $$...$$.
+                        cleaned = (value or "").strip()
+                        if cleaned:
+                            st.markdown(cleaned)
                 selected_option = st.session_state.get("selected_option")
                 if selected_option:
                     st.success(f"✓ 已选择选项: {selected_option}")

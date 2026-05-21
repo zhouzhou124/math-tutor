@@ -244,7 +244,19 @@ def _fix_left_right(s: str) -> str:
 
 
 def _fix_braces(s: str) -> str:
-    """自动修复 {} 配对。"""
+    """自动修复 {} 配对。
+
+    Strategy (balanced between correctness and simplicity):
+    1. Count total brace depth.
+    2. If depth > 0 (missing closes), try to find the natural close
+       position for the LAST unclosed brace by scanning for the nearest
+       `` \\`` (space + backslash-command) or ``=`` at brace-level 0 after
+       that opening brace.  If found, insert ``}`` there.
+    3. Any remaining missing closes are appended at the very end.
+    """
+    if not s:
+        return s
+
     depth = 0
     for c in s:
         if c == '{':
@@ -254,16 +266,52 @@ def _fix_braces(s: str) -> str:
 
     if depth == 0:
         return s
-    if depth > 0:
-        return s + '}' * depth
-    else:
-        # 从尾部删除多余的 }
+
+    if depth < 0:
         result = s
         for _ in range(-depth):
             idx = result.rfind('}')
             if idx >= 0:
                 result = result[:idx] + result[idx+1:]
         return result
+
+    # depth > 0 — find the LAST unclosed { and try to place its }
+    # before a natural break (space-backslash or = at same level).
+    remaining = depth
+    result = list(s)
+
+    last_open = -1
+    cur = 0
+    for i, ch in enumerate(s):
+        if ch == '{':
+            if cur == remaining - 1:
+                last_open = i
+            cur += 1
+        elif ch == '}':
+            cur -= 1
+
+    if last_open >= 0:
+        scan_d = 0
+        best = len(s)
+        for j in range(last_open + 1, len(s)):
+            cj = s[j]
+            if cj == '{':
+                scan_d += 1
+            elif cj == '}':
+                scan_d -= 1
+            elif scan_d == 0:
+                if cj == '=' and j > 0 and s[j-1] in ' \t\n\r':
+                    best = j
+                    break
+                if (cj == '\\' and j > 0 and s[j-1] in ' \t\n\r'
+                        and j + 1 < len(s) and s[j+1].isalpha()):
+                    best = j - 1
+                    break
+        result.insert(best, '}')
+        remaining -= 1
+
+    result.extend(['}'] * remaining)
+    return ''.join(result)
 
 
 def _fix_parens(s: str) -> str:
@@ -407,9 +455,11 @@ def _pre_wrap_bare_latex(text: str) -> str:
     if not text:
         return text
 
-    # Only act on text that has backslash-commands but no math delimiters yet.
-    # If the text already has $ or \[, split_latex_text will handle it.
-    if '$' in text:
+    # Check if already has complete math delimiters
+    # Only skip if we have matching $$...$$ or $...$ pairs
+    has_display_math = text.count('$$') >= 2
+    has_inline_math = (text.count('$') - 2 * text.count('$$')) >= 2
+    if has_display_math or has_inline_math:
         return text
 
     # Find all \command positions that are candidates for wrapping
@@ -421,55 +471,73 @@ def _pre_wrap_bare_latex(text: str) -> str:
     def _scan_math_extent(text, start):
         """Scan from start to find the full extent of a math expression.
         Tracks balanced {} and continues past operators/relations/brackets
-        to include multi-arg commands like \\frac{a}{b} and chains like
-        \\left(...\\right) + \\int_c^d."""
+        to include multi-arg commands like \\frac{a}{b}, matrix environments
+        with & alignment, and chains like \\left(...\\right) + \\int_c^d.
+
+        Safety: caps at 2000 chars and depth 50 to prevent runaway scans.
+        Handles \\\\ (LaTeX line breaks) and matrix/align & characters.
+        """
         pos = start
-        L = len(text)
+        L = min(len(text), start + 2000)
         depth = 0
-        while pos < L:
+        iterations = 0
+        while pos < L and iterations < 2000:
+            iterations += 1
             ch = text[pos]
             if ch == '{':
                 depth += 1
+                if depth > 50:
+                    pos += 1
+                    depth = 49
+                    continue
             elif ch == '}':
                 depth -= 1
                 if depth <= 0:
                     pos += 1
                     depth = 0
-                    # After closing the outermost brace, check for continuation:
-                    # another {arg}, an operator, a relation, a letter/digit
-                    # (for cases like \frac{1}{3} r^3 or \cos x + \sin y),
-                    # or another \command
                     after = text[pos:pos + 30].lstrip()
                     if after and (after[0] == '{' or
                                   after[0] == '[' or
                                   after[0] == '(' or
-                                  re.match(r'[=<>+\-*/×÷±]', after) or
+                                  re.match(r'[=<>+\-*/×÷±&|]', after) or
                                   re.match(r'\\[a-zA-Z]', after) or
+                                  after[:2] == '\\\\' or
                                   re.match(r'[_^]', after) or
                                   re.match(r'[A-Za-z0-9]', after)):
-                        pos = text.index(after[0], pos) if after[0] != '{' else pos
+                        # Continue scanning - don't search for the character
+                        # as we're already positioned correctly
                         continue
                     break
             elif ch in '\\' and depth == 0:
-                # Another command at brace-level 0 — include it
-                pass  # keep scanning
+                pass  # Another command at brace-level 0 — include it
             elif ch in ' \t' and depth == 0:
                 after = text[pos + 1:pos + 30].lstrip()
-                if after and (after[0] == '{' or re.match(r'\\[a-zA-Z]', after) or
-                              re.match(r'[=<>+\-*/×÷±]', after)):
+                if after and (after[0] == '{' or
+                              re.match(r'\\[a-zA-Z]', after) or
+                              after[:2] == '\\\\' or
+                              re.match(r'[=<>+\-*/×÷±&|]', after)):
                     pos += 1
                     continue
-                # Also continue if the next non-space is a letter/digit (argument
-                # to a bare command like \int f(x)dx or \cos x)
                 if after and re.match(r'[A-Za-z0-9]', after[0]):
                     pos += 1
                     continue
                 break
             elif ch in '\n\r' and depth == 0:
+                # Continue past newlines inside multi-line environments
+                # (matrix, align) — same continuation logic as spaces
+                after = text[pos + 1:pos + 30].lstrip()
+                if after and (after[0] == '{' or
+                              after[0] == '[' or
+                              after[0] == '(' or
+                              re.match(r'[=<>+\-*/×÷±&|]', after) or
+                              re.match(r'\\[a-zA-Z]', after) or
+                              after[:2] == '\\\\' or
+                              re.match(r'[_^]', after) or
+                              re.match(r'[A-Za-z0-9]', after)):
+                    pos += 1
+                    continue
                 break
             elif depth == 0 and ord(ch) > 127:
-                # Non-ASCII character at brace-level 0 (CJK, emoji, etc.) →
-                # not part of a LaTeX math expression, ends the fragment
                 break
             pos += 1
         return pos
@@ -2134,6 +2202,13 @@ def validate_and_repair(data: dict) -> tuple[StructuredSolutionPydantic | None, 
 # 6d. 旧格式转换 — 从混合 text 到结构化方案
 # ═══════════════════════════════════════════════
 
+# Metadata section headings that should be stripped from step content
+_META_HEADINGS = (
+    r'关键知识点|易错提示|常见误区|秒杀技巧|'
+    r'结论|标准答案|题目重述|最终答案|'
+    r'题型补充|知识点总结|注意事项|解题技巧'
+)
+
 def from_legacy_text(text: str, title: str = "解答") -> dict:
     """
     将旧的混合文本格式转换为 StructuredSolution。
@@ -2147,24 +2222,71 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
     if not text:
         return make_solution(steps=[make_step("", [make_text("(无内容)")])])
 
-    # Match step markers: "步骤1：", "第1步：", "1. ", "(1) ", "### 步骤1："
+    # Match step markers with full Chinese number support.
+    # Pattern groups:
+    #   1. "步骤N：" / "第N步：" (Arabic or Chinese digits)
+    #   2. "### 步骤N：" (Markdown heading)
+    #   3. "N. " / "N、" at line start (but ONLY when N≤20 to avoid false
+    #      matches with LaTeX equation numbers or year references)
+    _CN_NUM = r'[一二三四五六七八九十]{1,3}'
     _STEP_RE = re.compile(
-        r'(?:步骤|第)\s*(\d+)\s*(?:步|题|问)?\s*[：:]\s*|'
-        r'(?:###\s*)?步骤\s*(\d+)\s*[：:]\s*|'
-        r'(?:^|\n)\s*(\d+)\s*[.、．)]\s+',
+        r'(?:步骤|第)\s*(\d+|' + _CN_NUM + r')\s*(?:步|题|问)?\s*[：:]\s*|'
+        r'(?:###\s*)?步骤\s*(\d+|' + _CN_NUM + r')\s*[：:]\s*|'
+        r'(?:^|\n)\s*(\d{1,2})\s*[.、．)]\s+(?=[一-鿿])',
         re.MULTILINE,
     )
+    # Map Chinese number strings to ints
+    _CN_MAP = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5,
+               '六': 6, '七': 7, '八': 8, '九': 9, '十': 10,
+               '十一': 11, '十二': 12}
 
     # Step 1: 检测步骤边界
     step_boundaries = []  # [(step_num, start_pos, end_pos)]
     for m in _STEP_RE.finditer(text):
         num_str = m.group(1) or m.group(2) or m.group(3)
         if num_str:
-            step_boundaries.append((int(num_str), m.start(), m.end()))
+            if num_str.isdigit():
+                step_num = int(num_str)
+            else:
+                step_num = _CN_MAP.get(num_str, 0)
+            if step_num > 0:
+                step_boundaries.append((step_num, m.start(), m.end()))
 
     if not step_boundaries:
-        # 没有步骤标记，整段作为一个 step
-        cleaned = clean_markdown(text)
+        # 没有步骤标记 — 尝试用加粗标题（**xxx**：）作为fallback步骤边界
+        _BOLD_STEP_RE = re.compile(r'\*\*(.+?)\*\*\s*[：:]\s*')
+        bold_markers = list(_BOLD_STEP_RE.finditer(text))
+        if len(bold_markers) >= 2:
+            # Use bold headers as pseudo-step boundaries
+            fallback_steps = []
+            for i, bm in enumerate(bold_markers):
+                label = bm.group(1).strip()
+                b_start = bm.end()
+                b_end = bold_markers[i+1].start() if i+1 < len(bold_markers) else len(text)
+                chunk = text[b_start:b_end].strip()
+                # Apply same processing as regular steps
+                chunk = re.sub(r'\\\(\s*(.+?)\s*\\\)', r'$\1$', chunk, flags=re.DOTALL)
+                chunk = re.sub(r'\\\[\s*(.+?)\s*\\\]', r'$$\1$$', chunk, flags=re.DOTALL)
+                chunk = _pre_wrap_bare_latex(chunk)
+                chunk = re.sub(
+                    r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+                    '', chunk, flags=re.DOTALL,
+                )
+                cleaned = clean_markdown(chunk)
+                segments = split_latex_text(cleaned)
+                blocks = _segments_to_blocks(segments)
+                if blocks:
+                    fallback_steps.append(make_step(label, blocks))
+            if len(fallback_steps) >= 2:
+                return make_solution(steps=fallback_steps)
+
+        # Still no steps — treat entire text as one step, but strip metadata
+        cleaned_text = text
+        cleaned_text = re.sub(
+            r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+            '', cleaned_text, flags=re.DOTALL,
+        )
+        cleaned = clean_markdown(cleaned_text)
         segments = split_latex_text(cleaned)
         blocks = _segments_to_blocks(segments)
         return make_solution(steps=[make_step("", blocks)])
@@ -2182,6 +2304,22 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
         # 本步骤内容：从标记结束到下一个标记开始
         next_start = step_boundaries[i + 1][1] if i + 1 < len(step_boundaries) else len(text)
         chunk = text[end:next_start].strip()
+
+        # Convert LaTeX delimiters BEFORE clean_markdown (which protects $...$
+        # but doesn't recognize \(...\) as math, causing subscript corruption).
+        chunk = re.sub(r'\\\(\s*(.+?)\s*\\\)', r'$\1$', chunk, flags=re.DOTALL)
+        chunk = re.sub(r'\\\[\s*(.+?)\s*\\\]', r'$$\1$$', chunk, flags=re.DOTALL)
+
+        # Wrap bare LaTeX commands (like \frac, \sqrt) in $...$ so
+        # clean_markdown protects them as math regions and doesn't split
+        # fractions across lines.
+        chunk = _pre_wrap_bare_latex(chunk)
+
+        # Strip trailing metadata sections.
+        chunk = re.sub(
+            r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+            '', chunk, flags=re.DOTALL,
+        )
 
         # Step 3: 清理 + 分离 + 构建 blocks
         cleaned = clean_markdown(chunk)

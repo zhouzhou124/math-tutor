@@ -139,6 +139,24 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
             return
 
     with st.expander("📖 查看标准解法", expanded=expanded):
+        # ── Quality warnings ──
+        raw_answer = solution.get("standard_answer", "")
+        # Check if there's any substantive content anywhere (steps, structured, or long answer)
+        struct_steps_count = len(structured.get("steps", [])) if isinstance(structured, dict) else 0
+        _has_content = (
+            len(steps) > 0
+            or struct_steps_count > 0
+            or len(raw_answer.strip()) >= 80
+        )
+        if raw_answer and not _has_content:
+            st.warning(
+                "📝 当前标准解法较简短，可能未包含详细步骤。"
+                "请尝试清除缓存后重新批改以获取完整解答。"
+            )
+        if solution.get("_ai_consistency_warning"):
+            st.warning("⚠️ AI 生成的解答与已知正确答案不完全一致，仅供参考学习，请以题目给定的正确答案为准。")
+        if solution.get("_ai_unverified"):
+            st.info("💡 此解答由 AI 自动生成，尚未经过人工审核验证。如有疑问请对照教材确认。")
         # ── 优先：结构化渲染路径 ──
         if isinstance(structured, dict):
             # 检查是否有步骤
@@ -166,7 +184,7 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
             if isinstance(step, dict):
                 label = step.get("label", f"步骤{i+1}")
                 if step.get("content"):
-                    content_parts.append(f"### {label}\n{step['content']}")
+                    content_parts.append(f"### {label.rstrip('：:')}：\n{step['content']}")
                 elif step.get("blocks"):
                     block_texts = []
                     for b in step["blocks"]:
@@ -177,10 +195,10 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                         elif bc:
                             block_texts.append(bc)
                     if block_texts:
-                        content_parts.append(f"### {label}\n" + "\n".join(block_texts))
+                        content_parts.append(f"### {label.rstrip('：:')}：\n" + "\n".join(block_texts))
                 # If step has neither content nor blocks, skip it (don't str() it)
             elif isinstance(step, str):
-                content_parts.append(f"### 步骤{i+1}\n{step}")
+                content_parts.append(f"### 步骤{i+1}：\n{step}")
         
         # 确保最终答案被添加
         if answer and isinstance(answer, str) and answer.strip():

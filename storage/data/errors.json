@@ -968,25 +968,643 @@
           "timestamp": "2026-05-20 23:04",
           "is_repeat": false,
           "repeat_count": 1
+        },
+        {
+          "record_id": "err_1779358697_806",
+          "user_id": "user_1778947351",
+          "date": "2026-05-21",
+          "time": "18:18",
+          "question_id": "2024-数一-019",
+          "question": "设函数 $f(x)$ 具有二阶导数，且 $f'(0)=f'(1),|f''(x)|\\le1$.证明：\n$(1)$ 当 $x\\in(0,1)$ 时，$|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n$(2)$ $|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}|\\le\\frac{1}{12}$.",
+          "math_type": "数学一",
+          "question_type": "证明题",
+          "knowledge_point": "中值定理, 定积分",
+          "knowledge_points": [
+            "中值定理",
+            "定积分"
+          ],
+          "difficulty": "较难",
+          "student_answer": "12",
+          "standard_answer": "### 步骤1\n分析题意并写出已知与待证\n已知：\n$f(x)$\n 在 \n$[0,1]$\n 上有二阶导数，\n$f'(0)=f'(1)$\n，且 \n$|f''(x)|\\leq 1$\n。\n待证：(1) 对任意 \n$x\\in (0,1)$\n，有 \n$|f(x)-f(0)(1-x)-f(1)x|\\leq\\frac{x(1-x)}{2}$\n；\n\n(2) \n$\\bigl|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}\\bigr|\\leq\\frac{1}{12}$\n。\n证明思路：对于(1)，构造辅助函数，利用二阶导数控制凹凸性进行放缩；对于(2)，直接对(1)的结论取积分并放大。\n\n### 步骤2\n证明第(1)问\n设线性插值函数为 \n$P(x)=f(0)(1-x)+f(1)x$\n，并令\n\n$$F(x)=f(x)-P(x)=f(x)-f(0)(1-x)-f(1)x.$$\n则 \n$F(0)=f(0)-f(0)=0$\n，\n$F(1)=f(1)-f(1)=0$\n，且 \n$F''(x)=f''(x)$\n。\n为估计 \n$F(x)$\n，构造两个辅助函数：\n\n$$G(x)=F(x)+\\frac{x(1-x)}{2},\\qquad H(x)=F(x)-\\frac{x(1-x)}{2}.求二阶导数：$$\n$G''(x)=F''(x)+1=f''(x)+1,$\n\\qquad H''(x)=F''(x)-1=f''(x)-1.F(x)-\\frac{x(1-x)}\n${2}$\n\\geq\n$0\\quad$\n\\Longrightarrow\n$\\quad F(x)$\n\\geq\n\n### 最终答案\n## 题目重述\n设函数 $f(x)$ 在 $[0,1]$ 上具有二阶导数，且满足 $f'(0)=f'(1)$ 与 $|f''(x)|\\leq 1$。证明当 $x\\in(0,1)$ 时，线性插值误差不超过 $\\frac{x(1-x)}{2}$，并由此估计积分 $\\int_0^1 f(x)dx$ 与梯形近似值 $\\frac{f(0)+f(1)}{2}$ 的偏差不超过 $\\frac{1}{12}$。\n\n## 标准答案\n\n(1) $|f(x)-f(0)(1-x)-f(1)x|\\leq\\frac{x(1-x)}{2}$；\n\n(2) $\\left|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}\\right|\\leq\\frac{1}{12}$。\n\n步骤1：分析题意并写出已知与待证\n已知：$f(x)$ 在 $[0,1]$ 上有二阶导数，$f'(0)=f'(1)$，且 $|f''(x)|\\leq 1$。\n待证：(1) 对任意 $x\\in(0,1)$，有 $|f(x)-f(0)(1-x)-f(1)x|\\leq\\frac{x(1-x)}{2}$；\n\n(2) $\\bigl|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}\\bigr|\\leq\\frac{1}{12}$。\n证明思路：对于(1)，构造辅助函数，利用二阶导数控制凹凸性进行放缩；对于(2)，直接对(1)的结论取积分并放大。\n\n步骤2：证明第(1)问\n设线性插值函数为 $P(x)=f(0)(1-x)+f(1)x$，并令\n$$F(x)=f(x)-P(x)=f(x)-f(0)(1-x)-f(1)x.$$\n则 $F(0)=f(0)-f(0)=0$，$F(1)=f(1)-f(1)=0$，且 $F''(x)=f''(x)$。\n为估计 $F(x)$，构造两个辅助函数：\n$$G(x)=F(x)+\\frac{x(1-x)}{2},\\qquad H(x)=F(x)-\\frac{x(1-x)}{2}.$求二阶导数：$$$G''(x)=F''(x)+1=f''(x)+1,\\qquad H''(x)=F''(x)-1=f''(x)-1.$$\n由已知 $|f''(x)|$\\leq$ 1$ 得 $f''(x)$\\geq$ -1$，$f''(x)$\\leq$ 1$，故\n\u0000M2\u0000\n因此 $G(x)$ 是 $[0,1]$ 上的凸函数（下凸），$H(x)$ 是 $[0,1]$ 上的凹函数（上凸）。\n利用凸函数的性质：对任意 $x$\\in$[0,1]$，$G(x)$\\leq$ (1-x)G(0)+xG(1)$。而 $G(0)=F(0)+0=0$，$G(1)=F(1)+0=0$，所以 $G(x)$\\leq$ 0$，即\n\u0000M3\u0000\n利用凹函数的性质：对任意 $x$\\in$[0,1]$，$H(x)$\\geq$ (1-x)H(0)+xH(1)$。而 $H(0)=0$，$H(1)=0$，故 $H(x)$\\geq$ 0$，即\n$$F(x)-\\frac{x(1-x)}{2}$\\geq$ 0\\quad$\\Longrightarrow$\\quad F(x)$\\geq$",
+          "solution_steps": [
+            {
+              "label": "步骤1",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "分析题意并写出已知与待证\n已知："
+                },
+                {
+                  "type": "latex",
+                  "content": "f(x)"
+                },
+                {
+                  "type": "text",
+                  "content": " 在 "
+                },
+                {
+                  "type": "latex",
+                  "content": "[0,1]"
+                },
+                {
+                  "type": "text",
+                  "content": " 上有二阶导数，"
+                },
+                {
+                  "type": "latex",
+                  "content": "f'(0)=f'(1)"
+                },
+                {
+                  "type": "text",
+                  "content": "，且 "
+                },
+                {
+                  "type": "latex",
+                  "content": "|f''(x)|\\leq 1"
+                },
+                {
+                  "type": "text",
+                  "content": "。\n待证：(1) 对任意 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x\\in (0,1)"
+                },
+                {
+                  "type": "text",
+                  "content": "，有 "
+                },
+                {
+                  "type": "latex",
+                  "content": "|f(x)-f(0)(1-x)-f(1)x|\\leq\\frac{x(1-x)}{2}"
+                },
+                {
+                  "type": "text",
+                  "content": "；\n\n(2) "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\bigl|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}\\bigr|\\leq\\frac{1}{12}"
+                },
+                {
+                  "type": "text",
+                  "content": "。\n证明思路：对于(1)，构造辅助函数，利用二阶导数控制凹凸性进行放缩；对于(2)，直接对(1)的结论取积分并放大。"
+                }
+              ]
+            },
+            {
+              "label": "步骤2",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "证明第(1)问\n设线性插值函数为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "P(x)=f(0)(1-x)+f(1)x"
+                },
+                {
+                  "type": "text",
+                  "content": "，并令\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "F(x)=f(x)-P(x)=f(x)-f(0)(1-x)-f(1)x.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "则 "
+                },
+                {
+                  "type": "latex",
+                  "content": "F(0)=f(0)-f(0)=0"
+                },
+                {
+                  "type": "text",
+                  "content": "，"
+                },
+                {
+                  "type": "latex",
+                  "content": "F(1)=f(1)-f(1)=0"
+                },
+                {
+                  "type": "text",
+                  "content": "，且 "
+                },
+                {
+                  "type": "latex",
+                  "content": "F''(x)=f''(x)"
+                },
+                {
+                  "type": "text",
+                  "content": "。\n为估计 "
+                },
+                {
+                  "type": "latex",
+                  "content": "F(x)"
+                },
+                {
+                  "type": "text",
+                  "content": "，构造两个辅助函数：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "G(x)=F(x)+\\frac{x(1-x)}{2},\\qquad H(x)=F(x)-\\frac{x(1-x)}{2}.求二阶导数：",
+                  "display": "block"
+                },
+                {
+                  "type": "latex",
+                  "content": "G''(x)=F''(x)+1=f''(x)+1,"
+                },
+                {
+                  "type": "text",
+                  "content": "\\qquad H''(x)=F''(x)-1=f''(x)-1.F(x)-\\frac{x(1-x)}"
+                },
+                {
+                  "type": "latex",
+                  "content": "{2}"
+                },
+                {
+                  "type": "text",
+                  "content": "\\geq"
+                },
+                {
+                  "type": "latex",
+                  "content": "0\\quad"
+                },
+                {
+                  "type": "text",
+                  "content": "\\Longrightarrow"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\quad F(x)"
+                },
+                {
+                  "type": "text",
+                  "content": "\\geq"
+                }
+              ]
+            }
+          ],
+          "score": 0.0,
+          "max_score": 12,
+          "is_correct": false,
+          "comment": "作答内容为“12”，既不是题目要求的两个不等式的证明，也不是合理的中间推理，无法采信为有效解答，本题得0分。",
+          "step_analysis": [
+            {
+              "num": 1,
+              "content": "学生仅写出数字“12”，未给出任何与证明相关的推导过程或逻辑步骤，无法对应标准答案中的任何关键步骤。",
+              "judgment": "wrong",
+              "score": "0.0/6.0",
+              "comment": "未提供有效证明步骤，内容与题目要求无关，完全不得步骤分。"
+            }
+          ],
+          "method_matched": null,
+          "engine": "B_structured",
+          "confidence": 1.0,
+          "obligation_warning": "**双向性**: 2 项义务未覆盖 | **条件遗漏**: 1 处可疑",
+          "error_type": "misreading",
+          "root_cause": "学生完全未理解题意，将证明题误认为填空题或选择题，只回答了一个数字'12'，未给出任何推理或证明过程。这反映出学生可能没有读懂题目要求，或者完全没有学习过用导数和凸性分析函数插值误差的证明方法。",
+          "weak_points": [
+            "证明题的解题规范意识",
+            "利用二阶导数构造辅助函数证明不等式的方法"
+          ],
+          "recommendations": [
+            "加强证明题的训练，明确解答题需要写出详细过程，不能只写最终结论",
+            "复习泰勒公式、凸函数的判定与性质，以及利用导数证明不等式的常用技巧"
+          ],
+          "common_mistakes": [
+            "将证明题当作填空题，只写出一个无关数字"
+          ],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-21 18:18",
+          "is_repeat": false,
+          "repeat_count": 1
+        },
+        {
+          "record_id": "err_1779369787_768",
+          "user_id": "user_1778947351",
+          "date": "2026-05-21",
+          "time": "21:23",
+          "question_id": "2022-数一-005",
+          "question": "$5.$ 下列四个条件中，使 $3$ 阶矩阵 $A$ 可对角化的一个充分但不必要条件是（ ）\n\n$(A)$ $A$ 有 $3$ 个互不相等的特征值\n$(B)$ $A$ 有 $3$ 个线性无关的特征向量\n$(C)$ $A$ 有 $3$ 个两两线性无关的特征向量\n$(D)$ $A$ 的属于不同特征值的特征向量正交",
+          "math_type": "数学一",
+          "question_type": "选择题",
+          "knowledge_point": "特征值与特征向量",
+          "knowledge_points": [
+            "特征值与特征向量"
+          ],
+          "difficulty": "中等",
+          "student_answer": "选项: C",
+          "standard_answer": "### 步骤1\n最终答案正确选项: A\n\n### 最终答案\n正确选项: A",
+          "solution_steps": [
+            {
+              "label": "",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "最终答案正确选项: A"
+                }
+              ]
+            }
+          ],
+          "score": 0,
+          "max_score": 5,
+          "is_correct": false,
+          "comment": "错误, 正确选项为 A",
+          "step_analysis": [],
+          "method_matched": "",
+          "engine": "unknown",
+          "confidence": 0.0,
+          "obligation_warning": "",
+          "error_type": "选择题答案错误",
+          "root_cause": "正确答案是 A，你选择了 选项: C。请分析每个选项的数学含义。",
+          "weak_points": [
+            "特征值与特征向量"
+          ],
+          "recommendations": [],
+          "common_mistakes": [],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-21 21:23",
+          "is_repeat": false,
+          "repeat_count": 1
+        },
+        {
+          "record_id": "err_1779373925_442",
+          "user_id": "user_1778947351",
+          "date": "2026-05-21",
+          "time": "22:32",
+          "question_id": "2018-数一-003",
+          "question": "$3.$ $\\sum_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!}=$( )\n\n$(A)$ $\\sin1+\\cos1$\n\n$(B)$ $2\\sin1+\\cos1$\n\n$(C)$ $2\\sin1+2\\cos1$\n\n$(D)$ $2\\sin1+3\\cos1$",
+          "math_type": "数学一",
+          "question_type": "选择题",
+          "knowledge_point": "无穷级数",
+          "knowledge_points": [
+            "无穷级数"
+          ],
+          "difficulty": "中等",
+          "student_answer": "选项: C",
+          "standard_answer": "### 步骤1：\n拆分通项，化简级数**\n将通项拆分为两个更简单的分式：\n$$\n\\frac{2n+3}{(2n+1)!} = \\frac{(2n+1)+2}{(2n+1)!} = \\frac{2n+1}{(2n+1)!} + \\frac{2}{(2n+1)!}.\n$$\n注意到 (2n+1)! = (2n+1)(2n)!，所以\n$$\n\\frac{2n+1}{(2n+1)!} = \\frac{1}{(2n)!}.\n$$$因此原级数可化为$\\sum\\limits_{n=0}^{$\\infty$}(-1)^n\\frac{2n+3}{(2n+1)!} = \\sum\\limits_{n=0}^{$\\infty$}(-1)^n \\frac{1}{(2n)!} + 2\\sum\\limits_{n=0}^{$\\infty$}(-1)^n \\frac{1}{(2n+1)!}.\n$$\n\n**\n\n### 步骤2：\n利用已知函数的泰勒展开式**\n回忆正弦函数和余弦函数在 $x=0$ 处的泰勒级数：\n$$\n\\sin x = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{x^{2n+1}}{(2n+1)!}, \\quad \\cos x = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{x^{2n}}{(2n)!}.\n$$\n令 x=1，得\n$$\n\\sin 1 = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n+1)!}, \\qquad \\cos 1 = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n)!}.\n$$$将这两个结果代入步骤$1$得到的表达式，即得原级数的和：$\\sum\\limits_{n=0}^{$\\infty$}(-1)^n\\frac{2n+3}{(2n+1)!} = \\cos 1 + 2\\sin 1 = 2\\sin 1 + \\cos 1.\n$$\n\n**\n\n### 步骤3：\n逐项辨析各选项**\n- 选项 (A)：$\\sin 1 + \\cos 1$。这是忽略了 $\\sin 1$ 的系数 $2$，错误地将 $2\\sum (-1)^n/(2n+1)!$ 当成了 $\\sin 1$，故错误。\n- 选项 (B)：$2\\sin 1 + \\cos 1$。与步骤2推导结果一致，故正确。\n- 选项 (C)：$2\\sin 1 + 2\\cos 1$。将 $\\cos 1$ 的系数误写为 $2$，多算了一个 $\\cos 1$，故错误。\n- 选项 (D)：$2\\sin 1 + 3\\cos 1$。$\\cos 1$ 的系数为 $3$，与 $1$ 不符，故错误。\n\n**结论**\n该级数的和为 $2\\sin 1 + \\cos 1$，故正确选项为 **B**。\n\n**关键知识点**\n- 无穷级数的线性性质与通项拆分技巧\n- $\\sin x$ 与 $\\cos x$ 的麦克劳林展开式\n- 阶乘的递推关系 $(2n+1)! = (2n+1)(2n)!$ 的应用\n- 利用已知级数求和并识别常数项系数\n\n**易错提示**\n- 拆分通项时易将 $(2n+1)/(2n+1)!$ 错误地约分成 $1/(2n-1)!$ 或其它错误形式，应明确 $(2n+1)!=(2n+1)(2n)!$。\n- 误将 $\\sum (-1)^n/(2n+1)!$ 认作 $\\sin 1$ 的展开时漏掉符号或系数，需确认 $\\sin x$ 展开的指数与分母阶乘一致。\n- 选项混淆 $2\\sin1+\\cos1$ 与 $2\\sin1+2\\cos1$ 等，因没有仔细计算两个子级数的系数导致。\n\n### 最终答案\n**题目重述**\n求无穷级数 $\\sum\\limits_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!}$ 的和，并选出正确选项。\n\n**标准答案**\n$\\displaystyle \\sum\\limits_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!}=2\\sin 1+\\cos 1$，正确选项为 **B**。\n\n**步骤1：拆分通项，化简级数**\n将通项拆分为两个更简单的分式：\n$$\n\\frac{2n+3}{(2n+1)!} = \\frac{(2n+1)+2}{(2n+1)!} = \\frac{2n+1}{(2n+1)!} + \\frac{2}{(2n+1)!}.\n$$\n注意到 (2n+1)! = (2n+1)(2n)!，所以\n$$\n\\frac{2n+1}{(2n+1)!} = \\frac{1}{(2n)!}.\n$$$因此原级数可化为$\\sum\\limits_{n=0}^{$\\infty$}(-1)^n\\frac{2n+3}{(2n+1)!} = \\sum\\limits_{n=0}^{$\\infty$}(-1)^n \\frac{1}{(2n)!} + 2\\sum\\limits_{n=0}^{$\\infty$}(-1)^n \\frac{1}{(2n+1)!}.\n$$\n\n**步骤2：利用已知函数的泰勒展开式**\n回忆正弦函数和余弦函数在 $x=0$$处的泰勒级数：$\u0000M2\u0000$令$x=1$，得$\u0000M3\u0000$将这两个结果代入步骤$1$得到的表达式，即得原级数的和：$\\sum\\limits_{n=0}^{\\infty}(-1)^n\\frac{2n+3}{(2n+1)!} = \\cos 1 + 2\\sin 1 = 2\\sin 1 + \\cos 1.$$\n\n**步骤3：逐项辨析各选项**\n- 选项 (A)：$\\sin 1 + \\cos 1$。这是忽略了 $\\sin 1$ 的系数 $2$，错误地将 $2\\sum (-1)^n/(2n+1)!$ 当成了 $\\sin 1$，故错误。\n- 选项 (B)：$2\\sin 1 + \\cos 1$。与步骤2推导结果一致，故正确。\n- 选项 (C)：$2\\sin 1 + 2\\cos 1$。将 $\\cos 1$ 的系数误写为 $2$，多算了一个 $\\cos 1$，故错误。\n- 选项 (D)：$2\\sin 1 + 3\\cos 1$。$\\cos 1$ 的系数为 $3$，与 $1$ 不符，故错误。\n\n**结论**\n该级数的和为 $2\\sin 1 + \\cos 1$，故正确选项为 **B**。\n\n**关键知识点**\n- 无穷级数的线性性质与通项拆分技巧\n- $\\sin x$ 与 $\\cos x$ 的麦克劳林展开式\n- 阶乘的递推关系 $(2n+1)! = (2n+1)(2n)!$ 的应用\n- 利用已知级数求和并识别常数项系数\n\n**易错提示**\n- 拆分通项时易将 $(2n+1)/(2n+1)!$ 错误地约分成 $1/(2n-1)!$ 或其它错误形式，应明确 $(2n+1)!=(2n+1)(2n)!$。\n- 误将 $\\sum (-1)^n/(2n+1)!$ 认作 $\\sin 1$ 的展开时漏掉符号或系数，需确认 $\\sin x$ 展开的指数与分母阶乘一致。\n- 选项混淆 $2\\sin1+\\cos1$ 与 $2\\sin1+2\\cos1$ 等，因没有仔细计算两个子级数的系数导致。",
+          "solution_steps": [
+            {
+              "label": "步骤1",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "拆分通项，化简级数将通项拆分为两个更简单的分式：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\frac{2n+3}{(2n+1)!} = \\frac{(2n+1)+2}{(2n+1)!} = \\frac{2n+1}{(2n+1)!} + \\frac{2}{(2n+1)!}.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "注意到 (2n+1)! = (2n+1)(2n)!，所以\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\frac{2n+1}{(2n+1)!} = \\frac{1}{(2n)!}.",
+                  "display": "block"
+                },
+                {
+                  "type": "latex",
+                  "content": "因此原级数可化为"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sum\\limits_{n=0}"
+                },
+                {
+                  "type": "text",
+                  "content": "^{"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\infty}(-1)^n\\frac{2n+3}{(2n+1)!} = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n)!} + 2\\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n+1)!.",
+                  "display": "block"
+                }
+              ]
+            },
+            {
+              "label": "步骤2",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "利用已知函数的泰勒展开式\n回忆正弦函数和余弦函数在 "
+                },
+                {
+                  "type": "latex",
+                  "content": "x=0"
+                },
+                {
+                  "type": "text",
+                  "content": " 处的泰勒级数：\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin x = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{x^{2n+1}}{(2n+1)!}, \\quad \\cos x = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{x^{2n}}{(2n)!}.",
+                  "display": "block"
+                },
+                {
+                  "type": "text",
+                  "content": "令 x=1，得\n"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin 1 = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n+1)!}, \\qquad \\cos 1 = \\sum\\limits_{n=0}^{\\infty}(-1)^n \\frac{1}{(2n)!}.",
+                  "display": "block"
+                },
+                {
+                  "type": "latex",
+                  "content": "将这两个结果代入步骤"
+                },
+                {
+                  "type": "text",
+                  "content": "1"
+                },
+                {
+                  "type": "latex",
+                  "content": "得到的表达式，即得原级数的和："
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sum\\limits_{n=0}"
+                },
+                {
+                  "type": "text",
+                  "content": "^{"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\infty}(-1)^n\\frac{2n+3}{(2n+1)! = \\cos 1 + 2\\sin 1 = 2\\sin 1 + \\cos 1.",
+                  "display": "block"
+                }
+              ]
+            },
+            {
+              "label": "步骤3",
+              "blocks": [
+                {
+                  "type": "text",
+                  "content": "逐项辨析各选项\n- 选项 (A)："
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin 1 + \\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "。这是忽略了 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin 1"
+                },
+                {
+                  "type": "text",
+                  "content": " 的系数 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2"
+                },
+                {
+                  "type": "text",
+                  "content": "，错误地将 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sum (-1)^n/(2n+1)!"
+                },
+                {
+                  "type": "text",
+                  "content": " 当成了 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin 1"
+                },
+                {
+                  "type": "text",
+                  "content": "，故错误。\n- 选项 (B)："
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin 1 + \\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "。与步骤2推导结果一致，故正确。\n- 选项 (C)："
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin 1 + 2\\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "。将 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": " 的系数误写为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2"
+                },
+                {
+                  "type": "text",
+                  "content": "，多算了一个 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "，故错误。\n- 选项 (D)："
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin 1 + 3\\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "。"
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": " 的系数为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "3"
+                },
+                {
+                  "type": "text",
+                  "content": "，与 "
+                },
+                {
+                  "type": "latex",
+                  "content": "1"
+                },
+                {
+                  "type": "text",
+                  "content": " 不符，故错误。\n\n结论\n该级数的和为 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin 1 + \\cos 1"
+                },
+                {
+                  "type": "text",
+                  "content": "，故正确选项为 B。\n\n关键知识点- 无穷级数的线性性质与通项拆分技巧\n- "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin x"
+                },
+                {
+                  "type": "text",
+                  "content": " 与 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\cos x"
+                },
+                {
+                  "type": "text",
+                  "content": " 的麦克劳林展开式\n- 阶乘的递推关系 "
+                },
+                {
+                  "type": "latex",
+                  "content": "(2n+1)! = (2n+1)(2n)!"
+                },
+                {
+                  "type": "text",
+                  "content": " 的应用\n- 利用已知级数求和并识别常数项系数\n\n易错提示**\n- 拆分通项时易将 "
+                },
+                {
+                  "type": "latex",
+                  "content": "(2n+1)/(2n+1)!"
+                },
+                {
+                  "type": "text",
+                  "content": " 错误地约分成 "
+                },
+                {
+                  "type": "latex",
+                  "content": "1/(2n-1)!"
+                },
+                {
+                  "type": "text",
+                  "content": " 或其它错误形式，应明确 "
+                },
+                {
+                  "type": "latex",
+                  "content": "(2n+1)!=(2n+1)(2n)!"
+                },
+                {
+                  "type": "text",
+                  "content": "。\n- 误将 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sum (-1)^n/(2n+1)!"
+                },
+                {
+                  "type": "text",
+                  "content": " 认作 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin 1"
+                },
+                {
+                  "type": "text",
+                  "content": " 的展开时漏掉符号或系数，需确认 "
+                },
+                {
+                  "type": "latex",
+                  "content": "\\sin x"
+                },
+                {
+                  "type": "text",
+                  "content": " 展开的指数与分母阶乘一致。\n- 选项混淆 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin1+\\cos1"
+                },
+                {
+                  "type": "text",
+                  "content": " 与 "
+                },
+                {
+                  "type": "latex",
+                  "content": "2\\sin1+2\\cos1"
+                },
+                {
+                  "type": "text",
+                  "content": " 等，因没有仔细计算两个子级数的系数导致。"
+                }
+              ]
+            }
+          ],
+          "score": 0,
+          "max_score": 4,
+          "is_correct": false,
+          "comment": "错误, 正确选项为 B",
+          "step_analysis": [],
+          "method_matched": "",
+          "engine": "unknown",
+          "confidence": 0.0,
+          "obligation_warning": "",
+          "error_type": "选择题答案错误",
+          "root_cause": "正确答案是 B，你选择了 选项: C。请分析每个选项的数学含义。",
+          "weak_points": [
+            "无穷级数"
+          ],
+          "recommendations": [],
+          "common_mistakes": [],
+          "is_repeat_diagnosis": false,
+          "timestamp": "2026-05-21 22:32",
+          "is_repeat": false,
+          "repeat_count": 1
         }
       ],
       "stats": {
-        "total_errors": 4,
+        "total_errors": 7,
         "by_chapter": {
           "曲线曲面积分": 2,
           "二次型, 特征值与特征向量": 1,
-          "常微分方程": 1
+          "常微分方程": 1,
+          "中值定理, 定积分": 1,
+          "特征值与特征向量": 1,
+          "无穷级数": 1
         },
         "by_type": {
-          "选择题答案错误": 2,
+          "选择题答案错误": 4,
           "concept error": 1,
-          "填空题错误": 1
+          "填空题错误": 1,
+          "misreading": 1
         },
         "by_difficulty": {
-          "较难": 3,
-          "中等": 1
+          "较难": 4,
+          "中等": 3
         },
-        "repeat_rate": 0.25
+        "repeat_rate": 0.14285714285714285
       }
     }
   }

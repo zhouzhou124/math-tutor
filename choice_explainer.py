@@ -273,28 +273,57 @@ DETAILED_ANSWER_PROMPT = """你是一位考研数学辅导专家。请为以下�
 ## 知识点
 {knowledge_points}
 
-请严格按照以下格式输出详细解答。每个步骤必须用"步骤N："开头，公式必须用 $...$ 包裹：
+请严格按照以下要求输出详细解答（公式必须用 $...$ 或 $$...$$ 包裹）：
+
+## 题目重述
+（用一句话复述题目条件，让解答自包含。说明所有已知量、未知量、约束条件。）
 
 ## 标准答案
-（用一两行给出最终答案）
+（用一两行给出最终答案的完整形式。）
 
-步骤1：（第一步的标题，如"分析题意"、"确定方法"等）
-（这一步的推理过程。所有公式用 $...$ 包裹，如 $f(x)=x^2+1$。）
+步骤1：（第一步标题，如"分析题意并确定方法"）
+（详细推理过程。所有公式用 $...$ 包裹。）
 
-步骤2：（第二步的标题）
-（这一步的推理过程。所有公式用 $...$ 包裹。）
+步骤2：（第二步标题）
+（详细推理过程。所有公式用 $...$ 包裹。）
 
-步骤3：（第三步的标题）
-（继续推理，直到得出最终答案。每步一个核心操作。）
+步骤3：（第三步标题）
+（详细推理过程。所有公式用 $...$ 包裹。）
 
-（根据需要继续步骤4、步骤5...）
+（根据需要继续步骤4、步骤5...每步一个核心操作。）
+
+## 结论
+（明确写出最终答案，与"标准答案"呼应。选择题写明正确选项，填空题写明答案值，
+解答题写明最终表达式，证明题写明"证毕"。）
 
 ## 关键知识点
-（本题考察的核心知识点，列出2-4个）
+（本题考察的核心知识点，列出2-4个，每条一行以 - 开头）
 
 ## 易错提示
-（学生容易犯的错误，列出2-4个）
+（学生容易犯的错误，列出2-4个，每条一行以 - 开头）
 """
+# ── Per-type extra instructions appended dynamically ──
+_DETAILED_ANSWER_TYPE_EXTRAS = {
+    "选择题": """
+## 题型补充要求（选择题）
+- 步骤中必须逐个分析 A/B/C/D 每个选项，说明正确或错误的原因。
+""",
+    "证明题": """
+## 题型补充要求（证明题）
+- 步骤1必须明确写出"已知"和"要证"。
+- 推理链必须完整：条件 → 中间结论 → 最终结论，不使用"显然"、"易得"跳过关键步骤。
+- 若存在双向证明（充要条件），必须分别标注"必要性（⇒）"和"充分性（⇐）"。
+- "## 标准答案"只需写出要证的命题（如"$r(A) \\le 2$"），不要写"证明略"。证明过程在步骤中展开。
+- "## 结论"只写"证毕"，不要重复命题。
+""",
+    "解答题": """
+## 题型补充要求（解答题）
+- 若涉及矩阵/方程组，每个矩阵的构造过程必须完整写出（包括维度和来源）。
+- 若涉及特征值，必须写明特征方程和求解过程，不能直接给结果。
+- 若涉及正交变换，必须逐一写出 Schmidt 正交化步骤，不能跳过。
+- 特征值在对角矩阵中的排列顺序必须与正交矩阵 Q 的列向量顺序一致并说明。
+""",
+}
 
 
 def generate_detailed_answer(
@@ -306,6 +335,10 @@ def generate_detailed_answer(
 ) -> str:
     """为任意题型生成带详细步骤的标准答案。
 
+    使用两阶段策略：
+    1. 主阶段：以 8192 tokens 生成完整解答
+    2. 续写阶段：仅当截断时续写 1 轮，带去重保护
+
     Returns:
         格式化的详细答案文本（含步骤、知识点、易错提示）
     """
@@ -315,54 +348,103 @@ def generate_detailed_answer(
     if not client:
         return known_answer
 
+    # When known_answer is very short (e.g. just "正确选项: A"), the LLM
+    # often echoes it back without actually generating a step-by-step solution.
+    # Replace the passive "已知答案" line with an explicit instruction to
+    # derive the answer from scratch.
+    _known = (known_answer or "").strip()
+    _known_short = len(_known) < 80
+    if _known_short and _known:
+        known_line = (
+            f"**重要**：正确答案是「{_known}」。"
+            f"请你从零开始推导为什么这是正确答案，严禁只输出「{_known}」了事。"
+            f"必须包含完整的数学推导过程。"
+        )
+    elif _known:
+        known_line = f"已知答案为：{_known}，请基于此生成完整推导步骤。"
+    else:
+        known_line = "请先求解此题，再给出完整推导步骤。"
+
     prompt = (DETAILED_ANSWER_PROMPT
         .replace("{question}", question_text)
         .replace("{question_type}", question_type)
-        .replace("{known_answer}", known_answer)
+        .replace("{known_answer}", known_line)
         .replace("{knowledge_points}", knowledge_points or "未指定")
     )
+    # Append type-specific instructions
+    type_extra = _DETAILED_ANSWER_TYPE_EXTRAS.get(question_type, "")
+    if type_extra:
+        prompt += type_extra
 
     try:
+        system_msg = "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"
         messages = [
-            {"role": "system", "content": "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"},
+            {"role": "system", "content": system_msg},
             {"role": "user", "content": prompt},
         ]
         text_parts = []
 
-        for round_idx in range(2):  # 最多续写1次
+        for round_idx in range(2):  # Max: 1 main + 1 continuation
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
                 temperature=0.2 if round_idx == 0 else 0.1,
-                max_tokens=4096,
-                timeout=45,  # 单次LLM调用最长等45秒
+                max_tokens=8192,
+                timeout=60,
             )
             choice = response.choices[0]
-            chunk = choice.message.content or ""
-            if chunk:
-                text_parts.append(chunk)
-
-            combined = "".join(text_parts).strip()
+            chunk = (choice.message.content or "").strip()
             finish_reason = getattr(choice, "finish_reason", "")
 
-            # 内容够了就停，不纠结是否"完整"
-            if len(combined) > 500 and finish_reason != "length":
-                return combined or known_answer
-            if _is_answer_good_enough(combined):
-                return combined or known_answer
+            if chunk:
+                # Dedup: check if the new chunk overlaps heavily with existing content
+                if text_parts:
+                    last_part = text_parts[-1]
+                    overlap_ratio = _compute_overlap(last_part[-200:], chunk[:200])
+                    if overlap_ratio > 0.7:
+                        # LLM is repeating itself — stop here
+                        break
+                text_parts.append(chunk)
 
-            messages = [
-                {"role": "system", "content": "你是考研数学辅导专家。"},
-                {"role": "user", "content": prompt},
-                {"role": "assistant", "content": combined},
-                {"role": "user", "content": "请继续写，不要重复已有内容，只输出后续部分。"},
-            ]
+            combined = "\n\n".join(text_parts).strip()
 
-        return "".join(text_parts).strip() or known_answer
+            # Accept if response was not truncated OR content is good enough
+            if finish_reason != "length":
+                if len(combined) > 500 or _is_answer_good_enough(combined):
+                    return combined or known_answer
+
+            # Truncated — do one continuation with full context
+            if round_idx == 0:
+                continuation_prompt = (
+                    "你的上一次回答被截断了。请从上一次停下的地方**精确地**继续写，"
+                    "不要重复已经写过的内容。只输出剩余的部分，如关键知识点、易错提示等。"
+                    "\n\n你上一次输出的最后200字：\n" + combined[-200:]
+                )
+                messages = [
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": prompt},
+                    {"role": "assistant", "content": combined},
+                    {"role": "user", "content": continuation_prompt},
+                ]
+
+        return "\n\n".join(text_parts).strip() or known_answer
     except Exception as e:
         import streamlit as st
         st.warning(f"详细答案生成失败: {e}")
         return known_answer
+
+
+def _compute_overlap(a: str, b: str) -> float:
+    """Compute character-level overlap ratio between two strings."""
+    if not a or not b:
+        return 0.0
+    # Simple: count shared bigrams
+    a_bigrams = set(a[i:i+2] for i in range(len(a)-1))
+    b_bigrams = set(b[i:i+2] for i in range(len(b)-1))
+    if not a_bigrams or not b_bigrams:
+        return 0.0
+    shared = len(a_bigrams & b_bigrams)
+    return shared / min(len(a_bigrams), len(b_bigrams))
 
 
 def _is_answer_good_enough(text: str) -> bool:

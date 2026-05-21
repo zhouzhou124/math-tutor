@@ -228,6 +228,10 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
         if "qb_current_page" not in st.session_state:
             st.session_state.qb_current_page = 1
 
+        # Clamp to valid range — previous search may have had more pages
+        if st.session_state.qb_current_page > total_pages:
+            st.session_state.qb_current_page = total_pages
+
         # 计算当前页的题目范围
         start_idx = (st.session_state.qb_current_page - 1) * items_per_page
         end_idx = min(start_idx + items_per_page, len(results))
