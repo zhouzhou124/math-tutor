@@ -47,11 +47,7 @@ def render_settings_page(db, render_latex):
                             st.session_state.base_url = p["base_url"]
                             st.session_state.model = p["model"]
                             st.session_state.protocol = p.get("protocol", "openai")
-                            st.session_state.llm_client = create_client(
-                                api_key=p["api_key"],
-                                base_url=p["base_url"],
-                                protocol=p.get("protocol", "openai"),
-                            )
+                            st.session_state.pop("llm_client", None)  # force lazy re-create
                             st.toast(f"已切换到 {p['name']}")
                             st.rerun()
                 with col_del:
@@ -120,11 +116,7 @@ def render_settings_page(db, render_latex):
                 st.session_state.base_url = profile_url or default_url
                 st.session_state.model = profile_model or default_model
                 st.session_state.protocol = profile_protocol
-                st.session_state.llm_client = create_client(
-                    api_key=profile_key,
-                    base_url=profile_url or default_url,
-                    protocol=profile_protocol,
-                )
+                st.session_state.pop("llm_client", None)  # force lazy re-create
                 st.success(f"✅ {preset} 已保存并启用（协议: {profile_protocol}）")
                 st.rerun()
 
