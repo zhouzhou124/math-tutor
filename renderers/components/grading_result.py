@@ -210,21 +210,37 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                             st.text(raw)
 
 
-def render_recommendations(dr: dict, question_db=None, current_question=None) -> None:
-    """Learning recommendations card with similar question links."""
+def render_recommendations(dr: dict, question_db=None, current_question=None, is_correct: bool = None) -> None:
+    """Learning recommendations card — always shown, tailored to performance."""
     weak_points = dr.get("weak_points", [])
 
     with st.container(border=True):
         st.markdown("**📖 巩固建议**")
-        
+
+        if is_correct is True:
+            st.success("👍 这道题回答正确！继续保持，建议练习同类变式题巩固。")
+        elif is_correct is False:
+            st.info("📝 这道题还有提升空间，重点关注下方薄弱知识点。")
+        else:
+            st.info("💡 无论对错，持续练习同类题目都能帮助你巩固知识。")
+
         if weak_points:
+            st.markdown("**薄弱知识点**：")
+            tags = " · ".join(
+                f"**{wp}**" for wp in weak_points[:5]
+            )
+            st.markdown(tags)
             recs = [
                 f"重点复习 **{wp}** 相关知识点" for wp in weak_points[:3]
             ]
             for i, rec in enumerate(recs, 1):
                 st.markdown(f"{i}. {rec}")
-        else:
-            st.info("建议先完成作答，系统将根据答题情况提供个性化巩固建议")
+        elif is_correct is True:
+            # Correct but still suggest related practice
+            knowledge_points = (current_question or {}).get("knowledge_points", [])
+            if knowledge_points:
+                st.markdown(f"已掌握：{' · '.join(knowledge_points[:5])}")
+            st.markdown("建议做同类变式题检验是否真正理解。")
 
         # 相似题目推荐
         if question_db and current_question:
@@ -273,17 +289,17 @@ def render_recommendations(dr: dict, question_db=None, current_question=None) ->
 def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10,
                                  knowledge_points: list = None, question: dict = None,
                                  question_db=None, solution_expanded: bool = False) -> None:
-    """Progressive disclosure: score + knowledge points + main error visible, details collapsed.
+    """Progressive disclosure layout:
 
-    Default view:
-      ┌─ Score card (always visible) ─┐
-      ├─ Knowledge Points (always visible) ─┤
-      └─ Diagnosis (always visible) ─┘
+    Always visible:
+      ┌─ Score card ─────────────────────────────┐
+      ├─ Diagnosis (错因诊断) ───────────────────┤
+      ├─ Standard Solution (📖 查看标准解法) ─────┤
+      ├─ Knowledge Points (📚 考查知识点) ────────┤
+      └─ Recommendations (📖 巩固建议) ──────────┘
 
-    Expandable (click to reveal):
+    Collapsed:
       ▶ 📊 步骤对比分析
-      ▶ 📖 查看标准解法
-      ▶ 📖 巩固建议
     """
     st.markdown("---")
 
@@ -310,10 +326,6 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
             if _obl_warn:
                 st.warning(_obl_warn)
 
-    # ═══ Always visible: Knowledge Points — 独立展示，不在标准解法中隐藏 ═══
-    kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
-    render_knowledge_points(kp_list, question, question_db)
-
     # ═══ Always visible: Diagnosis ═══
     render_diagnosis_card(dr, gr)
 
@@ -325,9 +337,13 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     # ═══ Collapsed / Expanded: Standard solution ═══
     render_standard_solution(sa, expanded=solution_expanded)
 
-    # ═══ Collapsed: Recommendations ═══
-    with st.expander("📖 巩固建议", expanded=False):
-        render_recommendations(dr, question_db, question)
+    # ═══ Knowledge Points — below Standard Solution, always visible ═══
+    kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
+    render_knowledge_points(kp_list, question, question_db)
+
+    # ═══ Always visible: Recommendations (every question, right or wrong) ═══
+    with st.expander("📖 巩固建议", expanded=True):
+        render_recommendations(dr, question_db, question, is_correct=(gr.get("total", 0) >= total_score * 0.9))
 
 
 def _render_step_comparison_body(gr: dict) -> None:
