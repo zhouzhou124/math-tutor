@@ -52,15 +52,67 @@ def invalidate_cache(key: str):
         del st.session_state[time_key]
 
 
+def _clear_page_specific_state(from_page: str, to_page: str):
+    """
+    页面切换时清理特定页面的状态，防止状态污染导致卡住
+    
+    Args:
+        from_page: 离开的页面
+        to_page: 进入的页面
+    """
+    # 错题本相关状态（从错题本离开时清理）
+    if from_page == "error_notebook":
+        keys_to_clear = [
+            "mistakes_force_reload",
+            "_selected_error_record",
+            "_deleting_record_id",
+        ]
+        for key in keys_to_clear:
+            if key in st.session_state:
+                del st.session_state[key]
+    
+    # 进入真题库时清理相关状态
+    if to_page == "question_bank":
+        # 清除所有搜索缓存
+        keys_to_remove = []
+        for key in list(st.session_state.keys()):
+            # 清除搜索缓存
+            if key.startswith("search_cache_"):
+                keys_to_remove.append(key)
+            # 清除搜索缓存时间戳
+            elif key.startswith("search_cache_time_"):
+                keys_to_remove.append(key)
+            # 清除真题库缓存
+            elif key.startswith("cache_question_bank_"):
+                keys_to_remove.append(key)
+            # 清除真题库分页状态
+            elif key == "qb_current_page":
+                keys_to_remove.append(key)
+        
+        # 执行清除
+        for key in keys_to_remove:
+            if key in st.session_state:
+                del st.session_state[key]
+
+
 def _try_recover_grading_session():
     """Check SQLite for an unviewed completed grading task and restore it.
 
     Called at the beginning of every render_main_app() so that a user who
     returns after their browser tab was killed lands directly on their result.
+
+    Uses a short session-level cache (30 s) — navigating between pages should
+    NOT re-query SQLite every time.
     """
     page = st.session_state.get("page", "dashboard")
     if page != "dashboard":
         return  # Only intercept the default landing page
+
+    # 30-second cache — avoid SQLite hit on every nav click
+    _last_check = st.session_state.get("_recovery_last_check", 0)
+    if time.time() - _last_check < 30:
+        return
+    st.session_state["_recovery_last_check"] = time.time()
 
     auth = st.session_state.get("auth", {})
     user_id = auth.get("user_id", "")
@@ -198,6 +250,8 @@ def render_main_app():
         # User clicked a different option → navigate
         selected_page = nav_map.get(selected_label, "dashboard")
         if selected_page != current_page:
+            # 清理可能导致页面切换卡住的状态
+            _clear_page_specific_state(current_page, selected_page)
             st.session_state.page = selected_page
             st.rerun()
         

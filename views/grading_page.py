@@ -852,6 +852,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             _state["mistakes_force_reload"] = True
         else:
             st.session_state.mistakes_force_reload = True
+        st.session_state["_invalidate_dashboard"] = True
 
     _elapsed = time.time() - _t_start
     status.write(f"✓ 批改完成！（总耗时 {_elapsed:.1f} 秒）")

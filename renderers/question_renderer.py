@@ -15,6 +15,7 @@ from renderers.components import (
 )
 
 
+from question_ast import QuestionAST
 from . import to_ast as _to_ast
 
 
@@ -23,7 +24,10 @@ from . import to_ast as _to_ast
 # ============================================================
 
 def render_solution_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
-    ast = _to_ast(q)
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
     qid = CardOpen(ast)
 
     if ast.stem:
@@ -70,7 +74,10 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
 # ============================================================
 
 def render_proof_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
-    ast = _to_ast(q)
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
     qid = CardOpen(ast)
 
     if ast.stem:
@@ -141,7 +148,10 @@ def render_proof_question(q, show_steps: bool = False, show_answer: bool = False
 # ============================================================
 
 def render_generic_question(q) -> None:
-    ast = _to_ast(q)
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
     qid = CardOpen(ast)
 
     if ast.stem:
@@ -160,7 +170,10 @@ def render_generic_question(q) -> None:
 
 def render_question(q, show_steps: bool = False, show_answer: bool = False, show_actions: bool = True) -> None:
     """THE entry point. Accepts QuestionAST or legacy dict."""
-    ast = _to_ast(q)
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
 
     if ast.question_type == "选择题":
         from .choice_renderer import render_choice_question

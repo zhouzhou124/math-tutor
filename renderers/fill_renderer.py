@@ -7,11 +7,15 @@ from renderers.components import (
 )
 
 
+from question_ast import QuestionAST
 from . import to_ast as _to_ast
 
 
 def render_fill_question(q, show_answer: bool = False, show_actions: bool = True) -> None:
-    ast = _to_ast(q)
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
     qid = CardOpen(ast)
 
     if ast.stem:

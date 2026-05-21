@@ -6,25 +6,34 @@ from .auth.session_state import get_current_user_id, get_current_username
 
 def render_dashboard():
     """渲染仪表盘页面"""
-    import traceback
+    import traceback, time
     user_id = get_current_user_id()
     username = get_current_username()
 
-    # 创建服务
-    from pathlib import Path
-    from services import DashboardService, MemoryService
-    db_path = Path("storage/math_tutor.db")
-    data_dir = Path("storage/data")
+    # Session-level cache (60 s) — dashboard data rarely changes mid-session
+    _cache_key = f"_dashboard_cache_{user_id}"
+    _cache_time_key = f"_dashboard_cache_time_{user_id}"
+    _now = time.time()
+    _cached = st.session_state.get(_cache_key)
+    _cached_time = st.session_state.get(_cache_time_key, 0)
+    if _cached is not None and (_now - _cached_time) < 60 and not st.session_state.pop("_invalidate_dashboard", False):
+        dashboard = _cached
+    else:
+        from pathlib import Path
+        from services import DashboardService, MemoryService
+        db_path = Path("storage/math_tutor.db")
+        data_dir = Path("storage/data")
 
-    dashboard_service = DashboardService(db_path, data_dir)
-    memory_service = MemoryService(db_path, data_dir)
+        dashboard_service = DashboardService(db_path, data_dir)
+        memory_service = MemoryService(db_path, data_dir)
 
-    # 获取仪表盘数据
-    try:
-        dashboard = dashboard_service.get_dashboard_data(user_id)
-    except Exception:
-        st.error(f"加载仪表盘数据失败:\n```\n{traceback.format_exc()}\n```")
-        return
+        try:
+            dashboard = dashboard_service.get_dashboard_data(user_id)
+            st.session_state[_cache_key] = dashboard
+            st.session_state[_cache_time_key] = _now
+        except Exception:
+            st.error(f"加载仪表盘数据失败:\n```\n{traceback.format_exc()}\n```")
+            return
 
     # 欢迎信息
     try:

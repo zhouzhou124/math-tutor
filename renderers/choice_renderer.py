@@ -11,6 +11,7 @@ from renderers.components import (
 )
 
 
+from question_ast import QuestionAST
 from . import to_ast as _to_ast
 
 
@@ -20,7 +21,11 @@ def render_choice_question(q, show_answer: bool = False, show_actions: bool = Tr
     Components:
       CardOpen → stem → render_options → MetaTags → Actions → CardClose
     """
-    ast = _to_ast(q)
+    # 如果已经是 QuestionAST 对象，直接使用，不再转换
+    if isinstance(q, QuestionAST):
+        ast = q
+    else:
+        ast = _to_ast(q)
 
     # ── Card: open (renders header) ──
     qid = CardOpen(ast)
