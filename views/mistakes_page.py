@@ -234,62 +234,24 @@ def _render_record(err, render_latex, i, db=None):
         if st.button("🗑 删除此记录", key=f"del_{record_id}",
                     help="从错题本中移除此记录"):
             st.session_state["_delete_id"] = record_id
-            st.rerun()
-
-
-def _delete_in_background(memory, user_id: str, record_id: str):
-    """Delete from Supabase/local in a daemon thread — never blocks the caller.
-
-    A watchdog thread force-kills the delete thread if it exceeds 15 seconds,
-    preventing hung HTTP connections from leaking resources.
-    """
-    import ctypes, threading
-
-    _result = {"done": False, "error": None}
-
-    def _do_delete():
-        try:
-            memory.delete_error_record(user_id, record_id)
-            _result["done"] = True
-        except Exception as exc:
-            _result["error"] = str(exc)
-
-    def _watchdog(worker_thread):
-        worker_thread.join(timeout=15)
-        if worker_thread.is_alive():
-            try:
-                tid = worker_thread.ident
-                if tid:
-                    ctypes.pythonapi.PyThreadState_SetAsyncExc(
-                        ctypes.c_ulong(tid), ctypes.py_object(SystemExit)
-                    )
-            except Exception:
-                pass
-
-    worker = threading.Thread(target=_do_delete, daemon=True)
-    worker.start()
-    threading.Thread(target=_watchdog, args=(worker,), daemon=True).start()
 
 
 def render_mistakes_page(db, render_latex):
     st.title("📚 错题本")
 
-    # ── Deferred delete: flag set by button → processed at top of next
-    #     render cycle.  The actual Supabase call runs in a daemon thread
-    #     so the UI is never blocked waiting for the network.
+    # ── Deferred delete: button sets _delete_id → processed here at top
+    #     of next render (before any widget is created).  Synchronous
+    #     local JSON delete is instant — no threading needed.
     _delete_id = st.session_state.pop("_delete_id", None)
     if _delete_id:
-        # Guard: ignore duplicate delete requests for the same record
-        _pending = st.session_state.get("_pending_deletes", set())
-        if _delete_id not in _pending:
-            _pending.add(_delete_id)
-            st.session_state["_pending_deletes"] = _pending
-            _delete_in_background(
-                st.session_state.memory,
-                st.session_state.auth["user_id"],
-                _delete_id,
+        try:
+            st.session_state.memory.delete_error_record(
+                st.session_state.auth["user_id"], _delete_id
             )
+        except Exception:
+            pass
         _invalidate_mistakes_cache()
+        st.rerun()
 
     cf1, cf2, cf3 = st.columns(3)
     filter_subject = cf1.selectbox("科目", ["全部"] + SUBJECTS, key="filter_subject")
@@ -368,7 +330,12 @@ def render_mistakes_page(db, render_latex):
                 st.session_state[page_key] = total_pages; st.rerun()
 
     for i, err in enumerate(errors[start_idx:end_idx]):
-        _render_record(err, render_latex, i, db=db)
+        try:
+            _render_record(err, render_latex, i, db=db)
+        except Exception:
+            st.error(f"渲染记录 {err.get('record_id', '?')} 时出错，已跳过")
+    # Force Streamlit to flush the last expander completely
+    st.markdown("")
 
     if total_pages > 1:
         st.caption(f"显示第 {start_idx + 1}-{end_idx} 条，共 {len(errors)} 条")

@@ -14,6 +14,15 @@ def render_practice_page(db):
 
     selected_bank = st.session_state.get("selected_question")
 
+    # Clear previous answer selection when the question changes
+    if selected_bank:
+        _current_qid = selected_bank.get("question_id", "")
+        _prev_qid = st.session_state.get("_prev_practice_qid", "")
+        if _current_qid != _prev_qid:
+            st.session_state["_prev_practice_qid"] = _current_qid
+            st.session_state.pop("selected_option", None)
+            st.session_state.pop("bank_text_answer", None)
+
     if selected_bank:
         # ═══════════════════════════════════════════
         #  情况 A: 题库已选题 — 文本 + 拍照 双入口
@@ -30,7 +39,7 @@ def render_practice_page(db):
         # ── 题目展示 ──
         st.subheader("📋 题目内容")
         with st.container(border=True):
-            render_question(selected_bank)
+            render_question(selected_bank, show_actions=False)
 
         # 元数据只读展示
         mt = selected_bank.get("category", "数学一")
