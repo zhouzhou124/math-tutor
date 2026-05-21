@@ -14,7 +14,7 @@
     "D": "$1 - \\cos\\sqrt{x}$"
   },
   "correct_option": "D",
-  "standard_answer": "D",
+  "standard_answer": "正确选项: D. $1 - \\cos\\sqrt{x}$",
   "knowledge_points": [
     "极限与连续"
   ],

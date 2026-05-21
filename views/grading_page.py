@@ -294,12 +294,19 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "steps": [],
             }
             if expanded:
-                try:
-                    from latex_utils import from_legacy_text
-                    solution["_structured"] = from_legacy_text(expanded)
-                except Exception:
-                    pass
-                _cache_detailed_answer(selected_q, expanded)
+                # Only cache if the LLM actually produced new content (not
+                # just regurgitating the short known_answer as a fallback).
+                if expanded != _known_answer:
+                    try:
+                        from latex_utils import from_legacy_text
+                        solution["_structured"] = from_legacy_text(expanded)
+                    except Exception:
+                        pass
+                    _cache_detailed_answer(selected_q, expanded)
+                else:
+                    # LLM returned the known_answer → generation failed.
+                    # Don't cache — next time will try again.
+                    status.write("⚠️ AI 未生成新内容，将使用简略答案")
             status.write("✓ 详细解答已生成")
         except Exception as exc:
             import logging
