@@ -951,6 +951,7 @@ def _submit_grading_async(question, student_ans, ocr_data, selected_q):
     # Build a plain dict with everything the background thread needs
     _state = {
         "model": model,
+        "_client": get_client(),
         "api_key": st.session_state.get("api_key", ""),
         "base_url": st.session_state.get("base_url", LLM_BASE_URL),
         "protocol": st.session_state.get("protocol", "openai"),
@@ -964,7 +965,9 @@ def _submit_grading_async(question, student_ans, ocr_data, selected_q):
         "mistakes_force_reload": False,
     }
 
-    client = _build_client_from_state(_state)
+    # Use the main thread's already-created client instead of building
+    # from scratch (avoids KeyError: 'llm_client' on some servers).
+    client = _state.get("_client") or get_client()
 
     task_data = {
         "_state": _state,

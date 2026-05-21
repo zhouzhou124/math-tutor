@@ -56,6 +56,13 @@ def render_practice_page(db):
         if qt == "选择题":
             st.markdown("### 🎯 选择你的答案")
             options = selected_bank.get("options", {})
+            # Fallback: parse options from question text if not stored
+            if not options:
+                try:
+                    from choice_explainer import _parse_options_from_question
+                    options = _parse_options_from_question(selected_bank.get("question", ""))
+                except Exception:
+                    options = {}
             if options:
                 cols = st.columns(len(options))
                 for i, (key, value) in enumerate(options.items()):
