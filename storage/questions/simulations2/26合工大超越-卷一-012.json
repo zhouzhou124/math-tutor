@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷一-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "函数方程"
+  ],
+  "tags": [
+    "定积分",
+    "函数方程"
+  ],
+  "question": "$12.$ 设 $f(x)$ 是 $(-\\infty,+\\infty)$ 上的非负连续函数，且 $f(x) \\cdot \\int_0^x f(x-t) dt = x \\cos^4 x$，则 $f(x)$ 在 $[0,\\pi]$ 上的平均值为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{3}{8}$",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷一"
+}

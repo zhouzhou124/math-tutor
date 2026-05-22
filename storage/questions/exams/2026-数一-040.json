@@ -1,0 +1,23 @@
+{
+  "question_id": "2026-数一-040",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "全微分",
+    "多元函数极值"
+  ],
+  "tags": [
+    "全微分",
+    "多元函数极值"
+  ],
+  "question": "$18.$ (本题满分12分) 函数 $f(x,y)$ 的全微分 $df(x,y) = 3(x-y)^2 dx - 3(x^2 - 2xy + 2y^2 - 2) dy$，且 $f(0,0)=0$。\\n$(I)$ 求 $f(x,y)$。\\n$(II)$ 求 $f(x,y)$ 在闭区域 $D = \\{(x,y) \\mid x\\ge 0, y\\ge 0, x+y\\le 3\\}$ 上的最值。",
+  "standard_answer": "(I) $f(x,y) = x^3 - 3x^2y + 3xy^2 - 2y^3 + 6y$\\n(II) 最大值 $f(0,3)=18$，最小值 $f(0,0)=0$",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "options": {}
+}

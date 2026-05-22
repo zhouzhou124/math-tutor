@@ -354,7 +354,22 @@ def generate_detailed_answer(
     # derive the answer from scratch.
     _known = (known_answer or "").strip()
     _known_short = len(_known) < 80
-    if _known_short and _known:
+    # Detect metadata-only answers (关键知识点/易错提示 headings but no
+    # step-by-step derivation).  These are NOT real solutions — they are
+    # placeholders from the import/batch pipeline.  Treat them as "no
+    # known answer" so the LLM generates a full derivation from scratch.
+    _has_step_markers = bool(re.search(r'步骤\s*\d+\s*[：:]', _known))
+    _is_metadata_only = (
+        bool(re.search(r'##\s*(?:关键知识点|易错提示|常见误区|秒杀技巧)', _known))
+        and not _has_step_markers
+    )
+    if _is_metadata_only:
+        known_line = (
+            "**重要**：此题尚无已知答案。请你**先独立求解**，"
+            "然后按步骤格式写出完整推导过程。"
+            "每一步必须包含具体计算，严禁只列知识点。"
+        )
+    elif _known_short and _known:
         known_line = (
             f"**重要**：正确答案是「{_known}」。"
             f"请你从零开始推导为什么这是正确答案，严禁只输出「{_known}」了事。"
@@ -363,7 +378,11 @@ def generate_detailed_answer(
     elif _known:
         known_line = f"已知答案为：{_known}，请基于此生成完整推导步骤。"
     else:
-        known_line = "请先求解此题，再给出完整推导步骤。"
+        known_line = (
+            "**重要**：此题尚无已知答案。请你**先独立求解**，"
+            "然后按步骤格式写出完整推导过程。"
+            "每一步必须包含具体公式和数值计算，严禁只列知识点或易错提示。"
+        )
 
     prompt = (DETAILED_ANSWER_PROMPT
         .replace("{question}", question_text)

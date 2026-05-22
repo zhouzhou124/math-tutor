@@ -1,0 +1,40 @@
+{
+  "question_id": "26宇哥八套卷-卷三-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "一元函数微分学"
+  ],
+  "tags": [
+    "一元函数微分学"
+  ],
+  "question": "(本题满分10分) 求曲线 $y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)$ 的全部渐近线.",
+  "source": "import_v3",
+  "options": {},
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-22 23:04",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "standard_answer": "## 题目重述\n求曲线 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\) 的全部渐近线方程。\n\n## 标准答案\n渐近线为 \\(x = 0\\) 和 \\(y = x\\).\n\n步骤1：**确定定义域与渐近线可能存在的位置**  \n函数为 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\)。由于分母中含有 \\(x\\)，定义域为 \\(x \\neq 0\\)。  \n渐近线通常出现在定义域的间断点以及自变量趋于无穷远处，因此需要分别考察：\n- 当 \\(x \\to \\infty\\)（及 \\(x \\to -\\infty\\)）时，是否存在水平或斜渐近线；\n- 当 \\(x \\to 0\\)（间断点）时，是否存在垂直渐近线。\n\n步骤2：**求 \\(x \\to \\infty\\) 时的渐近线（斜渐近线）**  \n首先求斜率 \\(k = \\lim\\limits_{x \\to \\infty} \\frac{y}{x}\\)。\n\\[\nk = \\lim_{x \\to \\infty} \\frac{x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)}{x} \n= \\lim_{x \\to \\infty} x^2 (e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2).\n\\]\n令 \\(t = \\frac{1}{x}\\)，当 \\(x \\to \\infty\\) 时 \\(t \\to 0\\)，则\n\\[\nk = \\lim_{t \\to 0} \\frac{e^t + e^{-t} - 2}{t^2}.\n\\]\n由泰勒展开 \\(e^t = 1 + t + \\frac{t^2}{2} + \\frac{t^3}{6} + O(t^4)\\)，\\(e^{-t} = 1 - t + \\frac{t^2}{2} - \\frac{t^3}{6} + O(t^4)\\)，得\n\\[\ne^t + e^{-t} - 2 = t^2 + O(t^4).\n\\]\n代入极限得\n\\[\nk = \\lim_{t \\to 0} \\frac{t^2 + O(t^4)}{t^2} = 1.\n\\]\n再求截距 \\(b = \\lim\\limits_{x \\to \\infty} (y - kx) = \\lim\\limits_{x \\to \\infty} \\bigl[ x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2) - x \\bigr]\\)。  \n仍令 \\(t = \\frac{1}{x}\\)，则\n\\[\nb = \\lim_{t \\to 0} \\left( \\frac{e^t + e^{-t} - 2}{t^3} - \\frac{1}{t} \\right)\n= \\lim_{t \\to 0} \\frac{e^t + e^{-t} - 2 - t^2}{t^3}.\n\\]\n将泰勒展开代入分子：\n\\[\ne^t + e^{-t} - 2 = t^2 + \\frac{t^4}{12} + O(t^6),\n\\]\n所以\n\\[\ne^t + e^{-t} - 2 - t^2 = \\frac{t^4}{12} + O(t^6),\n\\]\n\\[\nb = \\lim_{t \\to 0} \\frac{\\frac{t^4}{12} + O(t^6)}{t^3} = \\lim_{t \\to 0} \\left( \\frac{t}{12} + O(t^3) \\right) = 0.\n\\]\n故当 \\(x \\to \\infty\\) 时，曲线有斜渐近线 \\(y = x\\)。\n\n步骤3：**检验 \\(x \\to -\\infty\\) 时的渐近线**  \n此时同样令 \\(t = \\frac{1}{x}\\)，当 \\(x \\to -\\infty\\) 时 \\(t \\to 0^-\\)。  \n上述极限过程中，\\(t\\) 仅以偶函数组合 \\(e^t+e^{-t}\\) 的形式出现，因此 \\(\\lim\\limits_{t \\to 0^-}\\) 与 \\(\\lim\\limits_{t \\to 0^+}\\) 完全一致。  \n故当 \\(x \\to -\\infty\\) 时，同样有斜渐近线 \\(y = x\\)。\n\n步骤4：**求垂直渐近线（间断点 \\(x = 0\\)）**  \n计算 \\(x \\to 0^+\\) 时的极限：\n当 \\(x \\to 0^+\\) 时，\\(\\frac{1}{x} \\to +\\infty\\)，此时 \\(e^{\\frac{1}{x}} \\to +\\infty\\)，而 \\(e^{-\\frac{1}{x}} \\to 0\\)。  \n因此，\n\\[\ny = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2) \\sim x^3 e^{\\frac{1}{x}} \\quad (x \\to 0^+).\n\\]\n令 \\(u = \\frac{1}{x}\\)，则 \\(u \\to +\\infty\\)，\\(x^3 = \\frac{1}{u^3}\\)，\n\\[\n\\lim_{x \\to 0^+} y = \\lim_{u \\to +\\infty} \\frac{e^u}{u^3} = +\\infty \\quad (\\text{指数阶远高于幂阶}).\n\\]\n计算 \\(x \\to 0^-\\) 时的极限：\n当 \\(x \\to 0^-\\) 时，\\(\\frac{1}{x} \\to -\\infty\\)，\\(e^{\\frac{1}{x}} \\to 0\\)，而 \\(e^{-\\frac{1}{x}} \\to +\\infty\\)。  \n此时\n\\[\ny \\sim x^3 e^{-\\frac{1}{x}}.\n\\]\n令 \\(u = -\\frac{1}{x}\\)，则 \\(u \\to +\\infty\\)，且 \\(x = -\\frac{1}{u}\\)，\\(x^3 = -\\frac{1}{u^3}\\)，于是\n\\[\n\\lim_{x \\to 0^-} y = \\lim_{u \\to +\\infty} \\left( -\\frac{e^u}{u^3} \\right) = -\\infty.\n\\]\n左右两侧极限均为无穷大（只是正负号不同），故 \\(x = 0\\) 为曲线的垂直渐近线。\n\n## 结论\n曲线 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\) 的全部渐近线为：\n\\[\nx = 0 \\quad \\text{和} \\quad y = x.\n\\]\n\n## 关键知识点\n- 渐近线的分类与求法（水平、垂直、斜渐近线的定义与极限公式）\n- 利用变量代换 \\(t = \\frac{1}{x}\\) 将无穷远处的极限转化为 \\(t \\to 0\\) 的极限\n- 利用泰勒公式计算极限（或多次洛必达法则）\n- 含 \\(e^{1/x}\\) 函数的单侧极限分析（正负无穷的差异）\n\n## 易错提示\n- 忽略 \\(x \\to 0^-\\) 与 \\(x \\to 0^+\\) 时 \\(e^{1/x}\\) 极限的完全不同的行为，误将两侧极限等同或漏掉某一侧\n- 在求斜渐近线的截距 \\(b\\) 时，只展开到一阶，导致极限计算错误，必须保留足够高阶的项（此处需展开到 \\(t^4\\) 项）\n- 误以为 \\(x \\to \\infty\\) 时 \\(e^{1/x} \\sim 1 + \\frac{1}{x}\\) 后直接代入会导致斜渐近线漏算或算错截距（必须保持足够精度，最好用展开或洛必达）\n- 忘记检查 \\(x \\to -\\infty\\) 的情况，虽然本题结果与 \\(+\\infty\\) 相同，但必须明确说明理由（偶函数性质）",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779462291",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n求曲线 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\) 的全部渐近线方程。\n\n## 标准答案\n渐近线为 \\(x = 0\\) 和 \\(y = x\\).\n\n步骤1：**确定定义域与渐近线可能存在的位置**  \n函数为 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\)。由于分母中含有 \\(x\\)，定义域为 \\(x \\neq 0\\)。  \n渐近线通常出现在定义域的间断点以及自变量趋于无穷远处，因此需要分别考察：\n- 当 \\(x \\to \\infty\\)（及 \\(x \\to -\\infty\\)）时，是否存在水平或斜渐近线；\n- 当 \\(x \\to 0\\)（间断点）时，是否存在垂直渐近线。\n\n步骤2：**求 \\(x \\to \\infty\\) 时的渐近线（斜渐近线）**  \n首先求斜率 \\(k = \\lim\\limits_{x \\to \\infty} \\frac{y}{x}\\)。\n\\[\nk = \\lim_{x \\to \\infty} \\frac{x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)}{x} \n= \\lim_{x \\to \\infty} x^2 (e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2).\n\\]\n令 \\(t = \\frac{1}{x}\\)，当 \\(x \\to \\infty\\) 时 \\(t \\to 0\\)，则\n\\[\nk = \\lim_{t \\to 0} \\frac{e^t + e^{-t} - 2}{t^2}.\n\\]\n由泰勒展开 \\(e^t = 1 + t + \\frac{t^2}{2} + \\frac{t^3}{6} + O(t^4)\\)，\\(e^{-t} = 1 - t + \\frac{t^2}{2} - \\frac{t^3}{6} + O(t^4)\\)，得\n\\[\ne^t + e^{-t} - 2 = t^2 + O(t^4).\n\\]\n代入极限得\n\\[\nk = \\lim_{t \\to 0} \\frac{t^2 + O(t^4)}{t^2} = 1.\n\\]\n再求截距 \\(b = \\lim\\limits_{x \\to \\infty} (y - kx) = \\lim\\limits_{x \\to \\infty} \\bigl[ x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2) - x \\bigr]\\)。  \n仍令 \\(t = \\frac{1}{x}\\)，则\n\\[\nb = \\lim_{t \\to 0} \\left( \\frac{e^t + e^{-t} - 2}{t^3} - \\frac{1}{t} \\right)\n= \\lim_{t \\to 0} \\frac{e^t + e^{-t} - 2 - t^2}{t^3}.\n\\]\n将泰勒展开代入分子：\n\\[\ne^t + e^{-t} - 2 = t^2 + \\frac{t^4}{12} + O(t^6),\n\\]\n所以\n\\[\ne^t + e^{-t} - 2 - t^2 = \\frac{t^4}{12} + O(t^6),\n\\]\n\\[\nb = \\lim_{t \\to 0} \\frac{\\frac{t^4}{12} + O(t^6)}{t^3} = \\lim_{t \\to 0} \\left( \\frac{t}{12} + O(t^3) \\right) = 0.\n\\]\n故当 \\(x \\to \\infty\\) 时，曲线有斜渐近线 \\(y = x\\)。\n\n步骤3：**检验 \\(x \\to -\\infty\\) 时的渐近线**  \n此时同样令 \\(t = \\frac{1}{x}\\)，当 \\(x \\to -\\infty\\) 时 \\(t \\to 0^-\\)。  \n上述极限过程中，\\(t\\) 仅以偶函数组合 \\(e^t+e^{-t}\\) 的形式出现，因此 \\(\\lim\\limits_{t \\to 0^-}\\) 与 \\(\\lim\\limits_{t \\to 0^+}\\) 完全一致。  \n故当 \\(x \\to -\\infty\\) 时，同样有斜渐近线 \\(y = x\\)。\n\n步骤4：**求垂直渐近线（间断点 \\(x = 0\\)）**  \n计算 \\(x \\to 0^+\\) 时的极限：\n当 \\(x \\to 0^+\\) 时，\\(\\frac{1}{x} \\to +\\infty\\)，此时 \\(e^{\\frac{1}{x}} \\to +\\infty\\)，而 \\(e^{-\\frac{1}{x}} \\to 0\\)。  \n因此，\n\\[\ny = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2) \\sim x^3 e^{\\frac{1}{x}} \\quad (x \\to 0^+).\n\\]\n令 \\(u = \\frac{1}{x}\\)，则 \\(u \\to +\\infty\\)，\\(x^3 = \\frac{1}{u^3}\\)，\n\\[\n\\lim_{x \\to 0^+} y = \\lim_{u \\to +\\infty} \\frac{e^u}{u^3} = +\\infty \\quad (\\text{指数阶远高于幂阶}).\n\\]\n计算 \\(x \\to 0^-\\) 时的极限：\n当 \\(x \\to 0^-\\) 时，\\(\\frac{1}{x} \\to -\\infty\\)，\\(e^{\\frac{1}{x}} \\to 0\\)，而 \\(e^{-\\frac{1}{x}} \\to +\\infty\\)。  \n此时\n\\[\ny \\sim x^3 e^{-\\frac{1}{x}}.\n\\]\n令 \\(u = -\\frac{1}{x}\\)，则 \\(u \\to +\\infty\\)，且 \\(x = -\\frac{1}{u}\\)，\\(x^3 = -\\frac{1}{u^3}\\)，于是\n\\[\n\\lim_{x \\to 0^-} y = \\lim_{u \\to +\\infty} \\left( -\\frac{e^u}{u^3} \\right) = -\\infty.\n\\]\n左右两侧极限均为无穷大（只是正负号不同），故 \\(x = 0\\) 为曲线的垂直渐近线。\n\n## 结论\n曲线 \\(y = x^3(e^{\\frac{1}{x}} + e^{-\\frac{1}{x}} - 2)\\) 的全部渐近线为：\n\\[\nx = 0 \\quad \\text{和} \\quad y = x.\n\\]\n\n## 关键知识点\n- 渐近线的分类与求法（水平、垂直、斜渐近线的定义与极限公式）\n- 利用变量代换 \\(t = \\frac{1}{x}\\) 将无穷远处的极限转化为 \\(t \\to 0\\) 的极限\n- 利用泰勒公式计算极限（或多次洛必达法则）\n- 含 \\(e^{1/x}\\) 函数的单侧极限分析（正负无穷的差异）\n\n## 易错提示\n- 忽略 \\(x \\to 0^-\\) 与 \\(x \\to 0^+\\) 时 \\(e^{1/x}\\) 极限的完全不同的行为，误将两侧极限等同或漏掉某一侧\n- 在求斜渐近线的截距 \\(b\\) 时，只展开到一阶，导致极限计算错误，必须保留足够高阶的项（此处需展开到 \\(t^4\\) 项）\n- 误以为 \\(x \\to \\infty\\) 时 \\(e^{1/x} \\sim 1 + \\frac{1}{x}\\) 后直接代入会导致斜渐近线漏算或算错截距（必须保持足够精度，最好用展开或洛必达）\n- 忘记检查 \\(x \\to -\\infty\\) 的情况，虽然本题结果与 \\(+\\infty\\) 相同，但必须明确说明理由（偶函数性质）",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-22 23:04",
+      "reviewed": false
+    }
+  ]
+}

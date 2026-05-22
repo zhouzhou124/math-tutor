@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷五-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量"
+  ],
+  "tags": [
+    "多维随机变量"
+  ],
+  "question": "$22.$ (本题满分12分) 三个编号1,2,3的盒子，三只球随机放入。$X$ 为所有非空盒子的最小号码。(I) 求 $X$ 分布律；(II) 若 $X=i$ 时 $Y\\sim U[0,i]$，$Z=Y/X$，证明 $Z\\sim U[0,1]$。",
+  "standard_answer": "(I) $P(X=1)=\\frac{1}{9},P(X=2)=\\frac{2}{9},P(X=3)=\\frac{6}{9}$\\n(II) 证明略",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五"
+}

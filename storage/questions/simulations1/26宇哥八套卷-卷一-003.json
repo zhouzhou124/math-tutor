@@ -1,0 +1,35 @@
+{
+  "question_id": "26宇哥八套卷-卷一-003",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "设级数 $\\sum_{n=1}^\\infty \\frac{1}{n^{1+\\frac{1}{n}}}$，② $\\sum_{n=2}^\\infty \\frac{1}{n^{1+\\frac{1}{\\sqrt{\\ln n}}}}$，则",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "①收敛，②发散",
+    "B": "①发散，②收敛",
+    "C": "①②均收敛",
+    "D": "①②均发散"
+  },
+  "correct_option": "A",
+  "final_answer": "",
+  "standard_answer": "## 题目重述\n判断两个正项级数的敛散性：  \n级数① $\\displaystyle \\sum_{n=1}^{\\infty} \\frac{1}{n^{1+\\frac{1}{n}}}$；  \n级数② $\\displaystyle \\sum_{n=2}^{\\infty} \\frac{1}{n^{1+\\frac{1}{\\sqrt{\\ln n}}}}$。  \n选择正确选项。\n\n## 标准答案\nB. ①发散，②收敛\n\n步骤1：分析级数①的敛散性  \n级数①的通项为 $a_n = \\dfrac{1}{n^{1+1/n}} = \\dfrac{1}{n \\cdot n^{1/n}}$。  \n由于 $\\lim_{n\\to\\infty} n^{1/n} = \\lim_{n\\to\\infty} e^{\\frac{\\ln n}{n}} = e^0 = 1$，故  \n$$\n\\lim_{n\\to\\infty} \\frac{a_n}{\\frac{1}{n}} = \\lim_{n\\to\\infty} \\frac{1}{n^{1/n}} = 1 > 0.\n$$\n根据比较判别法的极限形式，$\\sum a_n$ 与调和级数 $\\sum \\frac{1}{n}$ 同敛散。已知调和级数发散，所以级数①发散。  \n（也可用放缩法：由极限知存在 $N$，当 $n>N$ 时 $n^{1/n} < 2$，从而 $a_n > \\frac{1}{2n}$，由比较判别法得发散。）\n\n步骤2：分析级数②的敛散性  \n级数②的通项为 $b_n = \\dfrac{1}{n^{1+1/\\sqrt{\\ln n}}} = \\dfrac{1}{n \\cdot n^{1/\\sqrt{\\ln n}}} = \\dfrac{1}{n} e^{-\\sqrt{\\ln n}}$。  \n为判断其敛散性，使用积分判别法（或比较判别法结合 $p$-级数）。  \n考虑函数 $f(x) = \\dfrac{1}{x} e^{-\\sqrt{\\ln x}}\\ (x \\ge 2)$，它非负且最终单调递减。做变量代换 $t = \\sqrt{\\ln x}$，则 $x = e^{t^2}$，$dx = 2t e^{t^2}\\,dt$。  \n$$\n\\int_2^{+\\infty} f(x)\\,dx = \\int_{\\sqrt{\\ln 2}}^{+\\infty} e^{-t^2} \\cdot e^{-t} \\cdot 2t e^{t^2}\\,dt = 2\\int_{\\sqrt{\\ln 2}}^{+\\infty} t e^{-t}\\,dt.\n$$\n该反常积分显然收敛（指数衰减控制多项式）。由积分判别法，级数②收敛。  \n（也可用比较法：因为 $\\lim_{n\\to\\infty} \\frac{b_n}{1/(n \\ln^2 n)} = \\lim_{n\\to\\infty} \\frac{\\ln^2 n}{e^{\\sqrt{\\ln n}}} = 0$，且 $\\sum \\frac{1}{n \\ln^2 n}$ 收敛，故 $\\sum b_n$ 收敛。）\n\n步骤3：判断各选项  \n- 选项A：①收敛，②发散。由步骤1知①发散，不成立。  \n- 选项B：①发散，②收敛。与步骤1、2结论一致，成立。  \n- 选项C：①②均收敛。①发散，不成立。  \n- 选项D：①②均发散。②收敛，不成立。  \n因此正确选项为B。\n\n## 结论\n级数①发散，级数②收敛，应选 **B**。\n\n## 关键知识点\n- 比较判别法的极限形式（与 $p$-级数比较）\n- 积分判别法（处理含有对数或指数函数的级数）\n- 正项级数敛散性的一般判别流程\n- 常见发散级数 $\\sum \\frac{1}{n}$ 及收敛级数 $\\sum \\frac{1}{n \\ln^2 n}$ 等的阶的估计\n\n## 易错提示\n- 误以为指数 $1+\\frac{1}{n} > 1$ 就能保证收敛，忽略了极限情况需用比较判别法精细估计。\n- 对级数②直接与 $\\sum \\frac{1}{n}$ 比较得到极限为1，错误地认为发散；实际其通项是 $\\frac{1}{n}$ 乘以趋于零的因子，必须用更精细的比较或积分法。\n- 变量代换计算积分时忽略 $dx$ 的变换，导致结果错误。\n- 忽略判别法的适用条件（如单调性）而误用。",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-22 23:33",
+    "reviewed": false,
+    "render_version": "v2"
+  }
+}

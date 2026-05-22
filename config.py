@@ -25,7 +25,7 @@ CREDENTIAL_STORE_PATH = os.path.join(
 KEY_ROTATION_DAYS = int(os.getenv("KEY_ROTATION_DAYS", "15"))
 
 # 考研数学类别
-MATH_TYPES = ["数学一", "数学二", "数学三", "26宇哥八套卷"]
+MATH_TYPES = ["数学一", "数学二", "数学三", "26宇哥八套卷", "26合工大超越"]
 
 # 学科
 SUBJECTS = ["高等数学", "线性代数", "概率论与数理统计"]

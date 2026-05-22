@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷一-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "幂级数",
+    "收敛域"
+  ],
+  "tags": [
+    "幂级数",
+    "收敛域"
+  ],
+  "question": "$14.$ 幂级数 $\\sum_{n=1}^\\infty \\frac{(n!)^2}{(2n)!} x^n$ 的收敛域为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$(-4,4)$",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷一"
+}

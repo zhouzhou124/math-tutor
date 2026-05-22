@@ -2269,7 +2269,7 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
                 chunk = re.sub(r'\\\[\s*(.+?)\s*\\\]', r'$$\1$$', chunk, flags=re.DOTALL)
                 chunk = _pre_wrap_bare_latex(chunk)
                 chunk = re.sub(
-                    r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+                    r'(?:^|\n+)#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
                     '', chunk, flags=re.DOTALL,
                 )
                 cleaned = clean_markdown(chunk)
@@ -2283,7 +2283,7 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
         # Still no steps — treat entire text as one step, but strip metadata
         cleaned_text = text
         cleaned_text = re.sub(
-            r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+            r'(?:^|\n+)#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
             '', cleaned_text, flags=re.DOTALL,
         )
         cleaned = clean_markdown(cleaned_text)
@@ -2317,7 +2317,7 @@ def from_legacy_text(text: str, title: str = "解答") -> dict:
 
         # Strip trailing metadata sections.
         chunk = re.sub(
-            r'\n+#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
+            r'(?:^|\n+)#{1,3}\s*(?:' + _META_HEADINGS + r')\s*\n.*$',
             '', chunk, flags=re.DOTALL,
         )
 

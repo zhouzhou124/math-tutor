@@ -1,0 +1,29 @@
+{
+  "question_id": "2026-数一-031",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数理统计",
+    "F分布"
+  ],
+  "tags": [
+    "数理统计",
+    "F分布"
+  ],
+  "question": "$9.$ 设随机变量 $F \\sim F(1,1)$，则 $P\\{F \\le 3\\} =$ $(A)$ $\\frac{1}{2}$ $(B)$ $\\frac{2}{3}$ $(C)$ $\\Phi(1)$ $(D)$ $\\Phi(2)$",
+  "options": {
+    "A": "$\\frac{1}{2}$",
+    "B": "$\\frac{2}{3}$",
+    "C": "$\\Phi(1)$",
+    "D": "$\\Phi(2)$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda",
+  "solution_steps": []
+}

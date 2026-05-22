@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷四-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "定积分",
+    "级数"
+  ],
+  "tags": [
+    "定积分",
+    "级数"
+  ],
+  "question": "(本题满分12分) 设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），\n$(1)$ 求 $\\lim_{n\\to\\infty} a_n$；\n$(2)$ 证明 $\\lim_{n\\to\\infty} [a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在.",
+  "standard_answer": "(I) $\\lim_{n\\to\\infty} a_n = 0$\\n(II) 证明略",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.172714
+}

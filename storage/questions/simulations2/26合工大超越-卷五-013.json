@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷五-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "级数求和"
+  ],
+  "tags": [
+    "级数求和"
+  ],
+  "question": "$13.$ 设 $a_n=\\int_0^1 \\frac{dx}{(1+x^2)^n}$，则 $\\sum_{n=1}^\\infty (\\frac{a_{n+1}}{2n-1}-\\frac{a_n}{2n})$ 的和为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五"
+}

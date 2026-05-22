@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷四-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数"
+  ],
+  "tags": [
+    "偏导数"
+  ],
+  "question": "$13.$ 设 $f(x,y)$ 具有二阶连续偏导数，且 $\\frac{\\partial^2 f}{\\partial x^2}+\\frac{\\partial^2 f}{\\partial y^2}=2$，令 $u=ax+by$，$v=ax-by$，若 $\\frac{\\partial^2 f}{\\partial u^2}+\\frac{\\partial^2 f}{\\partial v^2}=4$，$\\frac{\\partial^2 f}{\\partial u\\partial v}=0$，则 $a^2+b^2=$ $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四"
+}

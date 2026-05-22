@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷四-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分"
+  ],
+  "tags": [
+    "反常积分"
+  ],
+  "question": "已知 $I_1 = \\int_{0}^{\\frac{\\pi}{2}} \\frac{\\tan x}{\\sqrt{x - 2x}} dx$，$I_2 = \\int_{0}^{+\\infty} \\frac{\\ln x}{\\sqrt{x^3 + x}} dx$，则",
+  "options": {
+    "A": "$I_1$ 收敛，$I_2$ 收敛",
+    "B": "$I_1$ 收敛，$I_2$ 发散",
+    "C": "$I_1$ 发散，$I_2$ 收敛",
+    "D": "$I_1$ 发散，$I_2$ 发散"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1812327
+}

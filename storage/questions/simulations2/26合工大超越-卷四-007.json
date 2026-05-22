@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷四-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "特征值",
+    "对角化"
+  ],
+  "tags": [
+    "特征值",
+    "对角化"
+  ],
+  "question": "设 $A$ 为3阶矩阵，$\\lambda_1=\\lambda_2=a$，$\\lambda_3=b$（$a\\neq b$）是关于 $A$ 的特征值，则\"$A$ 可对角化\"是\"$(A-aE)(A-bE)=0$\"的",
+  "options": {
+    "A": "充分必要条件",
+    "B": "充分非必要条件",
+    "C": "必要非充分条件",
+    "D": "非充分非必要条件"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1944523
+}

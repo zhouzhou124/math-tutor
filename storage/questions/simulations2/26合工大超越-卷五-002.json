@@ -1,0 +1,27 @@
+{
+  "question_id": "26合工大超越-卷五-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分比较"
+  ],
+  "tags": [
+    "定积分比较"
+  ],
+  "question": "$2.$ 设 $a>1$，$I_1=\\int_0^a \\sin^2 x dx$，$I_2=\\int_0^1 \\sin x^2 dx$，$I_3=\\int_0^1 \\tan^2 x dx$，$I_4=\\int_0^1 \\tan^2 x dx$，则 $(A)$ $I_1\\ge I_2, I_3\\ge I_4$ $(B)$ $I_1\\ge I_2, I_3\\le I_4$ $(C)$ $I_1\\le I_2, I_3\\ge I_4$ $(D)$ $I_1\\le I_2, I_3\\le I_4$",
+  "options": {
+    "A": "$I_1\\ge I_2, I_3\\ge I_4$",
+    "B": "$I_1\\ge I_2, I_3\\le I_4$",
+    "C": "$I_1\\le I_2, I_3\\ge I_4$",
+    "D": "$I_1\\le I_2, I_3\\le I_4$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

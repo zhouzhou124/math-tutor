@@ -1,0 +1,21 @@
+{
+  "question_id": "2026-数一-037",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "$15.$ 设 $A = \\begin{pmatrix} 1 & -1 & 1 \\\\ a & 1 & 2 \\\\ 1 & b & 1 \\end{pmatrix}$，$B = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\\\ 1 & b \\end{pmatrix}$。已知 $Ax=0$ 与 $B^{\\mathrm{T}}x=0$ 同解，则 $a+b = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$2$",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "options": {}
+}

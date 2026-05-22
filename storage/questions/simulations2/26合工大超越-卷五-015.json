@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷五-015",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "$15.$ 已知方程组 $\\begin{cases} kx_1 - x_3 + x_4 = 1 \\\\ kx_2 + x_3 - x_4 = -1 \\\\ -x_1 + x_2 + kx_3 = 1 \\\\ x_1 - x_2 + kx_4 = -1 \\end{cases}$ 无解，$k\\neq 0$，则 $k=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$-2$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五"
+}

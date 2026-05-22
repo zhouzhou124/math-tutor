@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷四-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "间断点"
+  ],
+  "tags": [
+    "间断点"
+  ],
+  "question": "函数 $f(x) = \\frac{x^2 - x}{\\sin x |x^2 - 1|}$ 在 $(-\\frac{\\pi}{2}, \\frac{\\pi}{2})$ 内的第一类间断点个数为",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1887283
+}

@@ -57,54 +57,142 @@ def _clear_grading_state():
 
 def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str,
                                     selected_q: dict = None) -> bool:
-    """Return True when a cached answer is too thin for LLM grading/rendering.
+    """Return True when the question has no canonical solution yet.
 
-    An answer is "good enough" (returns False) ONLY when it already contains
-    explicit step-by-step derivation.  Short final answers (MC option letters,
-    fill-in-the-blank values) are NEVER treated as sufficient — students need
-    to see the derivation process, not just the result.
+    The canonical solution is the "one-time generation, permanent reuse"
+    asset.  Once saved, this function returns False and the LLM is never
+    called again for this question.
 
-    The _ai_expanded_at field is a hint, not a lock.
+    This implements the Read-through Cache pattern:
+      Cache Miss → AI generate → save canonical → return
+      Cache Hit  → return canonical directly
     """
     if steps:
         return False
 
+    # ── Primary check: canonical pool has solutions → never re-expand ──
+    pool = (selected_q or {}).get("canonical_solutions") or []
+    if pool:
+        return False  # Already have canonical traces → use them
+    meta = (selected_q or {}).get("solution_metadata") or {}
+    if meta.get("canonical"):
+        return False  # Legacy single-canonical → never re-expand
+
+    # ── Fallback: legacy checks for pre-metadata answers ──
     text = (answer or "").strip()
     if not text:
         return True
 
-    # Corrupted/incomplete cached data → re-expand
     if '\x00' in text:
         return True
 
-    placeholders = ("证明略", "略", "解析略", "过程略", "答案略", "方法略")
+    # Only match multi-char placeholders.  Single "略" is too common in
+    # normal Chinese text (策略, 简略, 省略, etc.) and causes false positives.
+    placeholders = ("证明略", "解析略", "过程略", "答案略", "方法略")
     if any(p in text for p in placeholders):
+        return True
+    # Single "略" only when it's clearly a standalone answer placeholder:
+    # the entire text is just "略" or "（略）"
+    if text in ("略", "（略）", "(略)"):
         return True
 
     import re
-    # Already has detailed step markers → genuinely good enough
+    # Has step markers → genuinely detailed
     if re.search(r'步骤\s*\d+\s*[：:]', text):
-        return False
-    # Has multiple structured sections (heading + content) → detailed enough
-    if len(text) >= 300 and re.search(r'##\s*\S+', text):
+        _migrate_to_canonical(selected_q)
         return False
 
-    # ── MC / fill-in-the-blank: the stored answer is just the RESULT,
-    #     not a derivation.  Always expand unless already really detailed
-    #     (step markers caught above, or very long text with structure).
+    # ── Metadata-only detection (applies to ALL question types) ──
+    # AI sometimes generates ## headings + bullet lists without any derivation.
+    # Detect and reject these so the system regenerates a real solution.
+    if len(text) >= 150 and re.search(r'##\s*\S+', text):
+        has_display_math = bool(re.search(r'\$\$[^$]+\$\$|\\\[[^\]]+\\\]', text))
+        has_step_markers = bool(re.search(r'步骤\s*\d+\s*[：:]', text))
+        bullet_ratio = len(re.findall(r'^\s*[-*]\s', text, re.MULTILINE)) / max(len(text.split(chr(10))), 1)
+        if not has_display_math and not has_step_markers and bullet_ratio > 0.3:
+            return True  # Metadata-only → needs real expansion
+
+    # ── MC / fill-in-the-blank: short answers need expansion ──
     if q_type in ("选择题", "填空题"):
-        # Detailed enough: has step markers (caught above) or is long with structure
         if len(text) >= 250:
-            return False  # genuinely detailed
-        return True  # short final answer → must expand
+            _migrate_to_canonical(selected_q)
+            return False
+        return True
 
     # ── 解答题 / 证明题 ──
     if len(text) >= 200:
-        return False  # long enough to be a real solution
-    # _ai_expanded_at tiebreaker: 80+ chars with prior expansion is plausible
+        _migrate_to_canonical(selected_q)
+        return False
+    # Legacy _ai_expanded_at tiebreaker → auto-migrate
     if selected_q and selected_q.get("_ai_expanded_at") and len(text) >= 80:
+        _migrate_to_canonical(selected_q)
         return False
     return True
+
+
+def _migrate_to_canonical(selected_q: dict) -> None:
+    """Auto-migrate legacy expanded answers to canonical pool format.
+
+    Only migrates when the answer has actual step-by-step derivation content
+    (step markers or substantial math).  Skips metadata-only answers.
+    """
+    if not selected_q or not selected_q.get("question_id"):
+        return
+    if selected_q.get("canonical_solutions"):
+        return
+    meta = selected_q.get("solution_metadata") or {}
+    if meta.get("canonical") and meta.get("pool_size", 0) > 0:
+        return
+    try:
+        from database.question_db import get_question_path
+        path = get_question_path(selected_q["question_id"])
+        if not path.exists():
+            return
+        import json, os, tempfile, re
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if data.get("canonical_solutions"):
+            return
+        ans = data.get("standard_answer", "")
+        # Safety: don't migrate metadata-only answers
+        has_steps = bool(re.search(r'步骤\s*\d+\s*[：:]', ans))
+        has_display_math = bool(re.search(r'\$\$[^$]+\$\$|\\\[[^\]]+\\\]', ans))
+        bullet_ratio = len(re.findall(r'^\s*[-*]\s', ans, re.MULTILINE)) / max(len(ans.split(chr(10))), 1)
+        if not has_steps and not has_display_math and bullet_ratio > 0.3:
+            return  # Metadata-only → don't pollute the pool
+        pool = [{
+            "solution_id": "default",
+            "method_name": "标准解法",
+            "semantic_tags": [],
+            "standard_answer": ans,
+            "generated_by": data.get("solution_metadata", {}).get("generated_by", "legacy"),
+            "generated_at": data.get("solution_metadata", {}).get("generated_at", ""),
+            "reviewed": False,
+        }] if ans else []
+        data["canonical_solutions"] = pool
+        data["solution_metadata"] = {
+            "canonical": True,
+            "has_steps": has_steps,
+            "pool_size": len(pool),
+            "generated_by": "auto-migrated",
+            "generated_at": data.get("_ai_expanded_at", ""),
+            "reviewed": False,
+            "render_version": "v2",
+        }
+        tmp_fd, tmp_path = tempfile.mkstemp(
+            suffix=".json", prefix=".migr_", dir=path.parent,
+        )
+        try:
+            with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            os.replace(tmp_path, path)
+        finally:
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
+    except Exception:
+        pass
 
 
 def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
@@ -289,80 +377,175 @@ def _solution_to_text(solution: dict) -> str:
     return "\n\n".join(parts).strip()
 
 
-def _cache_detailed_answer(selected_q: dict, expanded: str):
-    """将 AI 生成的详细解答缓存到题目 JSON 文件，下次批改同一题直接命中。
+def _cache_detailed_answer(selected_q: dict, expanded: str, model: str = ""):
+    """Backward-compatible wrapper for save_as_canonical_solution."""
+    save_as_canonical_solution(selected_q, expanded, model=model)
 
-    安全策略：
-    1. 原始简略答案迁移到 _original_answer 字段保留
-    2. solution_steps 不置空 — 如果已有结构化步骤则保留
-    3. LaTeX 严重损坏时不缓存
-    4. 新答案比旧答案短很多时不覆盖
-    5. 原子写入（先写临时文件再重命名）防止中断导致文件损坏
-    6. JSON 解析失败时保留原文件不动
+
+def get_canonical_solutions(selected_q: dict) -> list[dict]:
+    """Return all canonical solutions for a question (from pool or legacy)."""
+    if not selected_q:
+        return []
+    pool = selected_q.get("canonical_solutions") or []
+    if pool:
+        return pool
+    # Legacy: single canonical_solution stored in standard_answer
+    meta = selected_q.get("solution_metadata") or {}
+    if meta.get("canonical") and selected_q.get("standard_answer"):
+        return [{
+            "solution_id": "default",
+            "method_name": "标准解法",
+            "semantic_tags": [],
+            "steps": selected_q.get("solution_steps", []),
+            "standard_answer": selected_q.get("standard_answer", ""),
+            "generated_by": meta.get("generated_by", "legacy"),
+            "generated_at": meta.get("generated_at", ""),
+        }]
+    return []
+
+
+def save_as_canonical_solution(selected_q: dict, expanded: str,
+                                model: str = "", method_name: str = "标准解法",
+                                semantic_tags: list = None) -> bool:
+    """Append a new canonical solution to the question's solution pool.
+
+    Multi-canonical architecture: each question can have multiple valid
+    reasoning traces (e.g., 换元法, 定义法, 几何法).  New solutions are
+    appended rather than overwriting, forming a self-growing knowledge base.
+
+    Returns True if saved successfully.
     """
     if not selected_q or not expanded:
-        return
+        return False
     qid = selected_q.get("question_id", "")
     if not qid:
-        return
+        return False
     try:
         from database.question_db import get_question_path
         path = get_question_path(qid)
         if not path.exists():
-            return
-        import json, os, tempfile
+            return False
+        import json, os, tempfile, re, time as _time
 
-        # 读取现有数据，JSON 解析失败则放弃本次缓存
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except (json.JSONDecodeError, UnicodeDecodeError):
-            return
+            return False
 
-        old_answer = data.get("standard_answer", "")
-        # 如果新答案比旧答案还短很多，不覆盖（防止 AI 退化）
-        if old_answer and len(expanded.strip()) < len(old_answer.strip()) * 0.5:
-            return
-
-        # LaTeX 验证：严重损坏时不缓存
+        # LaTeX 验证
         is_valid, issues = _validate_latex_quality(expanded)
         if not is_valid:
             import logging
             logging.getLogger(__name__).warning(
-                "AI generated answer has LaTeX issues, not caching: %s", issues)
-            return
+                "Canonical solution has LaTeX issues, not saving: %s", issues)
+            return False
 
-        # 迁移原始简略答案到备份字段
-        if not data.get("_original_answer") and old_answer and len(old_answer) < 200:
-            data["_original_answer"] = old_answer
+        # 步骤标记检查：确保答案包含真正的步骤推导
+        # 解答题必须包含步骤标记（步骤N：或第N步：），否则不保存为canonical
+        has_step_markers = bool(re.search(r'(?:步骤\s*\d+\s*[：:]|第\s*\d+\s*步\s*[：:])', expanded))
+        if not has_step_markers:
+            import logging
+            logging.getLogger(__name__).warning(
+                "Canonical solution without step markers, not saving: %s", qid)
+            return False
 
-        data["standard_answer"] = expanded
-        # 保留已有的结构化步骤，仅当没有旧步骤时才置空
-        existing_steps = data.get("solution_steps") or []
-        if not existing_steps:
-            data["solution_steps"] = []
-        data["_ai_expanded_at"] = __import__("time").strftime("%Y-%m-%d %H:%M")
+        # 迁移原始短答案到 final_answer（仅首次）
+        old_answer = data.get("standard_answer", "")
+        if not data.get("final_answer") and old_answer and len(old_answer) < 200:
+            data["final_answer"] = old_answer
 
-        # 记录 LaTeX 非关键警告
+        # Build new solution entry
+        new_solution = {
+            "solution_id": f"sol_{int(_time.time())}",
+            "method_name": method_name,
+            "semantic_tags": semantic_tags or [],
+            "standard_answer": expanded,
+            "generated_by": model or "AI",
+            "generated_at": _time.strftime("%Y-%m-%d %H:%M"),
+            "reviewed": False,
+        }
         if issues:
-            data["_ai_latex_warnings"] = issues
+            new_solution["latex_warnings"] = issues
 
-        # 原子写入：先写临时文件，成功后再重命名
+        # Append to pool (dedup by method_name)
+        pool = data.get("canonical_solutions") or []
+        # Migrate legacy: if old single-canonical exists, move it into pool
+        legacy_meta = data.get("solution_metadata") or {}
+        if legacy_meta.get("canonical") and not pool:
+            pool.append({
+                "solution_id": "default",
+                "method_name": "标准解法",
+                "semantic_tags": [],
+                "standard_answer": data.get("standard_answer", ""),
+                "generated_by": legacy_meta.get("generated_by", "legacy"),
+                "generated_at": legacy_meta.get("generated_at", ""),
+                "reviewed": False,
+            })
+        # Avoid exact duplicates by method_name
+        existing_names = {s.get("method_name", "") for s in pool}
+        if method_name not in existing_names:
+            pool.append(new_solution)
+        # Update legacy metadata and standard_answer for backward compat
+        data["solution_metadata"] = {
+            "canonical": True,
+            "has_steps": True,
+            "pool_size": len(pool),
+            "generated_by": model or "AI",
+            "generated_at": _time.strftime("%Y-%m-%d %H:%M"),
+            "reviewed": False,
+            "render_version": "v2",
+        }
+        data["standard_answer"] = expanded  # latest as default display
+        data["canonical_solutions"] = pool
+
+        # 原子写入
         tmp_fd, tmp_path = tempfile.mkstemp(
-            suffix=".json", prefix=".cache_", dir=path.parent,
+            suffix=".json", prefix=".canon_", dir=path.parent,
         )
         try:
             with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-            os.replace(tmp_path, path)  # 原子重命名
+            os.replace(tmp_path, path)
+            return True
         except Exception:
             try:
                 os.unlink(tmp_path)
             except OSError:
                 pass
-            raise
+            return False
     except Exception:
-        pass  # 缓存失败不影响主流程
+        return False
+
+
+def find_best_canonical_match(student_trace: dict,
+                               canonical_solutions: list[dict]) -> dict:
+    """Find the canonical solution that best matches the student's reasoning.
+
+    Returns {"solution": best_match, "score": float, "method_name": str}.
+    When no canonical solutions exist, returns empty dict.
+    """
+    if not canonical_solutions or not student_trace:
+        return {}
+    best = None
+    best_score = -1.0
+    for sol in canonical_solutions:
+        # Simple textual similarity as baseline — graph matching is preferred
+        # when available (handled by the caller via Engine C).
+        sol_text = sol.get("standard_answer", "")
+        stu_text = str(student_trace.get("final_answer", ""))
+        if not sol_text or not stu_text:
+            continue
+        from symbolic_executor import quick_compare
+        result = quick_compare(stu_text, sol.get("final_answer", sol_text[:100]))
+        score = 1.0 if result.get("equivalent") else 0.0
+        if score > best_score:
+            best_score = score
+            best = sol
+    if best:
+        return {"solution": best, "score": best_score,
+                "method_name": best.get("method_name", "")}
+    return {}
 
 
 class _ThreadSafeStatus:
@@ -498,24 +681,28 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     _state=None 时使用 st.session_state（主线程），传入 dict 时使用 dict（后台线程）。
     model 参数覆盖 _state 中的 model 配置。
     """
+    import re
     cached_answer = selected_q.get("standard_answer", "")
     correct_option = selected_q.get("correct_option", "")
     q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
     opts = selected_q.get("options") or {}
     _model = model or _ss_get("model", LLM_MODEL, _state=_state)
 
-    # 确定已知答案信息（用于 AI 生成详细解答时作为上下文）
     _known_answer = cached_answer or ""
+
+    _has_real_steps = bool(re.search(r'步骤\s*\d+\s*[：:]', _known_answer))
+    _has_display_math = bool(re.search(r'\$\$[^$]+\$\$|\\\[[^\]]+\\\]', _known_answer))
+    _is_metadata_only = (
+        bool(re.search(r'##\s*(?:关键知识点|易错提示|常见误区|秒杀技巧)', _known_answer))
+        and not _has_real_steps
+    )
+
+    if _is_metadata_only:
+        _known_answer = ""
+
     if q_type == "选择题" and correct_option:
-        # Only use the short option-text form when *cached_answer* is not
-        # already a detailed solution (AI-expanded in a previous run).
-        # Otherwise keep the detailed text so the cache can be reused and
-        # we don't throw away a perfectly good multi-step explanation.
-        is_detailed = (
-            len(_known_answer) >= 120
-            or (selected_q.get("_ai_expanded_at") and len(_known_answer) >= 80)
-        )
-        if not is_detailed:
+        _is_detailed = _has_real_steps or (_has_display_math and not _is_metadata_only)
+        if not _is_detailed:
             if correct_option in opts:
                 _known_answer = f"正确选项: {correct_option}. {opts[correct_option]}"
             else:
@@ -572,10 +759,11 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
 
                 if expanded != _known_answer:
                     consistent = _verify_answer_consistency(expanded, _known_answer)
-                    if consistent:
-                        _cache_detailed_answer(selected_q, expanded)
-                    else:
-                        status.write("⚠️ AI 生成的答案与已知正确答案不一致，已保留为参考但未缓存")
+                    # Always save as canonical — consistency check only
+                    # controls the warning, never blocks persistence.
+                    _cache_detailed_answer(selected_q, expanded, _model)
+                    if not consistent:
+                        status.write("⚠️ AI 生成的答案与已知正确答案不完全一致，已保存为参考")
                         solution["_ai_consistency_warning"] = True
                 else:
                     status.write("⚠️ AI 未生成新内容，将使用简略答案")
@@ -631,7 +819,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                         solution["_solver_fallback"] = True
                         status.write("✓ SolverAgent 降级成功，已生成详细解答")
                         _cache_detailed_answer(selected_q,
-                            _solution_to_text(fallback_solution) or fb_answer)
+                            _solution_to_text(fallback_solution) or fb_answer, _model)
             except Exception as _fb_exc:
                 logging.getLogger(__name__).warning(
                     "SolverAgent fallback also failed: %s", _fb_exc)
@@ -667,7 +855,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                     pass
                 # No known_answer to verify against — mark as unverified AI content
                 solution["_ai_unverified"] = True
-                _cache_detailed_answer(selected_q, expanded)
+                _cache_detailed_answer(selected_q, expanded, _model)
             status.write("✓ 详细解答已生成")
         except Exception as exc:
             import logging
@@ -716,7 +904,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                         solution["_solver_fallback"] = True
                         status.write("✓ SolverAgent 降级成功，已生成详细解答")
                         _cache_detailed_answer(selected_q,
-                            _solution_to_text(fallback_solution) or fb_answer)
+                            _solution_to_text(fallback_solution) or fb_answer, _model)
             except Exception as _fb_exc3:
                 logging.getLogger(__name__).warning(
                     "SolverAgent fallback also failed: %s", _fb_exc3)
@@ -804,10 +992,12 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             client = get_client()
 
     # ── 空作答快速通道：只展示标准答案，不进行AI批改和诊断 ──
+    # force_expansion=False: if canonical exists, use it; if not, _standard_answer_needs_expansion
+    # will naturally return True for short/empty answers, triggering generation.
     if not (student_ans or "").strip():
         status = ctx.status("📖 查看标准答案...", expanded=True)
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
-                                             force_expansion=True, _state=_state, model=_model)
+                                             force_expansion=False, _state=_state, model=_model)
         if solution is None:
             _ss_set("grading_triggered", False, _state=_state)
             return None
@@ -1070,15 +1260,34 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             total_score = solution.get("total_score", 10)
 
         if not engine_c_ok:
-            grading = GradingAgent(client, _model)
-            gresult = grading.grade(
-                question=question, standard_answer=std_ans,
-                student_answer=student_ans, total_score=total_score,
-                knowledge_points=ocr_data.get("knowledge_point", ""),
-                difficulty=selected_q.get("difficulty", "中等"),
-                canonical_trace=_canonical,
-            )
-            status.write("✓ LLM批改完成")
+            # Try multi-canonical pool matching before falling back to LLM
+            canonical_pool = get_canonical_solutions(selected_q)
+            if canonical_pool and _trace_result:
+                pool_best = find_best_canonical_match(_trace_result, canonical_pool)
+                if pool_best:
+                    gresult["method_matched"] = pool_best.get("method_name", "")
+                    gresult["_matched_from_pool"] = True
+                    status.write(f"✓ 解法池匹配完成（{pool_best.get('method_name', '')}）")
+                else:
+                    grading = GradingAgent(client, _model)
+                    gresult = grading.grade(
+                        question=question, standard_answer=std_ans,
+                        student_answer=student_ans, total_score=total_score,
+                        knowledge_points=ocr_data.get("knowledge_point", ""),
+                        difficulty=selected_q.get("difficulty", "中等"),
+                        canonical_trace=_canonical,
+                    )
+                    status.write("✓ LLM批改完成")
+            else:
+                grading = GradingAgent(client, _model)
+                gresult = grading.grade(
+                    question=question, standard_answer=std_ans,
+                    student_answer=student_ans, total_score=total_score,
+                    knowledge_points=ocr_data.get("knowledge_point", ""),
+                    difficulty=selected_q.get("difficulty", "中等"),
+                    canonical_trace=_canonical,
+                )
+                status.write("✓ LLM批改完成")
 
         # Step 3: 诊断（高正确率跳过LLM，直接用本地诊断，节省5-30秒）
         status.write("⏳ 正在诊断分析...")

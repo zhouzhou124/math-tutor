@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷二-015",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征",
+    "相关系数"
+  ],
+  "tags": [
+    "数字特征",
+    "相关系数"
+  ],
+  "question": "$15.$ 设随机变量 $X_1$ 与 $X_2$ 相互独立，$X_1 \\sim \\begin{pmatrix} -1 & 1 \\\\ \\frac{1}{2} & \\frac{1}{2} \\end{pmatrix}$，$X_2 \\sim N(0,1)$，$Z = X_1 X_2^2$，则 $X_1$ 与 $Z$ 的相关系数 $\\rho_{X_1,Z} = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二"
+}

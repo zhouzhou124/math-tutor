@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷五-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "可导性"
+  ],
+  "tags": [
+    "极限",
+    "可导性"
+  ],
+  "question": "$1.$ 设 $f(a)=0$，则\"极限 $\\lim_{h\to 0} \frac{f(a+\\sin h)}{1-\\cos h}$ 存在\"是\"函数 $f(x)$ 在 $x=a$ 处可导\"的 $(A)$ 充分非必要条件 $(B)$ 必要非充分条件 $(C)$ 充要条件 $(D)$ 既非充分也非必要条件",
+  "options": {
+    "A": "充分非必要条件",
+    "B": "必要非充分条件",
+    "C": "充要条件",
+    "D": "既非充分也非必要条件"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

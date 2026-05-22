@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷四-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量",
+    "分布函数"
+  ],
+  "tags": [
+    "随机变量",
+    "分布函数"
+  ],
+  "question": "设 $$X \\sim f(x) = \\begin{cases} \\frac{3}{2}x^2, & -1<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$ $Y = \\begin{cases} -1, & X<0 \\\\ 0, & 0\\le X<\\frac{1}{2} \\\\ 1, & X\\ge\\frac{1}{2} \\end{cases}$，$F(x,y)$ 为 $(X,Y)$ 的分布函数，则 $F(\\frac{1}{4},\\frac{1}{2})=$",
+  "options": {
+    "A": "$\\frac{65}{128}$",
+    "B": "$\\frac{64}{128}$",
+    "C": "$\\frac{1}{64}$",
+    "D": "$\\frac{5}{64}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.195613
+}

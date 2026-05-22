@@ -36,11 +36,9 @@ def render_meta_tags(ast) -> None:
     
     volume = getattr(ast, 'volume', '')
     
-    # 对于宇哥八套卷，显示为 "26宇哥八套卷-卷一" 格式
-    if category and '宇哥' in category:
-        display_text = f"{category}"
-        if volume:
-            display_text += f"-{volume}"
+    # 模拟卷（宇哥八套卷、合工大超越等）按卷号索引，不显示年份
+    if category and volume:
+        display_text = f"{category}-{volume}"
         meta_parts.append(
             f'<span style="font-size:0.74rem;color:#94a3b8;font-weight:500;">{display_text}</span>'
         )

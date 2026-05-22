@@ -1,0 +1,27 @@
+{
+  "question_id": "26合工大超越-卷四-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数求导"
+  ],
+  "tags": [
+    "隐函数求导"
+  ],
+  "question": "$3.$ 设 $z = z(x,y)$ 由方程 $xy + \\ln z + yz^2 = 0$ 所确定，则 $\\left.\\frac{\\partial^2 z}{\\partial x \\partial y}\\right|_{(1,0)} =$ $(A)$ $-1$ $(B)$ $0$ $(C)$ $1$ $(D)$ $2$",
+  "options": {
+    "A": "$-1$",
+    "B": "$0$",
+    "C": "$1$",
+    "D": "$2$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四"
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷三-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "(本题满分10分) 求极限 $$\\lim_{n\\to\\infty} n^2[ (1+\\frac{1}{n+1})^{n+1} - (1+\\frac{1}{n})^n ]$$",
+  "standard_answer": "$\\frac{1}{2}e$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三",
+  "__cached_at__": 1779466679.5148015
+}

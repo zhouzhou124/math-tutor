@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷四-015",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "设 $A$ 为3阶矩阵，非齐次线性方程组 $Ax=(2,1,0)^{\\mathrm{T}}$ 的通解为 $k_1\\xi_1+k_2\\xi_2+\\eta^*$，其中 $\\xi_1=(2,1,0)^{\\mathrm{T}},\\xi_2=(1,0,1)^{\\mathrm{T}},\\eta^*=(-1,2,1)^{\\mathrm{T}}$，记矩阵 $B=(\\xi_1,\\xi_2,\\eta^*)$，$\\beta=(1,2,3)^{\\mathrm{T}}$，则 $(1)$ $Bx=\\beta$ 的解为 $\\underline{\\qquad\\qquad}$，$(2)$ $\\beta^{\\mathrm{T}}A\\beta=$ $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "(Ⅰ) $x = \\begin{pmatrix} 1 \\\\ 1 \\\\ 1 \\end{pmatrix} + k\\begin{pmatrix} -1 \\\\ 0 \\\\ 1 \\end{pmatrix}$；(Ⅱ) $0$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1689904
+}

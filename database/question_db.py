@@ -19,15 +19,20 @@ from difflib import SequenceMatcher
 from config import STORAGE_DIR, MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS
 
 # 分离存储结构
-EXAM_DIR = Path(STORAGE_DIR) / "questions" / "exams"      # 历年真题
-SIMUL_DIR = Path(STORAGE_DIR) / "questions" / "simulations"  # 模拟卷
+EXAM_DIR = Path(STORAGE_DIR) / "questions" / "exams"         # 历年真题
+SIMUL1_DIR = Path(STORAGE_DIR) / "questions" / "simulations1"  # 26宇哥八套卷
+SIMUL2_DIR = Path(STORAGE_DIR) / "questions" / "simulations2"  # 26合工大超越
+# Legacy: keep for backward compat
+SIMUL_DIR = SIMUL1_DIR
 INDEX_PATH = Path(STORAGE_DIR) / "questions" / "_index.json"
 PENDING_PATH = Path(STORAGE_DIR) / "questions" / "_pending_review.json"
 
 def get_question_path(qid: str) -> Path:
     """根据题目ID获取文件路径"""
     if '宇哥八套卷' in qid:
-        return SIMUL_DIR / f"{qid}.json"
+        return SIMUL1_DIR / f"{qid}.json"
+    if '合工大超越' in qid:
+        return SIMUL2_DIR / f"{qid}.json"
     return EXAM_DIR / f"{qid}.json"
 
 # 知识点标签全集
@@ -51,7 +56,8 @@ KNOWLEDGE_TAGS = [
 
 def _ensure_dirs():
     EXAM_DIR.mkdir(parents=True, exist_ok=True)
-    SIMUL_DIR.mkdir(parents=True, exist_ok=True)
+    SIMUL1_DIR.mkdir(parents=True, exist_ok=True)
+    SIMUL2_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def make_question_id(year: int, math_type: str, number: int, volume: str = None) -> str:
@@ -187,17 +193,25 @@ class QuestionDB:
         return {"success": True, "question_id": qid, "warnings": warnings}
 
     def get(self, question_id: str) -> dict | None:
-        # 先从缓存获取
+        data_path = get_question_path(question_id)
+        if not data_path.exists():
+            return None
+        # Check file modification time — if the JSON was edited externally,
+        # invalidate the cache and reload.
         cached = self._get_cached_question(question_id)
         if cached is not None:
-            return cached
-        
-        data_path = get_question_path(question_id)
-        if data_path.exists():
-            q = self._load_json(data_path)
-            self._cache_question(question_id, q)
-            return q
-        return None
+            try:
+                file_mtime = data_path.stat().st_mtime
+                cache_mtime = cached.get("__cached_at__", 0)
+                if file_mtime <= cache_mtime:
+                    return cached
+            except OSError:
+                pass
+        # Cache miss or file updated — load from disk
+        q = self._load_json(data_path)
+        q["__cached_at__"] = __import__("time").time()
+        self._cache_question(question_id, q)
+        return q
 
     def update(self, question_id: str, updates: dict) -> bool:
         existing = self.get(question_id)
@@ -634,13 +648,14 @@ class QuestionDB:
                     pass
         
         # 加载模拟卷
-        if SIMUL_DIR.exists():
-            for f in sorted(SIMUL_DIR.glob("*.json"))[:limit]:
-                try:
-                    questions.append(self._load_json(f))
-                except Exception:
-                    pass
-        
+        for _sd in (SIMUL1_DIR, SIMUL2_DIR):
+            if _sd.exists():
+                for f in sorted(_sd.glob("*.json"))[:limit]:
+                    try:
+                        questions.append(self._load_json(f))
+                    except Exception:
+                        pass
+
         return questions
 
     def _update_categories(self, index: dict, question: dict):

@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷四-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "向量组",
+    "线性方程组"
+  ],
+  "tags": [
+    "向量组",
+    "线性方程组"
+  ],
+  "question": "(本题满分12分) 设实数 $a\\neq 0$，向量组 $\\alpha_1=(a,0,1)^{\\mathrm{T}},\\alpha_2=(0,-a,0)^{\\mathrm{T}},\\alpha_3=(1,0,a)^{\\mathrm{T}}$。已知 $\\beta=(1,1,-1)^{\\mathrm{T}}$ 不能由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，$\\gamma$ 满足 $\\gamma=k_1\\alpha_1+k_2\\alpha_2+k_3\\alpha_3$ 且 $\\beta^{\\mathrm{T}}\\alpha_i=\\gamma^{\\mathrm{T}}\\alpha_i(i=1,2,3)$.\n$(1)$ 求 $a$ 的值；\n$(2)$ 证明 $\\beta-\\gamma$ 为 $A^{\\mathrm{T}}x=0$ 的解；\n$(3)$ 求 $\\gamma$.",
+  "standard_answer": "(I) $a = -1$\\n(II) 证明略\\n(III) $\\gamma = (1,-1,1)^{\\mathrm{T}}$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1782968
+}

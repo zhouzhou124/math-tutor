@@ -141,17 +141,23 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
     with st.expander("📖 查看标准解法", expanded=expanded):
         # ── Quality warnings ──
         raw_answer = solution.get("standard_answer", "")
-        # Check if there's any substantive content anywhere (steps, structured, or long answer)
+        # Check if there's substantive derivation content (not just metadata)
         struct_steps_count = len(structured.get("steps", [])) if isinstance(structured, dict) else 0
         _has_content = (
             len(steps) > 0
             or struct_steps_count > 0
             or len(raw_answer.strip()) >= 80
         )
-        if raw_answer and not _has_content:
+        if not raw_answer or (not _has_content and not struct_steps_count):
             st.warning(
-                "📝 当前标准解法较简短，可能未包含详细步骤。"
-                "请尝试清除缓存后重新批改以获取完整解答。"
+                "📝 此题暂未生成详细步骤解答。"
+                "请确认已配置 API Key，然后重新点击「开始批改」或「查看答案」以触发 AI 生成。"
+                "如多次尝试仍无结果，可能是题目较复杂导致 AI 求解超时，请稍后重试。"
+            )
+            return
+        if raw_answer and not _has_content:
+            st.info(
+                "💡 当前解答较简短。如需查看详细推导步骤，请重新触发 AI 批改。"
             )
         if solution.get("_ai_consistency_warning"):
             st.warning("⚠️ AI 生成的解答与已知正确答案不完全一致，仅供参考学习，请以题目给定的正确答案为准。")

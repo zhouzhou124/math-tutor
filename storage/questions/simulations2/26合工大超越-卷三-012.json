@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷三-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方向导数",
+    "条件极值"
+  ],
+  "tags": [
+    "方向导数",
+    "条件极值"
+  ],
+  "question": "$12.$ 函数 $f(x,y,z)$ 为 $u=3x^2+4y^3-9z^2$ 在点 $(x,y,z)$ 处沿 $\\mathbf{n}=(1,1,1)$ 的方向导数，则 $f(x,y,z)$ 在条件 $x^2+2y^2+z^2=1$ 下的最大值为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$6$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三"
+}

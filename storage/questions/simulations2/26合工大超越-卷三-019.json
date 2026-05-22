@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷三-019",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "question": "$19.$ (本题满分12分) 讨论级数 $\\sum_{n=1}^\\infty \\frac{1}{n^p \\ln^q(n+1)}$ 的敛散性，其中 $p,q$ 为正实数参数。",
+  "standard_answer": "当 $p>1$ 时收敛；当 $p=1$ 且 $q>1$ 时收敛；当 $p<1$ 或 $p=1$ 且 $q\\le 1$ 时发散",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三"
+}

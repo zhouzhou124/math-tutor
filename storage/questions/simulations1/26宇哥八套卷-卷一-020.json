@@ -1,0 +1,21 @@
+{
+  "question_id": "26宇哥八套卷-卷一-020",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "(本题满分12分) 设 $\\Gamma$ 为曲线 $\\begin{cases} x^2 + y^2 + z^2 = a^2 \\\\ y = x \\tan\\theta \\end{cases}$，其中 $a > 0$，$-\\frac{\\pi}{2} < \\theta < \\frac{\\pi}{2}$ 且 $\\theta \\neq 0$，从 $x$ 轴的正向看去，$\\Gamma$ 的方向为顺时针方向.求当 $\\theta$ 为何值时，$I = \\oint_{\\Gamma} (y-z) dx + (z-x) dy + (x-y) dz$ 最大？并求出最大值.",
+  "source": "import_zhangyu_v1",
+  "options": {},
+  "_original_answer": "",
+  "standard_answer": ""
+}

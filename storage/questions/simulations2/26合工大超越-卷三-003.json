@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷三-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学",
+    "全微分"
+  ],
+  "tags": [
+    "多元函数微分学",
+    "全微分"
+  ],
+  "question": "$3.$ 设 $f(x,y)$ 为可微函数，$f(x^2, e^x-1)=xe^x$，$f(\\ln x, x-1)=(1-x)^2$，则 $df(0,0)=$ $(A)$ $dy$ $(B)$ $-dx+dy$ $(C)$ $dx-dy$ $(D)$ $dx+dy$",
+  "options": {
+    "A": "$dy$",
+    "B": "$-dx+dy$",
+    "C": "$dx-dy$",
+    "D": "$dx+dy$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "volume": "卷三"
+}

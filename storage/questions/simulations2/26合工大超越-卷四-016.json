@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷四-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率"
+  ],
+  "tags": [
+    "条件概率"
+  ],
+  "question": "设二维随机变量 $(X,Y)$ 的概率密度为 $$f(x,y)=\\begin{cases} k(1-xy), & |x|\\le 1, 0\\le y\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 则 $P\\{Y<\\frac{1}{2} \\mid X=\\frac{1}{4}\\}=$ $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{3}{4}$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1702805
+}

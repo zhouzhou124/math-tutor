@@ -1,0 +1,29 @@
+{
+  "question_id": "2026-数一-032",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "数理统计",
+    "抽样分布"
+  ],
+  "tags": [
+    "数理统计",
+    "抽样分布"
+  ],
+  "question": "$10.$ 设 $(X_1,\\dots,X_n)$ 和 $(Y_1,\\dots,Y_n)$ 为来自总体 $X \\sim N(\\mu,\\sigma^2)$ 的两个独立样本，样本均值分别为 $\\overline{X},\\overline{Y}$，样本方差分别为 $S_X^2,S_Y^2$，记 $W = S_X^2 + S_Y^2$。对任意 $0<\\alpha<1$，以下正确的是 $(A)$ $P\\{\\chi_{1-\\frac{\\alpha}{2}}^2(2n) < \\frac{(n-1)W}{\\sigma^2} < \\chi_{\\frac{\\alpha}{2}}^2(2n)\\} = 1-\\alpha$ $(B)$ $P\\{\\chi_{1-\\frac{\\alpha}{2}}^2(2n-2) < \\frac{(n-1)W}{\\sigma^2} < \\chi_{\\frac{\\alpha}{2}}^2(2n-2)\\} = 1-\\alpha$ $(C)$ $P\\{-t_{\\frac{\\alpha}{2}}(2n) < \\frac{\\sqrt{n}(\\overline{X}-\\overline{Y})}{W} < t_{\\frac{\\alpha}{2}}(2n)\\} = 1-\\alpha$ $(D)$ $P\\{-t_{\\frac{\\alpha}{2}}(2n-2) < \\frac{\\sqrt{n}(\\overline{X}-\\overline{Y})}{W} < t_{\\frac{\\alpha}{2}}(2n-2)\\} = \\alpha$",
+  "options": {
+    "A": "$\\chi_{1-\\frac{\\alpha}{2}}^2(2n)$",
+    "B": "$\\chi_{1-\\frac{\\alpha}{2}}^2(2n-2)$",
+    "C": "$t_{\\frac{\\alpha}{2}}(2n)$",
+    "D": "$t_{\\frac{\\alpha}{2}}(2n-2)$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda",
+  "solution_steps": []
+}

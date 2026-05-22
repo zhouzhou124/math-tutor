@@ -157,10 +157,10 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
         with fc1:
             search_math_type = st.selectbox("数学类别", ["全部"] + MATH_TYPES, key="qb_mt")
         with fc2:
-            # 宇哥八套卷显示"卷号"，真题显示"年份"
-            if search_math_type == "26宇哥八套卷":
-                volumes = db.get_volumes("26宇哥八套卷")
-                vol_opts = ["全部"] + volumes if volumes else ["全部", "第一套"]
+            # 模拟卷（宇哥八套卷、合工大超越等）按"卷号"检索，真题按"年份"检索
+            volumes = db.get_volumes(search_math_type) if search_math_type != "全部" else []
+            if volumes:
+                vol_opts = ["全部"] + volumes
                 search_year = st.selectbox("卷号", vol_opts, key="qb_year")
                 year_is_volume = True
             else:

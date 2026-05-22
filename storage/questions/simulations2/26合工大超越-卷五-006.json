@@ -1,0 +1,27 @@
+{
+  "question_id": "26合工大超越-卷五-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "代数余子式"
+  ],
+  "tags": [
+    "代数余子式"
+  ],
+  "question": "$6.$ 设 $A=\\begin{pmatrix} 1 & 2 & -1 & 0 \\\\ 0 & 2 & 1 & -1 \\\\ 0 & 0 & 4 & -2 \\\\ 0 & 0 & 0 & 2 \\end{pmatrix}$，$A_{ij}$ 为 $|A|$ 中元素 $a_{ij}$ 的代数余子式，则 $\\sum_{i=1}^4\\sum_{j=1}^4 A_{ij}=$ $(A)$ $4$ $(B)$ $16$ $(C)$ $32$ $(D)$ $64$",
+  "options": {
+    "A": "4",
+    "B": "16",
+    "C": "32",
+    "D": "64"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

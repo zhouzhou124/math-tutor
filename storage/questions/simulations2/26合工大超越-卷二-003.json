@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷二-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "设 $z = (x^2 + y^2)e^{-xy}$，$g(x,y) = \\frac{\\partial^2 z}{\\partial x^2} - \\frac{\\partial^2 z}{\\partial y^2}$，区域 $D = \\{(x,y) \\mid 0<x<1, 0<y<1-x\\}$，在 $D$ 内取两点 $(x_1,y_1),(x_2,y_2)$，则 $g(x_1,y_1) \\le g(x_2,y_2)$ 的一个充分条件为",
+  "options": {
+    "A": "$x_1 < x_2, y_1 < y_2$",
+    "B": "$x_1 < x_2, y_1 > y_2$",
+    "C": "$x_1 > x_2, y_1 < y_2$",
+    "D": "$x_1 > x_2, y_1 > y_2$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0438483
+}

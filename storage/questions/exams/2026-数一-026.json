@@ -1,0 +1,27 @@
+{
+  "question_id": "2026-数一-026",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "question": "$4.$ 设 $L$ 为从点 $(-1,0)$ 到点 $(1,0)$ 的上半圆周 $y = \\sqrt{1-x^2}$，则 $\\int_L \\frac{(e^{-2y} + x^2 y) dx - 2(e^{-2y} + xy^2) dy}{x^2 + y^2} =$ $(A)$ $\\frac{3}{8}\\pi - e + e^{-1}$ $(B)$ $-\\frac{3}{8}\\pi - e + e^{-1}$ $(C)$ $e - e^{-1} + \\frac{3}{8}\\pi$ $(D)$ $e - e^{-1} - \\frac{3}{8}\\pi$",
+  "options": {
+    "A": "$\\frac{3}{8}\\pi - e + e^{-1}$",
+    "B": "$-\\frac{3}{8}\\pi - e + e^{-1}$",
+    "C": "$e - e^{-1} + \\frac{3}{8}\\pi$",
+    "D": "$e - e^{-1} - \\frac{3}{8}\\pi$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda",
+  "solution_steps": []
+}

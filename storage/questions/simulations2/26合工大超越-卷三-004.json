@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷三-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲线积分",
+    "格林公式"
+  ],
+  "tags": [
+    "曲线积分",
+    "格林公式"
+  ],
+  "question": "设曲线积分 $\\int_L \\frac{(ax+by)dx - (cx+dy)dy}{x^2+2y^2}$ 在任何不包围原点，也不经过原点的有向闭曲线 $C$ 上积分恒等于$0$，则 $a,b,c,d$ 满足的关系为",
+  "options": {
+    "A": "$2a=d, b=c$",
+    "B": "$-2a=d, b=c$",
+    "C": "$a=d, b=2c$",
+    "D": "$a=-d, b=2c$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4940374
+}
