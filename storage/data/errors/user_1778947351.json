@@ -1,0 +1,397 @@
+{
+  "schema_version": "0.2",
+  "data": {
+    "records": [
+      {
+        "record_id": "err_1779215038_242",
+        "user_id": "user_1778947351",
+        "date": "2026-05-20",
+        "time": "02:23",
+        "question_id": "2024-数一-002",
+        "math_type": "数学一",
+        "question_type": "选择题",
+        "knowledge_point": "曲线曲面积分",
+        "knowledge_points": [
+          "曲线曲面积分"
+        ],
+        "difficulty": "较难",
+        "student_answer": "B",
+        "score": 0,
+        "max_score": 5,
+        "is_correct": false,
+        "comment": "错误, 正确选项为 A",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "error_type": "选择题答案错误",
+        "root_cause": "正确答案是 A，你选择了 B。请分析每个选项的数学含义。",
+        "weak_points": [
+          "曲线曲面积分"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-20 02:23",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779215041_472",
+        "user_id": "user_1778947351",
+        "date": "2026-05-20",
+        "time": "02:24",
+        "question_id": "2024-数一-002",
+        "math_type": "数学一",
+        "question_type": "选择题",
+        "knowledge_point": "曲线曲面积分",
+        "knowledge_points": [
+          "曲线曲面积分"
+        ],
+        "difficulty": "较难",
+        "student_answer": "B",
+        "score": 0,
+        "max_score": 5,
+        "is_correct": false,
+        "comment": "错误, 正确选项为 A",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "error_type": "选择题答案错误",
+        "root_cause": "正确答案是 A，你选择了 B。请分析每个选项的数学含义。",
+        "weak_points": [
+          "曲线曲面积分"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-20 02:23",
+        "is_repeat": true,
+        "repeat_count": 2
+      },
+      {
+        "record_id": "err_1779274358_437",
+        "user_id": "user_1778947351",
+        "date": "2026-05-20",
+        "time": "18:52",
+        "question_id": "2023-数一-021",
+        "math_type": "数学一",
+        "question_type": "解答题",
+        "knowledge_point": "二次型, 特征值与特征向量",
+        "knowledge_points": [
+          "二次型",
+          "特征值与特征向量"
+        ],
+        "difficulty": "较难",
+        "student_answer": "12",
+        "score": 0.0,
+        "max_score": 12,
+        "is_correct": false,
+        "comment": "学生答案仅为“12”，没有提供任何解题过程或最终结论，无法体现对知识点的掌握，故整题不得分。",
+        "step_analysis": [
+          {
+            "num": 1,
+            "content": "学生仅写出“12”，无任何求解可逆变换P的步骤。",
+            "judgment": "wrong",
+            "score": "0.0/6.0",
+            "comment": "未提供任何有效步骤，无法获得过程分。"
+          },
+          {
+            "num": 2,
+            "content": "学生未对第二问是否存在正交变换进行判别或说明。",
+            "judgment": "wrong",
+            "score": "0.0/6.0",
+            "comment": "未给出任何推理或结论，不得分。"
+          }
+        ],
+        "method_matched": null,
+        "engine": "B_structured",
+        "confidence": 1.0,
+        "error_type": "concept error",
+        "root_cause": "学生对二次型可逆变换与正交变换的核心概念完全缺乏理解，未能掌握配方法求变换矩阵，也不清楚正交变换存在的条件（特征值相等），导致无法作答，仅写出可能为题号的数字“12”，属于概念性空白错误。",
+        "weak_points": [
+          "二次型矩阵表示",
+          "配方法求可逆线性变换",
+          "正交变换存在条件",
+          "特征值计算"
+        ],
+        "recommendations": [
+          "系统复习二次型标准化与可逆变换的方法，通过配方法寻找变换矩阵",
+          "明确正交变换要求两二次型矩阵相似且特征值相同，学会判断正交变换的存在性"
+        ],
+        "common_mistakes": [
+          "对二次型变换不加分析，胡乱填写数字或仅抄题号"
+        ],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-20 18:52",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779289483_478",
+        "user_id": "user_1778947351",
+        "date": "2026-05-20",
+        "time": "23:04",
+        "question_id": "26宇哥八套卷-卷四-012",
+        "math_type": "26宇哥八套卷",
+        "question_type": "填空题",
+        "knowledge_point": "常微分方程",
+        "knowledge_points": [
+          "常微分方程"
+        ],
+        "difficulty": "中等",
+        "student_answer": "1",
+        "score": 0,
+        "max_score": 5,
+        "is_correct": false,
+        "comment": "计算错误",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "obligation_warning": "",
+        "error_type": "填空题错误",
+        "root_cause": "答案与标准答案不等价，请查看标准解法了解正确答案。",
+        "weak_points": [
+          "常微分方程"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-20 23:04",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779358697_806",
+        "user_id": "user_1778947351",
+        "date": "2026-05-21",
+        "time": "18:18",
+        "question_id": "2024-数一-019",
+        "math_type": "数学一",
+        "question_type": "证明题",
+        "knowledge_point": "中值定理, 定积分",
+        "knowledge_points": [
+          "中值定理",
+          "定积分"
+        ],
+        "difficulty": "较难",
+        "student_answer": "12",
+        "score": 0.0,
+        "max_score": 12,
+        "is_correct": false,
+        "comment": "作答内容为“12”，既不是题目要求的两个不等式的证明，也不是合理的中间推理，无法采信为有效解答，本题得0分。",
+        "step_analysis": [
+          {
+            "num": 1,
+            "content": "学生仅写出数字“12”，未给出任何与证明相关的推导过程或逻辑步骤，无法对应标准答案中的任何关键步骤。",
+            "judgment": "wrong",
+            "score": "0.0/6.0",
+            "comment": "未提供有效证明步骤，内容与题目要求无关，完全不得步骤分。"
+          }
+        ],
+        "method_matched": null,
+        "engine": "B_structured",
+        "confidence": 1.0,
+        "obligation_warning": "**双向性**: 2 项义务未覆盖 | **条件遗漏**: 1 处可疑",
+        "error_type": "misreading",
+        "root_cause": "学生完全未理解题意，将证明题误认为填空题或选择题，只回答了一个数字'12'，未给出任何推理或证明过程。这反映出学生可能没有读懂题目要求，或者完全没有学习过用导数和凸性分析函数插值误差的证明方法。",
+        "weak_points": [
+          "证明题的解题规范意识",
+          "利用二阶导数构造辅助函数证明不等式的方法"
+        ],
+        "recommendations": [
+          "加强证明题的训练，明确解答题需要写出详细过程，不能只写最终结论",
+          "复习泰勒公式、凸函数的判定与性质，以及利用导数证明不等式的常用技巧"
+        ],
+        "common_mistakes": [
+          "将证明题当作填空题，只写出一个无关数字"
+        ],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-21 18:18",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779369787_768",
+        "user_id": "user_1778947351",
+        "date": "2026-05-21",
+        "time": "21:23",
+        "question_id": "2022-数一-005",
+        "math_type": "数学一",
+        "question_type": "选择题",
+        "knowledge_point": "特征值与特征向量",
+        "knowledge_points": [
+          "特征值与特征向量"
+        ],
+        "difficulty": "中等",
+        "student_answer": "选项: C",
+        "score": 0,
+        "max_score": 5,
+        "is_correct": false,
+        "comment": "错误, 正确选项为 A",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "obligation_warning": "",
+        "error_type": "选择题答案错误",
+        "root_cause": "正确答案是 A，你选择了 选项: C。请分析每个选项的数学含义。",
+        "weak_points": [
+          "特征值与特征向量"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-21 21:23",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779373925_442",
+        "user_id": "user_1778947351",
+        "date": "2026-05-21",
+        "time": "22:32",
+        "question_id": "2018-数一-003",
+        "math_type": "数学一",
+        "question_type": "选择题",
+        "knowledge_point": "无穷级数",
+        "knowledge_points": [
+          "无穷级数"
+        ],
+        "difficulty": "中等",
+        "student_answer": "选项: C",
+        "score": 0,
+        "max_score": 4,
+        "is_correct": false,
+        "comment": "错误, 正确选项为 B",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "obligation_warning": "",
+        "error_type": "选择题答案错误",
+        "root_cause": "正确答案是 B，你选择了 选项: C。请分析每个选项的数学含义。",
+        "weak_points": [
+          "无穷级数"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-21 22:32",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779455833_255",
+        "user_id": "user_1778947351",
+        "date": "2026-05-22",
+        "time": "21:17",
+        "question_id": "2007-数一-023",
+        "math_type": "数学一",
+        "question_type": "解答题",
+        "knowledge_point": "多维随机变量, 随机变量及其分布",
+        "knowledge_points": [
+          "多维随机变量",
+          "随机变量及其分布"
+        ],
+        "difficulty": "中等",
+        "student_answer": "1.7/24",
+        "score": 2.8,
+        "max_score": 11,
+        "is_correct": false,
+        "comment": "学生仅写出了第一问的答案 7/24，正确但无任何推导步骤。第二问完全没有作答，整体解答不完整。根据阅卷标准，步骤分全部扣除，结果分仅按第一问答案正确给予部分分数（第二问结果缺失），总得分较低。",
+        "step_analysis": [
+          {
+            "num": 1,
+            "content": "确定积分区域并计算二重积分求 P{X>2Y}",
+            "judgment": "wrong",
+            "score": "0/2.5",
+            "comment": "未写出积分区域的确定过程和二重积分的计算步骤，直接给出答案，不得步骤分。"
+          },
+          {
+            "num": 2,
+            "content": "利用卷积公式求 Z=X+Y 的概率密度并分段讨论",
+            "judgment": "wrong",
+            "score": "0/3.0",
+            "comment": "完全未作答，无任何过程，步骤分全扣。"
+          }
+        ],
+        "method_matched": "卷积公式法",
+        "engine": "B_structured",
+        "confidence": 1.0,
+        "obligation_warning": "**条件遗漏**: 2 处可疑",
+        "error_type": "未识别",
+        "root_cause": "",
+        "weak_points": [],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-22 21:17",
+        "is_repeat": false,
+        "repeat_count": 1
+      },
+      {
+        "record_id": "err_1779527260_494",
+        "user_id": "user_1778947351",
+        "date": "2026-05-23",
+        "time": "17:07",
+        "question_id": "26宇哥八套卷-卷八-008",
+        "math_type": "26宇哥八套卷",
+        "question_type": "选择题",
+        "knowledge_point": "参数估计",
+        "knowledge_points": [
+          "参数估计"
+        ],
+        "difficulty": "中等",
+        "student_answer": "选项: A",
+        "score": 0,
+        "max_score": 5,
+        "is_correct": false,
+        "comment": "错误, 正确选项为 D",
+        "step_analysis": [],
+        "method_matched": "",
+        "engine": "unknown",
+        "confidence": 0.0,
+        "obligation_warning": "",
+        "error_type": "选择题答案错误",
+        "root_cause": "正确答案是 D，你选择了 选项: A。请分析每个选项的数学含义。",
+        "weak_points": [
+          "参数估计"
+        ],
+        "recommendations": [],
+        "common_mistakes": [],
+        "is_repeat_diagnosis": false,
+        "timestamp": "2026-05-23 17:07",
+        "is_repeat": false,
+        "repeat_count": 1
+      }
+    ],
+    "stats": {
+      "total_errors": 9,
+      "by_chapter": {
+        "曲线曲面积分": 2,
+        "二次型, 特征值与特征向量": 1,
+        "常微分方程": 1,
+        "中值定理, 定积分": 1,
+        "特征值与特征向量": 1,
+        "无穷级数": 1,
+        "多维随机变量, 随机变量及其分布": 1,
+        "参数估计": 1
+      },
+      "by_type": {
+        "选择题答案错误": 5,
+        "concept error": 1,
+        "填空题错误": 1,
+        "misreading": 1,
+        "未识别": 1
+      },
+      "by_difficulty": {
+        "较难": 4,
+        "中等": 5
+      },
+      "repeat_rate": 0.1111111111111111
+    }
+  }
+}

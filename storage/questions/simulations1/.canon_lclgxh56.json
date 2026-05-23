@@ -1,0 +1,47 @@
+{
+  "question_id": "26宇哥八套卷-卷三-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "设函数 $f(x)$ 具有二阶导数，$f'(x) > 0, f''(x) < 0$，记 $I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x dx, I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x dx$，则",
+  "source": "import_v3",
+  "options": {
+    "A": "$I_1 > 0, I_2 < 0$",
+    "B": "$I_1 < 0, I_2 > 0$",
+    "C": "$I_1 < 0, I_2 < 0$",
+    "D": "$I_1 > 0, I_2 > 0$"
+  },
+  "correct_option": "D",
+  "raw_question_text": "设函数 $f(x)$ 具有二阶导数，$f'(x) > 0, f''(x) < 0$，记 $I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x dx, I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x dx$，则",
+  "solution_metadata": {
+    "canonical": false,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 19:35",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "standard_answer": "## 题目重述\n已知函数 $f(x)$ 具有二阶导数，且满足 $f'(x) > 0$（严格递增）和 $f''(x) < 0$（严格凹）。定义两个定积分：\n$$I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x \\,dx,\\qquad I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x \\,dx.$$\n要求判断 $I_1$ 与 $I_2$ 的符号。\n\n## 标准答案\n$I_1 > 0,\\; I_2 > 0$，正确选项为 D。\n\n### 步骤1：分析 $I_1$ 的符号\n利用积分区间拆分与变量替换，将被积函数转化为非负形式。\n$$\nI_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x \\,dx = \\int_{0}^{\\pi} f(x) \\sin x \\,dx + \\int_{-\\pi}^{0} f(x) \\sin x \\,dx.\n$$\n对第二个积分令 $x = -t$，则 $dx = -dt$，积分限 $x=-\\pi \\to t=\\pi$，$x=0 \\to t=0$：\n$$\n\\int_{-\\pi}^{0} f(x) \\sin x \\,dx = \\int_{\\pi}^{0} f(-t) \\sin(-t) (-dt)\n= \\int_{\\pi}^{0} f(-t) (-\\sin t) (-dt) = \\int_{\\pi}^{0} f(-t) \\sin t \\,dt = -\\int_{0}^{\\pi} f(-t) \\sin t \\,dt.\n$$\n代回原式并统一积分变量：\n$$\nI_1 = \\int_{0}^{\\pi} f(x) \\sin x \\,dx - \\int_{0}^{\\pi} f(-x) \\sin x \\,dx = \\int_{0}^{\\pi} \\bigl[f(x) - f(-x)\\bigr] \\sin x \\,dx.\n$$\n由 $f'(x) > 0$ 知 $f$ 严格递增。对任意 $x \\in (0, \\pi)$，有 $x > -x$，故 $f(x) > f(-x)$。同时 $\\sin x > 0$ 在 $(0, \\pi)$ 上恒成立。因此被积函数在积分区间上恒正（至多有限个点为零），从而\n$$\nI_1 = \\int_{0}^{\\pi} \\bigl[f(x) - f(-x)\\bigr] \\sin x \\,dx > 0.\n$$\n\n### 步骤2：分析 $I_2$ 的符号——分部积分转化\n对 $I_2$ 直接分部积分，利用边界条件消去边界项。\n$$\nI_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x \\,dx.\n$$\n令 $u = f(x)$，$dv = \\cos x \\,dx$，则 $du = f'(x) dx$，$v = \\sin x$。分部积分得\n$$\nI_2 = f(x) \\sin x \\Big|_{-\\pi}^{\\pi} - \\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx.\n$$\n因为 $\\sin(\\pm\\pi) = 0$，边界项为零，故\n$$\nI_2 = -\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx.\n$$\n\n### 步骤3：利用 $f''(x) < 0$ 判断 $I_2$ 的符号\n同样将积分拆分为正负半轴，并作变量替换。\n$$\n\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx = \\int_{0}^{\\pi} f'(x) \\sin x \\,dx + \\int_{-\\pi}^{0} f'(x) \\sin x \\,dx.\n$$\n对第二个积分令 $x = -t$：\n$$\n\\int_{-\\pi}^{0} f'(x) \\sin x \\,dx = \\int_{\\pi}^{0} f'(-t) \\sin(-t) (-dt) = \\int_{\\pi}^{0} f'(-t) (-\\sin t) (-dt) = \\int_{\\pi}^{0} f'(-t) \\sin t \\,dt = -\\int_{0}^{\\pi} f'(-t) \\sin t \\,dt.\n$$\n于是\n$$\n\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx = \\int_{0}^{\\pi} \\bigl[f'(x) - f'(-x)\\bigr] \\sin x \\,dx.\n$$\n已知 $f''(x) < 0$，说明 $f'(x)$ 严格递减。对任意 $x \\in (0, \\pi)$，有 $x > -x$，故 $f'(x) < f'(-x)$，即 $f'(x) - f'(-x) < 0$。又在 $(0, \\pi)$ 上 $\\sin x > 0$，因此被积函数恒负，积分\n$$\n\\int_{0}^{\\pi} \\bigl[f'(x) - f'(-x)\\bigr] \\sin x \\,dx < 0.\n$$\n代回 $I_2$ 的表达式：\n$$\nI_2 = - \\left( \\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx \\right) = - (\\text{负数}) > 0.\n$$\n\n### 步骤4：逐一判别各选项正误\n综合以上推导：$I_1 > 0$，$I_2 > 0$。据此分析常见选项：\n- **A. $I_1 > 0, I_2 < 0$**：$I_2$ 符号错误，故 A 错。\n- **B. $I_1 < 0, I_2 > 0$**：$I_1$ 符号错误，故 B 错。\n- **C. $I_1 < 0, I_2 < 0$**：两者符号均错，故 C 错。\n- **D. $I_1 > 0, I_2 > 0$**：符号全部正确，故选 D。\n\n## 结论\n正确选项为 **D**，即 $I_1 > 0$ 且 $I_2 > 0$。\n\n## 关键知识点\n- 利用对称区间上的奇偶分解与变量替换，将积分转化为单侧积分。\n- 利用函数单调性判定被积函数差分的符号。\n- 分部积分法消去积分边界项，并结合导函数的单调性分析积分符号。\n\n## 易错提示\n- 错误地直接将被积函数视为偶函数进行化简：$f(x)$ 未必具有奇偶性，不能简单地写 $I_2 = 2\\int_0^\\pi f(x)\\cos x\\,dx$。\n- 在进行变量替换时忽略积分限的颠倒及 $dx$ 前的负号，导致符号错误。\n- 混淆 $f''(x) < 0$ 所反映的导数单调性：$f''<0$ 意味着 $f'$ 递减，而非递增。",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779536136",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n已知函数 $f(x)$ 具有二阶导数，且满足 $f'(x) > 0$（严格递增）和 $f''(x) < 0$（严格凹）。定义两个定积分：\n$$I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x \\,dx,\\qquad I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x \\,dx.$$\n要求判断 $I_1$ 与 $I_2$ 的符号。\n\n## 标准答案\n$I_1 > 0,\\; I_2 > 0$，正确选项为 D。\n\n### 步骤1：分析 $I_1$ 的符号\n利用积分区间拆分与变量替换，将被积函数转化为非负形式。\n$$\nI_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x \\,dx = \\int_{0}^{\\pi} f(x) \\sin x \\,dx + \\int_{-\\pi}^{0} f(x) \\sin x \\,dx.\n$$\n对第二个积分令 $x = -t$，则 $dx = -dt$，积分限 $x=-\\pi \\to t=\\pi$，$x=0 \\to t=0$：\n$$\n\\int_{-\\pi}^{0} f(x) \\sin x \\,dx = \\int_{\\pi}^{0} f(-t) \\sin(-t) (-dt)\n= \\int_{\\pi}^{0} f(-t) (-\\sin t) (-dt) = \\int_{\\pi}^{0} f(-t) \\sin t \\,dt = -\\int_{0}^{\\pi} f(-t) \\sin t \\,dt.\n$$\n代回原式并统一积分变量：\n$$\nI_1 = \\int_{0}^{\\pi} f(x) \\sin x \\,dx - \\int_{0}^{\\pi} f(-x) \\sin x \\,dx = \\int_{0}^{\\pi} \\bigl[f(x) - f(-x)\\bigr] \\sin x \\,dx.\n$$\n由 $f'(x) > 0$ 知 $f$ 严格递增。对任意 $x \\in (0, \\pi)$，有 $x > -x$，故 $f(x) > f(-x)$。同时 $\\sin x > 0$ 在 $(0, \\pi)$ 上恒成立。因此被积函数在积分区间上恒正（至多有限个点为零），从而\n$$\nI_1 = \\int_{0}^{\\pi} \\bigl[f(x) - f(-x)\\bigr] \\sin x \\,dx > 0.\n$$\n\n### 步骤2：分析 $I_2$ 的符号——分部积分转化\n对 $I_2$ 直接分部积分，利用边界条件消去边界项。\n$$\nI_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x \\,dx.\n$$\n令 $u = f(x)$，$dv = \\cos x \\,dx$，则 $du = f'(x) dx$，$v = \\sin x$。分部积分得\n$$\nI_2 = f(x) \\sin x \\Big|_{-\\pi}^{\\pi} - \\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx.\n$$\n因为 $\\sin(\\pm\\pi) = 0$，边界项为零，故\n$$\nI_2 = -\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx.\n$$\n\n### 步骤3：利用 $f''(x) < 0$ 判断 $I_2$ 的符号\n同样将积分拆分为正负半轴，并作变量替换。\n$$\n\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx = \\int_{0}^{\\pi} f'(x) \\sin x \\,dx + \\int_{-\\pi}^{0} f'(x) \\sin x \\,dx.\n$$\n对第二个积分令 $x = -t$：\n$$\n\\int_{-\\pi}^{0} f'(x) \\sin x \\,dx = \\int_{\\pi}^{0} f'(-t) \\sin(-t) (-dt) = \\int_{\\pi}^{0} f'(-t) (-\\sin t) (-dt) = \\int_{\\pi}^{0} f'(-t) \\sin t \\,dt = -\\int_{0}^{\\pi} f'(-t) \\sin t \\,dt.\n$$\n于是\n$$\n\\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx = \\int_{0}^{\\pi} \\bigl[f'(x) - f'(-x)\\bigr] \\sin x \\,dx.\n$$\n已知 $f''(x) < 0$，说明 $f'(x)$ 严格递减。对任意 $x \\in (0, \\pi)$，有 $x > -x$，故 $f'(x) < f'(-x)$，即 $f'(x) - f'(-x) < 0$。又在 $(0, \\pi)$ 上 $\\sin x > 0$，因此被积函数恒负，积分\n$$\n\\int_{0}^{\\pi} \\bigl[f'(x) - f'(-x)\\bigr] \\sin x \\,dx < 0.\n$$\n代回 $I_2$ 的表达式：\n$$\nI_2 = - \\left( \\int_{-\\pi}^{\\pi} f'(x) \\sin x \\,dx \\right) = - (\\text{负数}) > 0.\n$$\n\n### 步骤4：逐一判别各选项正误\n综合以上推导：$I_1 > 0$，$I_2 > 0$。据此分析常见选项：\n- **A. $I_1 > 0, I_2 < 0$**：$I_2$ 符号错误，故 A 错。\n- **B. $I_1 < 0, I_2 > 0$**：$I_1$ 符号错误，故 B 错。\n- **C. $I_1 < 0, I_2 < 0$**：两者符号均错，故 C 错。\n- **D. $I_1 > 0, I_2 > 0$**：符号全部正确，故选 D。\n\n## 结论\n正确选项为 **D**，即 $I_1 > 0$ 且 $I_2 > 0$。\n\n## 关键知识点\n- 利用对称区间上的奇偶分解与变量替换，将积分转化为单侧积分。\n- 利用函数单调性判定被积函数差分的符号。\n- 分部积分法消去积分边界项，并结合导函数的单调性分析积分符号。\n\n## 易错提示\n- 错误地直接将被积函数视为偶函数进行化简：$f(x)$ 未必具有奇偶性，不能简单地写 $I_2 = 2\\int_0^\\pi f(x)\\cos x\\,dx$。\n- 在进行变量替换时忽略积分限的颠倒及 $dx$ 前的负号，导致符号错误。\n- 混淆 $f''(x) < 0$ 所反映的导数单调性：$f''<0$ 意味着 $f'$ 递减，而非递增。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 19:35",
+      "reviewed": false
+    }
+  ]
+}

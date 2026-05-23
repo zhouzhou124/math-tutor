@@ -22,5 +22,7 @@
     "D": "①错误，②错误"
   },
   "correct_option": "A",
-  "raw_question_text": "设 $3$ 阶矩阵 $A,B$ 满足 $r(BA) < r(AB)$，对于以下结论\n① $ABx = 0$ 与 $BAx = 0$ 有非零公共解；\n② $ABAx = 0$ 与 $BABx = 0$ 有非零公共解。\n正确的说法是"
+  "raw_question_text": "设 $3$ 阶矩阵 $A,B$ 满足 $r(BA) < r(AB)$，对于以下结论\n① $ABx = 0$ 与 $BAx = 0$ 有非零公共解；\n② $ABAx = 0$ 与 $BABx = 0$ 有非零公共解。\n正确的说法是",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

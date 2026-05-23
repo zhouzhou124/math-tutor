@@ -15,11 +15,32 @@
     "行列式"
   ],
   "question": "$15.$ 设 $A$ 可逆，$B=E-kaa^{\\mathrm{T}}$ 为正交矩阵（$k>0$），$a$ 为单位列向量，$C$ 满足 $A^2-AB+CA=0$，则 $|A+C|=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$0$",
+  "standard_answer": "### 步骤1：\n步骤1：求参数k: 由B正交且对称可得B^2=E，展开得(2k-k^2)aa^T=0，因a非零，故2k-k^2=0，又k>0，解得k=2\n\n$ \\Rightarrow k=2$\n\n### 步骤2：\n步骤2：确定正交矩阵B: 将k=2代入B表达式\n\n$B=E-kaa^{\\mathrm{T}}, k=2 \\Rightarrow B=E-2aa^{\\mathrm{T}}$\n\n### 步骤3：\n步骤3：推导A+C的表达式: 由方程得CA=AB-A^2=A(B-A)，右乘A^{-1}得C=A(B-A)A^{-1}，于是A+C=A+A(B-A)A^{-1}=ABA^{-1}\n\n$A^2-AB+CA=0 \\Rightarrow A+C=ABA^{-1}$\n\n### 步骤4：\n步骤4：计算行列式: |A+C|=|ABA^{-1}|=|B|。B为Householder矩阵，特征值一个-1其余1，故|B|=-1\n\n$A+C=ABA^{-1}, B=E-2aa^{\\mathrm{T}} \\Rightarrow |A+C|=-1$\n\n### 最终答案\n-1",
   "source": "import_hegongda_v7",
   "solution_steps": [],
   "options": {},
   "volume": "卷七",
   "raw_question_text": "$15.$ 设 $A$ 可逆，$B=E-kaa^{\\mathrm{T}}$ 为正交矩阵（$k>0$），$a$ 为单位列向量，$C$ 满足 $A^2-AB+CA=0$，则 $|A+C|=\\underline{\\qquad\\qquad}$",
-  "raw_answer_text": "$0$"
+  "raw_answer_text": "$0$",
+  "final_answer": "$0$",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 18:44",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779533053",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：\n步骤1：求参数k: 由B正交且对称可得B^2=E，展开得(2k-k^2)aa^T=0，因a非零，故2k-k^2=0，又k>0，解得k=2\n\n$ \\Rightarrow k=2$\n\n### 步骤2：\n步骤2：确定正交矩阵B: 将k=2代入B表达式\n\n$B=E-kaa^{\\mathrm{T}}, k=2 \\Rightarrow B=E-2aa^{\\mathrm{T}}$\n\n### 步骤3：\n步骤3：推导A+C的表达式: 由方程得CA=AB-A^2=A(B-A)，右乘A^{-1}得C=A(B-A)A^{-1}，于是A+C=A+A(B-A)A^{-1}=ABA^{-1}\n\n$A^2-AB+CA=0 \\Rightarrow A+C=ABA^{-1}$\n\n### 步骤4：\n步骤4：计算行列式: |A+C|=|ABA^{-1}|=|B|。B为Householder矩阵，特征值一个-1其余1，故|B|=-1\n\n$A+C=ABA^{-1}, B=E-2aa^{\\mathrm{T}} \\Rightarrow |A+C|=-1$\n\n### 最终答案\n-1",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 18:44",
+      "reviewed": false
+    }
+  ]
 }

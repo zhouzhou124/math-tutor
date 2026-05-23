@@ -21,6 +21,8 @@
     "C": "$9$",
     "D": "$10$"
   },
-  "correct_option": "A",
-  "raw_question_text": "设 \\(X_1, \\cdots, X_n\\) 与 \\(Y_1, \\cdots, Y_n\\) 是来自正态总体 \\(N(\\mu, \\sigma^2)\\) 的两个相互独立的简单随机样本，\\(\\overline{X} = \\frac{1}{n} \\sum_{i=1}^n X_i, \\overline{Y} = \\frac{1}{n} \\sum_{i=1}^n Y_i\\)，且满足 \\(P\\{|\\overline{X} - \\overline{Y}| > \\sigma\\} \\leq 0.05\\)，\\(\\Phi(1.96) = 0.975\\)，则样本容量 \\(n\\) 的最小值为"
+  "correct_option": "B",
+  "raw_question_text": "设 \\(X_1, \\cdots, X_n\\) 与 \\(Y_1, \\cdots, Y_n\\) 是来自正态总体 \\(N(\\mu, \\sigma^2)\\) 的两个相互独立的简单随机样本，\\(\\overline{X} = \\frac{1}{n} \\sum_{i=1}^n X_i, \\overline{Y} = \\frac{1}{n} \\sum_{i=1}^n Y_i\\)，且满足 \\(P\\{|\\overline{X} - \\overline{Y}| > \\sigma\\} \\leq 0.05\\)，\\(\\Phi(1.96) = 0.975\\)，则样本容量 \\(n\\) 的最小值为",
+  "standard_answer": "B",
+  "raw_answer_text": "B"
 }

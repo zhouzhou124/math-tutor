@@ -24,5 +24,7 @@
     "D": "$\\{f(n)\\}$ 发散，$\\{nf'(n)\\}$ 发散"
   },
   "correct_option": "A",
-  "raw_question_text": "设函数 $f(x)$ 在 $(0, +\\infty)$ 上有界且可导，$f'(x)$ 单调增加，则"
+  "raw_question_text": "设函数 $f(x)$ 在 $(0, +\\infty)$ 上有界且可导，$f'(x)$ 单调增加，则",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

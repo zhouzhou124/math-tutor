@@ -22,11 +22,32 @@
     "D": "既非充分也非必要条件"
   },
   "correct_option": "D",
-  "standard_answer": "D",
+  "standard_answer": "### 步骤1：分析已知极限条件：\n已知\n$f(a)=0$\n，且极限\n$\\lim\\limits_{h$\\to$ 0}\\frac{f(a+\\sin h)}{1-\\cos h}$\n存在。利用等价无穷小：\n$1-\\cos h$\\sim$ \\frac{1}{2}h^2,\\quad \\sin h$\\sim$ h$\n，该极限存在意味着\n$\\frac{f(a+o(1))}{h^2}$\n收敛，且极限值与\n$f'(a)$\n无直接必然联系。\n\n### 步骤2：必要性的反例判断：\n取\n$f(x)=x-a$\n，则\n$f(a)=0$\n，\n$f(x)$\n在\n$x=a$\n处可导且\n$f'(a)=1$\\neq$ 0$\n。此时\n$f(a+\\sin h)=\\sin h$\\sim$ h$\n，分母\n$1-\\cos h$\\sim$ \\frac{1}{2}h^2$\n，于是\n$\\lim\\limits_{h$\\to$ 0}\\frac{f(a+\\sin h)}{1-\\cos h}=\\lim\\limits_{h$\\to$ 0}\\frac{h}{h^2/2}=$\\infty$$\n，极限不存在。因此可导不能推出题设极限存在，条件不是必要的。\n\n### 步骤3：充分性的反例判断：\n取\n$f(x)=(x-a)^{1/3}$\n，则\n$f(a)=0$\n。在\n$x=a$\n处，\n$f'(a)=\\lim\\limits_{x$\\to$ a}\\frac{(x-a)^{1/3}}{x-a}=\\lim\\limits_{x$\\to$ a}(x-a)^{-2/3}=$\\infty$$\n，故函数不可导。但当\n$h$\\to$ 0$\n时，\n$f(a+\\sin h)=(\\sin h)^{1/3}$\\sim$ h^{1/3}$\n，仍满足\n$\\frac{f(a+\\sin h)}{1-\\cos h}$\\sim$ \\frac{h^{1/3}}{h^2/2}=2 h^{-5/3}$\\to$ 0$\n，即极限存在。因此题设极限存在不能推出可导，条件不是充分的。\n\n### 步骤4：得出结论：\n综上，题设极限存在既不是\n$f(x)$\n在\n$x=a$\n处可导的充分条件，也不是必要条件，应选(D)。\n\n### 最终答案\n\\text{(D) 既非充分也非必要条件}",
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "volume": "卷五",
   "__cached_at__": 1779499787.6966803,
   "raw_question_text": "设 $f(a)=0$，则\"极限 $\\lim_{h\to 0} \frac{f(a+\\sin h)}{1-\\cos h}$ 存在\"是\"函数 $f(x)$ 在 $x=a$ 处可导\"的",
-  "raw_answer_text": "D"
+  "raw_answer_text": "D",
+  "final_answer": "D",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 18:38",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779532691",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：分析已知极限条件：\n已知\n$f(a)=0$\n，且极限\n$\\lim\\limits_{h$\\to$ 0}\\frac{f(a+\\sin h)}{1-\\cos h}$\n存在。利用等价无穷小：\n$1-\\cos h$\\sim$ \\frac{1}{2}h^2,\\quad \\sin h$\\sim$ h$\n，该极限存在意味着\n$\\frac{f(a+o(1))}{h^2}$\n收敛，且极限值与\n$f'(a)$\n无直接必然联系。\n\n### 步骤2：必要性的反例判断：\n取\n$f(x)=x-a$\n，则\n$f(a)=0$\n，\n$f(x)$\n在\n$x=a$\n处可导且\n$f'(a)=1$\\neq$ 0$\n。此时\n$f(a+\\sin h)=\\sin h$\\sim$ h$\n，分母\n$1-\\cos h$\\sim$ \\frac{1}{2}h^2$\n，于是\n$\\lim\\limits_{h$\\to$ 0}\\frac{f(a+\\sin h)}{1-\\cos h}=\\lim\\limits_{h$\\to$ 0}\\frac{h}{h^2/2}=$\\infty$$\n，极限不存在。因此可导不能推出题设极限存在，条件不是必要的。\n\n### 步骤3：充分性的反例判断：\n取\n$f(x)=(x-a)^{1/3}$\n，则\n$f(a)=0$\n。在\n$x=a$\n处，\n$f'(a)=\\lim\\limits_{x$\\to$ a}\\frac{(x-a)^{1/3}}{x-a}=\\lim\\limits_{x$\\to$ a}(x-a)^{-2/3}=$\\infty$$\n，故函数不可导。但当\n$h$\\to$ 0$\n时，\n$f(a+\\sin h)=(\\sin h)^{1/3}$\\sim$ h^{1/3}$\n，仍满足\n$\\frac{f(a+\\sin h)}{1-\\cos h}$\\sim$ \\frac{h^{1/3}}{h^2/2}=2 h^{-5/3}$\\to$ 0$\n，即极限存在。因此题设极限存在不能推出可导，条件不是充分的。\n\n### 步骤4：得出结论：\n综上，题设极限存在既不是\n$f(x)$\n在\n$x=a$\n处可导的充分条件，也不是必要条件，应选(D)。\n\n### 最终答案\n\\text{(D) 既非充分也非必要条件}",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 18:38",
+      "reviewed": false
+    }
+  ]
 }

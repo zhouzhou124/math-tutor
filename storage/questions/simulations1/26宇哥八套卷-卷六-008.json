@@ -22,5 +22,7 @@
     "D": "$2\\rho \\frac{\\sigma_1 \\sigma_2}{\\sigma_2^2 - \\sigma_1^2}$"
   },
   "correct_option": "C",
-  "raw_question_text": "设随机变量 \\( (X_1, X_2) \\sim N(0, 0; \\sigma_1^2, \\sigma_2^2; \\rho), \\sigma_1 \\neq \\sigma_2 \\)，若 \\( Y_1 = X_1 \\cos \\alpha + X_2 \\sin \\alpha \\) 与 \\( Y_2 = X_2 \\cos \\alpha - X_1 \\sin \\alpha \\) 相互独立，\\( \\cos 2\\alpha \\neq 0 \\)，则 \\( \\tan 2\\alpha = \\)"
+  "raw_question_text": "设随机变量 \\( (X_1, X_2) \\sim N(0, 0; \\sigma_1^2, \\sigma_2^2; \\rho), \\sigma_1 \\neq \\sigma_2 \\)，若 \\( Y_1 = X_1 \\cos \\alpha + X_2 \\sin \\alpha \\) 与 \\( Y_2 = X_2 \\cos \\alpha - X_1 \\sin \\alpha \\) 相互独立，\\( \\cos 2\\alpha \\neq 0 \\)，则 \\( \\tan 2\\alpha = \\)",
+  "standard_answer": "C",
+  "raw_answer_text": "C"
 }

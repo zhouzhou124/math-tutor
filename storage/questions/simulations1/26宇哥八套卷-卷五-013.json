@@ -15,5 +15,7 @@
   ],
   "question": "$13.$ 设 $F=|x|\\cos y\\bm{i}-y\\sin z\\bm{j}+z\\bm{k}$，则 $\\operatorname{rot}F(1,1,0)=$ ______",
   "source": "import_v5",
-  "raw_question_text": "$13.$ 设 $F=|x|\\cos y\\bm{i}-y\\sin z\\bm{j}+z\\bm{k}$，则 $\\operatorname{rot}F(1,1,0)=$ ______"
+  "raw_question_text": "$13.$ 设 $F=|x|\\cos y\\bm{i}-y\\sin z\\bm{j}+z\\bm{k}$，则 $\\operatorname{rot}F(1,1,0)=$ ______",
+  "standard_answer": "$(0, 0, 0)$",
+  "raw_answer_text": "$(0, 0, 0)$"
 }

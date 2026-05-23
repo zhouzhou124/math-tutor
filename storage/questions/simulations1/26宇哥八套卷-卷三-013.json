@@ -15,5 +15,7 @@
   ],
   "question": "$13.$ 设 $\\Omega$ 是由上半球面 $z = \\sqrt{4 - x^2 - y^2}$ 与曲面 $x^2 + y^2 = 3z$ 所围成的空间有界闭区域，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______",
   "source": "import_v3",
-  "raw_question_text": "$13.$ 设 $\\Omega$ 是由上半球面 $z = \\sqrt{4 - x^2 - y^2}$ 与曲面 $x^2 + y^2 = 3z$ 所围成的空间有界闭区域，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______"
+  "raw_question_text": "$13.$ 设 $\\Omega$ 是由上半球面 $z = \\sqrt{4 - x^2 - y^2}$ 与曲面 $x^2 + y^2 = 3z$ 所围成的空间有界闭区域，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______",
+  "standard_answer": "$\\frac{5}{6}$",
+  "raw_answer_text": "$\\frac{5}{6}$"
 }

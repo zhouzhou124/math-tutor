@@ -16,5 +16,7 @@
   "question": "(本题满分12分) 设 $f(x)$ 具有一阶连续导数，且对右半平面 $x>0$ 内任意分段光滑简单闭曲线 $L$，均有 $\\oint_L \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6} = 0$.\n$(1)$ 求 $f(x)$ 的表达式；\n$(2)$ 计算 $\\oint_{L_0} \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6}$，其中 $L_0$ 为 $2x^2 + y^2 = 1$，取逆时针方向.",
   "source": "import_v3",
   "options": {},
-  "raw_question_text": "(本题满分12分) 设 $f(x)$ 具有一阶连续导数，且对右半平面 $x>0$ 内任意分段光滑简单闭曲线 $L$，均有 $\\oint_L \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6} = 0$.\n$(1)$ 求 $f(x)$ 的表达式；\n$(2)$ 计算 $\\oint_{L_0} \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6}$，其中 $L_0$ 为 $2x^2 + y^2 = 1$，取逆时针方向."
+  "raw_question_text": "(本题满分12分) 设 $f(x)$ 具有一阶连续导数，且对右半平面 $x>0$ 内任意分段光滑简单闭曲线 $L$，均有 $\\oint_L \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6} = 0$.\n$(1)$ 求 $f(x)$ 的表达式；\n$(2)$ 计算 $\\oint_{L_0} \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6}$，其中 $L_0$ 为 $2x^2 + y^2 = 1$，取逆时针方向.",
+  "standard_answer": "(1) $f(x) = \\frac{1}{x}$\\n(2) $\\oint_{L_0} \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6} = 0$",
+  "raw_answer_text": "(1) $f(x) = \\frac{1}{x}$\\n(2) $\\oint_{L_0} \\frac{f(x)y^2 dy - y^3 dx}{2x^2 + y^6} = 0$"
 }

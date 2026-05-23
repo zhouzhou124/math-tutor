@@ -22,5 +22,7 @@
     "D": "$\\begin{pmatrix} 2 & -1 & 0 \\\\ 1 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
   },
   "correct_option": "D",
-  "raw_question_text": "下列矩阵中，与 $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$ 不相似的是"
+  "raw_question_text": "下列矩阵中，与 $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$ 不相似的是",
+  "standard_answer": "D",
+  "raw_answer_text": "D"
 }

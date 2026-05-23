@@ -15,5 +15,7 @@
   ],
   "question": "$15.$ 设 $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},B=\\begin{pmatrix}-1&1\\\\0&-1\\end{pmatrix}$，则 $A^9-B^9=$ ______",
   "source": "import_v5",
-  "raw_question_text": "$15.$ 设 $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},B=\\begin{pmatrix}-1&1\\\\0&-1\\end{pmatrix}$，则 $A^9-B^9=$ ______"
+  "raw_question_text": "$15.$ 设 $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},B=\\begin{pmatrix}-1&1\\\\0&-1\\end{pmatrix}$，则 $A^9-B^9=$ ______",
+  "standard_answer": "$\\begin{pmatrix} 18 & 0 \\ 0 & 18 \\end{pmatrix}$",
+  "raw_answer_text": "$\\begin{pmatrix} 18 & 0 \\ 0 & 18 \\end{pmatrix}$"
 }

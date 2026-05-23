@@ -15,5 +15,7 @@
   ],
   "question": "$12.$ 微分方程 $dy = \\cos(y-x)dx$ 满足 $y(0) = \\frac{\\pi}{2}$ 的解为 ______",
   "source": "import_v3",
-  "raw_question_text": "$12.$ 微分方程 $dy = \\cos(y-x)dx$ 满足 $y(0) = \\frac{\\pi}{2}$ 的解为 ______"
+  "raw_question_text": "$12.$ 微分方程 $dy = \\cos(y-x)dx$ 满足 $y(0) = \\frac{\\pi}{2}$ 的解为 ______",
+  "standard_answer": "$y = \\frac{\\pi}{2}$",
+  "raw_answer_text": "$y = \\frac{\\pi}{2}$"
 }

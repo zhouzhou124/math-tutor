@@ -16,5 +16,7 @@
   "question": "$y=y(x)$ 满足 $(xy-1)dx+x^2dy=0,x>0,y(1)=0$.\n$(1)$ 求 $y(x)$；\n$(2)$ 求拐点和渐近线.",
   "source": "import_v5",
   "options": {},
-  "raw_question_text": "$y=y(x)$ 满足 $(xy-1)dx+x^2dy=0,x>0,y(1)=0$.\n$(1)$ 求 $y(x)$；\n$(2)$ 求拐点和渐近线."
+  "raw_question_text": "$y=y(x)$ 满足 $(xy-1)dx+x^2dy=0,x>0,y(1)=0$.\n$(1)$ 求 $y(x)$；\n$(2)$ 求拐点和渐近线.",
+  "standard_answer": "(1) $y = \\frac{1}{x}(1 - e^{x-1})$\\n(2) 拐点为 $x=1$，渐近线为 $x=0$ 和 $y=0$",
+  "raw_answer_text": "(1) $y = \\frac{1}{x}(1 - e^{x-1})$\\n(2) 拐点为 $x=1$，渐近线为 $x=0$ 和 $y=0$"
 }

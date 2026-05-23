@@ -22,5 +22,7 @@
     "D": "$p > 0$"
   },
   "correct_option": "A",
-  "raw_question_text": "设 $p$ 为常数，若级数 $\\sum_{n=1}^\\infty \\frac{(\\sqrt{n+1} - \\sqrt{n})^p}{n}$ 与 $\\sum_{n=1}^\\infty [\\frac{1}{n^p} - \\frac{1}{(n+1)^p}]$ 均收敛，则"
+  "raw_question_text": "设 $p$ 为常数，若级数 $\\sum_{n=1}^\\infty \\frac{(\\sqrt{n+1} - \\sqrt{n})^p}{n}$ 与 $\\sum_{n=1}^\\infty [\\frac{1}{n^p} - \\frac{1}{(n+1)^p}]$ 均收敛，则",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

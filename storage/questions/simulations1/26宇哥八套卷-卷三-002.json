@@ -22,5 +22,7 @@
     "D": "$I_1 > 0, I_2 > 0$"
   },
   "correct_option": "D",
-  "raw_question_text": "设函数 $f(x)$ 具有二阶导数，$f'(x) > 0, f''(x) < 0$，记 $I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x dx, I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x dx$，则"
+  "raw_question_text": "设函数 $f(x)$ 具有二阶导数，$f'(x) > 0, f''(x) < 0$，记 $I_1 = \\int_{-\\pi}^{\\pi} f(x) \\sin x dx, I_2 = \\int_{-\\pi}^{\\pi} f(x) \\cos x dx$，则",
+  "standard_answer": "D",
+  "raw_answer_text": "D"
 }

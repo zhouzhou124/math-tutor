@@ -15,5 +15,7 @@
   ],
   "question": "$15.$ 设向量组 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 2 \\\\ 1 \\\\ 1 \\end{pmatrix}$ 不可由向量组 $\\beta_1 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} 2 \\\\ 3 \\\\ 7 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a \\\\ 0 \\\\ -a \\end{pmatrix}$ 线性表示，则 $a$ 的取值范围为 ______",
   "source": "import_v2",
-  "raw_question_text": "$15.$ 设向量组 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 2 \\\\ 1 \\\\ 1 \\end{pmatrix}$ 不可由向量组 $\\beta_1 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} 2 \\\\ 3 \\\\ 7 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a \\\\ 0 \\\\ -a \\end{pmatrix}$ 线性表示，则 $a$ 的取值范围为 ______"
+  "raw_question_text": "$15.$ 设向量组 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 2 \\\\ 1 \\\\ 1 \\end{pmatrix}$ 不可由向量组 $\\beta_1 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} 2 \\\\ 3 \\\\ 7 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a \\\\ 0 \\\\ -a \\end{pmatrix}$ 线性表示，则 $a$ 的取值范围为 ______",
+  "standard_answer": "$a \\neq -2, a \\neq 2$",
+  "raw_answer_text": "$a \\neq -2, a \\neq 2$"
 }

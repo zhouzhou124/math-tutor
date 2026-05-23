@@ -15,7 +15,7 @@
     "D": "$\\frac{k}{n-k}$"
   },
   "correct_option": "D",
-  "standard_answer": "D",
+  "standard_answer": "## 题目重述\n袋中只有红球与黑球，红球数与黑球数之比为 $r$（$r>0$）。现有放回地抽取 $n$ 次，每次取一球，结果共取出 $k$ 个红球（$0 \\le k \\le n$）。求 $r$ 的最大似然估计值。\n\n## 标准答案\n$\\displaystyle \\frac{k}{n-k}$\n\n步骤1：**建立概率模型并写出似然函数**\n由红球数与黑球数之比为 $r$ 可知，红球所占比例为 $\\frac{r}{r+1}$，黑球所占比例为 $\\frac{1}{r+1}$。有放回抽取 $n$ 次，取到红球的次数 $X$ 服从二项分布：\n$$\nP(X=k) = \\binom{n}{k} \\left( \\frac{r}{r+1} \\right)^k \\left( \\frac{1}{r+1} \\right)^{n-k}\n$$\n因此，参数 $r$ 的似然函数为\n$$\nL(r) = \\binom{n}{k} \\frac{r^k}{(r+1)^n}, \\quad r>0.\n$$\n\n步骤2：**求对数似然函数并求导**\n取对数得对数似然函数：\n$$\n\\ln L(r) = \\ln\\binom{n}{k} + k \\ln r - n \\ln (r+1).\n$$\n对 $r$ 求导：\n$$\n\\frac{d \\ln L(r)}{dr} = \\frac{k}{r} - \\frac{n}{r+1}.\n$$\n\n步骤3：**解似然方程得极大似然估计**\n令导数为零：\n$$\n\\frac{k}{r} - \\frac{n}{r+1} = 0 \\quad \\Rightarrow \\quad \\frac{k}{r} = \\frac{n}{r+1}.\n$$\n交叉相乘得 $k(r+1) = nr$，即 $kr + k = nr$，整理得 $k = (n-k)r$。\n当 $n \\neq k$ 时，解得\n$$\n\\hat{r} = \\frac{k}{n-k}.\n$$\n再验证二阶导数或单调性可知该点为最大值点：当 $r < \\frac{k}{n-k}$ 时导数为正，当 $r > \\frac{k}{n-k}$ 时导数为负，故 $\\hat{r} = \\frac{k}{n-k}$ 确实是最大似然估计值。若 $k=n$，则似然函数为 $L(r) = \\frac{r^n}{(r+1)^n}$，它是 $r$ 的单调递增函数，最大值在 $r\\to\\infty$ 时，$\\frac{k}{n-k}$ 无定义，但实际中通常要求 $0<k<n$；同理 $k=0$ 时 $\\hat{r}=0$。题目一般假定 $0<k<n$。\n\n步骤4：**分析各选项的正确性**\n假设本题四个选项为：\n- A. $\\displaystyle \\frac{k}{n}$\n- B. $\\displaystyle \\frac{n}{k}$\n- C. $\\displaystyle \\frac{n-k}{k}$\n- D. $\\displaystyle \\frac{k}{n-k}$\n\n- **选项A**：$\\frac{k}{n}$ 是样本中红球的频率，它实际上是红球概率 $p=\\frac{r}{r+1}$ 的最大似然估计，而不是 $r$ 本身的估计。若混淆参数 $r$ 与概率 $p$ 则会误选此项。错误。\n- **选项B**：$\\frac{n}{k}$ 是 $r$ 的倒数的估计，与极大似然原理不符。错误。\n- **选项C**：$\\frac{n-k}{k}$ 正好是 $r$ 的倒数，由似然方程解出 $r = \\frac{k}{n-k}$，此项为 $\\frac{1}{\\hat{r}}$。错误。\n- **选项D**：$\\frac{k}{n-k}$ 正是由似然方程推导出的结果，符合最大似然估计。正确。\n\n## 结论\n综上，$r$ 的最大似然估计值为 $\\frac{k}{n-k}$，对应选项D。\n\n## 关键知识点\n- 最大似然估计的基本步骤：写出似然函数、取对数、求导、解似然方程。\n- 二项分布模型：有放回抽取中成功次数的分布。\n- 参数变换下的最大似然估计：若 $\\hat{p}=k/n$ 是成功概率的MLE，则 $r = p/(1-p)$ 的MLE即为 $\\hat{r} = \\hat{p}/(1-\\hat{p}) = k/(n-k)$。\n- 似然方程求解与极值判断。\n\n## 易错提示\n- 直接将红球频率 $k/n$ 当作 $r$ 的估计，忽略 $r$ 是比值而非概率。\n- 忘记 $r>0$ 的约束，错误地取对数或求导时未考虑定义域。\n- 在解出 $r = k/(n-k)$ 后，忽略对 $k=n$ 或 $k=0$ 边界情况的讨论（通常题目默认 $0<k<n$）。\n- 混淆 $r$ 的MLE与其倒数，导致误选C。",
   "knowledge_points": [
     "参数估计"
   ],
@@ -24,5 +24,26 @@
   ],
   "solution_steps": [],
   "raw_question_text": "设袋中红球数与黑球数之比为 $r$，且无其他颜色的球，现有放回地抽取 $n$ 次，每次取一球，共取出 $k$ 个红球，则 $r$ 的最大似然估计值为",
-  "raw_answer_text": "D"
+  "raw_answer_text": "D",
+  "final_answer": "D",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 17:07",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779527257",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n袋中只有红球与黑球，红球数与黑球数之比为 $r$（$r>0$）。现有放回地抽取 $n$ 次，每次取一球，结果共取出 $k$ 个红球（$0 \\le k \\le n$）。求 $r$ 的最大似然估计值。\n\n## 标准答案\n$\\displaystyle \\frac{k}{n-k}$\n\n步骤1：**建立概率模型并写出似然函数**\n由红球数与黑球数之比为 $r$ 可知，红球所占比例为 $\\frac{r}{r+1}$，黑球所占比例为 $\\frac{1}{r+1}$。有放回抽取 $n$ 次，取到红球的次数 $X$ 服从二项分布：\n$$\nP(X=k) = \\binom{n}{k} \\left( \\frac{r}{r+1} \\right)^k \\left( \\frac{1}{r+1} \\right)^{n-k}\n$$\n因此，参数 $r$ 的似然函数为\n$$\nL(r) = \\binom{n}{k} \\frac{r^k}{(r+1)^n}, \\quad r>0.\n$$\n\n步骤2：**求对数似然函数并求导**\n取对数得对数似然函数：\n$$\n\\ln L(r) = \\ln\\binom{n}{k} + k \\ln r - n \\ln (r+1).\n$$\n对 $r$ 求导：\n$$\n\\frac{d \\ln L(r)}{dr} = \\frac{k}{r} - \\frac{n}{r+1}.\n$$\n\n步骤3：**解似然方程得极大似然估计**\n令导数为零：\n$$\n\\frac{k}{r} - \\frac{n}{r+1} = 0 \\quad \\Rightarrow \\quad \\frac{k}{r} = \\frac{n}{r+1}.\n$$\n交叉相乘得 $k(r+1) = nr$，即 $kr + k = nr$，整理得 $k = (n-k)r$。\n当 $n \\neq k$ 时，解得\n$$\n\\hat{r} = \\frac{k}{n-k}.\n$$\n再验证二阶导数或单调性可知该点为最大值点：当 $r < \\frac{k}{n-k}$ 时导数为正，当 $r > \\frac{k}{n-k}$ 时导数为负，故 $\\hat{r} = \\frac{k}{n-k}$ 确实是最大似然估计值。若 $k=n$，则似然函数为 $L(r) = \\frac{r^n}{(r+1)^n}$，它是 $r$ 的单调递增函数，最大值在 $r\\to\\infty$ 时，$\\frac{k}{n-k}$ 无定义，但实际中通常要求 $0<k<n$；同理 $k=0$ 时 $\\hat{r}=0$。题目一般假定 $0<k<n$。\n\n步骤4：**分析各选项的正确性**\n假设本题四个选项为：\n- A. $\\displaystyle \\frac{k}{n}$\n- B. $\\displaystyle \\frac{n}{k}$\n- C. $\\displaystyle \\frac{n-k}{k}$\n- D. $\\displaystyle \\frac{k}{n-k}$\n\n- **选项A**：$\\frac{k}{n}$ 是样本中红球的频率，它实际上是红球概率 $p=\\frac{r}{r+1}$ 的最大似然估计，而不是 $r$ 本身的估计。若混淆参数 $r$ 与概率 $p$ 则会误选此项。错误。\n- **选项B**：$\\frac{n}{k}$ 是 $r$ 的倒数的估计，与极大似然原理不符。错误。\n- **选项C**：$\\frac{n-k}{k}$ 正好是 $r$ 的倒数，由似然方程解出 $r = \\frac{k}{n-k}$，此项为 $\\frac{1}{\\hat{r}}$。错误。\n- **选项D**：$\\frac{k}{n-k}$ 正是由似然方程推导出的结果，符合最大似然估计。正确。\n\n## 结论\n综上，$r$ 的最大似然估计值为 $\\frac{k}{n-k}$，对应选项D。\n\n## 关键知识点\n- 最大似然估计的基本步骤：写出似然函数、取对数、求导、解似然方程。\n- 二项分布模型：有放回抽取中成功次数的分布。\n- 参数变换下的最大似然估计：若 $\\hat{p}=k/n$ 是成功概率的MLE，则 $r = p/(1-p)$ 的MLE即为 $\\hat{r} = \\hat{p}/(1-\\hat{p}) = k/(n-k)$。\n- 似然方程求解与极值判断。\n\n## 易错提示\n- 直接将红球频率 $k/n$ 当作 $r$ 的估计，忽略 $r$ 是比值而非概率。\n- 忘记 $r>0$ 的约束，错误地取对数或求导时未考虑定义域。\n- 在解出 $r = k/(n-k)$ 后，忽略对 $k=n$ 或 $k=0$ 边界情况的讨论（通常题目默认 $0<k<n$）。\n- 混淆 $r$ 的MLE与其倒数，导致误选C。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 17:07",
+      "reviewed": false
+    }
+  ]
 }

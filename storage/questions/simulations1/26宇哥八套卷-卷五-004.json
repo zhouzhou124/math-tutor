@@ -22,5 +22,7 @@
     "D": "既不充分也不必要条件"
   },
   "correct_option": "B",
-  "raw_question_text": "设 $\\{a_n\\},\\{b_n\\}$ 满足 $0\\le a_{n+1}\\le a_n+b_n$，则 $\\{a_n\\}$ 收敛是 $\\sum_{n=1}^{\\infty} b_n$ 收敛的"
+  "raw_question_text": "设 $\\{a_n\\},\\{b_n\\}$ 满足 $0\\le a_{n+1}\\le a_n+b_n$，则 $\\{a_n\\}$ 收敛是 $\\sum_{n=1}^{\\infty} b_n$ 收敛的",
+  "standard_answer": "B",
+  "raw_answer_text": "B"
 }

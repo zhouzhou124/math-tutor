@@ -102,6 +102,7 @@ class MemoryService:
         return records, stats
 
     def delete_error_record(self, user_id: str, record_id: str) -> bool:
+        """Soft-delete: archive the record (status=ARCHIVED)."""
         if self._supabase_error_repo:
             try:
                 if self._supabase_error_repo.delete_record(user_id, record_id):
@@ -109,10 +110,26 @@ class MemoryService:
             except Exception:
                 pass
         self._ensure_local()
-        success = self._error_repo.delete_record(user_id, record_id)
+        return self._error_repo.delete_record(user_id, record_id)
+
+    def update_error_status(self, user_id: str, record_id: str, status: str) -> bool:
+        """Transition a record through the lifecycle: ACTIVE → MASTERED/ARCHIVED/HIDDEN."""
+        self._ensure_local()
+        return self._error_repo.update_status(user_id, record_id, status)
+
+    def hard_delete_error_record(self, user_id: str, record_id: str) -> bool:
+        """Permanently delete a record. Use only with confirmation."""
+        self._ensure_local()
+        success = self._error_repo.hard_delete_record(user_id, record_id)
         if success:
             try:
                 self._error_index_repo.delete_index(record_id)
+            except Exception:
+                pass
+            try:
+                error_stats = self._error_repo.get_stats(user_id)
+                self._update_learning_stats(user_id, error_stats)
+                self._update_profile(user_id)
             except Exception:
                 pass
         return success
@@ -131,19 +148,19 @@ class MemoryService:
         self._stats_repo.update_stats(user_id, stats)
 
     def _update_profile(self, user_id: str):
+        """从 stats 增量更新画像，不再全量扫描 records。"""
         self._ensure_local()
-        records = self._error_repo.get_records(user_id)
-        if not records: return
-        chapter_errors = {}
-        for r in records:
-            kp = r.get("knowledge_point", "未知")
-            chapter_errors[kp] = chapter_errors.get(kp, 0) + 1
-        max_errors = max(chapter_errors.values()) if chapter_errors else 1
-        chapter_acc = {kp: max(0.1, 1.0 - count / (count + 5)) for kp, count in chapter_errors.items()}
+        error_stats = self._error_repo.get_stats(user_id)
+        by_chapter = error_stats.by_chapter
+        if not by_chapter:
+            return
+        total = error_stats.total_errors
+        chapter_acc = {kp: max(0.1, 1.0 - count / (count + 5))
+                       for kp, count in by_chapter.items()}
         weak = sorted(chapter_acc.items(), key=lambda x: x[1])[:5]
         weak_points = [w[0] for w in weak]
         profile = self._profile_repo.get_profile(user_id)
-        profile.total_questions = len(records)
+        profile.total_questions = total
         profile.chapter_accuracy = chapter_acc
         profile.weak_points = weak_points
         profile.recommendations = [f"重点复习 {w} 相关题型" for w in weak_points]

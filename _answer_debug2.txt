@@ -1,0 +1,62 @@
+### 步骤1：
+步骤1：写出二次型矩阵: 将二次型写成矩阵形式，对角元素为平方项系数，非对角元素为交叉项系数的一半
+
+$ \Rightarrow A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & a \end{pmatrix}$
+
+### 步骤2：
+步骤2：利用特征向量定义列方程: 根据特征值和特征向量的定义Aα=λα，代入得到方程组
+
+$A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & a \end{pmatrix}, \alpha=(1,b,1)^\mathrm{T}, A\alpha=\lambda\alpha \Rightarrow \begin{cases} 3-b=\lambda, \\ 2b-2=\lambda b, \\ 1-b+a=\lambda \end{cases}$
+
+### 步骤3：
+步骤3：求解参数: 由前两式消去λ得b²-b-2=0，解得b=2或b=-1，结合b<0取b=-1，然后回代得λ=4，a=2
+
+$\begin{cases} 3-b=\lambda, \\ 2b-2=\lambda b, \\ 1-b+a=\lambda \end{cases} \Rightarrow b=-1,\; \lambda=4,\; a=2$
+
+### 步骤4：
+步骤4：确定矩阵A: 将a=2代入矩阵，得到确定的对称矩阵
+
+$A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & a \end{pmatrix}, a=2 \Rightarrow A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & 2 \end{pmatrix}$
+
+### 步骤5：
+步骤5：求特征多项式: 计算特征多项式f(λ)=det(λE-A)，得到三次多项式
+
+$A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & 2 \end{pmatrix} \Rightarrow |\lambda E-A|=\lambda^3-6\lambda^2+9\lambda-4$
+
+### 步骤6：
+步骤6：解特征方程得特征值: 因式分解得特征方程，解得特征值λ₁=4，λ₂=λ₃=1
+
+$|\lambda E-A|=\lambda^3-6\lambda^2+9\lambda-4 \Rightarrow (\lambda-4)(\lambda-1)^2=0 \Rightarrow \lambda_1=4,\lambda_2=\lambda_3=1$
+
+### 步骤7：
+步骤7：求λ=4的特征向量: 解齐次方程组(4E-A)x=0，得到属于λ=4的特征向量，即已知的α
+
+$\lambda_1=4, A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & 2 \end{pmatrix} \Rightarrow \alpha_1=(1,-1,1)^\mathrm{T}$
+
+### 步骤8：
+步骤8：求λ=1的特征向量: 解(E-A)x=0，得基础解系两个线性无关的向量
+
+$\lambda_2=\lambda_3=1, A=\begin{pmatrix} 2 & -1 & 1 \\ -1 & 2 & -1 \\ 1 & -1 & 2 \end{pmatrix} \Rightarrow p_1=(1,1,0)^\mathrm{T},\; p_2=(-1,0,1)^\mathrm{T}$
+
+### 步骤9：
+步骤9：施密特正交化: 对p₁,p₂用施密特正交化，得到正交的特征向量β₁,β₂（取β₂为整数向量）
+
+$p_1=(1,1,0)^\mathrm{T},\; p_2=(-1,0,1)^\mathrm{T} \Rightarrow \beta_1=(1,1,0)^\mathrm{T},\; \beta_2=(-1,1,2)^\mathrm{T}$
+
+### 步骤10：
+步骤10：单位化: 将三个正交的特征向量单位化，得到标准正交基
+
+$\alpha_1=(1,-1,1)^\mathrm{T},\; \beta_1=(1,1,0)^\mathrm{T},\; \beta_2=(-1,1,2)^\mathrm{T} \Rightarrow \gamma_1=\frac{1}{\sqrt{3}}(1,-1,1)^\mathrm{T},\; \gamma_2=\frac{1}{\sqrt{2}}(1,1,0)^\mathrm{T},\; \gamma_3=\frac{1}{\sqrt{6}}(-1,1,2)^\mathrm{T}$
+
+### 步骤11：
+步骤11：写出正交变换和标准型: 以正交单位化向量为列构成正交矩阵Q，正交变换x=Qy下二次型化为标准形，系数为对应的特征值
+
+$\gamma_1,\gamma_2,\gamma_3 \Rightarrow Q=\begin{pmatrix} \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{6}} \\ -\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{3}} & 0 & \frac{2}{\sqrt{6}} \end{pmatrix},\; f=4y_1^2+y_2^2+y_3^2$
+
+### 步骤12：
+步骤12：求最小值: 在x^Tx=1即单位球面约束下，正交变换保长度，问题转为在y₁²+y₂²+y₃²=1下求f=4y₁²+y₂²+y₃²的最小值，当y₁=0时取最小值1（最小特征值）
+
+$f=4y_1^2+y_2^2+y_3^2,\; x^\mathrm{T}x=1 \Rightarrow f_{\min}=1$
+
+### 最终答案
+a=2,b=-1,\lambda=4;\quad Q=\begin{pmatrix} \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{6}} \\ -\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{3}} & 0 & \frac{2}{\sqrt{6}} \end{pmatrix}, f=4y_1^2+y_2^2+y_3^2;\quad f_{\min}=1.

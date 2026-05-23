@@ -20,11 +20,32 @@
     "D": "$\\sum a_n$ 条件收敛，$\\sum b_n$ 绝对收敛"
   },
   "correct_option": "C",
-  "standard_answer": "C",
+  "standard_answer": "## 题目重述\n设函数 $f(x)=e^x$ 在区间 $[-1,1]$ 上展开为傅里叶级数\n$$\n\\frac{a_0}{2}+\\sum_{n=1}^\\infty \\left(a_n\\cos n\\pi x+b_n\\sin n\\pi x\\right),\n$$\n需要判断系数级数 $\\sum a_n$ 与 $\\sum b_n$ 的收敛性（绝对收敛或条件收敛）。\n\n## 标准答案\n$\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。正确选项为 C。\n\n## 步骤1：计算傅里叶系数 $a_n$ 与 $b_n$\n傅里叶系数公式为（周期 $T=2$，基频 $\\omega=n\\pi$）：\n$$\na_n=\\int_{-1}^{1}e^x\\cos(n\\pi x)\\,dx,\\qquad n=0,1,2,\\dots\n$$\n$$\nb_n=\\int_{-1}^{1}e^x\\sin(n\\pi x)\\,dx,\\qquad n=1,2,\\dots\n$$\n利用复指数积分简化计算。令\n$$\nc_n=\\frac{1}{2}\\int_{-1}^{1}e^x e^{-in\\pi x}\\,dx=\\frac{1}{2}\\int_{-1}^{1}e^{x(1-in\\pi)}\\,dx.\n$$\n积分得\n$$\nc_n=\\frac{1}{2}\\left[\\frac{e^{x(1-in\\pi)}}{1-in\\pi}\\right]_{-1}^{1}\n      =\\frac{1}{2}\\cdot\\frac{e^{1-in\\pi}-e^{-1+in\\pi}}{1-in\\pi}.\n$$\n由于 $e^{-in\\pi}=(-1)^n$，$e^{in\\pi}=(-1)^n$，于是\n$$\ne^{1-in\\pi}=e\\cdot(-1)^n,\\quad e^{-1+in\\pi}=e^{-1}\\cdot(-1)^n,\n$$\n所以\n$$\nc_n=\\frac{(e-e^{-1})(-1)^n}{2(1-in\\pi)}.\n$$\n有理化分母：\n$$\n\\frac{1}{1-in\\pi}=\\frac{1+in\\pi}{1+n^2\\pi^2},\n$$\n因此\n$$\nc_n=\\frac{(e-e^{-1})(-1)^n(1+in\\pi)}{2(1+n^2\\pi^2)}.\n$$\n因为 $a_n=2\\operatorname{Re}(c_n)$，$b_n=-2\\operatorname{Im}(c_n)$，故\n$$\na_n=\\frac{(e-e^{-1})(-1)^n}{1+n^2\\pi^2},\\qquad\nb_n=-\\frac{(e-e^{-1})(-1)^n n\\pi}{1+n^2\\pi^2}.\n$$\n\n## 步骤2：分析 $\\sum a_n$ 的收敛性\n由 $a_n$ 的表达式得\n$$\n|a_n|=\\frac{e-e^{-1}}{1+n^2\\pi^2}\\sim\\frac{C}{n^2}\\quad (n\\to\\infty).\n$$\n因为 $\\sum\\frac{1}{n^2}$ 收敛，由比较判别法知 $\\sum |a_n|$ 收敛，即 $\\sum a_n$ **绝对收敛**。\n\n## 步骤3：分析 $\\sum b_n$ 的收敛性\n由 $b_n$ 的表达式得\n$$\n|b_n|=\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}\\sim\\frac{D}{n}\\quad (n\\to\\infty),\n$$\n而 $\\sum\\frac{1}{n}$ 发散，故 $\\sum |b_n|$ 发散，$\\sum b_n$ 不可能绝对收敛。\n\n考察 $\\sum b_n$ 本身：$b_n=(-1)^n\\cdot\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}$，记 $u_n=\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}>0$。则 $\\sum b_n$ 是交错级数 $\\sum (-1)^n u_n$。$u_n$ 单调递减（当 $n$ 充分大时）且 $\\lim_{n\\to\\infty}u_n=0$，由莱布尼茨判别法知 $\\sum b_n$ 收敛。结合 $\\sum |b_n|$ 发散，故 $\\sum b_n$ **条件收敛**。\n\n## 步骤4：逐项分析各个选项（选择题常见选项）\n**选项 A**：$\\sum a_n$ 绝对收敛，$\\sum b_n$ 绝对收敛。  \n错误，因为 $\\sum |b_n|\\sim\\sum\\frac{1}{n}$ 发散。\n\n**选项 B**：$\\sum a_n$ 条件收敛，$\\sum b_n$ 条件收敛。  \n错误，因为 $\\sum|a_n|\\sim\\sum\\frac{1}{n^2}$ 收敛，故 $\\sum a_n$ 是绝对收敛而非条件收敛。\n\n**选项 C**：$\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。  \n正确，如上分析。\n\n**选项 D**：$\\sum a_n$ 条件收敛，$\\sum b_n$ 绝对收敛。  \n错误，因为 $\\sum a_n$ 绝对收敛，$\\sum b_n$ 不绝对收敛。\n\n## 结论\n正确答案为选项 C，即 $\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。\n\n## 关键知识点\n- 周期函数傅里叶系数的计算（利用复指数简化）\n- 级数绝对收敛与条件收敛的定义与判别法（比较判别法、莱布尼茨判别法）\n- 傅里叶系数衰减速度与函数光滑性的关系（存在跳跃时系数为 $O(1/n)$，连续时可达 $O(1/n^2)$）\n\n## 易错提示\n- 积分计算时注意区间为 $[-1,1]$，周期 $T=2$，基频为 $n\\pi x$，切勿误用标准 $2\\pi$ 周期公式\n- $b_n$ 的符号含有 $(-1)^n$，这是由端点函数值的跳跃带来的，正是这一交错结构导致其条件收敛\n- 判断绝对收敛时需取绝对值后再用等价无穷小比较，不能直接由 $b_n\\sim 1/n$ 而忽略交错因子",
   "source": "import_hegongda_v7",
   "solution_steps": [],
   "volume": "卷七",
   "__cached_at__": 1779502378.19535,
   "raw_question_text": "设 $f(x)=e^x$ 在 $[-1,1]$ 上展开成傅里叶级数 $\\frac{a_0}{2}+\\sum_{n=1}^\\infty (a_n\\cos n\\pi x+b_n\\sin n\\pi x)$，则",
-  "raw_answer_text": "C"
+  "raw_answer_text": "C",
+  "final_answer": "C",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 19:36",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779536219",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n设函数 $f(x)=e^x$ 在区间 $[-1,1]$ 上展开为傅里叶级数\n$$\n\\frac{a_0}{2}+\\sum_{n=1}^\\infty \\left(a_n\\cos n\\pi x+b_n\\sin n\\pi x\\right),\n$$\n需要判断系数级数 $\\sum a_n$ 与 $\\sum b_n$ 的收敛性（绝对收敛或条件收敛）。\n\n## 标准答案\n$\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。正确选项为 C。\n\n## 步骤1：计算傅里叶系数 $a_n$ 与 $b_n$\n傅里叶系数公式为（周期 $T=2$，基频 $\\omega=n\\pi$）：\n$$\na_n=\\int_{-1}^{1}e^x\\cos(n\\pi x)\\,dx,\\qquad n=0,1,2,\\dots\n$$\n$$\nb_n=\\int_{-1}^{1}e^x\\sin(n\\pi x)\\,dx,\\qquad n=1,2,\\dots\n$$\n利用复指数积分简化计算。令\n$$\nc_n=\\frac{1}{2}\\int_{-1}^{1}e^x e^{-in\\pi x}\\,dx=\\frac{1}{2}\\int_{-1}^{1}e^{x(1-in\\pi)}\\,dx.\n$$\n积分得\n$$\nc_n=\\frac{1}{2}\\left[\\frac{e^{x(1-in\\pi)}}{1-in\\pi}\\right]_{-1}^{1}\n      =\\frac{1}{2}\\cdot\\frac{e^{1-in\\pi}-e^{-1+in\\pi}}{1-in\\pi}.\n$$\n由于 $e^{-in\\pi}=(-1)^n$，$e^{in\\pi}=(-1)^n$，于是\n$$\ne^{1-in\\pi}=e\\cdot(-1)^n,\\quad e^{-1+in\\pi}=e^{-1}\\cdot(-1)^n,\n$$\n所以\n$$\nc_n=\\frac{(e-e^{-1})(-1)^n}{2(1-in\\pi)}.\n$$\n有理化分母：\n$$\n\\frac{1}{1-in\\pi}=\\frac{1+in\\pi}{1+n^2\\pi^2},\n$$\n因此\n$$\nc_n=\\frac{(e-e^{-1})(-1)^n(1+in\\pi)}{2(1+n^2\\pi^2)}.\n$$\n因为 $a_n=2\\operatorname{Re}(c_n)$，$b_n=-2\\operatorname{Im}(c_n)$，故\n$$\na_n=\\frac{(e-e^{-1})(-1)^n}{1+n^2\\pi^2},\\qquad\nb_n=-\\frac{(e-e^{-1})(-1)^n n\\pi}{1+n^2\\pi^2}.\n$$\n\n## 步骤2：分析 $\\sum a_n$ 的收敛性\n由 $a_n$ 的表达式得\n$$\n|a_n|=\\frac{e-e^{-1}}{1+n^2\\pi^2}\\sim\\frac{C}{n^2}\\quad (n\\to\\infty).\n$$\n因为 $\\sum\\frac{1}{n^2}$ 收敛，由比较判别法知 $\\sum |a_n|$ 收敛，即 $\\sum a_n$ **绝对收敛**。\n\n## 步骤3：分析 $\\sum b_n$ 的收敛性\n由 $b_n$ 的表达式得\n$$\n|b_n|=\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}\\sim\\frac{D}{n}\\quad (n\\to\\infty),\n$$\n而 $\\sum\\frac{1}{n}$ 发散，故 $\\sum |b_n|$ 发散，$\\sum b_n$ 不可能绝对收敛。\n\n考察 $\\sum b_n$ 本身：$b_n=(-1)^n\\cdot\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}$，记 $u_n=\\frac{(e-e^{-1})n\\pi}{1+n^2\\pi^2}>0$。则 $\\sum b_n$ 是交错级数 $\\sum (-1)^n u_n$。$u_n$ 单调递减（当 $n$ 充分大时）且 $\\lim_{n\\to\\infty}u_n=0$，由莱布尼茨判别法知 $\\sum b_n$ 收敛。结合 $\\sum |b_n|$ 发散，故 $\\sum b_n$ **条件收敛**。\n\n## 步骤4：逐项分析各个选项（选择题常见选项）\n**选项 A**：$\\sum a_n$ 绝对收敛，$\\sum b_n$ 绝对收敛。  \n错误，因为 $\\sum |b_n|\\sim\\sum\\frac{1}{n}$ 发散。\n\n**选项 B**：$\\sum a_n$ 条件收敛，$\\sum b_n$ 条件收敛。  \n错误，因为 $\\sum|a_n|\\sim\\sum\\frac{1}{n^2}$ 收敛，故 $\\sum a_n$ 是绝对收敛而非条件收敛。\n\n**选项 C**：$\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。  \n正确，如上分析。\n\n**选项 D**：$\\sum a_n$ 条件收敛，$\\sum b_n$ 绝对收敛。  \n错误，因为 $\\sum a_n$ 绝对收敛，$\\sum b_n$ 不绝对收敛。\n\n## 结论\n正确答案为选项 C，即 $\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛。\n\n## 关键知识点\n- 周期函数傅里叶系数的计算（利用复指数简化）\n- 级数绝对收敛与条件收敛的定义与判别法（比较判别法、莱布尼茨判别法）\n- 傅里叶系数衰减速度与函数光滑性的关系（存在跳跃时系数为 $O(1/n)$，连续时可达 $O(1/n^2)$）\n\n## 易错提示\n- 积分计算时注意区间为 $[-1,1]$，周期 $T=2$，基频为 $n\\pi x$，切勿误用标准 $2\\pi$ 周期公式\n- $b_n$ 的符号含有 $(-1)^n$，这是由端点函数值的跳跃带来的，正是这一交错结构导致其条件收敛\n- 判断绝对收敛时需取绝对值后再用等价无穷小比较，不能直接由 $b_n\\sim 1/n$ 而忽略交错因子",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 19:36",
+      "reviewed": false
+    }
+  ]
 }

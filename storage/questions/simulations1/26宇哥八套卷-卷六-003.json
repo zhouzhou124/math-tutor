@@ -21,6 +21,8 @@
     "C": "$(0,1)$",
     "D": "$(-\\frac{1}{2},\\frac{1}{2}]$"
   },
-  "correct_option": "D",
-  "raw_question_text": "若级数 $\\sum_{n = 1}^{\\infty}(-1)^{n + 1}\\frac{\\sqrt{n + 1} - \\sqrt{n}}{n^{p}}$ 条件收敛，则 $p$ 的取值范围为"
+  "correct_option": "A",
+  "raw_question_text": "若级数 $\\sum_{n = 1}^{\\infty}(-1)^{n + 1}\\frac{\\sqrt{n + 1} - \\sqrt{n}}{n^{p}}$ 条件收敛，则 $p$ 的取值范围为",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

@@ -15,12 +15,11 @@
     "积分不等式"
   ],
   "question": "(本题满分12分) 设 $f(x)$ 是 $[0,1]$ 上恒正连续函数，且在 $(0,1)$ 内二阶可导，$f(0)=0$.\n$(1)$ 证明存在 $\\xi\\in(0,1)$，有 $\\int_0^1 f^3(x)dx = f'(\\xi)(\\int_0^1 f(x)dx)^2$；\n$(2)$ 证明存在 $\\eta\\in(0,1)$，有 $\\eta f''(\\eta)+2f'(\\eta)=6\\int_0^1 xf(x)dx$.",
-  "standard_answer": "证明略",
+  "standard_answer": "",
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "options": {},
   "volume": "卷四",
-  "__cached_at__": 1779467434.1766164,
   "raw_question_text": "(本题满分12分) 设 $f(x)$ 是 $[0,1]$ 上恒正连续函数，且在 $(0,1)$ 内二阶可导，$f(0)=0$.\n$(1)$ 证明存在 $\\xi\\in(0,1)$，有 $\\int_0^1 f^3(x)dx = f'(\\xi)(\\int_0^1 f(x)dx)^2$；\n$(2)$ 证明存在 $\\eta\\in(0,1)$，有 $\\eta f''(\\eta)+2f'(\\eta)=6\\int_0^1 xf(x)dx$.",
   "raw_answer_text": "证明略"
 }

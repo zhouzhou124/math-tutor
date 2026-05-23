@@ -22,5 +22,7 @@
     "D": "$\\frac{81}{100}$"
   },
   "correct_option": "A",
-  "raw_question_text": "设 $X_1,X_2,\\dots,X_{10}$ 是来自标准正态总体 $X$ 的简单随机样本，$Y = \\frac{9}{10} \\left( X_{10} - \\frac{1}{9} \\sum_{i=1}^9 X_i \\right)^2$，则 $D(Y) =$"
+  "raw_question_text": "设 $X_1,X_2,\\dots,X_{10}$ 是来自标准正态总体 $X$ 的简单随机样本，$Y = \\frac{9}{10} \\left( X_{10} - \\frac{1}{9} \\sum_{i=1}^9 X_i \\right)^2$，则 $D(Y) =$",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

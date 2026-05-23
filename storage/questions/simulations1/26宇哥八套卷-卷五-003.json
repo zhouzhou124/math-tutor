@@ -22,5 +22,7 @@
     "D": "$4$"
   },
   "correct_option": "A",
-  "raw_question_text": "若 $\\{x_n\\}, \\{y_n\\}$ 满足 $\\lim_{n\\to\\infty} x_n y_n = \\infty$，则：① $\\lim_{n \\to \\infty} x_n=\\infty$ 或 $\\lim_{n \\to \\infty} y_n=\\infty$；② 都趋于无穷；③ 一个是无穷大另一个是无界量；④ 当 $x_n$ 是非零无穷小时， $\\lim_{n \\to \\infty} y_n=\\infty$ 正确个数为"
+  "raw_question_text": "若 $\\{x_n\\}, \\{y_n\\}$ 满足 $\\lim_{n\\to\\infty} x_n y_n = \\infty$，则：① $\\lim_{n \\to \\infty} x_n=\\infty$ 或 $\\lim_{n \\to \\infty} y_n=\\infty$；② 都趋于无穷；③ 一个是无穷大另一个是无界量；④ 当 $x_n$ 是非零无穷小时， $\\lim_{n \\to \\infty} y_n=\\infty$ 正确个数为",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

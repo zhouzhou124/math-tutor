@@ -91,6 +91,92 @@ def _wrap_unicode_math(text: str) -> str:
     return ''.join(parts)
 
 
+def _wrap_ascii_math(text: str) -> str:
+    """Wrap ASCII math expressions (B^2=E, a^Tx=0, k>0) in $...$.
+
+    Strategy: split by Chinese/punctuation, detect math-like segments, wrap them.
+    """
+    if not text:
+        return text
+
+    # Protect existing $...$ and $$...$$ regions
+    protected = []
+    def _protect(m):
+        protected.append(m.group(0))
+        return f'\x00A{len(protected)-1}\x00'
+    text = _re.sub(r'\$\$[^$]+\$\$', _protect, text)
+    text = _re.sub(r'\$[^$]+\$', _protect, text)
+
+    # Split on Chinese chars, certain punctuation — keep delimiters
+    parts = _re.split(r'([一-鿿，。、；：！？\n]+)', text)
+    result = []
+    for part in parts:
+        stripped = part.strip()
+        # Skip Chinese-only parts and already-protected
+        if not stripped or '\x00A' in part:
+            result.append(part)
+            continue
+        if all('一' <= c <= '鿿' or c in '，。、；：！？\n ' for c in stripped):
+            result.append(part)
+            continue
+        # Check if this segment looks like math (has operator + variables)
+        has_math_op = bool(_re.search(r'[=\^\_\+\-\*/<>]', stripped))
+        has_var = bool(_re.search(r'[a-zA-Z]', stripped))
+        is_pure_digit = _re.match(r'^[\d\s\.\-]+$', stripped)
+        if has_math_op and has_var and not is_pure_digit and len(stripped) >= 3:
+            # Wrap in $...$
+            result.append(part.replace(stripped, '$' + stripped + '$'))
+        else:
+            result.append(part)
+
+    text = ''.join(result)
+    # Restore protected regions
+    for i, block in enumerate(protected):
+        text = text.replace(f'\x00A{i}\x00', block)
+
+    return text
+
+
+def _extract_question_preview(text: str, max_len: int = 70) -> str:
+    """Strip LaTeX/markdown, return plain text fingerprint of a question."""
+    if not text:
+        return ""
+    s = text
+    s = _re.sub(r'\$\$[^$]*\$\$', '', s)
+    s = _re.sub(r'\$([^$]+?)\$', r'\1', s)
+    s = _re.sub(r'\\[a-zA-Z]+(?:\{[^}]*\})*', '', s)
+    s = _re.sub(r'\\begin\{[^}]*\}', '', s)
+    s = _re.sub(r'\\end\{[^}]*\}', '', s)
+    s = _re.sub(r'\\[;:,.\s]', ' ', s)
+    s = s.replace('{', '').replace('}', '')
+    s = _re.sub(r'[&_^~]', ' ', s)
+    s = _re.sub(r'\s+', ' ', s)
+    s = s.strip(' ，。、；：！？\n\r\t0123456789.()（）[]【】')
+    s = _re.sub(r'^\s*\$?\d+\.?\$?\s*', '', s)
+    s = _re.sub(r'^\s*[（(]\s*\d+\s*[）)]\s*', '', s)
+    s = _re.sub(r'\s*本题满分\d+分\s*', '', s)
+    if len(s) > max_len:
+        s = s[:max_len].rsplit(' ', 1)[0]
+    return s.strip()
+
+
+def _compute_preview_hash(question_text: str) -> str:
+    """Stable 8-char hash of normalized question text for dedup/fast search."""
+    import hashlib
+    normalized = _extract_question_preview(question_text, max_len=200)
+    return hashlib.md5(normalized.encode('utf-8', errors='replace')).hexdigest()[:8]
+
+
+def _compute_render_cost(answer_text: str) -> str:
+    """Heuristic render cost: LOW (<500 chars), MEDIUM (500-2000), HIGH (>2000)."""
+    length = len(answer_text or '')
+    if length < 500:
+        return "LOW"
+    elif length < 2000:
+        return "MEDIUM"
+    return "HIGH"
+
+
 # ═══════════════════════════════════════════════
 #  Helpers for thread-safe state access
 # ═══════════════════════════════════════════════
@@ -111,7 +197,7 @@ def _ss_set(key, value, *, _state=None):
 
 
 def _clear_grading_state():
-    """清理所有批改相关的状态，用于重新开始批改时确保干净的状态"""
+    """清理所有批改相关的状态，释放内存"""
     keys_to_clear = [
         'grading_result',
         'diagnosis_result',
@@ -120,10 +206,27 @@ def _clear_grading_state():
         'answer_view_mode',
         'grading_triggered',
         '_poll_start',
+        'ocr_result',            # OCR 数据可能很大
+        'ocr_progress',          # OCR 进度
     ]
     for key in keys_to_clear:
         if key in st.session_state:
             del st.session_state[key]
+    # 清理过期的搜索缓存（5分钟以上）
+    import time as _time
+    _now = _time.time()
+    for key in list(st.session_state.keys()):
+        if key.startswith("search_cache_time_"):
+            if _now - st.session_state[key] > 300:
+                cache_key = "search_cache_" + key[len("search_cache_time_"):]
+                st.session_state.pop(key, None)
+                st.session_state.pop(cache_key, None)
+        elif key.startswith("search_cache_") and key.count("_") == 5:
+            # 检查是否有对应的时间戳，如果没有就删除
+            pass  # handled above
+    # 强制垃圾回收
+    import gc
+    gc.collect()
 
 
 def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str,
@@ -143,10 +246,13 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str,
 
     # ── Primary check: canonical pool has solutions → never re-expand ──
     pool = (selected_q or {}).get("canonical_solutions") or []
-    if pool:
-        return False  # Already have canonical traces → use them
     meta = (selected_q or {}).get("solution_metadata") or {}
+    if pool and meta.get("canonical", True) and meta.get("has_steps", True):
+        return False  # Already have verified canonical traces with steps → use them
     if meta.get("canonical"):
+        # canonical=True 但 has_steps=False → 只有最终答案没有推导，仍需展开
+        if meta.get("has_steps") is False:
+            return True
         return False  # Legacy single-canonical → never re-expand
 
     # ── Fallback: legacy checks for pre-metadata answers ──
@@ -512,14 +618,27 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
                 "Canonical solution has LaTeX issues, not saving: %s", issues)
             return False
 
-        # 步骤标记检查：确保答案包含真正的步骤推导
-        # 解答题必须包含步骤标记（步骤N：或第N步：），否则不保存为canonical
-        has_step_markers = bool(re.search(r'(?:步骤\s*\d+\s*[：:]|第\s*\d+\s*步\s*[：:])', expanded))
-        if not has_step_markers:
+        # 拒绝明显的思考草稿（>5000字 或 含"此路不通""另一种思路"等自问自答标记）
+        if len(expanded) > 5000 or re.search(r'此路不通|不对，|另一种思路|尝试构造|不行。', expanded):
             import logging
             logging.getLogger(__name__).warning(
-                "Canonical solution without step markers, not saving: %s", qid)
+                "Canonical solution looks like chain-of-thought draft, not saving: %s", qid)
             return False
+
+        # 步骤标记检查：确保答案包含真正的步骤推导
+        # 选择题/填空题接受 display math 作为替代标志
+        qtype = data.get("question_type", "")
+        has_step_markers = bool(re.search(r'(?:步骤\s*\d+\s*[：:]|第\s*\d+\s*步\s*[：:])', expanded))
+        has_display_math = bool(re.search(r'\$\$[^$]+\$\$|\\\[[^\]]+\\\]', expanded))
+        is_long_enough = len(expanded.strip()) >= 300
+        if not has_step_markers:
+            if qtype in ("选择题", "填空题") and (has_display_math or is_long_enough):
+                pass  # 选择题/填空题接受 display-math 或长度足够的内容
+            else:
+                import logging
+                logging.getLogger(__name__).warning(
+                    "Canonical solution without step markers, not saving: %s", qid)
+                return False
 
         # 迁移原始短答案到 final_answer（仅首次）
         old_answer = data.get("standard_answer", "")
@@ -557,9 +676,13 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
         existing_names = {s.get("method_name", "") for s in pool}
         if method_name not in existing_names:
             pool.append(new_solution)
+        # Check if the source answer was a placeholder (证明略 etc.)
+        # If so, NEVER mark as canonical — the AI answer needs verification
+        _src_ans = (data.get("raw_answer_text") or old_answer or "").strip()
+        _is_placeholder = _src_ans in ("证明略", "解析略", "过程略", "答案略", "方法略", "略", "")
         # Update legacy metadata and standard_answer for backward compat
         data["solution_metadata"] = {
-            "canonical": True,
+            "canonical": not _is_placeholder,  # placeholder源 → 不锁死
             "has_steps": True,
             "pool_size": len(pool),
             "generated_by": model or "AI",
@@ -734,6 +857,13 @@ def _parse_steps_from_text(text: str) -> list:
 
         content = text[content_start:content_end].strip()
 
+        # Strip redundant step number prefix (LLM often outputs
+        # "### 步骤1：\n步骤1：xxx" — the content line also has the number)
+        content = re.sub(
+            rf'^步骤\s*{step_num}\s*(?:步)?\s*[：:]\s*',
+            '', content, count=1
+        )
+
         # Trim trailing sections that belong to metadata, not steps
         boundary_match = boundary_pattern.search(content)
         if boundary_match:
@@ -769,6 +899,11 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     )
 
     if _is_metadata_only:
+        _known_answer = ""
+
+    # 检测占位符答案："证明略"、"答案略" 等不是真实答案，必须清空让 LLM 独立求解
+    _placeholder_answers = ("证明略", "解析略", "过程略", "答案略", "方法略", "证明见解析", "略")
+    if _known_answer.strip() in _placeholder_answers:
         _known_answer = ""
 
     if q_type == "选择题" and correct_option:
@@ -820,16 +955,30 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "steps": _parse_steps_from_text(expanded) if expanded else [],
             }
             if expanded:
-                # Parse structured steps from whatever the LLM returned.
-                # Even if it looks like the known_answer, we still need
-                # _structured for the renderer to show anything useful.
-                try:
-                    from latex_utils import from_legacy_text
-                    solution["_structured"] = from_legacy_text(expanded)
-                except Exception:
-                    pass
+                # 检测 LLM 空壳：有 ## 标题但全是元数据/结论类，无步骤标记
+                _has_step = bool(re.search(r'步骤\s*\d+\s*[：:]', expanded))
+                _all_headings = re.findall(r'##\s*(\S+)', expanded)
+                _meta_headings = {'关键知识点', '易错提示', '常见误区', '秒杀技巧',
+                    '考查知识点', '核心概念', '结论', '总结', '注意', '提示',
+                    '分析', '考查内容', '考点', '知识回顾', '预备知识', '思路'}
+                _is_empty_shell = (
+                    _all_headings
+                    and not _has_step
+                    and all(h in _meta_headings for h in _all_headings)
+                )
+                if _is_empty_shell:
+                    solution["standard_answer"] = ""
+                    solution["steps"] = []
+                    solution["_structured"] = {}
+                    status.write("⚠️ AI 返回了元数据壳子（无实际推导），尝试降级...")
+                else:
+                    try:
+                        from latex_utils import from_legacy_text
+                        solution["_structured"] = from_legacy_text(expanded)
+                    except Exception:
+                        pass
 
-                if expanded != _known_answer:
+                if expanded != _known_answer and not _is_empty_shell:
                     consistent = _verify_answer_consistency(expanded, _known_answer)
                     # Always save as canonical — consistency check only
                     # controls the warning, never blocks persistence.
@@ -880,15 +1029,26 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                     fb_steps = fallback_solution.get("steps") or []
                     fb_struc = fallback_solution.get("_structured") or {}
                     fb_answer = fallback_solution.get("standard_answer", "")
-                    fb_total = len(fb_answer.strip()) + sum(
-                        len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
-                        for b in (s.get("blocks") or []) if isinstance(s, dict)
-                    ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
-                    if fb_total >= 80:
+                    _fb_all = re.findall(r'##\s*(\S+)', fb_answer)
+                    _fb_meta = {'关键知识点', '易错提示', '常见误区', '秒杀技巧',
+                        '考查知识点', '核心概念', '结论', '总结', '注意', '提示',
+                        '分析', '考查内容', '考点', '知识回顾', '预备知识', '思路'}
+                    _fb_has_step = bool(re.search(r'步骤\s*\d+\s*[：:]', fb_answer))
+                    _fb_is_shell = (_fb_all and not _fb_has_step
+                                    and all(h in _fb_meta for h in _fb_all))
+                    if _fb_is_shell:
                         solution["standard_answer"] = fb_answer
-                        solution["steps"] = fb_steps
-                        solution["_structured"] = fb_struc
                         solution["_solver_fallback"] = True
+                    else:
+                        fb_total = len(fb_answer.strip()) + sum(
+                            len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
+                            for b in (s.get("blocks") or []) if isinstance(s, dict)
+                        ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
+                        if fb_total >= 80:
+                            solution["standard_answer"] = fb_answer
+                            solution["steps"] = fb_steps
+                            solution["_structured"] = fb_struc
+                            solution["_solver_fallback"] = True
                         status.write("✓ SolverAgent 降级成功，已生成详细解答")
                         _cache_detailed_answer(selected_q,
                             _solution_to_text(fallback_solution) or fb_answer, _model)
@@ -896,40 +1056,78 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 logging.getLogger(__name__).warning(
                     "SolverAgent fallback also failed: %s", _fb_exc)
 
-    # 路径3：无任何已知答案 → 直接使用 generate_detailed_answer 生成详细解答（1次LLM）
+    # 路径3：无任何已知答案 → 文本生成优先（快），空壳时 SolverAgent 降级
     elif client is not None:
         status.write("⏳ AI 生成详细解答...")
-        full_question_dict = dict(selected_q or {})
-        raw_q = selected_q.get("raw_question_text") or selected_q.get("question", question)
-        full_question_dict.setdefault("question", raw_q)
+        full_question = question
         if selected_q.get("options"):
-            full_question_dict["question"] += "\n" + "\n".join(
-                f"({key}) {value}" for key, value in sorted(selected_q["options"].items())
-            )
+            for key in sorted(selected_q.get("options", {}).keys()):
+                full_question += f"\n({key}) {selected_q['options'][key]}"
         try:
             from choice_explainer import generate_detailed_answer
             expanded = generate_detailed_answer(
-                question=full_question_dict,
+                question={"question": full_question},
                 known_answer="",
                 question_type=q_type or ocr_data.get("question_type", "解答题"),
                 client=client, model=_model,
             )
-            solution = {
-                "success": True,
-                "standard_answer": expanded if expanded else "解答生成失败",
-                "total_score": selected_q.get("score", 10),
-                "steps": _parse_steps_from_text(expanded) if expanded else [],
-            }
-            if expanded:
+            # 空壳检测
+            _has_step = bool(re.search(r'步骤\s*\d+\s*[：:]', expanded or ''))
+            _headings = re.findall(r'##\s*(\S+)', expanded or '')
+            _meta_set = {'关键知识点', '易错提示', '常见误区', '秒杀技巧',
+                '考查知识点', '核心概念', '结论', '总结', '注意', '提示',
+                '分析', '考查内容', '考点', '知识回顾', '预备知识', '思路'}
+            _is_shell = (_headings and not _has_step
+                         and all(h in _meta_set for h in _headings))
+            if expanded and len(expanded.strip()) >= 30 and not _is_shell:
+                solution = {
+                    "success": True,
+                    "standard_answer": expanded,
+                    "total_score": selected_q.get("score", 10),
+                    "steps": _parse_steps_from_text(expanded),
+                    "_ai_unverified": True,
+                }
+                status.write("✓ 详细解答已生成")
+            else:
+                # 空壳或太短 → SolverAgent 降级
+                status.write("⏳ 文本生成不理想，SolverAgent 降级...")
                 try:
-                    from latex_utils import from_legacy_text
-                    solution["_structured"] = from_legacy_text(expanded)
+                    from agents.solver_agent import SolverAgent
+                    solver = SolverAgent(client, _model)
+                    fb = solver.solve(
+                        question=full_question,
+                        math_type=ocr_data.get("math_type", "数学一"),
+                        question_type=q_type or ocr_data.get("question_type", "解答题"),
+                        knowledge_point=ocr_data.get("knowledge_point", "未指定"),
+                    )
+                    if fb.get("success") and fb.get("standard_answer"):
+                        solution = {
+                            "success": True,
+                            "standard_answer": fb.get("standard_answer", ""),
+                            "total_score": selected_q.get("score", 10),
+                            "steps": fb.get("steps") or [],
+                            "_structured": fb.get("_structured") or {},
+                            "_ai_unverified": True,
+                        }
+                        _cache_detailed_answer(selected_q,
+                            _solution_to_text(fb) or fb.get("standard_answer", ""), _model)
+                        status.write("✓ SolverAgent 降级成功")
+                    else:
+                        solution = {
+                            "success": True,
+                            "standard_answer": expanded or "解答生成失败，请重试",
+                            "total_score": selected_q.get("score", 10),
+                            "steps": _parse_steps_from_text(expanded) if expanded else [],
+                        }
+                        status.write("⚠️ SolverAgent 也失败了")
                 except Exception:
-                    pass
-                # No known_answer to verify against — mark as unverified AI content
-                solution["_ai_unverified"] = True
-                _cache_detailed_answer(selected_q, expanded, _model)
-            status.write("✓ 详细解答已生成")
+                    solution = {
+                        "success": True,
+                        "standard_answer": expanded or "解答生成失败，请重试",
+                        "total_score": selected_q.get("score", 10),
+                        "steps": _parse_steps_from_text(expanded) if expanded else [],
+                    }
+                    status.write("⚠️ SolverAgent 异常")
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Detailed answer generation failed: %s", exc)
@@ -938,49 +1136,6 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 "standard_answer": "解答生成失败",
                 "total_score": selected_q.get("score", 10), "steps": [],
             }
-
-        # 降级：路径3 产物太短时，同样尝试 SolverAgent
-        _ans3 = solution.get("standard_answer", "")
-        _steps3 = solution.get("steps") or []
-        _struc3 = solution.get("_structured") or {}
-        _total3 = len(_ans3.strip()) + sum(
-            len(str(b.get("content", ""))) for s in (_struc3.get("steps") or [])
-            for b in (s.get("blocks") or []) if isinstance(s, dict)
-        ) + sum(len(str(s.get("content", ""))) for s in _steps3)
-        if _total3 < 80:
-            status.write("⏳ 主生成路径未产生详细解答，尝试 SolverAgent 降级...")
-            try:
-                full_question = question
-                if selected_q.get("options"):
-                    for key in sorted(selected_q.get("options", {}).keys()):
-                        full_question += f"\n({key}) {selected_q['options'][key]}"
-                from agents.solver_agent import SolverAgent
-                solver = SolverAgent(client, _model)
-                fallback_solution = solver.solve(
-                    question=full_question,
-                    math_type=ocr_data.get("math_type", "数学一"),
-                    question_type=q_type or ocr_data.get("question_type", "解答题"),
-                    knowledge_point=ocr_data.get("knowledge_point", "未指定"),
-                )
-                if fallback_solution.get("success"):
-                    fb_steps = fallback_solution.get("steps") or []
-                    fb_struc = fallback_solution.get("_structured") or {}
-                    fb_answer = fallback_solution.get("standard_answer", "")
-                    fb_total = len(fb_answer.strip()) + sum(
-                        len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
-                        for b in (s.get("blocks") or []) if isinstance(s, dict)
-                    ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
-                    if fb_total >= 80:
-                        solution["standard_answer"] = fb_answer
-                        solution["steps"] = fb_steps
-                        solution["_structured"] = fb_struc
-                        solution["_solver_fallback"] = True
-                        status.write("✓ SolverAgent 降级成功，已生成详细解答")
-                        _cache_detailed_answer(selected_q,
-                            _solution_to_text(fallback_solution) or fb_answer, _model)
-            except Exception as _fb_exc3:
-                logging.getLogger(__name__).warning(
-                    "SolverAgent fallback also failed: %s", _fb_exc3)
 
     # 路径4：无 API Key → 显示已有内容
     else:
@@ -997,6 +1152,8 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         solution["standard_answer"] = normalize_latex_style(solution.get("standard_answer", ""))
         # Unicode 数学符号包裹（π, ≤, →, Δ 等）——仅 AI 生成内容需要
         solution["standard_answer"] = _wrap_unicode_math(solution["standard_answer"])
+        # ASCII 数学表达式包裹（B^2=E, a^Tx=0 等）
+        solution["standard_answer"] = _wrap_ascii_math(solution["standard_answer"])
         steps = solution.get("steps", [])
         if steps:
             normalized_steps = []
@@ -1005,13 +1162,16 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                     if s.get("content"):
                         s["content"] = normalize_latex_style(s.get("content", ""))
                         s["content"] = _wrap_unicode_math(s["content"])
+                        s["content"] = _wrap_ascii_math(s["content"])
                     for b in s.get("blocks") or []:
                         if isinstance(b, dict) and b.get("type") == "latex":
                             b["content"] = normalize_latex_style(b.get("content", ""))
                             b["content"] = _wrap_unicode_math(b["content"])
+                            b["content"] = _wrap_ascii_math(b["content"])
                 elif isinstance(s, str):
                     s = normalize_latex_style(s)
                     s = _wrap_unicode_math(s)
+                    s = _wrap_ascii_math(s)
                 normalized_steps.append(s)
             solution["steps"] = normalized_steps
     except Exception:
@@ -1466,15 +1626,12 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
 
         error_record = {
             "question_id": selected_q.get("question_id", ""),
-            "question": question,
             "math_type": ocr_data.get("math_type", ""),
             "question_type": ocr_data.get("question_type", ""),
             "knowledge_point": ocr_data.get("knowledge_point", ""),
             "knowledge_points": selected_q.get("knowledge_points", []) or dresult.get("knowledge_points", []),
             "difficulty": selected_q.get("difficulty", "中等"),
             "student_answer": student_ans,
-            "standard_answer": full_standard_answer,
-            "solution_steps": saved_steps,
             "score": gresult.get("total", 0),
             "max_score": solution.get("total_score", 10),
             "is_correct": gresult.get("total", 0) >= solution.get("total_score", 10) * 0.9,
@@ -1491,6 +1648,17 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "common_mistakes": dresult.get("common_mistakes", []),
             "is_repeat_diagnosis": dresult.get("is_repeat", False),
             "timestamp": time.strftime("%Y-%m-%d %H:%M"),
+            # ── 热列表四层字段 ──
+            "question_preview": _extract_question_preview(question),
+            "question_preview_hash": _compute_preview_hash(question),
+            "wrong_reason_short": (dresult.get("root_cause") or dresult.get("error_type") or "答错")[:40],
+            "preview": (dresult.get("root_cause") or dresult.get("error_type") or "答错")[:60],
+            "semantic_tags": list(set(
+                (selected_q.get("knowledge_points") or []) +
+                (dresult.get("weak_points") or [])
+            ))[:6],
+            "render_cost_level": _compute_render_cost(
+                solution.get("standard_answer", "")),
         }
 
         # Save to 错题本.  In the background thread (_state is not None) we
@@ -1702,6 +1870,32 @@ def render_grading_page(db, render_latex):
 
     user_id = st.session_state.auth.get("user_id", "") if st.session_state.get("auth") else ""
 
+    # ── 定期清理过期的批改任务（超过24小时的删除，释放磁盘）──
+    try:
+        cleanup_old(hours=24)
+    except Exception:
+        pass
+
+    # ── 从磁盘刷新 selected_question，确保读到最新的 canonical 缓存 ──
+    _sq = st.session_state.get("selected_question") or {}
+    _sq_id = _sq.get("question_id", "")
+    if _sq_id and db:
+        try:
+            _fresh = db.get(_sq_id)
+            if _fresh:
+                st.session_state["selected_question"] = _fresh
+        except Exception:
+            pass
+
+    # ── 换题自动清理：释放上一题的批改结果，节省内存 ──
+    selected_q = st.session_state.get("selected_question") or {}
+    current_qid = selected_q.get("question_id", "")
+    last_graded_qid = st.session_state.get("_last_graded_qid", "")
+    if current_qid and last_graded_qid and current_qid != last_graded_qid:
+        _clear_grading_state()
+    if current_qid:
+        st.session_state["_last_graded_qid"] = current_qid
+
     # ── Recovery: check SQLite for a recent completed task only ──
     # Note: Only recover completed tasks, not processing tasks.
     # Processing tasks from previous sessions may be stale (server crashed).
@@ -1882,6 +2076,9 @@ def render_grading_page(db, render_latex):
 
     # 检查是否需要开始批改流程（同步回退 — 当 pending_task_id 未设置时）
     if st.session_state.get("grading_triggered"):
+        # 清理上一轮的大对象，释放内存
+        _clear_grading_state()
+        st.session_state["grading_triggered"] = True  # restore flag
         # Synchronous fallback path (kept for backward compatibility)
         model = st.session_state.get("model", LLM_MODEL)
         user_id = st.session_state.auth.get("user_id", "")
@@ -1917,6 +2114,10 @@ def render_grading_page(db, render_latex):
                 question_db=db,
                 solution_expanded=(gr.get("engine") == "view_only"),
             )
+
+        # 释放 _structured 重复副本（已嵌套在 standard_answer 中）
+        if "standard_answer_structured" in st.session_state:
+            del st.session_state["standard_answer_structured"]
 
         return  # 提前返回，不执行后续的真题库部分
 

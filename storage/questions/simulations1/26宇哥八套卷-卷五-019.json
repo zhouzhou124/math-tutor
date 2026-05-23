@@ -16,5 +16,7 @@
   "question": "$f$ 在 $[a,b]$ 可导，$c\\in(a,b)$.证明：\n$(1)$ 存在一点 $\\xi \\in (a,c)$，使得 $f(c) - f(a) = f'(\\xi)(c-a)$；\n$(2)$ 存在一点 $\\eta \\in (a,b)$，使得 $f(b) - f(a) = f'(\\eta)(b-a)$ 且 $\\eta > \\xi$.",
   "source": "import_v5",
   "options": {},
-  "raw_question_text": "$f$ 在 $[a,b]$ 可导，$c\\in(a,b)$.证明：\n$(1)$ 存在一点 $\\xi \\in (a,c)$，使得 $f(c) - f(a) = f'(\\xi)(c-a)$；\n$(2)$ 存在一点 $\\eta \\in (a,b)$，使得 $f(b) - f(a) = f'(\\eta)(b-a)$ 且 $\\eta > \\xi$."
+  "raw_question_text": "$f$ 在 $[a,b]$ 可导，$c\\in(a,b)$.证明：\n$(1)$ 存在一点 $\\xi \\in (a,c)$，使得 $f(c) - f(a) = f'(\\xi)(c-a)$；\n$(2)$ 存在一点 $\\eta \\in (a,b)$，使得 $f(b) - f(a) = f'(\\eta)(b-a)$ 且 $\\eta > \\xi$.",
+  "standard_answer": "证明略",
+  "raw_answer_text": "证明略"
 }

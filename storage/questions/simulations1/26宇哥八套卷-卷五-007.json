@@ -22,5 +22,7 @@
     "D": "$11$"
   },
   "correct_option": "C",
-  "raw_question_text": "设$A = \\begin{pmatrix} 1 & 0 & a \\\\ b & 2 & 0 \\\\ 0 & c & 3 \\end{pmatrix}$，$abc=-6$，则 $A$ 的伴随矩阵 $A^*$ 有非零特征值"
+  "raw_question_text": "设$A = \\begin{pmatrix} 1 & 0 & a \\\\ b & 2 & 0 \\\\ 0 & c & 3 \\end{pmatrix}$，$abc=-6$，则 $A$ 的伴随矩阵 $A^*$ 有非零特征值",
+  "standard_answer": "C",
+  "raw_answer_text": "C"
 }

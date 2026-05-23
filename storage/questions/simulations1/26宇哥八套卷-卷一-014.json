@@ -15,5 +15,7 @@
   ],
   "question": "$14.$ 已知 $\\Omega = \\{(x,y,z) \\mid y^2 + z^2 \\le 1, 0 \\le x \\le 1\\}$，$\\Sigma$ 为 $\\Omega$ 的边界面且取外侧，则 $\\iint_{\\Sigma} (y^3 + z \\sin x) dx dy + z dx dy = \\_\\_\\_\\_\\_\\_$",
   "source": "import_zhangyu_v1",
-  "raw_question_text": "$14.$ 已知 $\\Omega = \\{(x,y,z) \\mid y^2 + z^2 \\le 1, 0 \\le x \\le 1\\}$，$\\Sigma$ 为 $\\Omega$ 的边界面且取外侧，则 $\\iint_{\\Sigma} (y^3 + z \\sin x) dx dy + z dx dy = \\_\\_\\_\\_\\_\\_$"
+  "raw_question_text": "$14.$ 已知 $\\Omega = \\{(x,y,z) \\mid y^2 + z^2 \\le 1, 0 \\le x \\le 1\\}$，$\\Sigma$ 为 $\\Omega$ 的边界面且取外侧，则 $\\iint_{\\Sigma} (y^3 + z \\sin x) dx dy + z dx dy = \\_\\_\\_\\_\\_\\_$",
+  "standard_answer": "$\\pi$",
+  "raw_answer_text": "$\\pi$"
 }

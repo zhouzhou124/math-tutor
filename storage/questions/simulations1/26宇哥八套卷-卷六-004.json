@@ -21,6 +21,8 @@
     "C": "$\\frac{\\partial F}{\\partial x} = -\\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = \\frac{\\partial^{2}F}{\\partial y^{2}}$",
     "D": "$\\frac{\\partial F}{\\partial x} = -\\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = -\\frac{\\partial^{2}F}{\\partial y^{2}}$"
   },
-  "correct_option": "C",
-  "raw_question_text": "设函数 $f(t)$ 连续，令 $F(x,y) = \\int_{0}^{y - x}(y - x - t)f(t)\\mathrm{d}t$，则"
+  "correct_option": "B",
+  "raw_question_text": "设函数 $f(t)$ 连续，令 $F(x,y) = \\int_{0}^{y - x}(y - x - t)f(t)\\mathrm{d}t$，则",
+  "standard_answer": "B",
+  "raw_answer_text": "B"
 }

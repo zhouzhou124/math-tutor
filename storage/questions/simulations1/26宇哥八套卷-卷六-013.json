@@ -16,5 +16,7 @@
   "question": "设曲线 \\(\\Gamma\\) 为曲面 \\(x^2 + y^2 + z^2 = 1\\) 与平面 \\(x+y+z=1\\) 的交线，则 $\\oint_{\\Gamma} (y^2 + 2x - z) \\, ds = \\underline{\\hspace{3cm}}$",
   "source": "import_v6",
   "options": {},
-  "raw_question_text": "设曲线 \\(\\Gamma\\) 为曲面 \\(x^2 + y^2 + z^2 = 1\\) 与平面 \\(x+y+z=1\\) 的交线，则 $\\oint_{\\Gamma} (y^2 + 2x - z) \\, ds = \\underline{\\hspace{3cm}}$"
+  "raw_question_text": "设曲线 \\(\\Gamma\\) 为曲面 \\(x^2 + y^2 + z^2 = 1\\) 与平面 \\(x+y+z=1\\) 的交线，则 $\\oint_{\\Gamma} (y^2 + 2x - z) \\, ds = \\underline{\\hspace{3cm}}$",
+  "standard_answer": "$0$",
+  "raw_answer_text": "$0$"
 }

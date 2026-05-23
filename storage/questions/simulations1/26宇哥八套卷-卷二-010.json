@@ -22,5 +22,7 @@
     "D": "$\\frac{e-1}{n}$"
   },
   "correct_option": "A",
-  "raw_question_text": "设总体 $X$ 服从参数为 $1$ 的指数分布，$X_1,X_2,\\dots,X_n$ 为来自总体 $X$ 的简单随机样本，记 $\\nu_n(1)$ 为 $n$ 个观测值中不大于 $1$ 的个数，则 $\\frac{\\nu_n(1)}{n}$ 的方差为"
+  "raw_question_text": "设总体 $X$ 服从参数为 $1$ 的指数分布，$X_1,X_2,\\dots,X_n$ 为来自总体 $X$ 的简单随机样本，记 $\\nu_n(1)$ 为 $n$ 个观测值中不大于 $1$ 的个数，则 $\\frac{\\nu_n(1)}{n}$ 的方差为",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

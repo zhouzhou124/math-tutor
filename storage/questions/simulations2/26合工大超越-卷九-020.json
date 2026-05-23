@@ -15,7 +15,7 @@
     "微分中值定理"
   ],
   "question": "$20.$ (本题满分12分) 设函数 $f(x)$ 在 $[a,b]$ 上连续，且 $\\int_a^b f(x)dx=0$.\n$(1)$ 证明：存在 $\\xi\\in(a,b)$，使得 $f(\\xi)=0$；\n$(2)$ 若 $f(x)$ 在 $(a,b)$ 上可导，且 $\\int_a^b xf(x)dx=0$，证明：存在 $\\eta\\in(a,b)$，使得 $f'(\\eta)=0$.",
-  "standard_answer": "证明略",
+  "standard_answer": "",
   "source": "import_hegongda_v9",
   "solution_steps": [],
   "options": {},

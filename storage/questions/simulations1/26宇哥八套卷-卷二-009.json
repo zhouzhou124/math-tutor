@@ -22,5 +22,7 @@
     "D": "与 $\\mu$ 无关，与 $\\sigma$ 无关"
   },
   "correct_option": "C",
-  "raw_question_text": "设随机变量 $X$ 服从参数为 $\\mu, \\sigma^2$ 的正态分布，其概率密度为 $f(x)$，则 $\\int_{-\\infty}^{+\\infty} f(x) \\ln f(x) dx$"
+  "raw_question_text": "设随机变量 $X$ 服从参数为 $\\mu, \\sigma^2$ 的正态分布，其概率密度为 $f(x)$，则 $\\int_{-\\infty}^{+\\infty} f(x) \\ln f(x) dx$",
+  "standard_answer": "C",
+  "raw_answer_text": "C"
 }

@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "解答题",
   "question": "$(1)$ 证明：对任意的正整数 $n$，都有 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立；\n$(2)$ 设 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$，证明数列 $\\{a_n\\}$ 收敛.",
-  "standard_answer": "证明略。",
+  "standard_answer": "## 题目重述\n（1）对任意正整数 $n$，证明不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立。  \n（2）设 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$，证明数列 $\\{a_n\\}$ 收敛。\n\n## 标准答案\n（1）不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 对任意正整数 $n$ 成立。（2）数列 $\\{a_n\\}$ 收敛。证毕。\n\n## 步骤1：利用拉格朗日中值定理证明（1）\n考虑函数 $f(x)=\\ln x$，在区间 $[n, n+1]$（$n$ 为正整数）上满足拉格朗日中值定理条件：$f(x)$ 在 $[n, n+1]$ 上连续，在 $(n, n+1)$ 内可导，且 $f'(x)=\\frac{1}{x}$。因此存在 $\\xi \\in (n, n+1)$，使得\n\\[\nf(n+1)-f(n) = f'(\\xi)[(n+1)-n] \\quad \\Longrightarrow \\quad \\ln(n+1)-\\ln n = \\frac{1}{\\xi}.\n\\]\n注意到 $\\ln(n+1)-\\ln n = \\ln\\frac{n+1}{n} = \\ln\\left(1+\\frac{1}{n}\\right)$，故\n\\[\n\\ln\\left(1+\\frac{1}{n}\\right) = \\frac{1}{\\xi}.\n\\]\n由 $\\xi \\in (n, n+1)$ 得 $\\frac{1}{n+1} < \\frac{1}{\\xi} < \\frac{1}{n}$，代入即得\n\\[\n\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}.\n\\]\n## 步骤2：证明数列 $\\{a_n\\}$ 单调递减\n计算相邻两项之差：\n\\[\na_{n+1} - a_n = \\left( \\sum_{k=1}^{n+1}\\frac{1}{k} - \\ln(n+1) \\right) - \\left( \\sum_{k=1}^{n}\\frac{1}{k} - \\ln n \\right) = \\frac{1}{n+1} - \\ln(n+1) + \\ln n.\n\\]\n化简为\n\\[\na_{n+1} - a_n = \\frac{1}{n+1} - \\ln\\left(1+\\frac{1}{n}\\right).\n\\]\n由（1）中左半不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right)$ 可知 $\\frac{1}{n+1} - \\ln\\left(1+\\frac{1}{n}\\right) < 0$，因此\n\\[\na_{n+1} - a_n < 0,\n\\]\n数列 $\\{a_n\\}$ 严格单调递减。\n## 步骤3：证明数列 $\\{a_n\\}$ 有下界\n对任意正整数 $k$，由（1）的右半不等式 $\\ln\\left(1+\\frac{1}{k}\\right) < \\frac{1}{k}$ 成立。对 $k=1$ 到 $n$ 求和：\n\\[\n\\sum_{k=1}^{n}\\ln\\left(1+\\frac{1}{k}\\right) < \\sum_{k=1}^{n}\\frac{1}{k}.\n\\]\n左边利用对数性质：\n\\[\n\\sum_{k=1}^{n}\\ln\\left(1+\\frac{1}{k}\\right) = \\ln\\left(\\prod_{k=1}^{n}\\frac{k+1}{k}\\right) = \\ln(n+1).\n\\]\n故得\n\\[\n\\ln(n+1) < 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n}.\n\\]\n于是\n\\[\na_n = \\sum_{k=1}^{n}\\frac{1}{k} - \\ln n > \\ln(n+1) - \\ln n = \\ln\\left(1+\\frac{1}{n}\\right) > 0.\n\\]\n数列 $\\{a_n\\}$ 有下界 $0$。\n## 步骤4：由单调有界准则得证\n由步骤2知 $\\{a_n\\}$ 单调递减，步骤3知 $\\{a_n\\}$ 有下界，根据单调有界准则，数列 $\\{a_n\\}$ 收敛。\n## 结论\n（1）对任意正整数 $n$，不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立。  \n（2）数列 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$ 收敛。证毕。\n## 关键知识点\n- 拉格朗日中值定理的应用\n- 单调有界收敛准则\n- 对数函数性质与不等式放缩\n- 调和级数部分和与对数的关系\n## 易错提示\n- 使用拉格朗日中值定理时，辅助函数 $f(x)=\\ln x$ 在 $[n,n+1]$ 上应用，可避免引入 $1/n$ 作变量的复杂展开。\n- 证明 $a_{n+1}-a_n < 0$ 时，应直接从 $\\ln(1+1/n) > 1/(n+1)$ 得出，注意不等号方向不要搞反。\n- 证有下界时，求和技巧 $\\sum \\ln(1+1/k) = \\ln(n+1)$ 是常考点，不能直接写结果，需展示对数乘积的化简。\n- 最终收敛性只需说清“单调递减且有下界”即可，不必具体求出极限值。",
   "knowledge_points": [
     "无穷级数",
     "极限与连续"
@@ -18,5 +18,26 @@
     "极限与连续"
   ],
   "raw_question_text": "$(1)$ 证明：对任意的正整数 $n$，都有 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立；\n$(2)$ 设 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$，证明数列 $\\{a_n\\}$ 收敛.",
-  "raw_answer_text": "证明略。"
+  "raw_answer_text": "证明略。",
+  "final_answer": "证明略。",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 20:36",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779539760",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n（1）对任意正整数 $n$，证明不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立。  \n（2）设 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$，证明数列 $\\{a_n\\}$ 收敛。\n\n## 标准答案\n（1）不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 对任意正整数 $n$ 成立。（2）数列 $\\{a_n\\}$ 收敛。证毕。\n\n## 步骤1：利用拉格朗日中值定理证明（1）\n考虑函数 $f(x)=\\ln x$，在区间 $[n, n+1]$（$n$ 为正整数）上满足拉格朗日中值定理条件：$f(x)$ 在 $[n, n+1]$ 上连续，在 $(n, n+1)$ 内可导，且 $f'(x)=\\frac{1}{x}$。因此存在 $\\xi \\in (n, n+1)$，使得\n\\[\nf(n+1)-f(n) = f'(\\xi)[(n+1)-n] \\quad \\Longrightarrow \\quad \\ln(n+1)-\\ln n = \\frac{1}{\\xi}.\n\\]\n注意到 $\\ln(n+1)-\\ln n = \\ln\\frac{n+1}{n} = \\ln\\left(1+\\frac{1}{n}\\right)$，故\n\\[\n\\ln\\left(1+\\frac{1}{n}\\right) = \\frac{1}{\\xi}.\n\\]\n由 $\\xi \\in (n, n+1)$ 得 $\\frac{1}{n+1} < \\frac{1}{\\xi} < \\frac{1}{n}$，代入即得\n\\[\n\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}.\n\\]\n## 步骤2：证明数列 $\\{a_n\\}$ 单调递减\n计算相邻两项之差：\n\\[\na_{n+1} - a_n = \\left( \\sum_{k=1}^{n+1}\\frac{1}{k} - \\ln(n+1) \\right) - \\left( \\sum_{k=1}^{n}\\frac{1}{k} - \\ln n \\right) = \\frac{1}{n+1} - \\ln(n+1) + \\ln n.\n\\]\n化简为\n\\[\na_{n+1} - a_n = \\frac{1}{n+1} - \\ln\\left(1+\\frac{1}{n}\\right).\n\\]\n由（1）中左半不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right)$ 可知 $\\frac{1}{n+1} - \\ln\\left(1+\\frac{1}{n}\\right) < 0$，因此\n\\[\na_{n+1} - a_n < 0,\n\\]\n数列 $\\{a_n\\}$ 严格单调递减。\n## 步骤3：证明数列 $\\{a_n\\}$ 有下界\n对任意正整数 $k$，由（1）的右半不等式 $\\ln\\left(1+\\frac{1}{k}\\right) < \\frac{1}{k}$ 成立。对 $k=1$ 到 $n$ 求和：\n\\[\n\\sum_{k=1}^{n}\\ln\\left(1+\\frac{1}{k}\\right) < \\sum_{k=1}^{n}\\frac{1}{k}.\n\\]\n左边利用对数性质：\n\\[\n\\sum_{k=1}^{n}\\ln\\left(1+\\frac{1}{k}\\right) = \\ln\\left(\\prod_{k=1}^{n}\\frac{k+1}{k}\\right) = \\ln(n+1).\n\\]\n故得\n\\[\n\\ln(n+1) < 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n}.\n\\]\n于是\n\\[\na_n = \\sum_{k=1}^{n}\\frac{1}{k} - \\ln n > \\ln(n+1) - \\ln n = \\ln\\left(1+\\frac{1}{n}\\right) > 0.\n\\]\n数列 $\\{a_n\\}$ 有下界 $0$。\n## 步骤4：由单调有界准则得证\n由步骤2知 $\\{a_n\\}$ 单调递减，步骤3知 $\\{a_n\\}$ 有下界，根据单调有界准则，数列 $\\{a_n\\}$ 收敛。\n## 结论\n（1）对任意正整数 $n$，不等式 $\\frac{1}{n+1} < \\ln\\left(1+\\frac{1}{n}\\right) < \\frac{1}{n}$ 成立。  \n（2）数列 $a_n = 1 + \\frac{1}{2} + \\cdots + \\frac{1}{n} - \\ln n$ 收敛。证毕。\n## 关键知识点\n- 拉格朗日中值定理的应用\n- 单调有界收敛准则\n- 对数函数性质与不等式放缩\n- 调和级数部分和与对数的关系\n## 易错提示\n- 使用拉格朗日中值定理时，辅助函数 $f(x)=\\ln x$ 在 $[n,n+1]$ 上应用，可避免引入 $1/n$ 作变量的复杂展开。\n- 证明 $a_{n+1}-a_n < 0$ 时，应直接从 $\\ln(1+1/n) > 1/(n+1)$ 得出，注意不等号方向不要搞反。\n- 证有下界时，求和技巧 $\\sum \\ln(1+1/k) = \\ln(n+1)$ 是常考点，不能直接写结果，需展示对数乘积的化简。\n- 最终收敛性只需说清“单调递减且有下界”即可，不必具体求出极限值。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 20:36",
+      "reviewed": false
+    }
+  ]
 }

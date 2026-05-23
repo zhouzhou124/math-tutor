@@ -21,6 +21,8 @@
     "C": "向量组 $I$ 与 $II$ 都线性相关",
     "D": "向量组 $I$ 与 $II$ 至少有一个线性相关"
   },
-  "correct_option": "A",
-  "raw_question_text": "设 \\( n \\) 阶方阵 \\( A = (a_1, a_2, \\cdots, a_n), B = (\\beta_1, \\beta_2, \\cdots, \\beta_n), AB = (\\gamma_1, \\gamma_2, \\cdots, \\gamma_n) \\)，记向量组 $I: a_1, a_2, \\cdots, a_n $，向量组  $II: \\beta_1, \\beta_2, \\cdots, \\beta_n $，向量组 $III: \\gamma_1, \\gamma_2, \\cdots, \\gamma_n $。如果向量组 $III$ 线性相关，则"
+  "correct_option": "D",
+  "raw_question_text": "设 \\( n \\) 阶方阵 \\( A = (a_1, a_2, \\cdots, a_n), B = (\\beta_1, \\beta_2, \\cdots, \\beta_n), AB = (\\gamma_1, \\gamma_2, \\cdots, \\gamma_n) \\)，记向量组 $I: a_1, a_2, \\cdots, a_n $，向量组  $II: \\beta_1, \\beta_2, \\cdots, \\beta_n $，向量组 $III: \\gamma_1, \\gamma_2, \\cdots, \\gamma_n $。如果向量组 $III$ 线性相关，则",
+  "standard_answer": "D",
+  "raw_answer_text": "D"
 }

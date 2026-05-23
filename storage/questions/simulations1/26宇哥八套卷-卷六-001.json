@@ -22,5 +22,7 @@
     "D": "$2$ 个极小值点,无极大值点"
   },
   "correct_option": "D",
-  "raw_question_text": "$f(x,y) = x^{4} + y^{4} - (x + y)^{2}$ 有"
+  "raw_question_text": "$f(x,y) = x^{4} + y^{4} - (x + y)^{2}$ 有",
+  "standard_answer": "D",
+  "raw_answer_text": "D"
 }

@@ -22,5 +22,7 @@
     "D": "不是 $f(x,x)$ 的极小值点，也不是 $f(x,y)$ 的极小值点"
   },
   "correct_option": "B",
-  "raw_question_text": "设 $f(x,y) = \\begin{cases} (y - e^{-\\frac{1}{x^2}})(y - 3e^{-\\frac{1}{x^2}}), & x \\neq 0, \\\\ y^2, & x = 0, \\end{cases}$ 则点 $(0,0)$"
+  "raw_question_text": "设 $f(x,y) = \\begin{cases} (y - e^{-\\frac{1}{x^2}})(y - 3e^{-\\frac{1}{x^2}}), & x \\neq 0, \\\\ y^2, & x = 0, \\end{cases}$ 则点 $(0,0)$",
+  "standard_answer": "B",
+  "raw_answer_text": "B"
 }

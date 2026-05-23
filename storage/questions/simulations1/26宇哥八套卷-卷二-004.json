@@ -22,5 +22,7 @@
     "D": "$\\int_0^1 f(x) dx \\ge \\ln f(0)$"
   },
   "correct_option": "A",
-  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上可导，当 $0 \\le x \\le 1$ 时，$f'(x) + f^2(x) \\ge 0$，$f(0) > 0$，则"
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上可导，当 $0 \\le x \\le 1$ 时，$f'(x) + f^2(x) \\ge 0$，$f(0) > 0$，则",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

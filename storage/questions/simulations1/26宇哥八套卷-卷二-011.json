@@ -16,5 +16,7 @@
   "question": "设 $f(x,y)$ 具有二阶连续偏导数，$z = x f(2x, \\frac{y^2}{x})$，则 $\\frac{\\partial^2 z}{\\partial x \\partial y} =$ ______",
   "source": "import_v2",
   "options": {},
-  "raw_question_text": "设 $f(x,y)$ 具有二阶连续偏导数，$z = x f(2x, \\frac{y^2}{x})$，则 $\\frac{\\partial^2 z}{\\partial x \\partial y} =$ ______"
+  "raw_question_text": "设 $f(x,y)$ 具有二阶连续偏导数，$z = x f(2x, \\frac{y^2}{x})$，则 $\\frac{\\partial^2 z}{\\partial x \\partial y} =$ ______",
+  "standard_answer": "$2y f_{12} - \\frac{2y}{x} f_{22}$",
+  "raw_answer_text": "$2y f_{12} - \\frac{2y}{x} f_{22}$"
 }

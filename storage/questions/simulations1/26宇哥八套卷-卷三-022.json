@@ -16,5 +16,7 @@
   "question": "(本题满分12分) 设随机变量 $X \\sim U(0,1)$，当 $X = x$ 时，$Y \\sim B(2,x)$，求\n$(1)$ $P\\{Y = k \\mid X = x\\}, k = 0,1,2$；\n$(2)$ $\\rho_{XY}$.",
   "source": "import_v3",
   "options": {},
-  "raw_question_text": "(本题满分12分) 设随机变量 $X \\sim U(0,1)$，当 $X = x$ 时，$Y \\sim B(2,x)$，求\n$(1)$ $P\\{Y = k \\mid X = x\\}, k = 0,1,2$；\n$(2)$ $\\rho_{XY}$."
+  "raw_question_text": "(本题满分12分) 设随机变量 $X \\sim U(0,1)$，当 $X = x$ 时，$Y \\sim B(2,x)$，求\n$(1)$ $P\\{Y = k \\mid X = x\\}, k = 0,1,2$；\n$(2)$ $\\rho_{XY}$.",
+  "standard_answer": "(1) $P\\{Y=k \\mid X=x\\} = \\binom{2}{k} x^k (1-x)^{2-k}, k=0,1,2$\\n(2) $\\rho_{XY} = \\frac{\\sqrt{6}}{3}$",
+  "raw_answer_text": "(1) $P\\{Y=k \\mid X=x\\} = \\binom{2}{k} x^k (1-x)^{2-k}, k=0,1,2$\\n(2) $\\rho_{XY} = \\frac{\\sqrt{6}}{3}$"
 }

@@ -22,5 +22,7 @@
     "D": "$4$"
   },
   "correct_option": "A",
-  "raw_question_text": "已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为"
+  "raw_question_text": "已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为",
+  "standard_answer": "A",
+  "raw_answer_text": "A"
 }

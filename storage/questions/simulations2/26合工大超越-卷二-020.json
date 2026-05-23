@@ -17,12 +17,31 @@
     "正交变换"
   ],
   "question": "(本题满分12分) 已知二次型 $f(x_1,x_2,x_3) = 2x_1^2 + 2x_2^2 + a x_3^2 - 2x_1x_2 + 2x_1x_3 - 2x_2x_3$，其矩阵为 $A$,$\\alpha = \\begin{pmatrix} 1 \\\\ b \\\\ 1 \\end{pmatrix}$ 是矩阵 $A$ 对应特征值 $\\lambda$ 的一个特征向量（$b<0$）.\n$(1)$ 求 $a,b,\\lambda$；\n$(2)$ 求正交变换 $x = Qy$，将二次型化为标准型；\n$(3)$ 求 $f$ 在 $x^{\\mathrm{T}}x=1$ 条件下的最小值.",
-  "standard_answer": "(I) $a=2$，$b=-1$，$\\lambda=0$\\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{3}} \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\\\ 0 & \\frac{2}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\end{pmatrix}$，标准型为 $3y_1^2 + 3y_2^2$\\n(III) 最小值为 $0$",
+  "standard_answer": "### 步骤1：\n写出二次型矩阵: 将二次型写成矩阵形式，对角元素为平方项系数，非对角元素为交叉项系数的一半\n\n$ \\Rightarrow A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & a \\end{pmatrix}$\n\n### 步骤2：\n利用特征向量定义列方程: 根据特征值和特征向量的定义Aα=λα，代入得到方程组\n\n$A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & a \\end{pmatrix}, \\alpha=(1,b,1)^\\mathrm{T}, A\\alpha=\\lambda\\alpha \\Rightarrow \\begin{cases} 3-b=\\lambda, \\\\ 2b-2=\\lambda b, \\\\ 1-b+a=\\lambda \\end{cases}$\n\n### 步骤3：\n求解参数: 由前两式消去λ得b²-b-2=0，解得b=2或b=-1，结合b<0取b=-1，然后回代得λ=4，a=2\n\n$\\begin{cases} 3-b=\\lambda, \\\\ 2b-2=\\lambda b, \\\\ 1-b+a=\\lambda \\end{cases} \\Rightarrow b=-1,\\; \\lambda=4,\\; a=2$\n\n### 步骤4：\n确定矩阵A: 将a=2代入矩阵，得到确定的对称矩阵\n\n$A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & a \\end{pmatrix}, a=2 \\Rightarrow A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & 2 \\end{pmatrix}$\n\n### 步骤5：\n求特征多项式: 计算特征多项式f(λ)=det(λE-A)，得到三次多项式\n\n$A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & 2 \\end{pmatrix} \\Rightarrow |\\lambda E-A|=\\lambda^3-6\\lambda^2+9\\lambda-4$\n\n### 步骤6：\n解特征方程得特征值: 因式分解得特征方程，解得特征值λ₁=4，λ₂=λ₃=1\n\n$|\\lambda E-A|=\\lambda^3-6\\lambda^2+9\\lambda-4 \\Rightarrow (\\lambda-4)(\\lambda-1)^2=0 \\Rightarrow \\lambda_1=4,\\lambda_2=\\lambda_3=1$\n\n### 步骤7：\n求λ=4的特征向量: 解齐次方程组(4E-A)x=0，得到属于λ=4的特征向量，即已知的α\n\n$\\lambda_1=4, A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & 2 \\end{pmatrix} \\Rightarrow \\alpha_1=(1,-1,1)^\\mathrm{T}$\n\n### 步骤8：\n求λ=1的特征向量: 解(E-A)x=0，得基础解系两个线性无关的向量\n\n$\\lambda_2=\\lambda_3=1, A=\\begin{pmatrix} 2 & -1 & 1 \\\\ -1 & 2 & -1 \\\\ 1 & -1 & 2 \\end{pmatrix} \\Rightarrow p_1=(1,1,0)^\\mathrm{T},\\; p_2=(-1,0,1)^\\mathrm{T}$\n\n### 步骤9：\n施密特正交化: 对p₁,p₂用施密特正交化，得到正交的特征向量β₁,β₂（取β₂为整数向量）\n\n$p_1=(1,1,0)^\\mathrm{T},\\; p_2=(-1,0,1)^\\mathrm{T} \\Rightarrow \\beta_1=(1,1,0)^\\mathrm{T},\\; \\beta_2=(-1,1,2)^\\mathrm{T}$\n\n### 步骤10：\n单位化: 将三个正交的特征向量单位化，得到标准正交基\n\n$\\alpha_1=(1,-1,1)^\\mathrm{T},\\; \\beta_1=(1,1,0)^\\mathrm{T},\\; \\beta_2=(-1,1,2)^\\mathrm{T} \\Rightarrow \\gamma_1=\\frac{1}{\\sqrt{3}}(1,-1,1)^\\mathrm{T},\\; \\gamma_2=\\frac{1}{\\sqrt{2}}(1,1,0)^\\mathrm{T},\\; \\gamma_3=\\frac{1}{\\sqrt{6}}(-1,1,2)^\\mathrm{T}$\n\n### 步骤11：\n写出正交变换和标准型: 以正交单位化向量为列构成正交矩阵Q，正交变换x=Qy下二次型化为标准形，系数为对应的特征值\n\n$\\gamma_1,\\gamma_2,\\gamma_3 \\Rightarrow Q=\\begin{pmatrix} \\frac{1}{\\sqrt{3}} & \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} \\\\ -\\frac{1}{\\sqrt{3}} & \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} \\\\ \\frac{1}{\\sqrt{3}} & 0 & \\frac{2}{\\sqrt{6}} \\end{pmatrix},\\; f=4y_1^2+y_2^2+y_3^2$\n\n### 步骤12：\n求最小值: 在x^Tx=1即单位球面约束下，正交变换保长度，问题转为在y₁²+y₂²+y₃²=1下求f=4y₁²+y₂²+y₃²的最小值，当y₁=0时取最小值1（最小特征值）\n\n$f=4y_1^2+y_2^2+y_3^2,\\; x^\\mathrm{T}x=1 \\Rightarrow f_{\\min}=1$\n\n### 最终答案\na=2,b=-1,\\lambda=4;\\quad Q=\\begin{pmatrix} \\frac{1}{\\sqrt{3}} & \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} \\\\ -\\frac{1}{\\sqrt{3}} & \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} \\\\ \\frac{1}{\\sqrt{3}} & 0 & \\frac{2}{\\sqrt{6}} \\end{pmatrix}, f=4y_1^2+y_2^2+y_3^2;\\quad f_{\\min}=1.",
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0388515,
   "raw_question_text": "(本题满分12分) 已知二次型 $f(x_1,x_2,x_3) = 2x_1^2 + 2x_2^2 + a x_3^2 - 2x_1x_2 + 2x_1x_3 - 2x_2x_3$，其矩阵为 $A$,$\\alpha = \\begin{pmatrix} 1 \\\\ b \\\\ 1 \\end{pmatrix}$ 是矩阵 $A$ 对应特征值 $\\lambda$ 的一个特征向量（$b<0$）.\n$(1)$ 求 $a,b,\\lambda$；\n$(2)$ 求正交变换 $x = Qy$，将二次型化为标准型；\n$(3)$ 求 $f$ 在 $x^{\\mathrm{T}}x=1$ 条件下的最小值.",
-  "raw_answer_text": "(I) $a=2$，$b=-1$，$\\lambda=0$\\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{3}} \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\\\ 0 & \\frac{2}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\end{pmatrix}$，标准型为 $3y_1^2 + 3y_2^2$\\n(III) 最小值为 $0$"
+  "raw_answer_text": "(I) $a=2$，$b=-1$，$\\lambda=0$\\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{3}} \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\\\ 0 & \\frac{2}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\end{pmatrix}$，标准型为 $3y_1^2 + 3y_2^2$\\n(III) 最小值为 $0$",
+  "canonical_solutions": [
+    {
+      "solution_id": "default",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "(I) $a=2$，$b=-1$，$\\lambda=0$\\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{3}} \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\\\ 0 & \\frac{2}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\end{pmatrix}$，标准型为 $3y_1^2 + 3y_2^2$\\n(III) 最小值为 $0$",
+      "generated_by": "legacy",
+      "generated_at": "",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 19:52",
+    "reviewed": false,
+    "render_version": "v2"
+  }
 }

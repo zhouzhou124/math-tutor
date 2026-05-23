@@ -15,5 +15,7 @@
   ],
   "question": "$11.$ 若 $\\begin{cases} x = \\ln |t|, \\\\ y = e^{-t^2}, \\end{cases}$ 则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\sqrt{2}} =$ ______",
   "source": "import_v3",
-  "raw_question_text": "$11.$ 若 $\\begin{cases} x = \\ln |t|, \\\\ y = e^{-t^2}, \\end{cases}$ 则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\sqrt{2}} =$ ______"
+  "raw_question_text": "$11.$ 若 $\\begin{cases} x = \\ln |t|, \\\\ y = e^{-t^2}, \\end{cases}$ 则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\sqrt{2}} =$ ______",
+  "standard_answer": "$8e^{-2}(2\\ln 2 - 1)$",
+  "raw_answer_text": "$8e^{-2}(2\\ln 2 - 1)$"
 }

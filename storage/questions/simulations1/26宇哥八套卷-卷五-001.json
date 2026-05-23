@@ -22,5 +22,7 @@
     "D": "第二类间断点"
   },
   "correct_option": "C",
-  "raw_question_text": "设 $f(\\frac{1}{x}) = x + \\sqrt{1 + x^2}$ ($x \\neq 0$)，则 $x = 0$ 是 $f(x)$ 的"
+  "raw_question_text": "设 $f(\\frac{1}{x}) = x + \\sqrt{1 + x^2}$ ($x \\neq 0$)，则 $x = 0$ 是 $f(x)$ 的",
+  "standard_answer": "C",
+  "raw_answer_text": "C"
 }

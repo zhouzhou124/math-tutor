@@ -16,5 +16,7 @@
   "question": "(本题满分12分) 设 $f(x,y)$ 满足 $f_x'(x,y) = y(1 + x)e^{x-y}$，$f(1,y) = ye^{1-y}$。求\n$(1)$ $f(x,y)$ 的表达式；\n$(2)$ $f(x,y)$ 的极值.",
   "source": "import_v2",
   "options": {},
-  "raw_question_text": "(本题满分12分) 设 $f(x,y)$ 满足 $f_x'(x,y) = y(1 + x)e^{x-y}$，$f(1,y) = ye^{1-y}$。求\n$(1)$ $f(x,y)$ 的表达式；\n$(2)$ $f(x,y)$ 的极值."
+  "raw_question_text": "(本题满分12分) 设 $f(x,y)$ 满足 $f_x'(x,y) = y(1 + x)e^{x-y}$，$f(1,y) = ye^{1-y}$。求\n$(1)$ $f(x,y)$ 的表达式；\n$(2)$ $f(x,y)$ 的极值.",
+  "standard_answer": "(1) $f(x,y) = xy e^{x-y}$\\n(2) 极大值 $f(-1,-1) = e^{-2}$，无极小值",
+  "raw_answer_text": "(1) $f(x,y) = xy e^{x-y}$\\n(2) 极大值 $f(-1,-1) = e^{-2}$，无极小值"
 }

@@ -22,5 +22,7 @@
     "D": "$\\begin{pmatrix} AA^T A & A^T A \\\\ O & A \\end{pmatrix} x = 0$ 与 $\\begin{pmatrix} A^T A^2 & A \\\\ O & A^T A \\end{pmatrix} x = 0$ 同解"
   },
   "correct_option": "C",
-  "raw_question_text": "设 $A$ 为 $n$ 阶实矩阵，则"
+  "raw_question_text": "设 $A$ 为 $n$ 阶实矩阵，则",
+  "standard_answer": "C",
+  "raw_answer_text": "C"
 }

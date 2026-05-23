@@ -56,6 +56,13 @@ class SolverAgent:
         )
 
         user_msg = f"请生成这道{math_type}{question_type}的规范解答。只输出 JSON。"
+        # 多小题检测
+        if _re.search(r'[(（]\s*(?:1|I|i)\s*[)）]', question):
+            user_msg = (
+                f"请生成这道{math_type}{question_type}的完整规范解答。只输出 JSON。\n"
+                f"**重要**：此题包含多个小题。你必须分别作答每一小题，"
+                f"在 steps 中为每个小题单独设置步骤，严禁只解其中一问。"
+            )
         invalid_json = None
         validation_errors = None
 
@@ -136,6 +143,14 @@ class SolverAgent:
         from latex_utils import normalize_latex_style
 
         user_msg = f"请生成这道{math_type}{question_type}的标准解答。只输出 JSON。"
+        # 多小题检测：如果题目包含 (1)/(2) 或 (I)/(II) 标记，明确要求全覆盖
+        _multi_part = bool(re.search(r'[(（]\s*(?:1|I|i)\s*[)）]', question))
+        if _multi_part:
+            user_msg = (
+                f"请生成这道{math_type}{question_type}的完整标准解答。只输出 JSON。\n"
+                f"**重要**：此题包含多个小题。你必须分别作答每一小题，"
+                f"在 steps 中为每个小题单独设置步骤，严禁只解其中一问。"
+            )
         invalid_json = None
         validation_errors = None
 

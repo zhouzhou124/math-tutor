@@ -13,11 +13,32 @@
     "多维随机变量"
   ],
   "question": "$22.$ (本题满分12分) 设标准正态分布的密度函数为 $\\varphi(x)$，以及 $$g(x)=\\begin{cases} x, & -1\\le x\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 设 $f(x,y)=\\varphi(x)\\varphi(y)+k x g(x) g(y)$（$-\\infty<x,y<+\\infty$）.\n$(1)$ 求 $k$ 取值范围，使得 $f(x,y)$ 为随机变量 $(X,Y)$ 的联合密度函数；\n$(2)$ 判断 $X$ 和 $Y$ 是否相关，是否独立.",
-  "standard_answer": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "standard_answer": "### 步骤1：\n步骤1：明确联合密度条件: 联合密度函数必须满足非负性与积分归一两个条件\n\n$ \\Rightarrow f(x,y)\\ge 0,\\ \\iint_{\\mathbb{R}^2} f(x,y)dxdy=1$\n\n### 步骤2：\n步骤2：验证积分归一性: \\varphi(x)\\varphi(y)是标准正态联合密度，积分为1；g(x)是奇函数，积分\\int g(y)dy=0，故总积分恒为1，与k无关\n\n$f(x,y)=\\varphi(x)\\varphi(y)+kxg(x)g(y) \\Rightarrow \\iint f dxdy = \\iint \\varphi(x)\\varphi(y) dxdy + k\\int xg(x)dx \\int g(y)dy = 1$\n\n### 步骤3：\n步骤3：缩小非负性讨论区域: 在区域[-1,1]^2之外g(x)g(y)=0，自然满足非负；仅在正方形区域需要约束k\n\n$f(x,y)\\ge0 \\Rightarrow \\forall (x,y)\\in [-1,1]^2,\\ \\varphi(x)\\varphi(y)+kxy\\ge0$\n\n### 步骤4：\n步骤4：解不等式求k的范围: 当xy同号时k需满足下界，异号时k需满足上界；在顶点处达到最紧约束，综合得|k|≤φ(1)^2\n\n$\\varphi(x)\\varphi(y)+kxy\\ge0,\\ x,y\\in[-1,1] \\Rightarrow |k|\\le \\varphi(1)^2$\n\n### 步骤5：\n步骤5：写出k的具体取值范围: 将标准正态密度在x=1的值代入，得到具体区间\n\n$\\varphi(1)=e^{-1/2}/\\sqrt{2\\pi} \\Rightarrow k\\in\\Big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\Big]$\n\n### 步骤6：\n步骤6：求X的边缘密度: 利用∫φ(y)dy=1和∫g(y)dy=0，消去交叉项，得到X的边缘密度为标准正态分布\n\n$f_X(x)=\\int f(x,y)dy \\Rightarrow f_X(x)=\\varphi(x)$\n\n### 步骤7：\n步骤7：计算协方差: 第一项∫xφ(x)dx·∫yφ(y)dy=0；第二项含∫x^2g(x)dx，x^2g(x)为奇函数对称积分为0，故E[XY]=0\n\n$E[XY]=\\iint xy f(x,y)dxdy \\Rightarrow E[XY]=0$\n\n### 步骤8：\n步骤8：判断相关性: 协方差为零，故X与Y不相关\n\n$\\text{Cov}(X,Y)=E[XY]-E[X]E[Y]=0 \\Rightarrow X\\text{与}Y\\text{不相关}$\n\n### 步骤9：\n步骤9：判断独立性: 联合密度不等于边缘密度的乘积，故不独立；仅当k=0时退化为独立情形\n\n$f(x,y)\\neq f_X(x)f_Y(y) \\Rightarrow X\\text{与}Y\\text{不独立（当}k\\neq 0\\text{时）}$\n\n### 最终答案\n(1) k\\in\\big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\big];\\ (2) X\\text{与}Y\\text{不相关，且当}k\\neq0\\text{时不独立}",
   "source": "import_hegongda_v9",
   "solution_steps": [],
   "options": {},
   "volume": "卷九",
   "raw_question_text": "$22.$ (本题满分12分) 设标准正态分布的密度函数为 $\\varphi(x)$，以及 $$g(x)=\\begin{cases} x, & -1\\le x\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 设 $f(x,y)=\\varphi(x)\\varphi(y)+k x g(x) g(y)$（$-\\infty<x,y<+\\infty$）.\n$(1)$ 求 $k$ 取值范围，使得 $f(x,y)$ 为随机变量 $(X,Y)$ 的联合密度函数；\n$(2)$ 判断 $X$ 和 $Y$ 是否相关，是否独立.",
-  "raw_answer_text": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立"
+  "raw_answer_text": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "final_answer": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 19:42",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779536565",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：\n步骤1：明确联合密度条件: 联合密度函数必须满足非负性与积分归一两个条件\n\n$ \\Rightarrow f(x,y)\\ge 0,\\ \\iint_{\\mathbb{R}^2} f(x,y)dxdy=1$\n\n### 步骤2：\n步骤2：验证积分归一性: \\varphi(x)\\varphi(y)是标准正态联合密度，积分为1；g(x)是奇函数，积分\\int g(y)dy=0，故总积分恒为1，与k无关\n\n$f(x,y)=\\varphi(x)\\varphi(y)+kxg(x)g(y) \\Rightarrow \\iint f dxdy = \\iint \\varphi(x)\\varphi(y) dxdy + k\\int xg(x)dx \\int g(y)dy = 1$\n\n### 步骤3：\n步骤3：缩小非负性讨论区域: 在区域[-1,1]^2之外g(x)g(y)=0，自然满足非负；仅在正方形区域需要约束k\n\n$f(x,y)\\ge0 \\Rightarrow \\forall (x,y)\\in [-1,1]^2,\\ \\varphi(x)\\varphi(y)+kxy\\ge0$\n\n### 步骤4：\n步骤4：解不等式求k的范围: 当xy同号时k需满足下界，异号时k需满足上界；在顶点处达到最紧约束，综合得|k|≤φ(1)^2\n\n$\\varphi(x)\\varphi(y)+kxy\\ge0,\\ x,y\\in[-1,1] \\Rightarrow |k|\\le \\varphi(1)^2$\n\n### 步骤5：\n步骤5：写出k的具体取值范围: 将标准正态密度在x=1的值代入，得到具体区间\n\n$\\varphi(1)=e^{-1/2}/\\sqrt{2\\pi} \\Rightarrow k\\in\\Big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\Big]$\n\n### 步骤6：\n步骤6：求X的边缘密度: 利用∫φ(y)dy=1和∫g(y)dy=0，消去交叉项，得到X的边缘密度为标准正态分布\n\n$f_X(x)=\\int f(x,y)dy \\Rightarrow f_X(x)=\\varphi(x)$\n\n### 步骤7：\n步骤7：计算协方差: 第一项∫xφ(x)dx·∫yφ(y)dy=0；第二项含∫x^2g(x)dx，x^2g(x)为奇函数对称积分为0，故E[XY]=0\n\n$E[XY]=\\iint xy f(x,y)dxdy \\Rightarrow E[XY]=0$\n\n### 步骤8：\n步骤8：判断相关性: 协方差为零，故X与Y不相关\n\n$\\text{Cov}(X,Y)=E[XY]-E[X]E[Y]=0 \\Rightarrow X\\text{与}Y\\text{不相关}$\n\n### 步骤9：\n步骤9：判断独立性: 联合密度不等于边缘密度的乘积，故不独立；仅当k=0时退化为独立情形\n\n$f(x,y)\\neq f_X(x)f_Y(y) \\Rightarrow X\\text{与}Y\\text{不独立（当}k\\neq 0\\text{时）}$\n\n### 最终答案\n(1) k\\in\\big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\big];\\ (2) X\\text{与}Y\\text{不相关，且当}k\\neq0\\text{时不独立}",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 19:42",
+      "reviewed": false
+    }
+  ]
 }
