@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.4862723
+  "__cached_at__": 1779466679.4862723,
+  "raw_question_text": "下列命题正确的个数为 ① $f(x)=\\int_0^x \\frac{x}{\\cos t} dt$ 在 $(0,+\\infty)$ 内有界；② 在 $(-\\infty,+\\infty)$ 上连续的周期函数 $f(x)$ 一定有界；③ 若 $f(x)$ 在 $(a,b)$ 内可导，且导函数有界，则 $f(x)$ 在 $(a,b)$ 内一定有界；④ 若 $f(x)$ 在 $[0,+\\infty)$ 内可导，且 $\\lim_{x\\to+\\infty} f'(x)=0$，则 $f(x)$ 在 $[0,+\\infty)$ 内有界。",
+  "raw_answer_text": "C"
 }

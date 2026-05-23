@@ -1,0 +1,22 @@
+{
+  "question_id": "2020-数一-015",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 15,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$15.$ (本题满分10分)求函数 $f(x,y)=x^3+8y^3-xy$ 的极值。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 解答题 知识点: 多元函数微分 数学概念: 函数极值 中等难度 10分题 2020-数一-015"
+}

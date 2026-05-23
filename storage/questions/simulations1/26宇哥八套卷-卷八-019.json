@@ -18,5 +18,7 @@
     "中值定理"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设函数 $f(x)$ 在 $x=x_0$ 的某邻域 $U$ 内存在连续的二阶导数。\n$(1)$ 设当 $h>0$，$x_0-h\\in U$，$x_0+h\\in U$，恒有 $f(x_0) < \\frac{1}{2}[f(x_0+h) + f(x_0-h)]$，证明 $f''(x_0) \\ge 0$；\n$(2)$ 如果 $f''(x_0) > 0$，证明必存在 $h>0$，$x_0-h\\in U$，$x_0+h\\in U$，有 $f(x_0) < \\frac{1}{2}[f(x_0+h) + f(x_0-h)]$ 成立.",
+  "raw_answer_text": "证明略"
 }

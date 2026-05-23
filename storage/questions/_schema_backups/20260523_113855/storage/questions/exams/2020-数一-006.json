@@ -1,0 +1,22 @@
+{
+  "question_id": "2020-数一-006",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "向量代数与空间解析几何"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$6.$ 设 $L_1:\\frac{x-a_1}{a_1}=\\frac{y-b_1}{b_1}=\\frac{z-c_1}{c_1}$，$L_2$ 类似，则 $L_1$ 与 $L_2$ 相交于一点的充要条件是 $( )$\n\n$(A)$ 方向向量线性相关\n\n$(B)$ 参数线性相关\n\n$(C)$ 三直线方向向量线性无关\n\n$(D)$ 方向向量线性无关，且第三直线可由前两条表示",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "向量代数与空间解析几何"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2020年 选择题 知识点: 向量代数与空间解析几何 数学概念: 向量线性关系 较难题 4分题 2020-数一-006"
+}

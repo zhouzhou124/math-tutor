@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷八-013",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "若 $(2ax^3y^3 - 3y^2 + 5)dx + (3x^4y^2 - 2bxy - 4)dy$ 是某函数 $u(x,y)$ 的全微分，则 $u(x,y) =$ ______",
+  "standard_answer": "$\\frac{1}{2}ax^4y^3 - 3xy^2 + 5x + \\frac{3}{2}x^4y^2 - bxy^2 - 4y + C$",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "solution_steps": []
+}

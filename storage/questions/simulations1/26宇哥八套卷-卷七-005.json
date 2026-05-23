@@ -22,5 +22,7 @@
   "tags": [
     "矩阵运算"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 是 $n$ 阶矩阵，$x$ 是任意的 $n$ 维列向量，$B$ 是任意的 $n$ 阶方阵，则下列说法中错误的是",
+  "raw_answer_text": "D"
 }

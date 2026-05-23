@@ -1,0 +1,22 @@
+{
+  "question_id": "2013-数一-009",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 9,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$9.$ 设函数 $y = f(x)$ 由方程 $y - x = e^{x(1-y)}$ 确定，则 $ \\lim_{n\\to\\infty} n\\left[ f\\left(\\frac{1}{n}\\right) - 1 \\right] =\\underline{\\qquad\\qquad} $",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 填空题 知识点: 导数与微分 数学概念: 对数指数函数 极限 中等难度 4分题 2013-数一-009"
+}

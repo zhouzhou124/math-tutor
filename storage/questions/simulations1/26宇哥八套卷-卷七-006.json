@@ -22,5 +22,7 @@
   "tags": [
     "向量组与线性空间"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$n$ 维向量组 $\\alpha_1,\\alpha_2,\\dots,\\alpha_r$（$3\\le r\\le n$）线性相关的充分必要条件是",
+  "raw_answer_text": "D"
 }

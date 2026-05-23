@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.4982393
+  "__cached_at__": 1779466679.4982393,
+  "raw_question_text": "设 $A$ 为3阶非奇异矩阵，且 $A^{-1}=3E-A$，其中 $E$ 为3阶单位矩阵，则与矩阵 $(A-E)^{\\mathrm{T}}(A-E)$ 合同的是",
+  "raw_answer_text": "B"
 }

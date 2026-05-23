@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷三-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "不等式证明"
+  ],
+  "tags": [
+    "不等式证明"
+  ],
+  "question": "$20.$ (本题满分12分) 已知当 $x\\in(0,+\\infty)$ 时，$(1+ax)\\ln(1+x) > x$ 恒成立，求常数 $a$ 的取值范围。",
+  "standard_answer": "$a \\ge \\frac{1}{2}$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三"
+}

@@ -1,0 +1,24 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "极限 $\\lim_{x\\to\\infty} \\left[ \\frac{x^2}{(x-a)(x+b)} \\right]^x =$",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "极限"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2010",
+  "options": {
+    "A": "1",
+    "B": "$e$",
+    "C": "$e^{a-b}$",
+    "D": "$e^{b-a}$"
+  },
+  "correct_option": "D",
+  "question_id": "2010-数一-001",
+  "tags": [
+    "极限"
+  ]
+}

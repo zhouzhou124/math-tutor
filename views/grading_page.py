@@ -21,6 +21,77 @@ logger = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════
+#  Unicode math wrapping — AI 生成内容专用
+# ═══════════════════════════════════════════════
+
+import re as _re
+
+_UNICODE_MATH_PAT = _re.compile(
+    '['
+    'Ͱ-Ͽ'          # Greek
+    '∀-⋿'          # Math operators
+    '←-⇿'          # Arrows
+    '±×÷'          # Plus/minus/multiply/divide
+    '∞∂∫∬∭∑∏√'  # Infinity/partial/integral/sum/product/sqrt
+    '∈∉⊂⊃⊆⊇∪∩∅'  # Set membership
+    '∀∃∧∨¬⊕⊗'    # Quantifiers/logic
+    '≈≡∼∝∠⊥⋅≠'   # Relations
+    '≤≥'           # Inequalities
+    ']'
+)
+
+_MATH_COMPAT_PAT = _re.compile(
+    r'[a-zA-Z0-9=\+\-\*/\^\(\)\[\]\{\}\,\;\.\:\|\\\_\s'
+    r'Ͱ-Ͽ∀-⋿←-⇿±×÷≤≥≠]+'
+)
+
+def _wrap_unicode_math(text: str) -> str:
+    """Wrap Unicode math/greek symbols in $...$ for KaTeX rendering.
+
+    Only called on AI-generated grading output, never on question bank data.
+    """
+    if not text or not _UNICODE_MATH_PAT.search(text):
+        return text
+
+    # Phase 1: collect all math runs (expand from each Unicode math char)
+    runs = []
+    for m in _UNICODE_MATH_PAT.finditer(text):
+        left = m.start()
+        while left > 0 and _MATH_COMPAT_PAT.match(text[left - 1]):
+            left -= 1
+        right = m.end()
+        while right < len(text) and _MATH_COMPAT_PAT.match(text[right]):
+            right += 1
+        runs.append((left, right))
+
+    # Phase 2: merge overlapping runs
+    runs.sort()
+    merged = []
+    for left, right in runs:
+        if merged and left <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], right))
+        else:
+            merged.append((left, right))
+
+    # Phase 3: filter runs containing Chinese
+    merged = [(l, r) for l, r in merged
+              if not any('一' <= c <= '鿿' for c in text[l:r])]
+
+    # Phase 4: build output with $ wrapping
+    parts = []
+    last = 0
+    for left, right in merged:
+        if left > last:
+            parts.append(text[last:left])
+        parts.append('$' + text[left:right].strip() + '$')
+        last = right
+    if last < len(text):
+        parts.append(text[last:])
+
+    return ''.join(parts)
+
+
+# ═══════════════════════════════════════════════
 #  Helpers for thread-safe state access
 # ═══════════════════════════════════════════════
 
@@ -729,7 +800,8 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         status.write("⏳ AI 生成详细解答...")
         try:
             full_question_dict = dict(selected_q or {})
-            full_question_dict.setdefault("question", question)
+            raw_q = selected_q.get("raw_question_text") or selected_q.get("question", question)
+            full_question_dict.setdefault("question", raw_q)
             if selected_q.get("options"):
                 full_question_dict["question"] += "\n" + "\n".join(
                     f"({key}) {value}" for key, value in sorted(selected_q["options"].items())
@@ -828,7 +900,8 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     elif client is not None:
         status.write("⏳ AI 生成详细解答...")
         full_question_dict = dict(selected_q or {})
-        full_question_dict.setdefault("question", question)
+        raw_q = selected_q.get("raw_question_text") or selected_q.get("question", question)
+        full_question_dict.setdefault("question", raw_q)
         if selected_q.get("options"):
             full_question_dict["question"] += "\n" + "\n".join(
                 f"({key}) {value}" for key, value in sorted(selected_q["options"].items())
@@ -918,10 +991,12 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         }
         status.write("⚠️ 未配置 API Key，无法生成标准解答")
 
-    # 规范化 LaTeX
+    # 规范化 LaTeX（仅对 AI 生成的批改内容，不影响题库）
     try:
         from latex_normalizer import normalize_latex_style
         solution["standard_answer"] = normalize_latex_style(solution.get("standard_answer", ""))
+        # Unicode 数学符号包裹（π, ≤, →, Δ 等）——仅 AI 生成内容需要
+        solution["standard_answer"] = _wrap_unicode_math(solution["standard_answer"])
         steps = solution.get("steps", [])
         if steps:
             normalized_steps = []
@@ -929,11 +1004,14 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 if isinstance(s, dict):
                     if s.get("content"):
                         s["content"] = normalize_latex_style(s.get("content", ""))
+                        s["content"] = _wrap_unicode_math(s["content"])
                     for b in s.get("blocks") or []:
                         if isinstance(b, dict) and b.get("type") == "latex":
                             b["content"] = normalize_latex_style(b.get("content", ""))
+                            b["content"] = _wrap_unicode_math(b["content"])
                 elif isinstance(s, str):
                     s = normalize_latex_style(s)
+                    s = _wrap_unicode_math(s)
                 normalized_steps.append(s)
             solution["steps"] = normalized_steps
     except Exception:

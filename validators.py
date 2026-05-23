@@ -5,6 +5,7 @@ Runs before DB insert. Catches broken LaTeX early.
 import re
 from dataclasses import dataclass, field
 from math_sanitizer import safe_latex, is_valid_latex
+from database.question_schema import get_raw_question
 
 
 @dataclass
@@ -137,7 +138,7 @@ def validate_question(q: dict) -> ValidationResult:
     result = ValidationResult()
 
     # 1. Stem
-    stem = q.get("question", "") or q.get("stem", "")
+    stem = get_raw_question(q) or q.get("stem", "")
     stem_result = validate_question_stem(stem)
     result.errors.extend(stem_result.errors)
     result.warnings.extend(stem_result.warnings)
@@ -204,13 +205,16 @@ def validate_and_repair(q: dict) -> tuple[dict, ValidationResult]:
                             opt['content'] = fixed_content
         repaired["options"] = options
 
-    # Try safe_latex on stem
-    stem = repaired.get("question") or repaired.get("stem", "")
+    # Try safe_latex on stem — only touch backward-compat 'question' field,
+    # never overwrite raw_question_text.
+    stem = get_raw_question(repaired) or repaired.get("stem", "")
     if stem:
         try:
             repaired_stem = safe_latex(stem)
             if repaired_stem != stem:
-                repaired["question"] = repaired_stem
+                # Write to backward-compat 'question' only if no raw field exists yet
+                if not repaired.get("raw_question_text"):
+                    repaired["question"] = repaired_stem
                 result.warnings.append("题干已通过 safe_latex 修复")
         except Exception:
             pass

@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "幂级数",
+    "微分方程"
+  ],
+  "tags": [
+    "幂级数",
+    "微分方程"
+  ],
+  "question": "$20.$ (本题满分12分) 已知幂级数 $\\sum_{n=0}^\\infty a_n x^n$ 在其收敛域内的和函数 $S(x)$ 满足微分方程 $xS'(x)+S(x)=xe^{-x^2}$，\n$(1)$ 求幂级数的系数 $a_n$，\n$(2)$ 求幂级数的收敛域，\n$(3)$ 求 $S(x)$.",
+  "standard_answer": "(I) $a_n=\\frac{(-1)^n}{n!}$ (II) 收敛域为 $(-\\infty,+\\infty)$ (III) $S(x)=e^{-x^2}$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$20.$ (本题满分12分) 已知幂级数 $\\sum_{n=0}^\\infty a_n x^n$ 在其收敛域内的和函数 $S(x)$ 满足微分方程 $xS'(x)+S(x)=xe^{-x^2}$，\n$(1)$ 求幂级数的系数 $a_n$，\n$(2)$ 求幂级数的收敛域，\n$(3)$ 求 $S(x)$.",
+  "raw_answer_text": "(I) $a_n=\\frac{(-1)^n}{n!}$ (II) 收敛域为 $(-\\infty,+\\infty)$ (III) $S(x)=e^{-x^2}$"
+}

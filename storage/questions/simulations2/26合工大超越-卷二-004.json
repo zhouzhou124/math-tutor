@@ -24,5 +24,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "volume": "卷二",
-  "__cached_at__": 1779466026.0456228
+  "__cached_at__": 1779466026.0456228,
+  "raw_question_text": "已知级数 $\\sum_{n=1}^\\infty \\frac{(-1)^n \\ln n}{n^k}$，$k>0$，下列说法正确的是",
+  "raw_answer_text": "D"
 }

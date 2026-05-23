@@ -19,5 +19,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$15.$ 设 $\\alpha,\\beta,\\gamma$ 为三维列向量，且 $\\alpha,\\beta,\\gamma$ 线性无关，记 $A=(\\alpha,\\beta,\\gamma)$，$B=(2\\alpha+3\\gamma,3\\alpha+\\beta,\\alpha+2\\gamma)$，已知 $|A^{-1}+B^{-1}|=6$，则 $|A|=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{1}{3}$"
 }

@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷九-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量"
+  ],
+  "tags": [
+    "多维随机变量"
+  ],
+  "question": "$22.$ (本题满分12分) 设标准正态分布的密度函数为 $\\varphi(x)$，以及 $$g(x)=\\begin{cases} x, & -1\\le x\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 设 $f(x,y)=\\varphi(x)\\varphi(y)+k x g(x) g(y)$（$-\\infty<x,y<+\\infty$）.\n$(1)$ 求 $k$ 取值范围，使得 $f(x,y)$ 为随机变量 $(X,Y)$ 的联合密度函数；\n$(2)$ 判断 $X$ 和 $Y$ 是否相关，是否独立.",
+  "standard_answer": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$22.$ (本题满分12分) 设标准正态分布的密度函数为 $\\varphi(x)$，以及 $$g(x)=\\begin{cases} x, & -1\\le x\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 设 $f(x,y)=\\varphi(x)\\varphi(y)+k x g(x) g(y)$（$-\\infty<x,y<+\\infty$）.\n$(1)$ 求 $k$ 取值范围，使得 $f(x,y)$ 为随机变量 $(X,Y)$ 的联合密度函数；\n$(2)$ 判断 $X$ 和 $Y$ 是否相关，是否独立.",
+  "raw_answer_text": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立"
+}

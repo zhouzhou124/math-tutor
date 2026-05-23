@@ -20,5 +20,6 @@
   "source": "manual_2019",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2019年 证明题 知识点: 中值定理 导数与微分 较难题 10分题 2019-数一-018"
+  "embedding_text": "考研数学一 2019年 证明题 知识点: 中值定理 导数与微分 较难题 10分题 2019-数一-018",
+  "raw_question_text": "$18.$ (本题满分10分)设 $a_n = \\int_0^1 x^n \\sqrt{1-x^2} dx$ ($n=0,1,2,\\dots$)。\n\n$(1)$ 证明数列 $\\{a_n\\}$ 单调递减，且 $a_n = \\frac{n-1}{n+2} a_{n-2}$ ($n=2,3,\\dots$)；\n\n$(2)$ 求 $\\lim_{n\\to\\infty} \\frac{a_n}{a_{n-1}}$。"
 }

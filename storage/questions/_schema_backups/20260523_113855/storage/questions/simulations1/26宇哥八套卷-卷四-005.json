@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷四-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "以下矩阵乘积的结果为 $\\begin{pmatrix} 1 & -1 & 2 \\\\ 2 & 1 & 3 \\\\ 3 & 1 & 4 \\end{pmatrix}$ 的是",
+  "source": "import_v4",
+  "options": {
+    "A": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 3 & 4 & 2 \\end{pmatrix} \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & 3 & -1 \\\\ 0 & 0 & -\\frac{2}{3} \\end{pmatrix}$",
+    "B": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & -1 & 0 \\\\ 3 & 4 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & -3 & -1 \\\\ 0 & 0 & -\\frac{2}{3} \\end{pmatrix}$",
+    "C": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 3 & \\frac{4}{3} & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & -\\frac{2}{3} \\end{pmatrix} \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & 1 & -\\frac{1}{3} \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "D": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & -1 & 0 \\\\ 3 & \\frac{4}{3} & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & -3 & 0 \\\\ 0 & 0 & -\\frac{2}{3} \\end{pmatrix} \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & 1 & -\\frac{1}{3} \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+  },
+  "correct_option": "D"
+}

@@ -1,0 +1,20 @@
+{
+  "year": 2010,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "$(1)$ 比较 $\\int_0^1 |\\ln t| [\\ln(1+t)]^n dt$ 与 $\\int_0^1 t^n |\\ln t| dt$ 的大小；\n$(2)$ 求 $\\lim_{n\\to\\infty} u_n$.",
+  "standard_answer": "(I) 前者 < 后者；(II) $\\lim_{n\\to\\infty} u_n = 0$",
+  "knowledge_points": [
+    "定积分",
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "source": "manual_import_2010",
+  "question_id": "2010-数一-017",
+  "options": {},
+  "tags": [
+    "定积分",
+    "无穷级数"
+  ]
+}

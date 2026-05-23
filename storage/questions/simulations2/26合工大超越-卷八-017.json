@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "tags": [
+    "二重积分"
+  ],
+  "question": "(本题满分10分) 设 $D: x^2+y^2\\le 1$，计算二重积分 $$I=\\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy$$",
+  "standard_answer": "$\\frac{\\pi}{4}\\ln 2$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.298347,
+  "raw_question_text": "(本题满分10分) 设 $D: x^2+y^2\\le 1$，计算二重积分 $$I=\\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy$$",
+  "raw_answer_text": "$\\frac{\\pi}{4}\\ln 2$"
+}

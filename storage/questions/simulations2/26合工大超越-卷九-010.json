@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷九-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "$10.$ 已知 $X_1,X_2,\\dots,X_n$ 为总体 $X$ 的一个简单随机样本，且 $X\\sim N(0,\\sigma^2)$，记 $\\overline{X}=\\frac{1}{n}\\sum_{i=1}^n X_i$，$S_n^2=\\frac{1}{n}\\sum_{i=1}^n X_i^2-\\overline{X}^2$，则 $E[(X+S_n^2)^2]=$ $(A)$ $\\frac{\\sigma^2}{n}+\\frac{(n^2-1)\\sigma^4}{n^2}$ $(B)$ $\\frac{\\sigma^2+\\sigma^4}{n}$ $(C)$ $\\frac{\\sigma^2}{n}+\\frac{(n^2+1)\\sigma^4}{n^2}$ $(D)$ $\\frac{\\sigma^2}{n-1}+\\frac{n^2\\sigma^4}{n-1}$",
+  "options": {
+    "A": "$\\frac{\\sigma^2}{n}+\\frac{(n^2-1)\\sigma^4}{n^2}$",
+    "B": "$\\frac{\\sigma^2+\\sigma^4}{n}$",
+    "C": "$\\frac{\\sigma^2}{n}+\\frac{(n^2+1)\\sigma^4}{n^2}$",
+    "D": "$\\frac{\\sigma^2}{n-1}+\\frac{n^2\\sigma^4}{n-1}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$10.$ 已知 $X_1,X_2,\\dots,X_n$ 为总体 $X$ 的一个简单随机样本，且 $X\\sim N(0,\\sigma^2)$，记 $\\overline{X}=\\frac{1}{n}\\sum_{i=1}^n X_i$，$S_n^2=\\frac{1}{n}\\sum_{i=1}^n X_i^2-\\overline{X}^2$，则 $E[(X+S_n^2)^2]=$ $(A)$ $\\frac{\\sigma^2}{n}+\\frac{(n^2-1)\\sigma^4}{n^2}$ $(B)$ $\\frac{\\sigma^2+\\sigma^4}{n}$ $(C)$ $\\frac{\\sigma^2}{n}+\\frac{(n^2+1)\\sigma^4}{n^2}$ $(D)$ $\\frac{\\sigma^2}{n-1}+\\frac{n^2\\sigma^4}{n-1}$",
+  "raw_answer_text": "C"
+}

@@ -14,5 +14,6 @@
     "向量与空间解析几何"
   ],
   "question": "$13.$ 设 $F=|x|\\cos y\\bm{i}-y\\sin z\\bm{j}+z\\bm{k}$，则 $\\operatorname{rot}F(1,1,0)=$ ______",
-  "source": "import_v5"
+  "source": "import_v5",
+  "raw_question_text": "$13.$ 设 $F=|x|\\cos y\\bm{i}-y\\sin z\\bm{j}+z\\bm{k}$，则 $\\operatorname{rot}F(1,1,0)=$ ______"
 }

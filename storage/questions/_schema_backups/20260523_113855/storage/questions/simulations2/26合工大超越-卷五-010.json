@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷五-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "极大似然估计"
+  ],
+  "tags": [
+    "极大似然估计"
+  ],
+  "question": "设 $(X,Y)\\sim N(0,2\\sigma^2,\\sigma^2;\\frac{1}{2})$，$\\sigma^2$ 未知，$(x_1,y_1),\\dots,(x_n,y_n)$ 是简单随机样本。则 $P(X+Y\\le 1)$ 的极大似然估计值为",
+  "options": {
+    "A": "$\\Phi(\\sqrt{\\frac{n}{\\sum (x_i+y_i)^2}})$",
+    "B": "$1-\\Phi(\\sqrt{\\frac{n}{\\sum (x_i+y_i-2)^2}})$",
+    "C": "$\\Phi(\\sqrt{\\frac{n}{\\sum (x_i+y_i-2)^2}})$",
+    "D": "$1-\\Phi(\\sqrt{\\frac{3n}{\\sum (x_i+y_i-2)^2}})$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五",
+  "__cached_at__": 1779500074.4993982
+}

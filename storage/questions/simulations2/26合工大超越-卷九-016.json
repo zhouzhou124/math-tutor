@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷九-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "$16.$ 一袋中有 $a$ 只白球，$b$ 只黑球，现有放回地依次取出，直到白球、黑球都取到为止，设 $X$ 表示取球次数，则 $EX=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{a+b}{a} + \\frac{a+b}{b} - 1$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$16.$ 一袋中有 $a$ 只白球，$b$ 只黑球，现有放回地依次取出，直到白球、黑球都取到为止，设 $X$ 表示取球次数，则 $EX=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{a+b}{a} + \\frac{a+b}{b} - 1$"
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷八-019",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "偏微分方程"
+  ],
+  "tags": [
+    "偏微分方程"
+  ],
+  "question": "(本题满分12分)\n$(1)$ 设 $z=f(x,y)$ 有一阶连续偏导数，且 $y\\frac{\\partial f}{\\partial x}=x\\frac{\\partial f}{\\partial y}$。证明：令 $\\begin{cases} x=r\\cos\\theta \\\\ y=r\\sin\\theta \\end{cases}$，则函数 $z=g(r)$.\n$(2)$ 设函数 $f(x,y)$ 有连续偏导数，且 $f(0,0)=f(1,1)$。证明：在区域 $0\\le x\\le 1,0\\le y\\le 1$ 至少存在一点 $(\\xi,\\zeta)$ 满足方程 $\\frac{\\partial f}{\\partial x} + nx^{n-1}\\frac{\\partial f}{\\partial y}=0$.",
+  "standard_answer": "证明略",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3014932
+}

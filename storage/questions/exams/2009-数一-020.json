@@ -17,5 +17,7 @@
   "tags": [
     "特征值与特征向量",
     "线性方程组"
-  ]
+  ],
+  "raw_question_text": "设 $A = \\begin{pmatrix} 1 & -1 & -1 \\\\ -1 & 1 & 1 \\\\ 0 & -4 & -2 \\end{pmatrix}$，$\\xi_1 = \\begin{pmatrix} -1 \\\\ 1 \\\\ -2 \\end{pmatrix}$.\n$(1)$ 求满足 $A\\xi_2 = \\xi_1$，$A^2\\xi_3 = \\xi_1$ 的所有向量 $\\xi_2, \\xi_3$；\n$(2)$ 证明 $\\xi_1, \\xi_2, \\xi_3$ 线性无关.",
+  "raw_answer_text": "(I) $\\xi_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix} + k_1\\begin{pmatrix} 1 \\\\ 1 \\\\ 0 \\end{pmatrix}$，$\\xi_3$ 略；(II) 证明略"
 }

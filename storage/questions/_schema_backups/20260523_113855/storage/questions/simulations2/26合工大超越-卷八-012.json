@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷八-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "设 $z=f(x,y)$ 有连续偏导数，且 $f(x,x^2)=1$，$f_x'(1,1)=2$，则 $$\\lim_{x\\to 0} [f(\\cos x,\\sqrt{1+x^2})]^{\\frac{1}{\\ln(1+x^2)}} = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$e^{\\frac{1}{2}}$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779503483.6627204
+}

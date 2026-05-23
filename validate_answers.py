@@ -152,7 +152,7 @@ def check_answer_completeness(question: dict) -> dict:
 
 def generate_standard_answer(solver, question: dict) -> dict | None:
     """调用 SolverAgent.solve() 生成文本标准解答。"""
-    qtext = question.get("question", "")
+    qtext = question.get("raw_question_text") or question.get("question", "")
     qtype = question.get("question_type", "解答题")
     category = question.get("category", "数学一")
     kps = question.get("knowledge_points") or []
@@ -206,7 +206,7 @@ def generate_canonical_trace(solver, question: dict, verbose: bool = False) -> d
         成功返回 {"trace_dict": dict, "verified": bool, "confidence": float, "method_count": int}，
         失败返回 None。
     """
-    qtext = question.get("question", "")
+    qtext = question.get("raw_question_text") or question.get("question", "")
     qtype = question.get("question_type", "解答题")
     category = question.get("category", "数学一")
     kps = question.get("knowledge_points") or []

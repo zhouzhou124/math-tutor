@@ -1,0 +1,22 @@
+{
+  "question_id": "2025-数一-017",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "knowledge_points": [
+    "不定积分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$17.$ （本题满分10分）计算 $\\int_0^1 \\frac{1}{(x+1)(x^2 - 2x + 2)} dx$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "不定积分"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 解答题 知识点: 不定积分 数学概念: 积分 中等难度 10分题 2025-数一-017"
+}

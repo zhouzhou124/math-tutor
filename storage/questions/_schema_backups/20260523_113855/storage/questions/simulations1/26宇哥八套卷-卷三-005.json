@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷三-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 $A = \\begin{pmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\end{pmatrix}$，$B = \\begin{pmatrix} a_{21} & a_{22} & a_{23} \\\\ a_{11} & a_{12} & a_{13} \\\\ a_{31}+a_{11} & a_{32}+a_{12} & a_{33}+a_{13} \\end{pmatrix}$，$P_1 = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，则",
+  "source": "import_v3",
+  "options": {
+    "A": "$A P_1^9 P_2^T = B$",
+    "B": "$A P_2^T P_1^9 = B$",
+    "C": "$P_1^9 P_2^T A = B$",
+    "D": "$P_2^T P_1^9 A = B$"
+  },
+  "correct_option": "B"
+}

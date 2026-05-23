@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷三-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分"
+  ],
+  "tags": [
+    "反常积分"
+  ],
+  "question": "$$\\int_{-\\infty}^{0} \\frac{e^{\\frac{z}{\\xi}}}{1+e^{\\frac{z}{\\xi}}+e^{\\frac{z}{\\eta}}} d\\xi = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$\\ln\\frac{1+e^{\\frac{z}{\\eta}}}{1+e^{\\frac{z}{\\xi}}}$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三",
+  "__cached_at__": 1779466679.5044472
+}

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷八-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率计算"
+  ],
+  "tags": [
+    "概率计算"
+  ],
+  "question": "已知随机变量 $X$ 和 $Y$ 同分布，$X$ 的密度函数 $f(x)$ 满足 $f(1-x)=f(1+x)$，若 $P(X\\ge 2,Y\\ge 0)=p$（$0<p<\\frac{1}{2}$），则 $P(X<2,Y<0)=$",
+  "options": {
+    "A": "$1-p$",
+    "B": "$1-\\frac{p}{2}$",
+    "C": "$1-2p$",
+    "D": "$p$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3308535,
+  "raw_question_text": "已知随机变量 $X$ 和 $Y$ 同分布，$X$ 的密度函数 $f(x)$ 满足 $f(1-x)=f(1+x)$，若 $P(X\\ge 2,Y\\ge 0)=p$（$0<p<\\frac{1}{2}$），则 $P(X<2,Y<0)=$",
+  "raw_answer_text": "C"
+}

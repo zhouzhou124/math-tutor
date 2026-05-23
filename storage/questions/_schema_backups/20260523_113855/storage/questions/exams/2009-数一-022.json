@@ -1,0 +1,20 @@
+{
+  "year": 2009,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "袋中有$1$个红球、$2$个黑球与$3$个白球。现有放回地从袋中取两次，每次取一个球。以 $X,Y,Z$ 分别表示两次取球所取得的红球、黑球与白球的个数.\n$(1)$ 求 $P\\{X=1 \\mid Z=0\\}$；\n$(2)$ 求二维随机变量 $(X,Y)$ 的概率分布.",
+  "standard_answer": "(I) $P\\{X=1 \\mid Z=0\\} = \\frac{8}{15}$；(II) 分布略",
+  "knowledge_points": [
+    "概率",
+    "随机变量"
+  ],
+  "difficulty": "中等",
+  "score": 11,
+  "source": "manual_import_2009",
+  "question_id": "2009-数一-022",
+  "options": {},
+  "tags": [
+    "概率",
+    "随机变量"
+  ]
+}

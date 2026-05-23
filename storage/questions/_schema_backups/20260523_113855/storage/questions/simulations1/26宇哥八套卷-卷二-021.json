@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷二-021",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "(本题满分12分) 设 $A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 1 & 1 \\\\ 1 & 0 & 1 \\end{pmatrix}$，$A^T A = B^2$，其中 $B$ 为正定矩阵。\n$(1)$ 求 $B$；\n$(2)$ 证明存在正交矩阵 $C$ 使得 $A = CB$，并求出 $C$.",
+  "source": "import_v2",
+  "options": {}
+}

@@ -20,5 +20,7 @@
     "秩",
     "特征值",
     "特征向量"
-  ]
+  ],
+  "raw_question_text": "设 $A$ 为$3$阶实对称矩阵，$A$ 的秩为$2$，且 $A \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ -1 & 1 & 1 \\end{pmatrix} = \\begin{pmatrix} -1 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 1 & 1 \\end{pmatrix}$。\n$(1)$ 求 $A$ 的所有特征值与特征向量；\n$(2)$ 求矩阵 $A$.",
+  "raw_answer_text": "(I) 特征值 $\\lambda_1=2$（$k(1,1,0)^{\\mathrm{T}}$），$\\lambda_2=1$（$k(1,-1,0)^{\\mathrm{T}}$），$\\lambda_3=0$（$k(0,0,1)^{\\mathrm{T}}$）。(II) $A = \\begin{pmatrix} 2 & 1 & 0 \\\\ 1 & 2 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$"
 }

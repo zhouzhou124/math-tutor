@@ -15,5 +15,7 @@
   "tags": [
     "极限与连续"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x) = \\frac{x+|x|}{2}$，则 $\\lim_{x\\to 0} [f(1-x)f(1+x)]^{\\frac{1}{x^2}} =$ ______",
+  "raw_answer_text": "$e^{-1}$"
 }

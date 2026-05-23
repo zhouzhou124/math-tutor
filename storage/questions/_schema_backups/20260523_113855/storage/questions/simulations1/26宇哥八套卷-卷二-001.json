@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥八套卷-卷二-001",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "数列"
+  ],
+  "tags": [
+    "极限",
+    "数列"
+  ],
+  "question": "设函数 $f(x)$ 在 $(0, +\\infty)$ 上有界且可导，$f'(x)$ 单调增加，则",
+  "source": "import_v2",
+  "options": {
+    "A": "$\\{f(n)\\}$ 收敛，$\\{nf'(n)\\}$ 收敛",
+    "B": "$\\{f(n)\\}$ 收敛，$\\{nf'(n)\\}$ 发散",
+    "C": "$\\{f(n)\\}$ 发散，$\\{nf'(n)\\}$ 收敛",
+    "D": "$\\{f(n)\\}$ 发散，$\\{nf'(n)\\}$ 发散"
+  },
+  "correct_option": "A"
+}

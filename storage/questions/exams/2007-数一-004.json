@@ -23,5 +23,7 @@
     "极限与连续",
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)$ 在 $x=0$ 处连续，下列命题错误的是",
+  "raw_answer_text": "D"
 }

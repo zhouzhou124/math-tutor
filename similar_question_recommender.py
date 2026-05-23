@@ -78,7 +78,7 @@ def recommend_similar(
 
     # ── 第3层: hybrid_search 融合 ──
     if len(results) < top_k and knowledge_points:
-        query_text = question.get("question", " ".join(knowledge_points))
+        query_text = question.get("raw_question_text") or question.get("question", " ".join(knowledge_points))
         try:
             search_results = hybrid_search(
                 query=query_text[:200],

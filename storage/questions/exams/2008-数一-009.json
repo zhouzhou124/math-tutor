@@ -14,5 +14,7 @@
   "tags": [
     "微分方程"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "微分方程 $xy' + y = 0$ 满足条件 $y(1)=1$ 的解是 $y =$ ______",
+  "raw_answer_text": "$\\frac{1}{x}$"
 }

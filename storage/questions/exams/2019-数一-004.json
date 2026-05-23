@@ -18,5 +18,6 @@
   "source": "manual_2019",
   "options": {},
   "correct_option": "D",
-  "embedding_text": "考研数学一 2019年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 积分 中等难度 4分题 2019-数一-004"
+  "embedding_text": "考研数学一 2019年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 积分 中等难度 4分题 2019-数一-004",
+  "raw_question_text": "$4.$ 设函数 $Q(x,y) = \\frac{x}{y^2}$。如果对上半平面 $(y>0)$ 内的任意有向光滑封闭曲线 $C$ 都有 $\\oint_C P(x,y) dx + Q(x,y) dy = 0$，那么函数 $P(x,y)$ 可取为( )\n\n$(A)$ $y - \\frac{x^2}{y^3}$ \\quad $(B)$ $\\frac{1}{y} - \\frac{x^2}{y^3}$ \n\n$(C)$ $\\frac{1}{x} - \\frac{1}{y}$ \\quad $(D)$ $x - \\frac{1}{y}$"
 }

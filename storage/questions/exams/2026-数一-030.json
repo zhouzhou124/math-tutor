@@ -25,5 +25,7 @@
   "correct_option": "B",
   "standard_answer": "B",
   "source": "import_hegongda",
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$8.$ 设总体 $X$ 的期望和方差分别为 $EX = \\mu$ 和 $DX = \\sigma^2$，$X_1,X_2,X_3$ 是总体 $X$ 的简单随机样本，记 $\\overline{X} = \\frac{1}{3}\\sum_{i=1}^3 X_i$，则 $X_1 - \\overline{X}$ 和 $X_2 - \\overline{X}$ 的相关系数等于 $(A)$ $\\frac{1}{2}$ $(B)$ $-\\frac{1}{2}$ $(C)$ $0$ $(D)$ $1$",
+  "raw_answer_text": "B"
 }

@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷七-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "连续与可导"
+  ],
+  "tags": [
+    "连续与可导"
+  ],
+  "question": "设 $f(x)$ 在 $[-1,1]$ 上有定义，在 $[-1,0)\\cup(0,1]$ 内连续，$F(x)=\\int_{-1}^x f(t)dt$。则",
+  "options": {
+    "A": "若 $x=0$ 是 $f(x)$ 的可去间断点，则 $F(x)$ 在 $x=0$ 连续但不可导",
+    "B": "若可去间断点，则 $F(x)$ 在 $x=0$ 可导且 $F'(0)=f(0)$",
+    "C": "若跳跃间断点，则 $f(x)$ 在 $[-1,1]$ 上不存在原函数",
+    "D": "若 $f(x)$ 无界，则不存在原函数"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.2020328
+}

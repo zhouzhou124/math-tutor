@@ -1,0 +1,18 @@
+{
+  "question_id": "2007-数一-016",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "在区间 $(0,1)$ 中随机地取两个数，则这两个数之差的绝对值小于 $\\frac{1}{2}$ 的概率为 ______",
+  "standard_answer": "$\\frac{3}{4}$",
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "solution_steps": []
+}

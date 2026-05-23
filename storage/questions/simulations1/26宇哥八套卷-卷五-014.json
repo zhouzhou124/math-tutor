@@ -15,5 +15,6 @@
   ],
   "question": "$$\\lim_{n\\to\\infty} \\sum_{i=1}^n \\frac{1}{\\sqrt{in}} = \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_$$",
   "source": "import_v5",
-  "options": {}
+  "options": {},
+  "raw_question_text": "$$\\lim_{n\\to\\infty} \\sum_{i=1}^n \\frac{1}{\\sqrt{in}} = \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_$$"
 }

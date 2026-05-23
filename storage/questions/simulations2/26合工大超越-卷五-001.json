@@ -14,7 +14,7 @@
     "极限",
     "可导性"
   ],
-  "question": "$1.$ 设 $f(a)=0$，则\"极限 $\\lim_{h\to 0} \frac{f(a+\\sin h)}{1-\\cos h}$ 存在\"是\"函数 $f(x)$ 在 $x=a$ 处可导\"的 $(A)$ 充分非必要条件 $(B)$ 必要非充分条件 $(C)$ 充要条件 $(D)$ 既非充分也非必要条件",
+  "question": "设 $f(a)=0$，则\"极限 $\\lim_{h\to 0} \frac{f(a+\\sin h)}{1-\\cos h}$ 存在\"是\"函数 $f(x)$ 在 $x=a$ 处可导\"的",
   "options": {
     "A": "充分非必要条件",
     "B": "必要非充分条件",
@@ -25,5 +25,8 @@
   "standard_answer": "D",
   "source": "import_hegongda_v5",
   "solution_steps": [],
-  "volume": "卷五"
+  "volume": "卷五",
+  "__cached_at__": 1779499787.6966803,
+  "raw_question_text": "设 $f(a)=0$，则\"极限 $\\lim_{h\to 0} \frac{f(a+\\sin h)}{1-\\cos h}$ 存在\"是\"函数 $f(x)$ 在 $x=a$ 处可导\"的",
+  "raw_answer_text": "D"
 }

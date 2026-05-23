@@ -20,5 +20,6 @@
   "source": "manual_2021",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2021年 填空题 知识点: 行列式 矩阵运算 较难题 5分题 2021-数一-015"
+  "embedding_text": "考研数学一 2021年 填空题 知识点: 行列式 矩阵运算 较难题 5分题 2021-数一-015",
+  "raw_question_text": "$15.$ 设 $ A = (a_{ij}) $ 为 $3$ 阶矩阵，$ A_{ij} $ 为代数余子式，若 $ A $ 的每行元素之和均为 $2$，且 $|A| = 3$，则 $A_{11}+A_{21}+A_{31}=\\underline{\\qquad\\qquad}$"
 }

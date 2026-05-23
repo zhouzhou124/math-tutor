@@ -15,5 +15,7 @@
   "tags": [
     "曲线积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "若 $(2ax^3y^3 - 3y^2 + 5)dx + (3x^4y^2 - 2bxy - 4)dy$ 是某函数 $u(x,y)$ 的全微分，则 $u(x,y) =$ ______",
+  "raw_answer_text": "$\\frac{1}{2}ax^4y^3 - 3xy^2 + 5x + \\frac{3}{2}x^4y^2 - bxy^2 - 4y + C$"
 }

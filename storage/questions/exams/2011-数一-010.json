@@ -13,5 +13,7 @@
   "question_id": "2011-数一-010",
   "tags": [
     "微分方程"
-  ]
+  ],
+  "raw_question_text": "微分方程 $y' + y = e^{-x} \\cos x$ 满足条件 $y(0)=0$ 的解为 $y =$ ______",
+  "raw_answer_text": "$e^{-x}\\sin x$"
 }

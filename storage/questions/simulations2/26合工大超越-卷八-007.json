@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷八-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型正定"
+  ],
+  "tags": [
+    "二次型正定"
+  ],
+  "question": "设 $x=(x_1,x_2,x_3)^{\\mathrm{T}}$，$A$ 为 $3$ 阶可逆对称矩阵，$A^{-1}$，$A^*$ 分别为 $A$ 的逆矩阵和伴随矩阵，有二次型：① $x^{\\mathrm{T}}Ax$；② $x^{\\mathrm{T}}A^{\\mathrm{T}}Ax$；③ $x^{\\mathrm{T}}A^2x$；④ $x^{\\mathrm{T}}A^{-1}A^*x$，其中是正定二次型的是",
+  "options": {
+    "A": "①③",
+    "B": "①②④",
+    "C": "②③",
+    "D": "②③④"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779503288.588203,
+  "raw_question_text": "设 $x=(x_1,x_2,x_3)^{\\mathrm{T}}$，$A$ 为 $3$ 阶可逆对称矩阵，$A^{-1}$，$A^*$ 分别为 $A$ 的逆矩阵和伴随矩阵，有二次型：① $x^{\\mathrm{T}}Ax$；② $x^{\\mathrm{T}}A^{\\mathrm{T}}Ax$；③ $x^{\\mathrm{T}}A^2x$；④ $x^{\\mathrm{T}}A^{-1}A^*x$，其中是正定二次型的是",
+  "raw_answer_text": "C"
+}

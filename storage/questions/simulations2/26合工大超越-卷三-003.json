@@ -25,5 +25,7 @@
   "standard_answer": "B",
   "source": "import_hegongda_v3",
   "solution_steps": [],
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$3.$ 设 $f(x,y)$ 为可微函数，$f(x^2, e^x-1)=xe^x$，$f(\\ln x, x-1)=(1-x)^2$，则 $df(0,0)=$ $(A)$ $dy$ $(B)$ $-dx+dy$ $(C)$ $dx-dy$ $(D)$ $dx+dy$",
+  "raw_answer_text": "B"
 }

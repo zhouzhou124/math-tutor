@@ -1,0 +1,24 @@
+{
+  "question_id": "2022-数一-016",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 16,
+  "knowledge_points": [
+    "随机事件与概率",
+    "条件概率与独立性"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$16.$ 设 $A,B,C$ 三个事件，$A$ 与 $B$ 互不相容，$A$ 与 $C$ 互不相容，$B$ 与 $C$ 独立，$P(A)=P(B)=P(C)= \\frac{1}{3}$，则 $P[(B\\cup C)|(A\\cup B\\cup C)]=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率",
+    "条件概率与独立性"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2022年 填空题 知识点: 随机事件与概率 条件概率与独立性 较难题 5分题 2022-数一-016"
+}

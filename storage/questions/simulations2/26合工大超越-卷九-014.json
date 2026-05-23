@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷九-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分",
+    "无穷级数"
+  ],
+  "tags": [
+    "反常积分",
+    "无穷级数"
+  ],
+  "question": "$14.$ 设反常积分 $\\int_1^{+\\infty} \\frac{dx}{(1+x)^\\lambda}$ 发散，无穷级数 $\\sum_{n=1}^\\infty (\\tan\\frac{1}{n}-\\frac{1}{n})^\\lambda$ 收敛，则 $\\lambda\\in\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$(-\\infty,1)$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$14.$ 设反常积分 $\\int_1^{+\\infty} \\frac{dx}{(1+x)^\\lambda}$ 发散，无穷级数 $\\sum_{n=1}^\\infty (\\tan\\frac{1}{n}-\\frac{1}{n})^\\lambda$ 收敛，则 $\\lambda\\in\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$(-\\infty,1)$"
+}

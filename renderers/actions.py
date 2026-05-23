@@ -30,7 +30,7 @@ def view_solution(qid: str) -> None:
     kps = ", ".join(q.get("knowledge_points", [])) if q else ""
     st.session_state.ocr_result = {
         "success": True,
-        "question": q.get("question", "") if q else "",
+        "question": (q.get("raw_question_text") or q.get("question", "")) if q else "",
         "student_answer": "",          # empty → triggers view-only path
         "math_type": mt,
         "question_type": qt,

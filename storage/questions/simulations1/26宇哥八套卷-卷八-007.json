@@ -22,5 +22,7 @@
   "tags": [
     "向量组与线性空间"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1,\\alpha_2,\\dots,\\alpha_n$ 是 $n$ 个 $n$ 维的线性无关向量，$\\alpha_{n+1} = k_1\\alpha_1 + k_2\\alpha_2 + \\cdots + k_n\\alpha_n$，其中 $k_1,k_2,\\dots,k_n$ 全不为 $0$，则下列结论\n① $\\alpha_2,\\alpha_3,\\dots,\\alpha_{n+1}$ 线性相关；\n② $\\alpha_1,\\alpha_3,\\dots,\\alpha_{n+1}$ 线性相关；\n③ $\\alpha_1,\\alpha_2,\\alpha_4,\\dots,\\alpha_{n+1}$ 线性相关。\n正确的个数为",
+  "raw_answer_text": "D"
 }

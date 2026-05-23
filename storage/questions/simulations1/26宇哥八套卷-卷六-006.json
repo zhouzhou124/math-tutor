@@ -21,5 +21,6 @@
     "C": "$5$",
     "D": "$6$"
   },
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "设矩阵 $A = \\begin{pmatrix} 1 & -1 & 1 \\\\ -2 & 2 & 1 \\\\ 1 & -1 & k \\end{pmatrix}$，$r((3E - A)^2) < r(3E - A)$，其中 $E$ 是 $3$ 阶单位矩阵，则常数 $k =$"
 }

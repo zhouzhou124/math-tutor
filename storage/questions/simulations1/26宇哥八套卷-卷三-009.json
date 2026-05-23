@@ -21,5 +21,6 @@
     "C": "$\\frac{1}{2}$",
     "D": "$\\frac{1}{4}$"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设随机变量 $X$ 的概率分布为 $P(X=1)=a, P(X=2)=1-a$。在给定 $X=i$ 的条件下，随机变量 $Y$ 服从均匀分布 $U(0,i)(i=1,2)$，且当 $0 \\le y < 1$ 时，$Y$ 的分布函数为 $F_Y(y)=\\frac{2}{3}y$，则 $a=$"
 }

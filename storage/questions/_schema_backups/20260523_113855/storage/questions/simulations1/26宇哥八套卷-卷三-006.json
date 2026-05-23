@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷三-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "设 $3$ 阶矩阵 $A,B$ 满足 $r(BA) < r(AB)$，对于以下结论\n① $ABx = 0$ 与 $BAx = 0$ 有非零公共解；\n② $ABAx = 0$ 与 $BABx = 0$ 有非零公共解。\n正确的说法是",
+  "source": "import_v3",
+  "options": {
+    "A": "①正确，②正确",
+    "B": "①正确，②错误",
+    "C": "①错误，②正确",
+    "D": "①错误，②错误"
+  },
+  "correct_option": "A"
+}

@@ -1,0 +1,18 @@
+{
+  "question_id": "2008-数一-011",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "较难",
+  "score": 4,
+  "question": "已知幂级数 $\\sum_{n=0}^\\infty a_n (x+2)^n$ 在 $x=0$ 处收敛，在 $x=-4$ 处发散，则幂级数 $\\sum_{n=0}^\\infty a_n (x-3)^n$ 的收敛域为 ______",
+  "standard_answer": "$(1,5]$",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "solution_steps": []
+}

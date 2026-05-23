@@ -21,5 +21,7 @@
   "tags": [
     "无穷级数"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "若级数 $\\sum_{n=1}^\\infty a_n$ 收敛，则级数",
+  "raw_answer_text": "D"
 }

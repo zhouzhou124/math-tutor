@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷二-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分"
+  ],
+  "tags": [
+    "反常积分"
+  ],
+  "question": "$$\\int_0^{+\\infty} \\frac{1}{\\sqrt{x(x+2)^3}} dx = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$\\frac{\\pi}{2}$",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0278254
+}

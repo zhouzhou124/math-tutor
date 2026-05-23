@@ -25,5 +25,7 @@
   "standard_answer": "B",
   "source": "import_hegongda",
   "solution_steps": [],
-  "volume": "卷一"
+  "volume": "卷一",
+  "raw_question_text": "$9.$ 设随机变量 $F \\sim F(1,1)$，则 $P\\{F \\le 3\\} =$ $(A)$ $\\frac{1}{2}$ $(B)$ $\\frac{2}{3}$ $(C)$ $\\Phi(1)$ $(D)$ $\\Phi(2)$",
+  "raw_answer_text": "B"
 }

@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-014",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$14.$ 设二维随机变量 $(X,Y)\\sim N(0,1)$，则 $P\\{XY-Y<0\\}=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 填空题 知识点: 随机变量及其分布 中等难度 4分题 2015-数一-014"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥八套卷-卷一-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 $A = \\begin{pmatrix} a & 1 & 1 \\\\ 1 & a & a \\\\ 1 & 1 & a \\end{pmatrix}$ 可经初等列变换化成 $B = \\begin{pmatrix} a & 1 & 1 \\\\ 1 & a & 1 \\\\ 1 & 1 & a \\end{pmatrix}$，则 $a$ 的取值范围为",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$\\{a \\mid a \\in \\mathbf{R}, a \\neq -2\\}$",
+    "B": "$\\{a \\mid a \\in \\mathbf{R}, a \\neq -2, a \\neq -1\\}$",
+    "C": "$\\{a \\mid a \\in \\mathbf{R}, a \\neq 1, a \\neq -1\\}$",
+    "D": "$\\{a \\mid a \\in \\mathbf{R}, a \\neq -1\\}$"
+  },
+  "correct_option": "D",
+  "_original_answer": "",
+  "standard_answer": "关键知识点\n- 矩阵的初等列变换不改变矩阵的秩，因此 $A$ 可经初等列变换化为 $B$ 的充要条件是 $\\operatorname{rank}(A) = \\operatorname{rank}(B)$\n- 矩阵秩的计算：利用初等行（列）变换将矩阵化为阶梯形，或计算所有子式确定参数取值\n- 含参矩阵的秩讨论，需对参数进行分类讨论，找到使秩相等的参数范围\n\n易错提示\n- 错误地将初等列变换的条件当成初等行变换，或误以为 $A$ 与 $B$ 必须相等才可相互转化\n- 仅计算 $A$ 或 $B$ 的行列式为零的情形，而忽略两者秩必须相等这一必要条件\n- 在计算秩时忽略参数取特殊值（如 $a = -1$）时矩阵元素的具体形式，导致错误排除合理取值\n- 未注意到当 $a = -2$ 时，$A$ 与 $B$ 的秩可能仍然相等，从而错选包含 $a \\neq -2$ 的选项",
+  "_ai_expanded_at": "2026-05-22 00:33"
+}

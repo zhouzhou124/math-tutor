@@ -23,5 +23,7 @@
     "数字特征",
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X \\sim N(0,1)$，$Y \\sim N(1,4)$，且相关系数 $\\rho_{XY} = 1$，则",
+  "raw_answer_text": "D"
 }

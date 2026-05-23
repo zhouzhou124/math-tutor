@@ -26,5 +26,7 @@
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "volume": "卷四",
-  "__cached_at__": 1779467434.1944523
+  "__cached_at__": 1779467434.1944523,
+  "raw_question_text": "设 $A$ 为3阶矩阵，$\\lambda_1=\\lambda_2=a$，$\\lambda_3=b$（$a\\neq b$）是关于 $A$ 的特征值，则\"$A$ 可对角化\"是\"$(A-aE)(A-bE)=0$\"的",
+  "raw_answer_text": "A"
 }

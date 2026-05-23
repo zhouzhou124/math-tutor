@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷五-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "question": "$20.$ (本题满分12分) 设 $\\Sigma$ 为 $x^2+y^2+z^2=2$($z\\ge 0$)上侧，$f(x,y)$ 满足 $f(x,y) = x^2+y^2 + x\\iint_{\\Sigma} xy^2 dy dz + x^2 y dz dx - [(x+3y)^2 - z^2 + z f(x,y)] dx dy$，求 $f(x,y)$。",
+  "standard_answer": "$f(x,y) = x^2 + y^2 - \\frac{2}{3}\\pi$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五"
+}

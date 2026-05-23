@@ -17,5 +17,7 @@
     "参数估计",
     "数字特征"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $X_1,X_2$ 为来自总体 $N(0,1)$ 的简单随机样本，记 $\\hat{\\sigma} = a|X_1-X_2| (a>0)$，若 $D(\\hat{\\sigma}) = 1$，则 $a =$ ______",
+  "raw_answer_text": "$\\frac{\\sqrt{\\pi}}{2}$"
 }

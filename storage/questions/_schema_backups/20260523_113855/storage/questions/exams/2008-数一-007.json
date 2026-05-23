@@ -1,0 +1,25 @@
+{
+  "question_id": "2008-数一-007",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设随机变量 $X,Y$ 独立同分布，且 $X$ 的分布函数为 $F(x)$，则 $Z = \\max\\{X,Y\\}$ 的分布函数为",
+  "options": {
+    "A": "$F^2(x)$",
+    "B": "$F(x)F(y)$",
+    "C": "$1 - [1-F(x)]^2$",
+    "D": "$[1-F(x)][1-F(y)]$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "solution_steps": []
+}

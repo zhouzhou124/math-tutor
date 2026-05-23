@@ -1,0 +1,22 @@
+{
+  "question_id": "2019-数一-009",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 9,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$9.$ 设函数 $f(u)$ 可导，$z = f(\\sin y - \\sin x) + xy$，则 $\\frac{1}{\\cos x} \\cdot \\frac{\\partial z}{\\partial x} + \\frac{1}{\\cos y} \\cdot \\frac{\\partial z}{\\partial y} = \\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 多元函数微分 数学概念: 三角函数 偏导数 中等难度 4分题 2019-数一-009"
+}

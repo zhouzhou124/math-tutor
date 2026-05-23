@@ -15,5 +15,7 @@
     "曲面积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $\\Sigma$ 是锥面 $z = \\sqrt{x^2+y^2}$（$0\\le z\\le 1$）的下侧，则 $$\\iint_{\\Sigma} x dy dz + 2y dz dx + 3(z-1) dx dy =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\pi$"
 }

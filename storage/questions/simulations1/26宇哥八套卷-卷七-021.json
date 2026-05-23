@@ -18,5 +18,7 @@
     "矩阵运算"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $A = \\begin{pmatrix} 2 & 1 & 0 \\\\ 1 & 2 & 0 \\\\ a & 1 & b \\end{pmatrix}$ 恰有 $2$ 个不同的特征值且可相似对角化，$a>0$，$(A+E)(E-B)=E$.求\n$(1)$ $a,b$ 的值；\n$(2)$ 可以使 $A,B$ 同时相似对角化的可逆矩阵 $P$.",
+  "raw_answer_text": "(1) $a=2$，$b=1$\n(2) $P = E$（3阶单位矩阵）"
 }

@@ -22,5 +22,7 @@
   "tags": [
     "参数估计"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "在数集 $\\Omega = \\{0,1,2,\\dots,N\\}$ 中有放回地抽取 $n$ 次，得 $X_1,X_2,\\dots,X_n$，则 $N$ 的最大似然估计量是",
+  "raw_answer_text": "A"
 }

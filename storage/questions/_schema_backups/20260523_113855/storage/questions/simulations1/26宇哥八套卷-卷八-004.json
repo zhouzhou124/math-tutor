@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-004",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设有直线 $L: \\begin{cases} x+3y+2z+1=0 \\\\ 2x-y-10z+3=0 \\end{cases}$ 及平面 $\\pi: 4x-2y+z-2=0$，则直线 $L$",
+  "options": {
+    "A": "平行于 $\\pi$",
+    "B": "在 $\\pi$ 上",
+    "C": "垂直于 $\\pi$",
+    "D": "与 $\\pi$ 斜交"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "空间解析几何"
+  ],
+  "tags": [
+    "空间解析几何"
+  ],
+  "solution_steps": []
+}

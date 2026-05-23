@@ -14,7 +14,7 @@
     "概率",
     "条件概率"
   ],
-  "question": "设随机变量 $(X,Y)$ 的概率密度 $$f(x,y)=\\begin{cases} x+y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$记 $A=\\{X\\ge \\frac{1}{2}\\}$，$B=\\{Y\\ge \\frac{1}{4}\\}$，$C=\\{X+Y\\le 1\\}$，则 $P(AB\\cup C \\mid AC)=$",
+  "question": "设随机变量 $(X,Y)$ 的概率密度 $$$f(x,y)=\\begin{cases} x+y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$$记 $A=\\{X\\ge \\frac{1}{2}\\}$，$B=\\{Y\\ge \\frac{1}{4}\\}$，$C=\\{X+Y\\le 1\\}$，则 $P(AB\\cup C \\mid AC)=$",
   "options": {
     "A": "$\\frac{7}{8}$",
     "B": "$\\frac{3}{4}$",
@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.4902923
+  "__cached_at__": 1779466679.4902923,
+  "raw_question_text": "设随机变量 $(X,Y)$ 的概率密度 $$$f(x,y)=\\begin{cases} x+y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$$记 $A=\\{X\\ge \\frac{1}{2}\\}$，$B=\\{Y\\ge \\frac{1}{4}\\}$，$C=\\{X+Y\\le 1\\}$，则 $P(AB\\cup C \\mid AC)=$",
+  "raw_answer_text": "A"
 }

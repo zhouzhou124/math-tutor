@@ -26,5 +26,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "volume": "卷二",
-  "__cached_at__": 1779466026.050344
+  "__cached_at__": 1779466026.050344,
+  "raw_question_text": "设 $A = (a_{ij})$ 为三阶非零矩阵，$A_{ij}$ 为 $|A|$ 中 $a_{ij}$ 的代数余子式，满足 $a_{ij} = -A_{ij}$，$1\\le i\\le 3, 1\\le j\\le 3$，$\\alpha,\\beta$ 为任意3维列向量，$E$ 为三阶单位矩阵，下列结论：① $\\alpha^{\\mathrm{T}} A^{\\mathrm{T}} A \\alpha = \\|\\alpha\\|^2$；② $[A\\alpha, A\\beta] = [\\alpha, \\beta]$；③ 齐次线性方程组 $(A+E)x=0$ 有非零解；④ $\\operatorname{tr}(A^2) = [\\operatorname{tr}(A)]^2$。正确的选项是",
+  "raw_answer_text": "A"
 }

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷七-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量类型"
+  ],
+  "tags": [
+    "随机变量类型"
+  ],
+  "question": "$X\\sim N(0,1),Y\\sim B(1,\\frac{1}{2})$ 独立，$Z_1=X+Y,Z_2=X\\cdot Y$，则",
+  "options": {
+    "A": "$Z_1,Z_2$ 均非连续型",
+    "B": "$Z_1$ 非连续 $Z_2$ 连续",
+    "C": "$Z_1$ 连续 $Z_2$ 非连续",
+    "D": "均连续"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.198731,
+  "raw_question_text": "$X\\sim N(0,1),Y\\sim B(1,\\frac{1}{2})$ 独立，$Z_1=X+Y,Z_2=X\\cdot Y$，则",
+  "raw_answer_text": "C"
+}

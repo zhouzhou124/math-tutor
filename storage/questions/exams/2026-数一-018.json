@@ -14,5 +14,7 @@
   "question": "$18.$ (本题满分12分) 设 $f(u)$ 在 $(0,+\\infty)$ 内具有 $3$ 阶连续导数，且存在可微函数 $F(x,y)$ ，满足 $dF(x,y) = \\frac{f(xy)}{x^2 y} dx + \\frac{f''(xy)}{xy^2} dy$ ($xy>0$)。\n$(1)$ 证明：$\\frac{f'(u)}{u} - \\frac{f(u)}{u} = c$，$c$ 为常数；\n$(2)$ 若 $f(1) = 1$，$f'(1) = -1$，$f''(1) = 0$，求 $f(u)$ 的表达式。",
   "source": "import_2026",
   "standard_answer": "(1) 证明略 (2) f(u) = \\ln u - \\frac{1}{u} + 1",
-  "question_id": "2026-数一-018"
+  "question_id": "2026-数一-018",
+  "raw_question_text": "$18.$ (本题满分12分) 设 $f(u)$ 在 $(0,+\\infty)$ 内具有 $3$ 阶连续导数，且存在可微函数 $F(x,y)$ ，满足 $dF(x,y) = \\frac{f(xy)}{x^2 y} dx + \\frac{f''(xy)}{xy^2} dy$ ($xy>0$)。\n$(1)$ 证明：$\\frac{f'(u)}{u} - \\frac{f(u)}{u} = c$，$c$ 为常数；\n$(2)$ 若 $f(1) = 1$，$f'(1) = -1$，$f''(1) = 0$，求 $f(u)$ 的表达式。",
+  "raw_answer_text": "(1) 证明略 (2) f(u) = \\ln u - \\frac{1}{u} + 1"
 }

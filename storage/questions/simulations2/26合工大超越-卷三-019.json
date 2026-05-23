@@ -17,5 +17,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$19.$ (本题满分12分) 讨论级数 $\\sum_{n=1}^\\infty \\frac{1}{n^p \\ln^q(n+1)}$ 的敛散性，其中 $p,q$ 为正实数参数。",
+  "raw_answer_text": "当 $p>1$ 时收敛；当 $p=1$ 且 $q>1$ 时收敛；当 $p<1$ 或 $p=1$ 且 $q\\le 1$ 时发散"
 }

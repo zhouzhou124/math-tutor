@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0340784
+  "__cached_at__": 1779466026.0340784,
+  "raw_question_text": "(本题满分10分) 计算 $$\\int \\frac{e^x}{(e^x+3)^2} dx$$",
+  "raw_answer_text": "$-\\frac{1}{e^x+3} + C$"
 }

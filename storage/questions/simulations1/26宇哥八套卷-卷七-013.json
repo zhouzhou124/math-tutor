@@ -15,5 +15,7 @@
   "tags": [
     "定积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上连续，$\\int_0^1 2x^2 f(x) dx \\ge \\int_0^1 f^2(x) dx + \\frac{1}{5}$，则 $f(x) =$ ______",
+  "raw_answer_text": "$x^2$"
 }

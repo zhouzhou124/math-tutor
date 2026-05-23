@@ -20,5 +20,6 @@
   "source": "manual_2025",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2025年 解答题 知识点: 多元函数微分 微分方程 较难题 10分题 2025-数一-018"
+  "embedding_text": "考研数学一 2025年 解答题 知识点: 多元函数微分 微分方程 较难题 10分题 2025-数一-018",
+  "raw_question_text": "$18.$ （本题满分10分）已知 $f(u)$ 在 $(0,+\\infty)$ 内具有二阶导数，记 $g(x,y)=f(\\frac{x}{y})$。若 $g$ 满足 $x^2g_{xx}+xyg_{xy}+y^2g_{yy}=1$，且 $g(x,x)=1$，$g_x|_{(x,x)}=\\frac{2}{x}$，求 $f(u)$。"
 }

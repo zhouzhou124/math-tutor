@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷四-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "抽样分布"
+  ],
+  "tags": [
+    "抽样分布"
+  ],
+  "question": "设 $X_1,X_2,X_3,X_4,X_5$ 为来自总体 $X\\sim N(0,\\sigma^2)$ 的简单随机样本，$\\overline{X}=\\frac{1}{5}\\sum_{i=1}^5 X_i$，$S^2=\\frac{1}{4}\\sum_{i=1}^5 (X_i-\\overline{X})^2$，则下列结论中正确的个数有 ① $\\sqrt{\\frac{3}{2}} \\frac{X_1+X_2}{|X_3+X_4+X_5|} \\sim t(1)$；② $\\frac{5}{6} \\frac{\\overline{X}^2}{\\sigma^2} \\sim \\chi^2(5)$；③ $\\frac{1}{\\sigma^2}[(X_1-2X_2)^2+(2X_3+X_4)^2] \\sim \\chi^2(2)$；④ $\\frac{(X_1-2X_2)^2}{(2X_3+X_4)^2} \\sim F(1,1)$。",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1977012
+}

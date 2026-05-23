@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-007",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "difficulty": "基础",
+  "score": 4,
+  "question": "$7.$ 若 $A,B$ 为任意两个随机事件，则( )\n\n$(A)$ $P(AB)\\le P(A)P(B)$\n\n$(B)$ $P(AB)\\ge P(A)P(B)$\n\n$(C)$ $P(AB)\\le\\frac{P(A)+P(B)}{2}$\n\n$(D)$ $P(AB)\\ge\\frac{P(A)+P(B)}{2}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2015年 选择题 知识点: 随机事件与概率 基础题 4分题 2015-数一-007"
+}

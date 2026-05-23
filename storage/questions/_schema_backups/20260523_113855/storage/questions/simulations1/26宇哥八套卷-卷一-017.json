@@ -1,0 +1,42 @@
+{
+  "question_id": "26宇哥八套卷-卷一-017",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "重积分"
+  ],
+  "tags": [
+    "重积分"
+  ],
+  "question": "(本题满分10分) 计算 $$\\int_0^1 dx \\int_1^x (e^{-y^2} + e^y \\sin y) dy.$$",
+  "source": "import_zhangyu_v1",
+  "options": {},
+  "_original_answer": "",
+  "standard_answer": "## 题目重述\n计算二重积分 $\\displaystyle I = \\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy$。\n\n## 标准答案\n$\\displaystyle \\frac{e^{-1} - e \\sin 1}{2}$\n\n---\n\n### 步骤1：分析积分区域并交换积分次序\n\n原积分的积分区域由 $0 \\le x \\le 1$ 与 $1 \\le y \\le x$ 描述。但当 $x \\in [0,1]$ 时，$x \\le 1$，因此内层积分上限 $x$ 小于下限 $1$，这是一个反向积分。我们将其改写为正常积分：\n$$\n\\int_1^x f(y)\\,dy = -\\int_x^1 f(y)\\,dy,\n$$\n于是\n$$\nI = \\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy = -\\int_0^1 dx \\int_x^1 \\big(e^{-y^2} + e^y \\sin y\\big) dy.\n$$\n此时积分区域为\n$$\nD = \\{(x,y) \\mid 0 \\le x \\le 1,\\; x \\le y \\le 1\\},\n$$\n这是一个以 $(0,0), (1,1), (0,1)$ 为顶点的三角形区域。交换积分次序（先 $x$ 后 $y$）：\n$$\nI = -\\int_0^1 dy \\int_0^y \\big(e^{-y^2} + e^y \\sin y\\big) dx.\n$$\n因为被积函数与 $x$ 无关，对 $x$ 积分直接乘以区间长度 $y$：\n$$\nI = -\\int_0^1 y\\big(e^{-y^2} + e^y \\sin y\\big) dy.\n$$\n\n---\n\n### 步骤2：拆分为两个积分\n\n将积分线性拆分：\n$$\nI = -\\int_0^1 y e^{-y^2}\\,dy \\;-\\; \\int_0^1 y e^y \\sin y\\,dy \\triangleq I_1 + I_2.\n$$\n\n---\n\n### 步骤3：计算 $I_1 = -\\int_0^1 y e^{-y^2}\\,dy$\n\n令 $u = y^2$，则 $du = 2y\\,dy$，即 $y\\,dy = \\frac{1}{2}du$。上下限：当 $y=0$ 时 $u=0$；$y=1$ 时 $u=1$。\n$$\n\\int_0^1 y e^{-y^2}\\,dy = \\frac{1}{2}\\int_0^1 e^{-u}\\,du = \\frac{1}{2}\\Big[ -e^{-u} \\Big]_0^1 = \\frac{1}{2}\\big(1 - e^{-1}\\big).\n$$\n因此\n$$\nI_1 = -\\frac{1}{2}\\big(1 - e^{-1}\\big) = -\\frac{1}{2} + \\frac{e^{-1}}{2}.\n$$\n\n---\n\n### 步骤4：计算 $I_2 = -\\int_0^1 y e^y \\sin y\\,dy$\n\n先计算 $K = \\int_0^1 y e^y \\sin y\\,dy$。使用分部积分法，令\n$$\nu = y,\\quad dv = e^y \\sin y\\,dy,\n$$\n则\n$$\ndu = dy,\\quad v = \\int e^y \\sin y\\,dy = \\frac{e^y}{2}(\\sin y - \\cos y).\n$$\n（此处 $v$ 可通过两次分部积分或复指数方法求得。）\n于是\n$$\nK = \\Big[ y \\cdot \\frac{e^y}{2}(\\sin y - \\cos y) \\Big]_0^1 - \\int_0^1 \\frac{e^y}{2}(\\sin y - \\cos y)\\,dy.\n$$\n代入上下限：\n$$\n\\Big[ \\cdots \\Big]_0^1 = \\frac{e}{2}(\\sin 1 - \\cos 1) - 0 = \\frac{e}{2}(\\sin 1 - \\cos 1).\n$$\n接下来计算剩余的积分：\n$$\n\\int_0^1 e^y(\\sin y - \\cos y)\\,dy.\n$$\n由于\n$$\n\\frac{d}{dy}\\big(e^y \\sin y\\big) = e^y\\sin y + e^y\\cos y,\\quad\n\\frac{d}{dy}\\big(e^y \\cos y\\big) = e^y\\cos y - e^y\\sin y,\n$$\n可得\n$$\n\\int e^y(\\sin y - \\cos y)\\,dy = -e^y \\cos y + C.\n$$\n（验证：求导得 $-e^y\\cos y + e^y\\sin y = e^y(\\sin y - \\cos y)$。）\n因此\n$$\n\\int_0^1 e^y(\\sin y - \\cos y)\\,dy = \\Big[ -e^y\\cos y \\Big]_0^1 = -e\\cos 1 - (-1) = 1 - e\\cos 1.\n$$\n代回 $K$：\n$$\nK = \\frac{e}{2}(\\sin 1 - \\cos 1) - \\frac{1}{2}\\big(1 - e\\cos 1\\big)\n   = \\frac{e}{2}\\sin 1 - \\frac{e}{2}\\cos 1 - \\frac{1}{2} + \\frac{e}{2}\\cos 1\n   = \\frac{e}{2}\\sin 1 - \\frac{1}{2}.\n$$\n于是\n$$\nI_2 = -K = -\\frac{e}{2}\\sin 1 + \\frac{1}{2}.\n$$\n\n---\n\n### 步骤5：合并结果\n\n$$\nI = I_1 + I_2 = \\left( -\\frac{1}{2} + \\frac{e^{-1}}{2} \\right) + \\left( -\\frac{e}{2}\\sin 1 + \\frac{1}{2} \\right)\n   = \\frac{e^{-1}}{2} - \\frac{e}{2}\\sin 1\n   = \\frac{e^{-1} - e \\sin 1}{2}.\n$$\n\n---\n\n## 结论\n$$\n\\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy = \\frac{e^{-1} - e \\sin 1}{2}.\n$$\n\n## 关键知识点\n- 二重积分交换积分次序（含反向积分处理）\n- 分部积分法\n- 指数函数与三角函数乘积的积分技巧（$e^y \\sin y$ 类型）\n- 凑微分法计算 $\\int y e^{-y^2}dy$\n\n## 易错提示\n- 忽略内层积分限 $1$ 到 $x$ 在 $x<1$ 时是反向积分，直接按 $x$ 到 $1$ 计算会导致符号错误\n- 交换积分次序时未正确画出区域或写错新积分限\n- 对 $y e^{-y^2}$ 积分时忘记系数 $\\frac{1}{2}$\n- $e^y\\sin y$ 分部积分时 $v$ 求错，或最终合并时正负号混淆",
+  "_ai_expanded_at": "2026-05-22 20:10",
+  "canonical_solutions": [
+    {
+      "solution_id": "default",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n计算二重积分 $\\displaystyle I = \\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy$。\n\n## 标准答案\n$\\displaystyle \\frac{e^{-1} - e \\sin 1}{2}$\n\n---\n\n### 步骤1：分析积分区域并交换积分次序\n\n原积分的积分区域由 $0 \\le x \\le 1$ 与 $1 \\le y \\le x$ 描述。但当 $x \\in [0,1]$ 时，$x \\le 1$，因此内层积分上限 $x$ 小于下限 $1$，这是一个反向积分。我们将其改写为正常积分：\n$$\n\\int_1^x f(y)\\,dy = -\\int_x^1 f(y)\\,dy,\n$$\n于是\n$$\nI = \\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy = -\\int_0^1 dx \\int_x^1 \\big(e^{-y^2} + e^y \\sin y\\big) dy.\n$$\n此时积分区域为\n$$\nD = \\{(x,y) \\mid 0 \\le x \\le 1,\\; x \\le y \\le 1\\},\n$$\n这是一个以 $(0,0), (1,1), (0,1)$ 为顶点的三角形区域。交换积分次序（先 $x$ 后 $y$）：\n$$\nI = -\\int_0^1 dy \\int_0^y \\big(e^{-y^2} + e^y \\sin y\\big) dx.\n$$\n因为被积函数与 $x$ 无关，对 $x$ 积分直接乘以区间长度 $y$：\n$$\nI = -\\int_0^1 y\\big(e^{-y^2} + e^y \\sin y\\big) dy.\n$$\n\n---\n\n### 步骤2：拆分为两个积分\n\n将积分线性拆分：\n$$\nI = -\\int_0^1 y e^{-y^2}\\,dy \\;-\\; \\int_0^1 y e^y \\sin y\\,dy \\triangleq I_1 + I_2.\n$$\n\n---\n\n### 步骤3：计算 $I_1 = -\\int_0^1 y e^{-y^2}\\,dy$\n\n令 $u = y^2$，则 $du = 2y\\,dy$，即 $y\\,dy = \\frac{1}{2}du$。上下限：当 $y=0$ 时 $u=0$；$y=1$ 时 $u=1$。\n$$\n\\int_0^1 y e^{-y^2}\\,dy = \\frac{1}{2}\\int_0^1 e^{-u}\\,du = \\frac{1}{2}\\Big[ -e^{-u} \\Big]_0^1 = \\frac{1}{2}\\big(1 - e^{-1}\\big).\n$$\n因此\n$$\nI_1 = -\\frac{1}{2}\\big(1 - e^{-1}\\big) = -\\frac{1}{2} + \\frac{e^{-1}}{2}.\n$$\n\n---\n\n### 步骤4：计算 $I_2 = -\\int_0^1 y e^y \\sin y\\,dy$\n\n先计算 $K = \\int_0^1 y e^y \\sin y\\,dy$。使用分部积分法，令\n$$\nu = y,\\quad dv = e^y \\sin y\\,dy,\n$$\n则\n$$\ndu = dy,\\quad v = \\int e^y \\sin y\\,dy = \\frac{e^y}{2}(\\sin y - \\cos y).\n$$\n（此处 $v$ 可通过两次分部积分或复指数方法求得。）\n于是\n$$\nK = \\Big[ y \\cdot \\frac{e^y}{2}(\\sin y - \\cos y) \\Big]_0^1 - \\int_0^1 \\frac{e^y}{2}(\\sin y - \\cos y)\\,dy.\n$$\n代入上下限：\n$$\n\\Big[ \\cdots \\Big]_0^1 = \\frac{e}{2}(\\sin 1 - \\cos 1) - 0 = \\frac{e}{2}(\\sin 1 - \\cos 1).\n$$\n接下来计算剩余的积分：\n$$\n\\int_0^1 e^y(\\sin y - \\cos y)\\,dy.\n$$\n由于\n$$\n\\frac{d}{dy}\\big(e^y \\sin y\\big) = e^y\\sin y + e^y\\cos y,\\quad\n\\frac{d}{dy}\\big(e^y \\cos y\\big) = e^y\\cos y - e^y\\sin y,\n$$\n可得\n$$\n\\int e^y(\\sin y - \\cos y)\\,dy = -e^y \\cos y + C.\n$$\n（验证：求导得 $-e^y\\cos y + e^y\\sin y = e^y(\\sin y - \\cos y)$。）\n因此\n$$\n\\int_0^1 e^y(\\sin y - \\cos y)\\,dy = \\Big[ -e^y\\cos y \\Big]_0^1 = -e\\cos 1 - (-1) = 1 - e\\cos 1.\n$$\n代回 $K$：\n$$\nK = \\frac{e}{2}(\\sin 1 - \\cos 1) - \\frac{1}{2}\\big(1 - e\\cos 1\\big)\n   = \\frac{e}{2}\\sin 1 - \\frac{e}{2}\\cos 1 - \\frac{1}{2} + \\frac{e}{2}\\cos 1\n   = \\frac{e}{2}\\sin 1 - \\frac{1}{2}.\n$$\n于是\n$$\nI_2 = -K = -\\frac{e}{2}\\sin 1 + \\frac{1}{2}.\n$$\n\n---\n\n### 步骤5：合并结果\n\n$$\nI = I_1 + I_2 = \\left( -\\frac{1}{2} + \\frac{e^{-1}}{2} \\right) + \\left( -\\frac{e}{2}\\sin 1 + \\frac{1}{2} \\right)\n   = \\frac{e^{-1}}{2} - \\frac{e}{2}\\sin 1\n   = \\frac{e^{-1} - e \\sin 1}{2}.\n$$\n\n---\n\n## 结论\n$$\n\\int_0^1 dx \\int_1^x \\big(e^{-y^2} + e^y \\sin y\\big) dy = \\frac{e^{-1} - e \\sin 1}{2}.\n$$\n\n## 关键知识点\n- 二重积分交换积分次序（含反向积分处理）\n- 分部积分法\n- 指数函数与三角函数乘积的积分技巧（$e^y \\sin y$ 类型）\n- 凑微分法计算 $\\int y e^{-y^2}dy$\n\n## 易错提示\n- 忽略内层积分限 $1$ 到 $x$ 在 $x<1$ 时是反向积分，直接按 $x$ 到 $1$ 计算会导致符号错误\n- 交换积分次序时未正确画出区域或写错新积分限\n- 对 $y e^{-y^2}$ 积分时忘记系数 $\\frac{1}{2}$\n- $e^y\\sin y$ 分部积分时 $v$ 求错，或最终合并时正负号混淆",
+      "generated_by": "legacy",
+      "generated_at": "",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "auto-migrated",
+    "generated_at": "2026-05-22 20:10",
+    "reviewed": false,
+    "render_version": "v2"
+  }
+}

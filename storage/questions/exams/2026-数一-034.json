@@ -19,5 +19,7 @@
   "standard_answer": "$\\frac{3}{8}$",
   "source": "import_hegongda",
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "$12.$ 设 $f(x)$ 是 $(-\\infty,+\\infty)$ 上的非负连续函数，且 $f(x) \\cdot \\int_0^x f(x-t) dt = x \\cos^4 x$，则 $f(x)$ 在 $[0,\\pi]$ 上的平均值为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{3}{8}$"
 }

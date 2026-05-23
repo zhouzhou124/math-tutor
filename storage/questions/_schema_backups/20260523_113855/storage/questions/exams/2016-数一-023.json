@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-023",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 23,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\theta)=\\frac{3x^2}{\\theta^3}(0<x<\\theta)$，$X_1,X_2,X_3$ 为样本，$T=\\max\\{X_1,X_2,X_3\\}$。\n\n$(1)$ 求 $T$ 的概率密度；\n\n$(2)$ 确定 $a$ 使得 $aT$ 为 $\\theta$ 的无偏估计。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 数理统计 数学概念: 参数估计 极大似然 概率统计 较难题 11分题 2016-数一-023"
+}

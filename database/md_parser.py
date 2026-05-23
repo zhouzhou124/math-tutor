@@ -87,7 +87,7 @@ class MarkdownExamParser:
             items = self._split_questions(section_text)
             for idx, item_text in enumerate(items):
                 q = self._parse_question(item_text, year, math_type, qtype, idx + 1)
-                if q and len(q.get("question", "")) > 15:
+                if q and len(q.get("raw_question_text") or q.get("question", "")) > 15:
                     questions.append(q)
 
         return questions

@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "设 $f(x,y)$ 具有二阶连续偏导数，且 $\\lim_{(x,y)\\to(0,0)}\\frac{f(x,y)-x+y}{\\sqrt{x^2+y^2}}=0$，则",
+  "options": {
+    "A": "$(0,0)$ 是 $z=f(xy,x^2+y^2)$ 的极小值点",
+    "B": "$(0,0)$ 是极大值点",
+    "C": "$(0,0)$ 不是极值点",
+    "D": "无法判断"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.535544
+}

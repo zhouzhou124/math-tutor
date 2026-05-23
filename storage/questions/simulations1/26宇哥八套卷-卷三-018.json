@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 求函数 $f(x,y) = x^2(2x^2 - 4y - \\frac{1}{7}x^5) + y^2$ 的极值.",
   "source": "import_v3",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 求函数 $f(x,y) = x^2(2x^2 - 4y - \\frac{1}{7}x^5) + y^2$ 的极值."
 }

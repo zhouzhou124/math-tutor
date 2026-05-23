@@ -22,5 +22,7 @@
   "tags": [
     "空间解析几何"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设有直线 $L: \\begin{cases} x+3y+2z+1=0 \\\\ 2x-y-10z+3=0 \\end{cases}$ 及平面 $\\pi: 4x-2y+z-2=0$，则直线 $L$",
+  "raw_answer_text": "A"
 }

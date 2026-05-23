@@ -14,5 +14,7 @@
   "tags": [
     "定积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$\\int_0^2 x\\sqrt{2x - x^2} dx =$ ______",
+  "raw_answer_text": "$\\frac{\\pi}{2}$"
 }

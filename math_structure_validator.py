@@ -132,7 +132,7 @@ def validate_entity(entity_dict: dict) -> ValidationReport:
     report = ValidationReport()
 
     # 检查题目
-    q_text = entity_dict.get("question", "")
+    q_text = entity_dict.get("raw_question_text") or entity_dict.get("question", "")
     q_report = validate(q_text, fix=False)
     if not q_report.valid:
         report.errors.extend(f"[question] {e}" for e in q_report.errors)

@@ -22,5 +22,7 @@
   "tags": [
     "参数估计"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设袋中红球数与黑球数之比为 $r$，且无其他颜色的球，现有放回地抽取 $n$ 次，每次取一球，共取出 $k$ 个红球，则 $r$ 的最大似然估计值为",
+  "raw_answer_text": "D"
 }

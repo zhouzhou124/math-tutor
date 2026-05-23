@@ -21,5 +21,6 @@
     "C": "$[4, +\\infty)$",
     "D": "$(4,7) \\cup (7,+\\infty)$"
   },
-  "correct_option": "D"
+  "correct_option": "D",
+  "raw_question_text": "已知二次型 $f(x_1,x_2,x_3) = 4x_1^2 + x_2^2 + a x_3^2 + 2x_1x_2 - 4x_1x_3 + 2x_2x_3$ 可经可逆线性变换但不可经正交变换化为 $g(y_1,y_2,y_3) = b y_1^2 + 6 y_2^2$，则 $a+b$ 的取值范围为"
 }

@@ -21,5 +21,6 @@
     "C": "$\\int_0^1 f(x) dx$",
     "D": "$\\int_0^1 f^2(x) dx$"
   },
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上可积，则 $\\lim_{n\\to\\infty} \\sum_{i=0}^{n-1} \\ln[1 + \\frac{1}{n} f(\\frac{i}{n})] =$"
 }

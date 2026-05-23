@@ -14,5 +14,6 @@
     "常微分方程"
   ],
   "question": "$12.$ 微分方程 $y'=\\frac{1}{xy(1+xy^2)}$ 满足 $y(1)=0$ 的解为 ______",
-  "source": "import_v5"
+  "source": "import_v5",
+  "raw_question_text": "$12.$ 微分方程 $y'=\\frac{1}{xy(1+xy^2)}$ 满足 $y(1)=0$ 的解为 ______"
 }

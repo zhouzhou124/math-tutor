@@ -18,5 +18,6 @@
   "source": "manual_2020",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2020年 证明题 知识点: 中值定理 较难题 10分题 2020-数一-019"
+  "embedding_text": "考研数学一 2020年 证明题 知识点: 中值定理 较难题 10分题 2020-数一-019",
+  "raw_question_text": "$19.$ (本题满分10分)设 $f(x)$ 在 $[0,2]$ 上连续，$(0,2)$ 内可导，$f(0)=f(2)=0$，$M=\\max\\limits_{0 \\le x \\le 2}|f(x)|$。\n\n$(1)$ 存在 $\\xi\\in(0,2)$ 使 $|f'(\\xi)|\\ge M$；\n\n$(2)$ 若 $M>0$，则存在 $\\eta\\in(0,2)$ 使 $|f'(\\eta)|<M$。"
 }

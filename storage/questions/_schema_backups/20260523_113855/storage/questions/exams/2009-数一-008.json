@@ -1,0 +1,29 @@
+{
+  "year": 2009,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设随机变量 $X$ 与 $Y$ 相互独立，且 $X$ 服从标准正态分布 $N(0,1)$，$Y$ 的概率分布为 $P\\{Y=0\\} = P\\{Y=1\\} = \\frac{1}{2}$。记 $F_Z(z)$ 为随机变量 $Z = XY$ 的分布函数，则函数 $F_Z(z)$ 的间断点个数为",
+  "standard_answer": "正确选项: B. 1",
+  "knowledge_points": [
+    "概率",
+    "随机变量",
+    "分布函数"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2009",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "B",
+  "question_id": "2009-数一-008",
+  "solution_steps": [],
+  "tags": [
+    "概率",
+    "随机变量",
+    "分布函数"
+  ]
+}

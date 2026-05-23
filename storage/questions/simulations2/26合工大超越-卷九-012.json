@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷九-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "旋转体体积"
+  ],
+  "tags": [
+    "旋转体体积"
+  ],
+  "question": "$12.$ 曲线 $y=\\lim_{n\\to\\infty} \\frac{x}{e^{-nx}-(x^2+1)}$ 与直线 $y=-\\frac{x}{2}$ 所围平面图形绕 $x$ 轴旋转所成旋转体的体积 $V=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{\\pi}{6}$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$12.$ 曲线 $y=\\lim_{n\\to\\infty} \\frac{x}{e^{-nx}-(x^2+1)}$ 与直线 $y=-\\frac{x}{2}$ 所围平面图形绕 $x$ 轴旋转所成旋转体的体积 $V=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{\\pi}{6}$"
+}

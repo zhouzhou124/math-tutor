@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷八-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "设函数 $y=y(x)$ 由方程 $2\\cos y + xe^{-y}=1,y\\in[0,\\pi]$ 确定，则 $\\int_{-1}^{e^{\\frac{\\pi}{2}}} y(x)dx=$",
+  "options": {
+    "A": "$\\frac{\\pi}{2}$",
+    "B": "$0$",
+    "C": "$e^{\\frac{\\pi}{2}}$",
+    "D": "$\\frac{\\pi}{2}e^{\\frac{\\pi}{2}}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3122146,
+  "raw_question_text": "设函数 $y=y(x)$ 由方程 $2\\cos y + xe^{-y}=1,y\\in[0,\\pi]$ 确定，则 $\\int_{-1}^{e^{\\frac{\\pi}{2}}} y(x)dx=$",
+  "raw_answer_text": "A"
+}

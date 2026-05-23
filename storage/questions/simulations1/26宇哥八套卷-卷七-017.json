@@ -18,5 +18,7 @@
     "微分方程"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设函数 $y(x)$ 具有二阶导数，曲线 $l: y=y(x)$ 与直线 $y=x$ 相切于原点，且曲线 $l$ 在点 $(x,y)$ 处切线的倾角 $\\theta$ 关于 $x$ 的变化率与曲线 $l$ 在该点的切线斜率相等，求 $y(x)$ 的表达式.",
+  "raw_answer_text": "$y(x) = \\ln(1+x)$"
 }

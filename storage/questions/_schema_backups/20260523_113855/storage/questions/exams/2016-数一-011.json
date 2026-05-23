@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-011",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$11.$ 设函数 $f(u,v)$ 可微，$z=z(x,y)$ 由 $(x+1)z-y^2=x^2f(x-z,y)$ 确定，则 $dz|_{(0,1)}=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 填空题 知识点: 多元函数微分 较难题 4分题 2016-数一-011"
+}

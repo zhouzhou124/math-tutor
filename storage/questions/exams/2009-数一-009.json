@@ -14,5 +14,7 @@
   "solution_steps": [],
   "tags": [
     "多元函数微分"
-  ]
+  ],
+  "raw_question_text": "设函数 $f(u,v)$ 具有二阶连续偏导数，$z = f(x,xy)$，则 $\\frac{\\partial^2 z}{\\partial x \\partial y} =$ ______",
+  "raw_answer_text": "$f_{12} + xy f_{22}$"
 }

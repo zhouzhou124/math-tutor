@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷七-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "积分不等式"
+  ],
+  "tags": [
+    "积分不等式"
+  ],
+  "question": "(本题满分12分)\n$(1)$ 设 $f(x),g(x)$ 在 $[a,b]$ 上连续，证明 $\\left(\\int_a^b f(x)g(x)dx\\right)^2 \\le \\int_a^b f^2(x)dx \\int_a^b g^2(x)dx$；\n$(2)$ 是否存在 $[0,1]$ 上连续的正函数 $f(x)$，使 $\\int_0^1 f(x)dx=1$，$\\int_0^1 xf(x)dx=a$，$\\int_0^1 x^2 f(x)dx=a^2$ 成立，其中 $a$ 为常数。说明理由。",
+  "standard_answer": "(I) 证明略\\n(II) 不存在",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1990316
+}

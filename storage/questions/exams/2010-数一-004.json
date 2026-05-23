@@ -22,5 +22,7 @@
   "tags": [
     "定积分",
     "极限与连续"
-  ]
+  ],
+  "raw_question_text": "$\\lim_{n\\to\\infty} \\sum_{i=1}^n \\sum_{j=1}^n \\frac{n}{(n+i)(n^2+j^2)} =$",
+  "raw_answer_text": "D"
 }

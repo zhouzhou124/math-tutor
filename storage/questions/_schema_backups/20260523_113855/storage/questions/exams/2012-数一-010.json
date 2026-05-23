@@ -1,0 +1,18 @@
+{
+  "question_id": "2012-数一-010",
+  "year": 2012,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$\\int_0^2 x\\sqrt{2x - x^2} dx =$ ______",
+  "standard_answer": "$\\frac{\\pi}{2}$",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "solution_steps": []
+}

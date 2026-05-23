@@ -22,5 +22,7 @@
   "tags": [
     "导数与微分",
     "中值定理"
-  ]
+  ],
+  "raw_question_text": "曲线 $y = (x-1)(x-2)^2(x-3)^3(x-4)^4$ 的拐点是",
+  "raw_answer_text": "C"
 }

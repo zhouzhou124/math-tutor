@@ -18,5 +18,6 @@
   "source": "manual_2020",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2020年 解答题 知识点: 曲线曲面积分 数学概念: 重积分 曲线积分 较难题 10分题 2020-数一-016"
+  "embedding_text": "考研数学一 2020年 解答题 知识点: 曲线曲面积分 数学概念: 重积分 曲线积分 较难题 10分题 2020-数一-016",
+  "raw_question_text": "$16.$ (本题满分10分)计算 $I=\\oint_L\\frac{(4x-y)dx+(x+y)dy}{4x^2+y^2}$，其中 $L$ 是 $x^2+y^2=2$ 的正向。"
 }

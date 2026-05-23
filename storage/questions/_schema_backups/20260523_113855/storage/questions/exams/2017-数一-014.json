@@ -1,0 +1,22 @@
+{
+  "question_id": "2017-数一-014",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$14.$ 设随机变量 $X$ 的分布函数为 $F(x)=0.5\\Phi(x)+0.5\\Phi(\\frac{x-4}{2})$，则 $E(X)=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数字特征"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 填空题 知识点: 数字特征 数学概念: 概率统计 中等难度 4分题 2017-数一-014"
+}

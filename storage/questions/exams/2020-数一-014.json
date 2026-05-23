@@ -20,5 +20,6 @@
   "source": "manual_2020",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2020年 填空题 知识点: 数字特征 随机变量及其分布 数学概念: 三角函数 中等难度 4分题 2020-数一-014"
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 数字特征 随机变量及其分布 数学概念: 三角函数 中等难度 4分题 2020-数一-014",
+  "raw_question_text": "$14.$ 设 $X\\sim U(-\\frac{\\pi}{2},\\frac{\\pi}{2})$，$Y=\\sin X$，则 $\\operatorname{Cov}(X,Y)=\\underline{\\qquad\\qquad}$"
 }

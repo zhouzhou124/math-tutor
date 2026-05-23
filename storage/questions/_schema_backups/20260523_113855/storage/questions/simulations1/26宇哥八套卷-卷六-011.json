@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷六-011",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "基础",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "设 \\(x \\to 0\\) 时，\\(\\ln \\frac{2+x}{2+\\sin x}\\) 与 \\(x^n\\) 为同阶无穷小，则 \\(n = \\underline{\\hspace{3cm}}\\)",
+  "source": "import_v6",
+  "options": {}
+}

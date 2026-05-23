@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-010",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "大数定律与中心极限定理"
+  ],
+  "tags": [
+    "大数定律与中心极限定理"
+  ],
+  "question": "设 \\(X_1, \\cdots, X_n\\) 与 \\(Y_1, \\cdots, Y_n\\) 是来自正态总体 \\(N(\\mu, \\sigma^2)\\) 的两个相互独立的简单随机样本，\\(\\overline{X} = \\frac{1}{n} \\sum_{i=1}^n X_i, \\overline{Y} = \\frac{1}{n} \\sum_{i=1}^n Y_i\\)，且满足 \\(P\\{|\\overline{X} - \\overline{Y}| > \\sigma\\} \\leq 0.05\\)，\\(\\Phi(1.96) = 0.975\\)，则样本容量 \\(n\\) 的最小值为",
+  "source": "import_v6",
+  "options": {
+    "A": "$7$",
+    "B": "$8$",
+    "C": "$9$",
+    "D": "$10$"
+  },
+  "correct_option": "A"
+}

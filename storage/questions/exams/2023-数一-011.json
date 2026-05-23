@@ -20,5 +20,6 @@
   "source": "manual_2023",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2023年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 极限 积分 中等难度 5分题 2023-数一-011"
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 极限 积分 中等难度 5分题 2023-数一-011",
+  "raw_question_text": "$11.$ 当 $x \\to 0$ 时, 函数 $f(x) = ax + bx^2 + \\ln(1+x)$ 与 $g(x) = e^{x^2} - \\cos x$ 是等价无穷小, 则 $ab = \\underline{\\qquad \\qquad}$."
 }

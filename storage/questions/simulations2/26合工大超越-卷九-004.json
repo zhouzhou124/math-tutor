@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷九-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "question": "$4.$ 设一质点在平面上受变力 $F(x,y)=\\frac{(x+y)i+(y-x)j}{x^2+y^2}$ 的作用，从点 $A(-1,0)$ 处沿曲线 $y=1-x^2$ 运动到点 $B(1,0)$ 处，则变力 $F(x,y)$ 对质点所做的功 $W=$ $(A)$ $0$ $(B)$ $\\frac{\\pi}{2}$ $(C)$ $\\frac{\\pi}{3}$ $(D)$ $\\pi$",
+  "options": {
+    "A": "0",
+    "B": "$\\frac{\\pi}{2}$",
+    "C": "$\\frac{\\pi}{3}$",
+    "D": "$\\pi$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$4.$ 设一质点在平面上受变力 $F(x,y)=\\frac{(x+y)i+(y-x)j}{x^2+y^2}$ 的作用，从点 $A(-1,0)$ 处沿曲线 $y=1-x^2$ 运动到点 $B(1,0)$ 处，则变力 $F(x,y)$ 对质点所做的功 $W=$ $(A)$ $0$ $(B)$ $\\frac{\\pi}{2}$ $(C)$ $\\frac{\\pi}{3}$ $(D)$ $\\pi$",
+  "raw_answer_text": "A"
+}

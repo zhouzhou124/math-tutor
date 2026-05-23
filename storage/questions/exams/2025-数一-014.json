@@ -18,5 +18,6 @@
   "source": "manual_2025",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2025年 填空题 知识点: 曲线曲面积分 数学概念: 三角函数 几何应用 积分 较难题 5分题 2025-数一-014"
+  "embedding_text": "考研数学一 2025年 填空题 知识点: 曲线曲面积分 数学概念: 三角函数 几何应用 积分 较难题 5分题 2025-数一-014",
+  "raw_question_text": "$14.$ 已知有向曲线 $L$ 是沿抛物线 $y = 1 - x^2$ 从点 $(1,0)$ 到点 $(-1,0)$ 的一段，则 $\\int_L (y + \\cos x) dx + (2x + \\cos y) dy = \\underline{\\qquad\\qquad}$"
 }

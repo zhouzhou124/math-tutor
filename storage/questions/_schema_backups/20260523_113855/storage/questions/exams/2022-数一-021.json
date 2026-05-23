@@ -1,0 +1,24 @@
+{
+  "question_id": "2022-数一-021",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$21.$ 已知二次型 $f(x_1,x_2,x_3)=\\sum_{i=1}^3\\sum_{j=1}^3 ijx_ix_j$.\n\n$(1)$ 求 $f$ 的矩阵；\n$(2)$ 求正交变换 $x=Qy$ 化为标准形；\n$(3)$ 求 $f(x_1,x_2,x_3)=0$ 的解.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2022年 解答题 知识点: 二次型 特征值与特征向量 数学概念: 二次型 标准化 正交变换 矩阵运算 级数 求和 较难题 12分题 2022-数一-021"
+}

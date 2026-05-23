@@ -14,7 +14,7 @@
     "特征值",
     "线性方程组"
   ],
-  "question": "已知3阶实对称矩阵 $A$ 的秩 $r(A)=1$，$\\alpha_1=(1,-1,1)^{\\mathrm{T}}$ 是 $A$ 的属于特征值 $\\lambda_1=\\frac{1}{2}$ 的特征向量，$k_1,k_2$ 为任意常数，则非齐次线性方程组 $Ax=\\alpha_1$ 的通解是",
+  "question": "已知3阶实对称矩阵 $A$ 的秩 $r(A)=1$，$\\alpha_1=\\begin{pmatrix} 1 \\\\ -1 \\\\ 1 \\end{pmatrix}$ 是 $A$ 的属于特征值 $\\lambda_1=\\frac{1}{2}$ 的特征向量，$k_1,k_2$ 为任意常数，则非齐次线性方程组 $Ax=\\alpha_1$ 的通解是",
   "options": {
     "A": "$k_1(1,1,0)^{\\mathrm{T}}+k_2(1,0,-1)^{\\mathrm{T}}+(1,-1,1)^{\\mathrm{T}}$",
     "B": "$k_1(1,0,-1)^{\\mathrm{T}}+k_2(-1,1,2)^{\\mathrm{T}}+(\\frac{1}{2},-\\frac{1}{2},\\frac{1}{2})^{\\mathrm{T}}$",
@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.516238
+  "__cached_at__": 1779466679.516238,
+  "raw_question_text": "已知3阶实对称矩阵 $A$ 的秩 $r(A)=1$，$\\alpha_1=\\begin{pmatrix} 1 \\\\ -1 \\\\ 1 \\end{pmatrix}$ 是 $A$ 的属于特征值 $\\lambda_1=\\frac{1}{2}$ 的特征向量，$k_1,k_2$ 为任意常数，则非齐次线性方程组 $Ax=\\alpha_1$ 的通解是",
+  "raw_answer_text": "D"
 }

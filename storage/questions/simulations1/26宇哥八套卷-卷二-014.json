@@ -14,5 +14,6 @@
     "曲线积分与曲面积分"
   ],
   "question": "$14.$ 设 $I = \\oint_L (2x - \\frac{x^3}{3}) dy + (y + \\frac{1}{6} y^3) dx$，其中 $L$ 为平面上的简单闭曲线，方向为逆时针，若 $I$ 达到最大值，则 $L$ 的表达式为 ______",
-  "source": "import_v2"
+  "source": "import_v2",
+  "raw_question_text": "$14.$ 设 $I = \\oint_L (2x - \\frac{x^3}{3}) dy + (y + \\frac{1}{6} y^3) dx$，其中 $L$ 为平面上的简单闭曲线，方向为逆时针，若 $I$ 达到最大值，则 $L$ 的表达式为 ______"
 }

@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷十-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "条件分布"
+  ],
+  "tags": [
+    "条件分布"
+  ],
+  "question": "$22.$ (本题满分12分) 设随机变量 $X$ 的密度函数 $$f_X(x)=\\begin{cases} ax^2e^{-x}, & x>0 \\\\ 0, & \\text{其他} \\end{cases}$$ 在 $X=x (x>0)$ 条件下，随机变量 $Y\\sim U(0,x)$.\n$(1)$ 求常数 $a$，以及 $(X,Y)$ 的联合分布函数 $F(x,y)$，\n$(2)$ 求 $Y$ 的密度函数 $f_Y(y)$，\n$(3)$ 求 $Z=X-Y$ 的密度函数 $f_Z(z)$.",
+  "standard_answer": "(I) $a=1$，$$F(x,y)=\\begin{cases} 1-e^{-x}-\\frac{y}{x}(1-e^{-x}), & 0<y<x \\\\ 0, & \\text{其他} \\end{cases}$$ (II) $f_Y(y)=e^{-y}$，$y>0$ (III) $f_Z(z)=e^{-z}$，$z>0$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$22.$ (本题满分12分) 设随机变量 $X$ 的密度函数 $$f_X(x)=\\begin{cases} ax^2e^{-x}, & x>0 \\\\ 0, & \\text{其他} \\end{cases}$$ 在 $X=x (x>0)$ 条件下，随机变量 $Y\\sim U(0,x)$.\n$(1)$ 求常数 $a$，以及 $(X,Y)$ 的联合分布函数 $F(x,y)$，\n$(2)$ 求 $Y$ 的密度函数 $f_Y(y)$，\n$(3)$ 求 $Z=X-Y$ 的密度函数 $f_Z(z)$.",
+  "raw_answer_text": "(I) $a=1$，$$F(x,y)=\\begin{cases} 1-e^{-x}-\\frac{y}{x}(1-e^{-x}), & 0<y<x \\\\ 0, & \\text{其他} \\end{cases}$$ (II) $f_Y(y)=e^{-y}$，$y>0$ (III) $f_Z(z)=e^{-z}$，$z>0$"
+}

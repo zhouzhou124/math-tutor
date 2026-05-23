@@ -21,5 +21,6 @@
     "C": "$a=4,b>0$",
     "D": "$a=4,b<0$"
   },
-  "correct_option": "A"
+  "correct_option": "A",
+  "raw_question_text": "设二次型 $f(x_1,x_2,x_3)=4x_1^2+x_2^2+ax_3^2+2x_1x_2-4x_1x_3+2x_2x_3$ 与 $g(y_1,y_2)=2y_1^2+by_2^2$ 合同，则"
 }

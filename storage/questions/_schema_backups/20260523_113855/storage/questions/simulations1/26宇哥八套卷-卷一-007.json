@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷一-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 $A$ 为 $n$ 阶矩阵，$r(A) = r$，$E_r$ 为 $r$ 阶单位矩阵，则 “$A^2 = A$” 是“存在列满秩矩阵 $C_{n \\times r}$，使得 $A = CB$，$BC = E_r$”的",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "充分非必要条件",
+    "B": "必要非充分条件",
+    "C": "充分必要条件",
+    "D": "既非充分又非必要条件"
+  },
+  "correct_option": "B"
+}

@@ -21,5 +21,6 @@
     "C": "$19$",
     "D": "$20$"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设 $X_1,\\dots,X_n$ 来自 $X\\sim B(1,\\frac{1}{5})$，若 $E[(\\overline{X}-\\frac{1}{5})^2]<0.01$，则 $n$ 最小为"
 }

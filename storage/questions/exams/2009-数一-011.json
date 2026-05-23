@@ -13,5 +13,7 @@
   "question_id": "2009-数一-011",
   "tags": [
     "曲线积分"
-  ]
+  ],
+  "raw_question_text": "已知曲线 $L: y = x^2 (0 \\le x \\le \\sqrt{2})$，则 $\\int_L x ds =$ ______",
+  "raw_answer_text": "$\\frac{1}{3}(5\\sqrt{5} - 1)$"
 }

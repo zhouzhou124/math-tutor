@@ -14,5 +14,7 @@
   "tags": [
     "矩阵运算"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha$ 为3维单位列向量，$E$ 为3阶单位矩阵，则矩阵 $E - \\alpha\\alpha^{\\mathrm{T}}$ 的秩为 ______",
+  "raw_answer_text": "2"
 }

@@ -17,5 +17,7 @@
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "$13.$ 设 $a_n=\\int_0^1 \\frac{dx}{(1+x^2)^n}$，则 $\\sum_{n=1}^\\infty (\\frac{a_{n+1}}{2n-1}-\\frac{a_n}{2n})$ 的和为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$0$"
 }

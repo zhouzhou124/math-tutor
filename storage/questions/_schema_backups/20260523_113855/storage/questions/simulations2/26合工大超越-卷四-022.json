@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷四-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量",
+    "变量变换"
+  ],
+  "tags": [
+    "多维随机变量",
+    "变量变换"
+  ],
+  "question": "(本题满分12分) 设二维随机变量 $(X,Y)$ 概率密度函数为 $$$f(x,y)=\\begin{cases} \\frac{2}{\\pi}e^{-\\sqrt{x^2+y^2}}, & x>0,y>0 \\\\ 0, & \\text{其他} \\end{cases}$$$ 令 $$\\begin{cases} U=\\sqrt{X^2+Y^2} \\\\ V=\\arctan\\frac{Y}{X} \\end{cases}$$，\n$(1)$ 求 $P(U\\le 1, V\\le \\frac{\\pi}{4})$；\n$(2)$ 分别求 $(U,V)$ 的分布函数和密度函数；\n$(3)$ 求 $U$ 和 $V$ 的边缘密度，判断是否独立.",
+  "standard_answer": "(I) $\\frac{1}{2}(1-e^{-1})$\\n(II) $F_{U,V}(u,v) = \\frac{2v}{\\pi}(1-e^{-u})$，$f_{U,V}(u,v) = \\frac{2}{\\pi}ue^{-u}(u>0,0<v<\\frac{\\pi}{2})$\\n(III) $f_U(u)=2ue^{-u}$，$f_V(v)=\\frac{2}{\\pi}$，独立",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1796196
+}

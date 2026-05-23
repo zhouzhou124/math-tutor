@@ -17,6 +17,7 @@ from pathlib import Path
 from difflib import SequenceMatcher
 
 from config import STORAGE_DIR, MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS
+from .question_schema import get_raw_question, get_raw_answer, has_question_text
 
 # 分离存储结构
 EXAM_DIR = Path(STORAGE_DIR) / "questions" / "exams"         # 历年真题
@@ -221,6 +222,8 @@ class QuestionDB:
         # 保护 ID 不被修改
         updates.pop("question_id", None)
         existing.update(updates)
+        # 清除内部缓存标记，避免写入存储文件
+        existing.pop("__cached_at__", None)
         self._save_json(get_question_path(question_id), existing)
         # 更新后清除缓存
         if question_id in self._question_cache:
@@ -497,10 +500,13 @@ class QuestionDB:
         issues = []
         warnings = []
 
-        required = ["year", "category", "question_type", "question"]
+        required = ["year", "category", "question_type"]
         for field in required:
             if not question.get(field):
                 issues.append(f"缺少必填字段: {field}")
+
+        if not has_question_text(question):
+            issues.append("缺少题目文本 (raw_question_text 或 question)")
 
         if question.get("category") not in MATH_TYPES:
             issues.append(f"未知数学类别: {question.get('category')}")
@@ -518,7 +524,7 @@ class QuestionDB:
             warnings.append("缺少知识点标签")
 
         # LaTeX 完整性检查
-        text = question.get("question", "") + question.get("standard_answer", "")
+        text = get_raw_question(question) + get_raw_answer(question)
         if text:
             latex_issues = self._check_latex(text)
             if latex_issues:
@@ -581,7 +587,7 @@ class QuestionDB:
         """检查是否与已有题目重复"""
         year = question.get("year")
         math_type = question.get("category")
-        text = question.get("question", "")
+        text = get_raw_question(question)
         if not year or not math_type or not text:
             return {"is_duplicate": False, "existing_id": "", "similarity": 0}
 
@@ -595,7 +601,7 @@ class QuestionDB:
         for qid in candidates:
             existing = self.get(qid)
             if existing:
-                sim = SequenceMatcher(None, text, existing.get("question", "")).ratio()
+                sim = SequenceMatcher(None, text, get_raw_question(existing)).ratio()
                 if sim > 0.85:
                     return {"is_duplicate": True, "existing_id": qid, "similarity": sim}
 
@@ -630,7 +636,7 @@ class QuestionDB:
             return False
         if filters.get("keyword"):
             kw = filters["keyword"]
-            searchable = question.get("question", "") + " " + " ".join(question.get("knowledge_points", [])) + " " + " ".join(question.get("tags", []))
+            searchable = get_raw_question(question) + " " + " ".join(question.get("knowledge_points", [])) + " " + " ".join(question.get("tags", []))
             if kw not in searchable:
                 return False
         return True

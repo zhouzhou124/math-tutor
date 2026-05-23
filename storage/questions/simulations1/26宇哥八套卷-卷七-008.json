@@ -22,5 +22,7 @@
   "tags": [
     "数字特征"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设存在非零常数 $a$ 使得 $P\\{aX + Y = 0\\} = 1$，则随机变量 $X$ 与 $Y$ 的相关系数 $\\rho$ 满足",
+  "raw_answer_text": "B"
 }

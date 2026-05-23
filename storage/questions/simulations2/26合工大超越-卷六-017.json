@@ -1,0 +1,44 @@
+{
+  "question_id": "26合工大超越-卷六-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "积分方程"
+  ],
+  "tags": [
+    "积分方程"
+  ],
+  "question": "$17.$ (本题满分10分) 设连续函数 $f(x)$ 满足 $f(x)=\\sin x+\\frac{1}{2}\\int_x^\\pi f(y)f(y-x)dy$，求 $I=\\int_0^\\pi f(x)dx$。",
+  "standard_answer": "### 步骤1：\n步骤1：明确目标: 题目要求计算定积分 I，需利用已知的积分方程建立关于 I 的方程。\n\n$ \\Rightarrow I = \\int_0^\\pi f(x)dx$\n\n### 步骤2：\n步骤2：两边积分: 对方程两边在 [0,π] 上作定积分，线性性质保持。\n\n$f(x)=\\sin x+\\frac12\\int_x^\\pi f(y)f(y-x)dy \\Rightarrow \\int_0^\\pi f(x)dx = \\int_0^\\pi \\sin x dx + \\frac12 \\int_0^\\pi \\int_x^\\pi f(y)f(y-x)dydx$\n\n### 步骤3：\n步骤3：计算 sin 积分: 直接计算：\\int_0^\\pi \\sin x dx = -\\cos x\\big|_0^\\pi = -(-1)+1=2。\n\n$\\int_0^\\pi \\sin x dx \\Rightarrow 2$\n\n### 步骤4：\n步骤4：交换积分次序: 交换积分次序：区域 D: 0≤x≤π, x≤y≤π 等价于 0≤y≤π, 0≤x≤y。\n\n$\\int_0^\\pi \\int_x^\\pi f(y)f(y-x)dydx \\Rightarrow \\int_0^\\pi \\int_0^y f(y)f(y-x)dxdy$\n\n### 步骤5：\n步骤5：内层积分换元: 对固定 y，令 t=y-x，则 dx=-dt，积分限 x=0→t=y, x=y→t=0，得 \\int_0^y f(t)dt。\n\n$\\int_0^y f(y)f(y-x)dx \\Rightarrow f(y)\\int_0^y f(t)dt$\n\n### 步骤6：\n步骤6：凑微分并积分: 令 F(y)=\\int_0^y f(t)dt，则 F'(y)=f(y)，积分化为 \\int_0^\\pi F(y)F'(y)dy = \\frac12 F(\\pi)^2 = \\frac12 I^2。\n\n$\\int_0^\\pi f(y) \\left( \\int_0^y f(t)dt \\right) dy \\Rightarrow \\frac12 \\left( \\int_0^\\pi f(t)dt \\right)^2$\n\n### 步骤7：\n步骤7：建立 I 的方程: 将步骤3和步骤6的结果代入方程，得关于 I 的二次方程。\n\n$I = 2 + \\frac12 \\cdot \\frac12 I^2 \\Rightarrow I = 2 + \\frac14 I^2$\n\n### 步骤8：\n步骤8：解二次方程: 整理后求解一元二次方程，判别式 Δ=16-32=-16，故得共轭复数解。\n\n$I^2 - 4I + 8 = 0 \\Rightarrow I = 2 \\pm 2i$\n\n### 最终答案\nI = 2 \\pm 2i",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "raw_question_text": "$17.$ (本题满分10分) 设连续函数 $f(x)$ 满足 $f(x)=\\sin x+\\frac{1}{2}\\int_x^\\pi f(y)f(y-x)dy$，求 $I=\\int_0^\\pi f(x)dx$。",
+  "raw_answer_text": "$I=2$",
+  "final_answer": "$I=2$",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-23 13:31",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779514313",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：\n步骤1：明确目标: 题目要求计算定积分 I，需利用已知的积分方程建立关于 I 的方程。\n\n$ \\Rightarrow I = \\int_0^\\pi f(x)dx$\n\n### 步骤2：\n步骤2：两边积分: 对方程两边在 [0,π] 上作定积分，线性性质保持。\n\n$f(x)=\\sin x+\\frac12\\int_x^\\pi f(y)f(y-x)dy \\Rightarrow \\int_0^\\pi f(x)dx = \\int_0^\\pi \\sin x dx + \\frac12 \\int_0^\\pi \\int_x^\\pi f(y)f(y-x)dydx$\n\n### 步骤3：\n步骤3：计算 sin 积分: 直接计算：\\int_0^\\pi \\sin x dx = -\\cos x\\big|_0^\\pi = -(-1)+1=2。\n\n$\\int_0^\\pi \\sin x dx \\Rightarrow 2$\n\n### 步骤4：\n步骤4：交换积分次序: 交换积分次序：区域 D: 0≤x≤π, x≤y≤π 等价于 0≤y≤π, 0≤x≤y。\n\n$\\int_0^\\pi \\int_x^\\pi f(y)f(y-x)dydx \\Rightarrow \\int_0^\\pi \\int_0^y f(y)f(y-x)dxdy$\n\n### 步骤5：\n步骤5：内层积分换元: 对固定 y，令 t=y-x，则 dx=-dt，积分限 x=0→t=y, x=y→t=0，得 \\int_0^y f(t)dt。\n\n$\\int_0^y f(y)f(y-x)dx \\Rightarrow f(y)\\int_0^y f(t)dt$\n\n### 步骤6：\n步骤6：凑微分并积分: 令 F(y)=\\int_0^y f(t)dt，则 F'(y)=f(y)，积分化为 \\int_0^\\pi F(y)F'(y)dy = \\frac12 F(\\pi)^2 = \\frac12 I^2。\n\n$\\int_0^\\pi f(y) \\left( \\int_0^y f(t)dt \\right) dy \\Rightarrow \\frac12 \\left( \\int_0^\\pi f(t)dt \\right)^2$\n\n### 步骤7：\n步骤7：建立 I 的方程: 将步骤3和步骤6的结果代入方程，得关于 I 的二次方程。\n\n$I = 2 + \\frac12 \\cdot \\frac12 I^2 \\Rightarrow I = 2 + \\frac14 I^2$\n\n### 步骤8：\n步骤8：解二次方程: 整理后求解一元二次方程，判别式 Δ=16-32=-16，故得共轭复数解。\n\n$I^2 - 4I + 8 = 0 \\Rightarrow I = 2 \\pm 2i$\n\n### 最终答案\nI = 2 \\pm 2i",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-23 13:31",
+      "reviewed": false
+    }
+  ]
+}

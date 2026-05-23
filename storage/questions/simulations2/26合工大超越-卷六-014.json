@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷六-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "tags": [
+    "微分方程"
+  ],
+  "question": "$14.$ 设 $f(x)$ 为偶函数，且 $f'(x)=\\int_0^x f(t-x)dt = 2\\sin x$，则 $f(x)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\cos x + C$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "raw_question_text": "$14.$ 设 $f(x)$ 为偶函数，且 $f'(x)=\\int_0^x f(t-x)dt = 2\\sin x$，则 $f(x)=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\cos x + C$"
+}

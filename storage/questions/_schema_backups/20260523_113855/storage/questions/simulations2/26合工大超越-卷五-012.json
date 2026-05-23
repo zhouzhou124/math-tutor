@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷五-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数"
+  ],
+  "tags": [
+    "偏导数"
+  ],
+  "question": "$12.$ 设 $z(x,y)=\\int_0^1 (x^2+y^2-t)|f(t)| dt$，$0\\le x\\le 1,0\\le y\\le 1$，$f(t)$ 连续且 $f(\\frac{1}{2})=\\frac{1}{2}$，则 $z''_x(\\frac{1}{2},\\frac{1}{2})=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$2$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五"
+}

@@ -20,5 +20,6 @@
   "source": "manual_2013",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2013年 填空题 知识点: 行列式 矩阵运算 数学概念: 矩阵运算 较难题 4分题 2013-数一-013"
+  "embedding_text": "考研数学一 2013年 填空题 知识点: 行列式 矩阵运算 数学概念: 矩阵运算 较难题 4分题 2013-数一-013",
+  "raw_question_text": "$13.$ 设 $A = (a_{ij})$ 是 $3$ 阶非零矩阵，$|A|$ 为 $A$ 的行列式，$A_{ij}$ 为 $a_{ij}$ 的代数余子式。若 $a_{ij} + A_{ij} = 0$ ($i,j = 1,2,3$)，则 $|A|=\\underline{\\qquad\\qquad}$"
 }

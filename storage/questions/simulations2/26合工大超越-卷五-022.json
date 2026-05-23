@@ -12,10 +12,13 @@
   "tags": [
     "多维随机变量"
   ],
-  "question": "$22.$ (本题满分12分) 三个编号1,2,3的盒子，三只球随机放入。$X$ 为所有非空盒子的最小号码。(I) 求 $X$ 分布律；(II) 若 $X=i$ 时 $Y\\sim U[0,i]$，$Z=Y/X$，证明 $Z\\sim U[0,1]$。",
+  "question": "(本题满分12分) 三个编号 $1,2,3$ 的盒子，三只球随机放入. $X$ 为所有非空盒子的最小号码.\n$(1)$ 求 $X$ 分布律；\n$(2)$ 若 $X=i$ 时 $Y\\sim U[0,i]$，$Z=\\frac{Y}{X}$，证明 $Z\\sim U[0,1]$.",
   "standard_answer": "(I) $P(X=1)=\\frac{1}{9},P(X=2)=\\frac{2}{9},P(X=3)=\\frac{6}{9}$\\n(II) 证明略",
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "__cached_at__": 1779500415.3305738,
+  "raw_question_text": "(本题满分12分) 三个编号 $1,2,3$ 的盒子，三只球随机放入. $X$ 为所有非空盒子的最小号码.\n$(1)$ 求 $X$ 分布律；\n$(2)$ 若 $X=i$ 时 $Y\\sim U[0,i]$，$Z=\\frac{Y}{X}$，证明 $Z\\sim U[0,1]$.",
+  "raw_answer_text": "(I) $P(X=1)=\\frac{1}{9},P(X=2)=\\frac{2}{9},P(X=3)=\\frac{6}{9}$\\n(II) 证明略"
 }

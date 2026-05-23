@@ -25,5 +25,7 @@
   "standard_answer": "B",
   "source": "import_hegongda_v5",
   "solution_steps": [],
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "$8.$ 设随机变量 $X$ 的密度函数为 $f(x)=a e^{\\frac{x(2-x)}{2}}$($-\\infty<x<+\\infty$)，则 $E(X^2 e^x)=$ $(A)$ $4$ $(B)$ $6$ $(C)$ $8$ $(D)$ $10$",
+  "raw_answer_text": "B"
 }

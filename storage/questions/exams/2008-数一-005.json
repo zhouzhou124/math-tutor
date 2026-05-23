@@ -21,5 +21,7 @@
   "tags": [
     "矩阵运算"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为 $n$ 阶非零矩阵，$E$ 为 $n$ 阶单位矩阵，若 $A^3 = O$，则",
+  "raw_answer_text": "C"
 }

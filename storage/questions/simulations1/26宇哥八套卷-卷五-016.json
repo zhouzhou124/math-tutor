@@ -14,5 +14,6 @@
     "随机变量及其分布"
   ],
   "question": "$16.$ 设 $X\\sim N(0,\\sigma^2)$，使 $P\\{\\frac{1}{e^2}<X<e\\}$ 最大的 $\\sigma^2=$ ______",
-  "source": "import_v5"
+  "source": "import_v5",
+  "raw_question_text": "$16.$ 设 $X\\sim N(0,\\sigma^2)$，使 $P\\{\\frac{1}{e^2}<X<e\\}$ 最大的 $\\sigma^2=$ ______"
 }

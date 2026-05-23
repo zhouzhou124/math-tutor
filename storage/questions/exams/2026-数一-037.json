@@ -17,5 +17,7 @@
   "standard_answer": "$2$",
   "source": "import_hegongda",
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "$15.$ 设 $A = \\begin{pmatrix} 1 & -1 & 1 \\\\ a & 1 & 2 \\\\ 1 & b & 1 \\end{pmatrix}$，$B = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\\\ 1 & b \\end{pmatrix}$。已知 $Ax=0$ 与 $B^{\\mathrm{T}}x=0$ 同解，则 $a+b = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$2$"
 }

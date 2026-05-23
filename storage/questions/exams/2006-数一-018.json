@@ -17,5 +17,7 @@
     "微分方程"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设函数 $f(u)$ 在 $(0,+\\infty)$ 内具有二阶导数，且 $z = f(\\sqrt{x^2+y^2})$ 满足等式 $\\frac{\\partial^2 z}{\\partial x^2} + \\frac{\\partial^2 z}{\\partial y^2} = 0$.\n$(1)$ 证明 $f''(u) + \\frac{f'(u)}{u} = 0$；\n$(2)$ 若 $f(1)=0$，$f'(1)=1$，求函数 $f(u)$ 的表达式.",
+  "raw_answer_text": "(I) 证明略\n(II) $f(u) = \\ln u$"
 }

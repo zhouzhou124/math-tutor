@@ -17,5 +17,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$20.$ (本题满分12分) 已知当 $x\\in(0,+\\infty)$ 时，$(1+ax)\\ln(1+x) > x$ 恒成立，求常数 $a$ 的取值范围。",
+  "raw_answer_text": "$a \\ge \\frac{1}{2}$"
 }

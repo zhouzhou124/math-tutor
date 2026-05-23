@@ -20,5 +20,6 @@
   "source": "manual_2018",
   "options": {},
   "correct_option": "A",
-  "embedding_text": "考研数学一 2018年 选择题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 较难题 4分题 2018-数一-005"
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 较难题 4分题 2018-数一-005",
+  "raw_question_text": "$5.$ 下列矩阵中，与矩阵 $\\begin{pmatrix}1&1&0\\\\0&1&1\\\\0&0&1\\end{pmatrix}$ 相似的为( )\n\n$(A)$ $\\begin{pmatrix}1&1&0\\\\0&1&-1\\\\0&0&1\\end{pmatrix}$\n$(B)$ $\\begin{pmatrix}1&0&-1\\\\0&1&1\\\\0&0&1\\end{pmatrix}$\n$(C)$ $\\begin{pmatrix}1&1&0\\\\0&1&0\\\\0&0&1\\end{pmatrix}$\n$(D)$ $\\begin{pmatrix}1&0&-1\\\\0&1&0\\\\0&0&1\\end{pmatrix}$"
 }

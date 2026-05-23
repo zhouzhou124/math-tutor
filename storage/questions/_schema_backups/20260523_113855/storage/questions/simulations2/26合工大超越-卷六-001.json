@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "导数概念"
+  ],
+  "tags": [
+    "导数概念"
+  ],
+  "question": "设函数 $f(x)$ 在点 $x_0$ 处可导，则下列命题正确的个数为① $|f'(x)|$ 在 $x_0$ 处一定可导；② $f(|x|)$ 在 $x_0$ 处一定可导；③ $f(x)-x_0$ 在 $x_0$ 处一定可导；④ $\\cos|f(x)|$ 在 $x_0$ 处一定可导。",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.5334268
+}

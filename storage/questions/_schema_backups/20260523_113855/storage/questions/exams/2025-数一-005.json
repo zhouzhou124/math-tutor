@@ -1,0 +1,27 @@
+{
+  "question_id": "2025-数一-005",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "二次型"
+  ],
+  "difficulty": "基础",
+  "score": 5,
+  "question": "$5.$ 二次型 $f(x_1,x_2,x_3) = x_1^2 + 2x_1x_2 + 2x_1x_3$ 的正惯性指数为（ ）\n\n$(A)$ $0$\n$(B)$ $1$\n$(C)$ $2$\n$(D)$ $3$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型"
+  ],
+  "source": "manual_2025",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2025年 选择题 知识点: 二次型 数学概念: 二次型 标准化 基础题 5分题 2025-数一-005"
+}

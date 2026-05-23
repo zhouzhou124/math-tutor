@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "基础",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 \\( n \\) 阶方阵 \\( A = (a_1, a_2, \\cdots, a_n), B = (\\beta_1, \\beta_2, \\cdots, \\beta_n), AB = (\\gamma_1, \\gamma_2, \\cdots, \\gamma_n) \\)，记向量组 $I: a_1, a_2, \\cdots, a_n $，向量组  $II: \\beta_1, \\beta_2, \\cdots, \\beta_n $，向量组 $III: \\gamma_1, \\gamma_2, \\cdots, \\gamma_n $。如果向量组 $III$ 线性相关，则",
+  "source": "import_v6",
+  "options": {
+    "A": "向量组 $I$ 线性相关",
+    "B": "向量组 $II$ 线性相关",
+    "C": "向量组 $I$ 与 $II$ 都线性相关",
+    "D": "向量组 $I$ 与 $II$ 至少有一个线性相关"
+  },
+  "correct_option": "A"
+}

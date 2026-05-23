@@ -14,11 +14,13 @@
     "向量组",
     "线性方程组"
   ],
-  "question": "(本题满分12分) 设实数 $a\\neq 0$，向量组 $\\alpha_1=(a,0,1)^{\\mathrm{T}},\\alpha_2=(0,-a,0)^{\\mathrm{T}},\\alpha_3=(1,0,a)^{\\mathrm{T}}$。已知 $\\beta=(1,1,-1)^{\\mathrm{T}}$ 不能由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，$\\gamma$ 满足 $\\gamma=k_1\\alpha_1+k_2\\alpha_2+k_3\\alpha_3$ 且 $\\beta^{\\mathrm{T}}\\alpha_i=\\gamma^{\\mathrm{T}}\\alpha_i(i=1,2,3)$.\n$(1)$ 求 $a$ 的值；\n$(2)$ 证明 $\\beta-\\gamma$ 为 $A^{\\mathrm{T}}x=0$ 的解；\n$(3)$ 求 $\\gamma$.",
-  "standard_answer": "(I) $a = -1$\\n(II) 证明略\\n(III) $\\gamma = (1,-1,1)^{\\mathrm{T}}$",
+  "question": "(本题满分12分) 设实数 $a\\neq 0$，向量组 $\\alpha_1=\\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix},\\alpha_2=\\begin{pmatrix} 0 \\\\ -a \\\\ 0 \\end{pmatrix},\\alpha_3=\\begin{pmatrix} 1 \\\\ 0 \\\\ a \\end{pmatrix}$。已知 $\\beta=\\begin{pmatrix} 1 \\\\ 1 \\\\ -1 \\end{pmatrix}$ 不能由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，$\\gamma$ 满足 $\\gamma=k_1\\alpha_1+k_2\\alpha_2+k_3\\alpha_3$ 且 $\\beta^{\\mathrm{T}}\\alpha_i=\\gamma^{\\mathrm{T}}\\alpha_i(i=1,2,3)$.\n$(1)$ 求 $a$ 的值；\n$(2)$ 证明 $\\beta-\\gamma$ 为 $A^{\\mathrm{T}}x=0$ 的解；\n$(3)$ 求 $\\gamma$.",
+  "standard_answer": "(I) $a = -1$\\n(II) 证明略\\n(III) $\\gamma = \\begin{pmatrix} 1 \\\\ -1 \\\\ 1 \\end{pmatrix}$",
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "options": {},
   "volume": "卷四",
-  "__cached_at__": 1779467434.1782968
+  "__cached_at__": 1779467434.1782968,
+  "raw_question_text": "(本题满分12分) 设实数 $a\\neq 0$，向量组 $\\alpha_1=\\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix},\\alpha_2=\\begin{pmatrix} 0 \\\\ -a \\\\ 0 \\end{pmatrix},\\alpha_3=\\begin{pmatrix} 1 \\\\ 0 \\\\ a \\end{pmatrix}$。已知 $\\beta=\\begin{pmatrix} 1 \\\\ 1 \\\\ -1 \\end{pmatrix}$ 不能由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，$\\gamma$ 满足 $\\gamma=k_1\\alpha_1+k_2\\alpha_2+k_3\\alpha_3$ 且 $\\beta^{\\mathrm{T}}\\alpha_i=\\gamma^{\\mathrm{T}}\\alpha_i(i=1,2,3)$.\n$(1)$ 求 $a$ 的值；\n$(2)$ 证明 $\\beta-\\gamma$ 为 $A^{\\mathrm{T}}x=0$ 的解；\n$(3)$ 求 $\\gamma$.",
+  "raw_answer_text": "(I) $a = -1$\\n(II) 证明略\\n(III) $\\gamma = \\begin{pmatrix} 1 \\\\ -1 \\\\ 1 \\end{pmatrix}$"
 }

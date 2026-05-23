@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷四-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型"
+  ],
+  "tags": [
+    "二次型"
+  ],
+  "question": "设二次型 $f(x_1,x_2,x_3) = a x_1 x_2 + x_1 x_3 - x_2 x_3$ 的正惯性指数为 $2$，负惯性指数为 $1$，则以下结论可能成立的是",
+  "source": "import_v4",
+  "options": {
+    "A": "$a = -1$",
+    "B": "$a = 1$",
+    "C": "$a \\ge 0$",
+    "D": "$a < 0$"
+  },
+  "correct_option": "B"
+}

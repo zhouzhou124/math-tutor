@@ -18,5 +18,6 @@
   "source": "manual_2023",
   "options": {},
   "correct_option": "D",
-  "embedding_text": "考研数学一 2023年 选择题 知识点: 数理统计 较难题 5分题 2023-数一-008"
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 数理统计 较难题 5分题 2023-数一-008",
+  "raw_question_text": "$8.$ 设随机变量 $X$ 服从参数为 $1$ 的泊松分布，则 $E(|X - EX|) =$ $( )$\n\n$(A)$ $\\frac{1}{e}$ \\qquad $(B)$ $\\frac{1}{2}$ \n\n$(C)$ $\\frac{2}{e}$ \\qquad $(D)$ $1$"
 }

@@ -1,0 +1,18 @@
+{
+  "question_id": "2012-数一-012",
+  "year": 2012,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $\\Sigma = \\{(x,y,z) \\mid x+y+z=1, x\\ge 0, y\\ge 0, z\\ge 0\\}$，则 $\\iint_\\Sigma y^2 dS =$ ______",
+  "standard_answer": "$\\frac{\\sqrt{3}}{12}$",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "solution_steps": []
+}

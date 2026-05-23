@@ -26,5 +26,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "volume": "卷一",
-  "__cached_at__": 1779464742.7515051
+  "__cached_at__": 1779464742.7515051,
+  "raw_question_text": "设 $A,E$ 为 $n$ 阶矩阵，$B$ 为 $n\\times m$ 矩阵，$C$ 为 $m\\times n$ 矩阵，$M = \\begin{pmatrix} A & AB \\\\ CA & O \\end{pmatrix}$，$N = \\begin{pmatrix} E & B \\\\ A & O \\end{pmatrix}$。其中 $r(M)=r(N)$，若 $r(C)=n$，则",
+  "raw_answer_text": "A"
 }

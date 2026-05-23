@@ -16,5 +16,7 @@
     "导数与微分",
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "曲线 $\\sin(xy) + \\ln(y-x) = x$ 在点 $(0,1)$ 处的切线方程是 ______",
+  "raw_answer_text": "$y = x + 1$"
 }

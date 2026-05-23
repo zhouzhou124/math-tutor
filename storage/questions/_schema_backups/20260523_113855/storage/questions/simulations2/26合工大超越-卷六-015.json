@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷六-015",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵方程"
+  ],
+  "tags": [
+    "矩阵方程"
+  ],
+  "question": "$15.$ 设 $A=\\begin{pmatrix} 2 & 1 & -2 \\\\ 0 & 0 & 2 \\\\ 0 & 0 & 2 \\end{pmatrix}$，$A^{-1}$ 为 $A$ 的逆矩阵，满足 $AB=A^{-1}(B+E)+E$ 的方阵 $B=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$B = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "2024-数一-013",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$13.$ 已知 $f(x)=1+x$，若 $f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}a_n\\cos nx(x\\in[0,\\pi])$，则 $\\lim_{n\\to\\infty}n^2\\sin a_{2n-1}=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 填空题 知识点: 无穷级数 数学概念: 三角函数 极限 级数 求和 较难题 5分题 2024-数一-013",
+  "standard_answer": "## 题目重述\n已知函数 $f(x)=1+x$ 在区间 $[0,\\pi]$ 上展开为余弦级数 $f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}a_n\\cos nx$，求极限 $\\lim_{n\\to\\infty}n^2\\sin a_{2n-1}$ 的值。\n\n## 标准答案\n$-\\dfrac{1}{\\pi}$\n\n步骤1：**计算傅里叶余弦系数 $a_0$**\n由傅里叶余弦级数公式，在 $[0,\\pi]$ 上有\n$$a_n=\\frac{2}{\\pi}\\int_0^\\pi f(x)\\cos nx\\,dx,\\quad n=0,1,2,\\ldots$$\n对 $n=0$，\n$$a_0=\\frac{2}{\\pi}\\int_0^\\pi (1+x)\\,dx=\\frac{2}{\\pi}\\left[x+\\frac{x^2}{2}\\right]_0^\\pi=\\frac{2}{\\pi}\\left(\\pi+\\frac{\\pi^2}{2}\\right)=2+\\pi.$$\n\n步骤2：**计算 $n\\ge 1$ 时的 $a_n$**\n当 $n\\ge 1$ 时，\n$$a_n=\\frac{2}{\\pi}\\int_0^\\pi (1+x)\\cos nx\\,dx.$$\n利用分部积分法：\n$$\\int (1+x)\\cos nx\\,dx = \\frac{(1+x)\\sin nx}{n}-\\int\\frac{\\sin nx}{n}\\,dx = \\frac{(1+x)\\sin nx}{n}+\\frac{\\cos nx}{n^2}.$$\n代入上下限 $0$ 和 $\\pi$：\n$$\\left[\\frac{(1+x)\\sin nx}{n}+\\frac{\\cos nx}{n^2}\\right]_0^\\pi = \\left(0+\\frac{(-1)^n}{n^2}\\right)-\\left(0+\\frac{1}{n^2}\\right)=\\frac{(-1)^n-1}{n^2}.$$\n因此\n$$a_n=\\frac{2}{\\pi}\\cdot\\frac{(-1)^n-1}{n^2}.$$\n\n步骤3：**求奇数项 $a_{2n-1}$**\n当 $n$ 为偶数时，$(-1)^n-1=0$，故 $a_{2k}=0$；当 $n=2n-1$（奇数）时，$(-1)^{2n-1}=-1$，\n$$a_{2n-1}=\\frac{2}{\\pi}\\cdot\\frac{-1-1}{(2n-1)^2}=-\\frac{4}{\\pi(2n-1)^2}.$$\n\n步骤4：**计算极限 $\\lim_{n\\to\\infty}n^2\\sin a_{2n-1}$**\n当 $n\\to\\infty$ 时，$a_{2n-1}\\to 0$，由等价无穷小 $\\sin x\\sim x\\ (x\\to0)$ 得\n$$\\sin a_{2n-1}\\sim a_{2n-1}.$$\n于是\n$$n^2\\sin a_{2n-1}\\sim n^2\\cdot\\left(-\\frac{4}{\\pi(2n-1)^2}\\right)=-\\frac{4n^2}{\\pi(2n-1)^2}.$$\n求极限：\n$$\\lim_{n\\to\\infty}\\frac{4n^2}{(2n-1)^2}=\\lim_{n\\to\\infty}\\frac{4}{4-\\frac{4}{n}+\\frac{1}{n^2}}=1.$$\n故\n$$\\lim_{n\\to\\infty}n^2\\sin a_{2n-1}=-\\frac{4}{\\pi}\\cdot\\frac{1}{4}=-\\frac{1}{\\pi}.$$\n\n## 结论\n所求极限为 $-\\dfrac{1}{\\pi}$.\n\n## 关键知识点\n- 傅里叶余弦级数的系数公式\n- 分部积分法计算含多项式与三角函数的定积分\n- 等价无穷小替换求极限：$\\sin x\\sim x\\ (x\\to0)$\n\n## 易错提示\n- 混淆余弦级数在 $[0,\\pi]$ 上的系数公式，忘记系数前的 $\\frac{2}{\\pi}$\n- 分部积分时正负号处理不当，尤其是代入上下限时第二项 $\\frac{\\cos nx}{n^2}$ 的符号\n- 求极限时直接代入 $a_{2n-1}=0$ 而忽略 $\\sin a_{2n-1}$ 需要展开或等价替换，导致 $0\\cdot\\infty$ 未定型无法处理"
+}

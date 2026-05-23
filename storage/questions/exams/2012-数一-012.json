@@ -14,5 +14,7 @@
   "tags": [
     "曲面积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $\\Sigma = \\{(x,y,z) \\mid x+y+z=1, x\\ge 0, y\\ge 0, z\\ge 0\\}$，则 $\\iint_\\Sigma y^2 dS =$ ______",
+  "raw_answer_text": "$\\frac{\\sqrt{3}}{12}$"
 }

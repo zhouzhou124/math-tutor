@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 $X$ 服从参数为 $\\frac{2}{\\theta}$ 的指数分布，在 $X = x (x > 0)$ 的条件下，$Y$ 服从条件概率密度为 $$f_{Y|X}(y|x) = \\begin{cases} \\frac{1}{\\theta} e^{-\\frac{y-x}{\\theta}}, & 0 < x < y \\\\ 0, & \\text{其他} \\end{cases}$$\n其中 $\\theta$ 为大于 $0$ 的参数， $(X_1,Y_1),\\dots,(X_n,Y_n)$ 是简单随机样本.\n$(1)$ 求 $\\theta$ 的最大似然估计量 $\\hat{\\theta}$；\n$(2)$ 计算 $D(\\hat{\\theta})$.",
   "source": "import_v2",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 $X$ 服从参数为 $\\frac{2}{\\theta}$ 的指数分布，在 $X = x (x > 0)$ 的条件下，$Y$ 服从条件概率密度为 $$f_{Y|X}(y|x) = \\begin{cases} \\frac{1}{\\theta} e^{-\\frac{y-x}{\\theta}}, & 0 < x < y \\\\ 0, & \\text{其他} \\end{cases}$$\n其中 $\\theta$ 为大于 $0$ 的参数， $(X_1,Y_1),\\dots,(X_n,Y_n)$ 是简单随机样本.\n$(1)$ 求 $\\theta$ 的最大似然估计量 $\\hat{\\theta}$；\n$(2)$ 计算 $D(\\hat{\\theta})$."
 }

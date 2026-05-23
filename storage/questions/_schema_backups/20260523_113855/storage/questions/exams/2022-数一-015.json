@@ -1,0 +1,22 @@
+{
+  "question_id": "2022-数一-015",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$15.$ 已知矩阵 $A$ 和 $A-E$ 可逆，若 $[E-(A-E)^{-1}]B=A$，则 $B-A=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2022年 填空题 知识点: 矩阵运算 数学概念: 矩阵运算 较难题 5分题 2022-数一-015"
+}

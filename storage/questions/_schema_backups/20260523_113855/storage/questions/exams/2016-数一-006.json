@@ -1,0 +1,24 @@
+{
+  "question_id": "2016-数一-006",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "knowledge_points": [
+    "二次型",
+    "空间解析几何"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$6.$ 设二次型 $f=x_1^2+x_2^2+x_3^2+4x_1x_2+4x_1x_3+4x_2x_3$，则 $f=2$ 表示的二次曲面为( )\n\n$(A)$ 单叶双曲面 \\qquad $(B)$ 双叶双曲面 \\qquad $(C)$ 椭球面 \\qquad $(D)$ 柱面",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型",
+    "空间解析几何"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 二次型 空间解析几何 数学概念: 二次型 标准化 几何应用 较难题 4分题 2016-数一-006"
+}

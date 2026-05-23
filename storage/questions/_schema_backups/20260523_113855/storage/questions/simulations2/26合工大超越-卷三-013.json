@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷三-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "question": "设 $\\Sigma$ 为曲面 $z=\\sqrt{x^2+y^2}$（$0\\le z\\le 1$）位于第一卦限部分，取下侧，$f(t)$ 为非常量连续函数，则曲面积分 $$I=\\iint_{\\Sigma} \\frac{[1+yf(z)]dy dz + [1-xf(z)]dz dx}{1+\\sqrt{x^2+y^2}} = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4885614
+}

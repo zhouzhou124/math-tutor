@@ -1,0 +1,26 @@
+{
+  "question_id": "2016-数一-021",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)已知矩阵 $A=\\begin{pmatrix}0&-1&1\\\\2&-3&0\\\\0&0&0\\end{pmatrix}$。\n\n$(1)$ 求 $A^{99}$；\n\n$(2)$ 设 $3$ 阶矩阵 $B = (\\alpha_1,\\alpha_2,\\alpha_3)$ 满足 $B^2 = BA$。记 $B^{100} = (\\beta_1,\\beta_2,\\beta_3)$，将 $\\beta_1,\\beta_2,\\beta_3$ 分别表示为 $\\alpha_1,\\alpha_2,\\alpha_3$ 的线性组合。\n",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 矩阵运算 特征值与特征向量 数学概念: 矩阵运算 较难题 11分题 2016-数一-021",
+  "standard_answer": "## 结论  \n(1) $A^{99} = \\begin{pmatrix} -2^{98} & 2^{98} & -2^{98} \\\\ -2^{99} & 2^{99} & -2^{99} \\\\ 0 & 0 & 0 \\end{pmatrix}$。  \n(2) $\\beta_1 = \\alpha_1 - \\alpha_2$，$\\beta_2 = -\\alpha_1 + \\alpha_2$，$\\beta_3 = \\alpha_1 - \\alpha_2$。（即 $\\beta_1 = \\alpha_1 - \\alpha_2$，$\\beta_2 = -\\alpha_1 + \\alpha_2$，$\\beta_3 = \\alpha_1 - \\alpha_2$）\n\n## 关键知识点  \n- 矩阵乘方的计算：利用特征值分解或二项式展开，当矩阵可对角化时，$A^n = P\\Lambda^n P^{-1}$。  \n- 矩阵方程的处理：由 $B^2 = BA$ 推出 $B(B-A)=O$，利用秩或特征值分析得到 $B$ 与 $A$ 的关系。  \n- 线性表示：利用矩阵乘法将 $B^{100}$ 用 $B$ 和 $A$ 表示，再转化为 $\\alpha_1,\\alpha_2,\\alpha_3$ 的线性组合。\n\n## 易错提示  \n- 直接计算 $A^{99}$ 时容易忽略 $A$ 不是对角阵，需先求特征值与特征向量，并注意 $A$ 不可逆时特征值可能为0。  \n- 由 $B^2=BA$ 不能直接消去 $B$ 得到 $B=A$，因为 $B$ 可能不可逆，需要讨论 $B$ 的列向量与 $A$ 的列空间的关系。  \n- 在将 $\\beta_i$ 表示为 $\\alpha_i$ 的组合时，注意系数矩阵的转置关系，避免出现顺序错误。",
+  "_ai_expanded_at": "2026-05-22 00:03"
+}

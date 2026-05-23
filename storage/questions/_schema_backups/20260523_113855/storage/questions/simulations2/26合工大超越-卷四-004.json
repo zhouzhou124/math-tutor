@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷四-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "question": "设 $\\Sigma$ 为球面 $z = \\sqrt{1 - x^2 - y^2}$ 被柱面 $x^2 + y^2 = x$ 所截下的部分，取下侧，则将对坐标曲面积分 $\\iint_{\\Sigma} \\frac{xy dy dz + yz dx dy}{x^2 + y^2 + z^2}$ 化为对面积的曲面积分为",
+  "options": {
+    "A": "$\\iint_{\\Sigma} (x^2 y + yz^2) dS$",
+    "B": "$-\\iint_{\\Sigma} (x^2 y + yz^2) dS$",
+    "C": "$\\iint_{\\Sigma} (x^2 y + yz^2) dA$",
+    "D": "$-\\iint_{\\Sigma} (x^2 y + yz^2) dA$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.191415
+}

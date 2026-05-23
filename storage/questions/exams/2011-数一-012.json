@@ -14,5 +14,7 @@
   "options": {},
   "tags": [
     "曲线积分"
-  ]
+  ],
+  "raw_question_text": "设 $L$ 是柱面 $x^2 + y^2 = 1$ 与平面 $z = x + y$ 的交线，从 $z$ 轴正向往 $z$ 轴负向看去为逆时针方向，则曲线积分 $$\\oint_L xz dx + x dy + \\frac{y^2}{2} dz =\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "0"
 }

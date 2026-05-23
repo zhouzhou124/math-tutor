@@ -20,5 +20,6 @@
   "source": "manual_2022",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2022年 证明题 知识点: 中值定理 定积分 数学概念: 积分 较难题 12分题 2022-数一-020"
+  "embedding_text": "考研数学一 2022年 证明题 知识点: 中值定理 定积分 数学概念: 积分 较难题 12分题 2022-数一-020",
+  "raw_question_text": "$20.$ 设 $f(x)$ 在 $(-\\infty,+\\infty)$ 上有二阶连续导数，证明：$f''(x)\\ge0$ 的充要条件是对任意 $a\\neq b$，有 $f(\\frac{a+b}{2})\\le\\frac{1}{b-a}\\int_a^b f(t)dt.$"
 }

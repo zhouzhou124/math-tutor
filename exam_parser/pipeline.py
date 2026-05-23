@@ -27,6 +27,7 @@ from .ocr_cleaner import OCRCleaner
 
 from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, STORAGE_DIR
 from database.question_db import KNOWLEDGE_TAGS
+from database.question_schema import set_raw_question, set_raw_answer
 
 
 @dataclass
@@ -336,7 +337,7 @@ class ExamParserPipeline:
             block.question_type, 10
         )
 
-        return {
+        result = {
             "year": year,
             "category": math_type,
             "question_type": block.question_type,
@@ -352,6 +353,12 @@ class ExamParserPipeline:
             "options": extracted.options,
             "correct_option": extracted.correct_option,
         }
+
+        # 四层分离: raw 永远保留原始文本
+        set_raw_question(result, block.raw_text.strip()[:3000])
+        set_raw_answer(result, extracted.short_answer)
+
+        return result
 
     def _clean_question_text(self, raw_text: str) -> str:
         """清理题目文本：移除答案/解析标注，保留题目和选项"""

@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥八套卷-卷一-004",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "一元函数微分学"
+  ],
+  "tags": [
+    "一元函数微分学"
+  ],
+  "question": "设 $f(x)$ 在 $(0,+\\infty)$ 内可导，以下结论：\n① 若 $\\lim_{x\\to+\\infty} f(x)$ 存在，则 $\\lim_{x\\to+\\infty} f'(x)$ 存在；\n② 若 $\\lim_{x\\to+\\infty} f'(x)$ 存在，则 $\\lim_{x\\to+\\infty} f(x)$ 存在；\n③ 若 $\\lim_{x\\to+\\infty} f'(x) = a \\neq 0$，则 $f(x)$ 在 $x\\to+\\infty$ 时无界；\n④ 若 $\\lim_{x\\to+\\infty} f'(x) = 0$，则 $f(x)$ 在 $x\\to+\\infty$ 时有界。\n正确的个数为",
+  "source": "import_zhangyu_v1",
+  "options": {
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
+  },
+  "correct_option": "B",
+  "_original_answer": "",
+  "standard_answer": ""
+}

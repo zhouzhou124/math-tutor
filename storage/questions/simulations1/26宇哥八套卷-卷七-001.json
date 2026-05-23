@@ -22,5 +22,7 @@
   "tags": [
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x) = |\\ln|x||$，则",
+  "raw_answer_text": "C"
 }

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷三-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "函数性质",
+    "有界性"
+  ],
+  "tags": [
+    "函数性质",
+    "有界性"
+  ],
+  "question": "下列命题正确的个数为 ① $f(x)=\\int_0^x \\frac{x}{\\cos t} dt$ 在 $(0,+\\infty)$ 内有界；② 在 $(-\\infty,+\\infty)$ 上连续的周期函数 $f(x)$ 一定有界；③ 若 $f(x)$ 在 $(a,b)$ 内可导，且导函数有界，则 $f(x)$ 在 $(a,b)$ 内一定有界；④ 若 $f(x)$ 在 $[0,+\\infty)$ 内可导，且 $\\lim_{x\\to+\\infty} f'(x)=0$，则 $f(x)$ 在 $[0,+\\infty)$ 内有界。",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4862723
+}

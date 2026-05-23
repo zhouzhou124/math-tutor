@@ -15,5 +15,7 @@
     "参数估计"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设总体 $X$ 的概率密度为 $$f(x;\\theta) = \\begin{cases} \\frac{1}{2\\theta}, & 0<x<\\theta \\\\ \\frac{1}{2(1-\\theta)}, & \\theta \\le x < 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 其中参数 $\\theta(0<\\theta<1)$ 未知，$X_1,X_2,\\dots,X_n$ 是来自总体 $X$ 的简单随机样本，$\\overline{X}$ 是样本均值.\n$(1)$ 求参数 $\\theta$ 的矩估计量 $\\hat{\\theta}$；\n$(2)$ 判断 $4\\overline{X}^2$ 是否为 $\\theta^2$ 的无偏估计量，并说明理由.",
+  "raw_answer_text": "(I) $\\hat{\\theta} = \\frac{1}{2} \\overline{X} + \\frac{1}{2}$\n(II) $4\\overline{X}^2$ 不是 $\\theta^2$ 的无偏估计量"
 }

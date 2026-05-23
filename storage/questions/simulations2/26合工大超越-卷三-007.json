@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.4776695
+  "__cached_at__": 1779466679.4776695,
+  "raw_question_text": "设 $A$ 为 $3\\times 2$ 矩阵，$B$ 为 $2\\times 3$ 矩阵，且 $r(AB)=2$，$(AB)^2=AB$，则下列说法中一定成立的有 ① $BAB=B$；② $ABA=A$；③ $BA=\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$；④ $AB=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$。",
+  "raw_answer_text": "B"
 }

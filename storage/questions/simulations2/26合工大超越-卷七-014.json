@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷七-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "tags": [
+    "微分方程"
+  ],
+  "question": "$14.$ $f'(x)=\\frac{1}{x}f(x)+\\int_1^x f(t)dt$，$f(1)=1$，则 $\\int_1^x f(x)dx=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{1}{2}x^2 - \\frac{1}{2}$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七",
+  "raw_question_text": "$14.$ $f'(x)=\\frac{1}{x}f(x)+\\int_1^x f(t)dt$，$f(1)=1$，则 $\\int_1^x f(x)dx=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{1}{2}x^2 - \\frac{1}{2}$"
+}

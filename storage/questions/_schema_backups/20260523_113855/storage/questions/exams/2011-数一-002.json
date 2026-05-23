@@ -1,0 +1,24 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "设数列 $\\{a_n\\}$ 单调减少，$\\lim_{n\\to\\infty} a_n = 0$，$S_n = \\sum_{k=1}^n a_k$ 无界，则幂级数 $\\sum_{n=1}^\\infty a_n (x-1)^n$ 的收敛域为",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "幂级数"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2011",
+  "options": {
+    "A": "$(-1,1]$",
+    "B": "$[-1,1)$",
+    "C": "$[0,2)$",
+    "D": "$(0,2]$"
+  },
+  "correct_option": "D",
+  "question_id": "2011-数一-002",
+  "tags": [
+    "幂级数"
+  ]
+}

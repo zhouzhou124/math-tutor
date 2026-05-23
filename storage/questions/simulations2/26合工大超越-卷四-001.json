@@ -24,5 +24,7 @@
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "volume": "卷四",
-  "__cached_at__": 1779467434.1812327
+  "__cached_at__": 1779467434.1812327,
+  "raw_question_text": "已知 $I_1 = \\int_{0}^{\\frac{\\pi}{2}} \\frac{\\tan x}{\\sqrt{x - 2x}} dx$，$I_2 = \\int_{0}^{+\\infty} \\frac{\\ln x}{\\sqrt{x^3 + x}} dx$，则",
+  "raw_answer_text": "C"
 }

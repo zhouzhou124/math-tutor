@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷八-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "已知 $f(x,y)$ 在 $(0,0)$ 邻域内连续，$\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)-xy}{\\sqrt{x^2+y^2}} = 1$，则 $(0,0)$ 是 $f(x,y)$ 的",
+  "options": {
+    "A": "极小值点",
+    "B": "极大值点",
+    "C": "不是极值点",
+    "D": "不确定"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3186278
+}

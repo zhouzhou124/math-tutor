@@ -14,11 +14,12 @@
     "多维随机变量",
     "协方差"
   ],
-  "question": "(本题满分12分) 设随机变量 $X$ 与 $Y$ 相互独立，$X$ 服从区间 $[0,2]$ 上的均匀分布，$Y$ 服从参数为$1$的指数分布，令 $Z=\\begin{cases} Y, & 0\\le X\\le 1 \\\\ X, & 1<X\\le 2 \\end{cases}$.\n$(1)$ 求 $Z$ 的概率密度；\n$(2)$ 求协方差 $\\operatorname{Cov}(X,Z)$.",
-  "standard_answer": "(I) $f_Z(z) = \\begin{cases} \\frac{1}{2}e^{-z} + \\frac{1}{2}, & 0<z<1 \\\\ \\frac{1}{2}e^{-z}, & z\\ge 1 \\\\ 0, & z\\le 0 \\end{cases}$\\n(II) $\\operatorname{Cov}(X,Z) = -\\frac{1}{4}$",
+  "question": "(本题满分12分) 设随机变量 $X$ 与 $Y$ 相互独立，$X$ 服从区间 $[0,2]$ 上的均匀分布，$Y$ 服从参数为$1$的指数分布，令 $$Z=\\begin{cases} Y, & 0\\le X\\le 1 \\\\ X, & 1<X\\le 2 \\end{cases}$$\n$(1)$ 求 $Z$ 的概率密度；\n$(2)$ 求协方差 $\\operatorname{Cov}(X,Z)$.",
+  "standard_answer": "(I) $$f_Z(z) = \\begin{cases} \\frac{1}{2}e^{-z} + \\frac{1}{2}, & 0<z<1 \\\\ \\frac{1}{2}e^{-z}, & z\\ge 1 \\\\ 0, & z\\le 0 \\end{cases}$$\\n(II) $\\operatorname{Cov}(X,Z) = -\\frac{1}{4}$",
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
-  "__cached_at__": 1779466679.4843214
+  "raw_question_text": "(本题满分12分) 设随机变量 $X$ 与 $Y$ 相互独立，$X$ 服从区间 $[0,2]$ 上的均匀分布，$Y$ 服从参数为$1$的指数分布，令 $$Z=\\begin{cases} Y, & 0\\le X\\le 1 \\\\ X, & 1<X\\le 2 \\end{cases}$$\n$(1)$ 求 $Z$ 的概率密度；\n$(2)$ 求协方差 $\\operatorname{Cov}(X,Z)$.",
+  "raw_answer_text": "(I) $$f_Z(z) = \\begin{cases} \\frac{1}{2}e^{-z} + \\frac{1}{2}, & 0<z<1 \\\\ \\frac{1}{2}e^{-z}, & z\\ge 1 \\\\ 0, & z\\le 0 \\end{cases}$$\\n(II) $\\operatorname{Cov}(X,Z) = -\\frac{1}{4}$"
 }

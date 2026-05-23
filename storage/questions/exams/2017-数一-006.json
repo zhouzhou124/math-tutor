@@ -18,5 +18,6 @@
   "source": "manual_2017",
   "options": {},
   "correct_option": "B",
-  "embedding_text": "考研数学一 2017年 选择题 知识点: 特征值与特征向量 数学概念: 矩阵运算 较难题 4分题 2017-数一-006"
+  "embedding_text": "考研数学一 2017年 选择题 知识点: 特征值与特征向量 数学概念: 矩阵运算 较难题 4分题 2017-数一-006",
+  "raw_question_text": "$6.$ 已知 $A=\\begin{pmatrix}2&0&0\\\\0&2&1\\\\0&0&1\\end{pmatrix},B=\\begin{pmatrix}2&1&0\\\\0&2&0\\\\0&0&1\\end{pmatrix},C=\\begin{pmatrix}1&0&0\\\\0&2&0\\\\0&0&2\\end{pmatrix}$，则( )\n\n$(A)$ $A$ 与 $C$ 相似，$B$ 与 $C$ 相似\n\n$(B)$ $A$ 与 $C$ 相似，$B$ 与 $C$ 不相似\n\n$(C)$ $A$ 与 $C$ 不相似，$B$ 与 $C$ 相似\n\n$(D)$ $A$ 与 $C$ 不相似，$B$ 与 $C$ 不相似"
 }

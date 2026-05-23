@@ -17,5 +17,7 @@
     "微分方程",
     "极限与连续"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim_{x\\to 0^+} [y(x)]^x =$ ______",
+  "raw_answer_text": "1"
 }

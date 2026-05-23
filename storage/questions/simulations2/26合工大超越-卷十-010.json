@@ -1,0 +1,26 @@
+{
+  "question_id": "26合工大超越-卷十-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "假设检验"
+  ],
+  "tags": [
+    "假设检验"
+  ],
+  "question": "$10.$ 设 $\\overline{X}$ 为来自总体 $X\\sim N(\\mu,\\sigma^2)$ 的一个简单随机样本的样本均值，若已知在置信水平 $1-\\alpha$ 下，$\\mu$ 的置信区间的长度为 2，则在显著性水平 $\\alpha$ 下，对于假设检验问题 $H_0:\\mu=1,H_1:\\mu\\neq1$，要使得检验结果接受 $H_0$，则应有 \n$(A)$ $\\overline{X}\\in(-1,1)$ $(B)$ $\\overline{X}\\in(-1,3)$ $(C)$ $\\overline{X}\\in(-2,0)$ $(D)$ $\\overline{X}\\in(0,2)$",
+  "options": {
+    "A": "$\\overline{X}\\in(-1,1)$ $(B)$ $\\overline{X}\\in(-1,3)$ $(C)$ $\\overline{X}\\in(-2,0)$ $(D)$ $\\overline{X}\\in(0,2)$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$10.$ 设 $\\overline{X}$ 为来自总体 $X\\sim N(\\mu,\\sigma^2)$ 的一个简单随机样本的样本均值，若已知在置信水平 $1-\\alpha$ 下，$\\mu$ 的置信区间的长度为 2，则在显著性水平 $\\alpha$ 下，对于假设检验问题 $H_0:\\mu=1,H_1:\\mu\\neq1$，要使得检验结果接受 $H_0$，则应有 \n$(A)$ $\\overline{X}\\in(-1,1)$ $(B)$ $\\overline{X}\\in(-1,3)$ $(C)$ $\\overline{X}\\in(-2,0)$ $(D)$ $\\overline{X}\\in(0,2)$",
+  "raw_answer_text": "D"
+}

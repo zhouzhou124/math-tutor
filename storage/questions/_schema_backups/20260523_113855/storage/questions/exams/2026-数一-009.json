@@ -1,0 +1,25 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量的数字特征"
+  ],
+  "tags": [
+    "随机变量的数字特征"
+  ],
+  "question": "$9.$ 设连续型随机变量 $X$ 的分布函数为 $F(x)$，随机变量 $Y$ 的分布函数为 $F(ay+b)$，$X$ 的数学期望为 $\\mu$，方差为 $\\sigma^2 (\\sigma>0)$。若 $Y$ 的数学期望与方差分别为 $0$ 和 $1$，则 ( )\n$(A)$ $a = \\sigma, b = \\mu$ \n$(B)$ $a = \\sigma, b = -\\mu$ \n$(C)$ $a = \\frac{1}{\\sigma}, b = \\mu$ \n$(D)$ $a = \\frac{1}{\\sigma}, b = -\\mu$",
+  "source": "import_2026",
+  "options": {
+    "A": "$a = \\sigma, b = \\mu$",
+    "B": "$a = \\sigma, b = -\\mu$",
+    "C": "$a = \\frac{1}{\\sigma}, b = \\mu$",
+    "D": "$a = \\frac{1}{\\sigma}, b = -\\mu$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "question_id": "2026-数一-009"
+}

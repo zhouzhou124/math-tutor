@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型",
+    "特征值"
+  ],
+  "tags": [
+    "二次型",
+    "特征值"
+  ],
+  "question": "设二次型 $f=x^{\\mathrm{T}}Ax$，$A^{\\mathrm{T}}=A$，$A$ 有 $3$ 个互异特征值 $\\lambda_1,\\lambda_2,\\lambda_3$，对应特征向量 $\\xi_1,\\xi_2,\\xi_3$，若 $\\|x\\|=1,x^{\\mathrm{T}}\\xi_3=0$，则 $f$ 的最小值为 \n$(A)$ $\\min\\{\\lambda_1,\\lambda_2\\}$ $(B)$ $\\min\\{\\lambda_1,\\lambda_3\\}$ $(C)$ $\\min\\{\\lambda_2,\\lambda_3\\}$ $(D)$ $\\min\\{\\lambda_1,\\lambda_2,\\lambda_3\\}$",
+  "options": {
+    "A": "$\\min\\{\\lambda_1,\\lambda_2\\}$ $(B)$ $\\min\\{\\lambda_1,\\lambda_3\\}$ $(C)$ $\\min\\{\\lambda_2,\\lambda_3\\}$ $(D)$ $\\min\\{\\lambda_1,\\lambda_2,\\lambda_3\\}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "raw_question_text": "设二次型 $f=x^{\\mathrm{T}}Ax$，$A^{\\mathrm{T}}=A$，$A$ 有 $3$ 个互异特征值 $\\lambda_1,\\lambda_2,\\lambda_3$，对应特征向量 $\\xi_1,\\xi_2,\\xi_3$，若 $\\|x\\|=1,x^{\\mathrm{T}}\\xi_3=0$，则 $f$ 的最小值为 \n$(A)$ $\\min\\{\\lambda_1,\\lambda_2\\}$ $(B)$ $\\min\\{\\lambda_1,\\lambda_3\\}$ $(C)$ $\\min\\{\\lambda_2,\\lambda_3\\}$ $(D)$ $\\min\\{\\lambda_1,\\lambda_2,\\lambda_3\\}$",
+  "raw_answer_text": "A"
+}

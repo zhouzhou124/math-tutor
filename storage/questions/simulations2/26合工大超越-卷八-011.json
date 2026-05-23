@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "渐近线"
+  ],
+  "tags": [
+    "渐近线"
+  ],
+  "question": "设 $y=y(x)$ 是 $y'+(x^2+1)y=x^2+\\sin^4 x$ 的一个解，则曲线 $y=y(x)$ 有一条水平渐近线 $y=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.2763712,
+  "raw_question_text": "设 $y=y(x)$ 是 $y'+(x^2+1)y=x^2+\\sin^4 x$ 的一个解，则曲线 $y=y(x)$ 有一条水平渐近线 $y=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$1$"
+}

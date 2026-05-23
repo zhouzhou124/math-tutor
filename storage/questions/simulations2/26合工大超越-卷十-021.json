@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "特征值",
+    "二次型"
+  ],
+  "tags": [
+    "特征值",
+    "二次型"
+  ],
+  "question": "$21.$ (本题满分12分) 设 $A=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & a & -1 \\\\ 0 & -1 & a \\end{pmatrix}$ 为正定矩阵，且 $A$ 有二重特征值。\n$(1)$ 求 $a$ 的值；\n$(2)$ 求正交矩阵 $P$，令 $x=Py$，将二次型 $f=x^{\\mathrm{T}}(A-3A^{-1})x$ 化为标准形；\n$(3)$ 求可逆矩阵 $Q$，使得 $A^*=Q^{\\mathrm{T}}Q$.",
+  "standard_answer": "(I) $a=2$ (II) $P=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{2}} \\\\ 0 & \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{2}} \\end{pmatrix}$，标准形为 $y_1^2+2y_2^2+2y_3^2$ (III) $Q=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & \\sqrt{2} & 0 \\\\ 0 & 0 & \\sqrt{2} \\end{pmatrix}$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$21.$ (本题满分12分) 设 $A=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & a & -1 \\\\ 0 & -1 & a \\end{pmatrix}$ 为正定矩阵，且 $A$ 有二重特征值。\n$(1)$ 求 $a$ 的值；\n$(2)$ 求正交矩阵 $P$，令 $x=Py$，将二次型 $f=x^{\\mathrm{T}}(A-3A^{-1})x$ 化为标准形；\n$(3)$ 求可逆矩阵 $Q$，使得 $A^*=Q^{\\mathrm{T}}Q$.",
+  "raw_answer_text": "(I) $a=2$ (II) $P=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{2}} \\\\ 0 & \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{2}} \\end{pmatrix}$，标准形为 $y_1^2+2y_2^2+2y_3^2$ (III) $Q=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & \\sqrt{2} & 0 \\\\ 0 & 0 & \\sqrt{2} \\end{pmatrix}$"
+}

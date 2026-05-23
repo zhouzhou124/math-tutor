@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷六-019",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "question": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
+  "standard_answer": "$4$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "__cached_at__": 1779502981.3471127,
+  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
+  "raw_answer_text": "$4$"
+}

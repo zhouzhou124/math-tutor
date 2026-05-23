@@ -23,5 +23,7 @@
   "standard_answer": "A",
   "source": "import_hegongda_v4",
   "solution_steps": [],
-  "volume": "卷四"
+  "volume": "卷四",
+  "raw_question_text": "$3.$ 设 $z = z(x,y)$ 由方程 $xy + \\ln z + yz^2 = 0$ 所确定，则 $\\left.\\frac{\\partial^2 z}{\\partial x \\partial y}\\right|_{(1,0)} =$ $(A)$ $-1$ $(B)$ $0$ $(C)$ $1$ $(D)$ $2$",
+  "raw_answer_text": "A"
 }

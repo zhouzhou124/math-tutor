@@ -1,0 +1,31 @@
+{
+  "question_id": "26合工大超越-卷九-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "二次型",
+    "特征值"
+  ],
+  "tags": [
+    "二次型",
+    "特征值"
+  ],
+  "question": "$7.$ 设3阶矩阵 $A=\\alpha a^{\\mathrm{T}}+2\\beta b^{\\mathrm{T}}-3\\gamma y^{\\mathrm{T}}$，其中3维单位列向量 $\\alpha,\\beta,\\gamma$ 两两正交，$E$ 为3阶单位矩阵；若二次型 $f(x_1,x_2,x_3)=x^{\\mathrm{T}}(A^*+kE)x=1$ 在空间直角坐标系下表示单叶双曲面，则 \n$(A)$ $-2<k<6$ \n$(B)$ $-2<k<3$ \n$(C)$ $3<k<6$ \n$(D)$ $k>6$",
+  "options": {
+    "A": "$-2<k<6$",
+    "B": "$-2<k<3$",
+    "C": "$3<k<6$",
+    "D": "$k>6$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$7.$ 设3阶矩阵 $A=\\alpha a^{\\mathrm{T}}+2\\beta b^{\\mathrm{T}}-3\\gamma y^{\\mathrm{T}}$，其中3维单位列向量 $\\alpha,\\beta,\\gamma$ 两两正交，$E$ 为3阶单位矩阵；若二次型 $f(x_1,x_2,x_3)=x^{\\mathrm{T}}(A^*+kE)x=1$ 在空间直角坐标系下表示单叶双曲面，则 \n$(A)$ $-2<k<6$ \n$(B)$ $-2<k<3$ \n$(C)$ $3<k<6$ \n$(D)$ $k>6$",
+  "raw_answer_text": "A"
+}

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷七-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "伴随矩阵"
+  ],
+  "tags": [
+    "伴随矩阵"
+  ],
+  "question": "设 $A,B$ 为三阶非零矩阵，$AB=O$，$A^*$ 为 $A$ 的伴随矩阵，则\"$A^*\\neq O$\"是\"$A^*$ 与 $B$ 等价\"的",
+  "options": {
+    "A": "充要条件",
+    "B": "充分非必要",
+    "C": "必要非充分",
+    "D": "非充分非必要"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1960502,
+  "raw_question_text": "设 $A,B$ 为三阶非零矩阵，$AB=O$，$A^*$ 为 $A$ 的伴随矩阵，则\"$A^*\\neq O$\"是\"$A^*$ 与 $B$ 等价\"的",
+  "raw_answer_text": "A"
+}

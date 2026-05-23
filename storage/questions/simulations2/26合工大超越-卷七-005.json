@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷七-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "向量组等价"
+  ],
+  "tags": [
+    "向量组等价"
+  ],
+  "question": "设 $\\alpha_1,\\dots,\\alpha_s$ 与 $\\beta_1,\\dots,\\beta_s$ 为等价向量组，$A=(\\alpha_1,\\dots,\\alpha_s),B=(\\beta_1,\\dots,\\beta_s)$，则",
+  "options": {
+    "A": "有相同相关性",
+    "B": "$A$ 与 $B$ 的行向量组等价",
+    "C": "$A^{\\mathrm{T}}x=0$ 与 $B^{\\mathrm{T}}x=0$ 同解",
+    "D": "不同解但有非零公共解"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1984026,
+  "raw_question_text": "设 $\\alpha_1,\\dots,\\alpha_s$ 与 $\\beta_1,\\dots,\\beta_s$ 为等价向量组，$A=(\\alpha_1,\\dots,\\alpha_s),B=(\\beta_1,\\dots,\\beta_s)$，则",
+  "raw_answer_text": "C"
+}

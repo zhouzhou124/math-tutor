@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-003",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "如图，连续函数 $y=f(x)$ 在区间 $[-3,-2]$、$[2,3]$ 上的图形分别是直径为1的上、下半圆周，在区间 $[-2,0]$、$[0,2]$ 上的图形分别是直径为$2$的下、上半圆周。设 $F(x) = \\int_0^x f(t) dt$，则下列结论正确的是",
+  "options": {
+    "A": "$F(3) = -\\frac{3}{4}F(-2)$",
+    "B": "$F(3) = \\frac{5}{4}F(2)$",
+    "C": "$F(-3) = \\frac{3}{4}F(2)$",
+    "D": "$F(-3) = -\\frac{5}{4}F(-2)$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "定积分",
+    "定积分应用"
+  ],
+  "tags": [
+    "定积分",
+    "定积分应用"
+  ],
+  "solution_steps": []
+}

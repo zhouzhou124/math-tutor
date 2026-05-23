@@ -1,0 +1,19 @@
+{
+  "question_id": "2008-数一-012",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设曲面 $\\Sigma$ 是 $z = \\sqrt{4 - x^2 - y^2}$ 的上侧，则 $$\\iint_{\\Sigma} xy dy dz + x dz dx + x^2 dx dy =\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "0",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

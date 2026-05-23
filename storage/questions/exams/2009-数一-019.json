@@ -14,5 +14,7 @@
   "options": {},
   "tags": [
     "曲面积分"
-  ]
+  ],
+  "raw_question_text": "计算曲面积分 $$I = \\iint_{\\Sigma} \\frac{x dy dz + y dz dx + z dx dy}{(x^2 + y^2 + z^2)^{\\frac{3}{2}}}$$\n其中 $\\Sigma$ 是曲面 $2x^2 + 2y^2 + z^2 = 4$ 的外侧.",
+  "raw_answer_text": "0"
 }

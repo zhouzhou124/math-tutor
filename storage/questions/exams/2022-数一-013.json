@@ -20,5 +20,6 @@
   "source": "manual_2022",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2022年 填空题 知识点: 导数与微分 极限与连续 数学概念: 对数指数函数 较难题 5分题 2022-数一-013"
+  "embedding_text": "考研数学一 2022年 填空题 知识点: 导数与微分 极限与连续 数学概念: 对数指数函数 较难题 5分题 2022-数一-013",
+  "raw_question_text": "$13.$ 当 $x\\ge0,y\\ge0$ 时，$x^2+y^2\\le ke^{x+y}$ 恒成立，则 $k$ 的范围是 $\\underline{\\qquad\\qquad}$"
 }

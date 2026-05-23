@@ -14,5 +14,7 @@
   "tags": [
     "微分方程"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "若函数 $f(x)$ 满足方程 $f''(x) + f'(x) - 2f(x) = 0$ 及 $f''(x) + f(x) = 2e^x$，则 $f(x) =$ ______",
+  "raw_answer_text": "$e^x - e^{-2x}$"
 }

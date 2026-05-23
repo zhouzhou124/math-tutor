@@ -24,5 +24,7 @@
     "极限与连续",
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $(0,+\\infty)$ 内可导，$a$ 为常数。对于以下结论：\n① 若 $\\lim_{x\\to+\\infty} f'(x) = a$，则 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$；\n② 若 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$，则 $\\lim_{x\\to+\\infty} f'(x) = a$。\n下列说法中正确的是",
+  "raw_answer_text": "A"
 }

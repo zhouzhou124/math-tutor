@@ -20,5 +20,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0378456
+  "__cached_at__": 1779466026.0378456,
+  "raw_question_text": "(本题满分12分) 设函数 $f(x)$ 在 $(-\\infty,+\\infty)$ 上二阶可导，\n$(1)$ 证明 $f''(x) \\ge 0$ 的充要条件是对任意的 $h,x\\in(-\\infty,+\\infty)$ 都有 $f(x+h) - 2f(x) + f(x-h) \\ge 0$;\n$(2)$ 若 $(x_0,f(x_0))$ 是曲线 $y=f(x)$ 的拐点，证明 $f''(x_0)=0$.",
+  "raw_answer_text": "证明略"
 }

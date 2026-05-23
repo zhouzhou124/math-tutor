@@ -22,5 +22,7 @@
   "tags": [
     "矩阵运算"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "若 $A, A^*$, $B$ 都是 $n(n>2)$ 阶非零矩阵，且 $A^*$ 是 $A$ 的伴随矩阵，$AB = O$，则 $r(B) =$",
+  "raw_answer_text": "B"
 }

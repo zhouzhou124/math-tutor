@@ -43,12 +43,16 @@ def render_question_meta(q: dict) -> None:
         f'border-radius:4px;padding:1px 8px;font-size:0.85em;">{html.escape(difficulty)}</span>'
     )
 
-    # 分值/年份信息
+    # 分值/年份信息（模拟卷不显示年份）
+    volume = q.get("volume", "")
     info_parts = []
-    if year:
-        info_parts.append(str(year))
-    if category:
-        info_parts.append(str(category))
+    if category and volume:
+        info_parts.append(f"{category}-{volume}")
+    else:
+        if year:
+            info_parts.append(str(year))
+        if category:
+            info_parts.append(str(category))
     if score:
         info_parts.append(f"{score}分")
     info_text = " · ".join(info_parts)

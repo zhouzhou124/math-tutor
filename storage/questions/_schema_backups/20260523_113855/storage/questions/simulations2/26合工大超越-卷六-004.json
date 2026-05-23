@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "级数敛散性"
+  ],
+  "tags": [
+    "级数敛散性"
+  ],
+  "question": "关于级数的敛散性，下列说法正确的是",
+  "options": {
+    "A": "$\\sum |u_nv_n|$ 收敛 $\\Leftrightarrow$ $\\sum u_n^2,\\sum v_n^2$ 均收敛",
+    "B": "$\\sum (u_n+v_n)^2$ 收敛 $\\Leftrightarrow$ $\\sum u_n^2,\\sum v_n^2$ 均收敛",
+    "C": "$\\sum (|u_n|+|v_n|)$ 发散 $\\Leftrightarrow$ $\\sum |u_n|$ 发散或 $\\sum |v_n|$ 发散",
+    "D": "$\\sum u_nv_n$ 发散 $\\Leftrightarrow$ $\\sum u_n,\\sum v_n$ 均发散"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.5372524
+}

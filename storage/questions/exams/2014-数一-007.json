@@ -18,5 +18,6 @@
   "source": "manual_2014",
   "options": {},
   "correct_option": "B",
-  "embedding_text": "考研数学一 2014年 选择题 知识点: 随机事件与概率 中等难度 4分题 2014-数一-007"
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 随机事件与概率 中等难度 4分题 2014-数一-007",
+  "raw_question_text": "$7.$ 设随机事件 $A$ 与 $B$ 相互独立，且 $P(B) = 0.5$，$P(A - B) = 0.3$，则 $P(B - A) =$ $( )$\n\n$(A)$ $0.1$ \\qquad $(B)$ $0.2$ \\qquad $(C)$ $0.3$ \\qquad $(D)$ $0.4$"
 }

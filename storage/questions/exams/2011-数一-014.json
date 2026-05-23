@@ -13,5 +13,7 @@
   "question_id": "2011-数一-014",
   "tags": [
     "随机变量"
-  ]
+  ],
+  "raw_question_text": "设二维随机变量 $(X,Y)$ 服从正态分布 $N(\\mu,\\mu;\\sigma^2,\\sigma^2;0)$，则 $E(XY^2) =$ ______",
+  "raw_answer_text": "$\\mu^3 + \\mu\\sigma^2$"
 }

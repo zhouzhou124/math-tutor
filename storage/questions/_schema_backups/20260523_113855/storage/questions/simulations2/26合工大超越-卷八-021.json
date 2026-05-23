@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "特征值",
+    "矩阵幂"
+  ],
+  "tags": [
+    "特征值",
+    "矩阵幂"
+  ],
+  "question": "(本题满分12分) 设 $A$ 为 $2$ 阶矩阵，$A=E-\\alpha\\alpha^{\\mathrm{T}}+\\beta\\beta^{\\mathrm{T}}$，其中 $E$ 为 $2$ 阶单位矩阵，$\\alpha,\\beta$ 为 $2$ 维非零列向量，且向量 $\\alpha+\\beta$ 与 $\\alpha-\\beta$ 的模长相等，即 $\\|\\alpha+\\beta\\|=\\|\\alpha-\\beta\\|$.\n$(1)$ 证明非零向量 $\\alpha,\\beta$ 正交；\n$(2)$ 若 $\\alpha=\\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}$，$A\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$，求 $A$ 的特征值和对应的线性无关的特征向量；\n$(3)$ $\\gamma=\\begin{pmatrix} 1 \\\\ -3 \\end{pmatrix}$，求 $A^{2026}\\gamma$.",
+  "standard_answer": "(I) 证明略\\n(II) $\\lambda_1=1,\\lambda_2=3$，特征向量 $\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix},\\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}$\\n(III) $A^{2026}\\gamma = \\begin{pmatrix} 1 \\\\ -3\\cdot 3^{2026} \\end{pmatrix}$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779503854.244767
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷五-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "伴随矩阵"
+  ],
+  "tags": [
+    "矩阵",
+    "伴随矩阵"
+  ],
+  "question": "已知 $A$ 为$3$阶可逆矩阵，将 $A$ 的第二行的 $-2$ 倍加到第一行得矩阵 $B$，$B^*$ 为 $B$ 的伴随矩阵，则 $\\operatorname{tr}(B^*A)=$ $(A)$ $|A|$ $(B)$ $2|A|$ $(C)$ $3|A|$ $(D)$ $4|A|$",
+  "options": {},
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五",
+  "__cached_at__": 1779499787.7318325
+}

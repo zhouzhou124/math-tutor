@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $n$ 阶行列式 $D_n = \\begin{vmatrix} 2 & 1 & 0 & \\cdots & 0 \\\\ 1 & 2 & 1 & \\cdots & 0 \\\\ 0 & 1 & 2 & \\cdots & 0 \\\\ \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\\\ 0 & 0 & 0 & \\cdots & 2 \\end{vmatrix}$，则",
+  "options": {
+    "A": "$D_1,D_2,\\dots,D_n$ 为等比数列",
+    "B": "$D_1,D_2,\\dots,D_n$ 为等差数列",
+    "C": "$D_n$ 为范德蒙德行列式",
+    "D": "$D_n = n$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "行列式"
+  ],
+  "tags": [
+    "行列式"
+  ],
+  "solution_steps": []
+}

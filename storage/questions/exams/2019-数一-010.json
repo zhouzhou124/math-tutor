@@ -18,5 +18,6 @@
   "source": "manual_2019",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2019年 填空题 知识点: 微分方程 数学概念: 微分方程求解 较难题 4分题 2019-数一-010"
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 微分方程 数学概念: 微分方程求解 较难题 4分题 2019-数一-010",
+  "raw_question_text": "$10.$ 微分方程 $2yy' - y^2 - 2 = 0$ 满足条件 $y(0)=1$ 的特解 $y =\\underline{\\qquad\\qquad}$"
 }

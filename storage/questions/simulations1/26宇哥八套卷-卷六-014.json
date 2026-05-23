@@ -15,5 +15,6 @@
   ],
   "question": "设 \\(\\Sigma\\) 为上半球体 \\(0 \\leq z \\leq \\sqrt{a^2 - x^2 - y^2} (a>0)\\) 的表面外侧，则曲面积分\n$\\iint_{\\Sigma} xz^2 \\, dy \\, dz + (x^2y - z^3) \\, dx \\, dy = \\underline{\\hspace{3cm}}.$",
   "source": "import_v6",
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 \\(\\Sigma\\) 为上半球体 \\(0 \\leq z \\leq \\sqrt{a^2 - x^2 - y^2} (a>0)\\) 的表面外侧，则曲面积分\n$\\iint_{\\Sigma} xz^2 \\, dy \\, dz + (x^2y - z^3) \\, dx \\, dy = \\underline{\\hspace{3cm}}.$"
 }

@@ -21,5 +21,6 @@
     "C": "指数分布",
     "D": "二项分布"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设 $X,Y$ 独立且与 $X+Y$ 同分布，则一定可以成立的是"
 }

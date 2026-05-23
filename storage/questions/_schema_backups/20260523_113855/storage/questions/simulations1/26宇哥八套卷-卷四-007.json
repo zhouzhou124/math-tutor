@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷四-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "在空间直角坐标系中，三张平面 $\\pi_1: ax + y - z = 1$，$\\pi_2: x + y + bz = a$，$\\pi_3: x + ay - z = 1$ 的位置关系如图所示，则",
+  "source": "import_v4",
+  "options": {
+    "A": "$a = -2, b = 2$",
+    "B": "$a \\neq -2, b = 2$",
+    "C": "$a = 1, b = -1$",
+    "D": "$a = 1, b \\neq -1$"
+  },
+  "correct_option": "A"
+}

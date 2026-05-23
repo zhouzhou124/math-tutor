@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷四-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "向量组"
+  ],
+  "tags": [
+    "矩阵",
+    "向量组"
+  ],
+  "question": "设 $A,B$ 分别为 $m\\times n$，$n\\times s$ 矩阵，且 $r(B)=n$，则",
+  "options": {
+    "A": "$AB$ 的行向量组与 $A$ 的行向量组等价",
+    "B": "$AB$ 的列向量组与 $A$ 的列向量组等价",
+    "C": "$AB$ 的行向量组与 $B$ 的行向量组等价",
+    "D": "$AB$ 的列向量组与 $B$ 的列向量组等价"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四",
+  "__cached_at__": 1779467434.1934643
+}

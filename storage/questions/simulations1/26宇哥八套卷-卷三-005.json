@@ -21,5 +21,6 @@
     "C": "$P_1^9 P_2^T A = B$",
     "D": "$P_2^T P_1^9 A = B$"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设 $A = \\begin{pmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\end{pmatrix}$，$B = \\begin{pmatrix} a_{21} & a_{22} & a_{23} \\\\ a_{11} & a_{12} & a_{13} \\\\ a_{31}+a_{11} & a_{32}+a_{12} & a_{33}+a_{13} \\end{pmatrix}$，$P_1 = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，则"
 }

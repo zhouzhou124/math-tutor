@@ -14,10 +14,12 @@
     "极限",
     "定积分"
   ],
-  "question": "$10.$ $\\lim_{n\\to\\infty} \\int_0^1 \\frac{\\sqrt{1 + n \\arctan x}}{1+x^2} dx = \\underline{\\qquad\\qquad}$",
+  "question": "$10.$ $$\\lim_{n\\to\\infty} \\int_0^1 \\frac{\\sqrt{1 + n \\arctan x}}{1+x^2} dx = \\underline{\\qquad\\qquad}$$",
   "standard_answer": "$\\frac{\\pi}{2}$",
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
-  "volume": "卷二"
+  "volume": "卷二",
+  "raw_question_text": "$10.$ $$\\lim_{n\\to\\infty} \\int_0^1 \\frac{\\sqrt{1 + n \\arctan x}}{1+x^2} dx = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$\\frac{\\pi}{2}$"
 }

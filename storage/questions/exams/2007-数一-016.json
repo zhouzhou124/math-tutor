@@ -14,5 +14,7 @@
   "tags": [
     "随机事件与概率"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "在区间 $(0,1)$ 中随机地取两个数，则这两个数之差的绝对值小于 $\\frac{1}{2}$ 的概率为 ______",
+  "raw_answer_text": "$\\frac{3}{4}$"
 }

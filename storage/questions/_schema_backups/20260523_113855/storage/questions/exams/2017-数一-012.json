@@ -1,0 +1,22 @@
+{
+  "question_id": "2017-数一-012",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$12.$ 幂级数 $\\sum_{n=1}^\\infty(-1)^{n-1}nx^{n-1}$ 在 $(-1,1)$ 内的和函数 $S(x)=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 填空题 知识点: 无穷级数 数学概念: 级数 求和 中等难度 4分题 2017-数一-012"
+}

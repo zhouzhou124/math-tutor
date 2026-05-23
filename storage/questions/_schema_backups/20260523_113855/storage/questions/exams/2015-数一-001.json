@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-001",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 设函数 $f(x)$ 在 $(-\\infty,+\\infty)$ 上连续，其 $2$ 阶导函数 $f''(x)$ 的图形如图所示，则曲线 $y=f(x)$ 的拐点个数为( )\n\n$(A)$ $0$ \\qquad $(B)$ $1$ \\qquad $(C)$ $2$ \\qquad $(D)$ $3$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2015年 选择题 知识点: 导数与微分 数学概念: 几何应用 中等难度 4分题 2015-数一-001"
+}

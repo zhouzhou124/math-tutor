@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷七-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "二次型",
+    "正交变换"
+  ],
+  "tags": [
+    "二次型",
+    "正交变换"
+  ],
+  "question": "(本题满分12分)  设 $A=(a_1,a_2,a_3)$ 为 $3$ 阶对称矩阵，其中 $a_1,a_2,a_3$ 满足 $(a_1+a_2-a_3, a_1-a_2, a_1+a_3)=$ $\\begin{pmatrix} 2 & -1 & -1 \\\\ 2 & 1 & 0 \\\\ -2 & 0 & -1 \\end{pmatrix}$.\n$(1)$ 求正交线性变换 $x=Qy$，将二次型 $x^{\\mathrm{T}}(A+A^{-1})x$ 化为标准形；\n$(2)$ 是否存在可逆矩阵 $C$，使 $A+2E=C^{\\mathrm{T}}C$？若存在，求出矩阵 $C$；若不存在，说明理由。",
+  "standard_answer": "(I) $Q=\\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{3}} & \\frac{1}{\\sqrt{6}} \\\\ 0 & -\\frac{1}{\\sqrt{3}} & \\frac{2}{\\sqrt{6}} \\\\ -\\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{3}} & -\\frac{1}{\\sqrt{6}} \\end{pmatrix}$，标准形 $2y_1^2+y_2^2+y_3^2$\\n(II) 存在，$C=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七",
+  "__cached_at__": 1779504128.7506497
+}

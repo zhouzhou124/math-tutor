@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-010",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "参数估计"
+  ],
+  "tags": [
+    "参数估计"
+  ],
+  "question": "设 $(X_1,Y_1),\\dots,(X_n,Y_n)$ 来自 $N(\\theta,\\sigma_1^2,\\sigma_2^2;0)$，$\\sigma_1^2,\\sigma_2^2>0$ 已知，$\\theta$ 未知，$\\hat{\\theta}=a\\bar{X}+b\\bar{Y}$，$E\\hat{\\theta}=\\theta$ 时 $D\\hat{\\theta}$ 的最小值为",
+  "options": {
+    "A": "$\\frac{\\sigma_1^2}{n(\\sigma_1^2+\\sigma_2^2)}$",
+    "B": "$\\frac{\\sigma_2^2}{n(\\sigma_1^2+\\sigma_2^2)}$",
+    "C": "$\\frac{\\sigma_1^2\\sigma_2^2}{n(\\sigma_1^2+\\sigma_2^2)}$",
+    "D": "$\\frac{\\sigma_1^2\\sigma_2^2}{\\sigma_1^2+\\sigma_2^2}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.5466309
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-022",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$22.$ (本题满分11分)设 $X$ 的概率密度为 $f(x)=2^{-x}\\ln2(x>0)$，对 $X$ 进行独立重复观测，直到第 $2$ 个大于 $3$ 的观测值出现时停止，记 $Y$ 为观测次数。\n\n$(1)$ 求 $Y$ 的概率分布；\n\n$(2)$ 求 $E(Y)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 解答题 知识点: 随机变量及其分布 数学概念: 对数指数函数 概率统计 较难题 11分题 2015-数一-022"
+}

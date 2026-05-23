@@ -21,5 +21,6 @@
     "C": "$\\begin{pmatrix} O & |B|A^* \\\\ |A|B^* & O \\end{pmatrix}$",
     "D": "$\\begin{pmatrix} O & (-1)^n |B|B^* \\\\ (-1)^n |A|A^* & O \\end{pmatrix}$"
   },
-  "correct_option": "D"
+  "correct_option": "D",
+  "raw_question_text": "设 \\( A, B \\) 是 \\( n \\) 阶矩阵，\\( A^*, B^* \\) 分别是 \\( A, B \\) 对应的伴随矩阵，则分块矩阵  $C = \\begin{pmatrix} O & A \\\\ B & O \\end{pmatrix}$的伴随矩阵  $C^* =$"
 }

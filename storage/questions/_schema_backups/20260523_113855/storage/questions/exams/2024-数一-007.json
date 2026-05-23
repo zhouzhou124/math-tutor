@@ -1,0 +1,27 @@
+{
+  "question_id": "2024-数一-007",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "基础",
+  "score": 5,
+  "question": "设随机变量 $X$ 与 $Y$ 相互独立，且 $X\\sim N(0,1),Y\\sim N(0,1)$，则 $P\\{X>0,Y>0\\}=$ $( )$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "$\\frac{1}{2}$",
+    "B": "$\\frac{1}{3}$",
+    "C": "$\\frac{1}{4}$",
+    "D": "$\\frac{1}{6}$"
+  },
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 随机变量及其分布 基础题 5分题 2024-数一-007"
+}

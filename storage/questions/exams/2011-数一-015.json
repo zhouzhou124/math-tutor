@@ -14,5 +14,7 @@
   "options": {},
   "tags": [
     "极限"
-  ]
+  ],
+  "raw_question_text": "求极限 $$\\lim_{x\\to 0} \\left[ \\frac{\\ln(1+x)}{x} \\right]^{\\frac{1}{x-1}}$$.",
+  "raw_answer_text": "$e^{\\frac{1}{2}}$"
 }

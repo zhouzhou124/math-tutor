@@ -1,0 +1,22 @@
+{
+  "question_id": "2014-数一-011",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$11.$ 微分方程 $xy'+y(\\ln x-\\ln y)=0$ 满足 $y(1)=e^3$ 的解为 $y=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 填空题 知识点: 微分方程 数学概念: 对数指数函数 微分方程求解 中等难度 4分题 2014-数一-011"
+}

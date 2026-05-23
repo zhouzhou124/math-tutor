@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷七-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量函数"
+  ],
+  "tags": [
+    "随机变量函数"
+  ],
+  "question": "设 $X$ 概率密度 $$f(x)=\\begin{cases} kx, & 0<x<1 \\\\ 1-\\frac{1}{x^2}, & 1\\le x<2 \\\\ 0, & \\text{其他} \\end{cases}$$ $F(x)$ 为分布函数，则 $P(X+F(X)\\le \\frac{5}{8})=$",
+  "options": {
+    "A": "$\\frac{1}{2}$",
+    "B": "$\\frac{1}{4}$",
+    "C": "$\\frac{1}{8}$",
+    "D": "$\\frac{1}{16}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.2027194
+}

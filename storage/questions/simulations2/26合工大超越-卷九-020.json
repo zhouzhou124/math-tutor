@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷九-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "积分中值定理",
+    "微分中值定理"
+  ],
+  "tags": [
+    "积分中值定理",
+    "微分中值定理"
+  ],
+  "question": "$20.$ (本题满分12分) 设函数 $f(x)$ 在 $[a,b]$ 上连续，且 $\\int_a^b f(x)dx=0$.\n$(1)$ 证明：存在 $\\xi\\in(a,b)$，使得 $f(\\xi)=0$；\n$(2)$ 若 $f(x)$ 在 $(a,b)$ 上可导，且 $\\int_a^b xf(x)dx=0$，证明：存在 $\\eta\\in(a,b)$，使得 $f'(\\eta)=0$.",
+  "standard_answer": "证明略",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$20.$ (本题满分12分) 设函数 $f(x)$ 在 $[a,b]$ 上连续，且 $\\int_a^b f(x)dx=0$.\n$(1)$ 证明：存在 $\\xi\\in(a,b)$，使得 $f(\\xi)=0$；\n$(2)$ 若 $f(x)$ 在 $(a,b)$ 上可导，且 $\\int_a^b xf(x)dx=0$，证明：存在 $\\eta\\in(a,b)$，使得 $f'(\\eta)=0$.",
+  "raw_answer_text": "证明略"
+}

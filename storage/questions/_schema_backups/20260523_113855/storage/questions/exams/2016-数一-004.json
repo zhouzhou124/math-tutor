@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-004",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$4.$ 已知函数 $f(x)=\\begin{cases}x,&x\\le0,\\\\ \\frac1n,&\\frac1{n+1}<x\\le\\frac1n,n=1,2,\\dots\\end{cases}$，则 $( )$\n\n$(A)$ $x=0$ 是第一类间断点\n\n$(B)$ $x=0$ 是第二类间断点\n\n$(C)$ $f(x)$ 在 $x=0$ 处连续但不可导\n\n$(D)$ $f(x)$ 在 $x=0$ 处可导",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 极限与连续 中等难度 4分题 2016-数一-004"
+}

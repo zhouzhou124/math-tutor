@@ -18,5 +18,6 @@
   "source": "manual_2022",
   "options": {},
   "correct_option": "B",
-  "embedding_text": "考研数学一 2022年 选择题 知识点: 多元函数微分 数学概念: 偏导数 对数指数函数 中等难度 5分题 2022-数一-002"
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 多元函数微分 数学概念: 偏导数 对数指数函数 中等难度 5分题 2022-数一-002",
+  "raw_question_text": "$2.$ 设函数 $z=xyf(\\frac{y}{x})$，其中 $f(u)$ 可导，若 $x\\frac{\\partial z}{\\partial x}+y\\frac{\\partial z}{\\partial y}=xy(\\ln y-\\ln x)$，则（ ）\n\n$(A)$ $f(1)=\\frac12,f'(1)=0$\n$(B)$ $f(1)=0,f'(1)=\\frac12$\n$(C)$ $f(1)=\\frac12,f'(1)=1$\n$(D)$ $f(1)=0,f'(1)=1$"
 }

@@ -1,0 +1,22 @@
+{
+  "question_id": "2020-数一-020",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "knowledge_points": [
+    "二次型"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$20.$ 设二次型 $f(x_1, x_2) = x_1^2 - 4x_1x_2 + 4x_2^2$ 经正交变换 \n$\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix} = Q \\begin{pmatrix} y_1 \\\\ y_2 \\end{pmatrix}$ 化为二次型 \n$g(y_1, y_2) = a y_1^2 + 4y_1y_2 + b y_2^2$，其中 $a \\ge b$.\n\n$(1)$ 求 $a, b$ 的值；\n\n$(2)$ 求正交矩阵 $Q$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 解答题 知识点: 二次型 数学概念: 二次型 标准化 正交变换 矩阵运算 较难题 11分题 2020-数一-020"
+}

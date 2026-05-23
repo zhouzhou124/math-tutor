@@ -18,5 +18,7 @@
     "无穷级数"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设数列 $\\{x_n\\}$ 满足 $x_{n+1} = \\frac{a + x_n}{1 + x_n}$，$0<a<1$，$x_1 \\ge 0$.\n$(1)$ 证明 $\\sum_{n=1}^\\infty (x_{n+1} - x_n)$ 绝对收敛；\n$(2)$ 求 $\\lim_{n\\to\\infty} \\sum_{i=1}^n (x_{i+1} - x_i)$.",
+  "raw_answer_text": "(1) 证明略\n(2) $\\lim_{n\\to\\infty} \\sum_{i=1}^n (x_{i+1} - x_i) = 1 - a$"
 }

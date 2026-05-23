@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷九-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "积分"
+  ],
+  "tags": [
+    "积分"
+  ],
+  "question": "$17.$ (本题满分10分) 设函数 $\\varphi(x)=\\int_0^1 \\ln\\sqrt{x^2+t^2} dt$，$x>0$，求 $\\varphi'(1)$。",
+  "standard_answer": "$\\varphi'(1)=\\frac{1}{2}\\ln 2$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$17.$ (本题满分10分) 设函数 $\\varphi(x)=\\int_0^1 \\ln\\sqrt{x^2+t^2} dt$，$x>0$，求 $\\varphi'(1)$。",
+  "raw_answer_text": "$\\varphi'(1)=\\frac{1}{2}\\ln 2$"
+}

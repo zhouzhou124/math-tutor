@@ -1,0 +1,22 @@
+{
+  "question_id": "2017-数一-010",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 10,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$10.$ 微分方程 $y''+2y'+3y=0$ 的通解为 $y=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 填空题 知识点: 微分方程 数学概念: 微分方程求解 中等难度 4分题 2017-数一-010"
+}

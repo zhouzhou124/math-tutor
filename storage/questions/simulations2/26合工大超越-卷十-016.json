@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷十-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "$16.$ 已知连续型随机变量 $X$ 的分布函数为 $F(x)$，记 $EX=\\mu$，$DX=\\sigma^2$，$Y$ 的分布函数为 $F_Y(y)=0.4F(2y)+0.6F(y)$，则 $DY=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1.64\\sigma^2$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$16.$ 已知连续型随机变量 $X$ 的分布函数为 $F(x)$，记 $EX=\\mu$，$DX=\\sigma^2$，$Y$ 的分布函数为 $F_Y(y)=0.4F(2y)+0.6F(y)$，则 $DY=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$1.64\\sigma^2$"
+}

@@ -24,5 +24,7 @@
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "volume": "卷四",
-  "__cached_at__": 1779467434.1887283
+  "__cached_at__": 1779467434.1887283,
+  "raw_question_text": "函数 $f(x) = \\frac{x^2 - x}{\\sin x |x^2 - 1|}$ 在 $(-\\frac{\\pi}{2}, \\frac{\\pi}{2})$ 内的第一类间断点个数为",
+  "raw_answer_text": "B"
 }

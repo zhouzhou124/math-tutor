@@ -14,5 +14,7 @@
   "question": "$22.$ (本题满分12分) 假设某种元件寿命服从指数分布，其均值 $\\theta$ 是未知参数，为估计 $\\theta$，取 $n$ 个这种元件同时做寿命实验，试验直到出现 $k(1 \\le k \\le n)$ 个元件失效时停止。\n$(1)$ 当 $k=1$ 时，失效元件寿命记为 $T$，$(i)$ 求 $T$ 的概率密度；$(ii)$ $\\hat{\\theta} = aT$，确定 $a$ 使 $E(\\hat{\\theta})$ 是 $\\theta$ 的无偏估计；\n$(2)$ 求 $\\theta$ 的最大似然估计值。 ",
   "source": "import_2026",
   "standard_answer": "(1)(i) f_T(t) = \\frac{n}{\\theta} e^{-\\frac{nt}{\\theta}}, t>0; (ii) a = \\frac{1}{n}, D(\\hat{\\theta}) = \\frac{\\theta^2}{n^2}; (2) \\hat{\\theta} = \\frac{1}{k}[\\sum_{i=1}^k t_i + (n-k)t_k]",
-  "question_id": "2026-数一-022"
+  "question_id": "2026-数一-022",
+  "raw_question_text": "$22.$ (本题满分12分) 假设某种元件寿命服从指数分布，其均值 $\\theta$ 是未知参数，为估计 $\\theta$，取 $n$ 个这种元件同时做寿命实验，试验直到出现 $k(1 \\le k \\le n)$ 个元件失效时停止。\n$(1)$ 当 $k=1$ 时，失效元件寿命记为 $T$，$(i)$ 求 $T$ 的概率密度；$(ii)$ $\\hat{\\theta} = aT$，确定 $a$ 使 $E(\\hat{\\theta})$ 是 $\\theta$ 的无偏估计；\n$(2)$ 求 $\\theta$ 的最大似然估计值。 ",
+  "raw_answer_text": "(1)(i) f_T(t) = \\frac{n}{\\theta} e^{-\\frac{nt}{\\theta}}, t>0; (ii) a = \\frac{1}{n}, D(\\hat{\\theta}) = \\frac{\\theta^2}{n^2}; (2) \\hat{\\theta} = \\frac{1}{k}[\\sum_{i=1}^k t_i + (n-k)t_k]"
 }

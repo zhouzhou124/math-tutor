@@ -15,5 +15,6 @@
   ],
   "question": "$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} =$ ______",
   "source": "import_v4",
-  "options": {}
+  "options": {},
+  "raw_question_text": "$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} =$ ______"
 }

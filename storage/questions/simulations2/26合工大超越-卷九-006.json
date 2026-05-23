@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷九-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "tags": [
+    "线性方程组"
+  ],
+  "question": "$6.$ 已知 $A$ 为 $n$ 阶矩阵，$n$ 维列向量 $b$ 与齐次线性方程组 $Ax=0$ 的解向量均正交，则 \n$(A)$ $b^{\\mathrm{T}}$ 可以由 $A^{\\mathrm{T}}$ 的行向量组线性表示 \n$(B)$ 方程组 $A^{\\mathrm{T}}x=b$ 有解 \n$(C)$ 方程组 $Ax=b$ 有解 \n$(D)$ 以上说法均不正确",
+  "options": {
+    "A": "$b^{\\mathrm{T}}$ 可以由 $A^{\\mathrm{T}}$ 的行向量组线性表示",
+    "B": "方程组 $A^{\\mathrm{T}}x=b$ 有解",
+    "C": "方程组 $Ax=b$ 有解",
+    "D": "以上说法均不正确"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$6.$ 已知 $A$ 为 $n$ 阶矩阵，$n$ 维列向量 $b$ 与齐次线性方程组 $Ax=0$ 的解向量均正交，则 \n$(A)$ $b^{\\mathrm{T}}$ 可以由 $A^{\\mathrm{T}}$ 的行向量组线性表示 \n$(B)$ 方程组 $A^{\\mathrm{T}}x=b$ 有解 \n$(C)$ 方程组 $Ax=b$ 有解 \n$(D)$ 以上说法均不正确",
+  "raw_answer_text": "B"
+}

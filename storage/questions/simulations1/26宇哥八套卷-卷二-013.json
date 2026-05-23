@@ -14,5 +14,6 @@
     "曲线积分与曲面积分"
   ],
   "question": "$13.$ 设 $L$ 为圆周 $x^2 + y^2 = 1$，则 $\\oint_L (x^3 + y^2) ds =$ ______",
-  "source": "import_v2"
+  "source": "import_v2",
+  "raw_question_text": "$13.$ 设 $L$ 为圆周 $x^2 + y^2 = 1$，则 $\\oint_L (x^3 + y^2) ds =$ ______"
 }

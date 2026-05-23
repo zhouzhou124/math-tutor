@@ -18,5 +18,6 @@
   "source": "manual_2025",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2025年 解答题 知识点: 不定积分 数学概念: 积分 中等难度 10分题 2025-数一-017"
+  "embedding_text": "考研数学一 2025年 解答题 知识点: 不定积分 数学概念: 积分 中等难度 10分题 2025-数一-017",
+  "raw_question_text": "$17.$ （本题满分10分）计算 $\\int_0^1 \\frac{1}{(x+1)(x^2 - 2x + 2)} dx$。"
 }

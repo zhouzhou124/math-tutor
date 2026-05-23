@@ -20,5 +20,6 @@
   "source": "manual_2016",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2016年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 对数指数函数 极限 积分 中等难度 4分题 2016-数一-009"
+  "embedding_text": "考研数学一 2016年 填空题 知识点: 极限与连续 定积分 数学概念: 三角函数 对数指数函数 极限 积分 中等难度 4分题 2016-数一-009",
+  "raw_question_text": "$9.$ $\\lim_{x\\to0}\\frac{\\int_0^xt\\ln(1+t\\sin t)dt}{1-\\cos x^2}=\\underline{\\qquad\\qquad}$"
 }

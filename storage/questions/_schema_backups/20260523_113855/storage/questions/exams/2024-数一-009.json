@@ -1,0 +1,27 @@
+{
+  "question_id": "2024-数一-009",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "difficulty": "基础",
+  "score": 5,
+  "question": "设随机变量 $X$ 与 $Y$ 相互独立，且均服从 $[0,1]$ 上的均匀分布，则 $\\operatorname{cov}(X,Y)=$（ ）",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数字特征"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "$\\frac{1}{12}$",
+    "B": "$\\frac{1}{6}$",
+    "C": "$\\frac{1}{4}$",
+    "D": "$\\frac{1}{36}$"
+  },
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 数字特征 数学概念: 概率统计 基础题 5分题 2024-数一-009"
+}

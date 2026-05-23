@@ -1,0 +1,22 @@
+{
+  "question_id": "26宇哥八套卷-卷八-020",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设 $a_n = \\int_0^1 x^n \\sqrt{1-x^2} dx$，$b_n = \\int_0^{\\frac{\\pi}{2}} \\sin^n t dt$，$n=0,1,2,\\dots$，计算 $$\\sum_{n=0}^\\infty \\frac{b_n}{(2n+1)a_n} x^{2n}$$",
+  "standard_answer": "$\\frac{1}{1-x^2}$",
+  "knowledge_points": [
+    "无穷级数",
+    "定积分"
+  ],
+  "tags": [
+    "无穷级数",
+    "定积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

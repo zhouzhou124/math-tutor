@@ -17,5 +17,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$11.$ 曲线 $x^2+y^2=|x|-|y|$ 围成的区域绕 $y$ 轴旋转一周形成的旋转体体积是 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{\\pi}{2}$"
 }

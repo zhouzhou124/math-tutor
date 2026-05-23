@@ -18,5 +18,6 @@
   "source": "manual_2023",
   "options": {},
   "correct_option": "A",
-  "embedding_text": "考研数学一 2023年 选择题 知识点: 向量组与线性空间 数学概念: 向量线性关系 中等难度 5分题 2023-数一-006"
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 向量组与线性空间 数学概念: 向量线性关系 中等难度 5分题 2023-数一-006",
+  "raw_question_text": "$6.$ 下列矩阵中不能相似于对角矩阵的是 $( )$\n\n$(A)$ $\\begin{bmatrix}1 & 1 & a \\\\ 0 & 2 & 2 \\\\ 0 & 0 & 3\\end{bmatrix}$ \n\n$(B)$ $\\begin{bmatrix}1 & 1 & a \\\\ 1 & 2 & 0 \\\\ a & 0 & 3\\end{bmatrix}$\n\n$(C)$ $\\begin{bmatrix}1 & 1 & a \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 2\\end{bmatrix}$\n\n$(D)$ $\\begin{bmatrix}1 & 1 & a \\\\ 0 & 2 & 2 \\\\ 0 & 0 & 2\\end{bmatrix}$"
 }

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷四-016",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "question": "已知 $A$ 发生且 $B$ 不发生的概率为 $\\frac{1}{2}$，在 $A$ 发生或 $B$ 不发生的条件下 $B$ 发生的概率为 $\\frac{1}{4}$，若 $A$ 发生的概率为 $\\frac{7}{10}$，则 $B$ 发生的概率为 ______",
+  "source": "import_v4",
+  "options": {}
+}

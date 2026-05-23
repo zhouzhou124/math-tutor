@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0294464
+  "__cached_at__": 1779466026.0294464,
+  "raw_question_text": "设 $L$ 是曲线 $x^2 + 2xy + 2y^2 = 1$ 位于第一象限的部分，则 $$\\int_L \\frac{x^2 - 4y^2}{\\sqrt{2 + 2xy + y^2}} ds = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$0$"
 }

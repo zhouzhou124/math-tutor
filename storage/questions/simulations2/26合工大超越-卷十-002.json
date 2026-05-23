@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极值"
+  ],
+  "tags": [
+    "极值"
+  ],
+  "question": "$2.$ 设函数 $f(x),g(x)$ 在 $[a,b]$ 上连续，$f(x)\\neq g(x)$ 且 $g(x)\\neq 0$，如果 $x_0\\in(a,b)$ 为 $\\frac{f(x)}{g(x)}$ 的极大值点，则 $x_0$ 为 $\\frac{f(x)+g(x)}{f(x)-g(x)}$ 的 \n$(A)$ 极小值点 \n$(B)$ 极大值点 \n$(C)$ 无法判断 \n$(D)$ 非极值点",
+  "options": {
+    "A": "极小值点",
+    "B": "极大值点",
+    "C": "无法判断",
+    "D": "非极值点"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$2.$ 设函数 $f(x),g(x)$ 在 $[a,b]$ 上连续，$f(x)\\neq g(x)$ 且 $g(x)\\neq 0$，如果 $x_0\\in(a,b)$ 为 $\\frac{f(x)}{g(x)}$ 的极大值点，则 $x_0$ 为 $\\frac{f(x)+g(x)}{f(x)-g(x)}$ 的 \n$(A)$ 极小值点 \n$(B)$ 极大值点 \n$(C)$ 无法判断 \n$(D)$ 非极值点",
+  "raw_answer_text": "A"
+}

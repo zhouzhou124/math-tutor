@@ -14,10 +14,12 @@
     "参数方程求导",
     "极限"
   ],
-  "question": "$17.$ (本题满分10分) 设 $y=f(x)$ 由 $\\begin{cases} x = t^2 + 2t - 3 \\\\ t^2 - y - \\sin y = 1 \\end{cases}$($t\\ge 0$) 确定，求 $\\lim_{x\\to 0^+} \\frac{4f(x)\\sin x - x^2}{x^3}$。",
+  "question": "(本题满分10分) 设 $y=f(x)$ 由 $\\begin{cases} x = t^2 + 2t - 3 \\\\ t^2 - y - \\sin y = 1 \\end{cases}$($t\\ge 0$) 确定，求 $$\\lim_{x\\to 0^+} \\frac{4f(x)\\sin x - x^2}{x^3}$$",
   "standard_answer": "$-\\frac{1}{2}$",
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "(本题满分10分) 设 $y=f(x)$ 由 $\\begin{cases} x = t^2 + 2t - 3 \\\\ t^2 - y - \\sin y = 1 \\end{cases}$($t\\ge 0$) 确定，求 $$\\lim_{x\\to 0^+} \\frac{4f(x)\\sin x - x^2}{x^3}$$",
+  "raw_answer_text": "$-\\frac{1}{2}$"
 }

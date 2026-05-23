@@ -1,0 +1,19 @@
+{
+  "question_id": "2008-数一-016",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 9,
+  "question": "计算曲线积分 $$\\int_L \\sin 2x dx + 2(x^2-1)y dy$$\n其中 $L$ 是曲线 $y = \\sin x$ 上从点 $(0,0)$ 到点 $(\\pi,0)$ 的一段.",
+  "standard_answer": "0",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

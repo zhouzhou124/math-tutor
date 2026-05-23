@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷一-020",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "中值定理",
+    "微分方程"
+  ],
+  "tags": [
+    "中值定理",
+    "微分方程"
+  ],
+  "question": "(本题满分12分) 设 $f(x)$ 是 $[-a,a]$ 上二阶可导的奇函数，且 $\\int_0^a f(x) dx = \\frac{1}{2} a^2 f(a)$.\n$(1)$ 证明存在 $\\xi \\in (0,a)$，有 $f'(\\xi) = f(a)$;\n$(2)$ 证明对任意的实数 $\\lambda$，存在 $\\eta \\in (-a,a)$，有 $f''(\\eta) - \\lambda f'(\\eta) + \\lambda f(a) = 0$.",
+  "standard_answer": "证明略",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷一",
+  "__cached_at__": 1779464742.7503116
+}

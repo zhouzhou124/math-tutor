@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "tags": [
+    "数理统计"
+  ],
+  "question": "(本题满分12分) 设 $(X_1,X_2)$ 为来自总体 $X\\sim U[0,1]$ 的一个简单随机样本，其样本均值为 $\\overline{X}$，样本方差为 $S^2$。\n$(1)$ 证明 $(X_1,X_2)$ 服从区域 $\\{(x_1,x_2)\\mid 0\\le x_1\\le 1,0\\le x_2\\le 1\\}$ 上的均匀分布；\n$(2)$ 计算 $P\\left(\\overline{X}\\le \\frac{1}{4}\\right)$ 和 $P\\left(S^2\\le \\frac{1}{8}\\right)$；\n$(3)$ 问 $\\overline{X}$ 与 $S^2$ 是否相互独立？为什么？",
+  "standard_answer": "(I) 证明略\\n(II) $P(\\overline{X}\\le\\frac{1}{4})=\\frac{1}{32},P(S^2\\le\\frac{1}{8})=\\frac{1}{2}$\\n(III) 不独立",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.31027,
+  "raw_question_text": "(本题满分12分) 设 $(X_1,X_2)$ 为来自总体 $X\\sim U[0,1]$ 的一个简单随机样本，其样本均值为 $\\overline{X}$，样本方差为 $S^2$。\n$(1)$ 证明 $(X_1,X_2)$ 服从区域 $\\{(x_1,x_2)\\mid 0\\le x_1\\le 1,0\\le x_2\\le 1\\}$ 上的均匀分布；\n$(2)$ 计算 $P\\left(\\overline{X}\\le \\frac{1}{4}\\right)$ 和 $P\\left(S^2\\le \\frac{1}{8}\\right)$；\n$(3)$ 问 $\\overline{X}$ 与 $S^2$ 是否相互独立？为什么？",
+  "raw_answer_text": "(I) 证明略\\n(II) $P(\\overline{X}\\le\\frac{1}{4})=\\frac{1}{32},P(S^2\\le\\frac{1}{8})=\\frac{1}{2}$\\n(III) 不独立"
+}

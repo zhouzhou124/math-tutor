@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分"
+  ],
+  "tags": [
+    "反常积分"
+  ],
+  "question": "$1.$ 已知反常积分 $\\int_1^{+\\infty} \\frac{\\ln(2x^2-1) \\arctan(x-1)}{(x-1)^p} dx$ 收敛，则 \n$(A)$ $1<p<2$ \n$(B)$ $2<p<3$ \n$(C)$ $1<p<3$ \n$(D)$ $2<p<4$",
+  "options": {
+    "A": "$1<p<2$",
+    "B": "$2<p<3$",
+    "C": "$1<p<3$",
+    "D": "$2<p<4$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$1.$ 已知反常积分 $\\int_1^{+\\infty} \\frac{\\ln(2x^2-1) \\arctan(x-1)}{(x-1)^p} dx$ 收敛，则 \n$(A)$ $1<p<2$ \n$(B)$ $2<p<3$ \n$(C)$ $1<p<3$ \n$(D)$ $2<p<4$",
+  "raw_answer_text": "A"
+}

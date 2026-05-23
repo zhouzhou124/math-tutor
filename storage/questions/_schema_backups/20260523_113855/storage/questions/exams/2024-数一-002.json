@@ -1,0 +1,28 @@
+{
+  "question_id": "2024-数一-002",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "设 $P=P(x,y,z),Q=Q(x,y,z)$ 均为连续函数，$\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\le 0,y\\ge 0)$ 的上侧，则 $\\iint_{\\Sigma} P dy dz + Q dz dx =$（ ）",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "$\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$",
+    "B": "$\\iint_{\\Sigma}(-\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$",
+    "C": "$\\iint_{\\Sigma}(\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$",
+    "D": "$\\iint_{\\Sigma}(-\\frac{x}{z}P-\\frac{y}{z}Q)dxdy$"
+  },
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 曲线曲面积分 数学概念: 几何应用 重积分 曲线积分 较难题 5分题 2024-数一-002",
+  "standard_answer": "## 标准答案\n正确选项: A. $\\iint_{\\Sigma}(\\frac{x}{z}P+\\frac{y}{z}Q)dxdy$\n\n步骤1：分析题意，明确转化目标  \n本题要求将第二类曲面积分 $\\iint_{\\Sigma} P dy dz + Q dz dx$ 转化为对 $dxdy$ 的积分。曲面 $\\Sigma$ 为上半球面 $z=\\sqrt{1-x^2-y^2}$ 在 $x\\le 0,y\\ge 0$ 的部分，且指定取上侧（法向量与 $z$ 轴正向夹角为锐角）。解题关键在于利用曲面侧的规定，导出 $dy dz$、$dz dx$ 与 $dxdy$ 之间的关系。\n\n步骤2：回顾第二类曲面积分的投影转化公式  \n对于显式曲面 $z=z(x,y)$，取上侧时，有向投影微元满足：\n$$\ndy dz = -z_x\\,dxdy,\\quad dz dx = -z_y\\,dxdy.\n$$\n这是因为上侧单位法向量为 $\\frac{(-z_x,-z_y,1)}{\\sqrt{1+z_x^2+z_y^2}}$，方向余弦满足 $\\frac{dy dz}{dxdy}=\\frac{\\cos\\alpha}{\\cos\\gamma}=-z_x$，$\\frac{dz dx}{dxdy}=\\frac{\\cos\\beta}{\\cos\\gamma}=-z_y$。\n\n步骤3：计算曲面 $z=\\sqrt{1-x^2-y^2}$ 的偏导数  \n对 $z=\\sqrt{1-x^2-y^2}$ 求偏导：\n$$\nz_x = \\frac{\\partial z}{\\partial x} = \\frac{-x}{\\sqrt{1-x^2-y^2}} = -\\frac{x}{z},\n$$\n$$\nz_y = \\frac{\\partial z}{\\partial y} = \\frac{-y}{\\sqrt{1-x^2-y^2}} = -\\frac{y}{z}.\n$$\n\n步骤4：代入公式得到 $dy dz$ 与 $dz dx$ 的 $dxdy$ 表示  \n将偏导数代入步骤2的公式：\n$$\ndy dz = -z_x\\,dxdy = -\\left(-\\frac{x}{z}\\right)dxdy = \\frac{x}{z}dxdy,\n$$\n$$\ndz dx = -z_y\\,dxdy = -\\left(-\\frac{y}{z}\\right)dxdy = \\frac{y}{z}dxdy.\n$$\n\n步骤5：写出原积分的等价形式  \n将上述关系代入原积分：\n$$\n\\iint_{\\Sigma} P dy dz + Q dz dx = \\iint_{\\Sigma} \\left(P\\cdot\\frac{x}{z} + Q\\cdot\\frac{y}{z}\\right)dxdy.\n$$\n此时积分区域为 $\\Sigma$ 在 $xOy$ 面的投影，与题目条件 $x\\le0,y\\ge0$ 一致。对比选项，该形式正好与选项A吻合。\n\n## 关键知识点\n1. 第二类曲面积分的投影转换：对 $z=z(x,y)$ 上侧，$dydz = -z_x dxdy$，$dzdx = -z_y dxdy$。  \n2. 曲面的侧与法向量的关系：上侧对应法向量与 $z$ 轴正向夹角为锐角（$\\cos\\gamma>0$）。  \n3. 多元函数偏导数的计算，尤其是含根号函数的链式法则。  \n4. 两类曲面积分之间的联系，利用方向余弦进行微元转换。\n\n## 易错提示\n1. **符号易混**：上侧公式为负号（$dydz = -z_x dxdy$），若误记为下侧的正号公式，会得到错误表达式，进而错选。  \n2. **偏导数符号遗漏**：计算 $z_x,z_y$ 时容易漏掉分子对 $x,y$ 求导的负号，导致最终结果正负相反。  \n3. **忽视条件**：本题只需转化积分表达式，不必计算具体投影区域，但需注意 $z$ 用 $\\sqrt{1-x^2-y^2}$ 代入后分母为 $z$，最终形式直接用 $x/z$ 等表示即可，勿再化为根式。"
+}

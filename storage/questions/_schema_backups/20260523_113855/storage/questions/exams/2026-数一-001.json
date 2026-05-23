@@ -1,0 +1,25 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "$1.$ 设 $z = z(x,y)$ 由方程 $x - az = e^{y + az}$（$a$ 是非零常数）确定，则 ( )\n$(A)$ $\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$ \n\n$(B)$ $\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$ \n\n$(C)$ $\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$ \n\n$(D)$ $\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$",
+  "source": "import_2026",
+  "options": {
+    "A": "$\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$",
+    "B": "$\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = \\frac{1}{a}$",
+    "C": "$\\frac{\\partial z}{\\partial x} - \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$",
+    "D": "$\\frac{\\partial z}{\\partial x} + \\frac{\\partial z}{\\partial y} = -\\frac{1}{a}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "question_id": "2026-数一-001"
+}

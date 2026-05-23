@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷二-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "$17.$ (本题满分12分) 求函数 $f(x,y) = x^3 + y^3 - 3x - 3y + 3xy$ 的极值。",
+  "standard_answer": "极小值 $f(1,1) = -4$，极大值 $f(-1,-1) = 4$，鞍点 $(0,0)$",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二"
+}

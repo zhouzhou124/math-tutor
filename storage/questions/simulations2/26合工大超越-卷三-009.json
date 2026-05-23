@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.4921174
+  "__cached_at__": 1779466679.4921174,
+  "raw_question_text": "设随机变量 $(X,Y)$ 的概率密度为 $f(x,y)$，令 $U=-Y$，$V=2X+Y$，则 $(U,V)$ 的概率密度为",
+  "raw_answer_text": "A"
 }

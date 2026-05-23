@@ -168,7 +168,7 @@ def _resolve_solution_graph_for_solution(
             from agents.solver_agent import SolverAgent
             solver = SolverAgent(client, model)
             trace = solver.solve_trace(
-                question=question.get("question", ""),
+                question=question.get("raw_question_text") or question.get("question", ""),
                 math_type=question.get("category", "数学一"),
                 question_type=question.get("question_type", "解答题"),
                 knowledge_point=", ".join(question.get("knowledge_points", [])),
@@ -350,7 +350,7 @@ def validate_cached_answer(question: dict, client=None, model: str = "deepseek-c
             from agents.solver_agent import SolverAgent
             solver = SolverAgent(client, model)
             trace = solver.solve_trace(
-                question=question.get("question", ""),
+                question=question.get("raw_question_text") or question.get("question", ""),
                 math_type=question.get("category", "数学一"),
                 question_type=qtype,
                 knowledge_point=", ".join(question.get("knowledge_points", [])),

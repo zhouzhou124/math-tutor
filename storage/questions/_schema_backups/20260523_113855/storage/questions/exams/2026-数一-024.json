@@ -1,0 +1,29 @@
+{
+  "question_id": "2026-数一-024",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "积分不等式"
+  ],
+  "tags": [
+    "定积分",
+    "积分不等式"
+  ],
+  "question": "$2.$ 已知 $I_1 = \\int_0^{\\frac{\\pi}{2}} \\frac{\\sin x}{1+x^2} dx$，$I_2 = \\int_0^{\\frac{\\pi}{2}} \\frac{\\cos x}{1+x^2} dx$，$J_1 = \\int_0^1 e^x \\sqrt{1-x} dx$，$J_2 = \\int_0^1 e^x \\frac{x}{2\\sqrt{1-x}} dx$，则 $(A)$ $I_1 > I_2, J_1 > J_2$ $(B)$ $I_1 > I_2, J_1 < J_2$ $(C)$ $I_1 < I_2, J_1 > J_2$ $(D)$ $I_1 < I_2, J_1 < J_2$",
+  "options": {
+    "A": "$I_1 > I_2, J_1 > J_2$",
+    "B": "$I_1 > I_2, J_1 < J_2$",
+    "C": "$I_1 < I_2, J_1 > J_2$",
+    "D": "$I_1 < I_2, J_1 < J_2$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda",
+  "solution_steps": []
+}

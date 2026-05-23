@@ -26,5 +26,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "volume": "卷三",
-  "__cached_at__": 1779466679.512511
+  "__cached_at__": 1779466679.512511,
+  "raw_question_text": "设 $f(x)$ 在点 $x=0$ 的某邻域内二阶可导，且 $\\lim_{x\\to 0} \\frac{\\sin x + x f(x)}{x^3} = \\frac{1}{3}$，若 $\\frac{f(x)}{1+x} = a + bx + cx^2 + o(x^2)$，则",
+  "raw_answer_text": "A"
 }

@@ -1,0 +1,22 @@
+{
+  "question_id": "2018-数一-020",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "knowledge_points": [
+    "二次型"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$20.$ (本题满分11分)设实二次型 $f=(x_1-x_2+x_3)^2+(x_2+x_3)^2+(x_1+ax_3)^2$。\n\n$(1)$ 求 $f=0$ 的解；\n\n$(2)$ 求 $f$ 的规范形。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 解答题 知识点: 二次型 数学概念: 二次型 标准化 较难题 11分题 2018-数一-020"
+}

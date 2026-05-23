@@ -67,7 +67,7 @@ def build_embedding_text(question: dict) -> str:
         parts.append('知识点: ' + ' '.join(kps))
 
     # 3. Extract math concepts from LaTeX
-    latex = question.get('question', '')
+    latex = question.get('raw_question_text') or question.get('question', '')
     concepts = set()
     for pattern, tag in CONCEPT_PATTERNS:
         if re.search(pattern, latex):

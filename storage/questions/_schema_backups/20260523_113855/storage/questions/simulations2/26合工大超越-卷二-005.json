@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷二-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "向量组",
+    "线性表示"
+  ],
+  "tags": [
+    "向量组",
+    "线性表示"
+  ],
+  "question": "设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 2 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ 1 \\\\ a \\end{pmatrix}$，$\\alpha_4 = \\begin{pmatrix} 1 \\\\ b \\\\ 1 \\end{pmatrix}$。若 $\\alpha_4$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 表示，但是 $\\alpha_1$ 不可由 $\\alpha_2,\\alpha_3,\\alpha_4$ 表示，则",
+  "options": {
+    "A": "$a \\neq 1$ 且 $b \\neq 2$",
+    "B": "$a \\neq 1$ 且 $b = 2$",
+    "C": "$a = 1$ 且 $b \\neq 2$",
+    "D": "$a = 1$ 且 $b = 2$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0479598
+}

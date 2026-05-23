@@ -18,5 +18,6 @@
   "source": "manual_2018",
   "options": {},
   "correct_option": "A",
-  "embedding_text": "考研数学一 2018年 选择题 知识点: 矩阵运算 数学概念: 矩阵运算 中等难度 4分题 2018-数一-006"
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 矩阵运算 数学概念: 矩阵运算 中等难度 4分题 2018-数一-006",
+  "raw_question_text": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵，记 $r(X)$ 为矩阵 $X$ 的秩，$(X,Y)$ 表示分块矩阵，则( )\n\n$(A)$ $r(A,AB)=r(A)$\n\n$(B)$ $r(A,BA)=r(A)$\n\n$(C)$ $r(A,BA)=\\max\\{r(A),r(B)\\}$\n\n$(D)$ $r(A,B)=r(A^T,B^T)$"
 }

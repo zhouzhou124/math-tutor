@@ -1,0 +1,22 @@
+{
+  "question_id": "2022-数一-004",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "knowledge_points": [
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$4.$ 已知 $I_1=\\int_0^1\\frac{x}{2(1+\\cos x)}dx$，$I_2=\\int_0^1\\frac{\\ln(1+x)}{1+\\cos x}dx$，$I_3=\\int_0^1\\frac{2x}{1+\\sin x}dx$，则（ ）\n\n$(A)$ $I_1<I_2<I_3$\n$(B)$ $I_2<I_1<I_3$\n$(C)$ $I_1<I_3<I_2$\n$(D)$ $I_3<I_2<I_1$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "定积分"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 定积分 数学概念: 三角函数 对数指数函数 积分 中等难度 5分题 2022-数一-004"
+}

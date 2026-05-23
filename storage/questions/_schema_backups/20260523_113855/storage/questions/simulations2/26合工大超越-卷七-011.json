@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷七-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限求导"
+  ],
+  "tags": [
+    "极限求导"
+  ],
+  "question": "$11.$ $f(x)=\\lim_{n\\to\\infty} \\frac{x^2}{n}(\\cos\\frac{x}{n}+\\cos\\frac{2x}{n}+\\cdots+\\cos\\frac{nx}{n})$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七"
+}

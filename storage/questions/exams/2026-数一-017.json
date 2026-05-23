@@ -14,5 +14,7 @@
   "question": "$17.$ (本题满分10分) 求函数 $f(x,y) = (2x^2 - y^2)e^x$ 的极值。",
   "source": "import_2026",
   "standard_answer": "极大值 f(0,0) = 0，极小值 f(1,\\pm 2) = -2e",
-  "question_id": "2026-数一-017"
+  "question_id": "2026-数一-017",
+  "raw_question_text": "$17.$ (本题满分10分) 求函数 $f(x,y) = (2x^2 - y^2)e^x$ 的极值。",
+  "raw_answer_text": "极大值 f(0,0) = 0，极小值 f(1,\\pm 2) = -2e"
 }

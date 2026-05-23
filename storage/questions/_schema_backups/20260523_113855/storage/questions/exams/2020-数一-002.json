@@ -1,0 +1,24 @@
+{
+  "question_id": "2020-数一-002",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$2.$ 设 $f(x)$ 在 $x=0$ 可导，$f(0)=0$，则 $\\lim_{x\\to0}\\frac{f(x)}{\\sqrt{x}}=0$ 是 $f(x)$ 在 $x=0$ 可导的( )\n\n$(A)$ 充要条件\n$(B)$ 充分不必要\n$(C)$ 必要不充分\n$(D)$ 既不充分也不必要",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2020年 选择题 知识点: 导数与微分 极限与连续 数学概念: 极限 中等难度 4分题 2020-数一-002"
+}

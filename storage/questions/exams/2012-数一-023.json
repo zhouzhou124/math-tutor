@@ -16,5 +16,7 @@
     "参数估计",
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 与 $Y$ 相互独立且分别服从正态分布 $N(\\mu,\\sigma^2)$ 与 $N(\\mu,2\\sigma^2)$，其中 $\\sigma$ 是未知参数且 $\\sigma > 0$。记 $Z = X - Y$。\n(I) 求 $Z$ 的概率密度 $f(z;\\sigma^2)$；\n(II) 设 $Z_1,Z_2,\\dots,Z_n$ 为来自总体 $Z$ 的简单随机样本，求 $\\sigma^2$ 的最大似然估计量 $\\hat{\\sigma}^2$；\n(III) 证明 $\\hat{\\sigma}^2$ 为 $\\sigma^2$ 的无偏估计量。",
+  "raw_answer_text": "(I) $f(z;\\sigma^2) = \\frac{1}{\\sqrt{6\\pi}\\sigma} e^{-\\frac{z^2}{6\\sigma^2}}$\n(II) $\\hat{\\sigma}^2 = \\frac{1}{3n} \\sum_{i=1}^n Z_i^2$\n(III) 证明略"
 }

@@ -16,5 +16,6 @@
     "多元函数微分"
   ],
   "solution_steps": [],
-  "final_answer": "$u(x,y) = \\pm \\frac{x^2}{2} + C_1x + C_2y + C_3$"
+  "final_answer": "$u(x,y) = \\pm \\frac{x^2}{2} + C_1x + C_2y + C_3$",
+  "raw_question_text": "设 $u(x,y) = f(x) + g(y)$ 具有二阶连续偏导数，且满足\n$\\left[1 + \\left(\\frac{\\partial u}{\\partial y}\\right)^2\\right] \\frac{\\partial^2 u}{\\partial x^2} - 2 \\frac{\\partial u}{\\partial x} \\frac{\\partial u}{\\partial y} \\frac{\\partial^2 u}{\\partial x \\partial y} + \\left[1 + \\left(\\frac{\\partial u}{\\partial x}\\right)^2\\right] \\frac{\\partial^2 u}{\\partial y^2} = 0$，\n又已知 $f''(x) \\neq 0$，求 $u = u(x,y)$ 的表达式。"
 }

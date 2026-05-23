@@ -107,6 +107,7 @@ class QuestionAST:
     analysis: str = ""              # Solution / explanation
     year: str = ""
     category: str = ""
+    volume: str = ""
     score: str = ""
     difficulty: str = "中等"
     knowledge_points: list = field(default_factory=list)
@@ -368,8 +369,8 @@ def parse_legacy(q: dict) -> QuestionAST:
     """
     qid = q.get("question_id", "?")
     qtype = q.get("question_type", "")
-    raw_text = q.get("question", "")
-    raw_answer = q.get("standard_answer", "")
+    raw_text = q.get("raw_question_text") or q.get("question", "")
+    raw_answer = q.get("raw_answer_text") or q.get("standard_answer", "")
     correct = q.get("correct_option", "")
     options_raw = q.get("options") or {}
     steps_raw = q.get("solution_steps") or []
@@ -432,6 +433,7 @@ def parse_legacy(q: dict) -> QuestionAST:
         analysis=raw_answer.strip() if raw_answer else "",
         year=str(q.get("year", "")),
         category=q.get("category", ""),
+        volume=str(q.get("volume", "")),
         score=str(q.get("score", "")),
         difficulty=q.get("difficulty", "中等"),
         knowledge_points=q.get("knowledge_points") or q.get("tags") or [],
@@ -496,7 +498,9 @@ def ast_to_legacy_dict(ast: QuestionAST) -> dict:
         "question_id": ast.question_id,
         "question_type": ast.question_type,
         "question": full_text,
+        "raw_question_text": ast.stem,  # 四层分离: raw 保留题干
         "standard_answer": ast.answer,
+        "raw_answer_text": ast.answer,
         "correct_option": ast.answer if ast.question_type == "选择题" else "",
         "options": {o.label: o.content for o in ast.options} if ast.options else {},
         "solution_steps": [

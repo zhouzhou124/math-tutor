@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 $A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 1 & 1 \\\\ 1 & 0 & 1 \\end{pmatrix}$，$A^T A = B^2$，其中 $B$ 为正定矩阵。\n$(1)$ 求 $B$；\n$(2)$ 证明存在正交矩阵 $C$ 使得 $A = CB$，并求出 $C$.",
   "source": "import_v2",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 $A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 1 & 1 \\\\ 1 & 0 & 1 \\end{pmatrix}$，$A^T A = B^2$，其中 $B$ 为正定矩阵。\n$(1)$ 求 $B$；\n$(2)$ 证明存在正交矩阵 $C$ 使得 $A = CB$，并求出 $C$."
 }

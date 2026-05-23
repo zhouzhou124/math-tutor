@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-005",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "线性方程组"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$5.$ 设矩阵 $A=\\begin{pmatrix}1&1&1\\\\1&2&a\\\\1&4&a^2\\end{pmatrix}$，$b=\\begin{pmatrix}1\\\\ d\\\\ d^2\\end{pmatrix}$。若 $\\Omega=\\{1,2\\}$，则 $Ax=b$ 有无穷多解的充要条件为 $( )$\n\n$(A)$ $a\\notin\\Omega,d\\notin\\Omega$ \\qquad $(B)$ $a\\in\\Omega,d\\in\\Omega$\n\n$(C)$ $a\\in\\Omega,d\\notin\\Omega$ \\qquad $(D)$ $a\\notin\\Omega,d\\in\\Omega$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "线性方程组"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2015年 选择题 知识点: 线性方程组 数学概念: 矩阵运算 中等难度 4分题 2015-数一-005"
+}

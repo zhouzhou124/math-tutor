@@ -19,5 +19,7 @@
   "standard_answer": "$(-4,4)$",
   "source": "import_hegongda",
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "$14.$ 幂级数 $\\sum_{n=1}^\\infty \\frac{(n!)^2}{(2n)!} x^n$ 的收敛域为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$(-4,4)$"
 }

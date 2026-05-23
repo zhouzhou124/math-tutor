@@ -17,5 +17,7 @@
     "导数与微分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "求极限 $$\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4} \\sin x$$",
+  "raw_answer_text": "$\\frac{1}{6}$"
 }

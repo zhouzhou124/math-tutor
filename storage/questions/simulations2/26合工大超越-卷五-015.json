@@ -17,5 +17,7 @@
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "$15.$ 已知方程组 $\\begin{cases} kx_1 - x_3 + x_4 = 1 \\\\ kx_2 + x_3 - x_4 = -1 \\\\ -x_1 + x_2 + kx_3 = 1 \\\\ x_1 - x_2 + kx_4 = -1 \\end{cases}$ 无解，$k\\neq 0$，则 $k=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$-2$"
 }

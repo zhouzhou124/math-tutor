@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷四-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲率"
+  ],
+  "tags": [
+    "曲率"
+  ],
+  "question": "$11.$ 曲线 $xy=1$ 在点 $(1,1)$ 处的曲率圆方程为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$(x-2)^2+(y-2)^2=2$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四"
+}

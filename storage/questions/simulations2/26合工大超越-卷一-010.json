@@ -26,5 +26,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "volume": "卷一",
-  "__cached_at__": 1779464742.7522128
+  "__cached_at__": 1779464742.7522128,
+  "raw_question_text": "设 $(X_1,\\dots,X_n)$ 和 $(Y_1,\\dots,Y_n)$ 为来自总体 $X \\sim N(\\mu,\\sigma^2)$ 的两个独立样本，样本均值分别为 $\\overline{X},\\overline{Y}$，样本方差分别为 $S_X^2,S_Y^2$，记 $W = S_X^2 + S_Y^2$。对任意 $0<\\alpha<1$，以下正确的是",
+  "raw_answer_text": "B"
 }

@@ -18,5 +18,6 @@
   "source": "manual_2020",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2020年 填空题 知识点: 多元函数微分 数学概念: 偏导数 对数指数函数 中等难度 4分题 2020-数一-012"
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 多元函数微分 数学概念: 偏导数 对数指数函数 中等难度 4分题 2020-数一-012",
+  "raw_question_text": "$12.$ 设 $f(x,y)$ 二阶连续偏导，$\\frac{\\partial f}{\\partial y}=xe^{xy}$，$f(x,1)=x^2$，则 $\\left.\\frac{\\partial^2 f}{\\partial x\\partial y}\\right|_{(1,1)}=\\underline{\\qquad\\qquad}$"
 }

@@ -1,0 +1,18 @@
+{
+  "question_id": "2008-数一-009",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "微分方程 $xy' + y = 0$ 满足条件 $y(1)=1$ 的解是 $y =$ ______",
+  "standard_answer": "$\\frac{1}{x}$",
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "tags": [
+    "微分方程"
+  ],
+  "solution_steps": []
+}

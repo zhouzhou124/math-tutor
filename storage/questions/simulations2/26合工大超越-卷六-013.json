@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷六-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "tags": [
+    "二重积分"
+  ],
+  "question": "$13.$ 二次积分 $I=\\int_{-1}^0 dx\\int_{-1}^x [\\cos(y^2)+x^2\\sin(x+y)]dy + \\int_0^1 dx\\int_x^1 [\\cos(y^2)+x^2\\sin(x+y)]dy = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "raw_question_text": "$13.$ 二次积分 $I=\\int_{-1}^0 dx\\int_{-1}^x [\\cos(y^2)+x^2\\sin(x+y)]dy + \\int_0^1 dx\\int_x^1 [\\cos(y^2)+x^2\\sin(x+y)]dy = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$0$"
+}

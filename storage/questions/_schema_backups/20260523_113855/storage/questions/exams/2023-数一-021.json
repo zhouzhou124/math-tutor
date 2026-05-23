@@ -1,0 +1,25 @@
+{
+  "question_id": "2023-数一-021",
+  "year": 2023,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "knowledge_points": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$21.$ (本题满分12分)已知二次型 $f(x_1,x_2,x_3)=x_1^2+2x_2^2+2x_3^2+2x_1x_2-2x_1x_3，g(y_1,y_2,y_3)=y_1^2+y_2^2+y_3^2+2y_2y_3$.\n\n$(1)$ 求可逆变换 $x=Py$ 将 $f(x_1,x_2,x_3)$ 化为 $g(y_1,y_2,y_3)$;\n\n$(2)$ 是否存在正交变换 $x=Qy$ 将 $f(x_1,x_2,x_3)$ 化为 $g(y_1,y_2,y_3)$ ?",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2023",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2023年 解答题 知识点: 二次型 特征值与特征向量 数学概念: 二次型 标准化 正交变换 较难题 12分题 2023-数一-021",
+  "standard_answer": "## 标准答案\n(1) 可取 $P=\\begin{pmatrix} 1 & -1 & 1 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$（答案不唯一）；(2) 不存在正交变换。\n\n步骤1：写出二次型 $f$ 与 $g$ 的矩阵\n二次型 $f(x_1,x_2,x_3)=x_1^2+2x_2^2+2x_3^2+2x_1x_2-2x_1x_3$ 对应的对称矩阵为\n$$A=\\begin{pmatrix} 1 & 1 & -1 \\\\ 1 & 2 & 0 \\\\ -1 & 0 & 2 \\end{pmatrix}.$$\n二次型 $g(y_1,y_2,y_3)=y_1^2+y_2^2+y_3^2+2y_2y_3$ 对应的对称矩阵为\n$$B=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 步骤2：利用配方法求可逆变换矩阵 $P$\n对 $f$ 配方：\n$$\n\\begin{aligned}\nf(x_1,x_2,x_3) &= x_1^2+2x_2^2+2x_3^2+2x_1x_2-2x_1x_3 \\\\\n&= (x_1+x_2-x_3)^2 - (x_2-x_3)^2 + 2x_2^2+2x_3^2 \\\\\n&= (x_1+x_2-x_3)^2 + (x_2+x_3)^2.\n\\end{aligned}\n$$\n令\n$$\n\\begin{cases}\nz_1 = x_1+x_2-x_3, \\\\\nz_2 = x_2+x_3, \\\\\nz_3 = x_3,\n\\end{cases}\n$$\n即 $z = C^{-1}x$，其中 $C^{-1} = \\begin{pmatrix} 1 & 1 & -1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}$，则 $x = C z$，且 $f = z_1^2+z_2^2$。求得 $C = (C^{-1})^{-1} = \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 1 \\end{pmatrix}$。\n\n对 $g$ 配方：\n$$\ng(y_1,y_2,y_3) = y_1^2 + (y_2+y_3)^2.\n$$\n令\n$$\n\\begin{cases}\nw_1 = y_1, \\\\\nw_2 = y_2+y_3, \\\\\nw_3 = y_3,\n\\end{cases}\n$$\n即 $w = D^{-1}y$，其中 $D^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}$，则 $y = D w$，且 $g = w_1^2+w_2^2$。\n\n令 $z = w$，则 $x = C z = C w = C D^{-1} y$，于是可逆变换矩阵为\n$$\nP = C D^{-1} = \\begin{pmatrix} 1 & -1 & 2 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 1 & -1 & 1 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}.\n$$\n此时 $x = P y$ 将 $f$ 化为 $g$（$P$ 不唯一）。\n\n步骤3：判断是否存在正交变换\n若存在正交变换 $x = Qy$，则 $Q^{\\mathrm{T}}AQ = B$，其中 $Q$ 为正交矩阵，从而 $A$ 与 $B$ 相似，必有相同的特征值。计算 $A$ 与 $B$ 的特征值：\n$$\n\\begin{aligned}\n|A - \\lambda E| &= \\begin{vmatrix} 1-\\lambda & 1 & -1 \\\\ 1 & 2-\\lambda & 0 \\\\ -1 & 0 & 2-\\lambda \\end{vmatrix}\n= (2-\\lambda)[(1-\\lambda)(2-\\lambda)-2] \\\\\n&= (2-\\lambda)(\\lambda^2-3\\lambda) = \\lambda(2-\\lambda)(\\lambda-3),\n\\end{aligned}\n$$\n故 $A$ 的特征值为 $0, 2, 3$。\n$$\n|B -"
+}

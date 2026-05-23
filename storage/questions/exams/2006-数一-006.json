@@ -14,5 +14,7 @@
   "tags": [
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 与 $Y$ 相互独立，且均服从区间 $[0,3]$ 上的均匀分布，则 $P\\{\\max(X,Y) \\le 1\\} =$ ______",
+  "raw_answer_text": "$\\frac{1}{9}$"
 }

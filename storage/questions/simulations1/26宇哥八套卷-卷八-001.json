@@ -22,5 +22,7 @@
   "tags": [
     "反常积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $a,b$ 为常数，$\\int_0^1 \\frac{\\ln x}{x^a \\left( \\tan \\frac{\\pi}{2} x \\right)^b} dx$ 收敛，则",
+  "raw_answer_text": "A"
 }

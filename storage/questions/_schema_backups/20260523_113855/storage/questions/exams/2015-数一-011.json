@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-011",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$11.$ 若 $z=z(x,y)$ 由 $e^z+xyz+x+\\cos x=2$ 确定，则 $dz|_{(0,1)}=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 填空题 知识点: 多元函数微分 数学概念: 三角函数 对数指数函数 中等难度 4分题 2015-数一-011"
+}

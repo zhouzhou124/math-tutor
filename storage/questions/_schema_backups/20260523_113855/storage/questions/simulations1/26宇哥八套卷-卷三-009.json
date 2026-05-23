@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷三-009",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "question": "设随机变量 $X$ 的概率分布为 $P(X=1)=a, P(X=2)=1-a$。在给定 $X=i$ 的条件下，随机变量 $Y$ 服从均匀分布 $U(0,i)(i=1,2)$，且当 $0 \\le y < 1$ 时，$Y$ 的分布函数为 $F_Y(y)=\\frac{2}{3}y$，则 $a=$",
+  "source": "import_v3",
+  "options": {
+    "A": "$\\frac{1}{3}$",
+    "B": "$\\frac{2}{3}$",
+    "C": "$\\frac{1}{2}$",
+    "D": "$\\frac{1}{4}$"
+  },
+  "correct_option": "B"
+}

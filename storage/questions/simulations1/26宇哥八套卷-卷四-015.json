@@ -15,5 +15,6 @@
   ],
   "question": "设 $a_1 = \\begin{pmatrix} 4 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$a_2 = \\begin{pmatrix} 1 \\\\ 1 \\\\ -1 \\end{pmatrix}$，$a_3 = \\begin{pmatrix} -2 \\\\ 0 \\\\ 4 \\end{pmatrix}$，$a_4 = \\begin{pmatrix} 7 \\\\ 2 \\\\ -3 \\end{pmatrix}$，$A = (a_1,a_2,a_3,a_4)$，则 $Ax = a_2 + 3a_4$ 的通解为______",
   "source": "import_v4",
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $a_1 = \\begin{pmatrix} 4 \\\\ 1 \\\\ 2 \\end{pmatrix}$，$a_2 = \\begin{pmatrix} 1 \\\\ 1 \\\\ -1 \\end{pmatrix}$，$a_3 = \\begin{pmatrix} -2 \\\\ 0 \\\\ 4 \\end{pmatrix}$，$a_4 = \\begin{pmatrix} 7 \\\\ 2 \\\\ -3 \\end{pmatrix}$，$A = (a_1,a_2,a_3,a_4)$，则 $Ax = a_2 + 3a_4$ 的通解为______"
 }

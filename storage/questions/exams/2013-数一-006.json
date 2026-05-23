@@ -23,5 +23,6 @@
     "D": "$a=2,b$ 为任意常数"
   },
   "correct_option": "B",
-  "embedding_text": "考研数学一 2013年 选择题 知识点: 特征值与特征向量 数学概念: 矩阵运算 较难题 4分题 2013-数一-006"
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 特征值与特征向量 数学概念: 矩阵运算 较难题 4分题 2013-数一-006",
+  "raw_question_text": "矩阵 $\\begin{pmatrix}1&a&1\\\\ a&b&a\\\\1&a&1\\end{pmatrix}$ 与 $\\begin{pmatrix}2&0&0\\\\0&b&0\\\\0&0&0\\end{pmatrix}$ 相似的充要条件为( )"
 }

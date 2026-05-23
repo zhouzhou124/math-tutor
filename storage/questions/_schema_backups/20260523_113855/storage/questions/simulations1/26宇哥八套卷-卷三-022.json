@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷三-022",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机变量的数字特征"
+  ],
+  "tags": [
+    "随机变量的数字特征"
+  ],
+  "question": "(本题满分12分) 设随机变量 $X \\sim U(0,1)$，当 $X = x$ 时，$Y \\sim B(2,x)$，求\n$(1)$ $P\\{Y = k \\mid X = x\\}, k = 0,1,2$；\n$(2)$ $\\rho_{XY}$.",
+  "source": "import_v3",
+  "options": {}
+}

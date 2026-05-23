@@ -14,5 +14,7 @@
   "question": "$11.$ 设向量 $v_1 = (0, x, z)$，$v_2 = (y, 0, 1)$，记 $F(x,y) = v_1 \\times v_2$，则 $\\operatorname{div} F = \\_\\_\\_\\_\\_\\_$",
   "source": "import_2026",
   "standard_answer": "x + 1",
-  "question_id": "2026-数一-011"
+  "question_id": "2026-数一-011",
+  "raw_question_text": "$11.$ 设向量 $v_1 = (0, x, z)$，$v_2 = (y, 0, 1)$，记 $F(x,y) = v_1 \\times v_2$，则 $\\operatorname{div} F = \\_\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "x + 1"
 }

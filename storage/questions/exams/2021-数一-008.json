@@ -18,5 +18,6 @@
   "source": "manual_2021",
   "options": {},
   "correct_option": "D",
-  "embedding_text": "考研数学一 2021年 选择题 知识点: 条件概率与独立性 中等难度 5分题 2021-数一-008"
+  "embedding_text": "考研数学一 2021年 选择题 知识点: 条件概率与独立性 中等难度 5分题 2021-数一-008",
+  "raw_question_text": "$8.$ 设 $A,B$ 为随机事件，且 $0<P(B)<1$，下列命题中为假命题的是 $( )$\n\n$(A)$ 若 $P(A|B)=P(A)$，则 $P(\\overline{A}|\\overline{B})=P(A)$\n\n$(B)$ 若 $P(A|B)>P(A)$，则 $P(\\overline{A}|\\overline{B})>P(\\overline{A})$\n\n$(C)$ 若 $P(A|B)>P(A|\\overline{B})$，则 $P(A|B)>P(A)$\n\n$(D)$ 若 $P(A|A\\cup B)>P(\\overline{A}|A\\cup B)$，则 $P(A)>P(B)$"
 }

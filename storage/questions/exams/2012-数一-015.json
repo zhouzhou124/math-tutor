@@ -16,5 +16,7 @@
     "中值定理",
     "无穷级数"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "证明：$x \\ln\\frac{1+x}{1-x} + \\cos x \\ge 1 + \\frac{x^2}{2}$，$-1 < x < 1$。",
+  "raw_answer_text": "证明略"
 }

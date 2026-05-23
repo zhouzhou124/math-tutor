@@ -221,7 +221,7 @@ class QuestionRepository(BaseRepository):
             difficulty=data.get("difficulty", "中等"),
             knowledge_points=data.get("knowledge_points", []),
             tags=data.get("tags", []),
-            question=data.get("question", ""),
+            question=data.get("raw_question_text") or data.get("question", ""),
             source=data.get("source"),
             options=data.get("options", {}),
             correct_option=data.get("correct_option"),

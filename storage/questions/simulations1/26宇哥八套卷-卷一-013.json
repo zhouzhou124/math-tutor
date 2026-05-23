@@ -14,5 +14,6 @@
     "一元函数微分学"
   ],
   "question": "$13.$ 设 $e^{ax} \\ge 1 + x$ 对任意实数 $x$ 均成立，则 $a$ 的取值范围为 $\\_\\_\\_\\_\\_\\_$",
-  "source": "import_zhangyu_v1"
+  "source": "import_zhangyu_v1",
+  "raw_question_text": "$13.$ 设 $e^{ax} \\ge 1 + x$ 对任意实数 $x$ 均成立，则 $a$ 的取值范围为 $\\_\\_\\_\\_\\_\\_$"
 }

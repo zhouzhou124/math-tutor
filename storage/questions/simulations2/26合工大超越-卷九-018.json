@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷九-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "二重积分",
+    "极值"
+  ],
+  "tags": [
+    "二重积分",
+    "极值"
+  ],
+  "question": "$18.$ (本题满分12分) 已知 $(a,b)$ 为圆弧 $x^2+y^2=1$ 上任意一点，且 $0\\le a\\le b$，求 $f(a,b)=6\\iint\\limits_D |x-y| d\\sigma - (a-b)^3$ 的最大值与最小值，其中 $D=\\{(x,y)\\mid 0\\le x\\le a,0\\le y\\le b\\}$.",
+  "standard_answer": "最大值 $2$，最小值 $-\\frac{1}{2}$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$18.$ (本题满分12分) 已知 $(a,b)$ 为圆弧 $x^2+y^2=1$ 上任意一点，且 $0\\le a\\le b$，求 $f(a,b)=6\\iint\\limits_D |x-y| d\\sigma - (a-b)^3$ 的最大值与最小值，其中 $D=\\{(x,y)\\mid 0\\le x\\le a,0\\le y\\le b\\}$.",
+  "raw_answer_text": "最大值 $2$，最小值 $-\\frac{1}{2}$"
+}

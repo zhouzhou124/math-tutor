@@ -1,0 +1,25 @@
+{
+  "question_id": "2021-数一-014",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$14.$ 设 $\\Sigma$ 为空间区域 $\\{x^2+4y^2\\le4,0\\le z\\le2\\}$ 表面的外侧，则 $\\iint\\limits_\\Sigma x^2dydz+y^2dzdx+zdxdy=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分",
+    "三重积分"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 填空题 知识点: 曲线曲面积分 三重积分 数学概念: 极限 重积分 曲线积分 较难题 5分题 2021-数一-014",
+  "standard_answer": "## 标准答案\n$4\\pi$\n\n步骤1：分析题意，选择方法  \n本题要求计算第二类曲面积分，积分曲面 $\\Sigma$ 是空间区域 $\\{x^2+4y^2\\le 4,\\;0\\le z\\le 2\\}$ 的整个边界曲面，方向取外侧。由于曲面封闭且满足高斯公式的条件，优先考虑使用**高斯公式**将曲面积分转化为三重积分。\n\n步骤2：利用高斯公式转化  \n令 $P=x^2,\\;Q=y^2,\\;R=z$。由高斯公式：\n$$\n\\iint_\\Sigma P\\,dydz+Q\\,dzdx+R\\,dxdy=\\iiint_\\Omega\\left(\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}\\right)dV\n$$\n计算散度：\n$$\n\\frac{\\partial P}{\\partial x}=2x,\\quad\\frac{\\partial Q}{\\partial y}=2y,\\quad\\frac{\\partial R}{\\partial z}=1\n$$\n因此\n$$\n\\iint_\\Sigma x^2dydz+y^2dzdx+zdxdy=\\iiint_\\Omega(2x+2y+1)\\,dV\n$$\n其中 $\\Omega$ 为椭圆柱体 $\\{(x,y,z)\\mid x^2+4y^2\\le 4,\\;0\\le z\\le 2\\}$。\n\n步骤3：化简三重积分  \n将积分分解为三个部分：\n$$\n\\iiint_\\Omega(2x+2y+1)dV = \\iiint_\\Omega 2x\\,dV + \\iiint_\\Omega 2y\\,dV + \\iiint_\\Omega 1\\,dV\n$$\n考察对称性：  \n- 积分区域 $\\Omega$ 关于 $x=0$ 平面对称，被积函数 $2x$ 关于 $x$ 是奇函数，故 $\\iiint_\\Omega 2x\\,dV=0$。  \n- 积分区域关于 $y=0$ 平面对称，被积函数 $2y$ 关于 $y$ 是奇函数，故 $\\iiint_\\Omega 2y\\,dV=0$。  \n因此，原积分等于区域 $\\Omega$ 的体积：\n$$\n\\iiint_\\Omega 1\\,dV = \\text{Vol}(\\Omega)\n$$\n\n步骤4：计算区域体积  \n$\\Omega$ 可以看作底面为椭圆域 $D:\\;x^2+4y^2\\le 4$，高为 $2$ 的直柱体。  \n椭圆 $x^2+4y^2=4$ 的标准形式为 $\\frac{x^2}{4}+\\frac{y^2}{1}\\le 1$，椭圆的半长轴 $a=2$，半短轴 $b=1$，面积 $S=\\pi ab=2\\pi$。  \n于是体积为\n$$\n\\text{Vol}(\\Omega) = \\text{底面积} \\times \\text{高} = 2\\pi \\times 2 = 4\\pi\n$$\n故所求曲面积分值为 $4\\pi$。\n\n## 关键知识点\n1. **高斯公式**：将封闭曲面上的第二类曲面积分转化为内部区域的三重积分。\n2. **三重积分的对称性**：如果积分区域关于某坐标平面对称，且被积函数关于对应变量为奇函数，则该积分为零。\n3. **椭圆的面积公式**：椭圆 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ 的面积为 $\\pi ab$。\n\n## 易错提示\n1. **混淆方向与符号**：使用高斯公式时，必须是**封闭曲面**且方向取**外侧**，否则需要在公式前加负号。\n2. **坐标对应错误**：要准确分清 $P\\,dydz$、$Q\\,dzdx$、$R\\,dxdy$ 中 $P,Q,R$ 分别对应的变量，散度的计算为 $\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}$。\n3. **忽视对称性直接计算**：如果不利用对称性直接计算三重积分 $\\iiint_\\Omega(2x+2y+1)dV$，积分过程将变得繁琐，容易出错。\n4. **椭圆面积计算错误**：误将 $x^2+4y^2\\le 4$ 中的长、短半轴弄反，或忘记乘以 $\\pi$。上述标准答案已经完整，无需再补充。若您需要其他题目的解析或对本题有进一步疑问，欢迎继续提问。（标准答案已完整结束，无需后续内容。）"
+}

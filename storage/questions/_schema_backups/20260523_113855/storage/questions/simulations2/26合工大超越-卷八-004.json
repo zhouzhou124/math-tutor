@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷八-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "级数敛散性"
+  ],
+  "tags": [
+    "级数敛散性"
+  ],
+  "question": "设 $x_0>0,x_{n+1}=\\sqrt{\\frac{2x_n^2}{3+x_n^2}}$，则 $\\sum_{n=1}^\\infty (-1)^n (x_n - \\ln(1+x_n))$",
+  "options": {
+    "A": "条件收敛",
+    "B": "绝对收敛",
+    "C": "发散",
+    "D": "无法判断"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.324757
+}

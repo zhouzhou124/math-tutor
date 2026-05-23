@@ -1,0 +1,19 @@
+{
+  "question_id": "2007-数一-018",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 10,
+  "question": "计算曲面积分 $$I = \\iint_{\\Sigma} xz dy dz + 2yz dz dx + 3xy dx dy$$ 其中 $\\Sigma$ 为曲面 $z = 1 - x^2 - \\frac{y^2}{4}$（$0 \\le z \\le 1$）的上侧.",
+  "standard_answer": "$\\frac{3\\pi}{4}$",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷四-011",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} =$ ______",
+  "source": "import_v4",
+  "options": {}
+}

@@ -25,5 +25,7 @@
   "correct_option": "B",
   "standard_answer": "B",
   "source": "import_hegongda",
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$7.$ 设 $A$ 为 $2\\times 3$ 矩阵，若 $|AA^{\\mathrm{T}}| = 2$，$|A^{\\mathrm{T}}A - 2E| = 0$，则 $|A^{\\mathrm{T}}A + 2E| =$ $(A)$ $-12$ $(B)$ $12$ $(C)$ $-24$ $(D)$ $24$",
+  "raw_answer_text": "B"
 }

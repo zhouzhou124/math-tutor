@@ -1,0 +1,25 @@
+{
+  "question_id": "2008-数一-005",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $A$ 为 $n$ 阶非零矩阵，$E$ 为 $n$ 阶单位矩阵，若 $A^3 = O$，则",
+  "options": {
+    "A": "$E-A$ 不可逆，$E+A$ 不可逆",
+    "B": "$E-A$ 不可逆，$E+A$ 可逆",
+    "C": "$E-A$ 可逆，$E+A$ 可逆",
+    "D": "$E-A$ 可逆，$E+A$ 不可逆"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "tags": [
+    "矩阵运算"
+  ],
+  "solution_steps": []
+}

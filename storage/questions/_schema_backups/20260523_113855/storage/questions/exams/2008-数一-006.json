@@ -1,0 +1,27 @@
+{
+  "question_id": "2008-数一-006",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $A$ 为$3$阶实对称矩阵，如果二次曲面方程 $(x,y,z)A \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = 1$ 在正交变换下的标准方程的图形如图所示（双叶双曲面），则 $A$ 的正特征值的个数为",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "二次型"
+  ],
+  "solution_steps": []
+}

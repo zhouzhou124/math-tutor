@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0305817
+  "__cached_at__": 1779466026.0305817,
+  "raw_question_text": "二次积分 $\\int_0^1 dy \\int_0^{\\sqrt{y}} x^2 y dx + \\int_1^{\\sqrt{2}} dy \\int_0^{\\sqrt{2-y^2}} x^2 y dx = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{3}{20}$"
 }

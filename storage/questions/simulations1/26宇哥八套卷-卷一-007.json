@@ -21,5 +21,6 @@
     "C": "充分必要条件",
     "D": "既非充分又非必要条件"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设 $A$ 为 $n$ 阶矩阵，$r(A) = r$，$E_r$ 为 $r$ 阶单位矩阵，则 “$A^2 = A$” 是“存在列满秩矩阵 $C_{n \\times r}$，使得 $A = CB$，$BC = E_r$”的"
 }

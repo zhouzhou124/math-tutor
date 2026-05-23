@@ -23,5 +23,7 @@
     "条件概率与独立性",
     "随机事件与概率"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B$ 为随机事件，且 $P(B)>0$，$P(A|B)=1$，则必有",
+  "raw_answer_text": "C"
 }

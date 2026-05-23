@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷四-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "tags": [
+    "二重积分"
+  ],
+  "question": "(本题满分12分) 设 $$D=\\{(x,y)\\mid 0\\le x\\le 1,0\\le y\\le 1\\}$，$$f(x,y)=\\begin{cases} \\frac{(y+1)e^x}{(1+x)^2}, & y<x \\\\ x^2+y^2, & y\\ge x \\end{cases}$$，计算 $\\iint_D f(x,y) dxdy$.",
+  "standard_answer": "$e - 1 + \\frac{2}{3}$",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷四",
+  "__cached_at__": 1779467434.171506
+}

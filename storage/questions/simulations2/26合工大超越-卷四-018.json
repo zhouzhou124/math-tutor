@@ -20,5 +20,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷四",
-  "__cached_at__": 1779467434.172714
+  "__cached_at__": 1779467434.172714,
+  "raw_question_text": "(本题满分12分) 设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），\n$(1)$ 求 $\\lim_{n\\to\\infty} a_n$；\n$(2)$ 证明 $\\lim_{n\\to\\infty} [a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在.",
+  "raw_answer_text": "(I) $\\lim_{n\\to\\infty} a_n = 0$\\n(II) 证明略"
 }

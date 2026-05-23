@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷八-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "抽样分布"
+  ],
+  "tags": [
+    "抽样分布"
+  ],
+  "question": "设总体 $X$ 服从标准正态分布，$X_1,X_2$ 为的简单随机样本，则下列命题中：\n① $X_1^2+X_2^2 \\sim E(\\frac{1}{2})$；\n② $\\frac{X_1+X_2}{|X_1-X_2|} \\sim t(1)$；\n③ $\\frac{1}{2}+\\frac{X_1^2}{2X_2^2} \\sim F(2,1)$。\n正确的个数为",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3297935
+}

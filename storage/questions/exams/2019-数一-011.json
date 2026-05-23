@@ -18,5 +18,6 @@
   "source": "manual_2019",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2019年 填空题 知识点: 无穷级数 数学概念: 级数 求和 中等难度 4分题 2019-数一-011"
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 无穷级数 数学概念: 级数 求和 中等难度 4分题 2019-数一-011",
+  "raw_question_text": "$11.$ 幂级数 $\\sum_{n=0}^\\infty \\frac{(-1)^n}{(2n)!} x^n$ 在 $(0,+\\infty)$ 内的和函数 $S(x) = \\underline{\\qquad\\qquad}$"
 }

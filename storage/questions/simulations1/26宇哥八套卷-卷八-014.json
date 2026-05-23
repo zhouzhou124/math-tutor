@@ -16,5 +16,7 @@
     "曲面积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $\\Sigma$ 是曲线 $x = e^y (0\\le y\\le a)$ 绕 $x$ 轴旋转而成的旋转曲面，取后侧，则 $$I = \\iint_{\\Sigma} 2(1-x^2) dy dz + 8xy dz dx - 4xz dx dy =\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$4\\pi(e^{2a} - 1)$"
 }

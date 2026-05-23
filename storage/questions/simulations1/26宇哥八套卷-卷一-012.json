@@ -14,5 +14,6 @@
     "多元函数微分学"
   ],
   "question": "$12.$ $z = \\arcsin y^x$ 在点 $(-1,2)$ 处的全微分为 $dz = \\_\\_\\_\\_\\_\\_$",
-  "source": "import_zhangyu_v1"
+  "source": "import_zhangyu_v1",
+  "raw_question_text": "$12.$ $z = \\arcsin y^x$ 在点 $(-1,2)$ 处的全微分为 $dz = \\_\\_\\_\\_\\_\\_$"
 }

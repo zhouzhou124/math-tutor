@@ -19,5 +19,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$12.$ 函数 $f(x,y,z)$ 为 $u=3x^2+4y^3-9z^2$ 在点 $(x,y,z)$ 处沿 $\\mathbf{n}=(1,1,1)$ 的方向导数，则 $f(x,y,z)$ 在条件 $x^2+2y^2+z^2=1$ 下的最大值为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$6$"
 }

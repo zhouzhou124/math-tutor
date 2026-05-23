@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷一-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "已知函数 $f(x,y)$ 在点 $(0,0)$ 处连续，且 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{\\ln(1+|x|+|y|)} = 0$，则 $f(x,y)$ 在点 $(0,0)$ 处",
+  "options": {
+    "A": "偏导数不存在，也不可微",
+    "B": "偏导数存在，但不可微",
+    "C": "偏导数存在，但不可微",
+    "D": "偏导数存在，且可微"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda",
+  "solution_steps": [],
+  "volume": "卷一",
+  "__cached_at__": 1779464742.751209
+}

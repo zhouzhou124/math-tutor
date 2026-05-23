@@ -15,5 +15,6 @@
   ],
   "question": "设随机变量 $X$ 的概率密度为 $$ f(x) = \\begin{cases}\\frac{x}{2}, & 0 < x < 2 \\\\ 0, & \\text{其他} \\end{cases}$$ $F_X(x)$ 是 $X$ 的分布函数，若 $Y = -\\ln[1 - F_X(X)]$，则 $P\\{Y > \\frac{1}{2}\\} =$ ______",
   "source": "import_v2",
-  "options": {}
+  "options": {},
+  "raw_question_text": "设随机变量 $X$ 的概率密度为 $$ f(x) = \\begin{cases}\\frac{x}{2}, & 0 < x < 2 \\\\ 0, & \\text{其他} \\end{cases}$$ $F_X(x)$ 是 $X$ 的分布函数，若 $Y = -\\ln[1 - F_X(X)]$，则 $P\\{Y > \\frac{1}{2}\\} =$ ______"
 }

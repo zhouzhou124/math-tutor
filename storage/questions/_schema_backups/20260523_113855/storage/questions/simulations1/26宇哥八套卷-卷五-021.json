@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷五-021",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "question": "设向量 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 0 \\end{pmatrix}$.\n$(1)$将 $\\alpha_1,\\alpha_2,\\alpha_3$ 化成正交单位向量组 $\\gamma_1,\\gamma_2,\\gamma_3$；\n$(2)$ 若 $(\\alpha_1,\\alpha_2,\\alpha_3) = (\\gamma_1,\\gamma_2,\\gamma_3)C$，求 $C$.",
+  "source": "import_v5",
+  "options": {}
+}

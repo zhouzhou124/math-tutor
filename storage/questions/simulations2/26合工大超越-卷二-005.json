@@ -26,5 +26,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "volume": "卷二",
-  "__cached_at__": 1779466026.0479598
+  "__cached_at__": 1779466026.0479598,
+  "raw_question_text": "设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 2 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ 1 \\\\ a \\end{pmatrix}$，$\\alpha_4 = \\begin{pmatrix} 1 \\\\ b \\\\ 1 \\end{pmatrix}$。若 $\\alpha_4$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 表示，但是 $\\alpha_1$ 不可由 $\\alpha_2,\\alpha_3,\\alpha_4$ 表示，则",
+  "raw_answer_text": "B"
 }

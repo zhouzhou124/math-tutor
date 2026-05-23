@@ -1,0 +1,21 @@
+{
+  "question_id": "2008-数一-013",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $A$ 为$2$阶矩阵，$\\alpha_1,\\alpha_2$ 为线性无关的$2$维列向量，$A\\alpha_1 = 0$，$A\\alpha_2 = 2\\alpha_1 + \\alpha_2$，则 $A$ 的非零特征值为 ______",
+  "standard_answer": "1",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "向量组与线性空间"
+  ],
+  "solution_steps": [],
+  "options": {}
+}

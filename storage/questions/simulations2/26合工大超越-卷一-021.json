@@ -14,11 +14,13 @@
     "向量组",
     "相似对角化"
   ],
-  "question": "(本题满分12分) 设向量组 (i) $\\alpha_1 = (a,0,1)^{\\mathrm{T}}$，$\\alpha_2 = (0,-a,0)^{\\mathrm{T}}$，$\\alpha_3 = (1,0,a)^{\\mathrm{T}}$，(ii) $\\beta_1 = (a,0,1)^{\\mathrm{T}}$，$\\beta_2 = (a,1,1)^{\\mathrm{T}}$，$\\beta_3 = (a^2,0,a)^{\\mathrm{T}}$（$a \\neq 0$）。\n$(1)$ 若向量组 (i) 与 (ii) 等价，求 $a$ 的值；\n$(2)$ 记 $A = (\\alpha_1,\\alpha_2,\\alpha_3)$，$B = (\\beta_1,\\beta_2,\\beta_3)$，当 $a$ 为何值时，存在可逆矩阵 $P$，使得 $P^{-1}AP = B$？并求 $P$.",
+  "question": "(本题满分12分) 设向量组 (i) $\\alpha_1 = \\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 0 \\\\ -a \\\\ 0 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 1 \\\\ 0 \\\\ a \\end{pmatrix}$，(ii) $\\beta_1 = \\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a^2 \\\\ 0 \\\\ a \\end{pmatrix}$（$a \\neq 0$）。\n$(1)$ 若向量组 (i) 与 (ii) 等价，求 $a$ 的值；\n$(2)$ 记 $A = (\\alpha_1,\\alpha_2,\\alpha_3)$，$B = (\\beta_1,\\beta_2,\\beta_3)$，当 $a$ 为何值时，存在可逆矩阵 $P$，使得 $P^{-1}AP = B$？并求 $P$.",
   "standard_answer": "(I) $a = \\pm 1$\\n(II) 当 $a=1$ 时，$P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$；当 $a=-1$ 时，$P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & -1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
   "source": "import_hegongda",
   "solution_steps": [],
   "options": {},
   "volume": "卷一",
-  "__cached_at__": 1779464742.7505205
+  "__cached_at__": 1779464742.7505205,
+  "raw_question_text": "(本题满分12分) 设向量组 (i) $\\alpha_1 = \\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 0 \\\\ -a \\\\ 0 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} 1 \\\\ 0 \\\\ a \\end{pmatrix}$，(ii) $\\beta_1 = \\begin{pmatrix} a \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\beta_2 = \\begin{pmatrix} a \\\\ 1 \\\\ 1 \\end{pmatrix}$，$\\beta_3 = \\begin{pmatrix} a^2 \\\\ 0 \\\\ a \\end{pmatrix}$（$a \\neq 0$）。\n$(1)$ 若向量组 (i) 与 (ii) 等价，求 $a$ 的值；\n$(2)$ 记 $A = (\\alpha_1,\\alpha_2,\\alpha_3)$，$B = (\\beta_1,\\beta_2,\\beta_3)$，当 $a$ 为何值时，存在可逆矩阵 $P$，使得 $P^{-1}AP = B$？并求 $P$.",
+  "raw_answer_text": "(I) $a = \\pm 1$\\n(II) 当 $a=1$ 时，$P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$；当 $a=-1$ 时，$P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & -1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
 }

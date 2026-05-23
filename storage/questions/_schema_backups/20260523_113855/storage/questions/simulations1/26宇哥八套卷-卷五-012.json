@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷五-012",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "常微分方程"
+  ],
+  "tags": [
+    "常微分方程"
+  ],
+  "question": "$12.$ 微分方程 $y'=\\frac{1}{xy(1+xy^2)}$ 满足 $y(1)=0$ 的解为 ______",
+  "source": "import_v5"
+}

@@ -25,5 +25,7 @@
   "standard_answer": "C",
   "source": "import_hegongda_v3",
   "solution_steps": [],
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$10.$ 设随机变量 $X_1$ 与 $X_2$ 相互独立，$X_1\\sim N(0,1)$，$X_2\\sim N(0,1)$。记 $T=\\frac{X_1-X_2}{|X_1+X_2|}$，给定 $a(0<a<0.5)$，常数 $C$ 满足 $P(T>C)=a$，则 $P(\\frac{1}{T^2}>C^2)=$ $(A)$ $a$ $(B)$ $1-a$ $(C)$ $2a$ $(D)$ $1-2a$",
+  "raw_answer_text": "C"
 }

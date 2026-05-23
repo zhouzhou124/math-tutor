@@ -15,5 +15,6 @@
   ],
   "question": "设 \\(y \\geq -2\\)，则微分方程 \\(x' - \\sqrt{x+y^2} = -2y\\) 满足 \\(x(0) = 1\\) 的特解为 \\(\\underline{\\hspace{3cm}}\\)",
   "source": "import_v6",
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 \\(y \\geq -2\\)，则微分方程 \\(x' - \\sqrt{x+y^2} = -2y\\) 满足 \\(x(0) = 1\\) 的特解为 \\(\\underline{\\hspace{3cm}}\\)"
 }

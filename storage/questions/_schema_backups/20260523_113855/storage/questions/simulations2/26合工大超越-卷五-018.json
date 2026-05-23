@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷五-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "定积分证明"
+  ],
+  "tags": [
+    "定积分证明"
+  ],
+  "question": "(本题满分12分)\n$(1)$ 设 $f(x),g(x)$ 在 $[0,a]$ 上连续，且 $f(x)=f(a-x)$，$g(x)+g(a-x)=k$。证明 $\\int_0^a f(x)g(x)dx = \\frac{k}{2}\\int_0^a f(x)dx$；\n$(2)$ 计算 $\\int_0^{\\frac{\\pi}{2}} \\sin^4 4x \\cdot \\ln(1+\\tan x) dx$.",
+  "standard_answer": "(I) 证明略\\n(II) $\\frac{\\pi}{16}\\ln 2$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五",
+  "__cached_at__": 1779500074.489265
+}

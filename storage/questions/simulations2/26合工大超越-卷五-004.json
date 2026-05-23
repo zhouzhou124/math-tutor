@@ -23,5 +23,7 @@
   "standard_answer": "B",
   "source": "import_hegongda_v5",
   "solution_steps": [],
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "$4.$ 设平面曲线 $L$ 为星形线 $x^{\\frac{2}{3}}+y^{\\frac{2}{3}}=1$，取顺时针方向，则 $I=\\oint_L \\frac{x dy - y dx}{4x^2+y^2}=$ $(A)$ $0$ $(B)$ $-\\pi$ $(C)$ $-2\\pi$ $(D)$ $\\pi$",
+  "raw_answer_text": "B"
 }

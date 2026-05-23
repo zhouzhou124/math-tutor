@@ -24,5 +24,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "volume": "卷二",
-  "__cached_at__": 1779466026.0438483
+  "__cached_at__": 1779466026.0438483,
+  "raw_question_text": "设 $z = (x^2 + y^2)e^{-xy}$，$g(x,y) = \\frac{\\partial^2 z}{\\partial x^2} - \\frac{\\partial^2 z}{\\partial y^2}$，区域 $D = \\{(x,y) \\mid 0<x<1, 0<y<1-x\\}$，在 $D$ 内取两点 $(x_1,y_1),(x_2,y_2)$，则 $g(x_1,y_1) \\le g(x_2,y_2)$ 的一个充分条件为",
+  "raw_answer_text": "D"
 }

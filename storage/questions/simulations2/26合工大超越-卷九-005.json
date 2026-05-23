@@ -1,0 +1,31 @@
+{
+  "question_id": "26合工大超越-卷九-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "特征值",
+    "行列式"
+  ],
+  "tags": [
+    "特征值",
+    "行列式"
+  ],
+  "question": "$5.$ 设 $A=(a_{ij})$ 为 $3$ 阶非零矩阵；若存在非零列向量 $\\alpha_i$，满足 $A\\alpha_i=i\\alpha_i$，$(i=1,2,3)$，$A_{ij}$ 为 $|A|$ 的元素 $a_{ij}$ 的代数余子式，则 $A_{11}+A_{22}+A_{33}=$ \n$(A)$ 6 \n$(B)$ 11 \n$(C)$ 12 \n$(D)$ 36",
+  "options": {
+    "A": "6",
+    "B": "11",
+    "C": "12",
+    "D": "36"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$5.$ 设 $A=(a_{ij})$ 为 $3$ 阶非零矩阵；若存在非零列向量 $\\alpha_i$，满足 $A\\alpha_i=i\\alpha_i$，$(i=1,2,3)$，$A_{ij}$ 为 $|A|$ 的元素 $a_{ij}$ 的代数余子式，则 $A_{11}+A_{22}+A_{33}=$ \n$(A)$ 6 \n$(B)$ 11 \n$(C)$ 12 \n$(D)$ 36",
+  "raw_answer_text": "B"
+}

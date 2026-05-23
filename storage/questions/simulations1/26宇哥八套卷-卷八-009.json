@@ -22,5 +22,7 @@
   "tags": [
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X \\sim N(0,1)$，则与 $Y = \\begin{cases} X, & |X|\\le 1 \\\\ -X, & |X|>1 \\end{cases}$ 同分布的是",
+  "raw_answer_text": "A"
 }

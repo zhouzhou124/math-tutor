@@ -15,5 +15,7 @@
     "定积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "$$\\int_1^2 \\frac{1}{x^3} e^{\\frac{1}{x}} dx =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\frac{3}{2}e^{\\frac{1}{2}} - \\frac{1}{2}e$"
 }

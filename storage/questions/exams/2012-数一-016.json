@@ -14,5 +14,7 @@
   "tags": [
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "求函数 $f(x,y) = x e^{-\\frac{x^2+y^2}{2}}$ 的极值。",
+  "raw_answer_text": "极大值 $f(1,0) = e^{-\\frac{1}{2}}$，极小值 $f(-1,0) = -e^{-\\frac{1}{2}}$"
 }

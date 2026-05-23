@@ -1,0 +1,22 @@
+{
+  "question_id": "2020-数一-009",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 9,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$9.$ $\\lim_{x\\to0}(\\frac{1}{e^x-1}-\\frac{1}{\\ln(1+x)})=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 极限与连续 数学概念: 对数指数函数 极限 中等难度 4分题 2020-数一-009"
+}

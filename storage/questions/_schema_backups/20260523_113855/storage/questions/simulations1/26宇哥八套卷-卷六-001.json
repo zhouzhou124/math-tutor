@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-001",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "$f(x,y) = x^{4} + y^{4} - (x + y)^{2}$ 有",
+  "source": "import_v6",
+  "options": {
+    "A": "$2$ 个极小值点,$1$ 个极大值点",
+    "B": "$1$ 个极小值点,$1$ 个极大值点",
+    "C": "$3$ 个极小值点,无极大值点",
+    "D": "$2$ 个极小值点,无极大值点"
+  },
+  "correct_option": "D"
+}

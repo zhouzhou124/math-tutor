@@ -20,5 +20,7 @@
   "question_id": "2010-数一-005",
   "tags": [
     "矩阵"
-  ]
+  ],
+  "raw_question_text": "设 $A$ 为 $m\\times n$ 矩阵，$B$ 为 $n\\times m$ 矩阵，$E$ 为 $m$ 阶单位矩阵，若 $AB = E$，则",
+  "raw_answer_text": "A"
 }

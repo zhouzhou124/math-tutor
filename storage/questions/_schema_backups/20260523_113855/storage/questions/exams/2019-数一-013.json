@@ -1,0 +1,22 @@
+{
+  "question_id": "2019-数一-013",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$13.$ 设 $A = (\\alpha_1,\\alpha_2,\\alpha_3)$ 为3阶矩阵。若 $\\alpha_1,\\alpha_2$ 线性无关，且 $\\alpha_3 = -\\alpha_1 + 2\\alpha_2$，则线性方程组 $Ax = 0$ 的通解为 $\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 填空题 知识点: 矩阵运算 数学概念: 微分方程求解 中等难度 4分题 2019-数一-013"
+}

@@ -13,5 +13,7 @@
   "question_id": "2011-数一-009",
   "tags": [
     "定积分应用"
-  ]
+  ],
+  "raw_question_text": "曲线 $y = \\int_0^x \\tan t dt$（$0 \\le x \\le \\frac{\\pi}{4}$）的弧长 $s =$ ______",
+  "raw_answer_text": "$\\ln(1+\\sqrt{2})$"
 }

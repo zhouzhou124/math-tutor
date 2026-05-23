@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷七-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "傅里叶级数"
+  ],
+  "tags": [
+    "傅里叶级数"
+  ],
+  "question": "设 $f(x)=e^x$ 在 $[-1,1]$ 上展开成傅里叶级数 $\\frac{a_0}{2}+\\sum_{n=1}^\\infty (a_n\\cos n\\pi x+b_n\\sin n\\pi x)$，则",
+  "options": {
+    "A": "$\\sum a_n,\\sum b_n$ 均绝对收敛",
+    "B": "均条件收敛",
+    "C": "$\\sum a_n$ 绝对收敛，$\\sum b_n$ 条件收敛",
+    "D": "$\\sum a_n$ 条件收敛，$\\sum b_n$ 绝对收敛"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.19535
+}

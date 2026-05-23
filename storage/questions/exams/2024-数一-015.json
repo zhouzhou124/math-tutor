@@ -18,5 +18,6 @@
   "source": "manual_2024",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2024年 填空题 知识点: 二次型 数学概念: 矩阵运算 较难题 5分题 2024-数一-015"
+  "embedding_text": "考研数学一 2024年 填空题 知识点: 二次型 数学概念: 矩阵运算 较难题 5分题 2024-数一-015",
+  "raw_question_text": "$15.$ 已知矩阵 $A=\\begin{pmatrix}a+1& a\\\\ a& a\\end{pmatrix}$，对任意 $\\alpha,\\beta$ 都有 $(\\alpha^T A\\beta)^2\\le\\alpha^T A\\alpha\\cdot\\beta^T A\\beta$，则 $a$ 的取值范围是 $\\underline{\\qquad\\qquad}$"
 }

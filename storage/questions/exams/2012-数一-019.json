@@ -14,5 +14,7 @@
   "tags": [
     "曲线积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "已知 $L$ 是第一象限中从点 $(0,0)$ 沿圆周 $x^2+y^2=2x$ 到点 $(2,0)$，再沿圆周 $x^2+y^2=4$ 到点 $(0,2)$ 的曲线段，计算曲线积分 $I = \\int_L 3x^2y dx + (x^3 + x - 2y) dy$。",
+  "raw_answer_text": "$\\frac{4}{3}$"
 }

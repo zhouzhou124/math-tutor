@@ -1,0 +1,22 @@
+{
+  "question_id": "2014-数一-001",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 下列曲线中有渐近线的是( )\n\n$(A)$ $y=x+\\sin x$\n$(B)$ $y=x^2+\\sin x$\n$(C)$ $y=x+\\sin\\frac{1}{x}$\n$(D)$ $y=x^2+\\sin\\frac{1}{x}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 导数与微分 数学概念: 三角函数 几何应用 曲线渐近线 中等难度 4分题 2014-数一-001"
+}

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷六-013",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "设曲线 \\(\\Gamma\\) 为曲面 \\(x^2 + y^2 + z^2 = 1\\) 与平面 \\(x+y+z=1\\) 的交线，则 $\\oint_{\\Gamma} (y^2 + 2x - z) \\, ds = \\underline{\\hspace{3cm}}$",
+  "source": "import_v6",
+  "options": {}
+}

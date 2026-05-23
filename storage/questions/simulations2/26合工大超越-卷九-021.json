@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷九-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "特征值",
+    "矩阵"
+  ],
+  "tags": [
+    "特征值",
+    "矩阵"
+  ],
+  "question": "$21.$ (本题满分12分) 已知 $3$ 阶实对称矩阵 $A$ 有 $3$ 个互异的特征值 $\\lambda_1,\\lambda_2,\\lambda_3$，对应的特征向量分别为 $x_1,x_2,x_3$，$E$ 为三阶单位阵，记 $a=x_1+2x_2+3x_3$.\n$(1)$ 证明 $a,Aa,A^2a$ 线性无关；\n$(2)$ 若 $A^3a=-2a+Aa+2A^2a$，记 $P=(a,Aa,A^2a)$，求 $A$ 的特征值；\n$(3)$ 记 $B=A^2+E$，其单特征值对应的特征向量为 $\\xi_1=(1,2,-2)^{\\mathrm{T}}$，求矩阵 $B$.",
+  "standard_answer": "(I) 证明略 (II) $\\lambda_1=1,\\lambda_2=-1,\\lambda_3=2$ (III) $B=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$21.$ (本题满分12分) 已知 $3$ 阶实对称矩阵 $A$ 有 $3$ 个互异的特征值 $\\lambda_1,\\lambda_2,\\lambda_3$，对应的特征向量分别为 $x_1,x_2,x_3$，$E$ 为三阶单位阵，记 $a=x_1+2x_2+3x_3$.\n$(1)$ 证明 $a,Aa,A^2a$ 线性无关；\n$(2)$ 若 $A^3a=-2a+Aa+2A^2a$，记 $P=(a,Aa,A^2a)$，求 $A$ 的特征值；\n$(3)$ 记 $B=A^2+E$，其单特征值对应的特征向量为 $\\xi_1=(1,2,-2)^{\\mathrm{T}}$，求矩阵 $B$.",
+  "raw_answer_text": "(I) 证明略 (II) $\\lambda_1=1,\\lambda_2=-1,\\lambda_3=2$ (III) $B=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+}

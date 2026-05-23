@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷九-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "$1.$ “对任意的 $\\varepsilon>0$，只有有限个 $x_n\\in[a-\\varepsilon,a+\\varepsilon]$”是“$\\lim_{n\\to\\infty}x_n=a$”的 \n$(A)$ 充分而非必要条件 \n$(B)$ 必要而非充分条件 \n$(C)$ 充分必要条件 \n$(D)$ 既非充分又非必要条件",
+  "options": {
+    "A": "充分而非必要条件",
+    "B": "必要而非充分条件",
+    "C": "充分必要条件",
+    "D": "既非充分又非必要条件"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$1.$ “对任意的 $\\varepsilon>0$，只有有限个 $x_n\\in[a-\\varepsilon,a+\\varepsilon]$”是“$\\lim_{n\\to\\infty}x_n=a$”的 \n$(A)$ 充分而非必要条件 \n$(B)$ 必要而非充分条件 \n$(C)$ 充分必要条件 \n$(D)$ 既非充分又非必要条件",
+  "raw_answer_text": "C"
+}

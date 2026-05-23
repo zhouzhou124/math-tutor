@@ -21,5 +21,7 @@
   "tags": [
     "定积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $I_k = \\int_0^{k\\pi} e^{x^2} \\sin x dx$ ($k=1,2,3$)，则有\nA. $I_1 < I_2 < I_3$  B. $I_3 < I_2 < I_1$  C. $I_2 < I_3 < I_1$  D. $I_2 < I_1 < I_3$",
+  "raw_answer_text": "D"
 }

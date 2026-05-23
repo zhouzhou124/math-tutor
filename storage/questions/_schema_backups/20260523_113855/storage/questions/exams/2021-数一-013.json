@@ -1,0 +1,22 @@
+{
+  "question_id": "2021-数一-013",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$13.$ 欧拉方程 $x^2y''+xy'-4y=0$ 满足 $y(1)=1,y'(1)=2$ 的解为 $y=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 填空题 知识点: 微分方程 中等难度 5分题 2021-数一-013"
+}

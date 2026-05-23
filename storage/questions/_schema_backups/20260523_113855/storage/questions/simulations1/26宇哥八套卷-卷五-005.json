@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷五-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型"
+  ],
+  "tags": [
+    "二次型"
+  ],
+  "question": "设二次型 $f(x_1,x_2,x_3)=4x_1^2+x_2^2+ax_3^2+2x_1x_2-4x_1x_3+2x_2x_3$ 与 $g(y_1,y_2)=2y_1^2+by_2^2$ 合同，则",
+  "source": "import_v5",
+  "options": {
+    "A": "$a=3,b>0$",
+    "B": "$a=3,b<0$",
+    "C": "$a=4,b>0$",
+    "D": "$a=4,b<0$"
+  },
+  "correct_option": "A"
+}

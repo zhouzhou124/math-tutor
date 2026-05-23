@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "基础",
+  "knowledge_points": [
+    "极限"
+  ],
+  "tags": [
+    "极限"
+  ],
+  "question": "$12.$ 极限 $\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right) = \\_\\_\\_\\_\\_\\_$",
+  "source": "import_2026",
+  "standard_answer": "1",
+  "question_id": "2026-数一-012"
+}

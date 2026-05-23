@@ -18,5 +18,7 @@
     "连续",
     "导数",
     "偏导数"
-  ]
+  ],
+  "raw_question_text": "设函数 $z = f(xy, yg(x))$，其中函数 $f$ 具有二阶连续偏导数，函数 $g(x)$ 可导，且在 $x=1$ 处取得极值 $g(1)=1$.求 $\\left.\\frac{\\partial^2 z}{\\partial x \\partial y}\\right|_{(1,1)}$.",
+  "raw_answer_text": "$f_{11}(1,1) \\cdot g'(1) + f_2(1,1)$"
 }

@@ -25,5 +25,7 @@
   "standard_answer": "A",
   "source": "import_hegongda_v4",
   "solution_steps": [],
-  "volume": "卷四"
+  "volume": "卷四",
+  "raw_question_text": "$5.$ $P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，$P^{\\mathrm{T}} A P^{2026} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$，$n$ 为正整数，则 $A^{2n} =$ $(A)$ $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2^n \\end{pmatrix}$ $(B)$ $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2^n & 0 \\\\ 0 & 0 & 2^n \\end{pmatrix}$ $(C)$ $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2^n & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$ $(D)$ $\\begin{pmatrix} 2^n & 0 & 0 \\\\ 0 & 2^n & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+  "raw_answer_text": "A"
 }

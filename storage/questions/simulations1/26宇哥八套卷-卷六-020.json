@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 Σ 为球面 \\(x^2 + y^2 + z^2 = m\\) 被平面 \\(z = \\frac{\\sqrt{m}}{3}\\) 所截下的顶部，计算\n$$\\iint\\limits_{\\Sigma} (|x|y + \\frac{1}{z}) dS.$$",
   "source": "import_v6",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 Σ 为球面 \\(x^2 + y^2 + z^2 = m\\) 被平面 \\(z = \\frac{\\sqrt{m}}{3}\\) 所截下的顶部，计算\n$$\\iint\\limits_{\\Sigma} (|x|y + \\frac{1}{z}) dS.$$"
 }

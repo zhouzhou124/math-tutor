@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "设 \\( A, B \\) 是 \\( n \\) 阶矩阵，\\( A^*, B^* \\) 分别是 \\( A, B \\) 对应的伴随矩阵，则分块矩阵  $C = \\begin{pmatrix} O & A \\\\ B & O \\end{pmatrix}$的伴随矩阵  $C^* =$",
+  "source": "import_v6",
+  "options": {
+    "A": "$\\begin{pmatrix} O & |A|A^* \\\\ |B|B^* & O \\end{pmatrix}$",
+    "B": "$\\begin{pmatrix} O & (-1)^n |A|B^* \\\\ (-1)^n |B|A^* & O \\end{pmatrix}$",
+    "C": "$\\begin{pmatrix} O & |B|A^* \\\\ |A|B^* & O \\end{pmatrix}$",
+    "D": "$\\begin{pmatrix} O & (-1)^n |B|B^* \\\\ (-1)^n |A|A^* & O \\end{pmatrix}$"
+  },
+  "correct_option": "D"
+}

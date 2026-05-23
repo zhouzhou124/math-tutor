@@ -20,5 +20,6 @@
   "source": "manual_2014",
   "options": {},
   "correct_option": "D",
-  "embedding_text": "考研数学一 2014年 选择题 知识点: 导数与微分 中值定理 中等难度 4分题 2014-数一-002"
+  "embedding_text": "考研数学一 2014年 选择题 知识点: 导数与微分 中值定理 中等难度 4分题 2014-数一-002",
+  "raw_question_text": "$2.$ 设函数 $f(x)$ 具有 $2$ 阶导数，$g(x)=f(0)(1-x)+f(1)x$，则在 $[0,1]$ 上( )\n\n$(A)$ 当 $f'(x) \\ge 0$ 时，$f(x) \\ge g(x)$\n\n$(B)$ 当 $f'(x) \\ge 0$ 时，$f(x) \\le g(x)$\n\n$(C)$ 当 $f''(x) \\ge 0$ 时，$f(x) \\ge g(x)$\n\n$(D)$ 当 $f''(x) \\ge 0$ 时，$f(x) \\le g(x)$"
 }

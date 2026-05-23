@@ -18,5 +18,6 @@
   "source": "manual_2023",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2023年 填空题 知识点: 无穷级数 较难题 5分题 2023-数一-013"
+  "embedding_text": "考研数学一 2023年 填空题 知识点: 无穷级数 较难题 5分题 2023-数一-013",
+  "raw_question_text": "$13.$ 设 $f(x)$ 是周期为 2 的周期函数, 且 $f(x) = 1-x$, $x \\in [0,1]$. 若 $f(x) = \\frac{a_0}{2} + \\sum_{n=1}^\\infty a_n \\cos n\\pi x$, 则 $\\sum_{n=1}^\\infty a_{2n} = \\underline{\\qquad \\qquad}$."
 }

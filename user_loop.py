@@ -58,7 +58,7 @@ class UserLoop:
     def submit_answer(self, question: dict, student_answer: str) -> PracticeResult:
         """提交作答，返回批改结果"""
         qid = question.get("question_id", "")
-        qtext = question.get("question", "")
+        qtext = question.get("raw_question_text") or question.get("question", "")
         std_ans = question.get("standard_answer", "")
         qtype = question.get("question_type", "解答题")
         kp = ", ".join(question.get("knowledge_points", []))

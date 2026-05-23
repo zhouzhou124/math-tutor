@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分10分) 设 $f'(e^x) = \\sin x$，求 $f(x)$ 的表达式.",
   "source": "import_v4",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分10分) 设 $f'(e^x) = \\sin x$，求 $f(x)$ 的表达式."
 }

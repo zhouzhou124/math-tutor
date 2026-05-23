@@ -26,5 +26,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "volume": "卷一",
-  "__cached_at__": 1779464742.75165
+  "__cached_at__": 1779464742.75165,
+  "raw_question_text": "设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ a \\\\ 3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} 3 \\\\ 2 \\\\ b \\end{pmatrix}$，$a,b$ 为实数。已知 $\\beta$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，但不能由 $\\alpha_1,\\alpha_2$ 表示，则",
+  "raw_answer_text": "B"
 }

@@ -21,5 +21,7 @@
   "tags": [
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "函数 $f(x,y) = \\arctan \\frac{x}{y}$ 在点 $(0,1)$ 处的梯度等于",
+  "raw_answer_text": "A"
 }

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷三-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "秩"
+  ],
+  "tags": [
+    "矩阵",
+    "秩"
+  ],
+  "question": "设 $A$ 为 $3\\times 2$ 矩阵，$B$ 为 $2\\times 3$ 矩阵，且 $r(AB)=2$，$(AB)^2=AB$，则下列说法中一定成立的有 ① $BAB=B$；② $ABA=A$；③ $BA=\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$；④ $AB=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$。",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4776695
+}

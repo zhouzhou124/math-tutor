@@ -1,0 +1,25 @@
+{
+  "question_id": "2007-数一-001",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "当 $x\\to 0^+$ 时，与 $\\sqrt{x}$ 等价的无穷小量是",
+  "options": {
+    "A": "$1 - e^{\\frac{1}{x}}$",
+    "B": "$\\ln\\frac{1+x}{1-\\sqrt{x}}$",
+    "C": "$\\sqrt{1+\\sqrt{x}} - 1$",
+    "D": "$1 - \\cos\\sqrt{x}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "正确选项: D. $1 - \\cos\\sqrt{x}$",
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "tags": [
+    "极限与连续"
+  ],
+  "solution_steps": []
+}

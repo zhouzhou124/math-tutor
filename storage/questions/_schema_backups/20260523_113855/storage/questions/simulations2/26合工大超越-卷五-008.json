@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷五-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量",
+    "数字特征"
+  ],
+  "tags": [
+    "随机变量",
+    "数字特征"
+  ],
+  "question": "$8.$ 设随机变量 $X$ 的密度函数为 $f(x)=a e^{\\frac{x(2-x)}{2}}$($-\\infty<x<+\\infty$)，则 $E(X^2 e^x)=$ $(A)$ $4$ $(B)$ $6$ $(C)$ $8$ $(D)$ $10$",
+  "options": {
+    "A": "4",
+    "B": "6",
+    "C": "8",
+    "D": "10"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

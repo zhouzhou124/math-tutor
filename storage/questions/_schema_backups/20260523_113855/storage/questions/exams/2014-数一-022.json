@@ -1,0 +1,22 @@
+{
+  "question_id": "2014-数一-022",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 11,
+  "question": "$22.$ (本题满分11分)设随机变量 $X$ 的概率分布为 $P\\{X = 1\\} = P\\{X = 2\\} = \\frac{1}{2}$。在给定 $X = i$ 的条件下，随机变量 $Y$ 服从均匀分布 $U(0,i)$（$i = 1,2$）。\n\n$(1)$ 求 $Y$ 的分布函数 $F_Y(y)$；\n\n$(2)$ 求 $E(Y)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 解答题 知识点: 随机变量及其分布 数学概念: 概率统计 中等难度 11分题 2014-数一-022"
+}

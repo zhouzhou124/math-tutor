@@ -135,7 +135,7 @@ def generate_choice_explanation(
         解析dict，包含thought_process, option_analysis, knowledge_points等
     """
     correct_option = question.get("correct_option", "")
-    question_text = question.get("question", "")
+    question_text = question.get("raw_question_text") or question.get("question", "")
     knowledge_points = question.get("knowledge_points", [])
 
     # 离线 fallback：从题目文本解析选项内容
@@ -342,7 +342,7 @@ def generate_detailed_answer(
     Returns:
         格式化的详细答案文本（含步骤、知识点、易错提示）
     """
-    question_text = question.get("question", "")
+    question_text = question.get("raw_question_text") or question.get("question", "")
     knowledge_points = ", ".join(question.get("knowledge_points", []))
 
     if not client:

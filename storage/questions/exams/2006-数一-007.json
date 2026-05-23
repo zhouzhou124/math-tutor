@@ -21,5 +21,7 @@
   "tags": [
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设函数 $y=f(x)$ 具有二阶导数，且 $f'(x)>0$，$f''(x)>0$，$\\Delta x$ 为自变量 $x$ 在点 $x_0$ 处的增量，$\\Delta y$ 与 $dy$ 分别为 $f(x)$ 在点 $x_0$ 处对应的增量与微分，若 $\\Delta x>0$，则",
+  "raw_answer_text": "A"
 }

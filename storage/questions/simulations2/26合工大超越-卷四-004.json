@@ -24,5 +24,7 @@
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "volume": "卷四",
-  "__cached_at__": 1779467434.191415
+  "__cached_at__": 1779467434.191415,
+  "raw_question_text": "设 $\\Sigma$ 为球面 $z = \\sqrt{1 - x^2 - y^2}$ 被柱面 $x^2 + y^2 = x$ 所截下的部分，取下侧，则将对坐标曲面积分 $\\iint_{\\Sigma} \\frac{xy dy dz + yz dx dy}{x^2 + y^2 + z^2}$ 化为对面积的曲面积分为",
+  "raw_answer_text": "B"
 }

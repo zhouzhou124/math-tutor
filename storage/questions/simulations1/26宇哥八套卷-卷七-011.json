@@ -16,5 +16,7 @@
     "极限与连续"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "$$\\lim_{n\\to\\infty} \\left[ \\frac{1}{2} + \\frac{1}{6} + \\cdots + \\frac{1}{n(n+1)} \\right]^n =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$e^{-1}$"
 }

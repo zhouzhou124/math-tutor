@@ -25,5 +25,6 @@
     "定积分"
   ],
   "solution_steps": [],
-  "final_answer": "C"
+  "final_answer": "C",
+  "raw_question_text": "已知级数 $\\sum_{n=1}^\\infty u_n(x)$ 的部分和为 $$S_n(x) = \\begin{cases} n, & 0 < x < \\frac{1}{n} \\\\ 0, &\\text{其他} \\end{cases}$$记 $a = \\int_0^1 \\sum_{n=1}^\\infty u_n(x) dx$，$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx$，则"
 }

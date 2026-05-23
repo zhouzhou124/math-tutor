@@ -12,10 +12,13 @@
   "tags": [
     "二重积分极限"
   ],
-  "question": "$11.$ $\\lim_{t\\to 0^+} \\int_0^t dx \\int_x^t (e^{x+y}-e^x-e^y+1) dy = \\underline{\\qquad\\qquad}$",
+  "question": "$$\\lim_{t\\to 0^+} \\int_0^t dx \\int_x^t (e^{x+y}-e^x-e^y+1) dy = \\underline{\\qquad\\qquad}$$",
   "standard_answer": "$\\frac{1}{2}$",
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "__cached_at__": 1779500074.488343,
+  "raw_question_text": "$$\\lim_{t\\to 0^+} \\int_0^t dx \\int_x^t (e^{x+y}-e^x-e^y+1) dy = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$\\frac{1}{2}$"
 }

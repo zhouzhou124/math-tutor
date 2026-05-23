@@ -1,0 +1,25 @@
+{
+  "question_id": "2024-数一-019",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "knowledge_points": [
+    "中值定理",
+    "定积分"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设函数 $f(x)$ 具有二阶导数，且 $f'(0)=f'(1),|f''(x)|\\le1$.证明：\n$(1)$ 当 $x\\in(0,1)$ 时，$|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n$(2)$ $|\\int_0^1 f(x)dx-\\frac{f(0)+f(1)}{2}|\\le\\frac{1}{12}$.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "中值定理",
+    "定积分"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 证明题 知识点: 中值定理 定积分 数学概念: 积分 较难题 12分题 2024-数一-019",
+  "standard_answer": "## 题目重述\n设函数 $f(x)$ 在 $[0,1]$ 上具有二阶导数，且满足 $f'(0)=f'(1)$ 与 $|f''(x)|\\le 1$。证明：\n(1) 当 $x\\in(0,1)$ 时，线性插值误差满足 $|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n(2) 积分近似误差满足 $\\left|\\int_0^1 f(x)\\,\\mathrm{d}x-\\frac{f(0)+f(1)}{2}\\right|\\le\\frac{1}{12}$。\n\n## 标准答案\n(1) $|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n(2) $\\left|\\int_0^1 f(x)\\,\\mathrm{d}x-\\frac{f(0)+f(1)}{2}\\right|\\le\\frac{1}{12}$。\n\n---\n\n**步骤1：分析题意，写出已知与待证**  \n已知：\n- $f(x)$ 在 $[0,1]$ 上有二阶导数；\n- $f'(0)=f'(1)$；\n- $|f''(x)|\\le 1$（对任意 $x\\in[0,1]$）。\n\n待证：\n- (1) 对任意 $x\\in(0,1)$，有 $|f(x)-f(0)(1-x)-f(1)x|\\le\\frac{x(1-x)}{2}$；\n- (2) $\\left|\\int_0^1 f(x)\\,\\mathrm{d}x-\\frac{f(0)+f(1)}{2}\\right|\\le\\frac{1}{12}$。\n\n证明思路：对(1)，构造辅助函数并利用二阶导数条件转化为凸函数性质进行放缩；对(2)，直接对(1)的结论两边积分并放大。\n\n---\n\n**步骤2：证明第(1)问**  \n\n设线性插值函数  \n$$P(x)=f(0)(1-x)+f(1)x,$$  \n并令误差函数  \n$$F(x)=f(x)-P(x)=f(x)-f(0)(1-x)-f(1)x.$$  \n容易验证  \n$$F(0)=f(0)-f(0)=0,\\qquad F(1)=f(1)-f(1)=0,$$  \n且  \n$$F''(x)=f''(x).$$  \n\n为了估计 $F(x)$，构造两个辅助函数：  \n$$G(x)=F(x)+\\frac{x(1-x)}{2},\\qquad H(x)=F(x)-\\frac{x(1-x)}{2}.$$  \n求它们的二阶导数：  \n$$G''(x)=F''(x)+\\bigl[\\tfrac{x(1-x)}{2}\\bigr]''=f''(x)+1,$$  \n$$H''(x)=F''(x)-\\bigl[\\tfrac{x(1-x)}{2}\\bigr]''=f''(x)-1.$$  \n因为 $\\frac{x(1-x)}{2}$ 的二阶导数为 $-1$，此处符号需注意：  \n$$\\left(\\frac{x(1-x)}{2}\\right)'=\\frac{1-2x}{2},\\qquad \\left(\\frac{x(1-x)}{2}\\right)''=-1.$$  \n于是  \n$$G''(x)=f''(x)+1,\\qquad H''(x)=f''(x)-1.$$\n\n由已知 $|f''(x)|\\le 1$ 即 $-1\\le f''(x)\\le 1$，可得  \n$$G''(x)\\ge 0,\\qquad H''(x)\\le 0.$$  \n这说明 $G(x)$ 是 $[0,1]$ 上的凸函数（下凸），$H(x)$ 是 $[0,1]$ 上的凹函数（上凸）。\n\n由凸函数的性质，对任意 $x\\in[0,1]$ 有  \n$$G(x)\\le (1-x)G(0)+xG(1).$$  \n计算边界值：  \n$$G(0)=F(0)+0=0,\\qquad G(1)=F(1)+0=0.$$  \n因此 $G(x)\\le 0$，即  \n$$F(x)+\\frac{x(1-x)}{2}\\le 0\\ \\Longrightarrow\\ F(x)\\le\\frac{x(1-x)}{2}.$$  \n\n由凹函数的性质，对任意 $x\\in[0,1]$ 有  \n$$H(x)\\ge (1-x)H(0)+xH(1).$$  \n边界值：  \n$$H(0)=F(0)-0=0,\\qquad H(1)=F(1)-0=0.$$  \n因此 $H(x)\\ge 0$，即  \n$$F(x)-\\frac{x(1-x)}{2}\\ge 0\\ \\Longrightarrow\\ F(x)\\ge -\\frac{x(1-x)}{2}.$$  \n\n综合以上两式，得到  \n$$-\\frac{x(1-x)}{2}\\le F(x)\\le\\frac{x(1-x)}{2},$$  \n即  \n$$\\bigl|F(x)\\bigr|=\\bigl|f(x)-f(0)(1-x)-f(1)x\\bigr|\\le\\frac{x(1-x)}{2},\\quad x\\in(0,1).$$  \n\n第(1)问得证。\n\n---\n\n**步骤3：证明第(2)问**  \n\n利用第(1)问的结论，对不等式两边在 $[0,1]$ 上积分。首先注意到  \n$$\\int_0^1 \\bigl[f(0)(1-x)+f(1)x\\bigr]\\,\\mathrm{d}x = f(0)\\int_0^1(1-x)\\,\\mathrm{d}x + f(1)\\int_0^1 x\\,\\mathrm{d}x = \\frac{f(0)}{2}+\\frac{f(1)}{2} = \\frac{f(0)+f(1)}{2}.$$  \n\n于是，由绝对值积分不等式得  \n$$\n\\begin{aligned}\n\\left|\\int_0^1 f(x)\\,\\mathrm{d}x - \\frac{f(0)+f(1)}{2}\\right|\n&= \\left|\\int_0^1 \\Bigl[f(x)-f(0)(1-x)-f(1)x\\Bigr]\\,\\mathrm{d}x\\right| \\\\\n&\\le \\int_0^1 \\bigl|f(x)-f(0)(1-x)-f(1)x\\bigr|\\,\\mathrm{d}x.\n\\end{aligned}\n$$  \n\n将第(1)问的估计代入：  \n$$\n\\bigl|f(x)-f(0)(1-x)-f(1)x\\bigr| \\le \\frac{x(1-x)}{2},\n$$  \n所以  \n$$\n\\int_0^1 \\bigl|f(x)-f(0)(1-x)-f(1)x\\bigr|\\,\\mathrm{d}x\n\\le \\int_0^1 \\frac{x(1-x)}{2}\\,\\mathrm{d}x.\n$$  \n\n计算右端积分：  \n$$\n\\int_0^1 \\frac{x(1-x)}{2}\\,\\mathrm{d}x\n= \\frac{1}{2}\\int_0^1 (x-x^2)\\,\\mathrm{d}x\n= \\frac{1}{2}\\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1\n= \\frac{1}{2}\\left( \\frac{1}{2} - \\frac{1}{3} \\right)\n= \\frac{1}{2}\\cdot\\frac{1}{6} = \\frac{1}{12}.\n$$  \n\n因此，  \n$$\n\\left|\\int_0^1 f(x)\\,\\mathrm{d}x - \\frac{f(0)+f(1)}{2}\\right| \\le \\frac{1}{12}.\n$$  \n\n第(2)问得证。\n\n---\n\n## 结论\n证毕。\n\n## 关键知识点\n- 构造辅助函数利用凸函数性质进行不等式估计\n- 凸函数与凹函数的判定（二阶导数非负为上凸/下凸？注意上下凸的定义，此处采用 $f''\\ge0$ 下凸）\n- 定积分的绝对值不等式与估值\n- 线性插值误差的积分估计\n\n## 易错提示\n- 混淆凸函数与凹函数的不等式方向：$f''\\ge0$ 时 $f$ 在连接端点的线段下方，即 $f(t)\\le (1-t)f(0)+tf(1)$。\n- 求二阶导数时漏掉 $\\frac{x(1-x)}{2}$ 的二阶导数为 $-1$。\n- 直接用积分绝对值不等式时忘记加绝对值，或误认为 $\\int|f|\\le|\\int f|$。\n- 忽略验证边界条件 $F(0)=F(1)=0$，导致无法推出 $G(x)\\le0$ 等结论。"
+}

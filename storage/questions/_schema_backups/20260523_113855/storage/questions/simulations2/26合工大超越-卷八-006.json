@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷八-006",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵秩"
+  ],
+  "tags": [
+    "矩阵秩"
+  ],
+  "question": "设 $A,B$ 分别为 $m\\times n$ 与 $n\\times m$ 矩阵，$r(A)=r(B)=m$，则正确个数为① $BA$ 的行向量组与 $B$ 的行向量组等价；② $A^{\\mathrm{T}}B^{\\mathrm{T}}$ 的行向量组与 $B^{\\mathrm{T}}$ 的行向量组等价；③ $BA$ 的列向量组与 $A$ 的列向量组有相同线性相关性；④ $BA$ 的行向量组与 $A$ 的行向量组等价。",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3268895
+}

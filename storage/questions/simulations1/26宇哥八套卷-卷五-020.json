@@ -15,5 +15,6 @@
   ],
   "question": "锥面 $\\Sigma$ 顶点为原点，准线 $\\Gamma:\\{z=y^2,x=1\\}(|y|\\le1)$.\n$(1)$ 求 $\\Sigma$ 的方程；\n$(2)$ 计算 $$I=\\iint_{\\Sigma}2x^2dydz+xydzdx+(z+1)dxdy$$ 取上侧.",
   "source": "import_v5",
-  "options": {}
+  "options": {},
+  "raw_question_text": "锥面 $\\Sigma$ 顶点为原点，准线 $\\Gamma:\\{z=y^2,x=1\\}(|y|\\le1)$.\n$(1)$ 求 $\\Sigma$ 的方程；\n$(2)$ 计算 $$I=\\iint_{\\Sigma}2x^2dydz+xydzdx+(z+1)dxdy$$ 取上侧."
 }

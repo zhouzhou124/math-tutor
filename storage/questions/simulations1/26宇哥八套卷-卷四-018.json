@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 $y = y(x)$ 满足 $[(1+x)y - 1]dx + x(1+x)dy = 0$，$y(1) = \\ln 2$.\n$(1)$ 求 $y = y(x)$ 的表达式及定义域；\n$(2)$ 记 $f(x) = \\int_{-1}^x y(|t|) dt$，求 $f'(0)$.",
   "source": "import_v4",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 $y = y(x)$ 满足 $[(1+x)y - 1]dx + x(1+x)dy = 0$，$y(1) = \\ln 2$.\n$(1)$ 求 $y = y(x)$ 的表达式及定义域；\n$(2)$ 记 $f(x) = \\int_{-1}^x y(|t|) dt$，求 $f'(0)$."
 }

@@ -23,5 +23,7 @@
     "定积分",
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x) = \\int_0^x \\ln(2+t) dt$，则 $f'(x)$ 的零点个数为",
+  "raw_answer_text": "B"
 }

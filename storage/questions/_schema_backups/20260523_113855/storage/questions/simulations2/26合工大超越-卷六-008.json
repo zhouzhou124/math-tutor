@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷六-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率",
+    "独立性"
+  ],
+  "tags": [
+    "概率",
+    "独立性"
+  ],
+  "question": "以下4个结论：① 设 $0<P(A)<1,P(B|A)+P(B|\\bar{A})=1$，则 $\\bar{A}$ 与 $B$ 独立；② 设 $A,B$ 独立，$P(C)=0$，则 $\\bar{A},\\bar{B},C$ 必独立；③ 若 $A,B$ 互不相容，$P(C)>0$，则 $P(\\bar{A}\\bar{B}|C)=1$；④ 若 $A,B,C$ 独立，则 $A$ 和 $B-C$ 独立。正确的个数为",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.54373
+}

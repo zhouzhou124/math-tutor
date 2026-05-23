@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷二-009",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "question": "设随机变量 $X$ 服从参数为 $\\mu, \\sigma^2$ 的正态分布，其概率密度为 $f(x)$，则 $\\int_{-\\infty}^{+\\infty} f(x) \\ln f(x) dx$",
+  "source": "import_v2",
+  "options": {
+    "A": "与 $\\mu$ 有关，与 $\\sigma$ 无关",
+    "B": "与 $\\mu$ 有关，与 $\\sigma$ 有关",
+    "C": "与 $\\mu$ 无关，与 $\\sigma$ 有关",
+    "D": "与 $\\mu$ 无关，与 $\\sigma$ 无关"
+  },
+  "correct_option": "C"
+}

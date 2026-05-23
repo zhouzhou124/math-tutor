@@ -1,0 +1,22 @@
+{
+  "question_id": "2015-数一-019",
+  "year": 2015,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "knowledge_points": [
+    "曲线曲面积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)已知曲线 $L$ 的方程为 $z=\\sqrt{2-x^2-y^2},z=x$，起点 $A(0,\\sqrt2,0)$，终点 $B(0,-\\sqrt2,0)$，计算 $$I=\\int_L(y+z)dx+(z^2-x^2+y)dy+x^2y^2dz.$$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "曲线曲面积分"
+  ],
+  "source": "manual_2015",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2015年 解答题 知识点: 曲线曲面积分 数学概念: 几何应用 积分 较难题 10分题 2015-数一-019"
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "2013-数一-008",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$8.$ 设 $X\\sim t(n),Y\\sim F(1,n)$，给定 $\\alpha(0<\\alpha<0.5)$，常数 $c$ 满足 $P\\{X>c\\}=\\alpha$，则 $P\\{Y>c^2\\}=$( )\n\n$(A)$ $\\alpha$ \\qquad $(B)$ $1-\\alpha$ \\qquad $(C)$ $2\\alpha$ \\qquad $(D)$ $1-2\\alpha$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2013年 选择题 知识点: 数理统计 较难题 4分题 2013-数一-008"
+}

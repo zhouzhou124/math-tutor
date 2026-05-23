@@ -20,5 +20,7 @@
   "question_id": "2011-数一-008",
   "tags": [
     "随机变量"
-  ]
+  ],
+  "raw_question_text": "设随机变量 $X$ 与 $Y$ 相互独立，且 $E(X)$ 与 $E(Y)$ 存在，记 $U = \\max\\{X,Y\\}$，$V = \\min\\{X,Y\\}$，则 $E(UV) =$",
+  "raw_answer_text": "B"
 }

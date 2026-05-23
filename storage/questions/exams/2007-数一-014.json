@@ -15,5 +15,7 @@
     "曲面积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设曲面 $\\Sigma: |x| + |y| + |z| = 1$，则 $$\\iint_{\\Sigma} (x + |y|) dS =\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\frac{4}{3}\\sqrt{3}$"
 }

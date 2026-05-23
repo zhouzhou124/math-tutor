@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-001",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "knowledge_points": [
+    "定积分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$1.$ 若反常积分 $\\int_0^{+\\infty}\\frac{1}{x^a(1+x)^b}dx$ 收敛，则( )\n\n$(A)$ $a<1$ 且 $b>1$ \\qquad $(B)$ $a>1$ 且 $b>1$\n\n$(C)$ $a<1$ 且 $a+b>1$ \\qquad $(D)$ $a>1$ 且 $a+b>1$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "定积分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 定积分 数学概念: 积分 中等难度 4分题 2016-数一-001"
+}

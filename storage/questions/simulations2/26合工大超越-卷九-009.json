@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷九-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量"
+  ],
+  "tags": [
+    "多维随机变量"
+  ],
+  "question": "$9.$ 设二维连续型随机变量 $(X,Y)$ 的分布函数为 $$F(x,y)=\\begin{cases} 0, & x\\le 0 \\text{ 或 } y\\le 0 \\\\ 1-e^{-x}-ye^{-y}, & 0\\le y\\le x \\\\ 1-(1+x)e^{-x}, & 0\\le x\\le y \\end{cases}$$ 则 $P\\{XY-\\frac{1}{2}X-Y+\\frac{1}{2}\\le 0\\}=$ $(A)$ $\\frac{1}{2}(e^{-\\frac{1}{2}}-e^{-1})$ $(B)$ $e^{-\\frac{1}{2}}-e^{-1}$ $(C)$ $2(e^{-\\frac{1}{2}}-e^{-1})$ $(D)$ $2e^{-\\frac{1}{2}}-e^{-1}$",
+  "options": {},
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$9.$ 设二维连续型随机变量 $(X,Y)$ 的分布函数为 $$F(x,y)=\\begin{cases} 0, & x\\le 0 \\text{ 或 } y\\le 0 \\\\ 1-e^{-x}-ye^{-y}, & 0\\le y\\le x \\\\ 1-(1+x)e^{-x}, & 0\\le x\\le y \\end{cases}$$ 则 $P\\{XY-\\frac{1}{2}X-Y+\\frac{1}{2}\\le 0\\}=$ $(A)$ $\\frac{1}{2}(e^{-\\frac{1}{2}}-e^{-1})$ $(B)$ $e^{-\\frac{1}{2}}-e^{-1}$ $(C)$ $2(e^{-\\frac{1}{2}}-e^{-1})$ $(D)$ $2e^{-\\frac{1}{2}}-e^{-1}$",
+  "raw_answer_text": "A"
+}

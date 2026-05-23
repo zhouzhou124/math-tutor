@@ -21,5 +21,6 @@
     "C": "$\\begin{pmatrix} A - B \\\\ 2A + B \\end{pmatrix} x = 0$",
     "D": "$\\begin{pmatrix} A + B \\\\ BA + B^2 \\end{pmatrix} x = 0$"
   },
-  "correct_option": "D"
+  "correct_option": "D",
+  "raw_question_text": "设 $A,B$ 为 $n$ 阶矩阵且 $A^2-A=3E$，则与 $\\begin{pmatrix} A \\\\ B \\end{pmatrix} x = 0$不一定同解的是"
 }

@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷五-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "特征值",
+    "二次型"
+  ],
+  "tags": [
+    "特征值",
+    "二次型"
+  ],
+  "question": "(本题满分12分) $A = \\begin{pmatrix} 1 & 0 & a \\\\ 0 & 1-a & -2 \\\\ -1 & 0 & 2 \\end{pmatrix}$ 特征值为实数。\n$(1)$ 若 $A$ 可对角化，求 $a$ 范围；\n$(2)$ 当 $a<0$ 且 $A$ 不可对角化时，判断二次型 $f=x^{\\mathrm{T}}Ax$ 的正定性.",
+  "standard_answer": "(I) $a \\neq 1$\\n(II) $f$ 为不定二次型",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五",
+  "__cached_at__": 1779500074.489659
+}

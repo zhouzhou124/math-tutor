@@ -20,5 +20,7 @@
   "question_id": "2010-数一-002",
   "tags": [
     "多元函数微分"
-  ]
+  ],
+  "raw_question_text": "设函数 $z = z(x,y)$ 由方程 $F\\left(\\frac{y}{x}, \\frac{z}{x}\\right) = 0$ 确定，其中 $F$ 为可微函数，且 $F'_2 \\neq 0$，则 $x\\frac{\\partial z}{\\partial x} + y\\frac{\\partial z}{\\partial y} =$",
+  "raw_answer_text": "B"
 }

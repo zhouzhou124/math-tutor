@@ -1,0 +1,24 @@
+{
+  "question_id": "2025-数一-015",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "knowledge_points": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$15.$ 设矩阵 $A = \\begin{pmatrix} 4 & -2 & 3 \\\\ 3 & a & -4 \\\\ 5 & 7 & b \\end{pmatrix}$，若方程组 $A^2 x = 0$ 与 $Ax = 0$ 不同解，则 $a - b = \\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 填空题 知识点: 线性方程组 矩阵运算 数学概念: 矩阵运算 较难题 5分题 2025-数一-015"
+}

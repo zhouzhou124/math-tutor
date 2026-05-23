@@ -1,0 +1,25 @@
+{
+  "question_id": "2007-数一-006",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设曲线 $L: f(x,y)=1$（$f(x,y)$ 具有一阶连续偏导数），过第$II$象限内的点 $M$ 和第$IV$象限内的点 $N$，$\\Gamma$ 为 $L$ 上从点 $M$ 到点 $N$ 的一段弧，则下列积分小于零的是",
+  "options": {
+    "A": "$\\int_{\\Gamma} f(x,y) dx$",
+    "B": "$\\int_{\\Gamma} f(x,y) dy$",
+    "C": "$\\int_{\\Gamma} f(x,y) ds$",
+    "D": "$\\int_{\\Gamma} f_x'(x,y) dx + f_y'(x,y) dy$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "solution_steps": []
+}

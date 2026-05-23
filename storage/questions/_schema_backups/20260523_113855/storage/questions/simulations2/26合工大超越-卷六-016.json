@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷六-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "设 $X$ 设随机变量 $X$ 的概率密度为 $$f(x)=\\begin{cases} 2x, & 0<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$ 对 $X$ 进行独立重复的观测，直到第 $3$ 个小于 $\\frac{1}{2}$ 的观测值出现时停止，记 $Y$ 为观测次数，则期望  $EY=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$15$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "__cached_at__": 1779502981.343923
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷十-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "$13.$ $f(x,y)=\\frac{1}{x^2}e^{x-y}$ 的极值点个数为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$13.$ $f(x,y)=\\frac{1}{x^2}e^{x-y}$ 的极值点个数为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$0$"
+}

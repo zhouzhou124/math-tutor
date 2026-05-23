@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷二-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲面积分"
+  ],
+  "tags": [
+    "曲面积分"
+  ],
+  "question": "(本题满分12分) 设 $\\Sigma$ 为曲面 $z = 1 - 4x^2 - 4y^2$（$0\\le x\\le 1$），取上侧，计算对坐标的曲面积分 $$\\iint_{\\Sigma} \\frac{xy^2z dy dz - x^2yz dz dx + (x^2 - y^2)\\ln(x^2+y^2+z^2)}{x^2+y^2+z^2} dx dy$$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0367754
+}

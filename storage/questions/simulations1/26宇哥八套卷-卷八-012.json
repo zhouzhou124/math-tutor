@@ -15,5 +15,7 @@
   "tags": [
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "函数 $u(x,y,z) = xy^2 + z^3 - xyz$ 在点 $P(1,1,1)$ 处沿任意方向的方向导数中，最大值为 ______",
+  "raw_answer_text": "$\\sqrt{6}$"
 }

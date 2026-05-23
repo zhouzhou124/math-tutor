@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量"
+  ],
+  "tags": [
+    "多维随机变量"
+  ],
+  "question": "$9.$ 设二维随机变量 $(X,Y)\\sim N(0,0.4,16,-\\frac{1}{2})$，有下列 4 个命题：① $2X-Y\\sim N(0,48)$；② $\\frac{(2X+Y)^2}{16}\\sim\\chi^2(1)$；③ $\\frac{\\sqrt{3}(2X+Y)}{|2X-Y|}\\sim t(1)$；④ $\\frac{3(2X+Y)^2}{(2X-Y)^2}\\sim F(1,1)$. 正确的个数是 \n$(A)$ 1 \n$(B)$ 2 \n$(C)$ 3 \n$(D)$ 4",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$9.$ 设二维随机变量 $(X,Y)\\sim N(0,0.4,16,-\\frac{1}{2})$，有下列 4 个命题：① $2X-Y\\sim N(0,48)$；② $\\frac{(2X+Y)^2}{16}\\sim\\chi^2(1)$；③ $\\frac{\\sqrt{3}(2X+Y)}{|2X-Y|}\\sim t(1)$；④ $\\frac{3(2X+Y)^2}{(2X-Y)^2}\\sim F(1,1)$. 正确的个数是 \n$(A)$ 1 \n$(B)$ 2 \n$(C)$ 3 \n$(D)$ 4",
+  "raw_answer_text": "B"
+}

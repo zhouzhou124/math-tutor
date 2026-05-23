@@ -1,0 +1,29 @@
+{
+  "question_id": "26宇哥八套卷-卷七-003",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "较难",
+  "score": 5,
+  "question": "已知级数 $\\sum_{n=1}^\\infty u_n(x)$ 的部分和为 $$S_n(x) = \\begin{cases} n, & 0 < x < \\frac{1}{n} \\\\ 0, &\\text{其他} \\end{cases}$$记 $a = \\int_0^1 \\sum_{n=1}^\\infty u_n(x) dx$，$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx$，则",
+  "options": {
+    "A": "$a < b < 1$",
+    "B": "$a < b = 1$",
+    "C": "$0 = b < a$",
+    "D": "$a = b = 0$"
+  },
+  "correct_option": "C",
+  "standard_answer": "",
+  "knowledge_points": [
+    "无穷级数",
+    "定积分"
+  ],
+  "tags": [
+    "无穷级数",
+    "定积分"
+  ],
+  "solution_steps": [],
+  "final_answer": "C"
+}

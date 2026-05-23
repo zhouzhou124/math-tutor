@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0367754
+  "__cached_at__": 1779466026.0367754,
+  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 为曲面 $z = 1 - 4x^2 - 4y^2$（$0\\le x\\le 1$），取上侧，计算对坐标的曲面积分 $$\\iint_{\\Sigma} \\frac{xy^2z dy dz - x^2yz dz dx + (x^2 - y^2)\\ln(x^2+y^2+z^2)}{x^2+y^2+z^2} dx dy$$",
+  "raw_answer_text": "$0$"
 }

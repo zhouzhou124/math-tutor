@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷二-007",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "下列矩阵中，与 $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$ 不相似的是",
+  "source": "import_v2",
+  "options": {
+    "A": "$\\begin{pmatrix} 2 & 0 & -1 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$",
+    "B": "$\\begin{pmatrix} 2 & 0 & 0 \\\\ -1 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "C": "$\\begin{pmatrix} 2 & 1 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$",
+    "D": "$\\begin{pmatrix} 2 & -1 & 0 \\\\ 1 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+  },
+  "correct_option": "D"
+}

@@ -1,0 +1,27 @@
+{
+  "question_id": "26合工大超越-卷五-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "多维随机变量"
+  ],
+  "tags": [
+    "多维随机变量"
+  ],
+  "question": "$$9.$ 设二维随机变量 $(X,Y)$ 的概率密度 $$f(x,y)=\\begin{cases} A x e^{-y}, & 0<x<y<+\\infty \\\\ 0, & \\text{其他} \\end{cases}$$。记 $M=\\max(X,Y),N=\\min(X,Y)$，则 $P(M<2,N<1)=$ $(A)$ $1-\\frac{1}{e}$ $(B)$ $1-\\frac{1}{e}-\\frac{1}{e^2}$ $(C)$ $1-\\frac{2}{e^2}$ $(D)$ $1-\\frac{2}{e}-\\frac{1}{2e^2}$",
+  "options": {
+    "A": "$1-\\frac{1}{e}$",
+    "B": "$1-\\frac{1}{e}-\\frac{1}{e^2}$",
+    "C": "$1-\\frac{2}{e^2}$",
+    "D": "$1-\\frac{2}{e}-\\frac{1}{2e^2}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

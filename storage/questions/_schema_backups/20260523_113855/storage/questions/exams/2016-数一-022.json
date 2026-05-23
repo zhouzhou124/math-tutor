@@ -1,0 +1,24 @@
+{
+  "question_id": "2016-数一-022",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "knowledge_points": [
+    "随机变量及其分布",
+    "多维随机变量"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$22.$ (本题满分11分)设 $(X,Y)$ 在 $D=\\{0<x<1,x^2<y<\\sqrt{x}\\}$ 上均匀分布，$U=I(X\\le Y)$。\n\n$(1)$ 求 $(X,Y)$ 的概率密度；\n\n$(2)$ $U$ 与 $X$ 是否独立？并说明理由；\n\n$(3)$ 求 $Z = U + X$ 的分布函数 $F(z)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布",
+    "多维随机变量"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 随机变量及其分布 多维随机变量 数学概念: 概率统计 较难题 11分题 2016-数一-022"
+}

@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷六-022",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "随机变量函数分布"
+  ],
+  "tags": [
+    "随机变量函数分布"
+  ],
+  "question": "(本题满分12分) 设随机变量 $X$ 的概率密度为 $f_X(x)=\\begin{cases} \\frac{1}{\\sqrt{2\\pi}}e^{-\\frac{x^2}{2}}, & x\\le 0 \\\\ e^{-2x}, & x>0 \\end{cases}$。令 $Z=g(X)=\\begin{cases} X, & X<0 \\\\ X^2, & 0\\le X\\le 1 \\\\ X, & X>1 \\end{cases}$.\n$(1)$ 求 $Z$ 的概率密度；\n$(2)$ 求期望 $EZ$.",
+  "standard_answer": "(I) $$f_Z(z)=\\begin{cases} \\frac{1}{\\sqrt{2\\pi}}e^{-\\frac{z^2}{2}}, & z<0 \\\\ \\frac{1}{2\\sqrt{z}}\\frac{1}{\\sqrt{2\\pi}}e^{-\\frac{z}{2}}+\\frac{1}{2\\sqrt{z}}e^{-2\\sqrt{z}}, & 0<z<1 \\\\ e^{-2z}, & z>1 \\end{cases}$$\\n(II) $EZ=\\frac{1}{\\sqrt{2\\pi}}+\\frac{1}{4}+\\frac{1}{2e^2}$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "__cached_at__": 1779502981.350291
+}

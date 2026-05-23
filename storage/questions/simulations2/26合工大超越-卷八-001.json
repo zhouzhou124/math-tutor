@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-001",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分定义"
+  ],
+  "tags": [
+    "定积分定义"
+  ],
+  "question": "$\\int_0^\\pi \\sin x dx=$ $(A)$ $\\lim_{n\\to\\infty} \\frac{1}{n}(\\sin\\frac{\\pi}{n}+\\cdots+\\sin\\frac{n\\pi}{n})$ $(B)$ $\\lim_{n\\to\\infty} \\frac{1}{n}(\\sin\\frac{\\pi}{2n}+\\cdots+\\sin\\frac{(2n-1)\\pi}{2n})$ $(C)$ $\\lim_{n\\to\\infty} \\frac{\\pi}{n}(\\sin\\frac{\\pi}{2n}+\\cdots+\\sin\\frac{(n-1)\\pi}{2n})$ $(D)$ $\\lim_{n\\to\\infty} \\frac{\\pi}{2n}(\\sin\\frac{\\pi}{n}+\\cdots+\\sin\\frac{(n-1)\\pi}{n})$",
+  "options": {},
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "raw_question_text": "$\\int_0^\\pi \\sin x dx=$ $(A)$ $\\lim_{n\\to\\infty} \\frac{1}{n}(\\sin\\frac{\\pi}{n}+\\cdots+\\sin\\frac{n\\pi}{n})$ $(B)$ $\\lim_{n\\to\\infty} \\frac{1}{n}(\\sin\\frac{\\pi}{2n}+\\cdots+\\sin\\frac{(2n-1)\\pi}{2n})$ $(C)$ $\\lim_{n\\to\\infty} \\frac{\\pi}{n}(\\sin\\frac{\\pi}{2n}+\\cdots+\\sin\\frac{(n-1)\\pi}{2n})$ $(D)$ $\\lim_{n\\to\\infty} \\frac{\\pi}{2n}(\\sin\\frac{\\pi}{n}+\\cdots+\\sin\\frac{(n-1)\\pi}{n})$",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷六-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "间断点"
+  ],
+  "tags": [
+    "间断点"
+  ],
+  "question": "下列函数中，点 $x=0$ 是可去间断点的数是① $f(x)=\\frac{\\ln|x|}{\\cot x}$；② $f(x)=\\frac{d(\\int_{-1}^x g(t)dt)}{dx},g(t)=\\begin{cases} 1, & t\\neq 0 \\\\ 0, & t=0 \\end{cases}$；③ $f(x)=\\lim_{n\\to\\infty}[\\frac{1}{n}\\ln(1+ne^{nx})+\\frac{\\sin x+e^{nx}}{1+e^{2nx}}]$。",
+  "options": {
+    "A": "①②",
+    "B": "②③",
+    "C": "①③",
+    "D": "①②③"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501635.7878196
+}

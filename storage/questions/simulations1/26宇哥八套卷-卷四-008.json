@@ -21,5 +21,6 @@
     "C": "$3$",
     "D": "$4$"
   },
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "设 $F_n(x) = \\frac{\\nu_n(x)}{n}$，其中 $\\nu_n(x)$ 表示 $n$ 个观测值中不大于 $x$ 的个数。$F(x)$ 是分布函数，则：\\textcircled{1} $E[F_n(x)] = F(x)$；\\textcircled{2} $F_n(x) \\xrightarrow{P} F(x)$；\\textcircled{3} $F_n(x)$ 是一个分布函数；\\textcircled{4} $F_n(x)$ 是一个统计量。正确个数为"
 }

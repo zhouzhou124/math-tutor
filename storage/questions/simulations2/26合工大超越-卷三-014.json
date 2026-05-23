@@ -12,11 +12,12 @@
   "tags": [
     "反常积分"
   ],
-  "question": "$$\\int_{-\\infty}^{0} \\frac{e^{\\frac{z}{\\xi}}}{1+e^{\\frac{z}{\\xi}}+e^{\\frac{z}{\\eta}}} d\\xi = \\underline{\\qquad\\qquad}$$",
+  "question": "$$\\int_{-\\infty}^{0} \\frac{e^{\\frac{x}{6}}}{1+e^{\\frac{x}{2}}+e^{\\frac{x}{3}}+e^{\\frac{x}{6}}} dx = \\underline{\\qquad\\qquad}$$",
   "standard_answer": "$\\ln\\frac{1+e^{\\frac{z}{\\eta}}}{1+e^{\\frac{z}{\\xi}}}$",
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
-  "__cached_at__": 1779466679.5044472
+  "raw_question_text": "$$\\int_{-\\infty}^{0} \\frac{e^{\\frac{x}{6}}}{1+e^{\\frac{x}{2}}+e^{\\frac{x}{3}}+e^{\\frac{x}{6}}} dx = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$\\ln\\frac{1+e^{\\frac{z}{\\eta}}}{1+e^{\\frac{z}{\\xi}}}$"
 }

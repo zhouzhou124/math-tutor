@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷六-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分"
+  ],
+  "tags": [
+    "定积分"
+  ],
+  "question": "$11.$ 设 $f(x)$ 在 $[1,+\\infty)$ 内连续，且 $2xf(x^2)=f(x)+\\frac{1}{x}$，则 $\\int_1^4 f(x)dx = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\ln 2$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "raw_question_text": "$11.$ 设 $f(x)$ 在 $[1,+\\infty)$ 内连续，且 $2xf(x^2)=f(x)+\\frac{1}{x}$，则 $\\int_1^4 f(x)dx = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\ln 2$"
+}

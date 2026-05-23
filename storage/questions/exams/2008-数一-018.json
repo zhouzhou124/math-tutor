@@ -17,5 +17,7 @@
     "导数与微分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $f(x)$ 是连续函数，\n$(1)$ 利用定义证明函数 $F(x) = \\int_0^x f(t) dt$ 可导，且 $F'(x) = f(x)$；\n$(2)$ 当 $f(x)$ 是以$2$为周期的周期函数时，证明 $G(x) = 2\\int_0^x f(t) dt - x \\int_0^2 f(t) dt$ 也是以$2$为周期的周期函数.",
+  "raw_answer_text": "证明略"
 }

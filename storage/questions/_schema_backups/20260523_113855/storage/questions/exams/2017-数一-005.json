@@ -1,0 +1,24 @@
+{
+  "question_id": "2017-数一-005",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$5.$ 设 $\\alpha$ 为 $n$ 维单位列向量，$E$ 为 $n$ 阶单位矩阵，则( )\n\n$(A)$ $E-\\alpha\\alpha^T$ 不可逆 \\qquad $(B)$ $E+\\alpha\\alpha^T$ 不可逆\n\n$(C)$ $E+2\\alpha\\alpha^T$ 不可逆 \\qquad $(D)$ $E-2\\alpha\\alpha^T$ 不可逆",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "特征值与特征向量"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2017年 选择题 知识点: 矩阵运算 特征值与特征向量 数学概念: 矩阵运算 中等难度 4分题 2017-数一-005"
+}

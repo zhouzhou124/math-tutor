@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷六-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "积分方程"
+  ],
+  "tags": [
+    "积分方程"
+  ],
+  "question": "$17.$ (本题满分10分) 设连续函数 $f(x)$ 满足 $f(x)=\\sin x+\\frac{1}{2}\\int_x^\\pi f(y)f(y-x)dy$，求 $I=\\int_0^\\pi f(x)dx$。",
+  "standard_answer": "$I=2$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六"
+}

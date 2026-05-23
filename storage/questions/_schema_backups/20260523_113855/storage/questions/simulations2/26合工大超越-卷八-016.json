@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷八-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "$X$ 设随机变量 $X$ 的分布函数为 $F(x)$，且 $F(0)=0.3$，$F(1)=0.8$，$F(2)=0.9$，$F(3)=1$，则 $E(X^2)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$2.5$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.2910447
+}

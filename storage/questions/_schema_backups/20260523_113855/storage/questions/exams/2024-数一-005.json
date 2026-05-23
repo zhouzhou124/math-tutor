@@ -1,0 +1,27 @@
+{
+  "question_id": "2024-数一-005",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $A$ 为 $n$ 阶矩阵，$A^*$ 为 $A$ 的伴随矩阵，则（ ）",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算"
+  ],
+  "source": "manual_2024",
+  "options": {
+    "A": "$r(A^*)=r(A)$",
+    "B": "$r(A^*)=n-r(A)$",
+    "C": "$r(A^*)=\\begin{cases}n,&r(A)=n\\\\1,&r(A)=n-1\\\\0,&r(A)<n-1\\end{cases}$",
+    "D": "$r(A^*)=\\begin{cases}n,&r(A)=n\\\\0,&r(A)<n\\end{cases}$"
+  },
+  "correct_option": "C",
+  "embedding_text": "考研数学一 2024年 选择题 知识点: 矩阵运算 数学概念: 矩阵运算 中等难度 5分题 2024-数一-005"
+}

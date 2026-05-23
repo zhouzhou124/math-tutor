@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷二-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "秩"
+  ],
+  "tags": [
+    "矩阵",
+    "秩"
+  ],
+  "question": "设 $A,B$ 为三阶非零矩阵，$r(A)+r(B) \\le 3$，则下列说法正确的是",
+  "options": {
+    "A": "$\\begin{pmatrix} A \\\\ B \\end{pmatrix}x = 0$ 与 $Ax=0$ 有公共非零解",
+    "B": "$\\begin{pmatrix} A \\\\ B \\end{pmatrix}x = 0$ 与 $Bx=0$ 没有公共非零解",
+    "C": "$\\begin{pmatrix} B \\\\ BA \\end{pmatrix}x = 0$ 与 $Bx=0$ 同解",
+    "D": "$\\begin{pmatrix} A \\\\ BA \\end{pmatrix}x = 0$ 与 $Ax=0$ 同解"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0539255
+}

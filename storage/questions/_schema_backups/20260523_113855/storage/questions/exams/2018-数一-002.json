@@ -1,0 +1,24 @@
+{
+  "question_id": "2018-数一-002",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "多元函数微分",
+    "向量代数与空间解析几何"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$2.$ 过点 $(1,0,0),(0,1,0)$，且与曲面 $z=x^2+y^2$ 相切的平面为( )\n\n$(A)$ $z=0$ 与 $x+y-z=1$\n\n$(B)$ $z=0$ 与 $2x+2y-z=2$\n\n$(C)$ $x=y$ 与 $x+y-z=1$\n\n$(D)$ $x=y$ 与 $2x+2y-z=2$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分",
+    "向量代数与空间解析几何"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 多元函数微分 向量代数与空间解析几何 数学概念: 几何应用 中等难度 4分题 2018-数一-002"
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "26宇哥八套卷-卷六-004",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "设函数 $f(t)$ 连续，令 $F(x,y) = \\int_{0}^{y - x}(y - x - t)f(t)\\mathrm{d}t$，则",
+  "source": "import_v6",
+  "options": {
+    "A": "$\\frac{\\partial F}{\\partial x} = \\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = \\frac{\\partial^{2}F}{\\partial y^{2}}$",
+    "B": "$\\frac{\\partial F}{\\partial x} = \\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = -\\frac{\\partial^{2}F}{\\partial y^{2}}$",
+    "C": "$\\frac{\\partial F}{\\partial x} = -\\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = \\frac{\\partial^{2}F}{\\partial y^{2}}$",
+    "D": "$\\frac{\\partial F}{\\partial x} = -\\frac{\\partial F}{\\partial y},\\ \\frac{\\partial^{2}F}{\\partial x^{2}} = -\\frac{\\partial^{2}F}{\\partial y^{2}}$"
+  },
+  "correct_option": "C"
+}

@@ -1,0 +1,21 @@
+{
+  "question_id": "2006-数一-001",
+  "year": 2006,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$$\\lim_{x\\to 0} \\frac{x\\ln(1+x)}{1-\\cos x} =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "standard_answer": "## 题目重述\n求极限 $\\lim\\limits_{x\\to 0} \\dfrac{x\\ln(1+x)}{1-\\cos x}$ 的值。\n\n## 标准答案\n$2$\n\n步骤1：判断未定式类型并选择方法\n当 $x\\to 0$ 时，分子 $x\\ln(1+x)\\to 0\\cdot\\ln1=0$，分母 $1-\\cos x\\to 1-1=0$，该极限为 $\\frac{0}{0}$ 型未定式。由于表达式中含有常见的可等价替换无穷小量，优先考虑使用等价无穷小替换简化计算。\n\n步骤2：写出常用等价无穷小替换公式\n当 $x\\to 0$ 时，有下列等价关系：\n- $\\ln(1+x)\\sim x$\n- $1-\\cos x\\sim \\dfrac{1}{2}x^{2}$\n\n步骤3：等价替换并化简极限\n将上述等价无穷小代入原极限：\n$$\n\\lim_{x\\to 0} \\frac{x\\ln(1+x)}{1-\\cos x}\n= \\lim_{x\\to 0} \\frac{x\\cdot x}{\\dfrac{1}{2}x^{2}}\n= \\lim_{x\\to 0} \\frac{x^{2}}{\\dfrac{1}{2}x^{2}}.\n$$\n约去分子分母中的公因子 $x^{2}$（$x\\neq 0$）得：\n$$\n\\lim_{x\\to 0} \\frac{1}{\\dfrac{1}{2}} = 2.\n$$\n\n## 结论\n$\\lim\\limits_{x\\to 0} \\dfrac{x\\ln(1+x)}{1-\\cos x} = 2$。\n\n## 关键知识点\n- $\\frac{0}{0}$ 型未定式的识别\n- 常用等价无穷小替换：$\\ln(1+x)\\sim x$，$1-\\cos x\\sim \\frac{1}{2}x^2\\ (x\\to 0)$\n- 等价无穷小替换在乘除法中的直接应用\n\n## 易错提示\n- 错误记忆 $1-\\cos x$ 的等价形式，写成 $\\sim x^2$ 而漏掉系数 $\\frac12$，导致结果变为 $1$\n- 在加减法情形下滥用等价无穷小替换（本题为乘除结构，替换安全）\n- 忘记验证替换条件：必须确认无穷小量趋于零，且替换前后极限运算合法",
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "tags": [
+    "极限与连续"
+  ],
+  "solution_steps": [],
+  "options": {},
+  "_original_answer": "2",
+  "_ai_expanded_at": "2026-05-21 23:45"
+}

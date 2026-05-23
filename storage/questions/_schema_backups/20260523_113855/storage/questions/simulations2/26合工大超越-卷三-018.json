@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷三-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "微分方程",
+    "曲线积分"
+  ],
+  "tags": [
+    "微分方程",
+    "曲线积分"
+  ],
+  "question": "(本题满分12分) 设 $f(x)$ 具有二阶连续导数，$f(0)=1$，$f'(0)=\\frac{1}{2}$。可微函数 $u(x,y)$ 的全微分为 $du(x,y)=[f'(x+y)-e^{x+y}]dx + [\\int_0^{x+y} f(t)dt + 2y]dy$.\n$(1)$ 求 $f(x)$；\n$(2)$ 求 $u(x,y)$；\n$(3)$ 计算曲线积分 $I=\\int_{(0,0)}^{(1,1)} [f'(x+y)-e^{x+y}]dx + [\\int_0^{x+y} f(t)dt + 2y]dy$.",
+  "standard_answer": "(I) $f(x)=e^{\\frac{x}{2}}$\\n(II) $u(x,y)=e^{\\frac{x+y}{2}} - e^{x+y} + y^2 + C$\\n(III) $I = e - e^2 + 1$",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4809988
+}

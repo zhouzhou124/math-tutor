@@ -19,5 +19,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
-  "volume": "卷二"
+  "volume": "卷二",
+  "raw_question_text": "$15.$ 设随机变量 $X_1$ 与 $X_2$ 相互独立，$X_1 \\sim \\begin{pmatrix} -1 & 1 \\\\ \\frac{1}{2} & \\frac{1}{2} \\end{pmatrix}$，$X_2 \\sim N(0,1)$，$Z = X_1 X_2^2$，则 $X_1$ 与 $Z$ 的相关系数 $\\rho_{X_1,Z} = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$0$"
 }

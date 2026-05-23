@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-019",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "空间解析几何",
+    "曲面积分"
+  ],
+  "tags": [
+    "空间解析几何",
+    "曲面积分"
+  ],
+  "question": "$19.$ (本题满分12分) 设 $l_1:\\frac{x-2}{1}=\\frac{y-3}{2}=\\frac{z-2}{2}$ 与 $l_2:\\frac{x-1}{1}=\\frac{y-1}{1}=\\frac{z}{0}$，\n$(1)$ 求 $l_1,l_2$ 的交点和夹角。\n$(2)$ 设 $\\Sigma$ 为 $l_1$ 绕 $l_2$ 旋转一周所得曲面，求 $\\Sigma$ 的方程。\n$(3)$ 取 $\\Sigma_1$ 为 $\\Sigma$ 被平面 $x+y=2$ 和 $x+y=4$ 截下且位于第一卦限的有界部分，物体占有 $\\Sigma_1$ 的区域，其密度函数为 $\\rho(x,y,z)=z$，求物体的质量 $M$。",
+  "standard_answer": "(I) 交点为 $(1,1,0)$，夹角为 $\\frac{\\pi}{4}$ (II) $\\Sigma: (x-1)^2+(y-1)^2+(z-0)^2=2$ (III) $M=\\frac{8}{3}\\pi$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$19.$ (本题满分12分) 设 $l_1:\\frac{x-2}{1}=\\frac{y-3}{2}=\\frac{z-2}{2}$ 与 $l_2:\\frac{x-1}{1}=\\frac{y-1}{1}=\\frac{z}{0}$，\n$(1)$ 求 $l_1,l_2$ 的交点和夹角。\n$(2)$ 设 $\\Sigma$ 为 $l_1$ 绕 $l_2$ 旋转一周所得曲面，求 $\\Sigma$ 的方程。\n$(3)$ 取 $\\Sigma_1$ 为 $\\Sigma$ 被平面 $x+y=2$ 和 $x+y=4$ 截下且位于第一卦限的有界部分，物体占有 $\\Sigma_1$ 的区域，其密度函数为 $\\rho(x,y,z)=z$，求物体的质量 $M$。",
+  "raw_answer_text": "(I) 交点为 $(1,1,0)$，夹角为 $\\frac{\\pi}{4}$ (II) $\\Sigma: (x-1)^2+(y-1)^2+(z-0)^2=2$ (III) $M=\\frac{8}{3}\\pi$"
+}

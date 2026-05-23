@@ -14,11 +14,13 @@
     "矩阵方程",
     "二次型"
   ],
-  "question": "(本题满分12分) 设 $A=\\begin{pmatrix} 1 & -1 \\\\ 1 & 1 \\\\ a & b \\end{pmatrix}$，$C=\\begin{pmatrix} 1 & 1 & a \\\\ 1 & 2 & 1 \\\\ a & 1 & 1 \\end{pmatrix}$。\n$(1)$ 求参数 $a,b$，使得存在矩阵 $B$，满足 $AB=C$;\n$(2)$ 求矩阵 $B$;\n$(3)$ 令 $x=(x_1,x_2)^{\\mathrm{T}}$，求二次型 $f=x^{\\mathrm{T}}BAx$ 的正负惯性指数.",
+  "question": "(本题满分12分) 设 $A=\\begin{pmatrix} 1 & -1 \\\\ 1 & 1 \\\\ a & b \\end{pmatrix}$，$C=\\begin{pmatrix} 1 & 1 & a \\\\ 1 & 2 & 1 \\\\ a & 1 & 1 \\end{pmatrix}$。\n$(1)$ 求参数 $a,b$，使得存在矩阵 $B$，满足 $AB=C$;\n$(2)$ 求矩阵 $B$;\n$(3)$ 令 $x=\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}$，求二次型 $f=x^{\\mathrm{T}}BAx$ 的正负惯性指数.",
   "standard_answer": "(I) $a=1$，$b=0$\\n(II) $B = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$\\n(III) 正惯性指数为2，负惯性指数为0",
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
-  "__cached_at__": 1779466679.511154
+  "__cached_at__": 1779466679.511154,
+  "raw_question_text": "(本题满分12分) 设 $A=\\begin{pmatrix} 1 & -1 \\\\ 1 & 1 \\\\ a & b \\end{pmatrix}$，$C=\\begin{pmatrix} 1 & 1 & a \\\\ 1 & 2 & 1 \\\\ a & 1 & 1 \\end{pmatrix}$。\n$(1)$ 求参数 $a,b$，使得存在矩阵 $B$，满足 $AB=C$;\n$(2)$ 求矩阵 $B$;\n$(3)$ 令 $x=\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}$，求二次型 $f=x^{\\mathrm{T}}BAx$ 的正负惯性指数.",
+  "raw_answer_text": "(I) $a=1$，$b=0$\\n(II) $B = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$\\n(III) 正惯性指数为2，负惯性指数为0"
 }

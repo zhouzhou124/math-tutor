@@ -21,5 +21,7 @@
   "tags": [
     "二重积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x,y)$ 为连续函数，则 $\\int_0^{\\frac{\\pi}{4}} d\\theta \\int_0^1 f(r\\cos\\theta, r\\sin\\theta) r dr$ 等于",
+  "raw_answer_text": "C"
 }

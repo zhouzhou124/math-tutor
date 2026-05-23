@@ -1,0 +1,24 @@
+{
+  "question_id": "2013-数一-016",
+  "year": 2013,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 16,
+  "knowledge_points": [
+    "无穷级数",
+    "微分方程"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "(本题满分10分)设数列 $\\{a_n\\}$ 满足条件：$a_0 = 3$，$a_1 = 1$，$a_{n-2} - n(n-1)a_n = 0 (n \\ge 2)$，$S(x)$ 是幂级数 $\\sum_{n=0}^\\infty a_n x^n$ 的和函数。\n$(1)$ 证明 $S''(x) - S(x) = 0$\n$(2)$ 求 $S(x)$ 的表达式.",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数",
+    "微分方程"
+  ],
+  "source": "manual_2013",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2013年 解答题 知识点: 无穷级数 微分方程 数学概念: 级数 求和 较难题 10分题 2013-数一-016"
+}

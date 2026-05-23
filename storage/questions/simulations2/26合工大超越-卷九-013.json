@@ -1,0 +1,23 @@
+{
+  "question_id": "26合工大超越-卷九-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数"
+  ],
+  "tags": [
+    "偏导数"
+  ],
+  "question": "$13.$ 设可微函数 $f(x,y)$ 满足 $(\\frac{\\partial f}{\\partial x})^2+(\\frac{\\partial f}{\\partial y})^2=\\frac{1}{x^2+y^2}$，若极坐标系下 $f(x,y)$ 可表示为 $z(r,\\theta)$，则 $r^2(\\frac{\\partial z}{\\partial r})^2+(\\frac{\\partial z}{\\partial \\theta})^2=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$1$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$13.$ 设可微函数 $f(x,y)$ 满足 $(\\frac{\\partial f}{\\partial x})^2+(\\frac{\\partial f}{\\partial y})^2=\\frac{1}{x^2+y^2}$，若极坐标系下 $f(x,y)$ 可表示为 $z(r,\\theta)$，则 $r^2(\\frac{\\partial z}{\\partial r})^2+(\\frac{\\partial z}{\\partial \\theta})^2=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$1$"
+}

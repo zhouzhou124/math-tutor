@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-007",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "二次型"
+  ],
+  "tags": [
+    "二次型"
+  ],
+  "question": "$7.$ 设 $n$ 元二次型 $f(x_1,x_2,\\dots,x_n)=(\\sum_{i=1}^n x_i^2 + a_1 x_1)^2 + (\\sum_{i=1}^n x_i^2 + a_2 x_2)^2 + \\cdots + (\\sum_{i=1}^n x_i^2 + a_n x_n)^2$，其中 $a_i\\neq0 (i=1,2,\\dots,n)$，若二次型正定，则 \n$(A)$ $1+\\sum_{i=1}^n \\frac{1}{a_i}=0$ \n$(B)$ $1+\\sum_{i=1}^n \\frac{1}{a_i}\\neq0$ \n$(C)$ $1+\\sum_{i=1}^n a_i=0$ \n$(D)$ $1+\\sum_{i=1}^n a_i\\neq0$",
+  "options": {
+    "A": "$1+\\sum_{i=1}^n \\frac{1}{a_i}=0$",
+    "B": "$1+\\sum_{i=1}^n \\frac{1}{a_i}\\neq0$",
+    "C": "$1+\\sum_{i=1}^n a_i=0$",
+    "D": "$1+\\sum_{i=1}^n a_i\\neq0$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$7.$ 设 $n$ 元二次型 $f(x_1,x_2,\\dots,x_n)=(\\sum_{i=1}^n x_i^2 + a_1 x_1)^2 + (\\sum_{i=1}^n x_i^2 + a_2 x_2)^2 + \\cdots + (\\sum_{i=1}^n x_i^2 + a_n x_n)^2$，其中 $a_i\\neq0 (i=1,2,\\dots,n)$，若二次型正定，则 \n$(A)$ $1+\\sum_{i=1}^n \\frac{1}{a_i}=0$ \n$(B)$ $1+\\sum_{i=1}^n \\frac{1}{a_i}\\neq0$ \n$(C)$ $1+\\sum_{i=1}^n a_i=0$ \n$(D)$ $1+\\sum_{i=1}^n a_i\\neq0$",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-015",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "线性方程组"
+  ],
+  "tags": [
+    "矩阵",
+    "线性方程组"
+  ],
+  "question": "$15.$ 设矩阵 $A=\\begin{pmatrix} 1 & a+1 & a \\\\ 1 & a+1 & 1 \\\\ a & 0 & 1 \\end{pmatrix}$ 不可逆，$B=(0\\ 1\\ b)$，已知 $Ax=0$ 的解均是 $Bx=0$ 的解，则 $(a,b)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$(1,1)$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$15.$ 设矩阵 $A=\\begin{pmatrix} 1 & a+1 & a \\\\ 1 & a+1 & 1 \\\\ a & 0 & 1 \\end{pmatrix}$ 不可逆，$B=(0\\ 1\\ b)$，已知 $Ax=0$ 的解均是 $Bx=0$ 的解，则 $(a,b)=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$(1,1)$"
+}

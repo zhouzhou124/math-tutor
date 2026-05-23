@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷二-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率",
+    "条件概率"
+  ],
+  "tags": [
+    "概率",
+    "条件概率"
+  ],
+  "question": "设随机事件 $A,B$ 满足 $P(B)=0.3$，$P(A-B)=0.4$，$P(\\overline{A} \\mid \\overline{B}) + P(A \\mid B) = 1$，则 $P(\\overline{A} \\cup B) =$",
+  "options": {
+    "A": "$\\frac{2}{7}$",
+    "B": "$\\frac{3}{7}$",
+    "C": "$\\frac{3}{5}$",
+    "D": "$\\frac{4}{5}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "volume": "卷二",
+  "__cached_at__": 1779466026.05553
+}

@@ -70,7 +70,7 @@ def _render_record(err, render_latex, i, db=None):
             if _qid and db:
                 try:
                     db_q = db.get(_qid)
-                    if db_q and isinstance(db_q, dict) and db_q.get("question"):
+                    if db_q and isinstance(db_q, dict) and (db_q.get("raw_question_text") or db_q.get("question")):
                         from renderers import render_question
                         render_question(db_q, show_actions=False)
                         _rendered = True

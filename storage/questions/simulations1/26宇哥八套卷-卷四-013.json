@@ -14,5 +14,6 @@
     "多元函数微分学"
   ],
   "question": "$13.$ $z = \\ln(e^{-y} + \\frac{y^2}{x})$ 在点 $(1,1)$ 处沿 $l = (1,0)$ 的方向导数为 ______",
-  "source": "import_v4"
+  "source": "import_v4",
+  "raw_question_text": "$13.$ $z = \\ln(e^{-y} + \\frac{y^2}{x})$ 在点 $(1,1)$ 处沿 $l = (1,0)$ 的方向导数为 ______"
 }

@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷三-014",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "设 $\\Sigma = \\{(x,y,z) \\mid x^2 + y^2 + z^2 = 1, x \\ge 0, y \\ge 0\\}$，指向右侧，则 $\\iint_{\\Sigma} xyz dz dy =$ ______",
+  "source": "import_v3",
+  "options": {}
+}

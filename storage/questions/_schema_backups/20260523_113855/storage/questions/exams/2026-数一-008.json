@@ -1,0 +1,25 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "随机变量的数字特征"
+  ],
+  "tags": [
+    "随机变量的数字特征"
+  ],
+  "question": "$8.$ 设随机变量 $X \\sim N(1,2)$，$f(t) = E[(X + t)^2]$，则 $f(t)$ 的最小值点与最小值为 ( )\n$(A)$ $1,2$ \n$(B)$ $1,4$ \n$(C)$ $-1,2$ \n$(D)$ $-1,4$",
+  "source": "import_2026",
+  "options": {
+    "A": "$1,2$",
+    "B": "$1,4$",
+    "C": "$-1,2$",
+    "D": "$-1,4$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "question_id": "2026-数一-008"
+}

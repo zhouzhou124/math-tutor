@@ -14,7 +14,7 @@
     "二次型",
     "标准形"
   ],
-  "question": "$5.$ 设 $A$ 为3阶实对称矩阵，若 $|A+E|=|A-2E|=-4$，$|A-E|=0$，二次型 $f(x)=x^{\\mathrm{T}}Ax$ 在正交变换下的标准形为 $(A)$ $-y_1^2+2y_2^2+y_3^2$ $(B)$ $5y_1^2+2y_2^2+y_3^2$ $(C)$ $y_1^2+y_2^2-2y_3^2$ $(D)$ $y_1^2+y_2^2+2y_3^2$",
+  "question": "设 $A$ 为3阶实对称矩阵，若 $|A+E|=|A-2E|=-4$，$|A-E|=0$，二次型 $f(x)=x^{\\mathrm{T}}Ax$ 在正交变换下的标准形为",
   "options": {
     "A": "$-y_1^2+2y_2^2+y_3^2$",
     "B": "$5y_1^2+2y_2^2+y_3^2$",
@@ -25,5 +25,8 @@
   "standard_answer": "D",
   "source": "import_hegongda_v5",
   "solution_steps": [],
-  "volume": "卷五"
+  "volume": "卷五",
+  "__cached_at__": 1779499787.717273,
+  "raw_question_text": "设 $A$ 为3阶实对称矩阵，若 $|A+E|=|A-2E|=-4$，$|A-E|=0$，二次型 $f(x)=x^{\\mathrm{T}}Ax$ 在正交变换下的标准形为",
+  "raw_answer_text": "D"
 }

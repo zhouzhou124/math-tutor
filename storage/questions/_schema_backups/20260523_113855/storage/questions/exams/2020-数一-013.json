@@ -1,0 +1,22 @@
+{
+  "question_id": "2020-数一-013",
+  "year": 2020,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "行列式"
+  ],
+  "difficulty": "较难",
+  "score": 4,
+  "question": "$13.$ 行列式 $\\begin{vmatrix}a&0&-1&1\\\\0&a&1&-1\\\\-1&1&a&0\\\\1&-1&0&a\\end{vmatrix}=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "行列式"
+  ],
+  "source": "manual_2020",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2020年 填空题 知识点: 行列式 数学概念: 矩阵运算 较难题 4分题 2020-数一-013"
+}

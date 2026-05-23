@@ -11,6 +11,7 @@ from difflib import SequenceMatcher
 
 from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, STORAGE_DIR
 from .question_db import QuestionDB, make_question_id
+from .question_schema import get_raw_question, set_raw_question, set_raw_answer
 
 IMPORT_LOG_PATH = Path(STORAGE_DIR) / "questions" / "_import_log.json"
 
@@ -207,21 +208,23 @@ class QuestionImporter:
         """自动补全缺失的字段"""
         q = dict(item)
 
+        raw_text = get_raw_question(q)
+
         # 自动推断数学类别
         if not q.get("category"):
-            q["category"] = self._infer_math_type(q.get("question", ""))
+            q["category"] = self._infer_math_type(raw_text)
 
         # 自动推断题型
         if not q.get("question_type"):
-            q["question_type"] = self._infer_question_type(q.get("question", ""))
+            q["question_type"] = self._infer_question_type(raw_text)
 
         # 自动推断年份
         if not q.get("year"):
-            q["year"] = self._infer_year(q.get("question", ""))
+            q["year"] = self._infer_year(raw_text)
 
         # 自动打标签
         if not q.get("knowledge_points"):
-            q["knowledge_points"] = self.db.auto_tag(q.get("question", ""))
+            q["knowledge_points"] = self.db.auto_tag(raw_text)
 
         # 补充默认难度
         if not q.get("difficulty"):
@@ -233,6 +236,10 @@ class QuestionImporter:
         q.setdefault("solution_steps", [])
         q.setdefault("common_mistakes", [])
         q.setdefault("tags", [])
+
+        # 确保 raw_question_text 存在（从 question 字段迁移）
+        if not q.get("raw_question_text") and q.get("question"):
+            set_raw_question(q, q["question"])
 
         return q
 
@@ -269,7 +276,7 @@ class QuestionImporter:
         qtype = self._infer_question_type(block)
         kps = self.db.auto_tag(block)
 
-        return {
+        result = {
             "year": year or self._infer_year(block),
             "category": math_type,
             "question_type": qtype,
@@ -282,6 +289,8 @@ class QuestionImporter:
             "common_mistakes": [],
             "tags": kps,
         }
+        set_raw_question(result, block[:2000])
+        return result
 
     def _infer_math_type(self, text: str) -> str:
         """从文本推断数学类别"""

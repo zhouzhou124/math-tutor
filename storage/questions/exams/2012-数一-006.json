@@ -21,5 +21,7 @@
   "tags": [
     "特征值与特征向量"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为3阶矩阵，$P$ 为3阶可逆矩阵，且 $P^{-1}AP = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$。若 $P = (\\alpha_1,\\alpha_2,\\alpha_3)$，$Q = (\\alpha_1 + \\alpha_2,\\alpha_2,\\alpha_3)$，则 $Q^{-1}AQ =$\nA. $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$  B. $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$  C. $\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$  D. $\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+  "raw_answer_text": "A"
 }

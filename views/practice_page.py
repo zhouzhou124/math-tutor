@@ -60,7 +60,9 @@ def render_practice_page(db):
             if not options:
                 try:
                     from choice_explainer import _parse_options_from_question
-                    options = _parse_options_from_question(selected_bank.get("question", ""))
+                    options = _parse_options_from_question(
+                        selected_bank.get("raw_question_text") or selected_bank.get("question", "")
+                    )
                 except Exception:
                     options = {}
             if options:

@@ -17,5 +17,7 @@
     "多元函数微分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设在上半平面 $D = \\{(x,y) \\mid y>0\\}$ 内，函数 $f(x,y)$ 具有连续偏导数，且对任意的 $t>0$ 都有 $f(tx,ty) = t^{-2} f(x,y)$。证明：对 $D$ 内的任意分段光滑的有向简单闭曲线 $L$，都有 $$\\oint_L y f(x,y) dx - x f(x,y) dy = 0$$.",
+  "raw_answer_text": "证明略"
 }

@@ -21,5 +21,6 @@
     "C": "$3$",
     "D": "$4$"
   },
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "设函数 $f(x)$ 在 $x=0$ 的某邻域内有定义，且 $\\lim_{x\\to 0} \\frac{x - f(x)}{\\ln(1+x)} = 1$，则以下叙述：\\textcircled{1} $f(0)=0$；\\textcircled{2} $\\lim_{x\\to 0} f(x) = f(0)$；\\textcircled{3} $\\lim_{x\\to 0} \\frac{f(x)}{x} = 1$；\\textcircled{4} 当 $x\\to 0$ 时，$f(x)$ 是 $x$ 的高阶无穷小。正确叙述的个数为"
 }

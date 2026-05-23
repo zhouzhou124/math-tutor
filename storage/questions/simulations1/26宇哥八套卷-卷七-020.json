@@ -16,5 +16,7 @@
     "曲面积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设曲面 $\\Sigma$ 为 $z^2 = x^2 + y^2 - 1$ 介于 $z=0$ 与 $z=1$ 之间的部分，取外侧，$f(x)$ 为连续函数，计算\n$$I = \\iint_{\\Sigma} [y f(xy) - 2x] dy dz + [y^2 - x f(xy)] dz dx + (z-1)^2 dx dy$$",
+  "raw_answer_text": "0"
 }

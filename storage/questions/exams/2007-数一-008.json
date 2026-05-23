@@ -23,5 +23,7 @@
     "特征值与特征向量",
     "二次型"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设矩阵 $A = \\begin{pmatrix} 2 & -1 & -1 \\\\ -1 & 2 & -1 \\\\ -1 & -1 & 2 \\end{pmatrix}$，$B = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$，则 $A$ 与 $B$",
+  "raw_answer_text": "B"
 }

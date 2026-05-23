@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷七-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "法向量"
+  ],
+  "tags": [
+    "法向量"
+  ],
+  "question": "$12.$ 设可微函数 $f(x,y)=2x-y-1+o(\\sqrt{(x-1)^2+y^2})$，曲面 $z=f(e^{xy},x^2+y^2-1)$ 上点 $(1,0,1)$ 处指向上侧的单位法向量 $n^o=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$(0,0,1)$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七"
+}

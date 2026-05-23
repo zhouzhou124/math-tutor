@@ -18,5 +18,6 @@
   "source": "manual_2018",
   "options": {},
   "correct_option": "C",
-  "embedding_text": "考研数学一 2018年 选择题 知识点: 定积分 数学概念: 三角函数 对数指数函数 积分 中等难度 4分题 2018-数一-004"
+  "embedding_text": "考研数学一 2018年 选择题 知识点: 定积分 数学概念: 三角函数 对数指数函数 积分 中等难度 4分题 2018-数一-004",
+  "raw_question_text": "$4.$ 设 $M=\\int_{-\\pi/2}^{\\pi/2}\\frac{(1+x)^2}{1+x^2}dx,N=\\int_{-\\pi/2}^{\\pi/2}\\frac{1+x}{e^x}dx,K=\\int_{-\\pi/2}^{\\pi/2}(1+\\sqrt{\\cos x})dx$，则( )\n\n$(A)$ $M>N>K$ \\qquad $(B)$ $M>K>N$\n\n$(C)$ $K>M>N$ \\qquad $(D)$ $K>N>M$"
 }

@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷四-014",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "曲线积分与曲面积分"
+  ],
+  "tags": [
+    "曲线积分与曲面积分"
+  ],
+  "question": "$14.$ 设 $\\Sigma$ 为曲面 $x^2 + \\frac{y^2}{4} + \\frac{z^2}{4} = 1$ 的外侧，则 $\\iint_{\\Sigma} x dy dz + z^2 dx dy =$ ______",
+  "source": "import_v4"
+}

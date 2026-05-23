@@ -1,0 +1,22 @@
+{
+  "question_id": "2019-数一-019",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "knowledge_points": [
+    "三重积分"
+  ],
+  "difficulty": "中等",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)设 $\\Omega$ 是由锥面 $x^2 + (y-z)^2 = (1-z)^2$ ($0 \\le z \\le 1$) 与平面 $z=0$ 围成的锥体，求 $\\Omega$ 的形心坐标。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "三重积分"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2019年 解答题 知识点: 三重积分 中等难度 10分题 2019-数一-019"
+}

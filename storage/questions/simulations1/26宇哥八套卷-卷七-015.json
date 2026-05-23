@@ -20,5 +20,7 @@
     "行列式"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "已知 $3$ 阶矩阵 $A,B$ 相似，$\\lambda_1 = 1,\\lambda_2 = 2$ 为 $A$ 的两个特征值，行列式 $|B| = 2$，则行列式 $\\begin{vmatrix} (A+E)^{-1} & O \\\\ O & (2B)^* \\end{vmatrix} =$ ______",
+  "raw_answer_text": "$-\\frac{1}{16}$"
 }

@@ -21,5 +21,7 @@
   },
   "correct_option": "D",
   "standard_answer": "D",
-  "question_id": "2026-数一-006"
+  "question_id": "2026-数一-006",
+  "raw_question_text": "$6.$ 设 $A,B$ 为 $n$ 阶矩阵，$\\beta$ 是 $n$ 维列向量，若 $A$ 的列向量组可由 $B$ 的列向量组表示，则 ()\n$(A)$ 当 $Ax = \\beta$ 有解时，$Bx = \\beta$ 有解 \n$(B)$ 当 $A^{\\mathrm{T}}x = \\beta$ 有解时，$B^{\\mathrm{T}}x = \\beta$ 有解 \n$(C)$ 当 $Bx = \\beta$ 有解时，$Ax = \\beta$ 有解 \n$(D)$ 当 $B^{\\mathrm{T}}x = \\beta$ 有解时，$A^{\\mathrm{T}}x = \\beta$ 有解",
+  "raw_answer_text": "D"
 }

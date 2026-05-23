@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷三-008",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率",
+    "条件概率"
+  ],
+  "tags": [
+    "概率",
+    "条件概率"
+  ],
+  "question": "设随机变量 $(X,Y)$ 的概率密度 $$$f(x,y)=\\begin{cases} x+y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$$记 $A=\\{X\\ge \\frac{1}{2}\\}$，$B=\\{Y\\ge \\frac{1}{4}\\}$，$C=\\{X+Y\\le 1\\}$，则 $P(AB\\cup C \\mid AC)=$",
+  "options": {
+    "A": "$\\frac{7}{8}$",
+    "B": "$\\frac{3}{4}$",
+    "C": "$\\frac{29}{40}$",
+    "D": "$\\frac{29}{80}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v3",
+  "solution_steps": [],
+  "volume": "卷三",
+  "__cached_at__": 1779466679.4902923
+}

@@ -1,0 +1,18 @@
+{
+  "year": 2026,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "向量与空间解析几何"
+  ],
+  "tags": [
+    "向量与空间解析几何"
+  ],
+  "question": "$11.$ 设向量 $v_1 = (0, x, z)$，$v_2 = (y, 0, 1)$，记 $F(x,y) = v_1 \\times v_2$，则 $\\operatorname{div} F = \\_\\_\\_\\_\\_\\_$",
+  "source": "import_2026",
+  "standard_answer": "x + 1",
+  "question_id": "2026-数一-011"
+}

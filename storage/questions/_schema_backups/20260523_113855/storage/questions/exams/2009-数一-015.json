@@ -1,0 +1,18 @@
+{
+  "year": 2009,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question": "求二元函数 $f(x,y) = x^2(2 + y^2) + y \\ln y$ 的极值。",
+  "standard_answer": "## 题目重述\n求二元函数 $f(x,y)=x^2(2+y^2)+y\\ln y$ 在其自然定义域上的所有极值，指明极小值与极大值。\n\n## 标准答案\n极小值 $f\\!\\left(0,\\frac{1}{e}\\right)=-\\frac{1}{e}$，无极大值。\n\n步骤1：确定定义域并求一阶偏导数，找出驻点\n函数中含有 $\\ln y$，故自然定义域为 $x\\in\\mathbb{R}$，$y>0$。  \n对 $x$ 求偏导：  \n$$f_x = \\frac{\\partial}{\\partial x}\\bigl[x^2(2+y^2)\\bigr] + \\frac{\\partial}{\\partial x}(y\\ln y) = 2x(2+y^2).$$  \n对 $y$ 求偏导（注意 $y\\ln y$ 的导数为 $\\ln y + y\\cdot\\frac{1}{y}= \\ln y+1$）：  \n$$f_y = \\frac{\\partial}{\\partial y}\\bigl[x^2(2+y^2)\\bigr] + \\frac{\\partial}{\\partial y}(y\\ln y) = x^2(2y) + (\\ln y + 1) = 2x^2y + \\ln y + 1.$$  \n令 $f_x=0$ 且 $f_y=0$ 求驻点：  \n由 $f_x=0$ 得 $2x(2+y^2)=0$，因为 $2+y^2>0$，必有 $x=0$。  \n将 $x=0$ 代入 $f_y=0$：$2\\cdot 0^2\\cdot y + \\ln y + 1 = 0 \\;\\Rightarrow\\; \\ln y = -1 \\;\\Rightarrow\\; y = e^{-1} = \\frac{1}{e}$。  \n该点满足 $y>0$，故函数在定义域内有唯一驻点 $(0,\\frac{1}{e})$。\n\n步骤2：计算二阶偏导数并构造判别式\n对一阶偏导再求偏导：  \n$$f_{xx} = \\frac{\\partial}{\\partial x}\\bigl[2x(2+y^2)\\bigr] = 2(2+y^2) = 4 + 2y^2,$$  \n$$f_{xy} = \\frac{\\partial}{\\partial y}\\bigl[2x(2+y^2)\\bigr] = 2x\\cdot 2y = 4xy,$$  \n$$f_{yy} = \\frac{\\partial}{\\partial y}\\bigl[2x^2y + \\ln y + 1\\bigr] = 2x^2 + \\frac{1}{y}.$$  \n在驻点 $(0,\\frac{1}{e})$ 处计算二阶偏导的值：  \n$$A = f_{xx}\\!\\left(0,\\frac{1}{e}\\right) = 4 + 2\\left(\\frac{1}{e}\\right)^2 = 4 + \\frac{2}{e^2},$$  \n$$B = f_{xy}\\!\\left(0,\\frac{1}{e}\\right) = 4\\cdot 0\\cdot \\frac{1}{e} = 0,$$  \n$$C = f_{yy}\\!\\left(0,\\frac{1}{e}\\right) = 2\\cdot 0^2 + \\frac{1}{1/e} = e.$$\n\n步骤3：应用极值充分条件（$AC-B^2$ 判别法）\n计算判别式：  \n$$\\Delta = AC - B^2 = \\left(4+\\frac{2}{e^2}\\right)\\cdot e - 0^2 = 4e + \\frac{2}{e}.$$  \n因为 $\\Delta > 0$ 且 $A = 4+\\frac{2}{e^2} > 0$，由二元函数极值的充分条件可知，点 $(0,\\frac{1}{e})$ 是极小值点。  \n代入原函数求极小值：  \n$$f\\!\\left(0,\\frac{1}{e}\\right) = 0^2\\cdot\\left(2+\\frac{1}{e^2}\\right) + \\frac{1}{e}\\ln\\frac{1}{e} = 0 + \\frac{1}{e}\\cdot(-1) = -\\frac{1}{e}.$$\n\n步骤4：判断是否有极大值\n由步骤1知，驻点唯一，且该点已确认为极小值点，因此函数在整个定义域内没有极大值。\n\n## 结论\n函数 $f(x,y)=x^2(2+y^2)+y\\ln y$ 有极小值 $f(0,\\frac{1}{e}) = -\\frac{1}{e}$，无极大值。\n\n## 关键知识点\n- 多元函数极值的必要条件：一阶偏导数为零（求驻点）\n- 多元函数极值的充分条件：使用 $AC-B^2$ 判别法（或 Hessian 矩阵）判定极值类型\n- 含对数函数时的自然定义域限制\n\n## 易错提示\n- 忽视自然定义域 $y>0$，可能在解方程时误引入 $y$ 的负值解\n- 对 $y\\ln y$ 求导时容易漏掉乘积法则，忘记导数为 $\\ln y + 1$\n- 计算 $f_{xy}$ 时忘记对 $y$ 求导产生 $2y$ 因子，写成 $2x$ 等错误\n- 在代入判别式 $\\Delta = AC-B^2$ 后，忘记结合 $A$ 的符号来判断极小还是极大（$A>0$ 极小，$A<0$ 极大）",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 9,
+  "source": "manual_import_2009",
+  "question_id": "2009-数一-015",
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

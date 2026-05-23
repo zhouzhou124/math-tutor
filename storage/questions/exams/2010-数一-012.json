@@ -13,5 +13,7 @@
   "question_id": "2010-数一-012",
   "tags": [
     "三重积分"
-  ]
+  ],
+  "raw_question_text": "设 $\\Omega = \\{(x,y,z) \\mid x^2+y^2 \\le z \\le 1\\}$，则 $\\Omega$ 的形心竖坐标 $\\bar{z} =$ ______",
+  "raw_answer_text": "$\\frac{2}{3}$"
 }

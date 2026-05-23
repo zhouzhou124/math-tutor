@@ -1,0 +1,22 @@
+{
+  "question_id": "2021-数一-020",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "$20.$ (本题满分12分)已知 $u_n(x)=e^{-nx}+\\frac{x^{n+1}}{n(n+1)}$，求级数 $\\sum_{n=1}^\\infty u_n(x)$ 的收敛域与和函数。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2021年 解答题 知识点: 无穷级数 数学概念: 对数指数函数 级数 求和 级数收敛性 较难题 12分题 2021-数一-020"
+}

@@ -21,5 +21,6 @@
     "C": "点 $(0,0)$ 是唯一极值点但不是最大值点",
     "D": "点 $(0,0)$ 是唯一极小值点但不是最大值点"
   },
-  "correct_option": "D"
+  "correct_option": "D",
+  "raw_question_text": "设 $f(x,y) = x^2 + y^2(1 + x^3)$，则"
 }

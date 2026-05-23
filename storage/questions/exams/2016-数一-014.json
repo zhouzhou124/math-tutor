@@ -18,5 +18,6 @@
   "source": "manual_2016",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2016年 填空题 知识点: 数理统计 数学概念: 假设检验 中等难度 4分题 2016-数一-014"
+  "embedding_text": "考研数学一 2016年 填空题 知识点: 数理统计 数学概念: 假设检验 中等难度 4分题 2016-数一-014",
+  "raw_question_text": "$14.$ 设 $X_1,\\dots,X_n$ 为来自 $N(\\mu,\\sigma^2)$ 的样本，$\\overline{X}=9.5$，$\\mu$ 的置信度为 $0.95$ 的双侧置信上限为 $10.8$，则置信区间为 $\\underline{\\qquad\\qquad}$"
 }

@@ -1,0 +1,26 @@
+{
+  "year": 2011,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question": "曲线 $y = (x-1)(x-2)^2(x-3)^3(x-4)^4$ 的拐点是",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "导数与微分",
+    "中值定理"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "source": "manual_import_2011",
+  "options": {
+    "A": "$(1,0)$",
+    "B": "$(2,0)$",
+    "C": "$(3,0)$",
+    "D": "$(4,0)$"
+  },
+  "correct_option": "C",
+  "question_id": "2011-数一-001",
+  "tags": [
+    "导数与微分",
+    "中值定理"
+  ]
+}

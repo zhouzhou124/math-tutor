@@ -20,5 +20,6 @@
   "source": "manual_2017",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2017年 填空题 知识点: 矩阵运算 向量组与线性空间 数学概念: 向量线性关系 矩阵运算 中等难度 4分题 2017-数一-013"
+  "embedding_text": "考研数学一 2017年 填空题 知识点: 矩阵运算 向量组与线性空间 数学概念: 向量线性关系 矩阵运算 中等难度 4分题 2017-数一-013",
+  "raw_question_text": "$13.$ 设 $A=\\begin{pmatrix}1&0&1\\\\1&1&2\\\\0&1&1\\end{pmatrix}$，$\\alpha_1,\\alpha_2,\\alpha_3$ 为线性无关的 $3$ 维列向量组，则 $A\\alpha_1,A\\alpha_2,A\\alpha_3$ 的秩为 $\\underline{\\qquad\\qquad}$"
 }

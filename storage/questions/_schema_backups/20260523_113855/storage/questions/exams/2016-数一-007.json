@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-007",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机变量及其分布"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$7.$ 设 $X\\sim N(\\mu,\\sigma^2)(\\sigma>0)$，记 $p=P\\{X\\le\\mu+\\sigma^2\\}$，则( )\n\n$(A)$ $p$ 随 $\\mu$ 增加而增加\n\n$(B)$ $p$ 随 $\\sigma$ 增加而增加\n\n$(C)$ $p$ 随 $\\mu$ 增加而减少\n\n$(D)$ $p$ 随 $\\sigma$ 增加而减少",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机变量及其分布"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 随机变量及其分布 中等难度 4分题 2016-数一-007"
+}

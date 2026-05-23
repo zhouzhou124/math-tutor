@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷六-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "正交矩阵"
+  ],
+  "tags": [
+    "正交矩阵"
+  ],
+  "question": "已知 $A,B$ 均为 $n$ 阶正交矩阵，且 $|A|+|B|=0$，则",
+  "options": {
+    "A": "$n$ 为偶数时 $(A-B)x=0$ 仅有零解",
+    "B": "$n$ 为偶数时有非零解",
+    "C": "$n$ 为奇数时仅有零解",
+    "D": "$n$ 为奇数时有非零解"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.5386,
+  "raw_question_text": "已知 $A,B$ 均为 $n$ 阶正交矩阵，且 $|A|+|B|=0$，则",
+  "raw_answer_text": "D"
+}

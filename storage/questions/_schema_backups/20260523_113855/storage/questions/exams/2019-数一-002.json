@@ -1,0 +1,24 @@
+{
+  "question_id": "2019-数一-002",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "knowledge_points": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$2.$ 设函数 $f(x) = \\begin{cases} x|x|, & x \\le 0 \\\\ x\\ln x, & x > 0 \\end{cases}$，则 $x = 0$ 是 $f(x)$ 的 $( )$\n\n$(A)$ 可导点，极值点\n$(B)$ 不可导点，极值点\n$(C)$ 可导点，非极值点\n$(D)$ 不可导点，非极值点",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2019年 选择题 知识点: 导数与微分 极限与连续 数学概念: 函数极值 对数指数函数 中等难度 4分题 2019-数一-002"
+}

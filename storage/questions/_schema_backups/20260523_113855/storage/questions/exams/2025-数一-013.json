@@ -1,0 +1,22 @@
+{
+  "question_id": "2025-数一-013",
+  "year": 2025,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$13.$ 已知函数 $u(x,y,z) = xy^2z^3$，向量 $\\mathbf{n} = (2,2,-1)$，则 $\\left.\\frac{\\partial u}{\\partial \\mathbf{n}}\\right|_{(1,1,1)} = \\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "多元函数微分"
+  ],
+  "source": "manual_2025",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2025年 填空题 知识点: 多元函数微分 数学概念: 偏导数 中等难度 5分题 2025-数一-013"
+}

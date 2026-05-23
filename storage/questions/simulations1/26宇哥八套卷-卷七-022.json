@@ -16,5 +16,7 @@
     "随机变量及其分布"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设某商品每天的供应量 $X$ 的概率密度为 $f(x) = \\begin{cases} xe^{-x}, & x\\ge 0 \\\\ 0, & x<0 \\end{cases}$. 若每天的供应量相互独立，求\n$(1)$ $3$天总供应量的概率密度；\n$(2)$ 连续$3$天中最大供应量的概率密度.",
+  "raw_answer_text": "(1) $f_{S_3}(s) = \\frac{1}{2} s^2 e^{-s}$，$s \\ge 0$\n(2) $f_{M_3}(m) = 3m e^{-m}(1 - e^{-m})^2$，$m \\ge 0$"
 }

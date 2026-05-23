@@ -1,0 +1,22 @@
+{
+  "question_id": "2021-数一-010",
+  "year": 2021,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 10,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 5,
+  "question": "$10.$ 设 \\(X_1, X_2, \\cdots, X_{16}\\) 是来自总体 \\(N(\\mu, 4)\\) 的简单随机样本，考虑假设检验问题：\\(H_0: \\mu \\leq 10\\)，  \n\\(H_1: \\mu > 10\\)。\\(\\Phi(x)\\) 表示标准正态分布函数，若该检验问题的拒绝域为 \\(W = \\{\\overline{X} \\geq 11\\}\\)，其  \n中 \\(\\overline{X} = \\frac{1}{16} \\sum_{i=1}^{16} X_i\\)，则 \\(\\mu = 11.5\\) 时，该检验犯第二类错误的概率为 $( )$\n\n$(A)$ $1-\\Phi(0.5)$\n$(B)$ $1-\\Phi(1)$\n$(C)$ $1-\\Phi(1.5)$\n$(D)$ $1-\\Phi(2)$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2021",
+  "options": {},
+  "correct_option": "B",
+  "embedding_text": "考研数学一 2021年 选择题 知识点: 数理统计 数学概念: 概率统计 较难题 5分题 2021-数一-010"
+}

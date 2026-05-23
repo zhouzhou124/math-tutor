@@ -23,5 +23,7 @@
     "极限与连续",
     "导数与微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "曲线 $y = \\frac{x^2 + x}{x^2 - 1}$ 的渐近线的条数为\nA. 0  B. 1  C. 2  D. 3",
+  "raw_answer_text": "D"
 }

@@ -1,0 +1,24 @@
+{
+  "question_id": "2016-数一-016",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 16,
+  "knowledge_points": [
+    "微分方程",
+    "定积分"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$16.$ (本题满分10分)设 $y(x)$ 满足 $y''+2y'+ky=0$，其中 $0<k<1$。\n\n$(1)$ 证明 $\\int_0^{+\\infty}y(x)dx$ 收敛；\n\n$(2)$ 若 $y(0)=1,y'(0)=1$，求 $\\int_0^{+\\infty}y(x)dx$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程",
+    "定积分"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2016年 解答题 知识点: 微分方程 定积分 数学概念: 积分 较难题 10分题 2016-数一-016"
+}

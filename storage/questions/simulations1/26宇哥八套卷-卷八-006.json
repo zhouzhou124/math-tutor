@@ -22,5 +22,7 @@
   "tags": [
     "特征值与特征向量"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "已知 $A$ 为 $3$ 阶方阵，$1,1,2$ 是 $A$ 的 $3$ 个特征值，$\\alpha_1,\\alpha_2,\\alpha_3$ 为这 $3$ 个特征值对应的特征向量，则",
+  "raw_answer_text": "A"
 }

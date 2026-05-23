@@ -15,5 +15,6 @@
   ],
   "question": "设 $\\Sigma = \\{(x,y,z) \\mid x^2 + y^2 + z^2 = 1, x \\ge 0, y \\ge 0\\}$，指向右侧，则 $\\iint_{\\Sigma} xyz dz dy =$ ______",
   "source": "import_v3",
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $\\Sigma = \\{(x,y,z) \\mid x^2 + y^2 + z^2 = 1, x \\ge 0, y \\ge 0\\}$，指向右侧，则 $\\iint_{\\Sigma} xyz dz dy =$ ______"
 }

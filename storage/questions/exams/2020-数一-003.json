@@ -18,5 +18,6 @@
   "source": "manual_2020",
   "options": {},
   "correct_option": "A",
-  "embedding_text": "考研数学一 2020年 选择题 知识点: 多元函数微分 数学概念: 极限 中等难度 4分题 2020-数一-003"
+  "embedding_text": "考研数学一 2020年 选择题 知识点: 多元函数微分 数学概念: 极限 中等难度 4分题 2020-数一-003",
+  "raw_question_text": "$3.$ 设 $f(x,y)$ 在 $(0,0)$ 可微，$f(0,0)=0$，$f_x(0,0)=a,f_y(0,0)=b$，则 $\\lim_{(x,y)\\to(0,0)}\\frac{(x,y,f(x,y))\\cdot(x,y,f(x,y))}{\\sqrt{x^2+y^2}}=$ $( )$\n\n$(A)$ $0$ \\qquad $(B)$ $a$ \\qquad $(C)$ $b$ \\qquad $(D)$ $a+b$"
 }

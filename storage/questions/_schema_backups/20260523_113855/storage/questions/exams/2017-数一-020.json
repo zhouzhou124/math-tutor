@@ -1,0 +1,24 @@
+{
+  "question_id": "2017-数一-020",
+  "year": 2017,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "knowledge_points": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$20.$ (本题满分11分)设3阶矩阵 $A=(\\alpha_1,\\alpha_2,\\alpha_3)$ 有3个不同的特征值，且 $\\alpha_3=\\alpha_1+2\\alpha_2$。\n\n$(1)$ 证明 $r(A)=2$；\n\n$(2)$ 设 $\\beta=\\alpha_1+\\alpha_2+\\alpha_3$，求 $Ax=\\beta$ 的通解。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "矩阵运算",
+    "向量组与线性空间"
+  ],
+  "source": "manual_2017",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2017年 解答题 知识点: 矩阵运算 向量组与线性空间 数学概念: 微分方程求解 特征值 特征向量 矩阵运算 较难题 11分题 2017-数一-020"
+}

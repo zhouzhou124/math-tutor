@@ -21,5 +21,7 @@
   "tags": [
     "极限与连续"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "当 $x\\to 0^+$ 时，与 $\\sqrt{x}$ 等价的无穷小量是",
+  "raw_answer_text": "正确选项: D. $1 - \\cos\\sqrt{x}$"
 }

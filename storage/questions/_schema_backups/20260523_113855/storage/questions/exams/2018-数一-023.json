@@ -1,0 +1,22 @@
+{
+  "question_id": "2018-数一-023",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 23,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$23.$ (本题满分11分)设总体 $X$ 的概率密度为 $f(x;\\sigma)=\\frac{1}{2\\sigma}e^{-|x|/(2\\sigma)}$，$-\\infty<x<+\\infty$，$\\sigma>0$ 未知。$X_1,\\dots,X_n$ 为样本。\n\n$(1)$ 求 $\\sigma$ 的最大似然估计量 $\\hat\\sigma$；\n\n$(2)$ 求 $E(\\hat\\sigma),D(\\hat\\sigma)$。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 解答题 知识点: 数理统计 数学概念: 参数估计 极大似然 对数指数函数 概率统计 较难题 11分题 2018-数一-023"
+}

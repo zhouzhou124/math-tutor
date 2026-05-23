@@ -18,5 +18,6 @@
   "source": "manual_2019",
   "options": {},
   "correct_option": "A",
-  "embedding_text": "考研数学一 2019年 选择题 知识点: 线性方程组 中等难度 4分题 2019-数一-006"
+  "embedding_text": "考研数学一 2019年 选择题 知识点: 线性方程组 中等难度 4分题 2019-数一-006",
+  "raw_question_text": "$6.$ 如图所示，有3张平面两两相交，交线相互平行，它们的方程 $a_{i1}x + a_{i2}y + a_{i3}z = d_i$ ($i=1,2,3$) 组成的线性方程组的系数矩阵和增广矩阵分别记为 $A, \\bar{A}$，则 $( )$\n\n$(A)$ $r(A)=2,r(\\overline{A})=3$ \\qquad $(B)$ $r(A)=2,r(\\overline{A})=2$\n\n$(C)$ $r(A)=1,r(\\overline{A})=2$ \\qquad $(D)$ $r(A)=1,r(\\overline{A})=1$"
 }

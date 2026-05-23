@@ -14,5 +14,6 @@
     "矩阵"
   ],
   "question": "$15.$ 设 $A = \\begin{pmatrix} a & 2 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}$ 与 $B = \\begin{pmatrix} 2 & b & c \\\\ c & 2 & b \\\\ b & c & 2 \\end{pmatrix}$ 相似，则实向量 $(a,b,c) =$ ______",
-  "source": "import_v3"
+  "source": "import_v3",
+  "raw_question_text": "$15.$ 设 $A = \\begin{pmatrix} a & 2 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}$ 与 $B = \\begin{pmatrix} 2 & b & c \\\\ c & 2 & b \\\\ b & c & 2 \\end{pmatrix}$ 相似，则实向量 $(a,b,c) =$ ______"
 }

@@ -41,7 +41,7 @@ def render_knowledge_points(knowledge_points: list, question: dict = None, quest
     # Auto-detect on the fly when the question JSON lacks tags
     if not knowledge_points and question_db and question:
         try:
-            q_text = question.get("question", "")
+            q_text = question.get("raw_question_text") or question.get("question", "")
             if q_text:
                 knowledge_points = question_db.auto_tag(q_text)
         except Exception:
@@ -168,14 +168,26 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
             # 检查是否有步骤
             struct_steps = structured.get("steps", [])
             if struct_steps:
-                try:
-                    from latex_utils import render_structured_safe, validate_structured
-                    is_valid, _ = validate_structured(structured)
-                    if is_valid:
-                        render_structured_safe(structured)
-                        return
-                except Exception:
-                    pass
+                # 预检查：步骤是否有实质性内容（非空 block）
+                _has_substance = False
+                for s in struct_steps:
+                    blocks = s.get("blocks", []) if isinstance(s, dict) else []
+                    for b in blocks:
+                        if isinstance(b, dict) and b.get("content", "").strip():
+                            _has_substance = True
+                            break
+                    if _has_substance:
+                        break
+                if _has_substance:
+                    try:
+                        from latex_utils import render_structured_safe, validate_structured
+                        is_valid, _ = validate_structured(structured)
+                        if is_valid:
+                            render_structured_safe(structured)
+                            return
+                    except Exception:
+                        pass
+                # If no substance, fall through to text fallback below
             else:
                 # 结构化数据存在但没有步骤，尝试获取最终答案
                 fa = structured.get("final_answer", {})
@@ -216,21 +228,20 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
         if content_parts:
             raw = "\n\n".join(content_parts)
             try:
-                from latex_utils import from_legacy_text, render_structured_safe
-                render_structured_safe(from_legacy_text(raw))
+                from latex_utils import safe_render
+                safe_render(raw)
             except Exception:
                 try:
-                    from latex_utils import split_latex_text, render_ast
-                    render_ast(split_latex_text(raw))
+                    from latex_utils import from_legacy_text, render_structured_safe
+                    render_structured_safe(from_legacy_text(raw))
                 except Exception:
                     try:
-                        from latex_utils import safe_render
-                        safe_render(raw)
+                        from latex_utils import split_latex_text, render_ast
+                        render_ast(split_latex_text(raw))
                     except Exception:
-                        # Absolute last resort: plain text, refuse JSON-like content
-                        if '"blocks"' in raw or '"type"' in raw[:200]:
-                            st.error("标准解法数据结构异常，请重新批改")
-                        else:
+                        try:
+                            st.markdown(raw)
+                        except Exception:
                             st.text(raw)
 
 

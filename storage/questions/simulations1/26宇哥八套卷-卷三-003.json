@@ -21,5 +21,6 @@
     "C": "$[1,2)$",
     "D": "$(1,2]$"
   },
-  "correct_option": "D"
+  "correct_option": "D",
+  "raw_question_text": "已知 $y'(x) + \\frac{a}{x} y(x) = \\frac{|\\sin x|}{x^a} (x > 0)$ 的解均有界，且 $\\lim_{x \\to 0^+} y(x) = 0$，则 $a$ 的取值范围是"
 }

@@ -1,0 +1,25 @@
+{
+  "question_id": "2014-数一-019",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "knowledge_points": [
+    "无穷级数",
+    "极限与连续"
+  ],
+  "difficulty": "较难",
+  "score": 10,
+  "question": "$19.$ (本题满分10分)设数列 $\\{a_n\\}$，$\\{b_n\\}$ 满足 $0 < a_n < \\frac{\\pi}{2}$，$0 < b_n < \\frac{\\pi}{2}$，$\\cos a_n - a_n = \\cos b_n$，且级数 $\\sum_{n=1}^\\infty b_n$ 收敛。\n\n$(1)$ 证明 $\\lim_{n\\to\\infty} a_n = 0$；\n\n$(2)$ 证明级数 $\\sum_{n=1}^\\infty \\frac{a_n}{b_n}$ 收敛。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数",
+    "极限与连续"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 证明题 知识点: 无穷级数 极限与连续 数学概念: 三角函数 极限 级数 求和 级数收敛性 较难题 10分题 2014-数一-019",
+  "standard_answer": "## 题目重述\n已知数列 $\\{a_n\\}$ 与 $\\{b_n\\}$ 满足 $0 < a_n < \\frac{\\pi}{2}$，$0 < b_n < \\frac{\\pi}{2}$，且等式 $\\cos a_n - a_n = \\cos b_n$ 对一切 $n$ 成立，同时级数 $\\sum_{n=1}^\\infty b_n$ 收敛。要求证明：$(1)$ $\\lim_{n\\to\\infty} a_n = 0$；$(2)$ 级数 $\\sum_{n=1}^\\infty \\frac{a_n}{b_n}$ 收敛。\n\n## 标准答案\n(1) $\\lim\\limits_{n\\to\\infty} a_n = 0$；  \n(2) 级数 $\\sum\\limits_{n=1}^\\infty \\frac{a_n}{b_n}$ 收敛。\n\n步骤1：明确已知条件与待证结论  \n**已知**：  \n- $0 < a_n < \\frac{\\pi}{2}$，$0 < b_n < \\frac{\\pi}{2}$；  \n- $\\cos a_n - a_n = \\cos b_n$；  \n- 级数 $\\sum b_n$ 收敛。  \n\n**要证**：  \n- (1) $\\lim_{n\\to\\infty} a_n = 0$；  \n- (2) $\\sum \\frac{a_n}{b_n}$ 收敛。\n\n步骤2：证明 $\\lim_{n\\to\\infty} a_n = 0$  \n由于级数 $\\sum b_n$ 收敛，由级数收敛的必要条件得 $\\lim_{n\\to\\infty} b_n = 0$。  \n又因为余弦函数在 $[0,\\frac{\\pi}{2}]$ 上连续，故 $\\lim_{n\\to\\infty} \\cos b_n = \\cos 0 = 1$。  \n由已知等式 $\\cos a_n - a_n = \\cos b_n$，两边取极限得  \n$$\\lim_{n\\to\\infty} (\\cos a_n - a_n) = \\lim_{n\\to\\infty} \\cos b_n = 1.$$  \n考虑函数 $f(x) = \\cos x - x$，$x \\in [0,\\frac{\\pi}{2}]$。其导数 $f'(x) = -\\sin x - 1 < 0$（因为 $\\sin x \\ge 0$），故 $f(x)$ 在 $[0,\\frac{\\pi}{2}]$ 上严格单调递减且连续。计算端点值：$f(0) = 1$，$f(\\frac{\\pi}{2}) = -\\frac{\\pi}{2} < 1$。  \n由严格单调性知，对于任意 $\\delta \\in (0,\\frac{\\pi}{2}]$，当 $x \\in [\\delta, \\frac{\\pi}{2}]$ 时，$f(x) \\le f(\\delta) < 1$。  \n现用反证法：若 $a_n \\not\\to 0$，则存在 $\\varepsilon_0 > 0$ 与子列 $\\{a_{n_k}\\}$ 使得 $a_{n_k} \\ge \\varepsilon_0$ 对所有 $k$ 成立。由上述单调性，$f(a_{n_k}) \\le f(\\varepsilon_0) < 1$，这与 $\\lim_{n\\to\\infty} f(a_n) = 1$ 矛盾。  \n因此必须有 $\\lim_{n\\to\\infty} a_n = 0$。\n\n步骤3：证明级数 $\\sum \\frac{a_n}{b_n}$ 收敛  \n首先将已知等式变形：  \n$$\\cos a_n - \\cos b_n = a_n.$$  \n由于 $0 < a_n, b_n < \\frac{\\pi}{2}$，余弦函数在 $[0,\\frac{\\pi}{2}]$ 上可导。对区间端点 $a_n$ 与 $b_n$ 应用拉格朗日中值定理（不妨设 $a_n \\ne b_n$，若 $a_n = b_n$ 则原等式推出 $a_n = 0$，与已知矛盾），存在介于 $a_n$ 与 $b_n$ 之间的 $\\xi_n$，使得  \n$$\\cos a_n - \\cos b_n = -\\sin \\xi_n \\cdot (a_n - b_n).$$  \n代入上式得  \n$$a_n = -\\sin \\xi_n\\,(a_n - b_n) = \\sin \\xi_n\\,(b_n - a_n).$$  \n因为 $a_n > 0$ 且 $\\xi_n \\in (0,\\frac{\\pi}{2})$ 蕴含 $\\sin \\xi_n > 0$，故 $b_n - a_n = \\frac{a_n}{\\sin \\xi_n} > 0$，从而 $b_n > a_n$，且 $\\xi_n$ 满足 $a_n < \\xi_n < b_n$。  \n将上式改写为  \n$$a_n(1 + \\sin \\xi_n) = b_n \\sin \\xi_n \\quad\\Longrightarrow\\quad \\frac{a_n}{b_n} = \\frac{\\sin \\xi_n}{1 + \\sin \\xi_n}.$$  \n由于 $\\sin \\xi_n > 0$，分母 $1 + \\sin \\xi_n > 1$，因此  \n$$\\frac{a_n}{b_n} < \\sin \\xi_n.$$  \n由 $\\xi_n < b_n$ 及正弦函数在 $(0,\\frac{\\pi}{2})$ 上严格单调递增，得 $\\sin \\xi_n < \\sin b_n$。再利用基本不等式：当 $x > 0$ 时 $\\sin x < x$，结合 $b_n > 0$ 有 $\\sin b_n < b_n$。于是得到不等式链：  \n$$\\frac{a_n}{b_n} < \\sin \\xi_n < \\sin b_n < b_n.$$  \n已知 $\\sum b_n$ 收敛，且每一项 $\\frac{a_n}{b_n} > 0$，故由正项级数的比较判别法知，级数 $\\sum \\frac{a_n}{b_n}$ 收敛。\n\n## 结论\n证毕。\n\n## 关键知识点\n- 级数收敛的必要条件：通项趋于零。\n- 连续函数的严格单调性及其在求极限中的应用。\n- 拉格朗日中值定理在建立数列关系中的应用。\n- 正项级数的比较判别法。\n\n## 易错提示\n- 忽略验证 $a_n \\neq b_n$ 以保证拉格朗日中值定理的条件，直接使用可能不严谨。\n- 误用等价无穷小替换比较收敛性时未注意保号性与不等式方向，导致推理不完备。\n- 在证明 $\\lim a_n = 0$ 时仅通过 $\\cos a_n - a_n \\to 1$ 直接下结论，未结合 $f(x)$ 的严格单调性进行严格论证。"
+}

@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 $f(x) = (\\alpha^T x)^2 + k(\\beta^T x)^2$ 的二次型矩阵的迹为 3，其中 $\\alpha = \\left( \\frac{1}{\\sqrt{2}}, 0, -\\frac{1}{\\sqrt{2}} \\right)^T$，$\\beta = \\left( \\frac{1}{\\sqrt{3}}, \\frac{1}{\\sqrt{3}}, \\frac{1}{\\sqrt{3}} \\right)^T$，$x = (x_1,x_2,x_3)^T$.\n$(1)$ 求 $k$ 和正交矩阵 $Q$；\n$(2)$ 求 $P$ 使 $f(x)=(Px)^T Px$.",
   "source": "import_v3",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 $f(x) = (\\alpha^T x)^2 + k(\\beta^T x)^2$ 的二次型矩阵的迹为 3，其中 $\\alpha = \\left( \\frac{1}{\\sqrt{2}}, 0, -\\frac{1}{\\sqrt{2}} \\right)^T$，$\\beta = \\left( \\frac{1}{\\sqrt{3}}, \\frac{1}{\\sqrt{3}}, \\frac{1}{\\sqrt{3}} \\right)^T$，$x = (x_1,x_2,x_3)^T$.\n$(1)$ 求 $k$ 和正交矩阵 $Q$；\n$(2)$ 求 $P$ 使 $f(x)=(Px)^T Px$."
 }

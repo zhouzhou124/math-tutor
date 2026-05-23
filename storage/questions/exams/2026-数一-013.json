@@ -14,5 +14,7 @@
   "question": "$13.$ 设函数 $y = y(x)$ 由参数方程 $\\begin{cases} x = 2\\sin^2 t \\\\ y = t + \\cos t ,\\end{cases}$ $ t \\in (0,\\frac{\\pi}{2})$ 确定，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\frac{\\pi}{4}} = \\_\\_\\_\\_\\_\\_$",
   "source": "import_2026",
   "standard_answer": "\\frac{\\sqrt{2}}{4}",
-  "question_id": "2026-数一-013"
+  "question_id": "2026-数一-013",
+  "raw_question_text": "$13.$ 设函数 $y = y(x)$ 由参数方程 $\\begin{cases} x = 2\\sin^2 t \\\\ y = t + \\cos t ,\\end{cases}$ $ t \\in (0,\\frac{\\pi}{2})$ 确定，则 $\\left.\\frac{d^2y}{dx^2}\\right|_{t=\\frac{\\pi}{4}} = \\_\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "\\frac{\\sqrt{2}}{4}"
 }

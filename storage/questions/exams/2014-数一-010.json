@@ -20,5 +20,6 @@
   "source": "manual_2014",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2014年 填空题 知识点: 导数与微分 定积分 中等难度 4分题 2014-数一-010"
+  "embedding_text": "考研数学一 2014年 填空题 知识点: 导数与微分 定积分 中等难度 4分题 2014-数一-010",
+  "raw_question_text": "$10.$ 设 $f(x)$ 是周期为 $4$ 的可导奇函数，且 $f'(x)=2(x-1),x\\in[0,2]$，则 $f(7)=\\underline{\\qquad\\qquad}$"
 }

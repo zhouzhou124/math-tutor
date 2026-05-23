@@ -21,5 +21,6 @@
     "C": "$\\begin{pmatrix} A & A^T A \\\\ O & A^T A \\end{pmatrix} x = 0$ 与 $\\begin{pmatrix} A^T A & A \\\\ O & A \\end{pmatrix} x = 0$ 同解",
     "D": "$\\begin{pmatrix} AA^T A & A^T A \\\\ O & A \\end{pmatrix} x = 0$ 与 $\\begin{pmatrix} A^T A^2 & A \\\\ O & A^T A \\end{pmatrix} x = 0$ 同解"
   },
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "设 $A$ 为 $n$ 阶实矩阵，则"
 }

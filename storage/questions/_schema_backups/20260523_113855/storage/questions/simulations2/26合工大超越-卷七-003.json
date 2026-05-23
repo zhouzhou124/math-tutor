@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷七-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "若点 $(-1,0)$ 是 $f(x,y)=(ax+b+y^2)e^{-x}$ 的极小值点，则",
+  "options": {
+    "A": "$a<0$",
+    "B": "$a>0$",
+    "C": "$a\\le 0$",
+    "D": "$a\\ge 0$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1995444
+}

@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷六-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "中心极限定理"
+  ],
+  "tags": [
+    "中心极限定理"
+  ],
+  "question": "盒中装有 $2^n$ 张卡片，其中 $C_n$ 张标以号码 $i(i=0,1,\\dots,n)$，现有放回抽取 $100$ 张，$\\Phi(x)$ 为标准正态分布函数，$n=16$ 时，号码数之和 $X>850$ 的近似值为",
+  "options": {
+    "A": "$\\Phi(\\frac{5}{2})$",
+    "B": "$1-\\Phi(\\frac{5}{2})$",
+    "C": "$\\Phi(\\frac{1}{8})$",
+    "D": "$1-\\Phi(\\frac{1}{8})$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "volume": "卷六",
+  "__cached_at__": 1779501503.545261,
+  "raw_question_text": "盒中装有 $2^n$ 张卡片，其中 $C_n$ 张标以号码 $i(i=0,1,\\dots,n)$，现有放回抽取 $100$ 张，$\\Phi(x)$ 为标准正态分布函数，$n=16$ 时，号码数之和 $X>850$ 的近似值为",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷二-019",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "中值定理",
+    "导数应用"
+  ],
+  "tags": [
+    "中值定理",
+    "导数应用"
+  ],
+  "question": "(本题满分12分) 设函数 $f(x)$ 在 $(-\\infty,+\\infty)$ 上二阶可导，\n$(1)$ 证明 $f''(x) \\ge 0$ 的充要条件是对任意的 $h,x\\in(-\\infty,+\\infty)$ 都有 $f(x+h) - 2f(x) + f(x-h) \\ge 0$;\n$(2)$ 若 $(x_0,f(x_0))$ 是曲线 $y=f(x)$ 的拐点，证明 $f''(x_0)=0$.",
+  "standard_answer": "证明略",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0378456
+}

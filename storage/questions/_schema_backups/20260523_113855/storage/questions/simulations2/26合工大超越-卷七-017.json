@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷七-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "全微分方程"
+  ],
+  "tags": [
+    "全微分方程"
+  ],
+  "question": "(本题满分10分) $f(t)$ 二阶连续可导，$t\\to0^+$ 时 $f(t)$ 与 $t^2$ 同阶无穷小，$D=\\{(x,y)\\mid x>0,y>0\\}$ 内 $du=[\\frac{1}{x}(f(xy)+e^{xy})]dx + \\frac{1}{y}f'(xy)dy$.\n$(1)$ 求 $f(t)$；\n$(2)$ 求 $f(t)$ 在 $[0,2]$ 上的平均值.",
+  "standard_answer": "(I) $f(t)=t^2$\\n(II) $\\frac{4}{3}$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1981075
+}

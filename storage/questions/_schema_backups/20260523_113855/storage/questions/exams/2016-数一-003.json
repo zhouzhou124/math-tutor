@@ -1,0 +1,22 @@
+{
+  "question_id": "2016-数一-003",
+  "year": 2016,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$3.$ 若 $y=(1+x^2)^2-\\sqrt{1+x^2},y=(1+x^2)^2+\\sqrt{1+x^2}$ 是微分方程 $y'+p(x)y=q(x)$ 的两个解，则 $q(x)=$( )\n\n$(A)$ $3x(1+x^2)$ \\qquad $(B)$ $-3x(1+x^2)$ \\qquad $(C)$ $\\frac{x}{1+x^2}$ \\qquad $(D)$ $-\\frac{x}{1+x^2}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "微分方程"
+  ],
+  "source": "manual_2016",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2016年 选择题 知识点: 微分方程 数学概念: 微分方程求解 中等难度 4分题 2016-数一-003"
+}

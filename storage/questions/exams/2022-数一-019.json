@@ -18,5 +18,6 @@
   "source": "manual_2022",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2022年 解答题 知识点: 曲线曲面积分 数学概念: 三角函数 几何应用 重积分 曲线积分 较难题 12分题 2022-数一-019"
+  "embedding_text": "考研数学一 2022年 解答题 知识点: 曲线曲面积分 数学概念: 三角函数 几何应用 重积分 曲线积分 较难题 12分题 2022-数一-019",
+  "raw_question_text": "$19.$ 设 $\\Sigma$ 为曲面 $z=\\sqrt{1-x^2-y^2}(x\\ge0,y\\ge0,z\\ge0)$ 的上侧，$\\Gamma$ 为边界曲线，计算曲线积分 $$I=\\oint_\\Gamma(yz^2-\\cos z)dx+2xy^2dy+(2xyz+x\\sin z)dz.$$"
 }

@@ -1,0 +1,24 @@
+{
+  "question_id": "2014-数一-021",
+  "year": 2014,
+  "category": "数学一",
+  "question_type": "证明题",
+  "question_no": 21,
+  "knowledge_points": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "difficulty": "较难",
+  "score": 11,
+  "question": "$21.$ (本题满分11分)证明 $n$ 阶全 $1$ 矩阵与 $\\begin{pmatrix}0&\\cdots&0&1\\\\0&\\cdots&0&2\\\\ \\vdots&\\ddots&\\vdots&\\vdots\\\\0&\\cdots&0&n\\end{pmatrix}$ 相似。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "特征值与特征向量",
+    "矩阵运算"
+  ],
+  "source": "manual_2014",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2014年 证明题 知识点: 特征值与特征向量 矩阵运算 数学概念: 矩阵运算 较难题 11分题 2014-数一-021"
+}

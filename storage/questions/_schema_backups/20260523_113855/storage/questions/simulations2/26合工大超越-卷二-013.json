@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷二-013",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分"
+  ],
+  "tags": [
+    "二重积分"
+  ],
+  "question": "二次积分 $\\int_0^1 dy \\int_0^{\\sqrt{y}} x^2 y dx + \\int_1^{\\sqrt{2}} dy \\int_0^{\\sqrt{2-y^2}} x^2 y dx = \\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{3}{20}$",
+  "source": "import_hegongda_v2",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷二",
+  "__cached_at__": 1779466026.0305817
+}

@@ -1,0 +1,20 @@
+{
+  "question_id": "2012-数一-021",
+  "year": 2012,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "解答题",
+  "difficulty": "较难",
+  "score": 11,
+  "question": "已知 $A = \\begin{pmatrix} 1 & 0 & 1 \\\\ 0 & 1 & 1 \\\\ -1 & 0 & a \\\\ 0 & a & -1 \\end{pmatrix}$，二次型 $f(x_1,x_2,x_3) = x^{\\mathrm{T}}(A^{\\mathrm{T}}A)x$ 的秩为2。\n(I) 求实数 $a$ 的值；\n(II) 求正交变换 $x = Qy$ 将二次型 $f$ 化为标准形。",
+  "standard_answer": "(I) $a = 1$\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{2}} & 0 \\\\ 0 & 0 & 1 \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{2}} & 0 \\end{pmatrix}$，标准形为 $3y_1^2 + 2y_2^2$",
+  "knowledge_points": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "tags": [
+    "二次型",
+    "特征值与特征向量"
+  ],
+  "solution_steps": []
+}

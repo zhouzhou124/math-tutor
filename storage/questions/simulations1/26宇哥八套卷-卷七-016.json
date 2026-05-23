@@ -17,5 +17,7 @@
     "随机变量及其分布",
     "数字特征"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 的分布函数为 $F(x) = k\\left(\\frac{\\pi}{2} + \\arctan x\\right)$，$x\\in\\mathbf{R}$，$Y = \\min\\{1,|X|\\}$，则 $E(Y) =$ ______",
+  "raw_answer_text": "$\\frac{2}{\\pi}\\ln(1+\\sqrt{2})$"
 }

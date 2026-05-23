@@ -19,5 +19,7 @@
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
-  "volume": "卷三"
+  "volume": "卷三",
+  "raw_question_text": "$16.$ 设随机变量 $X_1,X_2,\\dots,X_n$ 相互独立，且 $X_i\\sim P(\\lambda_i)$，$\\lambda_i>0$，$i=1,2,\\dots,n$。已知 $P\\{\\sum_{i=1}^n X_i \\ge 1\\}=1-e^{-1}$，则期望 $E(2^{X_1})=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$e^{\\lambda_1} \\cdot e^{-1+\\sum_{i=1}^n \\lambda_i}$"
 }

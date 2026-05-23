@@ -17,5 +17,7 @@
   "source": "import_hegongda_v5",
   "solution_steps": [],
   "options": {},
-  "volume": "卷五"
+  "volume": "卷五",
+  "raw_question_text": "$14.$ 设 $y=y(x)$ 由 $x^2-\\int_1^{x+y} e^{-(t-y)^2} dt = 0$ 确定，则 $y''(0)=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$2$"
 }

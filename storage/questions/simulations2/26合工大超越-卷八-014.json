@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷八-014",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "高阶导数"
+  ],
+  "tags": [
+    "高阶导数"
+  ],
+  "question": "设 $f(x)=\\frac{\\sin x^{2024}}{1-x^2}$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$0$",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.2886615,
+  "raw_question_text": "设 $f(x)=\\frac{\\sin x^{2024}}{1-x^2}$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$0$"
+}

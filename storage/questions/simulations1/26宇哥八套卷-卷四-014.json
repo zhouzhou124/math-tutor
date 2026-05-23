@@ -14,5 +14,6 @@
     "曲线积分与曲面积分"
   ],
   "question": "$14.$ 设 $\\Sigma$ 为曲面 $x^2 + \\frac{y^2}{4} + \\frac{z^2}{4} = 1$ 的外侧，则 $\\iint_{\\Sigma} x dy dz + z^2 dx dy =$ ______",
-  "source": "import_v4"
+  "source": "import_v4",
+  "raw_question_text": "$14.$ 设 $\\Sigma$ 为曲面 $x^2 + \\frac{y^2}{4} + \\frac{z^2}{4} = 1$ 的外侧，则 $\\iint_{\\Sigma} x dy dz + z^2 dx dy =$ ______"
 }

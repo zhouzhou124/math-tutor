@@ -1,0 +1,30 @@
+{
+  "question_id": "26合工大超越-卷七-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数字特征"
+  ],
+  "tags": [
+    "数字特征"
+  ],
+  "question": "已知 $DX,DY$ 均存在，正确个数为① $E^2(XY)\\le E(X^2)E(Y^2)$；② $\\operatorname{Cov}^2(X,Y) > \\operatorname{Cov}(X,X)\\operatorname{Cov}(Y,Y)$；③ $E(|X|) \\ge \\sqrt{E(X^2)}$；④ $DX > E(X-a)^2$.",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.202493,
+  "raw_question_text": "已知 $DX,DY$ 均存在，正确个数为① $E^2(XY)\\le E(X^2)E(Y^2)$；② $\\operatorname{Cov}^2(X,Y) > \\operatorname{Cov}(X,X)\\operatorname{Cov}(Y,Y)$；③ $E(|X|) \\ge \\sqrt{E(X^2)}$；④ $DX > E(X-a)^2$.",
+  "raw_answer_text": "A"
+}

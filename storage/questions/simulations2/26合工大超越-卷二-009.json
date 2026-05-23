@@ -15,15 +15,12 @@
     "数字特征"
   ],
   "question": "$9.$ 设随机变量 $X$ 的密度函数 $f(x) = \\begin{cases} a(x+b)e^{-x}, & x>0 \\\\ 0, & x\\le 0 \\end{cases}$ 在点 $x=1$ 处取得最大值，其中 $a,b$ 均为常数，则 $P(X \\ge EX) =$ $(A)$ $\\frac{2}{e}$ $(B)$ $\\frac{3}{e}$ $(C)$ $\\frac{2}{e^2}$ $(D)$ $\\frac{3}{e^2}$",
-  "options": {
-    "A": "$\\frac{2}{e}$",
-    "B": "$\\frac{3}{e}$",
-    "C": "$\\frac{2}{e^2}$",
-    "D": "$\\frac{3}{e^2}$"
-  },
+  "options": {},
   "correct_option": "A",
   "standard_answer": "A",
   "source": "import_hegongda_v2",
   "solution_steps": [],
-  "volume": "卷二"
+  "volume": "卷二",
+  "raw_question_text": "$9.$ 设随机变量 $X$ 的密度函数 $f(x) = \\begin{cases} a(x+b)e^{-x}, & x>0 \\\\ 0, & x\\le 0 \\end{cases}$ 在点 $x=1$ 处取得最大值，其中 $a,b$ 均为常数，则 $P(X \\ge EX) =$ $(A)$ $\\frac{2}{e}$ $(B)$ $\\frac{3}{e}$ $(C)$ $\\frac{2}{e^2}$ $(D)$ $\\frac{3}{e^2}$",
+  "raw_answer_text": "A"
 }

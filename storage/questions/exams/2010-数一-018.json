@@ -13,5 +13,7 @@
   "question_id": "2010-数一-018",
   "tags": [
     "幂级数"
-  ]
+  ],
+  "raw_question_text": "求幂级数 $\\sum_{n=1}^\\infty \\frac{(-1)^{n-1}}{2n-1} x^{2n}$ 的收敛域及和函数。",
+  "raw_answer_text": "收敛域为 $[-1,1]$，和函数 $S(x) = \\frac{1}{2}\\ln\\frac{1+x}{1-x} - x$"
 }

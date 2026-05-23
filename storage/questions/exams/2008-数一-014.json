@@ -17,5 +17,7 @@
     "数字特征"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设随机变量 $X$ 服从参数为$1$的泊松分布，则 $P\\{X = E(X^2)\\} =$ ______",
+  "raw_answer_text": "$e^{-1}$"
 }

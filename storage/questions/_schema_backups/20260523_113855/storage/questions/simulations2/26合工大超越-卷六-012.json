@@ -1,0 +1,21 @@
+{
+  "question_id": "26合工大超越-卷六-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "全微分"
+  ],
+  "tags": [
+    "全微分"
+  ],
+  "question": "$12.$ 设 $f(x,y)$ 在 $(0,0)$ 处可微，$df|_{(0,0)}=-dx+dy$，若 $g(x,y)=f(x^2+y,x+y^2)-f(x,y)$，则 $dg|_{(0,0)}=\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$dx-dy$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六"
+}

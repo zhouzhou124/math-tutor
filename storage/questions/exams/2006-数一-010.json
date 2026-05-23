@@ -21,5 +21,7 @@
   "tags": [
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x,y)$ 与 $\\varphi(x,y)$ 均为可微函数，且 $\\varphi'_x(x,y) \\neq 0$。已知 $(x_0,y_0)$ 是 $f(x,y)$ 在约束条件 $\\varphi(x,y)=0$ 下的一个极值点，下列选项正确的是",
+  "raw_answer_text": "A"
 }

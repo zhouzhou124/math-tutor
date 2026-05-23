@@ -16,5 +16,6 @@
   "question": "$\\sum_{n=2}^{\\infty} \\left[ \\frac{1}{n!} + \\frac{1}{(n-2)!} \\right] =$ $(A)$ $e-1$ $(B)$ $e$ $(C)$ $2(e-1)$ $(D)$ $2e$",
   "source": "import_v2",
   "options": {},
-  "correct_option": "C"
+  "correct_option": "C",
+  "raw_question_text": "$\\sum_{n=2}^{\\infty} \\left[ \\frac{1}{n!} + \\frac{1}{(n-2)!} \\right] =$ $(A)$ $e-1$ $(B)$ $e$ $(C)$ $2(e-1)$ $(D)$ $2e$"
 }

@@ -1,0 +1,24 @@
+{
+  "question_id": "26合工大超越-卷六-021",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵相似"
+  ],
+  "tags": [
+    "矩阵相似"
+  ],
+  "question": "(本题满分12分) 设三阶矩阵 $A$ 与矩阵 $B=\\begin{pmatrix} 1 & -2 & 0 \\\\ 0 & 5 & a \\\\ 0 & 2 & b \\end{pmatrix}$ 相似，$\\alpha_1=\\begin{pmatrix} 2 \\\\ 1 \\\\ 0 \\end{pmatrix}$，$\\alpha_2=\\begin{pmatrix} -3 \\\\ 0 \\\\ 1 \\end{pmatrix}$ 是方程组 $(A-E)x=0$ 的两个线性无关的解，$\\alpha_3=\\begin{pmatrix} -1 \\\\ -1 \\\\ 1 \\end{pmatrix}$ 是非齐次线性方程组 $Ax=\\begin{pmatrix} -5 \\\\ -5 \\\\ 5 \\end{pmatrix}$ 的一个解.\n$(1)$ 求 $A$；\n$(2)$ 求 $a,b$；\n$(3)$ 求一个可逆矩阵 $P$，使得 $P^{-1}BP=A$.",
+  "standard_answer": "(I) $A=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 5 \\end{pmatrix}$\\n(II) $a=0,b=1$\\n(III) $P=\\begin{pmatrix} 1 & 2 & -1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+  "source": "import_hegongda_v6",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷六",
+  "__cached_at__": 1779502981.3490462,
+  "raw_question_text": "(本题满分12分) 设三阶矩阵 $A$ 与矩阵 $B=\\begin{pmatrix} 1 & -2 & 0 \\\\ 0 & 5 & a \\\\ 0 & 2 & b \\end{pmatrix}$ 相似，$\\alpha_1=\\begin{pmatrix} 2 \\\\ 1 \\\\ 0 \\end{pmatrix}$，$\\alpha_2=\\begin{pmatrix} -3 \\\\ 0 \\\\ 1 \\end{pmatrix}$ 是方程组 $(A-E)x=0$ 的两个线性无关的解，$\\alpha_3=\\begin{pmatrix} -1 \\\\ -1 \\\\ 1 \\end{pmatrix}$ 是非齐次线性方程组 $Ax=\\begin{pmatrix} -5 \\\\ -5 \\\\ 5 \\end{pmatrix}$ 的一个解.\n$(1)$ 求 $A$；\n$(2)$ 求 $a,b$；\n$(3)$ 求一个可逆矩阵 $P$，使得 $P^{-1}BP=A$.",
+  "raw_answer_text": "(I) $A=\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 5 \\end{pmatrix}$\\n(II) $a=0,b=1$\\n(III) $P=\\begin{pmatrix} 1 & 2 & -1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+}

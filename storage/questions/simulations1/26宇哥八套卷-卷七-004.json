@@ -22,5 +22,7 @@
   "tags": [
     "定积分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$I_1 = \\int_0^{2\\pi} \\frac{\\sin x}{x} dx$，$I_2 = \\int_0^{2\\pi} \\frac{\\sin x}{2\\pi - x} dx$，$I_3 = \\int_0^{2\\pi} \\frac{\\sin x}{x(2\\pi - x)} dx$，则",
+  "raw_answer_text": "B"
 }

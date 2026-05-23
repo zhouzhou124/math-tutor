@@ -16,5 +16,7 @@
     "曲线积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $l$ 是从点 $(1,1,1)$ 到点 $(4,4,4)$ 的直线段，则 $\\int_l \\frac{x dx + y dy + z dz}{\\sqrt{x^2 + y^2 + z^2 - x - y + 2z}} =\\_\\_\\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$4\\ln 2$"
 }

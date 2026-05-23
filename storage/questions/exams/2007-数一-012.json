@@ -14,5 +14,7 @@
   "tags": [
     "多元函数微分"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $f(u,v)$ 为二元可微函数，$z = f(x^y, x^z)$，则 $\\frac{\\partial z}{\\partial x} =$ ______",
+  "raw_answer_text": "$f_1 \\cdot y x^{y-1} + f_2 \\cdot z x^{z-1}$"
 }

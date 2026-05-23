@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数"
+  ],
+  "tags": [
+    "偏导数"
+  ],
+  "question": "$3.$ 已知函数 $f(x,y)=\\begin{cases} x^2y, & xy\\neq0 \\\\ x, & y=0 \\\\ y, & x=0 \\end{cases}$，则 $f(x,y)$ 在点 $(0,0)$ 处 \n$(A)$ 偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 存在 \n$(B)$ 偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 不存在 \n$(C)$ 偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 存在 \n$(D)$ 偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 不存在",
+  "options": {
+    "A": "偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 存在",
+    "B": "偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 不存在",
+    "C": "偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 存在",
+    "D": "偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 不存在"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$3.$ 已知函数 $f(x,y)=\\begin{cases} x^2y, & xy\\neq0 \\\\ x, & y=0 \\\\ y, & x=0 \\end{cases}$，则 $f(x,y)$ 在点 $(0,0)$ 处 \n$(A)$ 偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 存在 \n$(B)$ 偏导数 $f_x'(x,y)$ 连续，$f_y''(0,0)$ 不存在 \n$(C)$ 偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 存在 \n$(D)$ 偏导数 $f_x'(x,y)$ 不连续，$f_y''(0,0)$ 不存在",
+  "raw_answer_text": "C"
+}

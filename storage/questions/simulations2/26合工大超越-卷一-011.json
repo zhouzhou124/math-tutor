@@ -17,5 +17,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "options": {},
-  "volume": "卷一"
+  "volume": "卷一",
+  "raw_question_text": "$11.$ $\\lim_{x\\to +\\infty} \\left( \\frac{\\pi}{2} - \\arctan x \\right)^{\\frac{1}{\\ln x}} = \\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$e^{-1}$"
 }

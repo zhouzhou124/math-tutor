@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷九-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "积分"
+  ],
+  "tags": [
+    "极限",
+    "积分"
+  ],
+  "question": "$11.$ $$\\lim_{x\\to0^+} \\frac{x\\int_x^{2x} \\sqrt{2xt-t^2} dt}{x-\\sin x} = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$\\frac{4}{3}$",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷九",
+  "raw_question_text": "$11.$ $$\\lim_{x\\to0^+} \\frac{x\\int_x^{2x} \\sqrt{2xt-t^2} dt}{x-\\sin x} = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$\\frac{4}{3}$"
+}

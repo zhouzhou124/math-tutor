@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷十-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵合同"
+  ],
+  "tags": [
+    "矩阵合同"
+  ],
+  "question": "$5.$ 设矩阵 $A=\\begin{pmatrix} a & 0 & -1 \\\\ 0 & 2 & 0 \\\\ -1 & 0 & a \\end{pmatrix}$ 与矩阵 $B=\\begin{pmatrix} 0 & 0 & -1 \\\\ b & -1 & 0 \\\\ -1 & 0 & 2 \\end{pmatrix}$ 合同，则 \n$(A)$ $a<1,b=0$ \n$(B)$ $a<-1,b=0$ \n$(C)$ $a>-1,b=0$ \n$(D)$ $a>1,b=0$",
+  "options": {
+    "A": "$a<1,b=0$",
+    "B": "$a<-1,b=0$",
+    "C": "$a>-1,b=0$",
+    "D": "$a>1,b=0$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "volume": "卷十",
+  "raw_question_text": "$5.$ 设矩阵 $A=\\begin{pmatrix} a & 0 & -1 \\\\ 0 & 2 & 0 \\\\ -1 & 0 & a \\end{pmatrix}$ 与矩阵 $B=\\begin{pmatrix} 0 & 0 & -1 \\\\ b & -1 & 0 \\\\ -1 & 0 & 2 \\end{pmatrix}$ 合同，则 \n$(A)$ $a<1,b=0$ \n$(B)$ $a<-1,b=0$ \n$(C)$ $a>-1,b=0$ \n$(D)$ $a>1,b=0$",
+  "raw_answer_text": "B"
+}

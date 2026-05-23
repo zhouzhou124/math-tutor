@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷八-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "积分不等式"
+  ],
+  "tags": [
+    "积分不等式"
+  ],
+  "question": "(本题满分12分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上二阶可导，且 $f''(x)>0$，$F(x)=\\frac{1}{x}\\int_0^x f(t)dt$. 证明：任意 $a,b>0$，有 $F(b)-F(a) \\ge F\\left(\\frac{a+b}{2}\\right)-F(a)$.",
+  "standard_answer": "证明略",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷八",
+  "__cached_at__": 1779502981.3001285
+}

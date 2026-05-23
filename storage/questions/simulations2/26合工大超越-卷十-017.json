@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-017",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数列极限",
+    "中值定理"
+  ],
+  "tags": [
+    "数列极限",
+    "中值定理"
+  ],
+  "question": "$17.$ (本题满分10分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上有二阶导数，$f'(0)=1$，当 $x>0$ 时有 $0<f(x)<x$，设 $x_1>0,x_{n+1}=f(x_n),n=1,2,\\dots$，\n$(1)$ 证明：数列 $\\{x_n\\}$ 收敛，并求极限；\n$(2)$ 求极限 $\\lim_{n\\to\\infty} (\\frac{1}{x_n}-\\frac{1}{x_{n+1}})$.",
+  "standard_answer": "(I) $\\lim_{n\\to\\infty}x_n=0$ (II) $\\lim_{n\\to\\infty}(\\frac{1}{x_n}-\\frac{1}{x_{n+1}})=1$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$17.$ (本题满分10分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上有二阶导数，$f'(0)=1$，当 $x>0$ 时有 $0<f(x)<x$，设 $x_1>0,x_{n+1}=f(x_n),n=1,2,\\dots$，\n$(1)$ 证明：数列 $\\{x_n\\}$ 收敛，并求极限；\n$(2)$ 求极限 $\\lim_{n\\to\\infty} (\\frac{1}{x_n}-\\frac{1}{x_{n+1}})$.",
+  "raw_answer_text": "(I) $\\lim_{n\\to\\infty}x_n=0$ (II) $\\lim_{n\\to\\infty}(\\frac{1}{x_n}-\\frac{1}{x_{n+1}})=1$"
+}

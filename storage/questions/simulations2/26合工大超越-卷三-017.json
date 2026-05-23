@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
-  "__cached_at__": 1779466679.5148015
+  "__cached_at__": 1779466679.5148015,
+  "raw_question_text": "(本题满分10分) 求极限 $$\\lim_{n\\to\\infty} n^2[ (1+\\frac{1}{n+1})^{n+1} - (1+\\frac{1}{n})^n ]$$",
+  "raw_answer_text": "$\\frac{1}{2}e$"
 }

@@ -21,5 +21,6 @@
     "C": "$3$",
     "D": "$4$"
   },
-  "correct_option": "A"
+  "correct_option": "A",
+  "raw_question_text": "已知 $0<P(A)<1$ 且 $P(B+C\\mid A)=P(B\\mid A)+P(C\\mid A)$，则正确结论个数为"
 }

@@ -17,5 +17,7 @@
     "数字特征"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设 $X_1,X_2,\\dots,X_n$ 是总体 $N(\\mu,\\sigma^2)$ 的简单随机样本，记 $\\overline{X} = \\frac{1}{n}\\sum_{i=1}^n X_i$，$S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\overline{X})^2$，$T = \\overline{X}^2 - \\frac{1}{n}S^2$.\n$(1)$ 证明 $T$ 是 $\\mu^2$ 的无偏估计量；\n$(2)$ 当 $\\mu = 0$，$\\sigma = 1$ 时，求 $D(T)$.",
+  "raw_answer_text": "(I) 证明略\n(II) $D(T) = \\frac{2}{n}$"
 }

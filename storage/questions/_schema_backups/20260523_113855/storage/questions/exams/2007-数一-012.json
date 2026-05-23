@@ -1,0 +1,18 @@
+{
+  "question_id": "2007-数一-012",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设 $f(u,v)$ 为二元可微函数，$z = f(x^y, x^z)$，则 $\\frac{\\partial z}{\\partial x} =$ ______",
+  "standard_answer": "$f_1 \\cdot y x^{y-1} + f_2 \\cdot z x^{z-1}$",
+  "knowledge_points": [
+    "多元函数微分"
+  ],
+  "tags": [
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

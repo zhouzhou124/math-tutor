@@ -1,0 +1,22 @@
+{
+  "question_id": "2022-数一-014",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$14.$ 已知级数 $\\sum_{n=1}^{\\infty}\\frac{n!}{n^n}e^{-nx}$ 的收敛域为 $(a,+\\infty)$，则 $a=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "无穷级数"
+  ],
+  "source": "manual_2022",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2022年 填空题 知识点: 无穷级数 数学概念: 对数指数函数 级数 求和 级数收敛性 中等难度 5分题 2022-数一-014"
+}

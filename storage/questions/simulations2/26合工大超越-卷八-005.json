@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷八-005",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "初等变换"
+  ],
+  "tags": [
+    "初等变换"
+  ],
+  "question": "将 $3$ 阶矩阵 $A$ 的第 $1$ 行与第 $2$ 行互换得矩阵 $B$，再将 $B$ 的第 $2$ 行乘以 $-3$ 加到第 $3$ 行得矩阵 $C$，且 $P^{-1}A=C$，则 $P=$ $(A)$ $\\begin{pmatrix} 0&1&0\\\\1&0&3\\\\0&0&1 \\end{pmatrix}$ $(B)$ $\\begin{pmatrix} 0&1&0\\\\1&0&0\\\\0&-3&1 \\end{pmatrix}$ $(C)$ $\\begin{pmatrix} 1&0&0\\\\0&1&0\\\\0&3&1 \\end{pmatrix}$ $(D)$ $\\begin{pmatrix} 0&1&0\\\\1&0&0\\\\0&3&1 \\end{pmatrix}$",
+  "options": {},
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_hegongda_v8",
+  "solution_steps": [],
+  "volume": "卷八",
+  "__cached_at__": 1779503253.386968,
+  "raw_question_text": "将 $3$ 阶矩阵 $A$ 的第 $1$ 行与第 $2$ 行互换得矩阵 $B$，再将 $B$ 的第 $2$ 行乘以 $-3$ 加到第 $3$ 行得矩阵 $C$，且 $P^{-1}A=C$，则 $P=$ $(A)$ $\\begin{pmatrix} 0&1&0\\\\1&0&3\\\\0&0&1 \\end{pmatrix}$ $(B)$ $\\begin{pmatrix} 0&1&0\\\\1&0&0\\\\0&-3&1 \\end{pmatrix}$ $(C)$ $\\begin{pmatrix} 1&0&0\\\\0&1&0\\\\0&3&1 \\end{pmatrix}$ $(D)$ $\\begin{pmatrix} 0&1&0\\\\1&0&0\\\\0&3&1 \\end{pmatrix}$",
+  "raw_answer_text": "D"
+}

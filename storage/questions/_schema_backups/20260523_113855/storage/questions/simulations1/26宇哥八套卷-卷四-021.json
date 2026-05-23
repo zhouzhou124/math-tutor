@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷四-021",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 12,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "矩阵"
+  ],
+  "tags": [
+    "矩阵"
+  ],
+  "question": "(本题满分12分) 设 $A = \\begin{pmatrix} 1 & -2 & 3 \\\\ 0 & 1 & -1 \\\\ 1 & 2 & 0 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} -4 \\\\ 1 \\\\ -3 \\end{pmatrix}$，$B = \\begin{pmatrix} -2 & 1 & 3 \\\\ 1 & 0 & -1 \\\\ 2 & 1 & 0 \\end{pmatrix}$，$(A,\\beta) = BC$.\n$(1)$ 求 $Ax = \\beta$ 的解，并求出 $C$；\n$(2)$ 求满足 $(A,\\beta)Y = E$ 的所有 $Y$.",
+  "source": "import_v4",
+  "options": {}
+}

@@ -26,5 +26,7 @@
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "volume": "卷二",
-  "__cached_at__": 1779466026.042023
+  "__cached_at__": 1779466026.042023,
+  "raw_question_text": "已知连续函数 $y=y(x)$ 由方程 $\\frac{1}{2}x + \\frac{\\sqrt{3}}{2}y = \\arctan(\\frac{\\sqrt{3}}{2}x - \\frac{1}{2}y)$ 确定，则下列说法中正确的个数为 ① $y(x)$ 为奇函数；② $y(x)$ 的零点个数是3；③ 曲线 $y=y(x)$ 有两条斜渐近线。",
+  "raw_answer_text": "C"
 }

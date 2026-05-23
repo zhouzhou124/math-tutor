@@ -44,5 +44,7 @@ def parse_latex_question(text: str) -> dict:
     
     result["question"] = '\n'.join(question_lines).strip()
     result["options"] = options
-    
+    # 保留原始文本，Parser 输出不覆盖 Raw
+    result["raw_question_text"] = text
+
     return result

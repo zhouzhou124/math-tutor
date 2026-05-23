@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷五-016",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率"
+  ],
+  "tags": [
+    "条件概率"
+  ],
+  "question": "某人向一目标独立重复射击$4$次，每次命中概率均为$0.8$。已知目标被击中，则第三次射击恰好第二次命中的概率是 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{6}{25}$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五",
+  "__cached_at__": 1779500074.4890037
+}

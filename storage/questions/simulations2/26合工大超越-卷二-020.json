@@ -22,5 +22,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0388515
+  "__cached_at__": 1779466026.0388515,
+  "raw_question_text": "(本题满分12分) 已知二次型 $f(x_1,x_2,x_3) = 2x_1^2 + 2x_2^2 + a x_3^2 - 2x_1x_2 + 2x_1x_3 - 2x_2x_3$，其矩阵为 $A$,$\\alpha = \\begin{pmatrix} 1 \\\\ b \\\\ 1 \\end{pmatrix}$ 是矩阵 $A$ 对应特征值 $\\lambda$ 的一个特征向量（$b<0$）.\n$(1)$ 求 $a,b,\\lambda$；\n$(2)$ 求正交变换 $x = Qy$，将二次型化为标准型；\n$(3)$ 求 $f$ 在 $x^{\\mathrm{T}}x=1$ 条件下的最小值.",
+  "raw_answer_text": "(I) $a=2$，$b=-1$，$\\lambda=0$\\n(II) $Q = \\begin{pmatrix} \\frac{1}{\\sqrt{2}} & \\frac{1}{\\sqrt{6}} & \\frac{1}{\\sqrt{3}} \\\\ \\frac{1}{\\sqrt{2}} & -\\frac{1}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\\\ 0 & \\frac{2}{\\sqrt{6}} & -\\frac{1}{\\sqrt{3}} \\end{pmatrix}$，标准型为 $3y_1^2 + 3y_2^2$\\n(III) 最小值为 $0$"
 }

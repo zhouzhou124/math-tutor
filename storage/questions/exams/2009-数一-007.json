@@ -22,5 +22,7 @@
   "tags": [
     "随机变量及其分布",
     "数字特征"
-  ]
+  ],
+  "raw_question_text": "设随机变量 $X$ 的分布函数为 $F(x) = 0.3\\Phi(x) + 0.7\\Phi\\left(\\frac{x-1}{2}\\right)$，其中 $\\Phi(x)$ 为标准正态分布的分布函数，则 $E(X) =$",
+  "raw_answer_text": "C"
 }

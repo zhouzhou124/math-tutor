@@ -21,5 +21,6 @@
     "C": "$a \\ge 0$",
     "D": "$a < 0$"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设二次型 $f(x_1,x_2,x_3) = a x_1 x_2 + x_1 x_3 - x_2 x_3$ 的正惯性指数为 $2$，负惯性指数为 $1$，则以下结论可能成立的是"
 }

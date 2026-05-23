@@ -16,11 +16,9 @@ def CardOpen(ast) -> str:
     category = ast.category
     volume = getattr(ast, 'volume', '')
     
-    # 对于宇哥八套卷，显示为 "26宇哥八套卷-卷一" 格式
-    if category and '宇哥' in category:
-        year_label = f"{category}"
-        if volume:
-            year_label += f"-{volume}"
+    # 模拟卷（宇哥八套卷、合工大超越等）按卷号索引，不显示年份
+    if category and volume:
+        year_label = f"{category}-{volume}"
     else:
         subject_short = str(category).replace("数学", "数") if category else ""
         year_label = f"{year} {subject_short}" if year and subject_short else str(year or ast.question_id)

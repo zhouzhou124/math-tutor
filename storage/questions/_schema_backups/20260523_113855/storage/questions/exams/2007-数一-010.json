@@ -1,0 +1,27 @@
+{
+  "question_id": "2007-数一-010",
+  "year": 2007,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "设随机变量 $(X,Y)$ 服从二维正态分布，且 $X$ 与 $Y$ 不相关，$f_X(x)$、$f_Y(y)$ 分别表示 $X,Y$ 的概率密度，则在 $Y=y$ 的条件下，$X$ 的条件概率密度 $f_{X|Y}(x|y)$ 为",
+  "options": {
+    "A": "$f_X(x)$",
+    "B": "$f_Y(y)$",
+    "C": "$f_X(x)f_Y(y)$",
+    "D": "$\\frac{f_X(x)}{f_Y(y)}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "多维随机变量"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "多维随机变量"
+  ],
+  "solution_steps": []
+}

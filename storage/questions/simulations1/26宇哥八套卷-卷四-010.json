@@ -21,5 +21,6 @@
     "C": "$S_1^2$",
     "D": "$S_2^2$"
   },
-  "correct_option": "B"
+  "correct_option": "B",
+  "raw_question_text": "设 $X,Y$ 独立同分布于 $N(0,\\sigma^2)$，$X_1,\\dots,X_9$ 与 $Y_1,\\dots,Y_{11}$ 是分别来自总体 $X$ 与 $Y$ 的简单随机样本，样本方差分别为 $S_X^2$ 与 $S_Y^2$，记 $S_1^2 = \\frac{1}{2}(S_X^2 + S_Y^2)$，$S_2^2 = \\frac{1}{9}(4S_X^2 + 5S_Y^2)$，则方差最小的是"
 }

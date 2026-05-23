@@ -15,5 +15,7 @@
   "tags": [
     "微分",
     "微分方程"
-  ]
+  ],
+  "raw_question_text": "求微分方程 $y'' - 3y' + 2y = 2xe^x$ 的通解。",
+  "raw_answer_text": "$y = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x$"
 }

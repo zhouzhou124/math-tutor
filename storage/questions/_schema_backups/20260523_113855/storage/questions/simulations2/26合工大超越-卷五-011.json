@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷五-011",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分极限"
+  ],
+  "tags": [
+    "二重积分极限"
+  ],
+  "question": "$$\\lim_{t\\to 0^+} \\int_0^t dx \\int_x^t (e^{x+y}-e^x-e^y+1) dy = \\underline{\\qquad\\qquad}$$",
+  "standard_answer": "$\\frac{1}{2}$",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷五",
+  "__cached_at__": 1779500074.488343
+}

@@ -1,0 +1,26 @@
+{
+  "question_id": "26合工大超越-卷九-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方向导数",
+    "多元函数微分"
+  ],
+  "tags": [
+    "方向导数",
+    "多元函数微分"
+  ],
+  "question": "$3.$ 设函数 $f(x,y)$ 在 $(0,0)$ 处可微，且在该点处指向 $P_1(-1,0)$ 及 $P_2(0,-1)$ 的方向导数分别为1和-1，若 $g(x,y)=f(x^2+y,x+y^2)$，则 $dy|_{(0,0)}=$ $(A)$ $-dx-dy$ $(B)$ $-dx+dy$ $(C)$ $dx-dy$ $(D)$ $dx+dy$",
+  "options": {},
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_hegongda_v9",
+  "solution_steps": [],
+  "volume": "卷九",
+  "raw_question_text": "$3.$ 设函数 $f(x,y)$ 在 $(0,0)$ 处可微，且在该点处指向 $P_1(-1,0)$ 及 $P_2(0,-1)$ 的方向导数分别为1和-1，若 $g(x,y)=f(x^2+y,x+y^2)$，则 $dy|_{(0,0)}=$ $(A)$ $-dx-dy$ $(B)$ $-dx+dy$ $(C)$ $dx-dy$ $(D)$ $dx+dy$",
+  "raw_answer_text": "A"
+}

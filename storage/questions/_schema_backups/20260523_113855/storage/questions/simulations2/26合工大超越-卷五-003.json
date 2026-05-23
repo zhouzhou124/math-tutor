@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷五-003",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数可微性"
+  ],
+  "tags": [
+    "多元函数可微性"
+  ],
+  "question": "二元函数 $$f(x,y)=\\begin{cases} \\frac{x|y|+y|x|}{\\sqrt{x^2+y^2}}, & (x,y)\\neq(0,0) \\\\ 0, & (x,y)=(0,0) \\end{cases}$$ 在点 $(0,0)$ 处",
+  "options": {
+    "A": "极限存在但不连续",
+    "B": "连续但偏导不存在",
+    "C": "偏导存在但不可微",
+    "D": "可微"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五",
+  "__cached_at__": 1779499787.703725
+}

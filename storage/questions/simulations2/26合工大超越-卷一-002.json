@@ -26,5 +26,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "volume": "卷一",
-  "__cached_at__": 1779464792.7033432
+  "__cached_at__": 1779464792.7033432,
+  "raw_question_text": "已知 $I_1 = \\int_0^{\\frac{\\pi}{2}} \\frac{\\sin x}{1+x^2} dx$，$I_2 = \\int_0^{\\frac{\\pi}{2}} \\frac{\\cos x}{1+x^2} dx$，$J_1 = \\int_0^1 e^x \\sqrt{1-x} dx$，$J_2 = \\int_0^1 e^x \\frac{x}{2\\sqrt{1-x}} dx$，则",
+  "raw_answer_text": "C"
 }

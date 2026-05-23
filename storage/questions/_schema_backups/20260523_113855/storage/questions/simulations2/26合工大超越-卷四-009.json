@@ -1,0 +1,29 @@
+{
+  "question_id": "26合工大超越-卷四-009",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "指数分布",
+    "数字特征"
+  ],
+  "tags": [
+    "指数分布",
+    "数字特征"
+  ],
+  "question": "$9.$ 设 $X$ 与 $Y$ 相互独立，$X\\sim E(\\lambda_1)$，$Y\\sim E(\\lambda_2)$（$\\lambda_1>0,\\lambda_2>0$），$Z=\\min\\{X,Y\\}$ 且 $P(Z\\le 1)=1-e^{-2}$，则 $EZ^2=$ $(A)$ $\\frac{1}{4}$ $(B)$ $\\frac{3}{4}$ $(C)$ $\\frac{1}{2}$ $(D)$ $\\frac{3}{2}$",
+  "options": {
+    "A": "$\\frac{1}{4}$",
+    "B": "$\\frac{3}{4}$",
+    "C": "$\\frac{1}{2}$",
+    "D": "$\\frac{3}{2}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_hegongda_v4",
+  "solution_steps": [],
+  "volume": "卷四"
+}

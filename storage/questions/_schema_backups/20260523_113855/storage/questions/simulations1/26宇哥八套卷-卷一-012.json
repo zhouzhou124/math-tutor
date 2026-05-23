@@ -1,0 +1,18 @@
+{
+  "question_id": "26宇哥八套卷-卷一-012",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "$12.$ $z = \\arcsin y^x$ 在点 $(-1,2)$ 处的全微分为 $dz = \\_\\_\\_\\_\\_\\_$",
+  "source": "import_zhangyu_v1"
+}

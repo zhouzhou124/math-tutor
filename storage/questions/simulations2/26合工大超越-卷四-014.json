@@ -17,5 +17,7 @@
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "options": {},
-  "volume": "卷四"
+  "volume": "卷四",
+  "raw_question_text": "$14.$ 方程 $x\\frac{dy}{dx}+y=\\frac{1}{1+(xy)^2}$ 的通解为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$xy = \\arctan(xy) + C$"
 }

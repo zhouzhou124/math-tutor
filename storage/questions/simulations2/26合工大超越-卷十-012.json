@@ -1,0 +1,25 @@
+{
+  "question_id": "26合工大超越-卷十-012",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "切线",
+    "定积分"
+  ],
+  "tags": [
+    "切线",
+    "定积分"
+  ],
+  "question": "$12.$ 曲线 $f(x)=x^2(0\\le x\\le 6)$ 的切线与 $x=1,x=3$ 和 $x$ 轴所围面积取得最大值为 $\\underline{\\qquad\\qquad}$",
+  "standard_answer": "$\\frac{8}{3}$",
+  "source": "import_hegongda_v10",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷十",
+  "raw_question_text": "$12.$ 曲线 $f(x)=x^2(0\\le x\\le 6)$ 的切线与 $x=1,x=3$ 和 $x$ 轴所围面积取得最大值为 $\\underline{\\qquad\\qquad}$",
+  "raw_answer_text": "$\\frac{8}{3}$"
+}

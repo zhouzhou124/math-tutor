@@ -25,5 +25,6 @@
     "D": "当 $\\lim_{x\\to+\\infty}f(x)$ 存在时，$\\lim_{x\\to+\\infty}\\frac{\\int_0^x f(t)dt}{x}$ 存在"
   },
   "correct_option": "D",
-  "embedding_text": "考研数学一 2025年 选择题 知识点: 导数与微分 极限与连续 数学概念: 极限 积分 中等难度 5分题 2025-数一-003"
+  "embedding_text": "考研数学一 2025年 选择题 知识点: 导数与微分 极限与连续 数学概念: 极限 积分 中等难度 5分题 2025-数一-003",
+  "raw_question_text": "设函数 $f(x)$ 在区间 $(0,+\\infty)$ 上可导，则（ ）"
 }

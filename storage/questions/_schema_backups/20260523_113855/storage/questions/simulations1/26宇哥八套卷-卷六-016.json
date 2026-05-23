@@ -1,0 +1,19 @@
+{
+  "question_id": "26宇哥八套卷-卷六-016",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "较难",
+  "knowledge_points": [
+    "参数估计"
+  ],
+  "tags": [
+    "参数估计"
+  ],
+  "question": "设总体 \\( X \\) 的概率密度为 $$ f(x) = \\begin{cases} \\frac{\\beta x}{\\alpha^2}, & 0 < x < \\alpha, \\\\ 0, & \\text{其他} \\end{cases}$$其中 \\( \\alpha (\\alpha > 1) \\) 是未知参数，\\( X_1, X_2, \\cdots, X_n \\) 是来自总体 \\( X \\) 的简单随机样本，记 \\( p = P\\{0 < X < \\sqrt{\\alpha}\\} \\)，\\( X_{(1)} = \\min\\{X_1, X_2, \\cdots, X_n\\} \\)，\\( X_{(n)} = \\max\\{X_1, X_2, \\cdots, X_n\\} \\)，则 \\( p \\) 的最大似然估计量 \\( \\hat{p} \\) 为 \\(\\underline{\\hspace{3cm}}\\)",
+  "source": "import_v6",
+  "options": {}
+}

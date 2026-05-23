@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷七-006",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$n$ 维向量组 $\\alpha_1,\\alpha_2,\\dots,\\alpha_r$（$3\\le r\\le n$）线性相关的充分必要条件是",
+  "options": {
+    "A": "对于任意一组不全为零的数 $k_1,k_2,\\dots,k_r$，都有 $k_1\\alpha_1 + \\cdots + k_r\\alpha_r = 0$",
+    "B": "$\\alpha_1,\\alpha_2,\\dots,\\alpha_r$ 中任意两个向量都线性相关",
+    "C": "$\\alpha_1,\\alpha_2,\\dots,\\alpha_r$ 中任何一个向量都能由其余向量线性表示",
+    "D": "$\\alpha_1,\\alpha_2,\\dots,\\alpha_r$ 中至少有一个向量能由其余向量线性表示"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间"
+  ],
+  "solution_steps": []
+}

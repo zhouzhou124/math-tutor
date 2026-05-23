@@ -20,5 +20,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷一",
-  "__cached_at__": 1779464742.7503116
+  "__cached_at__": 1779464742.7503116,
+  "raw_question_text": "(本题满分12分) 设 $f(x)$ 是 $[-a,a]$ 上二阶可导的奇函数，且 $\\int_0^a f(x) dx = \\frac{1}{2} a^2 f(a)$.\n$(1)$ 证明存在 $\\xi \\in (0,a)$，有 $f'(\\xi) = f(a)$;\n$(2)$ 证明对任意的实数 $\\lambda$，存在 $\\eta \\in (-a,a)$，有 $f''(\\eta) - \\lambda f'(\\eta) + \\lambda f(a) = 0$.",
+  "raw_answer_text": "证明略"
 }

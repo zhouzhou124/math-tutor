@@ -1,0 +1,22 @@
+{
+  "question_id": "26合工大超越-卷七-018",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 12,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值"
+  ],
+  "question": "(本题满分12分) $df=(3x^2-3a)dx+(3y^2-6y)dy$（$a>0$），$f(0,0)=0$。若 $f$ 有极大值 $16$，求 $a$.",
+  "standard_answer": "$a=4$",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "options": {},
+  "volume": "卷七",
+  "__cached_at__": 1779502378.1998196
+}

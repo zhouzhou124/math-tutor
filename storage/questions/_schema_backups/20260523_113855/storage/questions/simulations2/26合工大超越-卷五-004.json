@@ -1,0 +1,27 @@
+{
+  "question_id": "26合工大超越-卷五-004",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲线积分"
+  ],
+  "tags": [
+    "曲线积分"
+  ],
+  "question": "$4.$ 设平面曲线 $L$ 为星形线 $x^{\\frac{2}{3}}+y^{\\frac{2}{3}}=1$，取顺时针方向，则 $I=\\oint_L \\frac{x dy - y dx}{4x^2+y^2}=$ $(A)$ $0$ $(B)$ $-\\pi$ $(C)$ $-2\\pi$ $(D)$ $\\pi$",
+  "options": {
+    "A": "0",
+    "B": "$-\\pi$",
+    "C": "$-2\\pi$",
+    "D": "$\\pi$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v5",
+  "solution_steps": [],
+  "volume": "卷五"
+}

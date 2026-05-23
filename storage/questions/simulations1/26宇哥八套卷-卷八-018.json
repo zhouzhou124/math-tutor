@@ -16,5 +16,7 @@
     "曲线积分"
   ],
   "solution_steps": [],
-  "options": {}
+  "options": {},
+  "raw_question_text": "设空间曲线 $\\Gamma: \\begin{cases} |x|+|y|=1 \\\\ z = \\arctan(x+y) \\end{cases}$，从 $z$ 轴正向往 $z$ 轴负向看，$\\Gamma$ 的方向为逆时针，计算 $$I = \\oint_{\\Gamma} (x^2 - y) dx + (2x + y^2) dy + z^2 dz$$",
+  "raw_answer_text": "0"
 }

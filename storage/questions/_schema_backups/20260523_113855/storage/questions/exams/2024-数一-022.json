@@ -1,0 +1,24 @@
+{
+  "question_id": "2024-数一-022",
+  "year": 2024,
+  "category": "数学一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "knowledge_points": [
+    "数理统计"
+  ],
+  "difficulty": "较难",
+  "score": 12,
+  "question": "设总体 $X$ 服从 $[0,\\theta]$ 上的均匀分布，$\\theta\\in(0,+\\infty)$ 未知.$X_1,\\cdots,X_n$ 是样本，记 $X_{(n)}=\\max\\{X_1,\\cdots,X_n\\}$，$T_c=cX_{(n)}$.\n$(1)$ 求 $c$ 使 $E(T_c)=\\theta$；\n$(2)$ 记 $h(c)=E[(T_c-\\theta)^2]$，求 $c$ 使 $h(c)$ 最小。",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "数理统计"
+  ],
+  "source": "manual_2024",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2024年 解答题 知识点: 数理统计 数学概念: 概率统计 较难题 12分题 2024-数一-022",
+  "standard_answer": "## 题目重述\n总体 $X\\sim U[0,\\theta]$ ($\\theta>0$ 未知)，$X_1,\\dots,X_n$ 为简单随机样本，$X_{(n)}=\\max\\{X_1,\\dots,X_n\\}$，$T_c=cX_{(n)}$。  \n(1) 求 $c$ 使得 $E(T_c)=\\theta$；  \n(2) 令 $h(c)=E[(T_c-\\theta)^2]$，求 $c$ 使 $h(c)$ 达到最小。\n\n## 标准答案\n(1) $c=\\dfrac{n+1}{n}$；  \n(2) $c=\\dfrac{n+2}{n+1}$。\n\n---\n\n步骤1：**求最大次序统计量 $X_{(n)}$ 的概率分布**\n\n由于 $X_i\\stackrel{i.i.d.}{\\sim} U[0,\\theta]$，总体分布函数和密度函数为\n$$\nF(x)=\\frac{x}{\\theta}\\ (0\\le x\\le\\theta),\\qquad f(x)=\\frac{1}{\\theta}\\ (0\\le x\\le\\theta).\n$$\n$X_{(n)}$ 的分布函数为\n$$\nF_{X_{(n)}}(x)=P(X_{(n)}\\le x)=[F(x)]^n=\\left(\\frac{x}{\\theta}\\right)^n,\\quad 0\\le x\\le\\theta.\n$$\n对其求导得密度函数\n$$\nf_{X_{(n)}}(x)=n\\left(\\frac{x}{\\theta}\\right)^{n-1}\\cdot\\frac{1}{\\theta}\n=\\frac{n x^{n-1}}{\\theta^n},\\quad 0\\le x\\le\\theta.\n$$\n\n步骤2：**计算 $E(T_c)$ 并求无偏条件下的 $c$**\n\n首先计算 $X_{(n)}$ 的期望：\n$$\nE(X_{(n)})=\\int_{0}^{\\theta} x\\cdot\\frac{n x^{n-1}}{\\theta^n}\\,dx\n=\\frac{n}{\\theta^n}\\int_{0}^{\\theta} x^{n}\\,dx\n=\\frac{n}{\\theta^n}\\cdot\\frac{\\theta^{n+1}}{n+1}\n=\\frac{n}{n+1}\\theta.\n$$\n由于 $T_c=cX_{(n)}$，有 $E(T_c)=cE(X_{(n)})=\\dfrac{cn}{n+1}\\theta$。  \n令 $E(T_c)=\\theta$，得\n$$\n\\frac{cn}{n+1}\\theta=\\theta \\quad\\Longrightarrow\\quad c=\\frac{n+1}{n}.\n$$\n\n步骤3：**计算 $E(X_{(n)}^2)$ 并写出均方误差 $h(c)$**\n\n先求 $X_{(n)}$ 的二阶矩：\n$$\nE(X_{(n)}^2)=\\int_{0}^{\\theta} x^2\\cdot\\frac{n x^{n-1}}{\\theta^n}\\,dx\n=\\frac{n}{\\theta^n}\\int_{0}^{\\theta} x^{n+1}\\,dx\n=\\frac{n}{\\theta^n}\\cdot\\frac{\\theta^{n+2}}{n+2}\n=\\frac{n}{n+2}\\theta^2.\n$$\n于是\n$$\n\\begin{aligned}\nh(c)&=E[(T_c-\\theta)^2]=E[(cX_{(n)}-\\theta)^2] \\\\\n&=c^2E(X_{(n)}^2)-2c\\theta E(X_{(n)})+\\theta^2 \\\\\n&=\\frac{n}{n+2}\\theta^2 c^2 - \\frac{2n}{n+1}\\theta^2 c + \\theta^2 \\\\\n&=\\theta^2\\left( \\frac{n}{n+2}c^2 - \\frac{2n}{n+1}c + 1 \\right).\n\\end{aligned}\n$$\n\n步骤4：**求使 $h(c)$ 最小的 $c$**\n\n令 $g(c)=\\dfrac{n}{n+2}c^2-\\dfrac{2n}{n+1}c+1$，这是一个关于 $c$ 的二次函数，二次项系数 $\\dfrac{n}{n+2}>0$，故 $g(c)$ 在顶点处取得最小值。顶点横坐标为\n$$\nc^* = \\frac{-\\left(-\\frac{2n}{n+1}\\right)}{2\\cdot\\frac{n}{n+2}}\n= \\frac{\\frac{2n}{n+1}}{\\frac{2n}{n+2}}\n= \\frac{n+2}{n+1}.\n$$\n因此，使 $h(c)$ 最小的 $c$ 为 $\\dfrac{n+2}{n+1}$。\n\n## 结论\n(1) 使 $T_c$ 成为 $\\theta$ 的无偏估计的 $c$ 为 $c=\\dfrac{n+1}{n}$；  \n(2) 使均方误差 $h(c)=E[(T_c-\\theta)^2]$ 达到最小的 $c$ 为 $c=\\dfrac{n+2}{n+1}$。\n\n## 关键知识点\n- 均匀分布总体下最大次序统计量的分布及密度函数推导\n- 期望与二阶矩的计算\n- 无偏估计的定义及求解方法\n- 均方误差作为二次函数的最优化问题\n\n## 易错提示\n- 求 $X_{(n)}$ 的密度函数时容易忘记乘上 $n$ 次幂的导数，误写成 $(x/\\theta)^n$ 直接作为密度\n- 求 $E(X_{(n)})$ 时积分上下限应为 $[0,\\theta]$，且幂次容易算错（$x^n$ 的积分为 $\\theta^{n+1}/(n+1)$）\n- 在 $h(c)$ 的表达式中注意 $\\theta^2$ 不能随意约去，虽然求最值不影响，但公式推导时需保留\n- 二次函数最值公式符号错误，对称轴为 $-b/(2a)$，此处一次项系数为负，必须仔细处理符号",
+  "_ai_expanded_at": "2026-05-21 23:58"
+}

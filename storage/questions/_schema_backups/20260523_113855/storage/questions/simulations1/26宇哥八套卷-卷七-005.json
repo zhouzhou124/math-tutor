@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷七-005",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $A$ 是 $n$ 阶矩阵，$x$ 是任意的 $n$ 维列向量，$B$ 是任意的 $n$ 阶方阵，则下列说法中错误的是",
+  "options": {
+    "A": "$AB = 0$，必有 $A = 0$",
+    "B": "$B^{\\mathrm{T}}AB = 0$，必有 $A = 0$",
+    "C": "$Ax = 0$，必有 $A = 0$",
+    "D": "$x^{\\mathrm{T}}Ax = 0$，必有 $A = 0$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "矩阵运算"
+  ],
+  "tags": [
+    "矩阵运算"
+  ],
+  "solution_steps": []
+}

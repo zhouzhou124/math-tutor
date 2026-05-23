@@ -1,0 +1,29 @@
+{
+  "question_id": "2026-数一-029",
+  "year": 2026,
+  "category": "数学一",
+  "math_type": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵",
+    "行列式"
+  ],
+  "tags": [
+    "矩阵",
+    "行列式"
+  ],
+  "question": "$7.$ 设 $A$ 为 $2\\times 3$ 矩阵，若 $|AA^{\\mathrm{T}}| = 2$，$|A^{\\mathrm{T}}A - 2E| = 0$，则 $|A^{\\mathrm{T}}A + 2E| =$ $(A)$ $-12$ $(B)$ $12$ $(C)$ $-24$ $(D)$ $24$",
+  "options": {
+    "A": "$-12$",
+    "B": "$12$",
+    "C": "$-24$",
+    "D": "$24$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda",
+  "solution_steps": []
+}

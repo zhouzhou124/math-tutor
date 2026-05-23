@@ -21,5 +21,6 @@
     "C": "$a = 1, b = -1$",
     "D": "$a = 1, b \\neq -1$"
   },
-  "correct_option": "A"
+  "correct_option": "A",
+  "raw_question_text": "在空间直角坐标系中，三张平面 $\\pi_1: ax + y - z = 1$，$\\pi_2: x + y + bz = a$，$\\pi_3: x + ay - z = 1$ 的位置关系如图所示，则"
 }

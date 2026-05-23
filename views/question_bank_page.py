@@ -245,7 +245,7 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
             if editing == qid:
                 with st.container(border=True):
                     st.caption(f"编辑 {qid}")
-                    edit_value = q.get("question", "")
+                    edit_value = q.get("raw_question_text") or q.get("question", "")
                     opts = q.get("options") or {}
                     if opts:
                         has_inline = any(
@@ -269,7 +269,10 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
                     with c1:
                         if st.button("💾 保存修改", key=f"save_{qid}", type="primary"):
                             from exam_parser.simple_parser import parse_latex_question
+                            from database.question_schema import set_raw_question
                             parsed = parse_latex_question(new_text)
+                            # 四层分离: raw 永远保留原始文本
+                            set_raw_question(parsed, new_text)
                             db.update(qid, parsed)
                             st.session_state.editing_question = None
                             # 正确清除缓存：删除缓存键而不是设为 None
@@ -489,6 +492,7 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
 
             if st.button("💾 添加到题库", type="primary", use_container_width=True,
                          disabled=not new_question.strip()):
+                from database.question_schema import set_raw_question, set_raw_answer
                 clean_q = normalize_latex_style(new_question.strip())
                 clean_a = normalize_latex_style(new_answer.strip()) if new_answer.strip() else ""
 
@@ -506,6 +510,8 @@ def render_question_bank_page(db, render_latex, cached_stats=None):
                     "tags": [],
                     "source": "manual_input",
                 }
+                set_raw_question(new_q, clean_q)
+                set_raw_answer(new_q, clean_a)
 
                 result = db.insert(new_q)
                 if result["success"]:

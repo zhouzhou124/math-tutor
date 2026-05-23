@@ -21,5 +21,7 @@
   },
   "correct_option": "B",
   "standard_answer": "B",
-  "question_id": "2026-数一-004"
+  "question_id": "2026-数一-004",
+  "raw_question_text": "$4.$ 设 $z = \\sqrt{4 - x^2 - y^2}$ 与 $z = \\sqrt{x^2 + y^2}$ 两个曲面相交的有界闭区域为 $\\Omega$，$f(u)$ 为连续函数，则 $\\iiint\\limits_\\Omega f(x^2 + y^2 + z^2) dv$ 可以表示为 (  ) \n$(A)$ $\\int_0^{2\\pi} d\\theta \\int_0^{\\sqrt{4-r^2}} dr \\int_r^{\\sqrt{4-r^2}} f(r^2 + z^2) r dz$ \n$(B)$ $\\int_0^{2\\pi} d\\theta \\int_0^{\\sqrt{2}} dr \\int_r^{\\sqrt{4-r^2}} f(r^2 + z^2) r dz$ \n$(C)$ $\\int_0^{2\\pi} d\\theta \\int_0^{\\frac{\\pi}{4}} d\\varphi \\int_0^2 f(r^2) r^2 \\sin\\varphi dr$ \n$(D)$ $\\int_0^{2\\pi} d\\theta \\int_0^{\\frac{\\pi}{4}} d\\varphi \\int_0^{\\sqrt{2}} f(r^2) r^2 \\sin\\varphi dr$",
+  "raw_answer_text": "B"
 }

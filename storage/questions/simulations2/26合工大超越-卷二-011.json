@@ -18,5 +18,7 @@
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.0278254
+  "__cached_at__": 1779466026.0278254,
+  "raw_question_text": "$$\\int_0^{+\\infty} \\frac{1}{\\sqrt{x(x+2)^3}} dx = \\underline{\\qquad\\qquad}$$",
+  "raw_answer_text": "$\\frac{\\pi}{2}$"
 }

@@ -1,0 +1,20 @@
+{
+  "question_id": "2008-数一-010",
+  "year": 2008,
+  "category": "数学一",
+  "math_type": "数学一",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 4,
+  "question": "曲线 $\\sin(xy) + \\ln(y-x) = x$ 在点 $(0,1)$ 处的切线方程是 ______",
+  "standard_answer": "$y = x + 1$",
+  "knowledge_points": [
+    "导数与微分",
+    "多元函数微分"
+  ],
+  "tags": [
+    "导数与微分",
+    "多元函数微分"
+  ],
+  "solution_steps": []
+}

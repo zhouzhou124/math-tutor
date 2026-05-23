@@ -1,0 +1,22 @@
+{
+  "question_id": "2019-数一-007",
+  "year": 2019,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "knowledge_points": [
+    "随机事件与概率"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$7.$ 设 $A,B$ 为随机事件，则 $P(A) = P(B)$ 的充分必要条件是 ( )\n\n$(A)$ $P(A \\cup B) = P(A) + P(B)$ \\quad $(B)$ $P(AB) = P(A)P(B)$\n\n$(C)$ $P(\\bar{A}B) = P(\\bar{B}A)$ \\quad $(D)$ $P(AB) = P(\\bar{A}\\bar{B})$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "随机事件与概率"
+  ],
+  "source": "manual_2019",
+  "options": {},
+  "correct_option": "A",
+  "embedding_text": "考研数学一 2019年 选择题 知识点: 随机事件与概率 中等难度 4分题 2019-数一-007"
+}

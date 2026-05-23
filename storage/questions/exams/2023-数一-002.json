@@ -18,5 +18,6 @@
   "source": "manual_2023",
   "options": {},
   "correct_option": "C",
-  "embedding_text": "考研数学一 2023年 选择题 知识点: 微分方程 中等难度 5分题 2023-数一-002"
+  "embedding_text": "考研数学一 2023年 选择题 知识点: 微分方程 中等难度 5分题 2023-数一-002",
+  "raw_question_text": "$2.$ 若微分方程 $y''+ay'+by=0$ 的解在 $(-\\infty,+\\infty)$ 上有界,则( )\n\n$(A)$ $a<0,b>0$ $(B)$ $a>0,b>0$ $(C)$ $a=0,b>0$ $(D)$ $a=0,b<0$"
 }

@@ -15,5 +15,6 @@
   ],
   "question": "(本题满分12分) 设 $\\Gamma$ 为球面 $x^2 + y^2 + z^2 = m^2$ 与平面 $x + z = m (m>0)$ 的交线，计算 $$I = \\oint_{\\Gamma} xz(1 + yz - xy) ds.$$",
   "source": "import_v4",
-  "options": {}
+  "options": {},
+  "raw_question_text": "(本题满分12分) 设 $\\Gamma$ 为球面 $x^2 + y^2 + z^2 = m^2$ 与平面 $x + z = m (m>0)$ 的交线，计算 $$I = \\oint_{\\Gamma} xz(1 + yz - xy) ds.$$"
 }

@@ -1,0 +1,27 @@
+{
+  "question_id": "2022-数一-003",
+  "year": 2022,
+  "category": "数学一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "knowledge_points": [
+    "极限与连续"
+  ],
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设有数列 $\\{x_n\\}$，其中 $x_n$ 满足 $-\\frac{\\pi}{2}\\le x_n\\le\\frac{\\pi}{2}$，则（ ）",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "极限与连续"
+  ],
+  "source": "manual_2022",
+  "options": {
+    "A": "若 $\\lim\\limits_{n\\to\\infty}\\cos(\\sin x_n)$ 存在，则 $\\lim\\limits_{n\\to\\infty} x_n$ 存在",
+    "B": "若 $\\lim\\limits_{n\\to\\infty}\\sin(\\cos x_n)$ 存在，则 $\\lim\\limits_{n\\to\\infty} x_n$ 存在",
+    "C": "若 $\\lim\\limits_{n\\to\\infty}\\cos(\\sin x_n)$ 存在且 $\\lim\\limits_{n\\to\\infty}\\sin x_n$ 存在，则 $\\lim\\limits_{n\\to\\infty} x_n$ 不一定存在",
+    "D": "若 $\\lim\\limits_{n\\to\\infty}\\sin(\\cos x_n)$ 存在且 $\\lim\\limits_{n\\to\\infty}\\cos x_n$ 存在，则 $\\lim\\limits_{n\\to\\infty} x_n$ 不一定存在"
+  },
+  "correct_option": "D",
+  "embedding_text": "考研数学一 2022年 选择题 知识点: 极限与连续 数学概念: 三角函数 极限 中等难度 5分题 2022-数一-003"
+}

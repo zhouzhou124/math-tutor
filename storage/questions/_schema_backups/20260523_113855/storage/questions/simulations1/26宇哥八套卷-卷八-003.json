@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥八套卷-卷八-003",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "当 $|x|<1$ 时，$\\sum_{n=1}^\\infty \\left( 1 + \\frac{1}{2!} + \\frac{1}{3!} + \\cdots + \\frac{1}{n!} \\right) x^n =$",
+  "options": {
+    "A": "$\\frac{e^x - e^{-x}}{1+x}$",
+    "B": "$\\frac{e^x - e^{-x}}{1-x}$",
+    "C": "$\\frac{e^x - 1}{1+x}$",
+    "D": "$\\frac{e^x - 1}{1-x}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数"
+  ],
+  "solution_steps": []
+}

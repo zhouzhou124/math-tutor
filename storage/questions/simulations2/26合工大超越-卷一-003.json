@@ -24,5 +24,7 @@
   "source": "import_hegongda",
   "solution_steps": [],
   "volume": "卷一",
-  "__cached_at__": 1779464742.751209
+  "__cached_at__": 1779464742.751209,
+  "raw_question_text": "已知函数 $f(x,y)$ 在点 $(0,0)$ 处连续，且 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{\\ln(1+|x|+|y|)} = 0$，则 $f(x,y)$ 在点 $(0,0)$ 处",
+  "raw_answer_text": "C"
 }

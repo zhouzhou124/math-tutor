@@ -1,0 +1,28 @@
+{
+  "question_id": "26合工大超越-卷七-002",
+  "year": 2026,
+  "category": "26合工大超越",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方程根"
+  ],
+  "tags": [
+    "方程根"
+  ],
+  "question": "方程 $\\int_0^x \\frac{2\\ln(1+t)}{t} dt - \\int_{\\cos x}^{\\frac{\\pi}{2}} e^{-a^2} dt = 0$（$a>0$）在 $(0,\\frac{\\pi}{2})$ 内的个数为",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "与 $a$ 有关"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_hegongda_v7",
+  "solution_steps": [],
+  "volume": "卷七",
+  "__cached_at__": 1779502378.2031808
+}

@@ -21,5 +21,7 @@
   "tags": [
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X,Y$ 独立同分布，且 $X$ 的分布函数为 $F(x)$，则 $Z = \\max\\{X,Y\\}$ 的分布函数为",
+  "raw_answer_text": "A"
 }

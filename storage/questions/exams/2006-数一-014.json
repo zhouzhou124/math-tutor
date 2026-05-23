@@ -21,5 +21,7 @@
   "tags": [
     "随机变量及其分布"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 服从正态分布 $N(\\mu_1,\\sigma_1^2)$，$Y$ 服从正态分布 $N(\\mu_2,\\sigma_2^2)$，且 $P\\{|X-\\mu_1|<1\\} > P\\{|Y-\\mu_2|<1\\}$，则必有",
+  "raw_answer_text": "A"
 }

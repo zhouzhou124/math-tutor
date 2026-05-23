@@ -22,5 +22,7 @@
   "tags": [
     "矩阵",
     "秩"
-  ]
+  ],
+  "raw_question_text": "设 $A$ 为4阶实对称矩阵，且 $A^2 + A = O$。若 $A$ 的秩为$3$，则 $A$ 相似于",
+  "raw_answer_text": "B"
 }

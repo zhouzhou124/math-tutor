@@ -21,5 +21,7 @@
   "tags": [
     "向量组与线性空间"
   ],
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1,\\alpha_2,\\dots,\\alpha_s$ 均为 $n$ 维列向量，$A$ 是 $m\\times n$ 矩阵，下列选项正确的是",
+  "raw_answer_text": "A"
 }

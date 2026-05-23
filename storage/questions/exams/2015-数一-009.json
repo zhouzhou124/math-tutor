@@ -18,5 +18,6 @@
   "source": "manual_2015",
   "options": {},
   "correct_option": null,
-  "embedding_text": "考研数学一 2015年 填空题 知识点: 极限与连续 数学概念: 三角函数 对数指数函数 极限 基础题 4分题 2015-数一-009"
+  "embedding_text": "考研数学一 2015年 填空题 知识点: 极限与连续 数学概念: 三角函数 对数指数函数 极限 基础题 4分题 2015-数一-009",
+  "raw_question_text": "$9.$ $\\lim_{x\\to0}\\frac{\\ln(\\cos x)}{x^2}=\\underline{\\qquad\\qquad}$"
 }

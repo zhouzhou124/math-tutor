@@ -22,5 +22,7 @@
   "correct_option": "C",
   "standard_answer": "C",
   "source": "import_hegongda",
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$3.$ 已知函数 $f(x,y)$ 在点 $(0,0)$ 处连续，且 $\\lim_{(x,y)\\to(0,0)} \\frac{f(x,y)}{\\ln(1+|x|+|y|)} = 0$，则 $f(x,y)$ 在点 $(0,0)$ 处 $(A)$ 偏导数不存在，也不可微 $(B)$ 偏导数存在，但不可微 $(C)$ 偏导数存在，且可微",
+  "raw_answer_text": "C"
 }

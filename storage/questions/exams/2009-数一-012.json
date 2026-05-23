@@ -14,5 +14,7 @@
   "options": {},
   "tags": [
     "三重积分"
-  ]
+  ],
+  "raw_question_text": "设 $\\Omega = \\{(x,y,z) \\mid x^2 + y^2 + z^2 \\le 1\\}$，则 $$\\iiint_\\Omega z^2 dx dy dz = \\_\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\frac{4\\pi}{15}$"
 }

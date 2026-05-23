@@ -25,5 +25,7 @@
   "correct_option": "D",
   "standard_answer": "D",
   "source": "import_hegongda",
-  "solution_steps": []
+  "solution_steps": [],
+  "raw_question_text": "$1.$ 函数 $y = (1 + e^x)^{\\frac{1}{x}}$ 的值域为 $(A)$ $(1, +\\infty)$ $(B)$ $(0, +\\infty)$ $(C)$ $(0,1) \\cup (e, +\\infty)$ $(D)$ $(0,1) \\cup (1, +\\infty)$",
+  "raw_answer_text": "D"
 }

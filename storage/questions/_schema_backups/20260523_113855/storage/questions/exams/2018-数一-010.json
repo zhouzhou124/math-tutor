@@ -1,0 +1,24 @@
+{
+  "question_id": "2018-数一-010",
+  "year": 2018,
+  "category": "数学一",
+  "question_type": "填空题",
+  "question_no": 10,
+  "knowledge_points": [
+    "定积分",
+    "导数与微分"
+  ],
+  "difficulty": "中等",
+  "score": 4,
+  "question": "$10.$ 设 $f(x)$ 具有 $2$ 阶连续导数。若 $y=f(x)$ 过点 $(0,0)$ 且与 $y=2^x$ 在 $(1,2)$ 处相切，则 $\\int_0^1 xf''(x)dx=\\underline{\\qquad\\qquad}$",
+  "solution_steps": [],
+  "common_mistakes": [],
+  "tags": [
+    "定积分",
+    "导数与微分"
+  ],
+  "source": "manual_2018",
+  "options": {},
+  "correct_option": null,
+  "embedding_text": "考研数学一 2018年 填空题 知识点: 定积分 导数与微分 数学概念: 积分 中等难度 4分题 2018-数一-010"
+}
