@@ -1,0 +1,4 @@
+Input repr: '\\frac{f(2)-f(1}{2-1}'
+Input hex: ['0x5c', '0x66', '0x72', '0x61', '0x63', '0x7b', '0x66', '0x28']
+Pattern: '\\frac\\{([^}]+)\\{([^}]+)\\}'
+Match: False

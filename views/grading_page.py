@@ -10,6 +10,7 @@ from config import LLM_BASE_URL, LLM_MODEL
 from agents import GradingAgent, DiagnosisAgent, SolverAgent
 from renderers.components.grading_result import render_grading_result_cards
 from ._shared import get_client
+from .mobile import set_grading_active
 from storage.grading_task_store import (
     create_task, complete_task, fail_task, get_task,
     get_recent_task, mark_viewed, cleanup_old,
@@ -2031,18 +2032,50 @@ def render_grading_page(db, render_latex):
             if elapsed > 1800:  # 30 minutes
                 fail_task(pending_task_id, "批改超时（超过30分钟未完成），请重试")
                 del st.session_state["_poll_start"]
+                set_grading_active(False)
                 st.rerun()
-            st.info("⏳ 批改任务已提交，正在后台处理中... 页面将自动刷新。")
-            st.caption(f"任务ID: `{pending_task_id}` | 已等待 {elapsed:.0f} 秒")
-            time.sleep(3)
+
+            # ── Progress bar ──
+            from views.components.grading_progress import (
+                inject_progress_css, render_progress,
+                estimate_smooth_progress, get_expected_grading_seconds,
+            )
+            inject_progress_css()
+            expected_s = get_expected_grading_seconds(selected_q, ocr_data)
+            smooth = estimate_smooth_progress(
+                elapsed_s=elapsed, status="processing",
+                base_progress=task.get("progress", 0),
+                expected_s=expected_s, max_before_done=97,
+            )
+            # Map elapsed to phase
+            _phase_map = [
+                (10, "prepare", "正在准备题目与作答内容"),
+                (25, "solution", "正在生成标准答案与解题步骤"),
+                (50, "grading", "正在分析学生作答并进行 AI 批改"),
+                (75, "grading", "正在计算得分与扣分点"),
+                (90, "diagnosis", "正在分析错误原因与薄弱知识点"),
+                (9999, "finalize", "正在整理结果"),
+            ]
+            _phase, _detail = "grading", "正在批改中…"
+            for secs, ph, dt in _phase_map:
+                if elapsed < secs:
+                    _phase, _detail = ph, dt
+                    break
+            render_progress(
+                progress=smooth, phase=_phase, detail=_detail,
+                elapsed_s=int(elapsed),
+            )
+            time.sleep(1 if elapsed < 60 else 2)
             st.rerun()
         elif task["status"] == "completed":
             del st.session_state["_poll_start"]
+            set_grading_active(False)
             _restore_results_to_session(task)
             del st.session_state["pending_task_id"]
             st.rerun()
         elif task["status"] == "failed":
             del st.session_state["_poll_start"]
+            set_grading_active(False)
             err_msg = task.get("error_msg", "未知错误")
             # If server restarted mid-task, suggest a fresh retry
             if "Server restarted" in err_msg:
@@ -2066,6 +2099,7 @@ def render_grading_page(db, render_latex):
     # ── 批改按钮 ──
     if not answer_view_mode and st.button("🔍 开始批改", type="primary", use_container_width=True):
         _clear_grading_state()
+        set_grading_active(True)
         # Submit async: create task → start bg thread → store task_id for polling
         task_id = _submit_grading_async(question, student_ans, ocr_data, selected_q)
         st.session_state["pending_task_id"] = task_id

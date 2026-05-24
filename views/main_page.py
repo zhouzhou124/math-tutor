@@ -181,6 +181,10 @@ def _try_recover_grading_session():
 def render_main_app():
     """渲染主应用"""
 
+    # ── Mobile: responsive CSS + topbar + bottom nav ──
+    from .mobile import render_mobile_wrapper
+    render_mobile_wrapper()
+
     # ── Recovery: on fresh session, check for unviewed grading results ──
     _try_recover_grading_session()
 

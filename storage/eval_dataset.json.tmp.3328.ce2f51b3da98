@@ -1,0 +1,207 @@
+{
+  "_description": "P11 regression evaluation dataset. Each entry defines a grading scenario with expected outcomes.",
+  "_version": "1.0",
+  "_created": "2026-05-25",
+  "entries": [
+    {
+      "eval_id": "eval_001",
+      "question_id": "2006-数一-007",
+      "question_type": "选择题",
+      "difficulty": "中等",
+      "student_answer": "B",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "choice_engine"
+    },
+    {
+      "eval_id": "eval_002",
+      "question_id": "2006-数一-010",
+      "question_type": "选择题",
+      "difficulty": "中等",
+      "student_answer": "A",
+      "expected_correct": true,
+      "expected_score_range": [4, 4],
+      "expected_engine": "choice_engine"
+    },
+    {
+      "eval_id": "eval_003",
+      "question_id": "2006-数一-008",
+      "question_type": "选择题",
+      "difficulty": "中等",
+      "student_answer": "",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "view_only"
+    },
+    {
+      "eval_id": "eval_004",
+      "question_id": "2006-数一-001",
+      "question_type": "填空题",
+      "difficulty": "基础",
+      "student_answer": "$y = Cxe^{-x}$",
+      "expected_correct": true,
+      "expected_score_range": [4, 4],
+      "expected_engine": "fill_compare"
+    },
+    {
+      "eval_id": "eval_005",
+      "question_id": "2006-数一-002",
+      "question_type": "填空题",
+      "difficulty": "中等",
+      "student_answer": "$y = Ce^x$",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "fill_compare"
+    },
+    {
+      "eval_id": "eval_006",
+      "question_id": "2006-数一-005",
+      "question_type": "填空题",
+      "difficulty": "中等",
+      "student_answer": "",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "view_only"
+    },
+    {
+      "eval_id": "eval_007",
+      "question_id": "2006-数一-015",
+      "question_type": "解答题",
+      "difficulty": "中等",
+      "student_answer": "用极坐标，$x=r\\cos\\theta, y=r\\sin\\theta$，$D$ 是右半圆，$\\theta$ 从 $-\\pi/2$ 到 $\\pi/2$，$r$ 从 $0$ 到 $1$。\n积分 $I = \\int_{-\\pi/2}^{\\pi/2} d\\theta \\int_0^1 \\frac{1+xy}{1+r^2} r dr$。\n由于 $xy = r^2\\cos\\theta\\sin\\theta$ 关于 $y$ 是奇函数，在对称区间上积分为零。\n所以 $I = \\pi \\cdot \\frac{1}{2}\\ln 2 = \\frac{\\pi}{2}\\ln 2$。",
+      "expected_correct": true,
+      "expected_score_range": [7, 10],
+      "expected_error_type": null
+    },
+    {
+      "eval_id": "eval_008",
+      "question_id": "2006-数一-017",
+      "question_type": "解答题",
+      "difficulty": "中等",
+      "student_answer": "不会做，随便写了几个公式。\n$f(x) = x^2$\n求导 $f'(x) = 2x$",
+      "expected_correct": false,
+      "expected_score_range": [0, 3],
+      "expected_error_type": "概念错误"
+    },
+    {
+      "eval_id": "eval_009",
+      "question_id": "2006-数一-022",
+      "question_type": "解答题",
+      "difficulty": "较难",
+      "student_answer": "设 $X$ 的概率密度为 $f(x)$，由题意...\n（省略推导过程）\n所以 $P(X>2) = 1/4$。",
+      "expected_correct": false,
+      "expected_score_range": [2, 5],
+      "expected_error_type": "推导错误"
+    },
+    {
+      "eval_id": "eval_010",
+      "question_id": "2006-数一-023",
+      "question_type": "解答题",
+      "difficulty": "较难",
+      "student_answer": "",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "view_only"
+    },
+    {
+      "eval_id": "eval_011",
+      "question_id": "2007-数一-001",
+      "question_type": "选择题",
+      "difficulty": "基础",
+      "student_answer": "C",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "choice_engine"
+    },
+    {
+      "eval_id": "eval_012",
+      "question_id": "2007-数一-005",
+      "question_type": "选择题",
+      "difficulty": "中等",
+      "student_answer": "D",
+      "expected_correct": true,
+      "expected_score_range": [4, 4],
+      "expected_engine": "choice_engine"
+    },
+    {
+      "eval_id": "eval_013",
+      "question_id": "2007-数一-011",
+      "question_type": "填空题",
+      "difficulty": "基础",
+      "student_answer": "$\\frac{1}{2}$",
+      "expected_correct": true,
+      "expected_score_range": [4, 4],
+      "expected_engine": "fill_compare"
+    },
+    {
+      "eval_id": "eval_014",
+      "question_id": "2007-数一-021",
+      "question_type": "解答题",
+      "difficulty": "中等",
+      "student_answer": "解：令 $u = \\ln x$，则 $du = \\frac{1}{x}dx$。\n当 $x=1$ 时 $u=0$，当 $x=e$ 时 $u=1$。\n原积分 $= \\int_0^1 u^2 du = \\frac{1}{3}$。\n所以答案是 $\\frac{1}{3}$。",
+      "expected_correct": true,
+      "expected_score_range": [8, 10],
+      "expected_error_type": null
+    },
+    {
+      "eval_id": "eval_015",
+      "question_id": "2006-数一-019",
+      "question_type": "证明题",
+      "difficulty": "较难",
+      "student_answer": "证明：假设结论不成立，则存在...\n这与已知条件矛盾。\n故原命题成立。",
+      "expected_correct": false,
+      "expected_score_range": [3, 6],
+      "expected_error_type": "推导错误"
+    },
+    {
+      "eval_id": "eval_016",
+      "question_id": "2007-数一-024",
+      "question_type": "解答题",
+      "difficulty": "较难",
+      "student_answer": "",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "view_only"
+    },
+    {
+      "eval_id": "eval_017",
+      "question_id": "26宇哥八套卷-卷三-003",
+      "question_type": "选择题",
+      "difficulty": "较难",
+      "student_answer": "B",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "choice_engine"
+    },
+    {
+      "eval_id": "eval_018",
+      "question_id": "26宇哥八套卷-卷八-017",
+      "question_type": "解答题",
+      "difficulty": "难",
+      "student_answer": "解：(1) 由题目条件得 $f(0)=0, f(1)=1$。\n设 $F(x)=f(x)-x$，则 $F(0)=0, F(1)=0$。\n由罗尔定理，存在 $\\xi\\in(0,1)$ 使 $F'(\\xi)=0$，即 $f'(\\xi)=1$。\n\n(2) 考虑函数 $G(x)=e^{-x}(f'(x)-1)$...",
+      "expected_correct": true,
+      "expected_score_range": [6, 10],
+      "expected_error_type": null
+    },
+    {
+      "eval_id": "eval_019",
+      "question_id": "2011-数一-009",
+      "question_type": "填空题",
+      "difficulty": "中等",
+      "student_answer": "",
+      "expected_correct": false,
+      "expected_score_range": [0, 0],
+      "expected_engine": "view_only"
+    },
+    {
+      "eval_id": "eval_020",
+      "question_id": "2022-数一-007",
+      "question_type": "解答题",
+      "difficulty": "中等",
+      "student_answer": "解：$\\lim_{n\\to\\infty} \\frac{1}{n}\\sum_{k=1}^{n} \\frac{1}{1+(k/n)^2} = \\int_0^1 \\frac{1}{1+x^2}dx$\n$= \\arctan x \\big|_0^1 = \\frac{\\pi}{4}$",
+      "expected_correct": true,
+      "expected_score_range": [8, 10],
+      "expected_error_type": null
+    }
+  ]
+}
