@@ -1,7 +1,9 @@
 """Health check and repair tool for the active question dataset.
 
-The active source of truth is storage/questions/data. Historical build
-artifacts are intentionally ignored by this tool.
+The app currently stores active questions under storage/questions/exams,
+storage/questions/simulations1, and storage/questions/simulations2. A
+legacy storage/questions/data directory is also supported when present.
+Historical build artifacts and backups are intentionally ignored.
 """
 
 from __future__ import annotations
@@ -18,7 +20,14 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "storage" / "questions" / "data"
+QUESTIONS_ROOT = ROOT / "storage" / "questions"
+DATA_DIRS = [
+    QUESTIONS_ROOT / "data",
+    QUESTIONS_ROOT / "exams",
+    QUESTIONS_ROOT / "simulations1",
+    QUESTIONS_ROOT / "simulations2",
+]
+SOURCE_OF_TRUTH = "storage/questions/{data,exams,simulations1,simulations2}"
 INDEX_PATH = ROOT / "storage" / "questions" / "_index.json"
 VERSION_PATH = ROOT / "VERSION.json"
 
@@ -58,8 +67,16 @@ def write_json(path: Path, data: Any) -> None:
 
 def load_questions() -> list[tuple[Path, dict[str, Any]]]:
     questions: list[tuple[Path, dict[str, Any]]] = []
-    for path in sorted(DATA_DIR.glob("*.json")):
-        questions.append((path, read_json(path)))
+    seen: set[Path] = set()
+    for data_dir in DATA_DIRS:
+        if not data_dir.exists():
+            continue
+        for path in sorted(data_dir.glob("*.json")):
+            resolved = path.resolve()
+            if resolved in seen:
+                continue
+            seen.add(resolved)
+            questions.append((path, read_json(path)))
     return questions
 
 
@@ -157,7 +174,7 @@ def rebuild_index(questions: list[dict[str, Any]]) -> dict[str, Any]:
             "volumes": volumes,
             "last_updated": time.strftime("%Y-%m-%dT%H:%M:%S"),
             "categories": sorted(categories.keys()),
-            "source_of_truth": "storage/questions/data",
+            "source_of_truth": SOURCE_OF_TRUTH,
             "missing_data": [],
             "pending_review": [],
         },
@@ -263,7 +280,9 @@ def backup_current_dataset() -> Path:
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     backup_dir = ROOT / "storage" / "questions" / f"current_backup_{timestamp}"
     backup_dir.mkdir(parents=True, exist_ok=False)
-    shutil.copytree(DATA_DIR, backup_dir / "data")
+    for data_dir in DATA_DIRS:
+        if data_dir.exists():
+            shutil.copytree(data_dir, backup_dir / data_dir.name)
     if INDEX_PATH.exists():
         shutil.copy2(INDEX_PATH, backup_dir / "_index.json")
     return backup_dir
@@ -289,7 +308,7 @@ def update_version(questions: list[dict[str, Any]]) -> None:
             "frozen_date": "",
             "dataset_policy": "current_active_questions_only",
             "dataset": {
-                "source_of_truth": "storage/questions/data",
+                "source_of_truth": SOURCE_OF_TRUTH,
                 "years": (
                     f"{math1_years[0]}-{math1_years[-1]}" if math1_years else ""
                 ),
@@ -300,7 +319,7 @@ def update_version(questions: list[dict[str, Any]]) -> None:
                 "solution_coverage": round(with_solutions / total, 3) if total else 0,
             },
             "last_updated": time.strftime("%Y-%m-%d"),
-            "rule": "storage/questions/data is the only active dataset",
+            "rule": f"{SOURCE_OF_TRUTH} is the active dataset",
         }
     )
     write_json(VERSION_PATH, version)
@@ -358,8 +377,8 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="print JSON report")
     args = parser.parse_args()
 
-    if not DATA_DIR.exists():
-        print(f"Data directory not found: {DATA_DIR}", file=sys.stderr)
+    if not any(path.exists() for path in DATA_DIRS):
+        print(f"No data directories found under {QUESTIONS_ROOT}", file=sys.stderr)
         return 2
 
     index = read_json(INDEX_PATH) if INDEX_PATH.exists() else None
@@ -388,4 +407,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

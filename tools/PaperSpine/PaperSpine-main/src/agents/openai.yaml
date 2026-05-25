@@ -1,0 +1,8 @@
+interface:
+  display_name: "PaperSpine"
+  short_description: "Motivation-driven paper/report skill suite"
+  brand_color: "#2563EB"
+  default_prompt: "Use $paper-spine to configure the task, choose flash/pro, research the target scene, and rewrite or build my paper/report."
+
+policy:
+  allow_implicit_invocation: true

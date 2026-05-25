@@ -275,6 +275,12 @@ DETAILED_ANSWER_PROMPT = """你是一位考研数学辅导专家。请为以下�
 
 请严格按照以下要求输出详细解答（公式必须用 $...$ 或 $$...$$ 包裹）：
 
+硬性要求：
+- 必须至少输出 2 个"步骤N"推导步骤；复杂解答题/证明题通常需要 4 个以上步骤。
+- 每个步骤都要包含具体数学推导或选项判断，不能只写标题、知识点或方法名。
+- 必须输出"## 最终答案"或"## 结论"，并让它与推导过程一致。
+- 禁止只输出"关键知识点""易错提示""总结"等元数据内容。
+
 ## 题目重述
 （用一句话复述题目条件，让解答自包含。说明所有已知量、未知量、约束条件。）
 
@@ -307,6 +313,14 @@ _DETAILED_ANSWER_TYPE_EXTRAS = {
     "选择题": """
 ## 题型补充要求（选择题）
 - 步骤中必须逐个分析 A/B/C/D 每个选项，说明正确或错误的原因。
+- 至少包含：题意分析、关键计算、逐项排除/验证、最终选项 四类内容。
+- 结论必须写成"故选 X"。
+""",
+    "填空题": """
+## 题型补充要求（填空题）
+- 必须给出完整计算过程，不能只写填空结果。
+- 若答案来自极限、积分、级数、概率或矩阵运算，必须展示关键公式变形。
+- 结论必须写成"故最终答案为 ..."或"故填 ..."。
 """,
     "证明题": """
 ## 题型补充要求（证明题）
@@ -408,6 +422,19 @@ def generate_detailed_answer(
     type_extra = _DETAILED_ANSWER_TYPE_EXTRAS.get(question_type, "")
     if type_extra:
         prompt += type_extra
+    try:
+        from services.prompt_loader import load_prompt
+        prompt += "\n\n" + load_prompt("math_solution_paperspine_style.md")
+    except Exception:
+        pass
+    prompt += (
+        "\n## 完整性自检（输出前执行，不要写出自检过程）\n"
+        "- 是否至少有 2 个步骤N。\n"
+        "- 是否每个步骤都有实质推导。\n"
+        "- 是否有明确最终答案/结论。\n"
+        "- 是否覆盖题目所有小问和所有选项（若有）。\n"
+        "若任一项不满足，必须继续补全后再输出。\n"
+    )
 
     try:
         system_msg = "你是考研数学辅导专家，擅长分步骤讲解题目解答过程。"
@@ -450,7 +477,8 @@ def generate_detailed_answer(
             if round_idx == 0:
                 continuation_prompt = (
                     "你的上一次回答被截断了。请从上一次停下的地方**精确地**继续写，"
-                    "不要重复已经写过的内容。只输出剩余的部分，如关键知识点、易错提示等。"
+                    "不要重复已经写过的内容。优先补齐未完成的步骤推导和最终答案；"
+                    "不要只补关键知识点、易错提示等元数据。"
                     "\n\n你上一次输出的最后200字：\n" + combined[-200:]
                 )
                 messages = [
@@ -483,11 +511,22 @@ def _compute_overlap(a: str, b: str) -> float:
 def _is_answer_good_enough(text: str) -> bool:
     """Return True when the generated answer is long enough and looks complete."""
     s = (text or "").strip()
-    if len(s) < 200:
+    if len(s) < 80:
         return False
-    # Has at least one step marker or structured section
-    has_steps = bool(re.search(r'(?:步骤\d+|## (?:标准答案|详细步骤|关键知识点|易错提示))', s))
-    if not has_steps:
+    try:
+        from services.solution_quality import solution_quality_report
+        report = solution_quality_report(
+            {"standard_answer": s},
+            {"question_type": "解答题"},
+        )
+        return bool(report.get("ok"))
+    except Exception:
+        pass
+    # Must have real derivation steps. Metadata headings alone are not a solution.
+    step_markers = re.findall(r'(?:^|\n)\s*(?:\#{1,6}\s*)?步骤\s*\d+\s*[：:]', s)
+    if len(step_markers) < 2:
+        return False
+    if not re.search(r'(?:最终答案|##\s*结论|故选|故填|故最终答案|证毕|得证)', s):
         return False
     # Doesn't end mid-sentence
     if s[-1] in "，、；：,;:（([【":

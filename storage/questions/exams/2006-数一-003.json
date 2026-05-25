@@ -7,7 +7,7 @@
   "difficulty": "中等",
   "score": 4,
   "question": "设 $\\Sigma$ 是锥面 $z = \\sqrt{x^2+y^2}$（$0\\le z\\le 1$）的下侧，则 $$\\iint_{\\Sigma} x dy dz + 2y dz dx + 3(z-1) dx dy =\\_\\_\\_\\_\\_\\_\\_\\_$$",
-  "standard_answer": "$\\pi$",
+  "standard_answer": "### 步骤1：\n步骤1：识别题型: 识别题型：第二类曲面积分，曲面为锥面下侧，不封闭，考虑补面后用高斯公式\n\n$ \\Rightarrow I = \\iint_{\\Sigma} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy$\n\n### 步骤2：\n步骤2：计算散度: 计算被积函数的散度，为应用高斯公式做准备\n\n$P=x,\\ Q=2y,\\ R=3(z-1) \\Rightarrow \\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=1+2+3=6$\n\n### 步骤3：\n步骤3：补面用高斯公式: 补平面 Σ₁: z=1, x²+y²≤1 取上侧，与 Σ 构成封闭曲面外侧，利用高斯公式将曲面积分转化为三重积分，锥体体积为 π/3\n\n$\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=6 \\Rightarrow \\iint_{\\Sigma+\\Sigma_1} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy = \\iiint_{\\Omega}6\\,dV = 6\\cdot \\frac{\\pi}{3}=2\\pi$\n\n### 步骤4：\n步骤4：计算补面积分: 在平面 Σ₁ 上 dydz 与 dzdx 积分为零，且 R=0，因此该部分积分为零\n\n$\\Sigma_1: z=1,\\ x^2+y^2\\le 1，上侧，R=3(z-1)=0 \\Rightarrow \\iint_{\\Sigma_1} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy = 0$\n\n### 步骤5：\n步骤5：得出答案: 原积分等于封闭曲面 Σ+Σ₁ 外侧积分减去 Σ₁ 上的积分，得到最终结果\n\n$2\\pi - 0 = 2\\pi \\Rightarrow 2\\pi$\n\n### 最终答案\n2\\pi",
   "knowledge_points": [
     "曲面积分"
   ],
@@ -17,5 +17,26 @@
   "solution_steps": [],
   "options": {},
   "raw_question_text": "设 $\\Sigma$ 是锥面 $z = \\sqrt{x^2+y^2}$（$0\\le z\\le 1$）的下侧，则 $$\\iint_{\\Sigma} x dy dz + 2y dz dx + 3(z-1) dx dy =\\_\\_\\_\\_\\_\\_\\_\\_$$",
-  "raw_answer_text": "$\\pi$"
+  "raw_answer_text": "$\\pi$",
+  "final_answer": "$\\pi$",
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-25 10:39",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779676777",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：\n步骤1：识别题型: 识别题型：第二类曲面积分，曲面为锥面下侧，不封闭，考虑补面后用高斯公式\n\n$ \\Rightarrow I = \\iint_{\\Sigma} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy$\n\n### 步骤2：\n步骤2：计算散度: 计算被积函数的散度，为应用高斯公式做准备\n\n$P=x,\\ Q=2y,\\ R=3(z-1) \\Rightarrow \\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=1+2+3=6$\n\n### 步骤3：\n步骤3：补面用高斯公式: 补平面 Σ₁: z=1, x²+y²≤1 取上侧，与 Σ 构成封闭曲面外侧，利用高斯公式将曲面积分转化为三重积分，锥体体积为 π/3\n\n$\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=6 \\Rightarrow \\iint_{\\Sigma+\\Sigma_1} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy = \\iiint_{\\Omega}6\\,dV = 6\\cdot \\frac{\\pi}{3}=2\\pi$\n\n### 步骤4：\n步骤4：计算补面积分: 在平面 Σ₁ 上 dydz 与 dzdx 积分为零，且 R=0，因此该部分积分为零\n\n$\\Sigma_1: z=1,\\ x^2+y^2\\le 1，上侧，R=3(z-1)=0 \\Rightarrow \\iint_{\\Sigma_1} x\\,dydz + 2y\\,dzdx + 3(z-1)\\,dxdy = 0$\n\n### 步骤5：\n步骤5：得出答案: 原积分等于封闭曲面 Σ+Σ₁ 外侧积分减去 Σ₁ 上的积分，得到最终结果\n\n$2\\pi - 0 = 2\\pi \\Rightarrow 2\\pi$\n\n### 最终答案\n2\\pi",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-25 10:39",
+      "reviewed": false
+    }
+  ]
 }

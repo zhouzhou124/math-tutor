@@ -83,19 +83,144 @@ def normalize_final_choice_text(text: str) -> str:
     return s
 
 
+def clean_orphan_problem_markers(text: str) -> str:
+    """P15-3: Clean orphan formula tail fragments like (2.过), isolated sub-question markers."""
+    if not text:
+        return ""
+
+    s = str(text)
+
+    # (2.过), (2.证毕), (2.得证)
+    s = re.sub(
+        r"[（(]\s*\d+\s*[.。．、]\s*(过|证毕|得证)\s*[)）]?",
+        r"\1",
+        s,
+    )
+
+    # Isolated sub-question markers on their own line
+    s = re.sub(
+        r"(?m)^\s*[（(]\s*\d+\s*[)）]\s*[.。．、]?\s*$",
+        "",
+        s,
+    )
+
+    # Formula block followed by orphan (1)/(2) markers
+    s = re.sub(
+        r"(\$\$[\s\S]*?\$\$)\s*[（(]\s*\d+\s*[)）]\s*(?:[.。．、])?",
+        r"\1\n",
+        s,
+    )
+
+    # Isolated "过" is usually a truncation fragment
+    s = re.sub(r"(?m)^\s*过\s*$", "", s)
+
+    return re.sub(r"\n{3,}", "\n\n", s).strip()
+
+
+def clean_mojibake_tokens(text: str) -> str:
+    """P19-3: Remove encoding artifacts like �A0�, �L0�, �1� from AI output."""
+    if not text:
+        return ""
+    s = str(text)
+    s = re.sub(r"�[A-Za-z0-9]+�", "", s)
+    s = s.replace("�", "")
+    s = s.replace(" ", " ")
+    return re.sub(r"[ \t]{2,}", " ", s)
+
+
+def repair_split_frac_denominator(text: str) -> str:
+    r"""P19-3: Fix \frac{num} with denominator on next line.
+
+    \frac{f(x)-f(u)}
+    x-u
+    →
+    \frac{f(x)-f(u)}{x-u}
+    """
+    if not text:
+        return ""
+    s = str(text)
+    # \frac{num}\n{den}
+    s = re.sub(
+        r"\\frac\{([^{}]+)\}\s*\n\s*\{([^{}]+)\}",
+        lambda m: rf"\frac{{{m.group(1).strip()}}}{{{m.group(2).strip()}}}",
+        s, flags=re.M,
+    )
+    # \frac{num}\nden  (plain denominator, looks math-like)
+    _math_den = r"([A-Za-z0-9_\\+\-*/^().,\s]+)"
+    s = re.sub(
+        rf"\\frac\{{([^{{}}]+)\}}\s*\n\s*{_math_den}\s*(?=\n|$)",
+        lambda m: rf"\frac{{{m.group(1).strip()}}}{{{m.group(2).strip()}}}",
+        s, flags=re.M,
+    )
+    return re.sub(r"\n{3,}", "\n\n", s).strip()
+
+
+def repair_broken_frac_blocks(text: str) -> str:
+    """P19-2: Repair AI-generated fractured \\frac structures.
+
+    Typical broken pattern:
+      \\frac{}
+      x_3-x_2
+      }{
+      x_3-x_1
+      }
+
+    Repaired to:
+      \\frac{x_3-x_2}{x_3-x_1}
+    """
+    if not text:
+        return ""
+
+    s = str(text)
+
+    # Pattern 1: \\frac{}  numerator  }{  denominator  }
+    s = re.sub(
+        r"\\frac\{\}\s*\n?\s*([^{}\n]+?)\s*\n?\s*\}\{\s*\n?\s*([^{}\n]+?)\s*\n?\s*\}",
+        lambda m: rf"\frac{{{m.group(1).strip()}}}{{{m.group(2).strip()}}}",
+        s,
+        flags=re.M,
+    )
+
+    # Pattern 2: \\frac{}  numerator  }  {  denominator  }  (spaces between braces)
+    s = re.sub(
+        r"\\frac\{\}\s*([^{}\n]+?)\s*\}\s*\{\s*([^{}\n]+?)\s*\}",
+        lambda m: rf"\frac{{{m.group(1).strip()}}}{{{m.group(2).strip()}}}",
+        s,
+        flags=re.M,
+    )
+
+    # Clean orphan }{ and } on their own lines
+    s = re.sub(r"(?m)^\s*\}\{\s*$", "", s)
+    s = re.sub(r"(?m)^\s*\}\s*$", "", s)
+
+    return re.sub(r"\n{3,}", "\n\n", s).strip()
+
+
 def repair_legacy_solution_text(text: str) -> str:
     """Repair AI-generated legacy standard answer text.
 
     Fixes:
-      1. "最终答案： ## 步骤1" → removes orphan label
-      2. Bare LaTeX lines → wraps in $$
-      3. \text{选}(B) → 选 B
-      4. Collapses excessive blank lines
+      0. Broken \\frac structures (P19-2)
+      1. Orphan formula tail fragments like (2.过)
+      2. "最终答案： ## 步骤1" → removes orphan label
+      3. Bare LaTeX lines → wraps in $$
+      4. \text{选}(B) → 选 B
+      5. Collapses excessive blank lines
     """
     if not text:
         return ""
 
     s = str(text).replace("\r\n", "\n").replace("\r", "\n")
+
+    # ── 0. Clean mojibake first ──
+    s = clean_mojibake_tokens(s)
+    # ── 1. Repair broken fractions ──
+    s = repair_broken_frac_blocks(s)
+    # ── 2. Repair split-frac denominator ──
+    s = repair_split_frac_denominator(s)
+
+    # ── 3. Clean orphan markers ──
+    s = clean_orphan_problem_markers(s)
 
     # ── 1. "最终答案：" glued before step heading ──
     s = re.sub(

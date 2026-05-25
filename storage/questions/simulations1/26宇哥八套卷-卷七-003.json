@@ -15,7 +15,7 @@
     "D": "$a = b = 0$"
   },
   "correct_option": "C",
-  "standard_answer": "",
+  "standard_answer": "### 步骤1：\n步骤1：用示性函数表示部分和: 识别题型：已知部分和函数求级数通项，并比较积分与求和交换后的值\n\n$ \\Rightarrow S_n(x) = n \\mathbf{1}_{(0,1/n)}(x)$\n\n### 步骤2：\n步骤2：求通项 u_n(x): 由部分和定义 u_n=S_n-S_{n-1} 得到级数的通项\n\n$S_n(x) = n \\mathbf{1}_{(0,1/n)}(x),\\ S_0=0 \\Rightarrow u_1(x) = \\mathbf{1}_{(0,1)}(x),\\ u_n(x) = n\\mathbf{1}_{(0,1/n)}(x) - (n-1)\\mathbf{1}_{(0,1/(n-1))}(x)\\ (n\\ge 2)$\n\n### 步骤3：\n步骤3：求级数的和函数 S(x): 对每个 x>0，当 n 充分大时 1/n<x，故 S_n(x)=0，逐点极限几乎处处为 0\n\n$S_n(x) = n\\mathbf{1}_{(0,1/n)}(x) \\Rightarrow S(x) = \\lim_{n\\to\\infty} S_n(x) = 0 \\ \\text{a.e. } x\\in(0,1]$\n\n### 步骤4：\n步骤4：计算 a: S(x) 几乎处处为 0，积分值为 0\n\n$a = \\int_0^1 S(x) dx \\Rightarrow a = 0$\n\n### 步骤5：\n步骤5：计算每一项的积分: 对 n≥2，积分 n×(1/n)=1 与 (n-1)×(1/(n-1))=1 相减得 0；n=1 时积分 1×1=1\n\n$u_n(x) = n\\mathbf{1}_{(0,1/n)}(x) - (n-1)\\mathbf{1}_{(0,1/(n-1))}(x) \\Rightarrow \\int_0^1 u_n(x) dx = \\begin{cases} 1, & n=1 \\\\ 0, & n\\ge 2 \\end{cases}$\n\n### 步骤6：\n步骤6：求和得 b: 只有 n=1 的积分非零，所有项求和得 1\n\n$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx \\Rightarrow b = 1$\n\n### 步骤7：\n步骤7：比较并选择选项: 比较 a=0，b=1 得 a<b=1，对应选项 (B)\n\n$a=0,\\ b=1 \\Rightarrow a < b = 1$\n\n### 最终答案\nB",
   "knowledge_points": [
     "无穷级数",
     "定积分"
@@ -26,5 +26,25 @@
   ],
   "solution_steps": [],
   "final_answer": "C",
-  "raw_question_text": "已知级数 $\\sum_{n=1}^\\infty u_n(x)$ 的部分和为 $$S_n(x) = \\begin{cases} n, & 0 < x < \\frac{1}{n} \\\\ 0, &\\text{其他} \\end{cases}$$记 $a = \\int_0^1 \\sum_{n=1}^\\infty u_n(x) dx$，$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx$，则"
+  "raw_question_text": "已知级数 $\\sum_{n=1}^\\infty u_n(x)$ 的部分和为 $$S_n(x) = \\begin{cases} n, & 0 < x < \\frac{1}{n} \\\\ 0, &\\text{其他} \\end{cases}$$记 $a = \\int_0^1 \\sum_{n=1}^\\infty u_n(x) dx$，$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx$，则",
+  "solution_metadata": {
+    "canonical": false,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-25 11:01",
+    "reviewed": false,
+    "render_version": "v2"
+  },
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779678118",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "### 步骤1：\n步骤1：用示性函数表示部分和: 识别题型：已知部分和函数求级数通项，并比较积分与求和交换后的值\n\n$ \\Rightarrow S_n(x) = n \\mathbf{1}_{(0,1/n)}(x)$\n\n### 步骤2：\n步骤2：求通项 u_n(x): 由部分和定义 u_n=S_n-S_{n-1} 得到级数的通项\n\n$S_n(x) = n \\mathbf{1}_{(0,1/n)}(x),\\ S_0=0 \\Rightarrow u_1(x) = \\mathbf{1}_{(0,1)}(x),\\ u_n(x) = n\\mathbf{1}_{(0,1/n)}(x) - (n-1)\\mathbf{1}_{(0,1/(n-1))}(x)\\ (n\\ge 2)$\n\n### 步骤3：\n步骤3：求级数的和函数 S(x): 对每个 x>0，当 n 充分大时 1/n<x，故 S_n(x)=0，逐点极限几乎处处为 0\n\n$S_n(x) = n\\mathbf{1}_{(0,1/n)}(x) \\Rightarrow S(x) = \\lim_{n\\to\\infty} S_n(x) = 0 \\ \\text{a.e. } x\\in(0,1]$\n\n### 步骤4：\n步骤4：计算 a: S(x) 几乎处处为 0，积分值为 0\n\n$a = \\int_0^1 S(x) dx \\Rightarrow a = 0$\n\n### 步骤5：\n步骤5：计算每一项的积分: 对 n≥2，积分 n×(1/n)=1 与 (n-1)×(1/(n-1))=1 相减得 0；n=1 时积分 1×1=1\n\n$u_n(x) = n\\mathbf{1}_{(0,1/n)}(x) - (n-1)\\mathbf{1}_{(0,1/(n-1))}(x) \\Rightarrow \\int_0^1 u_n(x) dx = \\begin{cases} 1, & n=1 \\\\ 0, & n\\ge 2 \\end{cases}$\n\n### 步骤6：\n步骤6：求和得 b: 只有 n=1 的积分非零，所有项求和得 1\n\n$b = \\sum_{n=1}^\\infty \\int_0^1 u_n(x) dx \\Rightarrow b = 1$\n\n### 步骤7：\n步骤7：比较并选择选项: 比较 a=0，b=1 得 a<b=1，对应选项 (B)\n\n$a=0,\\ b=1 \\Rightarrow a < b = 1$\n\n### 最终答案\nB",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-25 11:01",
+      "reviewed": false
+    }
+  ]
 }

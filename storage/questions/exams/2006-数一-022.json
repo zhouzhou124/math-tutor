@@ -6,7 +6,7 @@
   "question_type": "解答题",
   "difficulty": "中等",
   "score": 9,
-  "question": "设随机变量 $X$ 的概率密度为 $$f_X(x) = \\begin{cases} \\frac{1}{2}, & -1<x<0 \\\\ \\frac{1}{4}, & 0\\le x<2 \\\\ 0, & \\text{其他} \\end{cases}$$ 令 $Y = X^2$，$F(x,y)$ 为二维随机变量 $(X,Y)$ 的分布函数，求：\n$(1)$ $Y$ 的概率密度 $f_Y(y)$；\n$(2)$ $F\\left(-\\frac{1}{2}, 4\\right)$.",
+  "question": "设随机变量 $X$ 的概率密度为 $$f_X(x) = \\begin{cases} \\frac{1}{2}, & -1<x<0 \\\\ \\frac{1}{4}, & 0\\le x<2 \\\\ 0, & \\text{其他} \\end{cases}$$ 令 $Y = X^2$，$F(x,y)$ 为二维随机变量 $(X,Y)$ 的分布函数，求：\n$(1)$ $Y$ 的概率密度 $f_Y(y)$；\n$(2)$ $F\\left( -\\frac{1}{2}, 4 \\right)$.",
   "standard_answer": "(I) $f_Y(y) = \\begin{cases} \\frac{1}{4\\sqrt{y}}, & 0<y<1 \\\\ \\frac{1}{8\\sqrt{y}}, & 1\\le y<4 \\\\ 0, & \\text{其他} \\end{cases}$\n(II) $F\\left(-\\frac{1}{2},4\\right) = \\frac{1}{4}$",
   "knowledge_points": [
     "随机变量及其分布"
@@ -16,6 +16,6 @@
   ],
   "solution_steps": [],
   "options": {},
-  "raw_question_text": "设随机变量 $X$ 的概率密度为 $$f_X(x) = \\begin{cases} \\frac{1}{2}, & -1<x<0 \\\\ \\frac{1}{4}, & 0\\le x<2 \\\\ 0, & \\text{其他} \\end{cases}$$ 令 $Y = X^2$，$F(x,y)$ 为二维随机变量 $(X,Y)$ 的分布函数，求：\n$(1)$ $Y$ 的概率密度 $f_Y(y)$；\n$(2)$ $F\\left(-\\frac{1}{2}, 4\\right)$.",
+  "raw_question_text": "设随机变量 $X$ 的概率密度为 $$f_X(x) = \\begin{cases} \\frac{1}{2}, & -1<x<0 \\\\ \\frac{1}{4}, & 0\\le x<2 \\\\ 0, & \\text{其他} \\end{cases}$$ 令 $Y = X^2$，$F(x,y)$ 为二维随机变量 $(X,Y)$ 的分布函数，求：\n$(1)$ $Y$ 的概率密度 $f_Y(y)$；\n$(2)$ $F\\left( -\\frac{1}{2}, 4 \\right)$.",
   "raw_answer_text": "(I) $f_Y(y) = \\begin{cases} \\frac{1}{4\\sqrt{y}}, & 0<y<1 \\\\ \\frac{1}{8\\sqrt{y}}, & 1\\le y<4 \\\\ 0, & \\text{其他} \\end{cases}$\n(II) $F\\left(-\\frac{1}{2},4\\right) = \\frac{1}{4}$"
 }

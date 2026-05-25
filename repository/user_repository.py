@@ -1,7 +1,7 @@
 """Repository Layer - 用户数据访问"""
 
 import hashlib
-import time
+from uuid import uuid4
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -36,19 +36,38 @@ class UserRepository(SQLiteRepository):
                 schema_version TEXT DEFAULT '0.2'
             )
         """)
+        self._ensure_user_columns(cursor)
+        conn.commit()
         
         # 初始化管理员账号（如果不存在）
         self._init_admin_account()
         
         conn.commit()
         conn.close()
+
+    def _ensure_user_columns(self, cursor):
+        """Add columns missing from databases created by older app versions."""
+        existing = {row[1] for row in cursor.execute("PRAGMA table_info(users)").fetchall()}
+        migrations = {
+            "role": "ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'student'",
+            "is_admin": "ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0",
+            "is_active": "ALTER TABLE users ADD COLUMN is_active INTEGER DEFAULT 1",
+            "schema_version": "ALTER TABLE users ADD COLUMN schema_version TEXT DEFAULT '0.2'",
+        }
+        for column, sql in migrations.items():
+            if column not in existing:
+                cursor.execute(sql)
+        cursor.execute(
+            "UPDATE users SET role='admin', is_admin=1 "
+            "WHERE username='admin' AND (role IS NULL OR role='student')"
+        )
     
     def _init_admin_account(self):
         """初始化管理员账号"""
         cursor = self._query("SELECT user_id FROM users WHERE username = ?", ("admin",))
         if not cursor.fetchone():
             # 创建默认管理员账号
-            admin_id = f"user_{int(time.time())}"
+            admin_id = f"user_{uuid4().hex}"
             hashed_pwd = self._hash_password("admin123")
             now = datetime.now().isoformat()
             
@@ -64,7 +83,7 @@ class UserRepository(SQLiteRepository):
     def create_user(self, username: str, password: str, email: str = "", role: str = "student") -> Optional[str]:
         """创建用户，返回 user_id"""
         try:
-            user_id = f"user_{int(time.time())}"
+            user_id = f"user_{uuid4().hex}"
             hashed_pwd = self._hash_password(password)
             now = datetime.now().isoformat()
             is_admin = 1 if role == "admin" else 0
@@ -151,7 +170,7 @@ class UserRepository(SQLiteRepository):
     def get_all_users(self) -> list[User]:
         """获取所有用户"""
         cursor = self._query("""
-            SELECT user_id, username, email, hashed_password, created_at, updated_at, is_active
+            SELECT user_id, username, email, hashed_password, role, is_admin, is_active, created_at, updated_at
             FROM users
         """)
         
@@ -162,8 +181,10 @@ class UserRepository(SQLiteRepository):
                 username=row[1],
                 email=row[2],
                 hashed_password=row[3],
-                created_at=datetime.fromisoformat(row[4]),
-                updated_at=datetime.fromisoformat(row[5]),
+                role=row[4],
+                is_admin=bool(row[5]),
                 is_active=bool(row[6]),
+                created_at=datetime.fromisoformat(row[7]),
+                updated_at=datetime.fromisoformat(row[8]),
             ))
         return users

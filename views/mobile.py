@@ -4,6 +4,9 @@ mobile.py -- 移动端自适应模块
 为 Streamlit 考研数学辅导系统注入响应式 CSS 和移动端底部导航栏。
 """
 
+import html
+from urllib.parse import urlencode
+
 import streamlit as st
 
 # ============================================================================
@@ -311,6 +314,55 @@ html, body {
     }
 }
 
+.mobile-bottom-nav {
+    display: none;
+}
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100000;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 2px;
+        padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+        background: rgba(255, 255, 255, 0.96);
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -10px 28px rgba(15, 23, 42, 0.10);
+        backdrop-filter: blur(12px);
+    }
+    .mobile-bottom-nav a {
+        min-width: 0;
+        min-height: 52px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        border-radius: 14px;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 11px !important;
+        font-weight: 650;
+        line-height: 1.1;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-bottom-nav a .nav-icon {
+        font-size: 20px !important;
+        line-height: 1;
+    }
+    .mobile-bottom-nav a.active {
+        color: #1d4ed8;
+        background: #eff6ff;
+    }
+    .mobile-bottom-nav a:active {
+        transform: scale(0.98);
+        background: #e0ecff;
+    }
+}
+
 /* --- 顶栏（移动端显示用户/标题） --- */
 .mobile-topbar {
     display: none;
@@ -357,46 +409,188 @@ def inject_mobile_css():
 def render_mobile_topbar():
     """渲染移动端顶部栏（仅在小屏幕上可见）。"""
     username = st.session_state.get("auth", {}).get("username", "")
-    tc1, tc2 = st.columns([3, 1])
-    with tc1:
-        st.caption("📐 Math Tutor")
-    with tc2:
-        st.caption(username)
+    safe_username = html.escape(str(username or ""))
+    st.markdown(
+        f"""
+        <div class="mobile-topbar">
+            <div class="brand">📘 Math Tutor</div>
+            <div class="user">{safe_username}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def render_mobile_nav():
-    """渲染移动端底部导航栏。使用原生 st.columns + st.button，避免 HTML 被剥离。"""
+    """渲染移动端固定底部导航栏。"""
     current_page = st.session_state.get("page", "dashboard")
-
-    # Inject the nav container CSS separately (just the shell, no items)
-    st.markdown('<div class="mobile-nav" id="mobile-nav"></div>', unsafe_allow_html=True)
-
-    cols = st.columns(len(NAV_ITEMS))
-    for i, item in enumerate(NAV_ITEMS):
-        is_active = item["id"] == current_page
-        label = f'{item["icon"]} {item["label"]}'
-        with cols[i]:
-            if st.button(
-                label,
-                key=f"mnav_{item['id']}",
-                use_container_width=True,
-                type="primary" if is_active else "secondary",
-            ):
-                st.session_state.page = item["id"]
-                st.rerun()
+    links = []
+    for item in NAV_ITEMS:
+        page_id = str(item["id"])
+        active = " active" if page_id == current_page else ""
+        href = "?" + urlencode({"page": page_id})
+        label = html.escape(str(item["label"]))
+        icon = html.escape(str(item["icon"]))
+        links.append(
+            f'<a class="mobile-nav-item{active}" href="{href}" target="_self" '
+            f'aria-label="{label}">'
+            f'<span class="nav-icon">{icon}</span><span>{label}</span></a>'
+        )
+    st.markdown(
+        '<nav class="mobile-bottom-nav" aria-label="移动端主导航">'
+        + "".join(links)
+        + "</nav>",
+        unsafe_allow_html=True,
+    )
 
 
 def set_grading_active(active: bool = True):
-    """标记批改进行中。保留接口兼容，实际逻辑由页面状态管理。"""
-    pass
-
-
-_css_injected = False
+    """Mark grading as active so mobile guards can survive reruns."""
+    st.session_state["grading_in_progress"] = bool(active)
 
 
 def render_mobile_wrapper():
     """注入移动端响应式 CSS。侧边栏已提供页面导航。"""
-    global _css_injected
-    if not _css_injected:
-        inject_mobile_css()
-        _css_injected = True
+    # Streamlit reruns rebuild the DOM while module globals may persist, so CSS
+    # must be emitted on every render. The cascade handles identical rules.
+    inject_mobile_css()
+    inject_mobile_hardening_css()
+
+
+def inject_mobile_hardening_css() -> None:
+    """P14: 移动端全局硬化 CSS — 防横向滚动、大按钮、底部留白。"""
+    st.markdown("""
+    <style>
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden !important;
+        overscroll-behavior-x: none;
+        overscroll-behavior-y: none;
+        -webkit-text-size-adjust: 100%;
+    }
+    .stApp {
+        max-width: 100vw;
+        overflow-x: hidden !important;
+        background: #f8fafc;
+    }
+    [data-testid="stAppViewContainer"] {
+        max-width: 100vw;
+        overflow-x: hidden !important;
+        overscroll-behavior-y: none;
+    }
+    .block-container {
+        max-width: 1180px;
+        padding-top: 1rem;
+    }
+    @media (max-width: 768px) {
+        .block-container {
+            padding: 0.75rem 0.85rem calc(7rem + env(safe-area-inset-bottom)) 0.85rem !important;
+            max-width: 100vw !important;
+        }
+        div[data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 0 !important;
+        }
+        .app-card, .app-card-compact, .mobile-card {
+            border-radius: 16px !important;
+            padding: 14px !important;
+            margin-bottom: 12px !important;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+        }
+        .stButton > button {
+            width: 100% !important;
+            min-height: 48px !important;
+            border-radius: 14px !important;
+            font-size: 16px !important;
+            font-weight: 650 !important;
+        }
+        input, textarea, select,
+        .stTextInput input, .stTextArea textarea, .stSelectbox div {
+            font-size: 16px !important;
+        }
+        .katex-display, .stMarkdown, .element-container {
+            max-width: 100%;
+        }
+        .katex-display {
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.3rem;
+        }
+        .katex-display > .katex {
+            white-space: nowrap !important;
+        }
+    }
+    .mobile-grading-progress {
+        position: sticky;
+        top: 0.75rem;
+        z-index: 50;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: 0 12px 36px rgba(15, 23, 42, 0.10);
+        margin-bottom: 18px;
+    }
+    @media (max-width: 768px) {
+        .mobile-grading-progress {
+            top: 0.5rem;
+            border-radius: 16px;
+            padding: 14px;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+def inject_pull_to_refresh_guard(active: bool = False) -> None:
+    """P14: 批改中阻止移动端 pull-to-refresh。JS touch guard 兜底。"""
+    if not active:
+        return
+
+    st.markdown("""
+    <style>
+    html, body, .stApp, [data-testid="stAppViewContainer"] {
+        overscroll-behavior-y: none !important;
+        overscroll-behavior-x: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    import streamlit.components.v1 as components
+    components.html("""
+    <script>
+    (function () {
+        var doc = window.parent.document;
+        if (doc.__mathTutorPullGuardInstalled) return;
+        doc.__mathTutorPullGuardInstalled = true;
+
+        var startY = 0;
+        function getScroller() {
+            return doc.querySelector('[data-testid="stAppViewContainer"]') ||
+                   doc.querySelector('.stApp') ||
+                   doc.scrollingElement ||
+                   doc.documentElement;
+        }
+
+        doc.addEventListener("touchstart", function (e) {
+            if (!e.touches || e.touches.length === 0) return;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        doc.addEventListener("touchmove", function (e) {
+            if (!e.touches || e.touches.length === 0) return;
+            var scroller = getScroller();
+            var currentY = e.touches[0].clientY;
+            var deltaY = currentY - startY;
+            var scrollTop = scroller.scrollTop || 0;
+            var atTop = scrollTop <= 0;
+            var atBottom = scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
+            if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    })();
+    </script>
+    """, height=0)

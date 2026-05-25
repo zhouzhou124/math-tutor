@@ -191,6 +191,33 @@ def test_existing_display_math_not_rewrapped():
     )
 
 
+def test_subquestion_number_before_formula_renders_stably():
+    r"""$(2)$ $F\left(...\right)$ must not become adjacent dollar math."""
+    from latex_utils import split_latex_text, render_segments
+
+    text = r"$(2)$ $F\left( -\frac{1}{2}, 4 \right)$."
+    segments = split_latex_text(text)
+
+    assert segments[0]["type"] == "text"
+    assert "(2)" in segments[0]["content"]
+    assert any(
+        s["type"] == "inline_math" and r"\frac{1}{2}" in s["content"]
+        for s in segments
+    ), f"Formula must remain intact: {segments}"
+
+    rendered = render_segments(segments)
+    assert "$$$" not in rendered, f"Must not generate triple dollars: {rendered}"
+
+
+def test_choice_label_is_not_demoted_as_subquestion_number():
+    r"""$(A)$ is a choice label, not the numeric subquestion pattern."""
+    from latex_utils import split_latex_text
+
+    segments = split_latex_text(r"$(A)$ $x=1$")
+    assert segments[0]["type"] == "inline_math"
+    assert segments[0]["content"] == "(A)"
+
+
 # ═══════════════════════════════════════════════
 # Group 8: P1 structural fixes
 # ═══════════════════════════════════════════════
@@ -337,6 +364,8 @@ if __name__ == "__main__":
         test_pre_wrap_does_not_return_early_on_existing_math,
         test_plain_chinese_with_parentheses_not_math,
         test_existing_display_math_not_rewrapped,
+        test_subquestion_number_before_formula_renders_stably,
+        test_choice_label_is_not_demoted_as_subquestion_number,
         test_latex_protector_nested_calls_do_not_overwrite_mapping,
         test_grading_service_raises_without_agent,
         test_tagged_equation_forces_display_math,
@@ -361,3 +390,36 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"  ERROR {t.__name__}: {e}")
     print(f"\n{passed}/{len(tests)} passed")
+
+
+# ═══════════════════════════════════════════════
+#  Inline math preservation tests
+# ═══════════════════════════════════════════════
+
+def test_inline_theta_stays_inline():
+    """$\\theta$ with CJK text must remain inline_math, not display_math."""
+    from latex_utils import split_latex_text
+    text = r"其中 $\theta$ 是未知参数"
+    segs = split_latex_text(text)
+    types = {s["type"] for s in segs}
+    assert "display_math" not in types, f"Should have no display_math: {types}"
+    assert any(s["type"] == "inline_math" and "theta" in s["content"] for s in segs)
+
+
+def test_multiple_inline_math_not_merged():
+    """$x=1$, $y=2$, $z$ must be three separate inline_math segments."""
+    from latex_utils import split_latex_text
+    text = r"已知 $x=1$, $y=2$, 求 $z$"
+    segs = split_latex_text(text)
+    inline_count = sum(1 for s in segs if s["type"] == "inline_math")
+    assert inline_count == 3, f"Expected 3 inline_math, got {inline_count}: {segs}"
+
+
+def test_inline_math_after_display_math():
+    """Display math then inline math must keep inline as inline."""
+    from latex_utils import split_latex_text
+    text = r"$$\int_0^1 f(x)dx$$ 其中 $x$ 是变量"
+    segs = split_latex_text(text)
+    has_display = any(s["type"] == "display_math" for s in segs)
+    has_inline = any(s["type"] == "inline_math" and "x" in s["content"] for s in segs)
+    assert has_display and has_inline, f"display={has_display} inline={has_inline}"

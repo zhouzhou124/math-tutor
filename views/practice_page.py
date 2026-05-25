@@ -423,15 +423,16 @@ def render_practice_page(db):
             kp_t = mc4.selectbox("知识点", sum(KNOWLEDGE_POINTS.values(), []), key="kp_text")
 
             if st.button("🚀 提交批改", type="primary", use_container_width=True,
-                         disabled=not (question_text and student_answer)):
+                         disabled=not question_text):
                     client = get_client()
                     if client is None:
                         st.warning("请先在「系统设置」中配置 API Key")
                     else:
+                        answer_text = (student_answer or "").strip()
                         st.session_state.ocr_result = {
                             "success": True,
                             "question": question_text,
-                            "student_answer": student_answer,
+                            "student_answer": answer_text,
                             "math_type": math_type_t,
                             "question_type": q_type_t,
                             "knowledge_point": kp_t,
@@ -444,7 +445,7 @@ def render_practice_page(db):
 
             # 验证学生答案是否为空
             if question_text and not student_answer:
-                st.warning("⚠️ 请输入你的解答后再提交批改")
+                st.info("未填写作答时将进入查看答案模式，AI 会生成详细步骤解答。")
 
 
     # ==================== AI 批改 ====================

@@ -3,14 +3,41 @@
 Handles async grading submission, background thread execution,
 and result restoration from SQLite.  Depends-injected to avoid
 circular imports with grading_page.py.
+
+P14: idempotent submission via active_task_id + request_hash.
 """
 
 import json as _json
+import hashlib as _hashlib
 import threading
 import logging as _logging
+import inspect as _inspect
 from config import LLM_BASE_URL, LLM_MODEL
 
 _log = _logging.getLogger(__name__)
+
+RUNNING_STATUSES = {"pending", "running", "processing"}
+
+
+def build_grading_request_hash(question: dict, student_answer: str) -> str:
+    """Stable hash of question + answer, used to deduplicate submissions."""
+    payload = {
+        "question_id": (
+            str(question.get("question_id") or question.get("id") or "")
+        ),
+        "student_answer": str(student_answer or ""),
+    }
+    raw = _json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    return _hashlib.md5(raw.encode("utf-8")).hexdigest()
+
+
+def build_task_request_hash(task: dict) -> str:
+    """Rebuild the request hash from a persisted task row."""
+    try:
+        selected_q = _json.loads(task.get("selected_q_json") or "{}")
+    except (_json.JSONDecodeError, TypeError):
+        selected_q = {}
+    return build_grading_request_hash(selected_q, task.get("student_answer") or "")
 
 
 def build_client_from_state(state: dict):
@@ -52,19 +79,21 @@ def run_grading_bg(task_id: str, task_data: dict, *, executor):
         _memory = task_data["memory"]
         _client = task_data["client"]
 
-        results = executor(
-            question=task_data["question"],
-            student_ans=task_data["student_ans"],
-            ocr_data=task_data["ocr_data"],
-            selected_q=task_data["selected_q"],
-            container=None,
-            _state=_state,
-            model=_model,
-            user_id=_user_id,
-            memory=_memory,
-            client=_client,
-            stream_callback=_stream_callback,
-        )
+        kwargs = {
+            "question": task_data["question"],
+            "student_ans": task_data["student_ans"],
+            "ocr_data": task_data["ocr_data"],
+            "selected_q": task_data["selected_q"],
+            "container": None,
+            "_state": _state,
+            "model": _model,
+            "user_id": _user_id,
+            "memory": _memory,
+            "client": _client,
+        }
+        if "stream_callback" in _inspect.signature(executor).parameters:
+            kwargs["stream_callback"] = _stream_callback
+        results = executor(**kwargs)
 
         if results is None:
             fail_task(task_id, "LLM client unavailable or grading returned no results")
@@ -81,33 +110,47 @@ def submit_grading_async(question, student_ans, ocr_data, selected_q, *,
                          session_state, executor, get_client_fn):
     """Create SQLite task, start background thread, return task_id.
 
-    Guards against duplicate submission.
-
-    Args:
-        question: question text
-        student_ans: student's answer
-        ocr_data: OCR result dict
-        selected_q: question dict from DB
-        session_state: Streamlit session_state or plain dict
-        executor: callable — the grading process (avoids circular import)
-        get_client_fn: callable → LLM client
+    P14: Idempotent — if the same question+answer already has an active
+    task, returns the existing task_id instead of creating a duplicate.
     """
-    from storage.grading_task_store import create_task, get_recent_task
+    from storage.grading_task_store import create_task, get_recent_task, get_task
 
-    user_id = session_state.get("auth", {}).get("user_id", "unknown")
+    auth = session_state.get("auth") or {}
+    user_id = auth.get("user_id", "unknown")
+    request_hash = build_grading_request_hash(selected_q, student_ans)
 
-    # Guard: re-attach to an existing processing task
+    # ── P14: reuse active task if same question+answer ──
+    active_task_id = session_state.get("active_grading_task_id")
+    active_hash = session_state.get("active_grading_request_hash")
+    if active_task_id and active_hash == request_hash:
+        task = get_task(active_task_id)
+        if task and task.get("status") in RUNNING_STATUSES:
+            return active_task_id
+
+    # ── Guard: re-attach to an existing processing task ──
     existing = get_recent_task(user_id, minutes=2)
-    if existing and existing.get("status") == "processing":
+    if (
+        existing
+        and existing.get("status") in RUNNING_STATUSES
+        and build_task_request_hash(existing) == request_hash
+    ):
+        return existing["task_id"]
+    if existing and existing.get("status") in RUNNING_STATUSES:
+        # Mobile sessions can be duplicated by refresh/back navigation. Keep one
+        # live grading task per user so repeated taps do not spawn unbounded LLM
+        # calls; the UI will re-attach to this task and show its progress.
         return existing["task_id"]
 
     model = session_state.get("model", LLM_MODEL)
     memory = session_state.get("memory")
 
-    # Create the task row
     task_id = create_task(user_id, question, student_ans, ocr_data, selected_q)
 
-    # Build a plain dict with everything the background thread needs
+    # ── Track active task for dedup ──
+    session_state["active_grading_task_id"] = task_id
+    session_state["active_grading_request_hash"] = request_hash
+    session_state["grading_in_progress"] = True
+
     _state = {
         "model": model,
         "_client": get_client_fn(),
@@ -149,6 +192,13 @@ def submit_grading_async(question, student_ans, ocr_data, selected_q, *,
     return task_id
 
 
+def clear_active_grading_task(session_state):
+    """P14: Clean up active task tracking state."""
+    session_state.pop("active_grading_task_id", None)
+    session_state.pop("active_grading_request_hash", None)
+    session_state["grading_in_progress"] = False
+
+
 def restore_results_to_session(task: dict, *, session_state, memory=None):
     """Load grading results from a SQLite task row into session_state.
 
@@ -157,6 +207,9 @@ def restore_results_to_session(task: dict, *, session_state, memory=None):
         session_state: Streamlit session_state or plain dict
         memory: MemoryService (optional, for deferred error-record save)
     """
+    # ── P14: clean up active task tracking ──
+    clear_active_grading_task(session_state)
+
     for key, json_key in [
         ("grading_result", "grading_result_json"),
         ("diagnosis_result", "diagnosis_result_json"),

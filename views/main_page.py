@@ -95,6 +95,47 @@ def _clear_page_specific_state(from_page: str, to_page: str):
                 del st.session_state[key]
 
 
+def _allowed_query_pages() -> set[str]:
+    """Pages that can be opened from the mobile URL-based nav."""
+    pages = set(NAV_MAP.values()) | {"report", "settings"}
+    if is_admin():
+        pages.update({
+            "admin_overview",
+            "admin_users",
+            "admin_grading",
+            "admin_bank_status",
+            "admin_replay",
+            "admin_questions",
+        })
+    return pages
+
+
+def _read_page_query_param() -> str:
+    """Return ?page=... from Streamlit query params across API versions."""
+    try:
+        raw = st.query_params.get("page", "")
+    except Exception:
+        return ""
+    if isinstance(raw, (list, tuple)):
+        return str(raw[0]) if raw else ""
+    return str(raw or "")
+
+
+def _sync_page_from_query_params() -> None:
+    """Let mobile bottom-nav links drive the single-page Streamlit router."""
+    requested = _read_page_query_param()
+    last_seen = st.session_state.get("_last_page_query", "")
+    if requested == last_seen:
+        return
+    st.session_state["_last_page_query"] = requested
+    if not requested or requested not in _allowed_query_pages():
+        return
+    current = st.session_state.get("page", "dashboard")
+    if requested != current:
+        _clear_page_specific_state(current, requested)
+        st.session_state["page"] = requested
+
+
 def _try_recover_grading_session():
     """Check SQLite for an unviewed completed grading task and restore it.
 
@@ -182,8 +223,11 @@ def render_main_app():
     """渲染主应用"""
 
     # ── Mobile: responsive CSS + topbar + bottom nav ──
-    from .mobile import render_mobile_wrapper
+    from .mobile import render_mobile_nav, render_mobile_topbar, render_mobile_wrapper
     render_mobile_wrapper()
+    _sync_page_from_query_params()
+    render_mobile_topbar()
+    render_mobile_nav()
 
     # ── Recovery: on fresh session, check for unviewed grading results ──
     _try_recover_grading_session()
@@ -257,6 +301,11 @@ def render_main_app():
             # 清理可能导致页面切换卡住的状态
             _clear_page_specific_state(current_page, selected_page)
             st.session_state.page = selected_page
+            try:
+                st.query_params["page"] = selected_page
+                st.session_state["_last_page_query"] = selected_page
+            except Exception:
+                pass
             st.rerun()
         
         st.divider()

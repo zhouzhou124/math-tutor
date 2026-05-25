@@ -15,22 +15,26 @@ from repository.models import GradingResult, DiagnosisResult
 
 class GradingService:
     """批改服务 - 处理作业批改和错误诊断"""
-    
-    def __init__(self, db_path: Path, data_dir: Path):
+
+    def __init__(self, db_path: Path, data_dir: Path, grading_agent=None):
         self.stats_repo = ProfileStatsRepository(db_path, data_dir)
         self.error_repo = ErrorRecordRepository(db_path, data_dir)
         self.error_index_repo = ErrorIndexRepository(db_path, data_dir)
-    
-    def grade_answer(self, user_id: str, question_id: str, 
+        self.grading_agent = grading_agent
+
+    def grade_answer(self, user_id: str, question_id: str,
                      student_answer: str, max_score: int = 10) -> GradingResult:
-        """批改学生答案（简化版，实际应调用 GradingAgent）"""
+        """批改学生答案。需要注入 grading_agent，不再使用随机模拟。"""
+        if self.grading_agent is None:
+            raise NotImplementedError(
+                "GradingService requires a real grading_agent. "
+                "Random simulated grading has been removed."
+            )
         grading_id = f"grad_{int(time.time())}"
-        
-        # 这里应该调用 GradingAgent 进行实际批改
-        # 简化实现：模拟批改结果
-        score = self._simulate_grading(student_answer, max_score)
+        raw = self.grading_agent.grade(question_id, student_answer, max_score)
+        score = int(raw.get("total", raw.get("score", 0)))
         is_correct = score >= max_score * 0.9
-        
+
         result = GradingResult(
             grading_id=grading_id,
             user_id=user_id,
@@ -39,21 +43,14 @@ class GradingService:
             score=score,
             max_score=max_score,
             is_correct=is_correct,
-            confidence=0.85,
-            engine="simulated",
+            confidence=float(raw.get("confidence", 0.85)),
+            engine=raw.get("engine", "agent"),
         )
-        
-        # 如果答错了，记录错题
+
         if not is_correct:
             self._record_error(user_id, question_id, student_answer, score, max_score)
-        
+
         return result
-    
-    def _simulate_grading(self, answer: str, max_score: int) -> int:
-        """模拟批改（实际应调用 AI）"""
-        # 简化逻辑：随机评分
-        import random
-        return random.randint(0, max_score)
     
     def _record_error(self, user_id: str, question_id: str, 
                       student_answer: str, score: int, max_score: int):

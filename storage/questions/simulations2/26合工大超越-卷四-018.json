@@ -15,12 +15,32 @@
     "级数"
   ],
   "question": "(本题满分12分) 设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），\n$(1)$ 求 $\\lim_{n\\to\\infty} a_n$；\n$(2)$ 证明 $\\lim_{n\\to\\infty} [a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在.",
-  "standard_answer": "(I) $\\lim_{n\\to\\infty} a_n = 0$\\n(II) 证明略",
+  "standard_answer": "## 题目重述\n设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），要求(1)计算 $\\lim_{n\\to\\infty} a_n$；(2)证明部分和数列 $S_n=a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n$ 的极限存在。\n\n## 标准答案\n(1) $\\lim\\limits_{n\\to\\infty} a_n = 0$；  \n(2) 极限存在（由莱布尼茨判别法可证）。\n\n## 步骤1：将 $a_n$ 分段以估计极限\n对任意 $\\delta \\in (0,\\frac{\\pi}{2})$，把积分区间 $[0,\\frac{\\pi}{2}]$ 拆分为 $[0,\\frac{\\pi}{2}-\\delta]$ 与 $[\\frac{\\pi}{2}-\\delta,\\frac{\\pi}{2}]$：\n$$\na_n = \\int_0^{\\frac{\\pi}{2}-\\delta} \\frac{1}{(1+\\sin x)^n}dx + \\int_{\\frac{\\pi}{2}-\\delta}^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n}dx \\triangleq I_1 + I_2.\n$$\n由于被积函数非负，$a_n \\ge 0$。\n\n## 步骤2：分别估计 $I_1$ 与 $I_2$ 并取极限\n当 $x\\in[0,\\frac{\\pi}{2}-\\delta]$ 时，$\\sin x \\le \\sin(\\frac{\\pi}{2}-\\delta) = \\cos\\delta < 1$，故 $1+\\sin x \\ge 1+\\cos\\delta > 1$。于是\n$$\n0 \\le I_1 \\le \\int_0^{\\frac{\\pi}{2}-\\delta} \\frac{1}{(1+\\cos\\delta)^n} dx = \\frac{\\frac{\\pi}{2}-\\delta}{(1+\\cos\\delta)^n}.\n$$\n因 $1+\\cos\\delta > 1$，当 $n\\to\\infty$ 时上式趋于 $0$。\n\n对第二段，被积函数满足 $\\frac{1}{(1+\\sin x)^n} \\le 1$，故\n$$\n0 \\le I_2 \\le \\int_{\\frac{\\pi}{2}-\\delta}^{\\frac{\\pi}{2}} 1\\,dx = \\delta.\n$$\n从而 $0 \\le a_n \\le \\frac{\\pi/2}{(1+\\cos\\delta)^n} + \\delta$。令 $n\\to\\infty$ 取上极限得\n$$\n0 \\le \\limsup_{n\\to\\infty} a_n \\le \\delta.\n$$\n由 $\\delta>0$ 的任意性，$\\limsup_{n\\to\\infty} a_n = 0$，结合 $a_n\\ge0$ 即得 $\\lim_{n\\to\\infty} a_n = 0$。\n\n## 步骤3：将部分和视为交错级数并验证莱布尼茨条件\n令 $S_n = \\sum_{k=1}^n (-1)^{k-1} a_k$，其极限存在等价于交错级数 $\\sum_{n=1}^\\infty (-1)^{n-1} a_n$ 收敛。\n需验证莱布尼茨判别法的三个条件：\n1. $a_n > 0$：在 $[0,\\frac{\\pi}{2}]$ 上 $1+\\sin x \\ge 1$，被积函数恒正，积分得正数。\n2. $\\{a_n\\}$ 单调递减：对任意 $x\\in[0,\\frac{\\pi}{2}]$，$1+\\sin x \\ge 1$，故 $(1+\\sin x)^{-n-1} \\le (1+\\sin x)^{-n}$，积分保持不等号，即\n$$\na_{n+1} = \\int_0^{\\frac{\\pi}{2}} \\frac{dx}{(1+\\sin x)^{n+1}} \\le \\int_0^{\\frac{\\pi}{2}} \\frac{dx}{(1+\\sin x)^n} = a_n.\n$$\n3. $\\lim_{n\\to\\infty} a_n = 0$：由(1)已证。\n\n三个条件全部满足，故级数收敛，即 $\\lim_{n\\to\\infty} S_n$ 存在。\n\n## 结论\n(1) $\\lim_{n\\to\\infty} a_n = 0$；  \n(2) 极限 $\\lim_{n\\to\\infty}[a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在，证毕。\n\n## 关键知识点\n- 积分极限的分段估计（将区间分为“正常”部分和“奇点”邻域）\n- 夹逼准则与上、下极限的应用\n- 交错级数的莱布尼茨判别法（通项单调递减趋于零）\n- 积分不等式与保序性\n\n## 易错提示\n- 在(1)中直接交换极限与积分次序而未验证一致收敛性或控制函数，在考试中会失分；应按分段放缩严格处理。\n- 忽略 $a_n$ 的单调性验证：必须明确指出由于 $1+\\sin x\\ge1$，幂次越高函数值越小，从而积分单调递减。\n- 应用莱布尼茨判别法时忘记确认通项极限为零（但(1)恰好提供了这一结论，需要明确引用）。\n- 混淆级数收敛与部分和极限存在的关系，两者在此处是等价的，但应写清“部分和的极限存在”即“级数收敛”。",
   "source": "import_hegongda_v4",
   "solution_steps": [],
   "options": {},
   "volume": "卷四",
   "__cached_at__": 1779467434.172714,
   "raw_question_text": "(本题满分12分) 设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），\n$(1)$ 求 $\\lim_{n\\to\\infty} a_n$；\n$(2)$ 证明 $\\lim_{n\\to\\infty} [a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在.",
-  "raw_answer_text": "(I) $\\lim_{n\\to\\infty} a_n = 0$\\n(II) 证明略"
+  "raw_answer_text": "(I) $\\lim_{n\\to\\infty} a_n = 0$\\n(II) 证明略",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779683004",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 题目重述\n设 $a_n=\\int_0^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n} dx$（$n\\ge 1$），要求(1)计算 $\\lim_{n\\to\\infty} a_n$；(2)证明部分和数列 $S_n=a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n$ 的极限存在。\n\n## 标准答案\n(1) $\\lim\\limits_{n\\to\\infty} a_n = 0$；  \n(2) 极限存在（由莱布尼茨判别法可证）。\n\n## 步骤1：将 $a_n$ 分段以估计极限\n对任意 $\\delta \\in (0,\\frac{\\pi}{2})$，把积分区间 $[0,\\frac{\\pi}{2}]$ 拆分为 $[0,\\frac{\\pi}{2}-\\delta]$ 与 $[\\frac{\\pi}{2}-\\delta,\\frac{\\pi}{2}]$：\n$$\na_n = \\int_0^{\\frac{\\pi}{2}-\\delta} \\frac{1}{(1+\\sin x)^n}dx + \\int_{\\frac{\\pi}{2}-\\delta}^{\\frac{\\pi}{2}} \\frac{1}{(1+\\sin x)^n}dx \\triangleq I_1 + I_2.\n$$\n由于被积函数非负，$a_n \\ge 0$。\n\n## 步骤2：分别估计 $I_1$ 与 $I_2$ 并取极限\n当 $x\\in[0,\\frac{\\pi}{2}-\\delta]$ 时，$\\sin x \\le \\sin(\\frac{\\pi}{2}-\\delta) = \\cos\\delta < 1$，故 $1+\\sin x \\ge 1+\\cos\\delta > 1$。于是\n$$\n0 \\le I_1 \\le \\int_0^{\\frac{\\pi}{2}-\\delta} \\frac{1}{(1+\\cos\\delta)^n} dx = \\frac{\\frac{\\pi}{2}-\\delta}{(1+\\cos\\delta)^n}.\n$$\n因 $1+\\cos\\delta > 1$，当 $n\\to\\infty$ 时上式趋于 $0$。\n\n对第二段，被积函数满足 $\\frac{1}{(1+\\sin x)^n} \\le 1$，故\n$$\n0 \\le I_2 \\le \\int_{\\frac{\\pi}{2}-\\delta}^{\\frac{\\pi}{2}} 1\\,dx = \\delta.\n$$\n从而 $0 \\le a_n \\le \\frac{\\pi/2}{(1+\\cos\\delta)^n} + \\delta$。令 $n\\to\\infty$ 取上极限得\n$$\n0 \\le \\limsup_{n\\to\\infty} a_n \\le \\delta.\n$$\n由 $\\delta>0$ 的任意性，$\\limsup_{n\\to\\infty} a_n = 0$，结合 $a_n\\ge0$ 即得 $\\lim_{n\\to\\infty} a_n = 0$。\n\n## 步骤3：将部分和视为交错级数并验证莱布尼茨条件\n令 $S_n = \\sum_{k=1}^n (-1)^{k-1} a_k$，其极限存在等价于交错级数 $\\sum_{n=1}^\\infty (-1)^{n-1} a_n$ 收敛。\n需验证莱布尼茨判别法的三个条件：\n1. $a_n > 0$：在 $[0,\\frac{\\pi}{2}]$ 上 $1+\\sin x \\ge 1$，被积函数恒正，积分得正数。\n2. $\\{a_n\\}$ 单调递减：对任意 $x\\in[0,\\frac{\\pi}{2}]$，$1+\\sin x \\ge 1$，故 $(1+\\sin x)^{-n-1} \\le (1+\\sin x)^{-n}$，积分保持不等号，即\n$$\na_{n+1} = \\int_0^{\\frac{\\pi}{2}} \\frac{dx}{(1+\\sin x)^{n+1}} \\le \\int_0^{\\frac{\\pi}{2}} \\frac{dx}{(1+\\sin x)^n} = a_n.\n$$\n3. $\\lim_{n\\to\\infty} a_n = 0$：由(1)已证。\n\n三个条件全部满足，故级数收敛，即 $\\lim_{n\\to\\infty} S_n$ 存在。\n\n## 结论\n(1) $\\lim_{n\\to\\infty} a_n = 0$；  \n(2) 极限 $\\lim_{n\\to\\infty}[a_1-a_2+a_3-\\cdots+(-1)^{n-1}a_n]$ 存在，证毕。\n\n## 关键知识点\n- 积分极限的分段估计（将区间分为“正常”部分和“奇点”邻域）\n- 夹逼准则与上、下极限的应用\n- 交错级数的莱布尼茨判别法（通项单调递减趋于零）\n- 积分不等式与保序性\n\n## 易错提示\n- 在(1)中直接交换极限与积分次序而未验证一致收敛性或控制函数，在考试中会失分；应按分段放缩严格处理。\n- 忽略 $a_n$ 的单调性验证：必须明确指出由于 $1+\\sin x\\ge1$，幂次越高函数值越小，从而积分单调递减。\n- 应用莱布尼茨判别法时忘记确认通项极限为零（但(1)恰好提供了这一结论，需要明确引用）。\n- 混淆级数收敛与部分和极限存在的关系，两者在此处是等价的，但应写清“部分和的极限存在”即“级数收敛”。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-25 12:23",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-25 12:23",
+    "reviewed": false,
+    "render_version": "v2"
+  }
 }

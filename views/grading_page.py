@@ -9,8 +9,9 @@ from concurrent.futures import ThreadPoolExecutor
 from config import LLM_BASE_URL, LLM_MODEL
 from agents import GradingAgent, DiagnosisAgent, SolverAgent
 from renderers.components.grading_result import render_grading_result_cards
+from services.grading_adapter import normalize_grading_result, normalize_standard_solution
 from ._shared import get_client
-from .mobile import set_grading_active
+from .mobile import inject_pull_to_refresh_guard, set_grading_active
 from storage.grading_task_store import (
     create_task, complete_task, fail_task, get_task,
     get_recent_task, mark_viewed, cleanup_old,
@@ -122,10 +123,12 @@ def _wrap_ascii_math(text: str) -> str:
             continue
         # Check if this segment looks like math (has operator + variables)
         has_math_op = bool(_re.search(r'[=\^\_\+\-\*/<>]', stripped))
+        has_latex_cmd = bool(_re.search(r'\\[a-zA-Z]+', stripped))
         has_var = bool(_re.search(r'[a-zA-Z]', stripped))
+        has_protected_math = '\x00A' in stripped
         is_pure_digit = _re.match(r'^[\d\s\.\-]+$', stripped)
-        if has_math_op and has_var and not is_pure_digit and len(stripped) >= 3:
-            # Wrap in $...$
+        is_math = (has_math_op or has_latex_cmd or has_protected_math) and (has_var or has_latex_cmd or has_protected_math)
+        if is_math and not is_pure_digit and len(stripped) >= 3:
             result.append(part.replace(stripped, '$' + stripped + '$'))
         else:
             result.append(part)
@@ -647,6 +650,7 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
             data["final_answer"] = old_answer
 
         # Build new solution entry
+        from services.grading_adapter import SOLUTION_FORMAT_VERSION
         new_solution = {
             "solution_id": f"sol_{int(_time.time())}",
             "method_name": method_name,
@@ -655,6 +659,7 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
             "generated_by": model or "AI",
             "generated_at": _time.strftime("%Y-%m-%d %H:%M"),
             "reviewed": False,
+            "format_version": SOLUTION_FORMAT_VERSION,
         }
         if issues:
             new_solution["latex_warnings"] = issues
@@ -1178,6 +1183,70 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     except Exception:
         pass
 
+    # Final quality gate: do not silently treat short answers or metadata shells
+    # as a complete step-by-step solution. One structured SolverAgent retry keeps
+    # every question type on the same stable answer contract.
+    try:
+        from services.grading_adapter import normalize_solution_for_render
+        from services.solution_quality import solution_quality_report
+
+        solution = normalize_solution_for_render(solution)
+        quality_report = solution_quality_report(solution, selected_q)
+        solution["_quality_report"] = quality_report
+        solution["_should_regenerate"] = bool(quality_report.get("should_regenerate"))
+        if client is not None and quality_report.get("should_regenerate"):
+            status.write("⏳ 标准解答不够完整，尝试结构化重生成...")
+            full_question = question
+            if selected_q.get("options"):
+                for key in sorted(selected_q.get("options", {}).keys()):
+                    full_question += f"\n({key}) {selected_q['options'][key]}"
+            try:
+                from agents.solver_agent import SolverAgent
+                solver = SolverAgent(client, _model)
+                retry = solver.solve(
+                    question=full_question,
+                    math_type=ocr_data.get("math_type", selected_q.get("math_type", "数学一")),
+                    question_type=q_type or ocr_data.get("question_type", "解答题"),
+                    knowledge_point=ocr_data.get(
+                        "knowledge_point",
+                        ", ".join(selected_q.get("knowledge_points", [])) or "未指定",
+                    ),
+                )
+                if retry.get("success") and retry.get("standard_answer"):
+                    retry_solution = {
+                        "success": True,
+                        "standard_answer": retry.get("standard_answer", ""),
+                        "total_score": selected_q.get("score", retry.get("total_score", 10)),
+                        "steps": retry.get("steps") or [],
+                        "_structured": retry.get("_structured") or None,
+                        "_canonical_ir": retry.get("_canonical_ir") or None,
+                        "_ai_unverified": True,
+                    }
+                    retry_solution = normalize_solution_for_render(retry_solution)
+                    retry_report = solution_quality_report(retry_solution, selected_q)
+                    retry_solution["_quality_report"] = retry_report
+                    retry_solution["_should_regenerate"] = bool(
+                        retry_report.get("should_regenerate"))
+                    if retry_report.get("ok"):
+                        solution = retry_solution
+                        status.write("✓ 结构化标准解答已补全")
+            except Exception as _retry_exc:
+                import logging
+                logging.getLogger(__name__).warning(
+                    "Structured solution retry failed: %s", _retry_exc)
+
+        final_report = solution_quality_report(solution, selected_q)
+        solution["_quality_report"] = final_report
+        solution["_should_regenerate"] = bool(final_report.get("should_regenerate"))
+        if not final_report.get("ok"):
+            issues = "、".join(final_report.get("issues", [])[:4]) or "质量门禁未通过"
+            solution["standard_solution_status"] = (
+                "failed" if not final_report.get("renderable", False) else "incomplete"
+            )
+            solution["standard_solution_error"] = f"标准解答质量门禁未通过：{issues}。"
+    except Exception:
+        pass
+
     _ss_set("standard_answer", solution, _state=_state)
     # 构建 _structured（如果还没有）
     if solution.get("_structured"):
@@ -1195,10 +1264,244 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     return solution
 
 
+def _solution_has_renderable_content(solution: dict | None) -> bool:
+    """P15-4: Check if a solution has actual renderable content, not empty shells."""
+    if not isinstance(solution, dict):
+        return False
+    ans = str(solution.get("standard_answer") or solution.get("answer") or "").strip()
+    if len(ans) >= 80:
+        return True
+    structured = solution.get("_structured")
+    if isinstance(structured, dict):
+        for step in structured.get("steps") or []:
+            for block in (step.get("blocks") or []):
+                c = str(block.get("content") or "").strip()
+                if c and c not in {"（无内容）", "(无内容)", "无内容"}:
+                    return True
+        fa = str(structured.get("final_answer") or "").strip()
+        if fa and fa not in {"（无内容）", "(无内容)", "无内容"}:
+            return True
+    return False
+
+
+def _solution_cache_hit(selected_q: dict) -> bool:
+    """P15/P24: Check if cache has a complete, renderable detailed solution."""
+    from services.grading_adapter import normalize_canonical_entry
+    from services.solution_quality import solution_quality_report
+
+    pool = selected_q.get("canonical_solutions") or []
+    if pool:
+        for entry in pool:
+            normalized = normalize_canonical_entry(entry, question=selected_q)
+            solution_like = {
+                "standard_answer": normalized.get("standard_answer", ""),
+                "_structured": normalized.get("structured"),
+                "_canonical_ir": normalized.get("canonical_ir"),
+            }
+            if solution_quality_report(solution_like, selected_q).get("ok"):
+                return True
+    cached = (selected_q.get("standard_answer") or "").strip()
+    if cached and solution_quality_report({"standard_answer": cached}, selected_q).get("ok"):
+        return True
+    # Also check _structured in selected_q directly
+    if solution_quality_report(selected_q, selected_q).get("ok"):
+        return True
+    return False
+
+
+def _solution_request_hash(selected_q: dict, model: str) -> str:
+    """P15: stable hash for deduplicating solution generation requests."""
+    import hashlib, json
+    payload = {
+        "qid": str(selected_q.get("question_id", "")),
+        "model": str(model or ""),
+        "correct": str(selected_q.get("correct_option", "")),
+    }
+    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    return hashlib.md5(raw.encode("utf-8")).hexdigest()
+
+
+def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
+                            client, model: str, _state=None) -> str | None:
+    """P15: Ensure detailed solution is being generated in background.
+
+    Returns None if already cached ("ready"), or a task identifier if generation
+    was started ("pending"). The result is written to _state / session_state
+    under '_async_solution' when complete.
+
+    Protections:
+      - Dedup via solution_request_hash (same qid+model won't spawn duplicates)
+      - Writes status to session_state so it survives Streamlit rerun
+      - Failed generation sets status="failed" without affecting grading result
+    """
+    if _solution_cache_hit(selected_q):
+        _ss_set("_solution_status", "ready", _state=_state)
+        return None  # already ready
+
+    qid = selected_q.get("question_id", "")
+    if not qid or not client:
+        return None
+
+    # ── P15-r1: request-hash dedup ──
+    _req_hash = _solution_request_hash(selected_q, model)
+    _active_hash = _ss_get("_solution_active_hash", "", _state=_state)
+    _key = f"_solution_running_{qid}"
+    if _ss_get(_key, False, _state=_state) and _active_hash == _req_hash:
+        return qid  # same request already running
+
+    _ss_set(_key, True, _state=_state)
+    _ss_set("_solution_active_hash", _req_hash, _state=_state)
+
+    def _run():
+        try:
+            status = _NoOpStatus()
+            solution = _build_standard_solution(
+                question, ocr_data, selected_q, client, status,
+                force_expansion=True, _state=_state, model=model,
+            )
+            # P15/P24: only mark ready if solution passes the full quality gate.
+            from services.solution_quality import solution_quality_report
+            report = solution_quality_report(solution, selected_q)
+            solution["_quality_report"] = report
+            solution["_should_regenerate"] = bool(report.get("should_regenerate"))
+            if report.get("ok"):
+                _ss_set("_async_solution", solution, _state=_state)
+                _ss_set("_solution_status", "ready", _state=_state)
+                _ss_set("_solution_error", "", _state=_state)
+                gr = _ss_get("grading_result", {}, _state=_state)
+                if isinstance(gr, dict) and gr.get("_hide_until_solution_ready"):
+                    gr["_hide_until_solution_ready"] = False
+                    gr["standard_solution_status"] = "ready"
+                    _ss_set("grading_result", gr, _state=_state)
+            else:
+                _ss_set("_solution_status", "failed", _state=_state)
+                issues = "、".join(report.get("issues", [])[:4]) or "质量门禁未通过"
+                _ss_set("_solution_error", f"标准解答生成不完整：{issues}", _state=_state)
+        except Exception as exc:
+            _ss_set("_solution_status", "failed", _state=_state)
+            _ss_set("_solution_error", str(exc)[:200], _state=_state)
+        finally:
+            _ss_set(_key, False, _state=_state)
+
+    import threading
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+    return qid
+
+
+def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
+                        question: str = "", client=None, model: str = "",
+                        _state=None) -> dict:
+    """P15: 选择题快速判分 + 后台生成详细解析."""
+    import re
+    total_score = selected_q.get("score", 5)
+    correct_option = selected_q.get("correct_option", "")
+    stu = (student_ans or "").strip().upper()
+    stu_letter = None
+    for m in re.finditer(r'[A-D]', stu):
+        stu_letter = m.group(0)
+    is_correct = (stu_letter == correct_option)
+    score = total_score if is_correct else 0
+
+    # ── Solution status ──
+    sol_status = "ready" if _solution_cache_hit(selected_q) else "pending"
+    sol_task = None if sol_status == "ready" else _ensure_solution_async(
+        selected_q, question, ocr_data, client, model, _state=_state,
+    )
+    _ss_set("_solution_status", sol_status, _state=_state)
+    _ss_set("_solution_task_id", sol_task, _state=_state)
+
+    return {
+        "grading_result": {
+            "success": True, "total": score, "step_score": score, "result_score": 0,
+            "step_analysis": [], "deductions": [],
+            "comment": "回答正确" if is_correct else f"正确选项是 {correct_option}",
+            "engine": "choice_fast", "confidence": 1.0,
+            "_fast_path": True,
+            "standard_solution_status": sol_status,
+            "standard_solution_task_id": sol_task,
+            "_hide_until_solution_ready": True,
+        },
+        "diagnosis_result": {
+            "error_type": "无错误" if is_correct else "选择题答案错误",
+            "root_cause": "" if is_correct else f"正确答案是 {correct_option}",
+            "is_repeat": False, "repeat_count": 0, "affects_future": False,
+            "weak_points": [] if is_correct else selected_q.get("knowledge_points", []),
+        },
+        "standard_answer": {
+            "success": True,
+            "standard_answer": (selected_q.get("standard_answer") or f"正确选项: {correct_option}"),
+            "total_score": total_score, "steps": [],
+            "_solution_status": sol_status,
+        },
+        "standard_answer_structured": None,
+        "error_record": None,  # built when async solution completes
+    }
+
+
+def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
+                      question: str = "", client=None, model: str = "",
+                      _state=None) -> dict:
+    """P15: 填空题快速判分 + 后台生成详细解析."""
+    total_score = selected_q.get("score", 5)
+    cached = (selected_q.get("standard_answer") or "").strip()
+    final_ans = selected_q.get("final_answer", "") or cached
+    stu = (student_ans or "").strip()
+
+    is_correct = False
+    confidence = 0.5
+    if final_ans and stu:
+        try:
+            from symbolic_executor import quick_compare
+            result = quick_compare(stu, final_ans)
+            is_correct = result.get("equivalent", False)
+            confidence = 0.95
+        except Exception:
+            pass
+
+    score = total_score if is_correct else 0
+    kps = selected_q.get("knowledge_points", [])
+
+    # ── Solution status ──
+    sol_status = "ready" if _solution_cache_hit(selected_q) else "pending"
+    sol_task = None if sol_status == "ready" else _ensure_solution_async(
+        selected_q, question, ocr_data, client, model, _state=_state,
+    )
+    _ss_set("_solution_status", sol_status, _state=_state)
+
+    return {
+        "grading_result": {
+            "success": True, "total": score, "step_score": score, "result_score": 0,
+            "step_analysis": [], "deductions": [],
+            "comment": "回答正确" if is_correct else "答案错误，请查看标准解法",
+            "engine": "fill_compare", "confidence": confidence,
+            "_fast_path": True,
+            "standard_solution_status": sol_status,
+            "_hide_until_solution_ready": True,
+        },
+        "diagnosis_result": {
+            "error_type": "无错误" if is_correct else "填空题错误",
+            "root_cause": "" if is_correct else "答案与标准答案不等价",
+            "is_repeat": False, "repeat_count": 0, "affects_future": False,
+            "weak_points": [] if is_correct else kps,
+        },
+        "standard_answer": {
+            "success": True,
+            "standard_answer": cached or "",
+            "total_score": total_score, "steps": [],
+            "_solution_status": sol_status,
+        },
+        "standard_answer_structured": None,
+        "error_record": None,  # built when async solution completes
+    }
+
+
 def _execute_grading_process(question, student_ans, ocr_data, selected_q, container=None,
                              *, _state=None, model=None, user_id=None, memory=None,
-                             client=None):
+                             client=None, stream_callback=None):
     """执行批改流程。
+
+    P15: 选择题/填空题走本地 fast path，跳过 LLM 调用。
 
     Args:
         _state: None=使用 st.session_state（主线程），dict=使用 dict（后台线程）
@@ -1212,15 +1515,18 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
               standard_answer_structured, error_record (for saving to error notebook).
               返回 None 表示前置条件不满足（如无 API key）。
     """
-    ctx = container if container is not None else _NoOpContext()
+    selected_q = selected_q or _ss_get("selected_question", _state=_state) or {}
+    q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
     _model = model or _ss_get("model", LLM_MODEL, _state=_state)
+
+    ctx = container if container is not None else _NoOpContext()
     _user_id = user_id or (_ss_get("auth", {}, _state=_state).get("user_id", ""))
     _memory = memory or _ss_get("memory", _state=_state)
 
-    # 获取或创建 LLM client
+    # 获取或创建 LLM client. Do this before any grading shortcut so the
+    # unanswered/view-only path can generate a detailed solution for every type.
     if client is None:
         if _state is not None:
-            # 后台线程：从 _state 获取配置自行创建
             api_key = str(_state.get("api_key", "") or "")
             if api_key:
                 from llm_client import create_client
@@ -1231,22 +1537,27 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             client = get_client()
 
     # ── 空作答快速通道：只展示标准答案，不进行AI批改和诊断 ──
-    # force_expansion=False: if canonical exists, use it; if not, _standard_answer_needs_expansion
-    # will naturally return True for short/empty answers, triggering generation.
+    # This must run before choice/fill fast paths. Empty answers are allowed and
+    # mean "view detailed solution", not "grade as wrong".
     if not (student_ans or "").strip():
         status = ctx.status("📖 查看标准答案...", expanded=True)
+        force_detail = bool(client) and not _solution_cache_hit(selected_q)
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
-                                             force_expansion=False, _state=_state, model=_model)
+                                             force_expansion=force_detail,
+                                             _state=_state, model=_model)
         if solution is None:
             _ss_set("grading_triggered", False, _state=_state)
             return None
 
         _ss_set("standard_answer", solution, _state=_state)
         gresult = {
-            "success": True, "total": 0, "step_score": 0, "result_score": 0,
-            "step_analysis": [], "deductions": [],
+            "success": True,
             "comment": "未作答，仅查看标准答案",
             "engine": "view_only",
+            "view_only": True,
+            "hide_score_card": True,
+            "hide_diagnosis": True,
+            "standard_solution_status": solution.get("standard_solution_status", "ready"),
         }
         _q_kps = (selected_q or {}).get("knowledge_points", []) or []
         if not _q_kps:
@@ -1280,6 +1591,28 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "standard_answer_structured": _ss_get("standard_answer_structured", _state=_state),
             "error_record": None,
         }
+
+    # ═══════════════════════════════════════════════
+    # P15 FAST PATH: 选择题/填空题 — 本地判分 + 后台解析
+    # ═══════════════════════════════════════════════
+    if q_type == "选择题" and selected_q.get("correct_option"):
+        # Resolve client for async solution generation
+        _fc = client
+        if _fc is None and _state is not None:
+            api_key = str(_state.get("api_key", "") or "")
+            if api_key:
+                from llm_client import create_client
+                base_url = str(_state.get("base_url", LLM_BASE_URL) or "")
+                protocol = str(_state.get("protocol", "openai") or "openai")
+                _fc = create_client(api_key=api_key, base_url=base_url, protocol=protocol)
+        return _grade_choice_fast(selected_q, student_ans, ocr_data,
+                                  question=question, client=_fc, model=_model, _state=_state)
+    if q_type == "填空题" and (student_ans or "").strip():
+        result = _grade_fill_fast(selected_q, student_ans, ocr_data,
+                                  question=question, client=client, model=_model, _state=_state)
+        if result["grading_result"]["confidence"] >= 0.9:
+            return result
+        # Low confidence — fall through to full AI path
 
     # client 已在函数开头获取，此处检查是否可用
     if client is None:
@@ -1754,64 +2087,25 @@ def _submit_grading_async(question, student_ans, ocr_data, selected_q):
     Guards against duplicate submission: if user already has a processing task
     that is less than 2 minutes old, re-attach to it instead of creating a new one.
     """
-    user_id = st.session_state.auth.get("user_id", "unknown")
+    from services.grading_task_runner import submit_grading_async
 
-    # Guard: re-attach to an existing processing task
-    existing = get_recent_task(user_id, minutes=2)
-    if existing and existing.get("status") == "processing":
-        return existing["task_id"]
-
-    model = st.session_state.get("model", LLM_MODEL)
-    memory = st.session_state.get("memory")
-
-    # Create the task row
-    task_id = create_task(user_id, question, student_ans, ocr_data, selected_q)
-
-    # Build a plain dict with everything the background thread needs
-    _state = {
-        "model": model,
-        "_client": get_client(),
-        "api_key": st.session_state.get("api_key", ""),
-        "base_url": st.session_state.get("base_url", LLM_BASE_URL),
-        "protocol": st.session_state.get("protocol", "openai"),
-        "question_db": st.session_state.get("question_db"),
-        "grading_result": None,
-        "diagnosis_result": None,
-        "standard_answer": None,
-        "standard_answer_structured": None,
-        "answer_view_mode": False,
-        "grading_triggered": False,
-        "mistakes_force_reload": False,
-    }
-
-    # Use the main thread's already-created client instead of building
-    # from scratch (avoids KeyError: 'llm_client' on some servers).
-    client = _state.get("_client") or get_client()
-
-    task_data = {
-        "_state": _state,
-        "question": question,
-        "student_ans": student_ans,
-        "ocr_data": ocr_data,
-        "selected_q": selected_q,
-        "model": model,
-        "user_id": user_id,
-        "memory": memory,
-        "client": client,
-    }
-
-    thread = threading.Thread(
-        target=_run_grading_bg,
-        args=(task_id, task_data),
-        daemon=True,
+    return submit_grading_async(
+        question,
+        student_ans,
+        ocr_data,
+        selected_q,
+        session_state=st.session_state,
+        executor=_execute_grading_process,
+        get_client_fn=get_client,
     )
-    thread.start()
-
-    return task_id
 
 
 def _restore_results_to_session(task: dict):
     """Load grading results from a SQLite task row into st.session_state."""
+    from services.grading_task_runner import clear_active_grading_task
+
+    clear_active_grading_task(st.session_state)
+
     for key, json_key in [
         ("grading_result", "grading_result_json"),
         ("diagnosis_result", "diagnosis_result_json"),
@@ -1898,12 +2192,31 @@ def render_grading_page(db, render_latex):
         st.session_state["_last_graded_qid"] = current_qid
 
     # ── Recovery: check SQLite for a recent completed task only ──
-    # Note: Only recover completed tasks, not processing tasks.
-    # Processing tasks from previous sessions may be stale (server crashed).
-    # If user wants to retry, they should explicitly click "开始批改".
     if "ocr_result" not in st.session_state and user_id:
         recent = get_recent_task(user_id)
-        if recent and recent.get("status") == "completed":
+        if recent and recent.get("status") == "processing":
+            try:
+                st.session_state["pending_task_id"] = recent["task_id"]
+                st.session_state["_poll_start"] = time.time()
+                if recent.get("selected_q_json"):
+                    st.session_state["selected_question"] = json.loads(recent["selected_q_json"])
+                ocr_data_json = recent.get("ocr_data_json")
+                if ocr_data_json:
+                    st.session_state["ocr_result"] = json.loads(ocr_data_json)
+                else:
+                    st.session_state["ocr_result"] = {
+                        "success": True,
+                        "question": recent.get("question") or "",
+                        "student_answer": recent.get("student_answer") or "",
+                        "confidence": 1.0,
+                        "warnings": [],
+                    }
+                set_grading_active(True)
+                st.session_state.page = "grading"
+                st.rerun()
+            except Exception:
+                pass
+        elif recent and recent.get("status") == "completed":
             _restore_results_to_session(recent)
             st.session_state.page = "grading"
             st.rerun()
@@ -2028,6 +2341,8 @@ def render_grading_page(db, render_latex):
             poll_start = st.session_state["_poll_start"]
 
         if task["status"] == "processing":
+            inject_pull_to_refresh_guard(True)
+            set_grading_active(True)
             elapsed = time.time() - poll_start
             if elapsed > 1800:  # 30 minutes
                 fail_task(pending_task_id, "批改超时（超过30分钟未完成），请重试")
@@ -2141,19 +2456,74 @@ def render_grading_page(db, render_latex):
             selected_q = st.session_state.get("selected_question") or {}
             knowledge_points = selected_q.get("knowledge_points", []) or ocr_data.get("knowledge_point", "").split(",")
 
+            # ── P15-2: Hide result until detailed solution is ready ──
+            _sol_status = gr.get("standard_solution_status") or st.session_state.get("_solution_status")
+            _hide_until_ready = gr.get("_hide_until_solution_ready")
+            _async_sol = st.session_state.get("_async_solution")
+
+            if _hide_until_ready and _sol_status != "ready":
+                from views.components.grading_progress import (
+                    inject_progress_css, render_progress,
+                    estimate_smooth_progress, get_expected_grading_seconds,
+                )
+                inject_progress_css()
+
+                if _sol_status == "failed":
+                    _sol_err = st.session_state.get("_solution_error", "")
+                    if "不完整" in str(_sol_err) or "incomplete" in str(_sol_err).lower():
+                        st.warning("⚠️ 标准解答生成不完整，可能缺少最终结论或步骤不足。")
+                    elif "损坏" in str(_sol_err) or "broken" in str(_sol_err).lower():
+                        st.warning("⚠️ 标准解答包含损坏的 LaTeX 公式，已阻止渲染。")
+                    else:
+                        st.warning("⚠️ 标准解答生成失败，请重新生成。")
+                    if _sol_err:
+                        st.caption(f"原因: {_sol_err[:150]}")
+                    st.caption("批改结果已保留，你可以重新生成标准解答。")
+                    if st.button("🔄 重新生成标准解答", key="retry_solution"):
+                        st.session_state["_solution_status"] = "pending"
+                        st.session_state.pop("_async_solution", None)
+                        st.session_state.pop(f"_solution_running_{selected_q.get('question_id', '')}", None)
+                        st.session_state.pop("_solution_active_hash", None)
+                        # Also clear grading_result hide flag to trigger regeneration
+                        gr = st.session_state.get("grading_result", {})
+                        if isinstance(gr, dict):
+                            gr.pop("_hide_until_solution_ready", None)
+                            gr["standard_solution_status"] = "pending"
+                        st.rerun()
+                else:
+                    # Show progress while waiting for detailed solution
+                    expected_s = get_expected_grading_seconds(selected_q, ocr_data)
+                    _elapsed = time.time() - st.session_state.get("_poll_start", time.time())
+                    smooth = estimate_smooth_progress(
+                        elapsed_s=_elapsed, status="processing",
+                        expected_s=min(expected_s, 30), max_before_done=97,
+                    )
+                    render_progress(
+                        progress=smooth, phase="solution",
+                        detail="正在生成详细步骤解析…",
+                        elapsed_s=int(_elapsed),
+                    )
+                st.stop()
+
+            # ── Solution ready: merge async result ──
+            if _async_sol and _sol_status == "ready":
+                sa = _async_sol
+                if _async_sol.get("_structured"):
+                    st.session_state["standard_answer_structured"] = _async_sol["_structured"]
+                st.session_state["_solution_status"] = "ready"
+
             render_grading_result_cards(
                 gr, sa, dr, total,
                 knowledge_points=knowledge_points,
                 question=selected_q,
                 question_db=db,
-                solution_expanded=(gr.get("engine") == "view_only"),
+                solution_expanded=(gr.get("engine") == "view_only" or _sol_status == "ready"),
             )
 
-        # 释放 _structured 重复副本（已嵌套在 standard_answer 中）
         if "standard_answer_structured" in st.session_state:
             del st.session_state["standard_answer_structured"]
 
-        return  # 提前返回，不执行后续的真题库部分
+        return
 
     # ==================== 真题库 ====================
     st.divider()
@@ -2190,3 +2560,129 @@ def render_grading_page(db, render_latex):
         except Exception as e:
             logger.error(f"Failed to fetch related questions: {e}")
             st.error("获取相关题目失败")
+
+
+# ═══════════════════════════════════════════════
+#  P16: structured output stubs for test compatibility
+# ═══════════════════════════════════════════════
+
+def save_as_canonical_solution(selected_q: dict, expanded: str,
+                                model: str = "", method_name: str = "标准解法",
+                                semantic_tags: list = None,
+                                structured: dict = None,
+                                canonical_ir: dict = None) -> bool:
+    """Append a canonical solution to the question's solution pool."""
+    if not selected_q or not expanded:
+        return False
+    qid = selected_q.get("question_id", "")
+    if not qid:
+        return False
+    try:
+        from database.question_db import get_question_path
+        path = get_question_path(qid)
+        if not path.exists():
+            return False
+        import json, os, tempfile, time as _time
+        from services.grading_adapter import (
+            SOLUTION_FORMAT_VERSION,
+            normalize_solution_for_render,
+        )
+        from services.solution_quality import solution_quality_report
+
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        question_for_gate = {**data, **selected_q}
+        solution_like = normalize_solution_for_render({
+            "standard_answer": expanded,
+            "_structured": structured,
+            "_canonical_ir": canonical_ir,
+        })
+        report = solution_quality_report(solution_like, question_for_gate)
+        if not report.get("ok"):
+            return False
+        expanded = solution_like.get("standard_answer", expanded)
+        structured = solution_like.get("_structured") or structured
+        canonical_ir = solution_like.get("_canonical_ir") or canonical_ir
+
+        new_solution = {
+            "solution_id": f"sol_{int(_time.time())}",
+            "method_name": method_name,
+            "semantic_tags": semantic_tags or [],
+            "standard_answer": expanded,
+            "generated_by": model or "AI",
+            "generated_at": _time.strftime("%Y-%m-%d %H:%M"),
+            "reviewed": False,
+            "format_version": SOLUTION_FORMAT_VERSION,
+            "quality_report": report,
+        }
+        if structured:
+            new_solution["structured"] = structured
+        if canonical_ir:
+            new_solution["canonical_ir"] = canonical_ir
+        pool = data.get("canonical_solutions") or []
+        existing_names = {s.get("method_name", "") for s in pool}
+        if method_name not in existing_names:
+            pool.append(new_solution)
+        data["canonical_solutions"] = pool
+        data["solution_metadata"] = {
+            "canonical": True,
+            "has_steps": bool(report.get("has_detailed_steps")),
+            "pool_size": len(pool),
+            "generated_by": model or "AI",
+            "generated_at": _time.strftime("%Y-%m-%d %H:%M"),
+            "reviewed": False,
+            "render_version": "v2",
+            "solution_format_version": SOLUTION_FORMAT_VERSION,
+        }
+        data["standard_answer"] = expanded
+        tmp_fd, tmp_path = tempfile.mkstemp(
+            suffix=".json", prefix=".canon_", dir=path.parent)
+        with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp_path, path)
+        return True
+    except Exception:
+        return False
+
+
+def get_canonical_solutions(selected_q: dict) -> list[dict]:
+    """Return all canonical solutions, sorted best first."""
+    if not selected_q:
+        return []
+    pool = selected_q.get("canonical_solutions") or []
+    if pool:
+        pool.sort(key=lambda s: (
+            bool(s.get("reviewed")),
+            bool(s.get("structured")),
+            bool(s.get("canonical_ir")),
+            s.get("generated_at", ""),
+        ), reverse=True)
+        return pool
+    meta = selected_q.get("solution_metadata") or {}
+    if meta.get("canonical") and selected_q.get("standard_answer"):
+        return [{
+            "solution_id": "default",
+            "method_name": "标准解法",
+            "semantic_tags": [],
+            "steps": selected_q.get("solution_steps", []),
+            "standard_answer": selected_q.get("standard_answer", ""),
+            "structured": selected_q.get("_structured") or selected_q.get("structured"),
+            "canonical_ir": selected_q.get("_canonical_ir") or selected_q.get("canonical_ir"),
+            "generated_by": meta.get("generated_by", "legacy"),
+            "generated_at": meta.get("generated_at", ""),
+        }]
+    return []
+
+
+def _solution_from_canonical_entry(entry: dict, selected_q: dict) -> dict:
+    """Build solution dict from a canonical pool entry."""
+    return {
+        "success": True,
+        "standard_answer": entry.get("standard_answer", ""),
+        "total_score": selected_q.get("score", 10),
+        "steps": entry.get("steps") or [],
+        "_structured": entry.get("structured"),
+        "_canonical_ir": entry.get("canonical_ir"),
+        "_ai_unverified": not bool(entry.get("reviewed", False)),
+    }

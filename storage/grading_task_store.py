@@ -29,11 +29,16 @@ CREATE TABLE IF NOT EXISTS grading_tasks (
     standard_answer_structured_json TEXT,
     error_record_json           TEXT,
     error_msg       TEXT,
+    stream_answer   TEXT DEFAULT '',
     viewed          INTEGER NOT NULL DEFAULT 0,
     created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
     completed_at    DATETIME
 );
 """
+
+_MIGRATIONS = {
+    "stream_answer": "ALTER TABLE grading_tasks ADD COLUMN stream_answer TEXT DEFAULT ''",
+}
 
 # Tasks older than this are ignored during recovery
 RECOVERY_WINDOW_MINUTES = 60
@@ -48,6 +53,12 @@ def _connect() -> sqlite3.Connection:
 
 def _ensure_table(conn: sqlite3.Connection):
     conn.execute(_CREATE_TABLE)
+    existing_cols = {
+        row["name"] for row in conn.execute("PRAGMA table_info(grading_tasks)").fetchall()
+    }
+    for column, sql in _MIGRATIONS.items():
+        if column not in existing_cols:
+            conn.execute(sql)
     conn.commit()
 
 
@@ -155,6 +166,7 @@ def fail_task(task_id: str, error_msg: str):
 def get_task(task_id: str) -> Optional[dict]:
     conn = _connect()
     try:
+        _ensure_table(conn)
         row = conn.execute(
             "SELECT * FROM grading_tasks WHERE task_id = ?", (task_id,)
         ).fetchone()
@@ -169,6 +181,7 @@ def get_recent_task(user_id: str, minutes: int = RECOVERY_WINDOW_MINUTES) -> Opt
     are less than 30 minutes old (the server-side thread may still be running)."""
     conn = _connect()
     try:
+        _ensure_table(conn)
         # Use SQLite's datetime functions so timestamps are compared in the
         # same timezone as CURRENT_TIMESTAMP (UTC), avoiding mismatches with
         # Python's locale-aware datetime.now().
@@ -205,6 +218,37 @@ def cleanup_old(hours: int = 24):
     try:
         cutoff = (datetime.now() - timedelta(hours=hours)).strftime('%Y-%m-%d %H:%M:%S')
         conn.execute("DELETE FROM grading_tasks WHERE created_at < ?", (cutoff,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+# ═══════════════════════════════════════════════
+#  Stream answer helpers
+# ═══════════════════════════════════════════════
+
+MAX_STREAM_ANSWER_CHARS = 20000
+
+
+def _trim_stream_answer(s: str, max_chars: int = MAX_STREAM_ANSWER_CHARS) -> str:
+    """Keep head + tail when stream_answer exceeds max_chars."""
+    if len(s) <= max_chars:
+        return s
+    head = s[:6000]
+    tail = s[-14000:]
+    return head + "\n\n……（中间内容生成中，已折叠）……\n\n" + tail
+
+
+def update_task_stream(task_id: str, stream_answer: str):
+    """Update the streaming answer field for a running task."""
+    conn = _connect()
+    try:
+        _ensure_table(conn)
+        trimmed = _trim_stream_answer(stream_answer)
+        conn.execute(
+            "UPDATE grading_tasks SET stream_answer = ? WHERE task_id = ?",
+            (trimmed, task_id),
+        )
         conn.commit()
     finally:
         conn.close()

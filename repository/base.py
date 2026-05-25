@@ -7,6 +7,38 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 
+class _ManagedCursor:
+    """Cursor wrapper that closes its connection after results are consumed."""
+
+    def __init__(self, conn: sqlite3.Connection, cursor: sqlite3.Cursor):
+        self._conn = conn
+        self._cursor = cursor
+        self._closed = False
+
+    def _close(self):
+        if not self._closed:
+            self._conn.close()
+            self._closed = True
+
+    def fetchone(self):
+        try:
+            return self._cursor.fetchone()
+        finally:
+            self._close()
+
+    def fetchall(self):
+        try:
+            return self._cursor.fetchall()
+        finally:
+            self._close()
+
+    def close(self):
+        self._close()
+
+    def __getattr__(self, name: str):
+        return getattr(self._cursor, name)
+
+
 class BaseRepository(ABC):
     """所有 Repository 的基类"""
     
@@ -75,13 +107,16 @@ class SQLiteRepository(BaseRepository):
         """执行 SQL 语句"""
         conn = self._get_db_connection()
         cursor = conn.cursor()
-        cursor.execute(sql, params)
-        conn.commit()
-        return cursor
+        try:
+            cursor.execute(sql, params)
+            conn.commit()
+            return cursor
+        finally:
+            conn.close()
     
     def _query(self, sql: str, params: tuple = ()) -> sqlite3.Cursor:
         """执行查询语句"""
         conn = self._get_db_connection()
         cursor = conn.cursor()
         cursor.execute(sql, params)
-        return cursor
+        return _ManagedCursor(conn, cursor)

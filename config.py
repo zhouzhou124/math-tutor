@@ -2,6 +2,12 @@
 
 import os
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
 # ── 结构化输出开关（Phase 1: 双栈运行） ──
 # True  → LLM 输出 JSON，走 render_structured() 管道
 # False → LLM 输出 Markdown，走 legacy regex 解析 + 4层回退渲染

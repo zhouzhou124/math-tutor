@@ -54,8 +54,15 @@ class SolverAgent:
             math_type=math_type, question_type=question_type,
             knowledge_point=knowledge_point, question=question,
         )
+        # P21: append PaperSpine-style quality constraints
+        try:
+            from services.prompt_loader import load_prompt
+            system += "\n\n" + load_prompt("math_solution_paperspine_style.md")
+        except Exception:
+            pass
+        system += "\n\n" + _type_specific_solution_rules(question_type)
 
-        user_msg = f"请生成这道{math_type}{question_type}的规范解答。只输出 JSON。"
+        user_msg = _build_solver_user_message(math_type, question_type, question)
         # 多小题检测
         if _re.search(r'[(（]\s*(?:1|I|i)\s*[)）]', question):
             user_msg = (
@@ -71,8 +78,7 @@ class SolverAgent:
                 model=self.model,
                 messages=[
                     {"role": "system", "content": system},
-                    {"role": "user",
-                     "content": f"请生成这道{math_type}{question_type}的规范解答。只输出 JSON。"},
+                    {"role": "user", "content": user_msg},
                 ],
                 temperature=0.2,
                 max_tokens=8192,
@@ -295,14 +301,15 @@ class SolverAgent:
             math_type=math_type, question_type=question_type,
             knowledge_point=knowledge_point, question=question,
         )
+        system += "\n\n" + _type_specific_solution_rules(question_type)
+        user_msg = _build_solver_user_message(math_type, question_type, question)
 
         try:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": system},
-                    {"role": "user",
-                     "content": f"请生成这道{math_type}{question_type}的标准解答。只输出 JSON。"},
+                    {"role": "user", "content": user_msg},
                 ],
                 temperature=0.2,
                 max_tokens=8192,
@@ -553,6 +560,62 @@ def _extract_plain_text(data: dict) -> str:
     if isinstance(fa, dict) and fa.get("content"):
         parts.append(f"最终答案：{fa['content']}")
     return "\n\n".join(parts)
+
+
+def _type_specific_solution_rules(question_type: str) -> str:
+    """Extra solver constraints so every question type yields usable steps."""
+    q_type = str(question_type or "")
+    common = """
+## 标准解答完整性要求
+1. steps 必须至少 2 步；复杂解答题/证明题应为 4 步以上。
+2. 每一步必须同时有中文依据和数学结果，不能只写标题或元数据。
+3. final_answer 必须明确给出最终结论，且与最后一步一致。
+4. 若题目有多个小问，必须逐问覆盖，不得只解第一问。
+"""
+    if "选择" in q_type:
+        return common + """
+## 选择题要求
+- 必须解释正确选项为什么成立。
+- 必须对 A/B/C/D 每个选项给出对错判断或排除理由。
+- final_answer 必须写成类似 "故选 A" 的明确结论。
+"""
+    if "填空" in q_type:
+        return common + """
+## 填空题要求
+- 必须展示从题设到填空结果的完整计算链。
+- final_answer 必须只保留最终填空值或"故填 ..."结论。
+"""
+    if "证明" in q_type:
+        return common + """
+## 证明题要求
+- 第一步明确"已知"和"要证"。
+- 证明链必须覆盖关键定理、条件验证和结论推出。
+- 若是充要条件，必须分别证明必要性和充分性。
+- final_answer 必须写成"综上，命题得证"或"证毕"。
+"""
+    return common + """
+## 解答题要求
+- 必须给出完整推导链，不得只给最终答案。
+- 每个关键计算、方程求解、代入验证都要有对应步骤。
+"""
+
+
+def _build_solver_user_message(math_type: str, question_type: str, question: str) -> str:
+    """Build a stable per-type JSON-only solve request."""
+    msg = (
+        f"请生成这道{math_type}{question_type}的完整规范解答。只输出 JSON。\n"
+        "要求：steps 至少 2 步，每步包含具体推理和数学结果；"
+        "final_answer 必须明确；不要输出元数据壳子。"
+    )
+    if "选择" in str(question_type):
+        msg += " 必须逐项分析 A/B/C/D 并说明故选哪个选项。"
+    elif "填空" in str(question_type):
+        msg += " 必须展示计算过程并给出最终填空值。"
+    elif "证明" in str(question_type):
+        msg += " 必须写清已知、要证、推理链和证毕。"
+    if _re.search(r'[(（]\s*(?:1|I|i)\s*[)）]', question or ""):
+        msg += " 此题包含多个小题，必须分别作答每一小题，严禁只解其中一问。"
+    return msg
 
 
 def _has_corrupted_latex(data: dict) -> bool:

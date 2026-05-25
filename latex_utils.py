@@ -455,16 +455,21 @@ def _pre_wrap_bare_latex(text: str) -> str:
     if not text:
         return text
 
-    # Check if already has complete math delimiters
-    # Only skip if we have matching $$...$$ or $...$ pairs
-    has_display_math = text.count('$$') >= 2
-    has_inline_math = (text.count('$') - 2 * text.count('$$')) >= 2
-    if has_display_math or has_inline_math:
-        return text
+    # Protect existing $...$ and $$...$$ regions with placeholders
+    # so we can still find and wrap bare LaTeX in the remaining text.
+    protected = []
+    def _protect_pwl(m):
+        protected.append(m.group(0))
+        return f'\x00L{len(protected)-1}\x00'
+    text = re.sub(r'\$\$[^$]+\$\$', _protect_pwl, text)
+    text = re.sub(r'\$[^$]+\$', _protect_pwl, text)
 
     # Find all \command positions that are candidates for wrapping
-    cmd_positions = [(m.start(), m.group(0)) for m in re.finditer(r'\\[a-zA-Z]+', text)]
+    cmd_positions = [(m.start(), m.group(0)) for m in re.finditer(r'\\[a-zA-Z]+|\\[!,:;]', text)]
     if not cmd_positions:
+        # Restore protected regions before returning
+        for i, block in enumerate(protected):
+            text = text.replace(f'\x00L{i}\x00', block)
         return text
 
     # For each command, find the balanced-brace extent
@@ -547,15 +552,23 @@ def _pre_wrap_bare_latex(text: str) -> str:
     cursor = 0
     for start, cmd in cmd_positions:
         if start < cursor:
-            continue  # Already covered by a previous fragment
-        # Append text before this command
+            continue
+        # Extend start backward to include leading alphanumeric/punctuation
+        ext_start = start
+        while ext_start > cursor:
+            ch = text[ext_start - 1]
+            if ch.isalnum() or ch in "'\"([{,.=":
+                ext_start -= 1
+            elif ch in '-+' and (ext_start - 1 == cursor or text[ext_start - 2] in ' \t'):
+                ext_start -= 1
+            else:
+                break
+        start = ext_start
         out.append(text[cursor:start])
-        # Find the extent
         end = _scan_math_extent(text, start + len(cmd))
         fragment = text[start:end].strip()
         if fragment:
-            # Wrap: use display math for multi-line, inline otherwise
-            if '\n' in fragment or '\\begin' in fragment:
+            if _should_force_display_math(fragment):
                 out.append(f'$$\n{fragment}\n$$')
             else:
                 out.append(f'${fragment}$')
@@ -564,10 +577,49 @@ def _pre_wrap_bare_latex(text: str) -> str:
         cursor = end
 
     if not out:
+        for i, block in enumerate(protected):
+            text = text.replace(f'\x00L{i}\x00', block)
         return text
 
     out.append(text[cursor:])
-    return ''.join(out)
+    result = ''.join(out)
+    # Restore protected $...$ and $$...$$ regions
+    for i, block in enumerate(protected):
+        result = result.replace(f'\x00L{i}\x00', block)
+    return result
+
+
+_SUBQUESTION_LABEL_RE = re.compile(
+    r"^\(\s*(?:\d+|[一二三四五六七八九十百]+|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+)\s*\)$"
+)
+
+
+def _demote_subquestion_math_labels(segments: list[dict]) -> list[dict]:
+    """Render $(1)$ / $(2)$ labels as text so adjacent math stays stable."""
+    if not segments:
+        return segments
+
+    demoted = []
+    for i, seg in enumerate(segments):
+        if (
+            isinstance(seg, dict)
+            and seg.get("type") == "inline_math"
+            and _SUBQUESTION_LABEL_RE.match(str(seg.get("content", "")).strip())
+        ):
+            label = str(seg.get("content", "")).strip()
+            next_seg = segments[i + 1] if i + 1 < len(segments) else None
+            suffix = " " if isinstance(next_seg, dict) and next_seg.get("type") == "inline_math" else ""
+            demoted.append({"type": "text", "content": f"{label}{suffix}"})
+            continue
+        demoted.append(seg)
+
+    merged = []
+    for seg in demoted:
+        if merged and seg.get("type") == "text" and merged[-1].get("type") == "text":
+            merged[-1]["content"] += seg.get("content", "")
+        else:
+            merged.append(seg)
+    return merged
 
 
 def split_latex_text(text: str) -> list[dict]:
@@ -975,17 +1027,17 @@ def split_latex_text(text: str) -> list[dict]:
     # 使用正向后瞻确保前面是 \qquad 或 \quad 或行首
 
     # 先处理 \qquad 或 \quad 之后的选项
-    text = re.sub(r'(\\qquad|\\quad)\s*\([A-D]\)', lambda m: m.group(1) + '\n(' + m.group(2) if len(m.groups()) > 1 else m.group(1) + '\n(', text)
-    
+    text = re.sub(r'(\\qquad|\\quad)\s*\(([A-D])\)', r'\1\n(\2)', text)
+
     # 处理行首的选项标签（前面是换行或字符串开头）
-    text = re.sub(r'(?<=\n)\s*\([A-D]\)', lambda m: '\n' + m.group(0), text)
-    text = re.sub(r'^\s*\([A-D]\)', lambda m: '\n' + m.group(0), text)
-    
+    text = re.sub(r'(?<=\n)\s*\(([A-D])\)', r'\n(\1)', text)
+    text = re.sub(r'^\s*\(([A-D])\)', r'\n(\1)', text)
+
     # 处理中文括号格式
-    text = re.sub(r'(\\qquad|\\quad)\s*（[A-D]）', lambda m: m.group(1) + '\n' + m.group(2), text)
-    
+    text = re.sub(r'(\\qquad|\\quad)\s*（([A-D])）', r'\1\n（\2）', text)
+
     # 处理不带左括号的选项格式 A) 或 A. 或 A、
-    text = re.sub(r'(\\qquad|\\quad)\s*([A-D][)．、。])', lambda m: m.group(1) + '\n' + m.group(2), text)
+    text = re.sub(r'(\\qquad|\\quad)\s*([A-D][)．、。])', r'\1\n\2', text)
 
     segments = []
     # 先匹配 $$...$$（长匹配优先），再匹配 $...$
@@ -1060,7 +1112,7 @@ def split_latex_text(text: str) -> list[dict]:
             merged.append({"type": "text", "content": ''.join(current_text)})
         segments = merged
 
-    return segments
+    return _demote_subquestion_math_labels(segments)
 
 
 def render_segments(segments: list[dict]) -> str:
@@ -1178,7 +1230,8 @@ def sanitize_latex_for_render(text: str) -> str:
     if s.startswith("\\[") and s.endswith("\\]"):
         s = s[2:-2].strip()
 
-    return auto_fix_brackets(s).strip()
+    s = _clean_formula_tail(auto_fix_brackets(s))
+    return s.strip()
 
 
 _MATHY_COMMAND_RE = re.compile(
@@ -1402,6 +1455,22 @@ def _inject_katex_css() -> None:
         [data-testid="stVerticalBlock"] .katex-display {
             overflow: visible !important;
             max-width: 100%;
+        }
+        @media (max-width: 768px) {
+            .katex-display,
+            [data-testid="stVerticalBlock"] .katex-display {
+                max-width: 100% !important;
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                white-space: nowrap !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .katex-display > .katex,
+            .katex-display .katex-html {
+                max-width: none !important;
+                overflow: visible !important;
+                white-space: nowrap !important;
+            }
         }
         </style>
     """, unsafe_allow_html=True)
@@ -3187,7 +3256,8 @@ def safe_render(text: str, role: str = "") -> None:
     except Exception:
         import traceback
         traceback.print_exc()
-        st.markdown(text, unsafe_allow_html=True)
+        import html
+        st.markdown(html.escape(str(text)), unsafe_allow_html=False)
 
 
 def safe_render_markdown(text: str, role: str = "") -> str:
@@ -3216,3 +3286,85 @@ def safe_render_markdown(text: str, role: str = "") -> str:
         import traceback
         traceback.print_exc()
         return text
+
+
+# ═══════════════════════════════════════════════
+#  P16: tag extraction + display math helpers
+# ═══════════════════════════════════════════════
+
+_TAG_RE = re.compile(r"(?s)^(.*?)(?:\s*\\tag\{([^{}]+)\})\s*$")
+
+
+def split_latex_tag(latex: str) -> tuple:
+    """Split 'x+y=0 \\tag{1}' into ('x+y=0', '1')."""
+    if not latex:
+        return latex, None
+    s = str(latex).strip()
+    m = _TAG_RE.match(s)
+    if not m:
+        return s, None
+    body = m.group(1).strip()
+    tag = m.group(2).strip() if m.group(2) else None
+    return body, tag
+
+
+def _is_long_tagged_formula(body: str) -> bool:
+    """True if formula is long enough to need tag-below layout."""
+    s = str(body or "").replace("\n", "").strip()
+    return len(s) > 70 or r"\begin{aligned}" in s or r"\\" in s
+
+
+_MATHY_COMMAND_RE = re.compile(
+    r'\\(?:'
+    r'frac|dfrac|tfrac|cfrac|sqrt|lim|sum|prod|int|iint|iiint|oint|'
+    r'sin|cos|tan|cot|sec|csc|ln|log|exp|arcsin|arccos|arctan|'
+    r'forall|exists|in|notin|subset|subseteq|cup|cap|to|Rightarrow|'
+    r'Leftarrow|rightarrow|leftarrow|leq|geq|ne|neq|approx|sim|'
+    r'alpha|beta|gamma|delta|epsilon|theta|lambda|mu|pi|xi|rho|'
+    r'sigma|phi|omega|Gamma|Delta|Theta|Lambda|Pi|Sigma|Omega|'
+    r'begin|end|boxed|left|right|mathrm|mathbf|mathbb|mathcal'
+    r')(?=\b|[_{([<\s]|$)'
+)
+
+
+def _should_force_display_math(fragment: str) -> bool:
+    """Heuristic: should this fragment render as display (block) math?"""
+    s = str(fragment or "").strip()
+    if not s:
+        return False
+    if r'\begin' in s or r'\end' in s:
+        return True
+    if '\n' in s and len(s) >= 40:
+        return True
+    if r'\tag' in s:
+        return True
+    if r'\sum' in s or r'\int' in s or r'\iint' in s or r'\prod' in s:
+        if '_' in s or '^' in s:
+            return True
+    if r'\frac' in s and len(s) >= 30:
+        return True
+    if r'\bigl' in s or r'\Bigl' in s or r'\biggl' in s:
+        return True
+    return False
+
+
+def clean_latex_spacing_artifacts(s: str) -> str:
+    """Remove LaTeX spacing artifacts: \\[2mm], [2mm], \\[1em], etc."""
+    if not s:
+        return s
+    s = re.sub(r"\\\\\s*\[[0-9.]+\s*(?:mm|em|ex|pt)\]", r"\\\\", s)
+    s = re.sub(r"\\\s*\[[0-9.]+\s*(?:mm|em|ex|pt)\]", "", s)
+    s = re.sub(r"(?<!\\)\[[0-9.]+\s*(?:mm|em|ex|pt)\]", "", s)
+    return s
+
+
+def _clean_formula_tail(s: str) -> str:
+    """Remove Chinese punctuation and trailing text after \\tag{} from display formulas."""
+    if not s:
+        return s
+    s = s.strip()
+    s = s.rstrip("，。；：、")
+    m = re.search(r"(.*?\\tag\{[^}]+\})", s)
+    if m:
+        return m.group(1).strip()
+    return s

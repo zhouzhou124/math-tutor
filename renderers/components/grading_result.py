@@ -163,6 +163,8 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
             st.warning("⚠️ AI 生成的解答与已知正确答案不完全一致，仅供参考学习，请以题目给定的正确答案为准。")
         if solution.get("_ai_unverified"):
             st.info("💡 此解答由 AI 自动生成，尚未经过人工审核验证。如有疑问请对照教材确认。")
+        if solution.get("standard_solution_status") in ("failed", "incomplete"):
+            st.warning(solution.get("standard_solution_error") or "标准解答生成不完整，请重新触发生成。")
         # ── 优先：结构化渲染路径 ──
         if isinstance(structured, dict):
             # 检查是否有步骤
@@ -324,18 +326,21 @@ def render_recommendations(dr: dict, question_db=None, current_question=None, is
 def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10,
                                  knowledge_points: list = None, question: dict = None,
                                  question_db=None, solution_expanded: bool = False) -> None:
-    """Progressive disclosure layout:
+    """Progressive disclosure layout.
 
-    Always visible:
-      ┌─ Score card ─────────────────────────────┐
-      ├─ Diagnosis (错因诊断) ───────────────────┤
-      ├─ Standard Solution (📖 查看标准解法) ─────┤
-      ├─ Knowledge Points (📚 考查知识点) ────────┤
-      └─ Recommendations (📖 巩固建议) ──────────┘
-
-    Collapsed:
-      ▶ 📊 步骤对比分析
+    P22: view_only mode skips score, diagnosis, and recommendations,
+    showing only the standard solution and knowledge points.
     """
+    is_view_only = bool(gr.get("view_only") or gr.get("hide_score_card"))
+
+    if is_view_only:
+        st.info("📖 你当前未提交作答，正在查看标准解答。建议先独立完成本题，再对照标准解答检查思路。")
+        st.markdown("---")
+        render_standard_solution(sa, expanded=True)
+        kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
+        render_knowledge_points(kp_list, question, question_db)
+        return
+
     st.markdown("---")
 
     # ═══ Always visible: Score ═══
@@ -356,13 +361,13 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
             from agents.verifier_agent import render_verification_report
             render_verification_report(report)
         except Exception:
-            # Fallback: display raw summary
             _obl_warn = gr.get("_obligation_warning", "")
             if _obl_warn:
                 st.warning(_obl_warn)
 
-    # ═══ Always visible: Diagnosis ═══
-    render_diagnosis_card(dr, gr)
+    # ═══ Diagnosis — skipped when hide_diagnosis ═══
+    if not gr.get("hide_diagnosis") and dr:
+        render_diagnosis_card(dr, gr)
 
     # ═══ Collapsed: Step details ═══
     if gr.get("step_analysis"):
@@ -376,9 +381,10 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
     render_knowledge_points(kp_list, question, question_db)
 
-    # ═══ Always visible: Recommendations (every question, right or wrong) ═══
-    with st.expander("📖 巩固建议", expanded=True):
-        render_recommendations(dr, question_db, question, is_correct=(gr.get("total", 0) >= total_score * 0.9))
+    # ═══ Recommendations — skipped when view_only ═══
+    if not is_view_only:
+        with st.expander("📖 巩固建议", expanded=True):
+            render_recommendations(dr, question_db, question, is_correct=(gr.get("total", 0) >= total_score * 0.9))
 
 
 def _render_step_comparison_body(gr: dict) -> None:
@@ -441,3 +447,53 @@ def _render_text_or_latex(text: str) -> None:
             render_ast(segments)
     except Exception:
         st.markdown(str(text))
+
+
+def render_summary_header(gr: dict, dr: dict, total_score: int = 10) -> None:
+    """P16: Report-style summary — score, main issue, recommendation."""
+    import html as _html
+    score = gr.get("total", 0)
+    ratio = score / total_score if total_score > 0 else 0
+    engine = gr.get("engine", "")
+
+    if engine == "view_only":
+        return
+
+    if ratio >= 0.9:
+        grade, color = "优秀", "#16a34a"
+    elif ratio >= 0.6:
+        grade, color = "良好", "#f59e0b"
+    else:
+        grade, color = "需加强", "#dc2626"
+
+    root_cause = dr.get("root_cause", "") or dr.get("error_type", "")
+    weak_points = dr.get("weak_points", [])[:3]
+    recs = dr.get("recommendations", [])[:2]
+
+    st.markdown(
+        f"""<div class="app-card" style="background:{color}08;border-color:{color}30;">
+            <div style="font-size:1.1rem;font-weight:800;color:#0f172a;">📋 批改报告</div>
+            <div style="margin-top:4px;color:#475569;font-size:0.92rem;">
+                本题得分 <b style="color:{color};">{score}/{total_score}</b> · {grade}
+            </div>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    if root_cause:
+        st.markdown(
+            f'<div class="app-card-compact" style="border-left:4px solid {color};">'
+            f'<b>主要问题：</b>{_html.escape(root_cause[:100])}</div>',
+            unsafe_allow_html=True,
+        )
+
+    if weak_points:
+        kp_tags = " ".join(
+            f'<span class="app-chip app-chip-orange">{_html.escape(str(kp))}</span>'
+            for kp in weak_points
+        )
+        st.markdown(f"**薄弱知识点** {kp_tags}", unsafe_allow_html=True)
+
+    if recs:
+        for rec in recs:
+            st.caption(f"💡 {rec}")

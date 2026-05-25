@@ -448,15 +448,17 @@ def _wrap_bare_math_expressions(text: str) -> str:
 
     # 模式4.5: 不在 $ 内的下标表达式 → 包裹 $
     # 匹配: a_1, b_1, x_0, a_{1}, x_{yz} 等
+    # Only wrap standalone subscripts, not those inside larger expressions
+    # like f'_x(x_0,y_0) — those will be handled by _wrap_ascii_math.
     # 先匹配带大括号的下标: a_{123}
     text = re.sub(
-        r'(?<!\$)(\b[a-zA-Z]_\{[^{}]+\}\b)(?!\$)',
+        r'(?<![$a-zA-Z=(,\'])([a-zA-Z]_\{[^{}]+\})(?![$a-zA-Z),=])',
         lambda m: '$' + m.group(1) + '$',
         text,
     )
-    # 再匹配简单下标: a_1
+    # 再匹配简单下标: a_1 (standalone only)
     text = re.sub(
-        r'(?<!\$)(\b[a-zA-Z]_\d+\b)(?!\$)',
+        r'(?<![$a-zA-Z=(,\'])([a-zA-Z]_\d+)(?![$a-zA-Z),=])',
         lambda m: '$' + m.group(1) + '$',
         text,
     )

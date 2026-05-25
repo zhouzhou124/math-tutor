@@ -149,6 +149,8 @@ def polish_solution(solution: dict) -> dict:
     if not isinstance(solution, dict):
         return solution
 
+    # P23: merge consecutive short steps before other polishing
+    solution = merge_consecutive_short_steps(solution)
     solution = normalize_step_labels(solution)
 
     for step in solution.get("steps", []):
@@ -237,3 +239,72 @@ def split_latex_blocks_with_chinese_text(blocks: list[dict]) -> list[dict]:
     for block in blocks or []:
         new_blocks.extend(_split_latex_block_by_chinese_text(block))
     return new_blocks
+
+
+# ═══════════════════════════════════════════════
+#  P23: Step granularity compression
+# ═══════════════════════════════════════════════
+
+_MERGEABLE_OPS = {"substitute", "simplify", "integrate", "solve", "expand", "evaluate"}
+
+
+def merge_consecutive_short_steps(solution: dict) -> dict:
+    """P23: Merge consecutive short steps with the same or mergeable operation.
+
+    Steps with the same operation or in {substitute, simplify, integrate, solve}
+    that are short are merged into a single step, reducing fragmentation.
+    """
+    if not isinstance(solution, dict):
+        return solution
+
+    solution = _re_deepcopy(solution)
+    steps = solution.get("steps")
+    if not isinstance(steps, list) or len(steps) <= 1:
+        return solution
+
+    merged = []
+    buf = []
+
+    def _total_blocks(slist):
+        return sum(len(s.get("blocks", [])) for s in slist)
+
+    def _flush():
+        if not buf:
+            return
+        if len(buf) == 1:
+            merged.append(buf[0])
+        else:
+            all_blocks = []
+            label = buf[0].get("label", "步骤")
+            op = buf[0].get("operation", "")
+            for s in buf:
+                all_blocks.extend(s.get("blocks", []))
+            merged.append({"label": label, "operation": op, "blocks": all_blocks})
+        buf.clear()
+
+    for step in steps:
+        op = str(step.get("operation", "")).strip()
+        blocks = step.get("blocks", [])
+        block_count = len(blocks)
+        total_content = sum(len(str(b.get("content", ""))) for b in blocks)
+
+        is_short = block_count <= 2 and total_content <= 200
+        is_mergeable = op in _MERGEABLE_OPS
+
+        if buf and is_short and is_mergeable and op == str(buf[-1].get("operation", "")).strip():
+            buf.append(step)
+        elif buf and is_short and is_mergeable and str(buf[-1].get("operation", "")).strip() in _MERGEABLE_OPS:
+            buf.append(step)
+        else:
+            _flush()
+            buf.append(step)
+
+    _flush()
+    solution["steps"] = merged
+    return solution
+
+
+def _re_deepcopy(obj):
+    import copy
+    return copy.deepcopy(obj)
+
