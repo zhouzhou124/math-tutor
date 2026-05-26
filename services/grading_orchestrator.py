@@ -168,6 +168,7 @@ def _build_error_record(selected_q, question, student_ans, solution, ocr_data,
                         gresult, dresult) -> dict:
     """P16: Build error record dict for the mistake notebook."""
     from services.grading_adapter import normalize_error_record
+    from services.math_type_router import math_type_for_ai, source_math_type
     import time as _time
     _time_str = _time.strftime("%Y-%m-%d %H:%M")
     score = gresult.get("total", 0)
@@ -180,7 +181,8 @@ def _build_error_record(selected_q, question, student_ans, solution, ocr_data,
 
     return normalize_error_record({
         "question_id": selected_q.get("question_id", ""),
-        "math_type": ocr_data.get("math_type", ""),
+        "math_type": source_math_type(ocr_data or selected_q),
+        "ai_math_type": math_type_for_ai(ocr_data or selected_q),
         "question_type": ocr_data.get("question_type", ""),
         "knowledge_point": ocr_data.get("knowledge_point", ""),
         "knowledge_points": selected_q.get("knowledge_points", []) or dresult.get("knowledge_points", []),

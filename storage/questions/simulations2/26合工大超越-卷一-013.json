@@ -14,12 +14,12 @@
     "空间解析几何",
     "切平面"
   ],
-  "question": "$$13.$ 曲面 $\\Sigma: x^2 + y^2 + 2z^2 = 1$ 上某点的切平面与曲线 $$\\Gamma: \\begin{cases} x^2 + y^2 + z^2 = 3 \\\\ x + y - z = 1 \\end{cases}$$ 在点 $(1,1,1)$ 处的法平面平行，则该点的坐标为 $\\underline{\\qquad\\qquad}$",
+  "question": "$$13.$ 曲面 $\\Sigma: x^2 + y^2 + 2z^2 = 1$ 上某点的切平面与曲线 $\\Gamma:$ $\\begin{cases} x^2 + y^2 + z^2 = 3 \\\\ x + y - z = 1 \\end{cases}$ 在点 $(1,1,1)$ 处的法平面平行，则该点的坐标为 $\\underline{\\qquad\\qquad}$",
   "standard_answer": "$\\left( \\pm \\frac{1}{2}, \\pm \\frac{1}{2}, \\pm \\frac{1}{2} \\right)$",
   "source": "import_hegongda",
   "solution_steps": [],
   "options": {},
   "volume": "卷一",
-  "raw_question_text": "$$13.$ 曲面 $\\Sigma: x^2 + y^2 + 2z^2 = 1$ 上某点的切平面与曲线 $$\\Gamma: \\begin{cases} x^2 + y^2 + z^2 = 3 \\\\ x + y - z = 1 \\end{cases}$$ 在点 $(1,1,1)$ 处的法平面平行，则该点的坐标为 $\\underline{\\qquad\\qquad}$",
+  "raw_question_text": "$$13.$ 曲面 $\\Sigma: x^2 + y^2 + 2z^2 = 1$ 上某点的切平面与曲线 $\\Gamma:$ $\\begin{cases} x^2 + y^2 + z^2 = 3 \\\\ x + y - z = 1 \\end{cases}$ 在点 $(1,1,1)$ 处的法平面平行，则该点的坐标为 $\\underline{\\qquad\\qquad}$",
   "raw_answer_text": "$\\left( \\pm \\frac{1}{2}, \\pm \\frac{1}{2}, \\pm \\frac{1}{2} \\right)$"
 }

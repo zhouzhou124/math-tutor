@@ -22,6 +22,7 @@ from __future__ import annotations
 from pydantic import BaseModel, Field, field_validator
 from typing import Literal, Optional
 from enum import Enum
+import re
 
 
 # ═══════════════════════════════════════════════
@@ -225,6 +226,165 @@ class CanonicalIR(BaseModel):
 # 7. Validation + Repair
 # ═══════════════════════════════════════════════
 
+_FORMULA_FIELD_NAMES = {
+    "formula", "latex", "input_state", "output_state", "final_answer",
+}
+_DERIVATION_MARKERS = (
+    "因为", "由于", "由", "利用", "根据", "代入", "化简", "整理", "解得",
+    "可得", "得到", "推出", "所以", "故", "从而", "递推", "初值",
+    "特征方程", "定理", "性质", "等式", "展开", "积分", "求导", "计算",
+)
+_CONCLUSION_ONLY_MARKERS = (
+    "最终答案", "最终结论", "综上", "证毕", "故答案", "故选", "得到结论",
+    "答案为", "结论",
+)
+
+
+def _explicit_subparts_from_question_text(question: str) -> list[str]:
+    """Return explicit subpart labels only; never infer from formulas or steps."""
+    qtext = str(question or "")
+    patterns = [
+        r"(?m)^\s*[（(]\s*([1-9])\s*[)）]\s*",
+        r"第\s*[（(]\s*([1-9])\s*[)）]\s*问",
+        r"第\s*[（]\s*([1-9])\s*[）]\s*问",
+    ]
+    found: list[str] = []
+    for pattern in patterns:
+        found.extend(re.findall(pattern, qtext))
+    unique: list[str] = []
+    for n in found:
+        if n not in unique:
+            unique.append(n)
+    return unique
+
+
+def _iter_formula_fields(obj, path: str = ""):
+    """Yield formula-like fields from nested CanonicalIR dictionaries."""
+    if isinstance(obj, dict):
+        if str(obj.get("type") or "").lower() == "latex" and isinstance(obj.get("content"), str):
+            yield f"{path}.content" if path else "content", obj.get("content") or ""
+        for key, value in obj.items():
+            child_path = f"{path}.{key}" if path else str(key)
+            key_l = str(key).lower()
+            if isinstance(value, str) and (
+                key_l in _FORMULA_FIELD_NAMES
+                or "formula" in key_l
+                or "latex" in key_l
+            ):
+                yield child_path, value
+            else:
+                yield from _iter_formula_fields(value, child_path)
+    elif isinstance(obj, list):
+        for idx, value in enumerate(obj):
+            yield from _iter_formula_fields(value, f"{path}[{idx}]")
+
+
+def canonical_ir_has_required_fields(ir) -> bool:
+    """Strict structural check for the CanonicalIR fields we rely on."""
+    if not isinstance(ir, dict):
+        return False
+    trace = ir.get("proof_trace")
+    if not isinstance(trace, dict):
+        return False
+    steps = trace.get("steps")
+    if not isinstance(steps, list) or not steps:
+        return False
+    for step in steps:
+        if not isinstance(step, dict):
+            return False
+        for key in ("id", "operation", "output_state", "justification"):
+            if not str(step.get(key) or "").strip():
+                return False
+    return True
+
+
+def canonical_ir_formulas_are_clean(ir) -> bool:
+    """Reject Markdown/delimiter/control pollution in formula-like fields."""
+    if not isinstance(ir, dict):
+        return False
+    bad_patterns = [
+        r"(?<!\\)\$",
+        r"##",
+        r"\\u0000",
+        "\x00",
+        "\ufffd",
+        r"\\to\s*\$\s*\\infty\s*\$",
+        r"\$\s*\\begin\{aligned\}\s*\$",
+        r"\$\s*\\end\{aligned\}\s*\$",
+    ]
+    for _path, value in _iter_formula_fields(ir):
+        text = str(value or "")
+        if any(re.search(pattern, text) for pattern in bad_patterns):
+            return False
+    return True
+
+
+def canonical_ir_has_derivation_depth(ir) -> bool:
+    """Each proof step must include substantive derivation text."""
+    if not isinstance(ir, dict):
+        return False
+    steps = ((ir.get("proof_trace") or {}).get("steps") or [])
+    if not isinstance(steps, list) or not steps:
+        return False
+    for step in steps:
+        if not isinstance(step, dict):
+            return False
+        justification = str(step.get("justification") or "").strip()
+        compact = "".join(justification.split())
+        if len(compact) < 4 or compact == "(auto-generated)":
+            return False
+        conclusion_only = any(marker in justification for marker in _CONCLUSION_ONLY_MARKERS)
+        has_reason = any(marker in justification for marker in _DERIVATION_MARKERS)
+        has_state = bool(str(step.get("input_state") or "").strip() or str(step.get("output_state") or "").strip())
+        if conclusion_only and not has_reason:
+            return False
+        if not has_reason and (len(compact) < 12 or not has_state):
+            return False
+    return True
+
+
+def canonical_ir_covers_subparts(ir, question) -> bool:
+    """Check explicit question subparts only; ignore matrix/formula numbers."""
+    if not isinstance(ir, dict):
+        return False
+    if isinstance(question, dict):
+        qtext = str(question.get("question") or question.get("text") or "")
+    else:
+        qtext = str(question or "")
+    subparts = _explicit_subparts_from_question_text(qtext)
+    if len(subparts) < 2:
+        return True
+    steps = ((ir.get("proof_trace") or {}).get("steps") or [])
+    haystack = "\n".join(
+        "\n".join(
+            str(step.get(key) or "")
+            for key in ("label", "justification", "input_state", "output_state")
+        )
+        for step in steps
+        if isinstance(step, dict)
+    )
+    compact = "".join(haystack.split())
+    missing = []
+    for n in subparts:
+        markers = [f"({n})", f"（{n}）", f"第({n})问", f"第（{n}）问", f"第{n}问"]
+        if not any(marker in compact for marker in markers):
+            missing.append(n)
+    return not missing
+
+
+def _canonical_ir_strict_errors(ir, question=None) -> list[str]:
+    errors: list[str] = []
+    if not canonical_ir_has_required_fields(ir):
+        errors.append("canonical_ir_missing_required_fields")
+    if not canonical_ir_formulas_are_clean(ir):
+        errors.append("canonical_ir_formula_not_clean")
+    if not canonical_ir_has_derivation_depth(ir):
+        errors.append("canonical_ir_missing_derivation_depth")
+    if not canonical_ir_covers_subparts(ir, question):
+        errors.append("canonical_ir_missing_subparts")
+    return errors
+
+
 def validate_canonical_ir(data: dict) -> tuple[CanonicalIR | None, list[str], list[str]]:
     """Validate + repair a CanonicalIR dict from LLM output.
 
@@ -317,6 +477,9 @@ def validate_canonical_ir(data: dict) -> tuple[CanonicalIR | None, list[str], li
 
     try:
         model = CanonicalIR(**data)
+        strict_errors = _canonical_ir_strict_errors(data, data.get("question"))
+        if strict_errors:
+            return None, strict_errors, repairs
         return model, [], repairs
     except Exception as e:
         return None, [str(e)], repairs

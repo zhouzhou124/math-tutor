@@ -6,7 +6,7 @@
   "question_type": "解答题",
   "difficulty": "中等",
   "score": 11,
-  "question": "设二维随机变量 $(X,Y)$ 的概率密度为 $$f(x,y) = \\begin{cases} 2-x-y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$.\n$(1)$ 求 $P\\{X > 2Y\\}$；\n$(2)$ 求 $Z = X + Y$ 的概率密度 $f_Z(z)$.",
+  "question": "设二维随机变量 $(X,Y)$ 的概率密度为 $$f(x,y) = \\begin{cases} 2-x-y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$\n$(1)$ 求 $P\\{X > 2Y\\}$；\n$(2)$ 求 $Z = X + Y$ 的概率密度 $f_Z(z)$.",
   "standard_answer": "(I) $P\\{X > 2Y\\} = \\frac{7}{24}$\n(II) $f_Z(z) = \\begin{cases} z(2-z), & 0 \\le z \\le 1 \\\\ (2-z)^2, & 1<z \\le 2 \\\\ 0, & \\text{其他} \\end{cases}$",
   "knowledge_points": [
     "多维随机变量",
@@ -18,6 +18,6 @@
   ],
   "solution_steps": [],
   "options": {},
-  "raw_question_text": "设二维随机变量 $(X,Y)$ 的概率密度为 $$f(x,y) = \\begin{cases} 2-x-y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$.\n$(1)$ 求 $P\\{X > 2Y\\}$；\n$(2)$ 求 $Z = X + Y$ 的概率密度 $f_Z(z)$.",
+  "raw_question_text": "设二维随机变量 $(X,Y)$ 的概率密度为 $$f(x,y) = \\begin{cases} 2-x-y, & 0<x<1,0<y<1 \\\\ 0, & \\text{其他} \\end{cases}$$\n$(1)$ 求 $P\\{X > 2Y\\}$；\n$(2)$ 求 $Z = X + Y$ 的概率密度 $f_Z(z)$.",
   "raw_answer_text": "(I) $P\\{X > 2Y\\} = \\frac{7}{24}$\n(II) $f_Z(z) = \\begin{cases} z(2-z), & 0 \\le z \\le 1 \\\\ (2-z)^2, & 1<z \\le 2 \\\\ 0, & \\text{其他} \\end{cases}$"
 }

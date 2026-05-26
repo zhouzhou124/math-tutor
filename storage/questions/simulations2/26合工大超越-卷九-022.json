@@ -19,8 +19,8 @@
   "options": {},
   "volume": "卷九",
   "raw_question_text": "$22.$ (本题满分12分) 设标准正态分布的密度函数为 $\\varphi(x)$，以及 $$g(x)=\\begin{cases} x, & -1\\le x\\le 1 \\\\ 0, & \\text{其他} \\end{cases}$$ 设 $f(x,y)=\\varphi(x)\\varphi(y)+k x g(x) g(y)$（$-\\infty<x,y<+\\infty$）.\n$(1)$ 求 $k$ 取值范围，使得 $f(x,y)$ 为随机变量 $(X,Y)$ 的联合密度函数；\n$(2)$ 判断 $X$ 和 $Y$ 是否相关，是否独立.",
-  "raw_answer_text": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
-  "final_answer": "(I) $k\\in[-1,1]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "raw_answer_text": "(I) $k\\in\\Big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\Big]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
+  "final_answer": "(I) $k\\in\\Big[-\\frac{e^{-1}}{2\\pi},\\frac{e^{-1}}{2\\pi}\\Big]$ (II) $X$ 与 $Y$ 不相关，当 $k=0$ 时独立，当 $k\\neq0$ 时不独立",
   "solution_metadata": {
     "canonical": true,
     "has_steps": true,

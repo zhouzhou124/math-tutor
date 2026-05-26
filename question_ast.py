@@ -7,7 +7,7 @@ Renderers consume the AST, not raw text.
 """
 import re
 import json as _json
-from latex_utils import normalize_latex_style
+from latex_utils import normalize_latex_style, repair_math_delimiters_for_render
 from dataclasses import dataclass, field
 from typing import Optional as _Optional, List as _List, Dict as _Dict
 
@@ -421,8 +421,12 @@ def parse_legacy(q: dict) -> QuestionAST:
         elif isinstance(s, str):
             steps.append(SolutionStep(content=s))
 
-    # Normalize LaTeX: wrap bare math, fix stray $, unify delimiters
-    stem = normalize_latex_style(stem.strip()) if stem else ""
+    # Question bank fidelity: keep authored delimiters when raw source is available.
+    stem_source = stem.strip() if stem else ""
+    if q.get("raw_question_text"):
+        stem = repair_math_delimiters_for_render(stem_source) if stem_source else ""
+    else:
+        stem = normalize_latex_style(stem_source) if stem_source else ""
     answer = normalize_latex_style(answer.strip()) if answer else ""
 
     return QuestionAST(

@@ -368,14 +368,14 @@ def render_practice_page():
 def render_grading_page():
     """渲染 AI 批改页面"""
     from .grading_page import render_grading_page
-    from latex_utils import safe_render
-    render_grading_page(st.session_state.question_db, safe_render)
+    from renderers.math_render_policy import render_grading_latex
+    render_grading_page(st.session_state.question_db, render_grading_latex)
 
 
 def render_question_bank_page():
     """渲染真题库页面（优化版）"""
     from .question_bank_page import render_question_bank_page
-    from latex_utils import safe_render
+    from renderers.math_render_policy import render_question_bank_latex
     
     # 使用缓存机制
     db = st.session_state.question_db
@@ -387,14 +387,14 @@ def render_question_bank_page():
     stats = get_cached_data("question_bank_stats", fetch_stats, ttl=60)
     
     # 渲染页面（传递缓存的统计数据）
-    render_question_bank_page(db, safe_render, cached_stats=stats)
+    render_question_bank_page(db, render_question_bank_latex, cached_stats=stats)
 
 
 def render_error_notebook_page():
     """渲染错题本页面"""
     from .mistakes_page import render_mistakes_page
-    from latex_utils import safe_render
-    render_mistakes_page(st.session_state.question_db, safe_render)
+    from renderers.math_render_policy import render_grading_latex
+    render_mistakes_page(st.session_state.question_db, render_grading_latex)
 
 
 def render_report_page():
@@ -406,5 +406,5 @@ def render_report_page():
 def render_settings_page():
     """渲染系统设置页面"""
     from .settings_page import render_settings_page
-    from latex_utils import safe_render
-    render_settings_page(st.session_state.question_db, safe_render)
+    from renderers.math_render_policy import render_grading_latex
+    render_settings_page(st.session_state.question_db, render_grading_latex)

@@ -21,8 +21,8 @@
   "options": {},
   "volume": "卷七",
   "raw_question_text": "$15.$ 设 $A$ 可逆，$B=E-kaa^{\\mathrm{T}}$ 为正交矩阵（$k>0$），$a$ 为单位列向量，$C$ 满足 $A^2-AB+CA=0$，则 $|A+C|=\\underline{\\qquad\\qquad}$",
-  "raw_answer_text": "$0$",
-  "final_answer": "$0$",
+  "raw_answer_text": "$-1$",
+  "final_answer": "$-1$",
   "solution_metadata": {
     "canonical": true,
     "has_steps": true,

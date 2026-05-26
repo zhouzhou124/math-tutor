@@ -114,9 +114,12 @@ def structured_has_broken_latex(structured: dict | None) -> bool:
         return False
     for step in structured.get("steps") or []:
         for block in step.get("blocks") or []:
+            content = str(block.get("content") or "")
+            if "\ufffd" in content:
+                return True
             if block.get("type") != "latex":
                 continue
-            if has_broken_latex_fragments(str(block.get("content") or "")):
+            if has_broken_latex_fragments(content):
                 return True
     if has_broken_latex_fragments(str(structured.get("final_answer") or "")):
         return True
@@ -311,6 +314,9 @@ def _structured_text(structured: dict | None) -> str:
             continue
         if step.get("label"):
             parts.append(str(step.get("label")))
+        for key in ("body_markdown", "derivation_markdown", "explanation"):
+            if step.get(key):
+                parts.append(str(step.get(key)))
         for block in step.get("blocks") or []:
             if isinstance(block, dict) and block.get("content"):
                 parts.append(str(block.get("content")))
@@ -340,13 +346,24 @@ def count_broken_latex_fragments(text: str) -> int:
     s = str(text or "")
     patterns = [
         r"\\frac\{\}",
+        r"\\frac\{\s*\}",
         r"\\frac\{[^{}]+\}(?!\s*\{)",
         r"(?m)^\s*\}\{\s*$",
         r"(?m)^\s*\}\s*$",
         r"\\frac\{[^{}]*$",
+        r"\\left\s*\\begin\b",
+        r"\$\$\$+",
+        r"\\(?:textcolor|color)\s*\{\s*red\s*\}",
+        r"<span[^>]+color\s*:\s*red",
+        r"\\u0000A[2-5]",
+        r"\x00A[2-5]",
+        r"[\x00-\x08\x0b\x0c\x0e-\x1f]",
         "\ufffd",
     ]
     count = sum(len(re.findall(p, s)) for p in patterns)
+
+    if "\\right" in s and s.count("\\right") > s.count("\\left"):
+        count += s.count("\\right") - s.count("\\left")
 
     # Math delimiters should be balanced after display blocks are removed.
     if s.count("$$") % 2:
@@ -366,6 +383,17 @@ def count_broken_latex_fragments(text: str) -> int:
                 count += 1
                 depth = 0
     if depth:
+        count += 1
+
+    for match in re.finditer(r"\$\$([\s\S]*?)\$\$", s):
+        content = match.group(1)
+        if "$" in content:
+            count += 1
+        stripped_text_cmd = re.sub(r"\\text\{[^}]*\}", "", content)
+        if re.search(r"[\u4e00-\u9fff]", stripped_text_cmd):
+            count += 1
+
+    if re.search(r"\$\s*\\(?:begin|end)\{(?:aligned|cases|array|matrix|pmatrix|bmatrix|vmatrix|Vmatrix|split|gathered)\}\s*\$", s):
         count += 1
     return count
 
@@ -435,6 +463,125 @@ def _has_any_marker(text: str, markers: list[str]) -> bool:
     return any(m in str(text or "") for m in markers)
 
 
+def _step_derivation_text(step: dict | None) -> str:
+    if not isinstance(step, dict):
+        return ""
+    parts: list[str] = []
+    for key in ("body_markdown", "derivation_markdown", "explanation"):
+        value = str(step.get(key) or "").strip()
+        if value:
+            parts.append(value)
+    for block in step.get("blocks") or []:
+        if isinstance(block, dict) and block.get("content"):
+            parts.append(str(block.get("content") or ""))
+    return "\n".join(parts)
+
+
+_DERIVATION_MARKERS = [
+    "因为", "由于", "由", "利用", "根据", "代入", "化简", "整理", "解得",
+    "可得", "得到", "推出", "所以", "故", "从而", "递推", "初值", "特征方程",
+    "why", "because", "therefore",
+    "鍥犱负", "鐢变簬", "鐢?", "鍒╃敤", "鏍规嵁", "浠ｅ叆", "鍖栫畝",
+    "鏁寸悊", "瑙ｅ緱", "鍙緱", "寰楀埌", "鎺ㄥ嚭", "鎵€浠?", "鏁?",
+]
+_CONCLUSION_ONLY_MARKERS = [
+    "最终答案", "最终结论", "综上", "证毕", "故答案", "故选",
+    "鏈€缁堢瓟妗?", "鏈€缁堢粨璁?", "缁间笂", "璇佹瘯", "鏁呯瓟妗?", "鏁呴€?",
+]
+
+
+def _has_formula_like_content(text: str) -> bool:
+    s = str(text or "")
+    return bool(
+        "$" in s
+        or "\\" in s
+        or any(ch in s for ch in "=^_")
+        or any(ch in s for ch in "≤≥≠∈→")
+    )
+
+
+def structured_step_has_derivation(step: dict | None) -> bool:
+    text = _step_derivation_text(step)
+    compact = "".join(str(text or "").split())
+    if len(compact) < 35:
+        return False
+    has_marker = any(marker and marker in text for marker in _DERIVATION_MARKERS)
+    has_formula = _has_formula_like_content(text)
+    if has_marker and has_formula:
+        return True
+    conclusion_only = any(marker and marker in text for marker in _CONCLUSION_ONLY_MARKERS)
+    return bool(len(compact) >= 80 and has_formula and not conclusion_only)
+
+
+def structured_has_derivations(structured: dict | None) -> bool:
+    if not isinstance(structured, dict):
+        return False
+    steps = [s for s in (structured.get("steps") or []) if isinstance(s, dict)]
+    if not steps:
+        return False
+    return all(structured_step_has_derivation(step) for step in steps)
+
+
+def _structured_requires_derivation_gate(structured: dict | None) -> bool:
+    if not isinstance(structured, dict):
+        return False
+    for step in structured.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        if any(step.get(key) for key in ("body_markdown", "derivation_markdown", "explanation")):
+            return True
+        for block in step.get("blocks") or []:
+            if isinstance(block, dict) and block.get("type") == "latex" and block.get("content"):
+                return True
+    return False
+
+
+def _subparts_from_question(question: dict | None) -> list[str]:
+    import re
+
+    qtext = str((question or {}).get("question") or "")
+    patterns = [
+        r"(?m)^\s*[（(]\s*([1-9])\s*[)）]\s*",
+        r"第\s*[（(]?\s*([1-9])\s*[)）]?\s*问",
+    ]
+    found: list[str] = []
+    for pattern in patterns:
+        found.extend(re.findall(pattern, qtext))
+    unique: list[str] = []
+    for n in found:
+        if n not in unique:
+            unique.append(n)
+    return unique
+
+
+def structured_derivations_cover_subparts(
+    structured: dict | None,
+    question: dict | None = None,
+) -> tuple[bool, list[str]]:
+    subparts = _subparts_from_question(question)
+    if len(subparts) < 2:
+        return True, []
+    covered = {n: False for n in subparts}
+    for step in (structured or {}).get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        text = "\n".join([str(step.get("label") or ""), _step_derivation_text(step)])
+        compact = "".join(text.split())
+        matched = []
+        for n in subparts:
+            markers = [
+                f"({n})", f"（{n}）", f"第{n}问", f"第({n})问",
+                f"第（{n}）问", f"锛?{n}锛?", f"绗琝{n}闂?",
+            ]
+            if any(marker in compact for marker in markers):
+                matched.append(n)
+        for n in matched:
+            if structured_step_has_derivation(step):
+                covered[n] = True
+    missing = [n for n, ok in covered.items() if not ok]
+    return not missing, missing
+
+
 def solution_has_detailed_steps(solution: dict | None, question: dict | None = None) -> bool:
     if not isinstance(solution, dict):
         return False
@@ -442,6 +589,12 @@ def solution_has_detailed_steps(solution: dict | None, question: dict | None = N
     structured = solution.get("_structured")
     step_count = max(structured_step_count(structured), raw_step_count(text))
     q_type = _question_type(question)
+    if _structured_requires_derivation_gate(structured):
+        if not structured_has_derivations(structured):
+            return False
+        covers_parts, _ = structured_derivations_cover_subparts(structured, question)
+        if not covers_parts:
+            return False
 
     if "选择" in q_type:
         return step_count >= 2 or len(text) >= 260
@@ -463,7 +616,7 @@ def solution_covers_question_requirements(
     q = question or {}
     q_type = _question_type(q)
 
-    subparts = sorted(set(re.findall(r"[（(]\s*([1-9])\s*[)）]", str(q.get("question") or ""))))
+    subparts = _subparts_from_question(q)
     if len(subparts) >= 2:
         missing = [
             n for n in subparts
@@ -558,6 +711,15 @@ def solution_quality_report(solution: dict | None, question: dict | None = None)
     detailed = solution_has_detailed_steps(solution, question)
     if not detailed:
         issues.append("missing_detailed_steps")
+    structured = solution.get("_structured") if isinstance(solution, dict) else None
+    if _structured_requires_derivation_gate(structured):
+        if not structured_has_derivations(structured):
+            issues.append("missing_derivation_body")
+        subpart_ok, missing_derivation_parts = structured_derivations_cover_subparts(
+            structured, question
+        )
+        if not subpart_ok:
+            issues.append("missing_subpart_derivations:" + ",".join(missing_derivation_parts))
     covers, cover_issues = solution_covers_question_requirements(solution, question)
     issues.extend(cover_issues)
     plausible, logic_issues = solution_is_logically_plausible(solution)

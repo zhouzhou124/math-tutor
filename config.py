@@ -107,6 +107,16 @@ MATHPIX_APP_KEY = os.getenv("MATHPIX_APP_KEY", "")
 CANONICAL_SOLVE_MODEL = os.getenv("CANONICAL_SOLVE_MODEL", "")
 VERIFY_STEPS = os.getenv("VERIFY_STEPS", "true").lower() == "true"
 
+# 批改提速策略
+# True: 只有题目已经缓存 canonical trace 时才走图匹配；无缓存时跳过临时
+# 生成多套规范解轨迹，直接进入标准答案 + LLM 批改，减少重型 LLM 调用。
+FAST_GRADING_SKIP_UNCACHED_CANONICAL = (
+    os.getenv("FAST_GRADING_SKIP_UNCACHED_CANONICAL", "true").lower() == "true"
+)
+FAST_GRADING_LOCAL_DIAGNOSIS_FOR_GRAPH = (
+    os.getenv("FAST_GRADING_LOCAL_DIAGNOSIS_FOR_GRAPH", "true").lower() == "true"
+)
+
 # 存储路径
 STORAGE_DIR = os.path.join(os.path.dirname(__file__), "storage")
 ERROR_NOTEBOOK_PATH = os.path.join(STORAGE_DIR, "error_notebook.json")

@@ -123,7 +123,10 @@ def test_e2e_solution_service_generates_answer():
         ocr_data={"knowledge_point": "方程", "question_type": "解答题"},
     )
     assert solution["success"]
-    assert len(solution["standard_answer"]) > 0
+    assert solution["standard_solution_status"] == "failed"
+    assert solution["standard_solution_source"] == "failed"
+    assert solution["standard_answer"] == ""
+    assert solution["_should_regenerate"] is True
     assert solution["total_score"] == 10
 
 

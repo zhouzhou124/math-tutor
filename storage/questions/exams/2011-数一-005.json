@@ -2,7 +2,7 @@
   "year": 2011,
   "category": "数学一",
   "question_type": "选择题",
-  "question": "设 $A$ 为3阶矩阵，将 $A$ 的第2列加到第1列得矩阵 $B$，再交换 $B$ 的第2行与第3行得单位矩阵。记 $P_1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，则 $A =$",
+  "question": "设 $A$ 为 $3$ 阶矩阵，将 $A$ 的第 $2$ 列加到第 $1$ 列得矩阵 $B$，再交换 $B$ 的第 $2$ 行与第 $3$ 行得单位矩阵。记 $P_1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，则 $A =$ $(A)$ $P_1 P_2$ $(B)$ $P_1^{-1} P_2$ $(C)$ $P_2 P_1$ $(D)$ $P_2 P_1^{-1}$",
   "standard_answer": "D",
   "knowledge_points": [
     "矩阵运算"
@@ -10,17 +10,12 @@
   "difficulty": "中等",
   "score": 4,
   "source": "manual_import_2011",
-  "options": {
-    "A": "$P_1 P_2$",
-    "B": "$P_1^{-1} P_2$",
-    "C": "$P_2 P_1$",
-    "D": "$P_2 P_1^{-1}$"
-  },
+  "options": {},
   "correct_option": "D",
   "question_id": "2011-数一-005",
   "tags": [
     "矩阵运算"
   ],
-  "raw_question_text": "设 $A$ 为3阶矩阵，将 $A$ 的第2列加到第1列得矩阵 $B$，再交换 $B$ 的第2行与第3行得单位矩阵。记 $P_1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，则 $A =$",
+  "raw_question_text": "设 $A$ 为 $3$ 阶矩阵，将 $A$ 的第 $2$ 列加到第 $1$ 列得矩阵 $B$，再交换 $B$ 的第 $2$ 行与第 $3$ 行得单位矩阵。记 $P_1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$，$P_2 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$，则 $A =$ $(A)$ $P_1 P_2$ $(B)$ $P_1^{-1} P_2$ $(C)$ $P_2 P_1$ $(D)$ $P_2 P_1^{-1}$",
   "raw_answer_text": "D"
 }

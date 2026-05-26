@@ -156,6 +156,51 @@ class TestSolutionRequestHash:
         assert h1 != h2
 
 
+class TestCanonicalTraceCacheDetection:
+    @staticmethod
+    def _method():
+        return {
+            "method_name": "method-1",
+            "graph": {
+                "question_id": "q1",
+                "final_answer": "1",
+                "nodes": [
+                    {
+                        "id": "n1",
+                        "type": "compute",
+                        "label": "derive answer",
+                        "output": "1",
+                        "weight": 10,
+                    }
+                ],
+                "edges": [],
+                "total_score": 10,
+                "grading_mode": "step",
+            },
+            "final_answer": "1",
+        }
+
+    def test_missing_canonical_trace_is_not_cached(self):
+        from views.grading_page import _has_cached_canonical_trace
+        assert _has_cached_canonical_trace({"question_id": "q1"}) is False
+
+    def test_single_canonical_trace_is_cached(self):
+        from views.grading_page import _has_cached_canonical_trace
+        assert _has_cached_canonical_trace(
+            {"canonical_solution": {"methods": [self._method()]}}
+        ) is True
+
+    def test_canonical_solution_pool_is_cached(self):
+        from views.grading_page import _has_cached_canonical_trace
+        assert _has_cached_canonical_trace(
+            {"canonical_solutions": [self._method()]}
+        ) is True
+
+    def test_empty_canonical_solution_shell_is_not_cached(self):
+        from views.grading_page import _has_cached_canonical_trace
+        assert _has_cached_canonical_trace({"canonical_solutions": [{"solution_id": "s1"}]}) is False
+
+
 class TestSolutionStatusPersistence:
     def test_solution_status_written_to_session_state(self):
         import streamlit as st

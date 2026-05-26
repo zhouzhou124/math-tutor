@@ -445,6 +445,28 @@ class Segment:
     content: str
 
 
+def repair_math_delimiters_for_render(text: str) -> str:
+    """Repair common malformed dollar delimiters before parsing/rendering.
+
+    A frequent edit/import mistake is ``$$$formula$``: one extra opening dollar
+    before an otherwise inline formula. If left untouched, the splitter pairs
+    the wrong dollars and leaks raw LaTeX into the preview. This repair is kept
+    narrow so valid ``$...$`` and ``$$...$$`` blocks are not rewritten.
+    """
+    if text is None:
+        return ""
+
+    s = str(text)
+    if "$$$" not in s:
+        return s
+
+    # Extra leading dollar before a display block: $$$x$$ -> $$x$$.
+    s = re.sub(r'\${3}([^$\n]+?)\${2}(?!\$)', r'$$\1$$', s)
+    # Extra two leading dollars before an inline block: $$$x$ -> $x$.
+    s = re.sub(r'\${3}([^$\n]+?)\$(?!\$)', r'$\1$', s)
+    return s
+
+
 def _pre_wrap_bare_latex(text: str) -> str:
     """Wrap bare LaTeX commands in $ delimiters before they reach markdown.
 
@@ -568,7 +590,10 @@ def _pre_wrap_bare_latex(text: str) -> str:
         end = _scan_math_extent(text, start + len(cmd))
         fragment = text[start:end].strip()
         if fragment:
-            if _should_force_display_math(fragment):
+            # Never wrap CJK-containing fragments as display math —
+            # they are mixed text+math and must stay inline.
+            has_cjk = bool(re.search(r'[一-鿿]', fragment))
+            if not has_cjk and _should_force_display_math(fragment):
                 out.append(f'$$\n{fragment}\n$$')
             else:
                 out.append(f'${fragment}$')
@@ -645,11 +670,18 @@ def split_latex_text(text: str) -> list[dict]:
     if not text:
         return []
 
+    text = repair_math_delimiters_for_render(text)
+
     # Step 1: Wrap entire lines that look like standalone math in $$...$$
     text = _normalize_math_lines_for_split(text)
 
     # Step 2: Wrap remaining bare LaTeX commands inside text lines in $...$
     text = _pre_wrap_bare_latex(text)
+
+    # Step 2.5: Normalize sub-question markers $(1)$, $(2)$ → (1), (2)
+    # These are NOT math — they're question part labels. Converting them
+    # prevents false inline_math segments that KaTeX renders as display.
+    text = re.sub(r'\$\((\d+)\)\$', r'(\1)', text)
 
     # 清理未被正确恢复的占位符
     # 这些占位符来自 latex_normalizer._wrap_bare_math_expressions 或 ocr_repair.layout_recovery
@@ -1220,6 +1252,13 @@ def sanitize_latex_for_render(text: str) -> str:
     # Common textual shorthands that KaTeX handles better with explicit spacing.
     s = re.sub(r'\\in(?=\()', r'\\in ', s)
     s = re.sub(r'\\to(?=[A-Za-z0-9])', r'\\to ', s)
+    # Relation arrows are sometimes glued to the next symbol, e.g.
+    # "\Rightarrowf(0)" becomes an unknown KaTeX command and renders red.
+    s = re.sub(
+        r'\\(Rightarrow|Leftarrow|Leftrightarrow|Longrightarrow|Longleftarrow|Longleftrightarrow|rightarrow|leftarrow)(?=[A-Za-z])',
+        r'\\\1 ',
+        s,
+    )
 
     # Some LLMs emit \neq split by markdown fragments; normalize common variants.
     s = s.replace("\\ne q", "\\ne").replace("\\neq", "\\ne")
@@ -1229,6 +1268,16 @@ def sanitize_latex_for_render(text: str) -> str:
         s = s[2:-2].strip()
     if s.startswith("\\[") and s.endswith("\\]"):
         s = s[2:-2].strip()
+
+    # LLMs occasionally glue spacing commands to the next variable, e.g.
+    # "\qquadb" instead of "\qquad b". KaTeX treats the glued form as an
+    # unknown command and renders it as red raw source.
+    s = re.sub(r'\\(qquad|quad)(?=[A-Za-z])', r'\\\1 ', s)
+    s = re.sub(r'\\,(?=[A-Za-z])', r'\\, ', s)
+
+    # Plain R after membership is meant as the real-number set in generated
+    # solutions. Normalize the common bare form before rendering.
+    s = re.sub(r'\\in\s+R\b', r'\\in \\mathbb{R}', s)
 
     s = _clean_formula_tail(auto_fix_brackets(s))
     return s.strip()
@@ -1306,7 +1355,12 @@ def _normalize_math_lines_for_split(text: str) -> str:
     normalized_lines = []
     for line in str(text).replace("\r\n", "\n").replace("\r", "\n").split("\n"):
         stripped = line.strip()
-        if _looks_like_standalone_math(stripped):
+        # Never re-wrap lines that already have $$...$$ or $...$ delimiters
+        already_wrapped = (
+            stripped.startswith("$$") or stripped.startswith("$")
+            or stripped.startswith(r"\[") or stripped.startswith(r"\(")
+        )
+        if not already_wrapped and _looks_like_standalone_math(stripped):
             latex = sanitize_latex_for_render(stripped)
             normalized_lines.append(f"$$\n{latex}\n$$" if latex else "")
         else:
@@ -1445,7 +1499,11 @@ def _inject_katex_css() -> None:
         }
         /* Ensure display math has breathing room */
         .katex-display {
-            margin: 1em 0 !important;
+            margin: 0.75em 0 !important;
+        }
+        /* Prevent display-math centering from bleeding into following CJK text */
+        [data-testid="stMarkdownContainer"] {
+            text-align: left !important;
         }
         /* Fix CJK + inline math baseline */
         .katex-html {
@@ -1476,18 +1534,18 @@ def _inject_katex_css() -> None:
     """, unsafe_allow_html=True)
 
 
-def render_ast(segments: list[dict]) -> None:
+def render_ast(segments: list[dict], *, use_st_latex: bool = False) -> None:
     """
     AST-first 渲染器：inline vs block 严格区分。
 
     关键：连续的 text + inline_math 合并为单个 st.markdown() 调用。
     display_math 在单独调用 flush 关闭前一个 markdown 段落后，
-    用 st.latex() 独立渲染，确保不会出现 <p><div> 非法嵌套。
+    用 st.markdown("$$...$$") 独立渲染，避免块级居中污染后续中文。
 
     分派规则:
       - text + inline_math → 合并 → st.markdown(连续段落)
-      - display_math       → 先 flush → st.latex(content)  [独立块级元素]
-      - latex (兼容)       → 先 flush → 智能检测
+      - display_math       → 先 flush → st.markdown("$$...$$")
+      - latex (兼容)       → 先 flush → inline 用 $...$，block 用 $$...$$
 
     使用示例:
         from latex_utils import split_latex_text, render_ast
@@ -1535,7 +1593,10 @@ def render_ast(segments: list[dict]) -> None:
                 c = sanitize_latex_for_render(c)
                 if not c:
                     continue
-                st.latex(c)
+                # Use st.markdown instead of st.latex to keep display math
+                # in the markdown flow and prevent block-element centering
+                # from bleeding into subsequent CJK inline text.
+                st.markdown(f"$$\n{c}\n$$")
                 last_was_inline_math = False
             elif t == "latex":
                 _flush()
@@ -1544,8 +1605,10 @@ def render_ast(segments: list[dict]) -> None:
                     continue
                 if _is_inline_math(c):
                     st.markdown(f"${c}$")
-                else:
+                elif use_st_latex:
                     st.latex(c)
+                else:
+                    st.markdown(f"$$\n{c}\n$$")
                 last_was_inline_math = False
         except Exception:
             try:
@@ -2668,6 +2731,192 @@ def as_canonical(source) -> dict:
 # 7b. 渲染层 + 安全层 + UI层 — 四层管道
 # ═══════════════════════════════════════════════
 
+_DISPLAY_ENV_NAMES = (
+    "cases", "aligned", "matrix", "pmatrix", "bmatrix", "vmatrix", "Vmatrix",
+    "array", "split", "gathered",
+)
+_DISPLAY_ENV_RE = re.compile(
+    r"\\begin\{(" + "|".join(re.escape(n) for n in _DISPLAY_ENV_NAMES) + r")\}"
+)
+
+
+def _normalize_fragmented_display_latex(content: str) -> str:
+    """Repair common LLM splits inside display environments before KaTeX."""
+    s = str(content or "").strip()
+    if not s:
+        return ""
+
+    s = re.sub(r'\\(qquad|quad)(?=[A-Za-z])', r'\\\1 ', s)
+    s = re.sub(r'\\in\s+R\b', r'\\in \\mathbb{R}', s)
+    s = re.sub(r'(?<!\\)\\(?![A-Za-z{}\[\]\\])', r'\\\\', s)
+    s = re.sub(r'\\\\\s*,', r'\\\\', s)
+    return s.strip()
+
+
+def _split_display_environment_tail(content: str, env: str) -> tuple[str, str]:
+    r"""Split content at the first matching \end{env}, preserving tail text."""
+    s = str(content or "")
+    marker = rf"\end{{{env}}}"
+    idx = s.find(marker)
+    if idx < 0:
+        return s, ""
+    end = idx + len(marker)
+    return s[:end], s[end:].strip()
+
+
+def _looks_like_standalone_ascii_math_text(content: str) -> bool:
+    """Detect text blocks like D_n=2a or x_2 that should be inline math."""
+    s = str(content or "").strip()
+    if not s or len(s) > 120:
+        return False
+    if any('\u4e00' <= ch <= '\u9fff' for ch in s):
+        return False
+    if re.search(r'[A-Za-z]{4,}', s) and not re.search(r'\\[A-Za-z]+', s):
+        return False
+    if re.fullmatch(r'[\s.,;:，。、；：()（）]+', s):
+        return False
+    return bool(re.search(r'(\\[A-Za-z]+|[A-Za-z]_\w|[A-Za-z]\d|[=^_]|\\in\b)', s))
+
+
+def _normalize_standalone_ascii_math_text(content: str) -> str:
+    """Small display-only cleanup for ASCII math emitted as text."""
+    s = str(content or "").strip()
+    s = s.replace("（", "(").replace("）", ")")
+    s = re.sub(r'\b([A-Za-z])(\d+)\b', r'\1_\2', s)
+    s = re.sub(r'\\in\s+R\b', r'\\in \\mathbb{R}', s)
+    return s
+
+
+def _unwrap_outer_latex_command(content: str, command: str) -> str:
+    """Remove one outer LaTeX command wrapper when it encloses all content."""
+    s = str(content or "").strip()
+    prefix = f"\\{command}{{"
+    if not s.startswith(prefix) or not s.endswith("}"):
+        return s
+
+    depth = 0
+    start = len(prefix) - 1
+    for i in range(start, len(s)):
+        ch = s[i]
+        if ch == "{" and (i == 0 or s[i - 1] != "\\"):
+            depth += 1
+        elif ch == "}" and (i == 0 or s[i - 1] != "\\"):
+            depth -= 1
+            if depth == 0:
+                if i == len(s) - 1:
+                    return s[len(prefix):-1].strip()
+                return s
+    return s
+
+
+def _normalize_final_answer_content(content: str) -> str:
+    """Normalize final_answer content before choosing a render path."""
+    s = str(content or "").strip()
+    for command in ("boxed", "fbox"):
+        unwrapped = _unwrap_outer_latex_command(s, command)
+        if unwrapped != s:
+            s = unwrapped
+            break
+    return s.strip()
+
+
+def _final_answer_needs_mixed_renderer(content: str) -> bool:
+    """True when final_answer is prose plus math, not a single formula."""
+    s = str(content or "")
+    if not s.strip():
+        return False
+    if any('\u4e00' <= ch <= '\u9fff' for ch in s):
+        return True
+    if any(token in s for token in ("\\[", "\\]", "$$", "\\(", "\\)")):
+        return True
+    return False
+
+
+def _render_final_answer_safe(final_answer: dict) -> None:
+    """Render structured final_answer without exposing raw red LaTeX."""
+    content = _normalize_final_answer_content(final_answer.get("content", ""))
+    if not content:
+        return
+
+    fa_type = final_answer.get("type", "text")
+    if fa_type == "latex" and not _final_answer_needs_mixed_renderer(content):
+        _render_blocks_safe([{**final_answer, "content": content}], highlight=True)
+        return
+
+    try:
+        from renderers.math_render_policy import render_grading_latex
+        render_grading_latex(content)
+    except Exception:
+        render_ast(split_latex_text(content))
+
+
+def _repair_solution_blocks_for_render(blocks: list[dict]) -> list[dict]:
+    """Make generated solution blocks renderable without changing meaning."""
+    repaired: list[dict] = []
+    source = [b for b in (blocks or []) if isinstance(b, dict)]
+    i = 0
+
+    while i < len(source):
+        block = source[i]
+        content = str(block.get("content") or "")
+        display = block.get("display", "inline")
+        env_match = _DISPLAY_ENV_RE.search(content)
+
+        if env_match:
+            env = env_match.group(1)
+            env_end = rf"\end{{{env}}}"
+            prefix = content[:env_match.start()].strip()
+            if block.get("type") == "latex" and prefix and env_end in content:
+                fixed = _normalize_fragmented_display_latex(content)
+                next_block = dict(block)
+                next_block["content"] = fixed
+                next_block["display"] = "block"
+                repaired.append(next_block)
+                i += 1
+                continue
+
+            collected = content
+            i += 1
+            while env_end not in collected and i < len(source):
+                next_content = str(source[i].get("content") or "")
+                collected = (collected.rstrip() + "\n" + next_content.lstrip()).strip()
+                i += 1
+
+            latex_part, tail = _split_display_environment_tail(collected, env)
+            latex_part = _normalize_fragmented_display_latex(latex_part)
+            if latex_part and env_end in latex_part:
+                repaired.append({
+                    "type": "latex",
+                    "display": "block",
+                    "content": latex_part,
+                })
+                if tail:
+                    repaired.extend(_segments_to_blocks(split_latex_text(tail)))
+                continue
+
+            repaired.append({"type": "text", "content": collected})
+            continue
+
+        if block.get("type") == "latex":
+            fixed = _normalize_fragmented_display_latex(content)
+            next_block = dict(block)
+            next_block["content"] = fixed
+            if _DISPLAY_ENV_RE.search(fixed):
+                next_block["display"] = "block"
+            repaired.append(next_block)
+        elif _looks_like_standalone_ascii_math_text(content):
+            repaired.append({
+                "type": "latex",
+                "display": display if display in ("inline", "block") else "inline",
+                "content": _normalize_standalone_ascii_math_text(content),
+            })
+        else:
+            repaired.append(block)
+        i += 1
+
+    return repaired
+
+
 def _render_blocks_safe(blocks: list[dict], highlight: bool = False) -> None:
     """Render MathBlock list — merge consecutive text + inline latex into one paragraph.
 
@@ -2676,6 +2925,8 @@ def _render_blocks_safe(blocks: list[dict], highlight: bool = False) -> None:
     sentences break across many lines (the grading-page line-break bug).
     """
     import streamlit as st
+
+    blocks = _repair_solution_blocks_for_render(blocks or [])
 
     buf: list[str] = []
     last_was_inline = False
@@ -2698,8 +2949,8 @@ def _render_blocks_safe(blocks: list[dict], highlight: bool = False) -> None:
             # st.markdown can fail on complex LaTeX; fall back through
             # safe_render → plain text, never truncating user-visible content.
             try:
-                from latex_utils import safe_render
-                safe_render(md)
+                from renderers.math_render_policy import render_grading_latex
+                render_grading_latex(md)
             except Exception:
                 try:
                     st.text(md)
@@ -2850,14 +3101,27 @@ def render_structured_safe(solution: dict) -> None:
             else:
                 st.markdown(f"**{label}**")
 
-            _render_blocks_safe(blocks)
+            body = str(
+                step.get("body_markdown")
+                or step.get("derivation_markdown")
+                or step.get("explanation")
+                or ""
+            ).strip()
+            if body:
+                try:
+                    from renderers.math_render_policy import render_grading_latex
+                    render_grading_latex(body)
+                except Exception:
+                    render_ast(split_latex_text(body))
+            else:
+                _render_blocks_safe(blocks)
 
     # ── final_answer ──
     fa = solution.get("final_answer")
     if fa and fa.get("content"):
         with st.container(border=True):
             st.markdown("**📌 答案**")
-            _render_blocks_safe([fa], highlight=True)
+            _render_final_answer_safe(fa)
 
     # ── metadata ──
     meta = solution.get("metadata")
@@ -3212,52 +3476,28 @@ def _preprocess_latex(text: str) -> str:
     return text
 
 
-def safe_render(text: str, role: str = "") -> None:
+def safe_render(text: str, role: str = "", *, context=None) -> None:
     """
-    统一渲染入口 — 修复 LaTeX 渲染混乱的终极方案。
+    统一渲染入口 — 必须显式传入 context，禁止无上下文自动猜测。
 
-    管道:
-      Layer 0: 空值检查 + KaTeX-unsupported command replacement
-      Layer 1: LaTeXFixer — 修复双反斜杠、OCR符号、失衡括号
-      Layer 2: clean_markdown — 移除 Markdown 污染
-      Layer 3: DocumentParser — 文本 → Document AST (语义分类)
-      Layer 4: LayoutEngine — Document AST → Markdown
-      Layer 5: Frontend Render — st.latex / st.markdown
+    请优先使用:
+      - render_question_bank_latex()  真题库（严格保真）
+      - render_grading_latex()        AI 批改（容错修复）
 
-    适用场景:
-      - OCR 识别结果渲染
-      - 用户作答渲染
-      - 题目文本渲染
-      - 标准答案渲染
-      - 任何包含 LaTeX 的文本渲染
-
-    慎用场景:
-      - 已结构化的 JSON (用 render_structured)
-      - 需要保留 Markdown 格式的场景
-
-    性能优化:
-      - 使用单例模式复用渲染器实例
-      - 添加渲染结果缓存减少重复计算
+    context 取值: MathRenderContext.QUESTION_BANK 或 MathRenderContext.GRADING
     """
-    import streamlit as st
+    if context is None:
+        raise ValueError(
+            "safe_render requires explicit context=MathRenderContext.QUESTION_BANK "
+            "or MathRenderContext.GRADING. Use render_question_bank_latex() / "
+            "render_grading_latex() instead."
+        )
 
-    if not text:
-        return
+    from renderers.math_render_policy import render_latex_for_context
 
-    if not isinstance(text, str):
-        text = str(text)
-
-    # Layer 0: replace KaTeX-unsupported commands before they enter the pipeline
-    text = _preprocess_latex(text)
-
-    try:
-        renderer = _get_renderer()
-        renderer.render_to_streamlit(text, role=role)
-    except Exception:
-        import traceback
-        traceback.print_exc()
-        import html
-        st.markdown(html.escape(str(text)), unsafe_allow_html=False)
+    # role is kept for backward-compatible call signatures; policy drives behavior.
+    _ = role
+    render_latex_for_context(text, context)
 
 
 def safe_render_markdown(text: str, role: str = "") -> str:

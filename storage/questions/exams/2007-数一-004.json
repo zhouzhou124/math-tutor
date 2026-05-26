@@ -14,7 +14,7 @@
     "D": "若 $\\lim_{x\\to 0} \\frac{f(x)-f(-x)}{x}$ 存在，则 $f'(0)$ 存在"
   },
   "correct_option": "D",
-  "standard_answer": "D",
+  "standard_answer": "步骤1：理解题意与导数定义回顾\n本题要求从四个命题中找出**错误**的命题。已知 $f(x)$ 在 $x=0$ 处连续。导数的定义为 \n$$\nf'(0)=\\lim_{x\\to 0}\\frac{f(x)-f(0)}{x},\n$$\n该极限存在时称 $f'(0)$ 存在。我们将逐一检查 A、B、C、D 的逻辑是否正确。\n步骤2：分析选项 A\n$$\n命题 A：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}$ 存在，则 $f(0)=0$。\n$$\n\n设 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}=A$。由于 $x\\to 0$，分母趋于 $0$，若分子 $f(x)$ 不趋于 $0$，分式将趋于无穷大，与极限存在矛盾。严格推导： \n由极限与无穷小的关系，$\\frac{f(x)}{x}=A+\\alpha(x)$，其中 $\\alpha(x)\\to 0$，从而 $f(x)=Ax+o(x)$，取极限得 $\\displaystyle\\lim_{x\\to 0}f(x)=0$。又 $f(x)$ 在 $x=0$ 连续，故 $f(0)=\\lim_{x\\to 0}f(x)=0$。选项 A 正确。\n步骤3：分析选项 B\n$$\n命题 B：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)+f(-x)}{x}$ 存在，则 $f(0)=0$。\n$$\n\n令 $g(x)=f(x)+f(-x)$，则 $g(0)=2f(0)$。已知 $\\displaystyle\\lim_{x\\to 0}\\frac{g(x)}{x}$ 存在，分母 $x\\to 0$，必有 $\\displaystyle\\lim_{x\\to 0}g(x)=0$。再由 $f$ 的连续性，$g$ 在 $0$ 点连续，故 $g(0)=0$，即 $2f(0)=0$，得 $f(0)=0$。选项 B 正确。\n步骤4：分析选项 C\n$$\n命题 C：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}$ 存在，则 $f'(0)$ 存在。\n$$\n\n由选项 A 已得 $f(0)=0$。于是\n$$\n\\lim_{x\\to 0}\\frac{f(x)}{x}=\\lim_{x\\to 0}\\frac{f(x)-f(0)}{x-0}=f'(0),\n$$\n该极限存在直接表明 $f'(0)$ 存在且等于该极限值。选项 C 正确。\n步骤5：分析选项 D 并构造反例\n$$\n命题 D：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)-f(-x)}{x}$ 存在，则 $f'(0)$ 存在。\n$$\n\n考虑反例：取 $f(x)=|x|$。显然 $f(x)$ 在 $x=0$ 处连续。计算\n$$\nf(x)-f(-x)=|x|-|-x|=|x|-|x|=0,\n$$\n于是\n$$\n\\lim_{x\\to 0}\\frac{f(x)-f(-x)}{x}=\\lim_{x\\to 0}\\frac{0}{x}=0\n$$\n存在。但 $f(x)=|x|$ 在 $x=0$ 处的左导数为 $-1$，右导数为 $1$，导数 $f'(0)$ 不存在。因此，条件成立但结论不成立，选项 D 为错误命题。\n\n## 最终答案\n错误命题是 D。\n\n---\n\n## 关键知识点\n- 极限存在与分子、分母趋于零的关系\n- 连续性与函数值的关系\n$$\n- 导数定义 $f'(0)=\\lim\\limits_{x\\to 0}\\frac{f(x)-f(0)}{x}$\n$$\n- 构造反例证明命题不成立\n\n## 易错提示\n- 误以为 $\\frac{f(x)-f(-x)}{x}$ 的极限存在能推出 $f'(0)$ 存在，忽略了该表达式实质是偶函数部分的差分，没有包含 $f(0)$ 的信息\n- 分析选项 C 时忘记先推出 $f(0)=0$ 就直接断定 $f'(0)$ 存在，可能出错\n- 忘记函数在一点可导需要左右导数相等，反例 $|x|$ 恰好满足极限存在但不可导",
   "knowledge_points": [
     "极限与连续",
     "导数与微分"
@@ -25,5 +25,37 @@
   ],
   "solution_steps": [],
   "raw_question_text": "设函数 $f(x)$ 在 $x=0$ 处连续，下列命题错误的是",
-  "raw_answer_text": "D"
+  "raw_answer_text": "D",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779790667",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：理解题意与导数定义回顾\n本题要求从四个命题中找出**错误**的命题。已知 $f(x)$ 在 $x=0$ 处连续。导数的定义为 \n$$\nf'(0)=\\lim_{x\\to 0}\\frac{f(x)-f(0)}{x},\n$$\n该极限存在时称 $f'(0)$ 存在。我们将逐一检查 A、B、C、D 的逻辑是否正确。\n步骤2：分析选项 A\n$$\n命题 A：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}$ 存在，则 $f(0)=0$。\n$$\n\n设 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}=A$。由于 $x\\to 0$，分母趋于 $0$，若分子 $f(x)$ 不趋于 $0$，分式将趋于无穷大，与极限存在矛盾。严格推导： \n由极限与无穷小的关系，$\\frac{f(x)}{x}=A+\\alpha(x)$，其中 $\\alpha(x)\\to 0$，从而 $f(x)=Ax+o(x)$，取极限得 $\\displaystyle\\lim_{x\\to 0}f(x)=0$。又 $f(x)$ 在 $x=0$ 连续，故 $f(0)=\\lim_{x\\to 0}f(x)=0$。选项 A 正确。\n步骤3：分析选项 B\n$$\n命题 B：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)+f(-x)}{x}$ 存在，则 $f(0)=0$。\n$$\n\n令 $g(x)=f(x)+f(-x)$，则 $g(0)=2f(0)$。已知 $\\displaystyle\\lim_{x\\to 0}\\frac{g(x)}{x}$ 存在，分母 $x\\to 0$，必有 $\\displaystyle\\lim_{x\\to 0}g(x)=0$。再由 $f$ 的连续性，$g$ 在 $0$ 点连续，故 $g(0)=0$，即 $2f(0)=0$，得 $f(0)=0$。选项 B 正确。\n步骤4：分析选项 C\n$$\n命题 C：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)}{x}$ 存在，则 $f'(0)$ 存在。\n$$\n\n由选项 A 已得 $f(0)=0$。于是\n$$\n\\lim_{x\\to 0}\\frac{f(x)}{x}=\\lim_{x\\to 0}\\frac{f(x)-f(0)}{x-0}=f'(0),\n$$\n该极限存在直接表明 $f'(0)$ 存在且等于该极限值。选项 C 正确。\n步骤5：分析选项 D 并构造反例\n$$\n命题 D：若 $\\displaystyle\\lim_{x\\to 0}\\frac{f(x)-f(-x)}{x}$ 存在，则 $f'(0)$ 存在。\n$$\n\n考虑反例：取 $f(x)=|x|$。显然 $f(x)$ 在 $x=0$ 处连续。计算\n$$\nf(x)-f(-x)=|x|-|-x|=|x|-|x|=0,\n$$\n于是\n$$\n\\lim_{x\\to 0}\\frac{f(x)-f(-x)}{x}=\\lim_{x\\to 0}\\frac{0}{x}=0\n$$\n存在。但 $f(x)=|x|$ 在 $x=0$ 处的左导数为 $-1$，右导数为 $1$，导数 $f'(0)$ 不存在。因此，条件成立但结论不成立，选项 D 为错误命题。\n\n## 最终答案\n错误命题是 D。\n\n---\n\n## 关键知识点\n- 极限存在与分子、分母趋于零的关系\n- 连续性与函数值的关系\n$$\n- 导数定义 $f'(0)=\\lim\\limits_{x\\to 0}\\frac{f(x)-f(0)}{x}$\n$$\n- 构造反例证明命题不成立\n\n## 易错提示\n- 误以为 $\\frac{f(x)-f(-x)}{x}$ 的极限存在能推出 $f'(0)$ 存在，忽略了该表达式实质是偶函数部分的差分，没有包含 $f(0)$ 的信息\n- 分析选项 C 时忘记先推出 $f(0)=0$ 就直接断定 $f'(0)$ 存在，可能出错\n- 忘记函数在一点可导需要左右导数相等，反例 $|x|$ 恰好满足极限存在但不可导",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-26 18:17",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-26 18:17",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

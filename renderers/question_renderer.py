@@ -9,7 +9,7 @@ Components: renderers/components/
 import re
 import streamlit as st
 from math_sanitizer import safe_latex
-from latex_utils import split_latex_text, render_ast
+from renderers.math_render_policy import render_question_bank_latex
 from renderers.components import (
     CardOpen, CardClose, render_actions, render_meta_tags,
 )
@@ -32,7 +32,7 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
 
     if ast.stem:
         try:
-            render_ast(split_latex_text(ast.stem))
+            render_question_bank_latex(ast.stem)
         except Exception:
             st.markdown(ast.stem)
 
@@ -43,7 +43,7 @@ def render_solution_question(q, show_steps: bool = False, show_answer: bool = Fa
             if step.content:
                 st.markdown(f"**{label}**")
                 try:
-                    render_ast(split_latex_text(step.content))
+                    render_question_bank_latex(step.content)
                 except Exception:
                     st.markdown(step.content)
 
@@ -82,7 +82,7 @@ def render_proof_question(q, show_steps: bool = False, show_answer: bool = False
 
     if ast.stem:
         try:
-            render_ast(split_latex_text(ast.stem))
+            render_question_bank_latex(ast.stem)
         except Exception:
             st.markdown(ast.stem)
 
@@ -91,21 +91,21 @@ def render_proof_question(q, show_steps: bool = False, show_answer: bool = False
             st.markdown("**📋 证明**")
             body = re.sub(r"^(?:证明|解)[：:\s]*", "", content)
             try:
-                render_ast(split_latex_text(body))
+                render_question_bank_latex(body)
             except Exception:
                 st.markdown(body)
         elif re.match(r"(?:即证|要证)", content):
             st.markdown("**🎯 即证**")
             body = re.sub(r"^(?:即证|要证)[：:\s]*", "", content)
             try:
-                render_ast(split_latex_text(body))
+                render_question_bank_latex(body)
             except Exception:
                 st.markdown(body)
         elif "得证" in content or "证毕" in content:
             st.markdown("**∎ 得证**")
         else:
             try:
-                render_ast(split_latex_text(content))
+                render_question_bank_latex(content)
             except Exception:
                 st.markdown(content)
 
@@ -156,7 +156,7 @@ def render_generic_question(q) -> None:
 
     if ast.stem:
         try:
-            render_ast(split_latex_text(ast.stem))
+            render_question_bank_latex(ast.stem)
         except Exception:
             st.markdown(ast.stem)
 

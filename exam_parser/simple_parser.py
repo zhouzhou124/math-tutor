@@ -1,6 +1,8 @@
 """simple_question_parser.py — 简单题目解析器"""
 import re
 
+from latex_utils import repair_math_delimiters_for_render
+
 def parse_latex_question(text: str) -> dict:
     """
     解析用户输入的LaTeX题目文本，提取题目内容和选项。
@@ -14,6 +16,8 @@ def parse_latex_question(text: str) -> dict:
     
     返回：{"question": "...", "options": {"A": "...", "B": "...", ...}}
     """
+    raw_text = text
+    text = repair_math_delimiters_for_render(text)
     result = {"question": "", "options": {}}
     
     lines = text.split('\n')
@@ -45,6 +49,6 @@ def parse_latex_question(text: str) -> dict:
     result["question"] = '\n'.join(question_lines).strip()
     result["options"] = options
     # 保留原始文本，Parser 输出不覆盖 Raw
-    result["raw_question_text"] = text
+    result["raw_question_text"] = raw_text
 
     return result

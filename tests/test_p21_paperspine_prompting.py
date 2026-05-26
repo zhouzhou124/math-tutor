@@ -95,3 +95,10 @@ class TestStepGranularity:
         text = load_prompt("math_solution_paperspine_style.md")
         assert "3～5 步" in text or "3~5" in text
         assert "6～9 步" in text or "6~9" in text
+
+    def test_negative_choice_question_must_select_false_option(self):
+        from services.prompt_loader import load_prompt
+        text = load_prompt("math_solution_paperspine_style.md")
+        assert "错误的是" in text
+        assert "不正确的是" in text
+        assert "最终应选择错误或不成立的选项" in text

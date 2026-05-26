@@ -6,6 +6,7 @@ from config import MATH_TYPES, QUESTION_TYPES, DIFFICULTY_LEVELS, LLM_BASE_URL, 
 from agents import OCR_Agent, SolverAgent
 from ._shared import chip as _chip, get_client
 from renderers import render_question
+from services.math_type_router import attach_math_port, math_type_for_ai, source_math_type
 
 
 def render_practice_page(db):
@@ -42,10 +43,11 @@ def render_practice_page(db):
             render_question(selected_bank, show_actions=False)
 
         # 元数据只读展示
-        mt = selected_bank.get("category", "数学一")
+        mt_source = source_math_type(selected_bank)
+        mt = math_type_for_ai(selected_bank)
         qt = selected_bank.get("question_type", "解答题")
         kps = ", ".join(selected_bank.get("knowledge_points", []))
-        st.caption(f"📐 {mt} | 📝 {qt} | 🏷️ {kps}")
+        st.caption(f"📐 {mt_source} | 📝 {qt} | 🏷️ {kps}")
 
         st.markdown("---")
         st.subheader("✍️ 输入你的作答")
@@ -278,6 +280,7 @@ def render_practice_page(db):
                     "question": selected_bank["question"],
                     "student_answer": merged_answer,
                     "math_type": mt,
+                    "source_math_type": mt_source,
                     "question_type": current_qt,
                     "knowledge_point": kps,
                     "confidence": 0.9 if has_photo else 1.0,
@@ -362,7 +365,11 @@ def render_practice_page(db):
                                 a_path = f.name
 
                         ocr_agent = OCR_Agent(client, st.session_state.get("model", LLM_MODEL))
-                        st.session_state.ocr_result = ocr_agent.recognize(q_path, a_path)
+                        ocr_payload = ocr_agent.recognize(q_path, a_path)
+                        ocr_payload.setdefault("question_type", q_type)
+                        ocr_payload.setdefault("knowledge_point", kp)
+                        ocr_payload.setdefault("difficulty", difficulty)
+                        st.session_state.ocr_result = attach_math_port(ocr_payload, math_type)
 
                     if st.session_state.ocr_result.get("success"):
                         st.success("OCR 识别完成")
@@ -413,8 +420,8 @@ def render_practice_page(db):
                 )
                 if student_answer:
                     with st.container(border=True):
-                        from latex_utils import safe_render
-                        safe_render(student_answer, role="student_answer")
+                        from renderers.math_render_policy import render_grading_latex
+                        render_grading_latex(student_answer)
 
             mc1, mc2, mc3, mc4 = st.columns(4)
             math_type_t = mc1.selectbox("数学类别", MATH_TYPES, key="mt_text")
@@ -433,7 +440,8 @@ def render_practice_page(db):
                             "success": True,
                             "question": question_text,
                             "student_answer": answer_text,
-                            "math_type": math_type_t,
+                            "math_type": math_type_for_ai(math_type_t),
+                            "source_math_type": source_math_type(math_type_t),
                             "question_type": q_type_t,
                             "knowledge_point": kp_t,
                             "confidence": 1.0,

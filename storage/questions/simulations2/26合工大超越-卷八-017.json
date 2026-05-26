@@ -13,12 +13,64 @@
     "二重积分"
   ],
   "question": "(本题满分10分) 设 $D: x^2+y^2\\le 1$，计算二重积分 $$I=\\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy$$",
-  "standard_answer": "$\\frac{\\pi}{4}\\ln 2$",
+  "standard_answer": "步骤1：\n步骤1：作变量替换 y → -y: 令 y \\to -y，积分区域不变，雅可比行列式为1，且 \\arctan\\frac{1+x^2}{1+(-y)^2}=\\arctan\\frac{1+x^2}{1+y^2}，分母变为 1+e^{y}，故得等价积分。\n\n$ \\Rightarrow I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{y}} dxdy$\n步骤2：\n步骤2：两式相加消去分母: 将两式相加，利用 \\frac{1}{1+e^{-y}}+\\frac{1}{1+e^{y}}=1，消去分母，得到仅含反正切函数的二重积分。\n\n$I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy, \\quad I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{y}} dxdy \\Rightarrow 2I = \\iint_D \\arctan\\frac{1+x^2}{1+y^2} dxdy$\n步骤3：\n步骤3：计算去分母后的二重积分 J: 交换积分变量 x 与 y，由区域对称性得 J = \\iint_D \\arctan\\frac{1+y^2}{1+x^2} dxdy。两式相加，利用 \\arctan a + \\arctan\\frac{1}{a} = \\frac{\\pi}{2} (a>0)，得 2J = \\iint_D \\frac{\\pi}{2} dxdy = \\frac{\\pi}{2}\\cdot\\pi = \\frac{\\pi^2}{2}，故 J = \\frac{\\pi^2}{4}。\n\n$J = \\iint_D \\arctan\\frac{1+x^2}{1+y^2} dxdy \\Rightarrow J = \\frac{\\pi^2}{4}$\n步骤4：\n步骤4：求解原积分 I: 由步骤2得 2I = J = \\frac{\\pi^2}{4}，解出 I。\n\n$2I = \\frac{\\pi^2}{4} \\Rightarrow I = \\frac{\\pi^2}{8}$\n\n### 最终答案\n$$\nI = \\frac{\\pi^2}{8}\n$$",
   "source": "import_hegongda_v8",
   "solution_steps": [],
   "options": {},
   "volume": "卷八",
   "__cached_at__": 1779502981.298347,
   "raw_question_text": "(本题满分10分) 设 $D: x^2+y^2\\le 1$，计算二重积分 $$I=\\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy$$",
-  "raw_answer_text": "$\\frac{\\pi}{4}\\ln 2$"
+  "raw_answer_text": "$\\frac{\\pi}{4}\\ln 2$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779811333",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：作变量替换 y → -y: 令 y \\to -y，积分区域不变，雅可比行列式为1，且 \\arctan\\frac{1+x^2}{1+(-y)^2}=\\arctan\\frac{1+x^2}{1+y^2}，分母变为 1+e^{y}，故得等价积分。\n\n$ \\Rightarrow I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{y}} dxdy$\n步骤2：\n步骤2：两式相加消去分母: 将两式相加，利用 \\frac{1}{1+e^{-y}}+\\frac{1}{1+e^{y}}=1，消去分母，得到仅含反正切函数的二重积分。\n\n$I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{-y}} dxdy, \\quad I = \\iint_D \\frac{\\arctan\\frac{1+x^2}{1+y^2}}{1+e^{y}} dxdy \\Rightarrow 2I = \\iint_D \\arctan\\frac{1+x^2}{1+y^2} dxdy$\n步骤3：\n步骤3：计算去分母后的二重积分 J: 交换积分变量 x 与 y，由区域对称性得 J = \\iint_D \\arctan\\frac{1+y^2}{1+x^2} dxdy。两式相加，利用 \\arctan a + \\arctan\\frac{1}{a} = \\frac{\\pi}{2} (a>0)，得 2J = \\iint_D \\frac{\\pi}{2} dxdy = \\frac{\\pi}{2}\\cdot\\pi = \\frac{\\pi^2}{2}，故 J = \\frac{\\pi^2}{4}。\n\n$J = \\iint_D \\arctan\\frac{1+x^2}{1+y^2} dxdy \\Rightarrow J = \\frac{\\pi^2}{4}$\n步骤4：\n步骤4：求解原积分 I: 由步骤2得 2I = J = \\frac{\\pi^2}{4}，解出 I。\n\n$2I = \\frac{\\pi^2}{4} \\Rightarrow I = \\frac{\\pi^2}{8}$\n\n### 最终答案\n$$\nI = \\frac{\\pi^2}{8}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-27 00:02",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-27 00:02",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

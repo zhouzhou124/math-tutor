@@ -4,6 +4,7 @@ All business logic lives here. UI components only render buttons.
 View (components) and Action (this module) are strictly separated.
 """
 import streamlit as st
+from services.math_type_router import math_type_for_ai, source_math_type
 
 
 def start_practice(qid: str) -> None:
@@ -25,7 +26,8 @@ def view_solution(qid: str) -> None:
     # Build a minimal ocr_result so the grading page sees a "view only" request
     # with an empty student answer — this triggers the AI to generate the
     # detailed standard solution automatically.
-    mt = q.get("category", q.get("math_type", "数学一")) if q else "数学一"
+    mt_source = source_math_type(q) if q else source_math_type()
+    mt = math_type_for_ai(q)
     qt = q.get("question_type", "解答题") if q else "解答题"
     kps = ", ".join(q.get("knowledge_points", [])) if q else ""
     st.session_state.ocr_result = {
@@ -33,6 +35,7 @@ def view_solution(qid: str) -> None:
         "question": (q.get("raw_question_text") or q.get("question", "")) if q else "",
         "student_answer": "",          # empty → triggers view-only path
         "math_type": mt,
+        "source_math_type": mt_source,
         "question_type": qt,
         "knowledge_point": kps,
         "confidence": 1.0,

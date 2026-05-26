@@ -18,6 +18,15 @@ _LATEX_LINE_TOKENS = (
     r"\neq", r"\leq", r"\geq", r"\approx",
 )
 
+_AI_META_HEADINGS = (
+    "题目重述", "关键知识点", "易错提示", "常见误区",
+    "秒杀技巧", "考查知识点", "薄弱知识点",
+)
+_DISPLAY_ENVS = (
+    "aligned", "cases", "array", "matrix", "pmatrix", "bmatrix",
+    "vmatrix", "Vmatrix", "split", "gathered",
+)
+
 
 def _is_already_math_line(line: str) -> bool:
     s = str(line or "").strip()
@@ -31,17 +40,18 @@ def _is_already_math_line(line: str) -> bool:
 def _looks_like_bare_formula_line(line: str) -> bool:
     """Check if a line looks like bare LaTeX that needs $$ wrapping."""
     s = str(line or "").strip()
-    if not s or _is_already_math_line(s) or s.startswith("#"):
+    if not s or _is_already_math_line(s) or s.startswith("#") or "$" in s:
         return False
 
     has_latex = any(tok in s for tok in _LATEX_LINE_TOKENS)
     has_math_shape = any(c in s for c in "=_{}^\\")
 
-    chinese_count = sum(1 for ch in s if '一' <= ch <= '鿿')
+    math_only = re.sub(r"\\text\{[^}]*\}", "", s)
+    chinese_count = sum(1 for ch in math_only if '一' <= ch <= '鿿')
     latin_math_count = sum(1 for ch in s if ch in "\\_^=+-*/{}0123456789")
 
     return bool(has_latex and has_math_shape
-                and latin_math_count >= 3 and chinese_count <= 20)
+                and latin_math_count >= 3 and chinese_count == 0)
 
 
 def _wrap_bare_formula_lines(text: str) -> str:
@@ -128,6 +138,86 @@ def clean_mojibake_tokens(text: str) -> str:
     return re.sub(r"[ \t]{2,}", " ", s)
 
 
+def _drop_ai_meta_sections(text: str) -> str:
+    """Remove AI-only metadata sections from standard answers."""
+    lines = str(text or "").splitlines()
+    out: list[str] = []
+    skipping = False
+    meta_re = re.compile(
+        r"^\s*#{1,6}\s*(?:" + "|".join(map(re.escape, _AI_META_HEADINGS)) + r")\s*[:：]?.*$"
+    )
+    heading_re = re.compile(r"^\s*#{1,6}\s+")
+    resume_re = re.compile(r"^\s*(?:#{1,6}\s*)?(?:步骤\s*\d+|第\s*\d+\s*步|最终答案|答案|解析)\b")
+
+    for line in lines:
+        if meta_re.match(line):
+            skipping = True
+            continue
+        if skipping:
+            if heading_re.match(line) or resume_re.match(line):
+                skipping = False
+            else:
+                continue
+        if not meta_re.match(line):
+            out.append(line)
+    return "\n".join(out)
+
+
+def _repair_inline_display_env_delimiters(text: str) -> str:
+    r"""Repair $\begin{aligned}$ / $\end{aligned}$ style display-env wrappers."""
+    envs = "|".join(map(re.escape, _DISPLAY_ENVS))
+    s = str(text or "")
+    s = re.sub(
+        rf"\$\s*(\\begin\{{(?:{envs})\}}[\s\S]*?\\end\{{(?:{envs})\}})\s*\$",
+        lambda m: "$$\n" + m.group(1).strip() + "\n$$",
+        s,
+    )
+    s = re.sub(rf"\$\s*(\\begin\{{(?:{envs})\}})\s*\$", r"$$\n\1", s)
+    s = re.sub(rf"\$\s*(\\end\{{(?:{envs})\}})\s*\$", r"\1\n$$", s)
+    return s
+
+
+def _repair_fragmented_inline_math(text: str) -> str:
+    r"""Fix AI fragments such as \to$\infty$ and x $\geq$ 0."""
+    s = str(text or "")
+    s = re.sub(
+        r"(\\(?:to|rightarrow|leftarrow|Rightarrow|Leftarrow|Leftrightarrow))\s*\$\s*([^$\s]+)\s*\$",
+        lambda m: m.group(1) + m.group(2),
+        s,
+    )
+    relation = r"\\(?:geq|leq|neq|ne|in|notin|cdot|times|to|rightarrow|approx|sim)"
+    atom = r"(?:\\[A-Za-z]+|[A-Za-z][A-Za-z0-9_]*|\d+(?:\.\d+)?)"
+    rhs = r"(?:\\[A-Za-z]+|[A-Za-z0-9_{}^+\-*/().,])+"
+    s = re.sub(
+        rf"(?<!\$)({atom})\s*\$\s*({relation})\s*\$\s*({rhs})",
+        lambda m: f"${m.group(1)} {m.group(2)} {m.group(3)}$",
+        s,
+    )
+    return s
+
+
+def _repair_triple_dollars(text: str) -> str:
+    s = str(text or "")
+    s = re.sub(r"\${3}([^$\n]+?)\${2}(?!\$)", r"$$\1$$", s)
+    s = re.sub(r"\${3}([^$\n]+?)\$(?!\$)", r"$\1$", s)
+    return re.sub(r"\${3,}", "$$", s)
+
+
+def sanitize_ai_solution_markdown(text: str) -> str:
+    """Normalize AI standard-answer markdown before legacy parsing/render gates."""
+    if not text:
+        return ""
+    s = str(text).replace("\r\n", "\n").replace("\r", "\n")
+    s = re.sub(r"\x00A[2-5]", "", s)
+    s = re.sub(r"\\u0000A[2-5]", "", s)
+    s = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", s)
+    s = _drop_ai_meta_sections(s)
+    s = _repair_inline_display_env_delimiters(s)
+    s = _repair_fragmented_inline_math(s)
+    s = _repair_triple_dollars(s)
+    return re.sub(r"\n{3,}", "\n\n", s).strip()
+
+
 def repair_split_frac_denominator(text: str) -> str:
     r"""P19-3: Fix \frac{num} with denominator on next line.
 
@@ -210,7 +300,7 @@ def repair_legacy_solution_text(text: str) -> str:
     if not text:
         return ""
 
-    s = str(text).replace("\r\n", "\n").replace("\r", "\n")
+    s = sanitize_ai_solution_markdown(text)
 
     # ── 0. Clean mojibake first ──
     s = clean_mojibake_tokens(s)

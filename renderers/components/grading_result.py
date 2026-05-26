@@ -230,8 +230,8 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
         if content_parts:
             raw = "\n\n".join(content_parts)
             try:
-                from latex_utils import safe_render
-                safe_render(raw)
+                from renderers.math_render_policy import render_grading_latex
+                render_grading_latex(raw)
             except Exception:
                 try:
                     from latex_utils import from_legacy_text, render_structured_safe

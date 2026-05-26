@@ -19,6 +19,27 @@ LaTeX Style Normalizer — 确定性格式化层
 
 import re
 
+_DISPLAY_MATH_PLACEHOLDER = "\x00DISPLAY{}\x00"
+
+
+def _protect_display_math_blocks(text: str) -> tuple[str, list[str]]:
+    """Temporarily replace $$...$$ so single-$ rules cannot corrupt display math."""
+    blocks: list[str] = []
+
+    def _stash(match: re.Match) -> str:
+        blocks.append(match.group(0))
+        return _DISPLAY_MATH_PLACEHOLDER.format(len(blocks) - 1)
+
+    protected = re.sub(r"\$\$.*?\$\$", _stash, text, flags=re.DOTALL)
+    return protected, blocks
+
+
+def _restore_display_math_blocks(text: str, blocks: list[str]) -> str:
+    for idx, block in enumerate(blocks):
+        text = text.replace(_DISPLAY_MATH_PLACEHOLDER.format(idx), block)
+    return text
+
+
 # ═══════════════════════════════════════════════
 # 规则列表（按顺序应用）
 # ═══════════════════════════════════════════════
@@ -369,16 +390,16 @@ def _normalize_katex_compat(text: str) -> str:
         content = _fix_lt_gt(content)
         return '$' + content + '$'
 
-    text = re.sub(r'\$([^$]+)\$', _fix_lt_gt_in_math, text)
-
-    # 同样处理 $$...$$ 块
-    def _fix_lt_gt_in_display(match):
-        content = match.group(1)
-        content = _fix_lt_gt(content)
-        return '$$' + content + '$$'
-
-    text = re.sub(r'\$\$([^$]+)\$\$', _fix_lt_gt_in_display, text)
-    return text
+    protected, blocks = _protect_display_math_blocks(text)
+    protected = re.sub(r'\$([^$]+)\$', _fix_lt_gt_in_math, protected)
+    fixed_blocks = []
+    for block in blocks:
+        if block.startswith("$$") and block.endswith("$$") and len(block) >= 4:
+            inner = _fix_lt_gt(block[2:-2])
+            fixed_blocks.append("$$" + inner + "$$")
+        else:
+            fixed_blocks.append(block)
+    return _restore_display_math_blocks(protected, fixed_blocks)
 
 
 # ═══════════════════════════════════════════════
@@ -395,7 +416,7 @@ def _wrap_bare_math_expressions(text: str) -> str:
     def _protect(m):
         protected.append(m.group(0))
         return f'\x00M{len(protected)-1}\x00'
-    text = re.sub(r'\$\$[^$]+\$\$', _protect, text)
+    text = re.sub(r'\$\$.*?\$\$', _protect, text, flags=re.DOTALL)
     text = re.sub(r'\$[^$]+\$', _protect, text)
     # 保护 \(...\) 和 \[...\] 格式
     text = re.sub(r'\\\[.+?\\\]', _protect, text, flags=re.DOTALL)
@@ -570,8 +591,10 @@ def _fix_chinese_in_math(text: str) -> str:
             else:
                 parts.append(f'${seg.strip()}$')  # 数学保留 $ 包裹
         return ''.join(parts)
-    text = re.sub(r'\$([^$]+)\$', _fix, text)
-    return text
+
+    protected, blocks = _protect_display_math_blocks(text)
+    protected = re.sub(r'\$([^$]+)\$', _fix, protected)
+    return _restore_display_math_blocks(protected, blocks)
 
 
 def _fix_triple_dollars(text: str) -> str:

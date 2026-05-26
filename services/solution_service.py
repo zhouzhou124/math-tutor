@@ -26,10 +26,11 @@ class SolutionService:
         try:
             from agents.solver_agent import SolverAgent
             from services.grading_adapter import normalize_standard_solution
+            from services.math_type_router import math_type_for_ai
             agent = SolverAgent(self.client, self.model)
             result = agent.solve(
                 question=question or selected_q.get("question", ""),
-                math_type=selected_q.get("math_type", "数学一"),
+                math_type=math_type_for_ai(selected_q or ocr_data),
                 question_type=selected_q.get("question_type", "解答题"),
                 knowledge_point=", ".join(selected_q.get("knowledge_points", [])),
             )
@@ -42,6 +43,81 @@ class SolutionService:
         except Exception:
             pass
         return None
+
+    def _generated_ir_ready(self, sol: dict[str, Any] | None) -> bool:
+        if not isinstance(sol, dict):
+            return False
+        if not (sol.get("_solution_ir") or sol.get("_canonical_ir")):
+            return False
+        report = sol.get("_compiled_quality_report") or {}
+        return (
+            bool(report.get("ok"))
+            and bool(sol.get("compiled_renderable"))
+            and bool(sol.get("compiled_complete"))
+            and bool(sol.get("_used_compiled_standard_answer"))
+            and sol.get("standard_solution_source") == "compiled_ir"
+        )
+
+    def _ir_feedback(self, sol: dict[str, Any] | None) -> str:
+        if not isinstance(sol, dict):
+            return "missing_solution_ir"
+        issues: list[str] = []
+        report = sol.get("_compiled_quality_report")
+        if isinstance(report, dict):
+            issues.extend(str(i) for i in (report.get("issues") or []))
+        if sol.get("_compiled_fallback_reason"):
+            issues.append(str(sol.get("_compiled_fallback_reason")))
+        if not (sol.get("_solution_ir") or sol.get("_canonical_ir")):
+            issues.append("missing_solution_ir")
+        return ", ".join(dict.fromkeys(i for i in issues if i)) or "compiled_ir_not_ready"
+
+    def _mandatory_ir_failure(self, sol: dict[str, Any] | None, issues: str) -> dict[str, Any]:
+        import html
+        raw_preview = ""
+        if isinstance(sol, dict):
+            raw_preview = str(sol.get("standard_answer") or sol.get("answer") or "")[:500]
+        report = {
+            "ok": False,
+            "renderable": False,
+            "complete": False,
+            "detailed": False,
+            "covers_requirements": False,
+            "logically_plausible": False,
+            "issues": [i.strip() for i in str(issues or "missing_solution_ir").split(",") if i.strip()],
+            "should_regenerate": True,
+        }
+        return {
+            "success": True,
+            "standard_answer": "",
+            "total_score": int((sol or {}).get("total_score", 10)) if isinstance(sol, dict) else 10,
+            "steps": [],
+            "_structured": None,
+            "standard_solution_status": "failed",
+            "standard_solution_source": "failed",
+            "standard_solution_error": "新生成标准解答缺少合格 Solution IR，已阻止展示。",
+            "_quality_report": report,
+            "_should_regenerate": True,
+            "_mandatory_ir_failed": True,
+            "_failed_quality_report": report,
+            "_failed_raw_preview": html.escape(raw_preview, quote=True),
+        }
+
+    def _generate_with_mandatory_ir(self, question, selected_q, ocr_data) -> dict[str, Any] | None:
+        first = self._generate(question, selected_q, ocr_data)
+        if self._generated_ir_ready(first):
+            return first
+
+        feedback = self._ir_feedback(first)
+        self.status(f"Solution IR 未通过，正在带问题反馈重试：{feedback}")
+        retry_question = (
+            f"{question or selected_q.get('question', '')}\n\n"
+            f"上一次标准解答生成未产生合格 Solution IR，问题包括：{feedback}。\n"
+            "请重新生成严格 CanonicalIR JSON，确保 validate_canonical_ir、compiler 和 quality gate 全部通过。"
+        )
+        retry = self._generate(retry_question, selected_q, ocr_data)
+        if self._generated_ir_ready(retry):
+            return retry
+        return self._mandatory_ir_failure(retry or first, self._ir_feedback(retry or first))
 
     def build(
         self,
@@ -72,6 +148,9 @@ class SolutionService:
             report = solution_quality_report(sol, selected_q)
             sol["_quality_report"] = report
             sol["_should_regenerate"] = bool(report.get("should_regenerate"))
+            if report.get("ok"):
+                sol["standard_solution_status"] = "ready"
+                sol["standard_solution_error"] = ""
             return bool(report.get("ok"))
 
         def _mark_quality_failure(sol: dict[str, Any]) -> dict[str, Any]:
@@ -97,8 +176,12 @@ class SolutionService:
                     "steps": entry.get("steps", []),
                     "_structured": entry.get("structured"),
                     "_canonical_ir": entry.get("canonical_ir"),
+                    "_solution_ir": entry.get("solution_ir") or entry.get("canonical_ir"),
                     "_ai_unverified": not entry.get("reviewed", False),
                 })
+                if self._generated_ir_ready(sol) and _is_good(sol):
+                    self.status("标准答案已加载（缓存）")
+                    return sol
                 sol = normalize_solution_for_render(sol)
                 if _is_good(sol):
                     self.status("标准答案已加载（缓存）")
@@ -112,14 +195,21 @@ class SolutionService:
                 "steps": selected_q.get("solution_steps", []),
                 "_ai_unverified": False,
             })
+            if _is_good(sol):
+                self.status("标准答案已加载（缓存）")
+                return sol
             sol = normalize_solution_for_render(sol)
             if _is_good(sol):
                 self.status("标准答案已加载（缓存）")
                 return sol
 
         # Try SolverAgent with retry on broken/incomplete output
-        solution = self._generate(question, selected_q, ocr_data)
+        solution = self._generate_with_mandatory_ir(question, selected_q, ocr_data)
         if solution:
+            if solution.get("_mandatory_ir_failed"):
+                return solution
+            if self._generated_ir_ready(solution) and _is_good(solution):
+                return solution
             solution = normalize_solution_for_render(solution)
             if _is_good(solution):
                 return solution
@@ -129,8 +219,12 @@ class SolutionService:
             else:
                 self.status("检测到解答步骤不完整，正在重新生成…")
 
-            retry = self._generate(question, selected_q, ocr_data)
+            retry = self._generate_with_mandatory_ir(question, selected_q, ocr_data)
             if retry:
+                if retry.get("_mandatory_ir_failed"):
+                    return retry
+                if self._generated_ir_ready(retry) and _is_good(retry):
+                    return retry
                 retry = normalize_solution_for_render(retry)
                 if _is_good(retry):
                     return retry

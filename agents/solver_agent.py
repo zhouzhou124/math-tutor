@@ -6,6 +6,50 @@ import re as _re
 from prompts.system_prompts import SOLVER_PROMPT, CANONICAL_SOLVE_PROMPT
 
 
+def _proof_step_body_markdown(step) -> str:
+    """Build a full derivation body from a CanonicalIR proof step."""
+    label = str(getattr(step, "label", "") or getattr(step, "id", "") or "").strip()
+    justification = str(getattr(step, "justification", "") or "").strip()
+    input_state = str(getattr(step, "input_state", "") or "").strip()
+    output_state = str(getattr(step, "output_state", "") or "").strip()
+    parts: list[str] = []
+    if label:
+        parts.append(f"推导目标：{label}。")
+    if justification:
+        parts.append(f"推导理由：{justification}")
+    if input_state and output_state:
+        parts.append("关键变形为：")
+        parts.append(f"$$\n{input_state}\n\\Rightarrow\n{output_state}\n$$")
+    elif output_state:
+        parts.append("中间公式为：")
+        parts.append(f"$$\n{output_state}\n$$")
+    elif input_state:
+        parts.append("已知条件可写为：")
+        parts.append(f"$$\n{input_state}\n$$")
+    if output_state:
+        parts.append(f"因此本步得到结论：${output_state}$。")
+    return "\n\n".join(p for p in parts if p).strip()
+
+
+def _blocks_to_body_markdown(blocks: list[dict]) -> str:
+    """Convert structured blocks to a complete markdown body for rendering/gating."""
+    parts: list[str] = []
+    for block in blocks or []:
+        if not isinstance(block, dict):
+            continue
+        content = str(block.get("content") or "").strip()
+        if not content:
+            continue
+        if block.get("type") == "latex":
+            if block.get("display") == "block":
+                parts.append(f"$$\n{content}\n$$")
+            else:
+                parts.append(f"${content}$")
+        else:
+            parts.append(content)
+    return "\n\n".join(parts).strip()
+
+
 class SolverAgent:
     """根据题目生成标准解答过程"""
 
@@ -105,7 +149,14 @@ class SolverAgent:
 
             structured = proof_trace_to_structured(model.proof_trace)
 
-            for step in structured.get("steps", []):
+            for idx, step in enumerate(structured.get("steps", [])):
+                proof_step = model.proof_trace.steps[idx] if idx < len(model.proof_trace.steps) else None
+                if proof_step is not None:
+                    body = _proof_step_body_markdown(proof_step)
+                    if body:
+                        step["body_markdown"] = body
+                        step["derivation_markdown"] = body
+                        step["explanation"] = str(getattr(proof_step, "justification", "") or "")
                 for block in step.get("blocks", []):
                     if block.get("type") == "latex":
                         block["content"] = normalize_latex_style(block.get("content", ""))
@@ -123,6 +174,8 @@ class SolverAgent:
                     "content": f"{ps.label}: {ps.justification}\n\n${ps.input_state} \\Rightarrow {ps.output_state}$"
                 })
 
+            canonical_ir_dict = model.model_dump()
+
             return {
                 "success": True,
                 "standard_answer": standard_answer,
@@ -131,7 +184,8 @@ class SolverAgent:
                 "knowledge_points": knowledge_pts,
                 "common_mistakes": common_mistakes,
                 "_structured": structured,
-                "_canonical_ir": model.model_dump(),
+                "_canonical_ir": canonical_ir_dict,
+                "_solution_ir": canonical_ir_dict,
             }
         except Exception:
             return {"success": False}
@@ -234,6 +288,13 @@ class SolverAgent:
                     steps.append({
                         "label": s.label, "blocks": blocks,
                         "operation": s.operation,
+                        "body_markdown": _blocks_to_body_markdown(blocks),
+                        "derivation_markdown": _blocks_to_body_markdown(blocks),
+                        "explanation": " ".join(
+                            str(b.get("content", "")).strip()
+                            for b in blocks
+                            if b.get("type") == "text" and str(b.get("content", "")).strip()
+                        ),
                     })
 
                 # Normalize LaTeX in steps
@@ -264,14 +325,23 @@ class SolverAgent:
                     },
                 }
                 for s in steps_pydantic:
+                    body_blocks = [
+                        {"type": b.type, "content": b.content,
+                         "display": b.display, "operation": b.operation}
+                        for b in s.blocks
+                    ]
+                    body_markdown = _blocks_to_body_markdown(body_blocks)
                     _structured["steps"].append({
                         "label": s.label,
-                        "blocks": [
-                            {"type": b.type, "content": b.content,
-                             "display": b.display, "operation": b.operation}
-                            for b in s.blocks
-                        ],
+                        "blocks": body_blocks,
                         "operation": s.operation,
+                        "body_markdown": body_markdown,
+                        "derivation_markdown": body_markdown,
+                        "explanation": " ".join(
+                            str(b.get("content", "")).strip()
+                            for b in body_blocks
+                            if b.get("type") == "text" and str(b.get("content", "")).strip()
+                        ),
                     })
 
                 return {
@@ -575,8 +645,9 @@ def _type_specific_solution_rules(question_type: str) -> str:
     if "选择" in q_type:
         return common + """
 ## 选择题要求
-- 必须解释正确选项为什么成立。
-- 必须对 A/B/C/D 每个选项给出对错判断或排除理由。
+- 必须先识别题干是在问"正确的是"还是"错误的是/不正确的是/不成立的是"。
+- 若题干问"错误的是/不正确的是/不成立的是"，final_answer 必须选择错误或不成立的选项。
+- 必须对 A/B/C/D 每个选项给出成立/不成立判断和理由。
 - final_answer 必须写成类似 "故选 A" 的明确结论。
 """
     if "填空" in q_type:

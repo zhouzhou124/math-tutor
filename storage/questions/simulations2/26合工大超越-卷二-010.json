@@ -15,11 +15,63 @@
     "定积分"
   ],
   "question": "$10.$ $$\\lim_{n\\to\\infty} \\int_0^1 \\frac{\\sqrt{1 + n \\arctan x}}{1+x^2} dx = \\underline{\\qquad\\qquad}$$",
-  "standard_answer": "$\\frac{\\pi}{2}$",
+  "standard_answer": "步骤1：\n步骤1：识别题型: 识别题型：含参变量 n 的定积分求极限，需先求出积分表达式再取极限\n\n$ \\Rightarrow \\lim_{n\\to\\infty}\\int_0^1 \\frac{\\sqrt{1+n\\arctan x}}{1+x^2}dx$\n步骤2：\n步骤2：换元简化: 令 u=\\arctan x，则 du=\\frac{dx}{1+x^2}，x=0 时 u=0，x=1 时 u=\\frac{\\pi}{4}，被积式化为 \\sqrt{1+nu} 的积分\n\n$\\int_0^1 \\frac{\\sqrt{1+n\\arctan x}}{1+x^2}dx \\Rightarrow \\int_{0}^{\\pi/4} \\sqrt{1+nu}\\,du$\n步骤3：\n步骤3：计算定积分: 令 t=1+nu，则 dt=n\\,du，积分限变为 1 到 1+\\frac{n\\pi}{4}，利用 \\int \\sqrt{t}\\,dt=\\frac{2}{3}t^{3/2} 计算得定积分表达式\n\n$\\int_{0}^{\\pi/4} \\sqrt{1+nu}\\,du \\Rightarrow \\frac{2}{3n}\\left[(1+\\frac{n\\pi}{4})^{3/2}-1\\right]$\n步骤4：\n步骤4：求极限: 当 n\\to\\infty 时，(1+\\frac{n\\pi}{4})^{3/2}\\sim (\\frac{n\\pi}{4})^{3/2}，整体 \\sim\\frac{\\sqrt{\\pi}}{3}\\sqrt{n}，趋于 +\\infty，故极限不存在（为无穷大）\n\n$\\frac{2}{3n}\\left[(1+\\frac{n\\pi}{4})^{3/2}-1\\right] \\Rightarrow \\infty$\n\n### 最终答案\n\\infty",
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
   "raw_question_text": "$10.$ $$\\lim_{n\\to\\infty} \\int_0^1 \\frac{\\sqrt{1 + n \\arctan x}}{1+x^2} dx = \\underline{\\qquad\\qquad}$$",
-  "raw_answer_text": "$\\frac{\\pi}{2}$"
+  "raw_answer_text": "$\\frac{\\pi}{2}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779810824",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：识别题型: 识别题型：含参变量 n 的定积分求极限，需先求出积分表达式再取极限\n\n$ \\Rightarrow \\lim_{n\\to\\infty}\\int_0^1 \\frac{\\sqrt{1+n\\arctan x}}{1+x^2}dx$\n步骤2：\n步骤2：换元简化: 令 u=\\arctan x，则 du=\\frac{dx}{1+x^2}，x=0 时 u=0，x=1 时 u=\\frac{\\pi}{4}，被积式化为 \\sqrt{1+nu} 的积分\n\n$\\int_0^1 \\frac{\\sqrt{1+n\\arctan x}}{1+x^2}dx \\Rightarrow \\int_{0}^{\\pi/4} \\sqrt{1+nu}\\,du$\n步骤3：\n步骤3：计算定积分: 令 t=1+nu，则 dt=n\\,du，积分限变为 1 到 1+\\frac{n\\pi}{4}，利用 \\int \\sqrt{t}\\,dt=\\frac{2}{3}t^{3/2} 计算得定积分表达式\n\n$\\int_{0}^{\\pi/4} \\sqrt{1+nu}\\,du \\Rightarrow \\frac{2}{3n}\\left[(1+\\frac{n\\pi}{4})^{3/2}-1\\right]$\n步骤4：\n步骤4：求极限: 当 n\\to\\infty 时，(1+\\frac{n\\pi}{4})^{3/2}\\sim (\\frac{n\\pi}{4})^{3/2}，整体 \\sim\\frac{\\sqrt{\\pi}}{3}\\sqrt{n}，趋于 +\\infty，故极限不存在（为无穷大）\n\n$\\frac{2}{3n}\\left[(1+\\frac{n\\pi}{4})^{3/2}-1\\right] \\Rightarrow \\infty$\n\n### 最终答案\n\\infty",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-26 23:53",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-26 23:53",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

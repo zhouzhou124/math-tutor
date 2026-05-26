@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "解答题",
   "question": "求极限 $$\\lim_{x\\to 0} \\left[ \\frac{\\ln(1+x)}{x} \\right]^{\\frac{1}{x-1}}$$.",
-  "standard_answer": "$e^{\\frac{1}{2}}$",
+  "standard_answer": "步骤1：判断极限类型及可行性分析\n\n原极限为\n$$\nL=\\lim_{x\\to 0}\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}.\n$$\n当 $x\\to 0$ 时，由等价无穷小 $\\ln(1+x)\\sim x$ 可得\n$$\n\\lim_{x\\to 0}\\frac{\\ln(1+x)}{x}=1,\n$$\n而指数满足\n$$\n\\lim_{x\\to 0}\\frac{1}{x-1}=-1.\n$$\n因此该极限属于 $f(x)^{g(x)}$ 型，其中 $f(x)\\to 1$，$g(x)\\to -1$。由于指数趋于有限常数（非无穷），这不是未定式，可以直接利用幂指函数的连续性求解。但为严谨起见，下面通过取对数方法进行验证。\n步骤2：取对数转化为函数极限\n\n令\n$$\ny(x)=\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}>0,\n$$\n取自然对数得\n$$\n\\ln y(x)=\\frac{1}{x-1}\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right).\n$$\n于是原极限等价于\n$$\n\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)}{x-1}.\n$$\n步骤3：利用泰勒展开或等价无穷小计算该极限\n\n首先考虑 $x\\to 0$ 时 $\\frac{\\ln(1+x)}{x}$ 的展开式：\n$$\n\\frac{\\ln(1+x)}{x}=1-\\frac{x}{2}+\\frac{x^{2}}{3}-\\frac{x^{3}}{4}+\\cdots.\n$$\n令 $u=\\frac{\\ln(1+x)}{x}-1$，则 $u\\to 0$，且\n$$\nu=-\\frac{x}{2}+\\frac{x^{2}}{3}+O(x^{3}).\n$$\n应用 $\\ln(1+u)\\sim u$（$u\\to 0$）得\n$$\n\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)=\\ln(1+u)\\sim u=-\\frac{x}{2}+O(x^{2}).\n$$\n代入分子：\n$$\n\\ln y(x)\\sim\\frac{-\\dfrac{x}{2}+O(x^{2})}{x-1}.\n$$\n注意分母 $x-1\\to -1$ 为常数，故\n$$\n\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{-\\frac{x}{2}}{-1}=\\lim_{x\\to 0}\\frac{x}{2}=0.\n$$\n步骤4：由对数极限还原原极限\n\n因为 $\\lim_{x\\to 0}\\ln y(x)=0$，由指数函数的连续性得到\n$$\n\\lim_{x\\to 0}y(x)=e^{0}=1.\n$$\n\n## 最终答案\n\n故所求极限为 $1$。\n\n（注：若将题目中的指数误写，常见极限 $\\displaystyle\\lim_{x\\to 0}\\left[\\frac{\\ln(1+x)}{x}\\right]^{1/x}=e^{-1/2}$，与所给答案 $e^{1/2}$ 相差一个符号，本题按原表达式计算极限为 $1$。）",
   "knowledge_points": [
     "极限"
   ],
@@ -16,5 +16,269 @@
     "极限"
   ],
   "raw_question_text": "求极限 $$\\lim_{x\\to 0} \\left[ \\frac{\\ln(1+x)}{x} \\right]^{\\frac{1}{x-1}}$$.",
-  "raw_answer_text": "$e^{\\frac{1}{2}}$"
+  "raw_answer_text": "$e^{\\frac{1}{2}}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779819642",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：判断极限类型及可行性分析\n\n原极限为\n$$\nL=\\lim_{x\\to 0}\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}.\n$$\n当 $x\\to 0$ 时，由等价无穷小 $\\ln(1+x)\\sim x$ 可得\n$$\n\\lim_{x\\to 0}\\frac{\\ln(1+x)}{x}=1,\n$$\n而指数满足\n$$\n\\lim_{x\\to 0}\\frac{1}{x-1}=-1.\n$$\n因此该极限属于 $f(x)^{g(x)}$ 型，其中 $f(x)\\to 1$，$g(x)\\to -1$。由于指数趋于有限常数（非无穷），这不是未定式，可以直接利用幂指函数的连续性求解。但为严谨起见，下面通过取对数方法进行验证。\n步骤2：取对数转化为函数极限\n\n令\n$$\ny(x)=\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}>0,\n$$\n取自然对数得\n$$\n\\ln y(x)=\\frac{1}{x-1}\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right).\n$$\n于是原极限等价于\n$$\n\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)}{x-1}.\n$$\n步骤3：利用泰勒展开或等价无穷小计算该极限\n\n首先考虑 $x\\to 0$ 时 $\\frac{\\ln(1+x)}{x}$ 的展开式：\n$$\n\\frac{\\ln(1+x)}{x}=1-\\frac{x}{2}+\\frac{x^{2}}{3}-\\frac{x^{3}}{4}+\\cdots.\n$$\n令 $u=\\frac{\\ln(1+x)}{x}-1$，则 $u\\to 0$，且\n$$\nu=-\\frac{x}{2}+\\frac{x^{2}}{3}+O(x^{3}).\n$$\n应用 $\\ln(1+u)\\sim u$（$u\\to 0$）得\n$$\n\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)=\\ln(1+u)\\sim u=-\\frac{x}{2}+O(x^{2}).\n$$\n代入分子：\n$$\n\\ln y(x)\\sim\\frac{-\\dfrac{x}{2}+O(x^{2})}{x-1}.\n$$\n注意分母 $x-1\\to -1$ 为常数，故\n$$\n\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{-\\frac{x}{2}}{-1}=\\lim_{x\\to 0}\\frac{x}{2}=0.\n$$\n步骤4：由对数极限还原原极限\n\n因为 $\\lim_{x\\to 0}\\ln y(x)=0$，由指数函数的连续性得到\n$$\n\\lim_{x\\to 0}y(x)=e^{0}=1.\n$$\n\n## 最终答案\n\n故所求极限为 $1$。\n\n（注：若将题目中的指数误写，常见极限 $\\displaystyle\\lim_{x\\to 0}\\left[\\frac{\\ln(1+x)}{x}\\right]^{1/x}=e^{-1/2}$，与所给答案 $e^{1/2}$ 相差一个符号，本题按原表达式计算极限为 $1$。）",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-27 02:20",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "判断极限类型及可行性分析\n\n原极限为"
+              },
+              {
+                "type": "latex",
+                "content": "L=\\lim_{x\\to 0}\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时，由等价无穷小"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln(1+x)\\sim x"
+              },
+              {
+                "type": "text",
+                "content": "可得"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}\\frac{\\ln(1+x)}{x}=1,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "而指数满足。"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}\\frac{1}{x-1}=-1.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此该极限属于"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)^{g(x)}"
+              },
+              {
+                "type": "text",
+                "content": "型，其中"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)\\to 1"
+              },
+              {
+                "type": "latex",
+                "content": "g(x)\\to -1"
+              },
+              {
+                "type": "text",
+                "content": "由于指数趋于有限常数（非无穷），这不是未定式，可以直接利用幂指函数的连续性求解。但为严谨起见，下面通过取对数方法进行验证。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "取对数转化为函数极限\n\n令"
+              },
+              {
+                "type": "latex",
+                "content": "y(x)=\\left[\\frac{\\ln(1+x)}{x}\\right]^{\\frac{1}{x-1}}>0,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "取自然对数得"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln y(x)=\\frac{1}{x-1}\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是原极限等价于。"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)}{x-1}.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用泰勒展开或等价无穷小计算该极限\n\n首先考虑"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\ln(1+x)}{x}"
+              },
+              {
+                "type": "text",
+                "content": "的展开式："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\ln(1+x)}{x}=1-\\frac{x}{2}+\\frac{x^{2}}{3}-\\frac{x^{3}}{4}+\\cdots.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "u=\\frac{\\ln(1+x)}{x}-1"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "u\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "u=-\\frac{x}{2}+\\frac{x^{2}}{3}+O(x^{3}).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "应用"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln(1+u)\\sim u"
+              },
+              {
+                "type": "latex",
+                "content": "u\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "）得"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln\\!\\left(\\frac{\\ln(1+x)}{x}\\right)=\\ln(1+u)\\sim u=-\\frac{x}{2}+O(x^{2}).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入分子："
+              },
+              {
+                "type": "latex",
+                "content": "\\ln y(x)\\sim\\frac{-\\dfrac{x}{2}+O(x^{2})}{x-1}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "注意分母"
+              },
+              {
+                "type": "latex",
+                "content": "x-1\\to -1"
+              },
+              {
+                "type": "text",
+                "content": "为常数，故"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}\\ln y(x)=\\lim_{x\\to 0}\\frac{-\\frac{x}{2}}{-1}=\\lim_{x\\to 0}\\frac{x}{2}=0.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "由对数极限还原原极限\n\n因为"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}\\ln y(x)=0"
+              },
+              {
+                "type": "text",
+                "content": "由指数函数的连续性得到"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to 0}y(x)=e^{0}=1.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-27 02:20",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

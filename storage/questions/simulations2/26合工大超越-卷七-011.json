@@ -12,12 +12,12 @@
   "tags": [
     "极限求导"
   ],
-  "question": "$11.$ $f(x)=\\lim_{n\\to\\infty} \\frac{x^2}{n}(\\cos\\frac{x}{n}+\\cos\\frac{2x}{n}+\\cdots+\\cos\\frac{nx}{n})$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
+  "question": "$11.$ $f(x)=\\lim\\limits_{n\\to\\infty} \\frac{x^2}{n}(\\cos\\frac{x}{n}+\\cos\\frac{2x}{n}+\\cdots+\\cos\\frac{nx}{n})$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
   "standard_answer": "$0$",
   "source": "import_hegongda_v7",
   "solution_steps": [],
   "options": {},
   "volume": "卷七",
-  "raw_question_text": "$11.$ $f(x)=\\lim_{n\\to\\infty} \\frac{x^2}{n}(\\cos\\frac{x}{n}+\\cos\\frac{2x}{n}+\\cdots+\\cos\\frac{nx}{n})$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
+  "raw_question_text": "$11.$ $f(x)=\\lim\\limits_{n\\to\\infty} \\frac{x^2}{n}(\\cos\\frac{x}{n}+\\cos\\frac{2x}{n}+\\cdots+\\cos\\frac{nx}{n})$，则 $f^{(2026)}(0)=\\underline{\\qquad\\qquad}$",
   "raw_answer_text": "$0$"
 }

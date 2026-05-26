@@ -40,6 +40,18 @@ class TestSolutionRenderable:
         from services.solution_quality import solution_is_renderable
         assert not solution_is_renderable({"standard_answer": r"\frac{} x }{ y }"})
 
+    @pytest.mark.parametrize("bad", [
+        "步骤1：乱码 �A0� 因此最终答案。",
+        r"步骤1：非法矩阵 $\left\begin{array}{cc}1&0\\0&1\end{array}$ 因此最终答案。",
+        r"步骤1：孤立右括号 $\right)$ 因此最终答案。",
+        r"步骤1：三美元 $$$x=1$$$ 因此最终答案。",
+        r"步骤1：空分式 $\frac{}$ 因此最终答案。",
+        r"步骤1：红色残片 \textcolor{red}{x=1} 因此最终答案。",
+    ])
+    def test_new_broken_patterns_not_renderable(self, bad):
+        from services.solution_quality import solution_is_renderable
+        assert not solution_is_renderable({"standard_answer": bad})
+
     def test_clean_solution_is_renderable(self):
         from services.solution_quality import solution_is_renderable
         ans = "步骤1：由凸函数定义可得。" + "详细推导" * 50

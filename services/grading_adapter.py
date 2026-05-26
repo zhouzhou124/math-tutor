@@ -5,10 +5,171 @@ so the renderer, error notebook, and persistence layers see the same shape.
 """
 
 from __future__ import annotations
+import html
+import os
 from typing import Any
 
 # P19-4/P24: increment when canonical solution schema or quality contract changes
 SOLUTION_FORMAT_VERSION = "p24_solution_quality_gate"
+COMPILED_IR_VERSION = "p29_canonical_ir_markdown_v1"
+
+
+def _flag_enabled(name: str, *, default: bool = False) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return str(raw).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _canonical_ir_for_solution(raw: dict[str, Any]) -> dict[str, Any] | None:
+    ir = raw.get("_solution_ir") or raw.get("solution_ir") or raw.get("_canonical_ir")
+    return ir if isinstance(ir, dict) else None
+
+
+def _failed_compiled_report(error: str) -> dict[str, Any]:
+    return {
+        "ok": False,
+        "renderable": False,
+        "complete": False,
+        "detailed": False,
+        "covers_requirements": False,
+        "logically_plausible": False,
+        "issues": [error or "ir_compile_failed"],
+        "should_regenerate": True,
+    }
+
+
+def _compiled_output_fallback_reason(
+    *,
+    compiled: str,
+    compiled_report: dict[str, Any],
+    legacy_text: str,
+) -> str:
+    """Return empty string only when compiled output is safe to use."""
+    compiled_text = str(compiled or "")
+    if not compiled_text.strip():
+        return "compiled_empty"
+    if "$$$" in compiled_text:
+        return "compiled_bad_latex"
+    if "\x00" in compiled_text or "\ufffd" in compiled_text or "\\u0000" in compiled_text:
+        return "compiled_control_chars"
+    if compiled_text.count("$$") % 2 != 0:
+        return "compiled_unpaired_display_math"
+    if not compiled_report.get("renderable"):
+        return "compiled_not_renderable"
+    if not compiled_report.get("complete"):
+        return "compiled_incomplete"
+    if not compiled_report.get("ok"):
+        return "compiled_quality_gate_failed"
+    try:
+        from services.solution_quality import has_broken_latex_fragments
+        if has_broken_latex_fragments(compiled_text):
+            return "compiled_bad_latex"
+    except Exception:
+        return "compiled_bad_latex"
+
+    compiled_len = len(compiled_text.strip())
+    legacy_len = len(str(legacy_text or "").strip())
+    if legacy_len >= 200 and compiled_len < max(120, int(legacy_len * 0.5)):
+        return "compiled_too_short"
+    return ""
+
+
+def _apply_solution_ir_shadow(solution: dict[str, Any]) -> dict[str, Any]:
+    """Compile _solution_ir in shadow mode without affecting the normal path."""
+    s = dict(solution or {})
+    compiled_output_enabled = _flag_enabled("ENABLE_SOLUTION_IR_COMPILED_OUTPUT", default=True)
+    shadow_enabled = _flag_enabled("ENABLE_SOLUTION_IR_SHADOW", default=True) or compiled_output_enabled
+
+    s["ir_shadow_enabled"] = bool(shadow_enabled)
+    s.setdefault("standard_solution_source", "legacy")
+    s.setdefault("_used_compiled_standard_answer", False)
+    if not shadow_enabled:
+        return s
+
+    s.setdefault("ir_compile_ok", False)
+    s.setdefault("ir_compile_error", "")
+    s.setdefault("compiled_renderable", False)
+    s.setdefault("compiled_complete", False)
+    s.setdefault("compiled_markdown_chars", 0)
+    s.setdefault("legacy_markdown_chars", len(str(s.get("standard_answer") or s.get("answer") or "")))
+    s.setdefault("_compiled_fallback_reason", "")
+
+    ir = _canonical_ir_for_solution(s)
+    if not isinstance(ir, dict):
+        s["ir_compile_error"] = "missing_solution_ir"
+        s["_compiled_fallback_reason"] = "missing_solution_ir"
+        s["_compiled_quality_report"] = _failed_compiled_report("missing_solution_ir")
+        return s
+
+    try:
+        import copy
+        from semantic_output import validate_canonical_ir
+        model, errors, _repairs = validate_canonical_ir(copy.deepcopy(ir))
+        if errors or model is None:
+            error = "canonical_ir_invalid:" + ",".join(str(e) for e in errors[:3])
+            s["ir_compile_error"] = error
+            s["_compiled_fallback_reason"] = error
+            s["_compiled_quality_report"] = _failed_compiled_report(error)
+            return s
+
+        from services.solution_markdown_compiler import compile_canonical_ir_to_markdown
+        from services.solution_quality import solution_quality_report
+
+        canonical_dict = model.model_dump()
+        compiled = compile_canonical_ir_to_markdown(canonical_dict)
+        compiled_report = solution_quality_report({"standard_answer": compiled})
+
+        s["_compiled_standard_answer"] = compiled
+        s["_compiled_quality_report"] = compiled_report
+        s["_compiled_from_ir"] = True
+        s["_compiled_ir_version"] = COMPILED_IR_VERSION
+        s["ir_compile_ok"] = bool(compiled_report.get("ok"))
+        s["compiled_renderable"] = bool(compiled_report.get("renderable"))
+        s["compiled_complete"] = bool(compiled_report.get("complete"))
+        s["compiled_markdown_chars"] = len(compiled)
+        legacy_text = str(s.get("standard_answer") or s.get("answer") or "")
+        s["legacy_markdown_chars"] = len(legacy_text)
+        s["ir_compile_error"] = "" if s["ir_compile_ok"] else "compiled_quality_gate_failed"
+
+        fallback_reason = _compiled_output_fallback_reason(
+            compiled=compiled,
+            compiled_report=compiled_report,
+            legacy_text=legacy_text,
+        )
+        s["_compiled_fallback_reason"] = fallback_reason
+        if compiled_output_enabled and not fallback_reason:
+            s["standard_answer"] = compiled
+            s["standard_solution_source"] = "compiled_ir"
+            s["_used_compiled_standard_answer"] = True
+            s["_compiled_fallback_reason"] = ""
+    except Exception as exc:
+        error = f"{type(exc).__name__}: {str(exc)[:120]}"
+        s["ir_compile_error"] = error
+        s["_compiled_fallback_reason"] = error
+        s["_compiled_quality_report"] = _failed_compiled_report(error)
+        s["compiled_markdown_chars"] = 0
+        s["legacy_markdown_chars"] = len(str(s.get("standard_answer") or s.get("answer") or ""))
+    return s
+
+
+def _quarantine_failed_legacy_solution(
+    s: dict[str, Any],
+    *,
+    raw_text: str,
+    report: dict[str, Any],
+) -> dict[str, Any]:
+    """Clear unsafe legacy answer while preserving escaped debug preview."""
+    s["standard_solution_source"] = "failed"
+    s["standard_solution_status"] = "failed"
+    issues = "、".join(str(i) for i in (report.get("issues") or [])[:4]) or "quality_gate_failed"
+    s["standard_solution_error"] = f"标准解答质量门禁未通过：{issues}。"
+    s["_failed_quality_report"] = report
+    s["_failed_raw_preview"] = html.escape(str(raw_text or "")[:500], quote=True)
+    s["standard_answer"] = ""
+    s["_structured"] = None
+    s["steps"] = []
+    return s
 
 
 def normalize_grading_result(raw: dict[str, Any] | None, engine: str = "") -> dict[str, Any]:
@@ -54,18 +215,29 @@ def normalize_grading_result(raw: dict[str, Any] | None, engine: str = "") -> di
 def normalize_standard_solution(raw: dict[str, Any] | None) -> dict[str, Any]:
     """Normalize standard solution dict into a stable contract."""
     raw = dict(raw or {})
-    return {
+    normalized = {
         "success": bool(raw.get("success", True)),
         "standard_answer": raw.get("standard_answer", raw.get("answer", "")),
         "total_score": int(raw.get("total_score", 10)),
         "steps": raw.get("steps") or [],
         "_structured": raw.get("_structured") or None,
         "_canonical_ir": raw.get("_canonical_ir") or None,
+        "_solution_ir": (
+            raw.get("_solution_ir")
+            or raw.get("solution_ir")
+            or raw.get("_canonical_ir")
+            or None
+        ),
         "_ai_unverified": bool(raw.get("_ai_unverified", True)),
         "_ai_consistency_warning": bool(raw.get("_ai_consistency_warning")),
         "_solver_fallback": bool(raw.get("_solver_fallback")),
         "_solution_status": raw.get("_solution_status"),
+        "standard_solution_status": raw.get("standard_solution_status"),
+        "standard_solution_error": raw.get("standard_solution_error", ""),
+        "_quality_report": raw.get("_quality_report"),
+        "_should_regenerate": bool(raw.get("_should_regenerate", False)),
     }
+    return _apply_solution_ir_shadow(normalized)
 
 
 def solution_has_substance(text_or_dict: str | dict[str, Any] | None) -> bool:
@@ -100,6 +272,60 @@ def is_empty_shell(text: str | None) -> bool:
     return found >= 2 and "步骤" not in s and len(s) < 500
 
 
+def _step_body_text(step: dict[str, Any]) -> str:
+    if not isinstance(step, dict):
+        return ""
+    for key in ("body_markdown", "derivation_markdown", "explanation"):
+        value = str(step.get(key) or "").strip()
+        if value:
+            return value
+    parts: list[str] = []
+    for block in step.get("blocks") or []:
+        if isinstance(block, dict) and block.get("content"):
+            parts.append(str(block.get("content")))
+    return "\n\n".join(parts).strip()
+
+
+def _ensure_body_markdown_blocks(structured: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Make body_markdown render first while preserving legacy blocks."""
+    if not isinstance(structured, dict):
+        return structured
+    structured = dict(structured)
+    steps = []
+    for raw_step in structured.get("steps") or []:
+        if not isinstance(raw_step, dict):
+            steps.append(raw_step)
+            continue
+        step = dict(raw_step)
+        body = str(
+            step.get("body_markdown")
+            or step.get("derivation_markdown")
+            or step.get("explanation")
+            or ""
+        ).strip()
+        if body:
+            step.setdefault("body_markdown", body)
+            step.setdefault("derivation_markdown", body)
+            blocks = list(step.get("blocks") or [])
+            body_already_present = any(
+                isinstance(block, dict)
+                and block.get("_source") == "body_markdown"
+                for block in blocks
+            )
+            if not body_already_present:
+                step["blocks"] = [
+                    {
+                        "type": "text",
+                        "content": body,
+                        "display": "inline",
+                        "_source": "body_markdown",
+                    }
+                ] + blocks
+        steps.append(step)
+    structured["steps"] = steps
+    return structured
+
+
 def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, Any]:
     """P19-3: Normalize + quarantine broken LaTeX before rendering."""
     from services.solution_quality import (
@@ -108,17 +334,20 @@ def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, 
     )
     from services.solution_legacy_repair import repair_legacy_solution_text
 
-    s = dict(solution or {})
+    s = _apply_solution_ir_shadow(dict(solution or {}))
     raw_text = str(s.get("standard_answer") or s.get("answer") or "")
     repaired = repair_legacy_solution_text(raw_text)
     s["standard_answer"] = repaired
+    if isinstance(s.get("_structured"), dict):
+        s["_structured"] = _ensure_body_markdown_blocks(s.get("_structured"))
 
     # If raw text is still broken after repair, fail fast
     if repaired and has_broken_latex_fragments(repaired):
-        s["standard_solution_status"] = "failed"
-        s["standard_solution_error"] = "标准解答包含损坏的 LaTeX 片段。"
-        s["_structured"] = None
-        return s
+        report = _failed_compiled_report("not_renderable")
+        report["issues"] = ["not_renderable"]
+        s["_quality_report"] = report
+        s["_should_regenerate"] = True
+        return _quarantine_failed_legacy_solution(s, raw_text=raw_text or repaired, report=report)
 
     # Check existing _structured — drop if broken or empty
     structured = s.get("_structured")
@@ -135,8 +364,11 @@ def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, 
             s["_quality_report"] = report
             s["_should_regenerate"] = bool(report.get("should_regenerate"))
             if not report.get("renderable", False):
-                s["standard_solution_status"] = "failed"
-                s["standard_solution_error"] = "标准解答包含无法稳定渲染的公式。"
+                return _quarantine_failed_legacy_solution(s, raw_text=raw_text or repaired, report=report)
+            elif not report.get("ok", False):
+                s["standard_solution_status"] = "incomplete"
+                issues = "、".join(report.get("issues", [])[:4]) or "quality_gate_failed"
+                s["standard_solution_error"] = f"标准解答生成不完整：{issues}。"
             elif not s.get("standard_solution_status"):
                 s["standard_solution_status"] = "ready"
             return s
@@ -152,6 +384,7 @@ def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, 
         from services.solution_polisher import polish_solution
         structured = from_legacy_text(repaired)
         structured = polish_solution(structured)
+        structured = _ensure_body_markdown_blocks(structured)
 
         if structured_has_broken_latex(structured):
             s["standard_solution_status"] = "failed"
@@ -170,8 +403,11 @@ def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, 
     s["_quality_report"] = report
     s["_should_regenerate"] = bool(report.get("should_regenerate"))
     if not report.get("renderable", False):
-        s["standard_solution_status"] = "failed"
-        s["standard_solution_error"] = "标准解答包含无法稳定渲染的公式。"
+        return _quarantine_failed_legacy_solution(s, raw_text=raw_text or repaired, report=report)
+    elif not report.get("ok", False):
+        s["standard_solution_status"] = "incomplete"
+        issues = "、".join(report.get("issues", [])[:4]) or "quality_gate_failed"
+        s["standard_solution_error"] = f"标准解答生成不完整：{issues}。"
 
     return s
 
@@ -189,6 +425,7 @@ def normalize_canonical_entry(entry: dict[str, Any] | None,
     if entry.get("format_version") != SOLUTION_FORMAT_VERSION:
         entry.pop("structured", None)
         entry.pop("canonical_ir", None)
+        entry.pop("solution_ir", None)
         entry["invalidated_reason"] = "old_solution_format"
         return entry
 
@@ -196,6 +433,7 @@ def normalize_canonical_entry(entry: dict[str, Any] | None,
         "standard_answer": entry.get("standard_answer") or "",
         "_structured": entry.get("structured"),
         "_canonical_ir": entry.get("canonical_ir"),
+        "_solution_ir": entry.get("solution_ir") or entry.get("canonical_ir"),
     }
 
     report = solution_quality_report(solution_like, question)
@@ -203,6 +441,7 @@ def normalize_canonical_entry(entry: dict[str, Any] | None,
     if not report.get("ok", False):
         entry.pop("structured", None)
         entry.pop("canonical_ir", None)
+        entry.pop("solution_ir", None)
         entry["invalidated"] = True
         entry["invalidated_reason"] = "quality_gate_failed"
 

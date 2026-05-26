@@ -64,7 +64,7 @@ def test_choice_solution_must_analyze_options():
 def test_multipart_solution_must_cover_each_subpart():
     from services.solution_quality import solution_quality_report
 
-    q = {"question_type": "解答题", "question": "（1）求极限；（2）证明单调性。"}
+    q = {"question_type": "解答题", "question": "第(1)问 求极限。\n第(2)问 证明单调性。"}
     sol = {
         "standard_answer": (
             "（1）步骤1：先代入等价无穷小进行化简。"

@@ -218,6 +218,64 @@ def test_choice_label_is_not_demoted_as_subquestion_number():
     assert segments[0]["content"] == "(A)"
 
 
+def test_sanitize_repairs_glued_qquad_command():
+    from latex_utils import sanitize_latex_for_render
+
+    fixed = sanitize_latex_for_render(
+        r"\qquadb=\begin{pmatrix}1\\0\end{pmatrix}"
+    )
+    assert r"\qquadb" not in fixed
+    assert r"\qquad b=" in fixed
+
+
+def test_sanitize_repairs_glued_relation_arrow_command():
+    from latex_utils import sanitize_latex_for_render
+
+    fixed = sanitize_latex_for_render(
+        r"\lim_{x\to0}\frac{f(x)}{x}\text{存在}\Rightarrowf(0)=0"
+    )
+    assert r"\Rightarrowf" not in fixed
+    assert r"\Rightarrow f(0)=0" in fixed
+
+
+def test_fragmented_cases_blocks_are_merged_for_render():
+    from latex_utils import _repair_solution_blocks_for_render
+
+    blocks = [
+        {"type": "latex", "display": "block", "content": r"\begin{cases}"},
+        {"type": "text", "content": r"x_2"},
+        {"type": "text", "content": "=1,\\"},
+        {"type": "text", "content": r"x_3"},
+        {"type": "text", "content": "=0,\\"},
+        {"type": "latex", "display": "inline", "content": r"\quad \vdots \ x_n=0, \ 0=0. \end{cases}"},
+        {"type": "text", "content": "写出分量方程组"},
+    ]
+    fixed = _repair_solution_blocks_for_render(blocks)
+
+    assert fixed[0]["type"] == "latex"
+    assert fixed[0]["display"] == "block"
+    assert r"\begin{cases}" in fixed[0]["content"]
+    assert r"\end{cases}" in fixed[0]["content"]
+    assert "x_2" in fixed[0]["content"]
+    assert fixed[0]["content"].count(r"\\") >= 3
+    assert any(b["type"] == "text" and "写出分量方程组" in b["content"] for b in fixed)
+
+
+def test_standalone_ascii_math_text_is_promoted_for_render():
+    from latex_utils import _repair_solution_blocks_for_render
+
+    fixed = _repair_solution_blocks_for_render([
+        {"type": "text", "content": "D_n=2a"},
+        {"type": "text", "content": r"x1=k(k \in R)"},
+    ])
+
+    assert fixed[0]["type"] == "latex"
+    assert fixed[0]["content"] == "D_n=2a"
+    assert fixed[1]["type"] == "latex"
+    assert r"x_1=k" in fixed[1]["content"]
+    assert r"\mathbb{R}" in fixed[1]["content"]
+
+
 # ═══════════════════════════════════════════════
 # Group 8: P1 structural fixes
 # ═══════════════════════════════════════════════
@@ -366,6 +424,10 @@ if __name__ == "__main__":
         test_existing_display_math_not_rewrapped,
         test_subquestion_number_before_formula_renders_stably,
         test_choice_label_is_not_demoted_as_subquestion_number,
+        test_sanitize_repairs_glued_qquad_command,
+        test_sanitize_repairs_glued_relation_arrow_command,
+        test_fragmented_cases_blocks_are_merged_for_render,
+        test_standalone_ascii_math_text_is_promoted_for_render,
         test_latex_protector_nested_calls_do_not_overwrite_mapping,
         test_grading_service_raises_without_agent,
         test_tagged_equation_forces_display_math,
@@ -423,3 +485,170 @@ def test_inline_math_after_display_math():
     has_display = any(s["type"] == "display_math" for s in segs)
     has_inline = any(s["type"] == "inline_math" and "x" in s["content"] for s in segs)
     assert has_display and has_inline, f"display={has_display} inline={has_inline}"
+
+
+def test_cjk_line_with_multiple_inline_math_stays_inline():
+    """CJK text with multiple $...$ segments must ALL be inline_math, no display."""
+    from latex_utils import split_latex_text
+    text = r"其中 $\theta$ 为大于 $0$ 的参数，$(X_1,Y_1),\dots,(X_n,Y_n)$ 是简单随机样本."
+    segs = split_latex_text(text)
+    types = {s["type"] for s in segs}
+    assert "display_math" not in types, f"CJK+inline must not produce display_math: {types}"
+    inline_count = sum(1 for s in segs if s["type"] == "inline_math")
+    assert inline_count >= 3, f"Expected >=3 inline_math, got {inline_count}: {segs}"
+
+
+def test_display_math_followed_by_cjk_inline():
+    """$$display$$ followed by CJK + $inline$ must keep inline as inline."""
+    from latex_utils import split_latex_text
+    text = r"$$\int_0^1 f(x)dx = 1$$ 其中 $\theta$ 为大于 $0$ 的参数。"
+    segs = split_latex_text(text)
+    display_count = sum(1 for s in segs if s["type"] == "display_math")
+    inline_count = sum(1 for s in segs if s["type"] == "inline_math")
+    assert display_count == 1
+    assert inline_count >= 2, f"Expected >=2 inline after display, got {inline_count}: {segs}"
+
+
+def test_subquestion_number_not_display_math():
+    """$(1)$ and $(2)$ are sub-question markers, must not become st.latex blocks."""
+    from latex_utils import _looks_like_standalone_math
+    assert not _looks_like_standalone_math("$(1)$")
+    assert not _looks_like_standalone_math("$(2)$")
+
+
+def test_looks_like_standalone_rejects_cjk():
+    """Any line with Chinese characters must never be standalone display math."""
+    from latex_utils import _looks_like_standalone_math
+    assert not _looks_like_standalone_math(r"其中 $\theta$ 是参数")
+    assert not _looks_like_standalone_math(r"已知 $x=1$, $y=2$, 求 $z$")
+
+
+# ═══════════════════════════════════════════════
+#  Real-path integration tests — mock st.latex / st.markdown
+# ═══════════════════════════════════════════════
+
+def test_edit_preview_path_cjk_never_calls_st_latex(monkeypatch):
+    """CJK + multiple inline $...$ in edit preview must never call st.latex."""
+    latex_calls = []
+    markdown_calls = []
+
+    import streamlit as st
+    monkeypatch.setattr(st, "latex", lambda *a, **kw: latex_calls.append(a))
+    monkeypatch.setattr(st, "markdown", lambda *a, **kw: markdown_calls.append(a))
+    monkeypatch.setattr(st, "text", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "caption", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "container", lambda **kw: _FakeCtx())
+    monkeypatch.setattr(st, "columns", lambda n, **kw: [_FakeCtx() for _ in range(n)])
+    # suppress CSS injection
+    monkeypatch.setattr(st, "session_state", {})
+
+    from exam_parser.simple_parser import parse_latex_question
+    from question_ast import parse_legacy
+    from renderers.question_renderer import render_generic_question
+
+    raw = r"其中 $\lambda>0$ 未知，$X_1,\dots,X_n$ 为样本. $(1)$ 求 $\lambda$ 的矩估计量; $(2)$ 求 $\lambda$ 的最大似然估计量."
+    parsed = parse_latex_question(raw)
+    q = {"question_id": "t"}
+    q.update(parsed)
+    ast = parse_legacy(q)
+    render_generic_question(ast)
+
+    assert len(latex_calls) == 0, (
+        f"st.latex must not be called for CJK+inline text: {latex_calls}"
+    )
+    # At least one markdown call must contain the inline math
+    all_md = " ".join(str(c) for c in markdown_calls)
+    assert r"\lambda" in all_md, f"Inline math must appear in markdown output: {all_md[:200]}"
+
+
+def test_edit_preview_display_math_followed_by_cjk(monkeypatch):
+    """$$...$$ followed by CJK+inline must not call st.latex for the CJK part."""
+    latex_calls = []
+
+    import streamlit as st
+    monkeypatch.setattr(st, "latex", lambda *a, **kw: latex_calls.append(a))
+    monkeypatch.setattr(st, "markdown", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "text", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "caption", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "container", lambda **kw: _FakeCtx())
+    monkeypatch.setattr(st, "columns", lambda n, **kw: [_FakeCtx() for _ in range(n)])
+    monkeypatch.setattr(st, "session_state", {})
+
+    from exam_parser.simple_parser import parse_latex_question
+    from question_ast import parse_legacy
+    from renderers.question_renderer import render_generic_question
+
+    raw = r"$$\int_0^1 f(x)dx = 1$$ 其中 $\theta$ 为大于 $0$ 的参数。"
+    parsed = parse_latex_question(raw)
+    q = {"question_id": "t"}
+    q.update(parsed)
+    ast = parse_legacy(q)
+    render_generic_question(ast)
+
+    # Only 1 st.latex call allowed (the display math), NOT the CJK inline part
+    assert len(latex_calls) <= 1, (
+        f"At most 1 st.latex for display math, got {len(latex_calls)}: {latex_calls}"
+    )
+
+
+class _FakeCtx:
+    def __enter__(self): return self
+    def __exit__(self, *a): pass
+
+
+def test_sub_question_markers_normalized_to_plain(monkeypatch):
+    """$(1)$ and $(2)$ must be converted to (1)(2), not treated as inline math."""
+    markdown_calls = []
+
+    import streamlit as st
+    monkeypatch.setattr(st, "markdown", lambda *a, **kw: markdown_calls.append(a))
+    monkeypatch.setattr(st, "latex", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "text", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "caption", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "container", lambda **kw: _FakeCtx())
+    monkeypatch.setattr(st, "columns", lambda n, **kw: [_FakeCtx() for _ in range(n)])
+    monkeypatch.setattr(st, "session_state", {})
+
+    from exam_parser.simple_parser import parse_latex_question
+    from question_ast import parse_legacy
+    from renderers.question_renderer import render_generic_question
+
+    raw = r"$(1)$ 求 $\theta$ 的矩估计量; $(2)$ 求 $\theta$ 的最大似然估计量."
+    parsed = parse_latex_question(raw)
+    q = {"question_id": "t"}
+    q.update(parsed)
+    ast = parse_legacy(q)
+    render_generic_question(ast)
+
+    all_md = " ".join(str(c) for c in markdown_calls)
+    # $(1)$ must be normalized to (1), not kept as math
+    assert "$(1)$" not in all_md, f"$(1)$ must be normalized away: {all_md[:200]}"
+    assert "(1)" in all_md, f"Plain (1) must appear: {all_md[:200]}"
+
+
+def test_no_triple_dollars_in_output(monkeypatch):
+    """Display math + inline math must never produce $$$ in output."""
+    all_output = []
+
+    import streamlit as st
+    monkeypatch.setattr(st, "markdown", lambda *a, **kw: all_output.append(str(a)))
+    monkeypatch.setattr(st, "latex", lambda *a, **kw: all_output.append(str(a)))
+    monkeypatch.setattr(st, "text", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "caption", lambda *a, **kw: None)
+    monkeypatch.setattr(st, "container", lambda **kw: _FakeCtx())
+    monkeypatch.setattr(st, "columns", lambda n, **kw: [_FakeCtx() for _ in range(n)])
+    monkeypatch.setattr(st, "session_state", {})
+
+    from exam_parser.simple_parser import parse_latex_question
+    from question_ast import parse_legacy
+    from renderers.question_renderer import render_generic_question
+
+    raw = r"密度为 $$f(x)=\begin{cases}x&0<x<1\\0&其他\end{cases}$$ 其中 $x$ 是变量."
+    parsed = parse_latex_question(raw)
+    q = {"question_id": "t"}
+    q.update(parsed)
+    ast = parse_legacy(q)
+    render_generic_question(ast)
+
+    combined = " ".join(all_output)
+    assert "$$$" not in combined, f"Triple dollars found: {combined[:300]}"

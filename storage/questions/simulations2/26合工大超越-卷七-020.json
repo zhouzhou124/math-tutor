@@ -13,12 +13,432 @@
     "积分不等式"
   ],
   "question": "(本题满分12分)\n$(1)$ 设 $f(x),g(x)$ 在 $[a,b]$ 上连续，证明 $\\left(\\int_a^b f(x)g(x)dx\\right)^2 \\le \\int_a^b f^2(x)dx \\int_a^b g^2(x)dx$；\n$(2)$ 是否存在 $[0,1]$ 上连续的正函数 $f(x)$，使 $\\int_0^1 f(x)dx=1$，$\\int_0^1 xf(x)dx=a$，$\\int_0^1 x^2 f(x)dx=a^2$ 成立，其中 $a$ 为常数。说明理由。",
-  "standard_answer": "(I) 证明略\\n(II) 不存在",
+  "standard_answer": "步骤1：构造非负二次型证明积分形式的柯西‑施瓦茨不等式 \n考虑实参数 $t$，令 \n$$\nF(t)=\\int_a^b\\bigl[f(x)+tg(x)\\bigr]^2\\,\\mathrm{d}x .\n$$\n由于被积函数 $[f(x)+tg(x)]^2\\ge0$，故对所有 $t\\in\\mathbb{R}$ 有 $F(t)\\ge0$。 \n展开被积函数：\n$$\n\\begin{aligned}\nF(t)&=\\int_a^b\\Bigl[f^2(x)+2tf(x)g(x)+t^2g^2(x)\\Bigr]\\mathrm{d}x \\\\[2mm]\n&=\\int_a^b f^2(x)\\,\\mathrm{d}x+2t\\int_a^b f(x)g(x)\\,\\mathrm{d}x+t^2\\int_a^b g^2(x)\\,\\mathrm{d}x .\n\\end{aligned}\n$$\n若 $\\int_a^b g^2(x)\\,\\mathrm{d}x=0$，由 $g$ 连续知 $g(x)\\equiv0$，则 $\\int_a^b f(x)g(x)\\,\\mathrm{d}x=0$，不等式显然成立。 \n若 $\\int_a^b g^2(x)\\,\\mathrm{d}x>0$，则 $F(t)$ 是 $t$ 的二次函数且开口向上。$F(t)\\ge0$ 要求其判别式 $\\Delta\\le0$：\n$$\n\\Delta = \\Bigl(2\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\Bigr)^2 - 4\\Bigl(\\int_a^b f^2(x)\\,\\mathrm{d}x\\Bigr)\\Bigl(\\int_a^b g^2(x)\\,\\mathrm{d}x\\Bigr) \\le 0 .\n$$\n整理即得 \n$$\n\\left(\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_a^b f^2(x)\\,\\mathrm{d}x \\int_a^b g^2(x)\\,\\mathrm{d}x .\n$$\n证毕。\n步骤2：假设存在满足条件的正函数并构造用于不等式的函数对\n假设在 $[0,1]$ 上存在连续的正函数 $f(x)$，满足 \n$$\n\\int_0^1 f(x)\\,\\mathrm{d}x = 1,\\quad \\int_0^1 x f(x)\\,\\mathrm{d}x = a,\\quad \\int_0^1 x^2 f(x)\\,\\mathrm{d}x = a^2 .\n$$\n因为 $f(x)>0$，可定义 \n$$\nu(x)=\\sqrt{f(x)},\\qquad v(x)=x\\sqrt{f(x)} .\n$$\n由 $f$ 连续知 $u(x),v(x)$ 在 $[0,1]$ 上连续。\n步骤3：应用第(1)问的不等式并代入已知条件\n对 $u(x),v(x)$ 使用 (1) 中已证明的积分不等式：\n$$\n\\left(\\int_0^1 u(x)v(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 u^2(x)\\,\\mathrm{d}x \\int_0^1 v^2(x)\\,\\mathrm{d}x .\n$$\n计算各积分：\n$$\nu(x)v(x)=x f(x),\\quad u^2(x)=f(x),\\quad v^2(x)=x^2 f(x).\n$$\n因此 \n$$\n\\left(\\int_0^1 x f(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 f(x)\\,\\mathrm{d}x \\int_0^1 x^2 f(x)\\,\\mathrm{d}x .\n$$\n代入已知条件 $\\int_0^1 f=1,\\;\\int_0^1 xf = a,\\;\\int_0^1 x^2 f = a^2$，得到 \n$$\na^2 \\le 1 \\cdot a^2 = a^2 .\n$$\n这表明不等式必须取等号。\n步骤4：利用柯西‑施瓦茨不等式的取等条件导出矛盾\n积分形式的柯西‑施瓦茨不等式取等号的充要条件是：存在常数 $\\lambda$，使得两个函数几乎处处成比例。 \n具体到本题，存在常数 $k$ 使得对几乎所有 $x\\in[0,1]$ 有 \n$$\nv(x)=k\\,u(x) \\quad\\text{即}\\quad x\\sqrt{f(x)} = k\\sqrt{f(x)} .\n$$\n因为 $f(x)>0$，可约去 $\\sqrt{f(x)}$，得到 $x = k$ 几乎处处成立。但 $x$ 在 $[0,1]$ 上变化，不可能恒等于同一个常数 $k$。矛盾。 \n因此，不存在满足条件的连续正函数 $f(x)$。\n\n## 最终答案\n(1) 证明见步骤1，不等式对任意在 $[a,b]$ 上连续的函数 $f,g$ 成立。 \n(2) 不存在 $[0,1]$ 上连续的正函数 $f(x)$ 同时满足 $\\int_0^1 f=1$，$\\int_0^1 xf=a$，$\\int_0^1 x^2 f=a^2$。",
   "source": "import_hegongda_v7",
   "solution_steps": [],
   "options": {},
   "volume": "卷七",
   "__cached_at__": 1779502378.1990316,
   "raw_question_text": "(本题满分12分)\n$(1)$ 设 $f(x),g(x)$ 在 $[a,b]$ 上连续，证明 $\\left(\\int_a^b f(x)g(x)dx\\right)^2 \\le \\int_a^b f^2(x)dx \\int_a^b g^2(x)dx$；\n$(2)$ 是否存在 $[0,1]$ 上连续的正函数 $f(x)$，使 $\\int_0^1 f(x)dx=1$，$\\int_0^1 xf(x)dx=a$，$\\int_0^1 x^2 f(x)dx=a^2$ 成立，其中 $a$ 为常数。说明理由。",
-  "raw_answer_text": "(I) 证明略\\n(II) 不存在"
+  "raw_answer_text": "(I) 证明略\\n(II) 不存在",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1779808188",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：构造非负二次型证明积分形式的柯西‑施瓦茨不等式 \n考虑实参数 $t$，令 \n$$\nF(t)=\\int_a^b\\bigl[f(x)+tg(x)\\bigr]^2\\,\\mathrm{d}x .\n$$\n由于被积函数 $[f(x)+tg(x)]^2\\ge0$，故对所有 $t\\in\\mathbb{R}$ 有 $F(t)\\ge0$。 \n展开被积函数：\n$$\n\\begin{aligned}\nF(t)&=\\int_a^b\\Bigl[f^2(x)+2tf(x)g(x)+t^2g^2(x)\\Bigr]\\mathrm{d}x \\\\[2mm]\n&=\\int_a^b f^2(x)\\,\\mathrm{d}x+2t\\int_a^b f(x)g(x)\\,\\mathrm{d}x+t^2\\int_a^b g^2(x)\\,\\mathrm{d}x .\n\\end{aligned}\n$$\n若 $\\int_a^b g^2(x)\\,\\mathrm{d}x=0$，由 $g$ 连续知 $g(x)\\equiv0$，则 $\\int_a^b f(x)g(x)\\,\\mathrm{d}x=0$，不等式显然成立。 \n若 $\\int_a^b g^2(x)\\,\\mathrm{d}x>0$，则 $F(t)$ 是 $t$ 的二次函数且开口向上。$F(t)\\ge0$ 要求其判别式 $\\Delta\\le0$：\n$$\n\\Delta = \\Bigl(2\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\Bigr)^2 - 4\\Bigl(\\int_a^b f^2(x)\\,\\mathrm{d}x\\Bigr)\\Bigl(\\int_a^b g^2(x)\\,\\mathrm{d}x\\Bigr) \\le 0 .\n$$\n整理即得 \n$$\n\\left(\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_a^b f^2(x)\\,\\mathrm{d}x \\int_a^b g^2(x)\\,\\mathrm{d}x .\n$$\n证毕。\n步骤2：假设存在满足条件的正函数并构造用于不等式的函数对\n假设在 $[0,1]$ 上存在连续的正函数 $f(x)$，满足 \n$$\n\\int_0^1 f(x)\\,\\mathrm{d}x = 1,\\quad \\int_0^1 x f(x)\\,\\mathrm{d}x = a,\\quad \\int_0^1 x^2 f(x)\\,\\mathrm{d}x = a^2 .\n$$\n因为 $f(x)>0$，可定义 \n$$\nu(x)=\\sqrt{f(x)},\\qquad v(x)=x\\sqrt{f(x)} .\n$$\n由 $f$ 连续知 $u(x),v(x)$ 在 $[0,1]$ 上连续。\n步骤3：应用第(1)问的不等式并代入已知条件\n对 $u(x),v(x)$ 使用 (1) 中已证明的积分不等式：\n$$\n\\left(\\int_0^1 u(x)v(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 u^2(x)\\,\\mathrm{d}x \\int_0^1 v^2(x)\\,\\mathrm{d}x .\n$$\n计算各积分：\n$$\nu(x)v(x)=x f(x),\\quad u^2(x)=f(x),\\quad v^2(x)=x^2 f(x).\n$$\n因此 \n$$\n\\left(\\int_0^1 x f(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 f(x)\\,\\mathrm{d}x \\int_0^1 x^2 f(x)\\,\\mathrm{d}x .\n$$\n代入已知条件 $\\int_0^1 f=1,\\;\\int_0^1 xf = a,\\;\\int_0^1 x^2 f = a^2$，得到 \n$$\na^2 \\le 1 \\cdot a^2 = a^2 .\n$$\n这表明不等式必须取等号。\n步骤4：利用柯西‑施瓦茨不等式的取等条件导出矛盾\n积分形式的柯西‑施瓦茨不等式取等号的充要条件是：存在常数 $\\lambda$，使得两个函数几乎处处成比例。 \n具体到本题，存在常数 $k$ 使得对几乎所有 $x\\in[0,1]$ 有 \n$$\nv(x)=k\\,u(x) \\quad\\text{即}\\quad x\\sqrt{f(x)} = k\\sqrt{f(x)} .\n$$\n因为 $f(x)>0$，可约去 $\\sqrt{f(x)}$，得到 $x = k$ 几乎处处成立。但 $x$ 在 $[0,1]$ 上变化，不可能恒等于同一个常数 $k$。矛盾。 \n因此，不存在满足条件的连续正函数 $f(x)$。\n\n## 最终答案\n(1) 证明见步骤1，不等式对任意在 $[a,b]$ 上连续的函数 $f,g$ 成立。 \n(2) 不存在 $[0,1]$ 上连续的正函数 $f(x)$ 同时满足 $\\int_0^1 f=1$，$\\int_0^1 xf=a$，$\\int_0^1 x^2 f=a^2$。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-26 23:09",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "构造非负二次型证明积分形式的柯西‑施瓦茨不等式 \n考虑实参数"
+              },
+              {
+                "type": "latex",
+                "content": "t"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "F(t)=\\int_a^b\\bigl[f(x)+tg(x)\\bigr]^2\\,\\mathrm{d}x .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于被积函数"
+              },
+              {
+                "type": "latex",
+                "content": "[f(x)+tg(x)]^2\\ge0"
+              },
+              {
+                "type": "text",
+                "content": "故对所有"
+              },
+              {
+                "type": "latex",
+                "content": "t\\in\\mathbb{R}"
+              },
+              {
+                "type": "text",
+                "content": "有"
+              },
+              {
+                "type": "latex",
+                "content": "F(t)\\ge0"
+              },
+              {
+                "type": "text",
+                "content": "展开被积函数："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}F(t)&=\\int_a^b\\Bigl[f^2(x)+2tf(x)g(x)+t^2g^2(x)\\Bigr]\\mathrm{d}x \\[2mm]\n&=\\int_a^b f^2(x)\\,\\mathrm{d}x+2t\\int_a^b f(x)g(x)\\,\\mathrm{d}x+t^2\\int_a^b g^2(x)\\,\\mathrm{d}x .\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "若"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_a^b g^2(x)\\,\\mathrm{d}x=0"
+              },
+              {
+                "type": "text",
+                "content": "由"
+              },
+              {
+                "type": "latex",
+                "content": "g"
+              },
+              {
+                "type": "text",
+                "content": "连续知"
+              },
+              {
+                "type": "latex",
+                "content": "g(x)\\equiv0"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_a^b f(x)g(x)\\,\\mathrm{d}x=0"
+              },
+              {
+                "type": "text",
+                "content": "不等式显然成立。 \n若"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_a^b g^2(x)\\,\\mathrm{d}x>0"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "F(t)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "t"
+              },
+              {
+                "type": "text",
+                "content": "的二次函数且开口向上。"
+              },
+              {
+                "type": "latex",
+                "content": "F(t)\\ge0"
+              },
+              {
+                "type": "text",
+                "content": "要求其判别式"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta\\le0"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta = \\Bigl(2\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\Bigr)^2 - 4\\Bigl(\\int_a^b f^2(x)\\,\\mathrm{d}x\\Bigr)\\Bigl(\\int_a^b g^2(x)\\,\\mathrm{d}x\\Bigr) \\le 0 .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "整理即得"
+              },
+              {
+                "type": "latex",
+                "content": "\\left(\\int_a^b f(x)g(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_a^b f^2(x)\\,\\mathrm{d}x \\int_a^b g^2(x)\\,\\mathrm{d}x .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "证毕。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "假设存在满足条件的正函数并构造用于不等式的函数对\n假设在"
+              },
+              {
+                "type": "latex",
+                "content": "[0,1]"
+              },
+              {
+                "type": "text",
+                "content": "上存在连续的正函数"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "满足"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 f(x)\\,\\mathrm{d}x = 1,\\quad \\int_0^1 x f(x)\\,\\mathrm{d}x = a,\\quad \\int_0^1 x^2 f(x)\\,\\mathrm{d}x = a^2 .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因为"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)>0"
+              },
+              {
+                "type": "text",
+                "content": "可定义"
+              },
+              {
+                "type": "latex",
+                "content": "u(x)=\\sqrt{f(x)},\\qquad v(x)=x\\sqrt{f(x)} .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由"
+              },
+              {
+                "type": "latex",
+                "content": "f"
+              },
+              {
+                "type": "text",
+                "content": "连续知"
+              },
+              {
+                "type": "latex",
+                "content": "u(x),v(x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "[0,1]"
+              },
+              {
+                "type": "text",
+                "content": "上连续。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "应用第(1)问的不等式并代入已知条件\n对"
+              },
+              {
+                "type": "latex",
+                "content": "u(x),v(x)"
+              },
+              {
+                "type": "text",
+                "content": "使用 (1) 中已证明的积分不等式："
+              },
+              {
+                "type": "latex",
+                "content": "\\left(\\int_0^1 u(x)v(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 u^2(x)\\,\\mathrm{d}x \\int_0^1 v^2(x)\\,\\mathrm{d}x .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "计算各积分："
+              },
+              {
+                "type": "latex",
+                "content": "u(x)v(x)=x f(x),\\quad u^2(x)=f(x),\\quad v^2(x)=x^2 f(x).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\left(\\int_0^1 x f(x)\\,\\mathrm{d}x\\right)^2 \\le \\int_0^1 f(x)\\,\\mathrm{d}x \\int_0^1 x^2 f(x)\\,\\mathrm{d}x .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入已知条件"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 f=1,\\;\\int_0^1 xf = a,\\;\\int_0^1 x^2 f = a^2"
+              },
+              {
+                "type": "text",
+                "content": "得到"
+              },
+              {
+                "type": "latex",
+                "content": "a^2 \\le 1 \\cdot a^2 = a^2 .",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "这表明不等式必须取等号。"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用柯西‑施瓦茨不等式的取等条件导出矛盾\n积分形式的柯西‑施瓦茨不等式取等号的充要条件是：存在常数"
+              },
+              {
+                "type": "latex",
+                "content": "\\lambda"
+              },
+              {
+                "type": "text",
+                "content": "使得两个函数几乎处处成比例。 \n具体到本题，存在常数"
+              },
+              {
+                "type": "latex",
+                "content": "k"
+              },
+              {
+                "type": "text",
+                "content": "使得对几乎所有"
+              },
+              {
+                "type": "latex",
+                "content": "x\\in[0,1]"
+              },
+              {
+                "type": "text",
+                "content": "有"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "v(x)=k\\, u(x) \\quad"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\quad x\\sqrt{f(x)} = k\\sqrt{f(x)} ."
+              },
+              {
+                "type": "text",
+                "content": "因为"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)>0"
+              },
+              {
+                "type": "text",
+                "content": "可约去"
+              },
+              {
+                "type": "latex",
+                "content": "\\sqrt{f(x)}"
+              },
+              {
+                "type": "text",
+                "content": "得到"
+              },
+              {
+                "type": "latex",
+                "content": "x = k"
+              },
+              {
+                "type": "text",
+                "content": "几乎处处成立。但"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "[0,1]"
+              },
+              {
+                "type": "text",
+                "content": "上变化，不可能恒等于同一个常数"
+              },
+              {
+                "type": "latex",
+                "content": "k"
+              },
+              {
+                "type": "text",
+                "content": "矛盾。 \n因此，不存在满足条件的连续正函数"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-26 23:09",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

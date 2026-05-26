@@ -14,13 +14,12 @@
     "多维随机变量",
     "条件分布"
   ],
-  "question": "(本题满分12分) 设二维随机变量 $(X,Y)$ 的联合概率密度为 $$$f(x,y) = \\begin{cases} Axy, & 0<y<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$$\n$(1)$ 求常数 $A$；\n$(2)$ 在 $0<X<\\frac{1}{2}$ 的条件下，求 $Y$ 的条件密度函数.",
+  "question": "(本题满分12分) 设二维随机变量 $(X,Y)$ 的联合概率密度为 $$f(x,y) = \\begin{cases} Axy, & 0<y<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$\n$(1)$ 求常数 $A$；\n$(2)$ 在 $0<X<\\frac{1}{2}$ 的条件下，求 $Y$ 的条件密度函数.",
   "standard_answer": "(I) $A = 8$\\n(II) $f_{Y|X}(y|x) = \\frac{2y}{x^2}$，$0<y<x$",
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
-  "__cached_at__": 1779466026.039847,
-  "raw_question_text": "(本题满分12分) 设二维随机变量 $(X,Y)$ 的联合概率密度为 $$$f(x,y) = \\begin{cases} Axy, & 0<y<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$$\n$(1)$ 求常数 $A$；\n$(2)$ 在 $0<X<\\frac{1}{2}$ 的条件下，求 $Y$ 的条件密度函数.",
+  "raw_question_text": "(本题满分12分) 设二维随机变量 $(X,Y)$ 的联合概率密度为 $$f(x,y) = \\begin{cases} Axy, & 0<y<x<1 \\\\ 0, & \\text{其他} \\end{cases}$$\n$(1)$ 求常数 $A$；\n$(2)$ 在 $0<X<\\frac{1}{2}$ 的条件下，求 $Y$ 的条件密度函数.",
   "raw_answer_text": "(I) $A = 8$\\n(II) $f_{Y|X}(y|x) = \\frac{2y}{x^2}$，$0<y<x$"
 }
