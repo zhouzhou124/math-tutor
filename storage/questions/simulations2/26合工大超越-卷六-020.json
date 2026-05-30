@@ -12,13 +12,12 @@
   "tags": [
     "中值定理"
   ],
-  "question": "(本题满分12分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上非负可导，$f(0)=2$，$f(1)=0$，且 $\\lim_{x\\to+\\infty} f'(x)=1$.\n$(1)$ 证明存在 $c\\in(0,+\\infty)$ 有 $f(c)=2$；\n$(2)$ 证明存在 $\\xi\\in(0,+\\infty)$ 有 $f'(\\xi)+f^2(\\xi)=4$.",
+  "question": "(本题满分12分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上非负可导，$f(0)=2$，$f(1)=0$，且 $\\lim\\limits_{x\\to+\\infty} f'(x)=1$.\n$(1)$ 证明存在 $c\\in(0,+\\infty)$ 有 $f(c)=2$；\n$(2)$ 证明存在 $\\xi\\in(0,+\\infty)$ 有 $f'(\\xi)+f^2(\\xi)=4$.",
   "standard_answer": "证明略",
   "source": "import_hegongda_v6",
   "solution_steps": [],
   "options": {},
   "volume": "卷六",
-  "__cached_at__": 1779502981.3480568,
-  "raw_question_text": "(本题满分12分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上非负可导，$f(0)=2$，$f(1)=0$，且 $\\lim_{x\\to+\\infty} f'(x)=1$.\n$(1)$ 证明存在 $c\\in(0,+\\infty)$ 有 $f(c)=2$；\n$(2)$ 证明存在 $\\xi\\in(0,+\\infty)$ 有 $f'(\\xi)+f^2(\\xi)=4$.",
+  "raw_question_text": "(本题满分12分) 设函数 $f(x)$ 在 $[0,+\\infty)$ 上非负可导，$f(0)=2$，$f(1)=0$，且 $\\lim\\limits_{x\\to+\\infty} f'(x)=1$.\n$(1)$ 证明存在 $c\\in(0,+\\infty)$ 有 $f(c)=2$；\n$(2)$ 证明存在 $\\xi\\in(0,+\\infty)$ 有 $f'(\\xi)+f^2(\\xi)=4$.",
   "raw_answer_text": "证明略"
 }

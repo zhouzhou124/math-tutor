@@ -13,6 +13,17 @@ from repository import (
 from repository.models import GradingResult, DiagnosisResult
 
 
+def _get_question_type_for_record(question: dict | None = None, grading_result: dict | None = None) -> str:
+    """P39: Extract real question_type from question/result/payload. Never hardcode."""
+    for source in (question, grading_result):
+        if isinstance(source, dict):
+            for key in ("question_type", "type"):
+                val = source.get(key)
+                if val and isinstance(val, str) and val.strip():
+                    return val.strip()
+    return "未知题型"
+
+
 class GradingService:
     """批改服务 - 处理作业批改和错误诊断"""
 
@@ -52,12 +63,13 @@ class GradingService:
 
         return result
     
-    def _record_error(self, user_id: str, question_id: str, 
-                      student_answer: str, score: int, max_score: int):
+    def _record_error(self, user_id: str, question_id: str,
+                      student_answer: str, score: int, max_score: int,
+                      question: dict | None = None, grading_result: dict | None = None):
         """记录错题"""
         record_data = {
             "question_id": question_id,
-            "question_type": "解答题",  # 应该从题库获取
+            "question_type": _get_question_type_for_record(question, grading_result),
             "knowledge_point": "未知知识点",  # 应该从题库获取
             "error_type": "计算错误",  # 应该由诊断服务确定
             "difficulty": "中等",

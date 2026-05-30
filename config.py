@@ -31,7 +31,7 @@ CREDENTIAL_STORE_PATH = os.path.join(
 KEY_ROTATION_DAYS = int(os.getenv("KEY_ROTATION_DAYS", "15"))
 
 # 考研数学类别
-MATH_TYPES = ["数学一", "数学二", "数学三", "26宇哥八套卷", "26合工大超越"]
+MATH_TYPES = ["数学一", "26宇哥八套卷", "26合工大超越"]
 
 # 学科
 SUBJECTS = ["高等数学", "线性代数", "概率论与数理统计"]
@@ -92,6 +92,94 @@ SCORING_WEIGHTS = {
     "选择题": {"answer_match": 1.0},
     "填空题": {"answer_match": 1.0},
 }
+
+# P39: 填空题 quick_compare 置信度阈值，低于此值降级 LLM
+FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD = 0.9
+
+
+def should_escalate_fill_to_llm(compare_result: dict, threshold: float | None = None) -> bool:
+    """P39: 统一填空题 confidence 降级判断。
+
+    Args:
+        compare_result: result from symbolic_executor.quick_compare()
+        threshold: confidence threshold (default: FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD)
+
+    Returns:
+        True if should escalate to LLM grading.
+    """
+    if threshold is None:
+        threshold = FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD
+
+    confidence = compare_result.get("confidence")
+    status = compare_result.get("status", "")
+    # Use explicit key check to avoid `False or other_value` pitfall
+    if "ok" in compare_result:
+        ok = compare_result["ok"]
+    elif "equivalent" in compare_result:
+        ok = compare_result["equivalent"]
+    else:
+        ok = None
+
+    # Explicit match with high confidence → no escalation
+    if ok is True and confidence is not None and confidence >= threshold:
+        return False
+
+    # Explicit non-match → always escalate for LLM verification
+    if ok is False:
+        return True
+
+    # Low confidence → escalate
+    if confidence is not None and confidence < threshold:
+        return True
+
+    # Unknown/ambiguous status → escalate
+    if status in ("unknown", "ambiguous", "needs_review"):
+        return True
+
+    # Default: don't escalate
+    return False
+
+
+def get_scoring_weights(question_type: str) -> dict:
+    """P39: 统一评分权重。从 config 读取，未配置题型返回默认值。
+
+    Returns dict with keys: correctness, process, format (三维度).
+    """
+    _DEFAULT = {"correctness": 50, "process": 30, "format": 20}
+    raw = SCORING_WEIGHTS.get(question_type)
+    if not raw:
+        return dict(_DEFAULT)
+    # 映射到三维度: correctness / process / format
+    if question_type == "解答题":
+        return {"correctness": 50, "process": 30, "format": 20}
+    if question_type == "证明题":
+        return {"correctness": 40, "process": 40, "format": 20}
+    # 选择题/填空题: 全部归入 correctness
+    return {"correctness": 100, "process": 0, "format": 0}
+
+
+def is_user_answer_empty(answer, question_type=None) -> bool:
+    """P39: 统一判断用户是否作答。"""
+    return not (answer or "").strip()
+
+
+# P39: 批改意图模式
+GRADING_INTENT_GRADE = "grade"
+GRADING_INTENT_VIEW = "view_solution_only"
+
+
+def resolve_grading_intent(question: dict | None = None, user_answer: str | None = None,
+                           action: str | None = None) -> dict:
+    """P39: 统一批改意图判断。
+
+    Returns:
+        {"intent": "grade" | "view_solution_only", "reason": str}
+    """
+    if action == "view_solution":
+        return {"intent": GRADING_INTENT_VIEW, "reason": "explicit_view_request"}
+    if is_user_answer_empty(user_answer):
+        return {"intent": GRADING_INTENT_VIEW, "reason": "empty_answer"}
+    return {"intent": GRADING_INTENT_GRADE, "reason": "has_answer"}
 
 # OCR Vision API（pytesseract 不足时的云 fallback）
 VISION_API_KEY = os.getenv("VISION_API_KEY", "")

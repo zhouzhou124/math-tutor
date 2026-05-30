@@ -434,7 +434,7 @@ class QuestionDB:
         # 结构2: categories -> 数学类别 -> 年份 -> 题型 (新结构)
         has_math_type = False
         first_key = next(iter(cats.keys()), None)
-        if first_key and first_key in ["数学一", "数学二", "数学三", "26宇哥八套卷"]:
+        if first_key and first_key in ["数学一", "26宇哥八套卷", "26合工大超越"]:
             has_math_type = True
         
         if has_math_type:

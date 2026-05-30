@@ -13,8 +13,226 @@
   ],
   "question": "$12.$ 极限 $\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right) = \\_\\_\\_\\_\\_\\_$",
   "source": "import_2026",
-  "standard_answer": "1",
+  "standard_answer": "步骤1：通分并化简极限表达式\n原极限为 $\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right)$，这是一个 $\\infty - \\infty$ 型未定式。将其通分，得到分式形式：\n$$\n\\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} = \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.\n$$\n于是所求极限转化为\n$$\n\\lim_{x \\to 0} \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.\n$$\n当 $x \\to 0$ 时，分子 $\\sin x - \\ln(1+x) \\to 0$，分母 $x\\sin x \\to 0$，极限为 $\\frac{0}{0}$ 型未定式，可以使用洛必达法则或泰勒展开计算。\n步骤2：利用泰勒公式展开分子和分母\n将 $\\sin x$ 和 $\\ln(1+x)$ 在 $x=0$ 处展开为泰勒级数：\n$$\n\\sin x = x - \\frac{x^3}{6} + O(x^5), \\qquad\n\\ln(1+x) = x - \\frac{x^2}{2} + \\frac{x^3}{3} + O(x^4).\n$$\n分子的展开式为\n$$\n\\sin x - \\ln(1+x) = \\left(x - \\frac{x^3}{6}\\right) - \\left(x - \\frac{x^2}{2} + \\frac{x^3}{3}\\right) + O(x^4) = \\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4).\n$$\n分母 $x\\sin x$ 的展开式为\n$$\nx\\sin x = x\\left(x - \\frac{x^3}{6} + O(x^5)\\right) = x^2 - \\frac{x^4}{6} + O(x^6).\n$$\n因此原极限可写成\n$$\n\\lim_{x \\to 0} \\frac{\\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4)}{x^2 - \\frac{x^4}{6} + O(x^6)}.\n$$\n步骤3：约去最高阶无穷小并求极限\n分子和分母的最低阶项均为 $x^2$，分子分母同时除以 $x^2$：\n$$\n\\begin{aligned}\\lim_{x \\to 0} \\frac{\\frac{1}{2} - \\frac{x}{2} + O(x^2)}{1 - \\frac{x^2}{6} + O(x^4)} \\\\\n&= \\frac{\\frac{1}{2}}{1} \\\\\n&= \\frac{1}{2}.\\end{aligned}\n$$\n因此极限值为 $\\frac{1}{2}$。\n\n## 最终答案\n$$\n\\frac{1}{2}\n$$",
   "question_id": "2026-数一-012",
   "raw_question_text": "$12.$ 极限 $\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right) = \\_\\_\\_\\_\\_\\_$",
-  "raw_answer_text": "1"
+  "raw_answer_text": "1",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780160724",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：通分并化简极限表达式\n原极限为 $\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right)$，这是一个 $\\infty - \\infty$ 型未定式。将其通分，得到分式形式：\n$$\n\\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} = \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.\n$$\n于是所求极限转化为\n$$\n\\lim_{x \\to 0} \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.\n$$\n当 $x \\to 0$ 时，分子 $\\sin x - \\ln(1+x) \\to 0$，分母 $x\\sin x \\to 0$，极限为 $\\frac{0}{0}$ 型未定式，可以使用洛必达法则或泰勒展开计算。\n步骤2：利用泰勒公式展开分子和分母\n将 $\\sin x$ 和 $\\ln(1+x)$ 在 $x=0$ 处展开为泰勒级数：\n$$\n\\sin x = x - \\frac{x^3}{6} + O(x^5), \\qquad\n\\ln(1+x) = x - \\frac{x^2}{2} + \\frac{x^3}{3} + O(x^4).\n$$\n分子的展开式为\n$$\n\\sin x - \\ln(1+x) = \\left(x - \\frac{x^3}{6}\\right) - \\left(x - \\frac{x^2}{2} + \\frac{x^3}{3}\\right) + O(x^4) = \\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4).\n$$\n分母 $x\\sin x$ 的展开式为\n$$\nx\\sin x = x\\left(x - \\frac{x^3}{6} + O(x^5)\\right) = x^2 - \\frac{x^4}{6} + O(x^6).\n$$\n因此原极限可写成\n$$\n\\lim_{x \\to 0} \\frac{\\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4)}{x^2 - \\frac{x^4}{6} + O(x^6)}.\n$$\n步骤3：约去最高阶无穷小并求极限\n分子和分母的最低阶项均为 $x^2$，分子分母同时除以 $x^2$：\n$$\n\\begin{aligned}\\lim_{x \\to 0} \\frac{\\frac{1}{2} - \\frac{x}{2} + O(x^2)}{1 - \\frac{x^2}{6} + O(x^4)} \\\\\n&= \\frac{\\frac{1}{2}}{1} \\\\\n&= \\frac{1}{2}.\\end{aligned}\n$$\n因此极限值为 $\\frac{1}{2}$。\n\n## 最终答案\n$$\n\\frac{1}{2}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-31 01:05",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "通分并化简极限表达式\n原极限为"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim\\limits_{x \\to 0}\\left( \\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} \\right)"
+              },
+              {
+                "type": "text",
+                "content": "这是一个"
+              },
+              {
+                "type": "latex",
+                "content": "\\infty - \\infty"
+              },
+              {
+                "type": "text",
+                "content": "型未定式。将其通分，得到分式形式："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x} - \\frac{\\ln(1+x)}{x\\sin x} = \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是所求极限转化为"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x \\to 0} \\frac{\\sin x - \\ln(1+x)}{x\\sin x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时，分子"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x - \\ln(1+x) \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "分母"
+              },
+              {
+                "type": "latex",
+                "content": "x\\sin x \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "极限为"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{0}{0}"
+              },
+              {
+                "type": "text",
+                "content": "型未定式，可以使用洛必达法则或泰勒展开计算。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用泰勒公式展开分子和分母\n将"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x"
+              },
+              {
+                "type": "text",
+                "content": "和"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln(1+x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "处展开为泰勒级数："
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x = x - \\frac{x^3}{6} + O(x^5), \\qquad\n\\ln(1+x) = x - \\frac{x^2}{2} + \\frac{x^3}{3} + O(x^4).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "分子的展开式为"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x - \\ln(1+x) = \\left(x - \\frac{x^3}{6}\\right) - \\left(x - \\frac{x^2}{2} + \\frac{x^3}{3}\\right) + O(x^4) = \\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "分母"
+              },
+              {
+                "type": "latex",
+                "content": "x\\sin x"
+              },
+              {
+                "type": "text",
+                "content": "的展开式为"
+              },
+              {
+                "type": "latex",
+                "content": "x\\sin x = x\\left(x - \\frac{x^3}{6} + O(x^5)\\right) = x^2 - \\frac{x^4}{6} + O(x^6).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此原极限可写成"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x \\to 0} \\frac{\\frac{x^2}{2} - \\frac{x^3}{2} + O(x^4)}{x^2 - \\frac{x^4}{6} + O(x^6)}.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "约去最高阶无穷小并求极限\n分子和分母的最低阶项均为"
+              },
+              {
+                "type": "latex",
+                "content": "x^2"
+              },
+              {
+                "type": "text",
+                "content": "分子分母同时除以"
+              },
+              {
+                "type": "latex",
+                "content": "x^2"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\lim_{x \\to 0} \\frac{\\frac{1}{2} - \\frac{x}{2} + O(x^2)}{1 - \\frac{x^2}{6} + O(x^4)} \\\\&= \\frac{\\frac{1}{2}}{1} \\\\&= \\frac{1}{2}.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此极限值为"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{2}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-31 01:05",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

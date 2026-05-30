@@ -13,8 +13,187 @@
   ],
   "question": "$14.$ $\\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2} dx = \\_\\_\\_\\_\\_\\_$",
   "source": "import_2026",
-  "standard_answer": "\\ln 2",
+  "standard_answer": "步骤1：将反常积分表示为极限形式\n原积分为无穷区间上的反常积分，被积函数在 $[1,+\\infty)$ 上连续，按定义有\n$$\n\\begin{aligned}I \\\\\n&= \\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x \\\\\n&= \\lim_{b\\to +\\infty} \\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x .\\end{aligned}\n$$\n步骤2：利用分部积分法求原函数\n令 $u = \\ln(x+1)$，则 $\\mathrm{d}u = \\frac{1}{x+1}\\mathrm{d}x$；令 $\\mathrm{d}v = \\frac{1}{x^2}\\mathrm{d}x$，则 $v = -\\frac{1}{x}$。因此\n$$\n\\begin{aligned}\n\\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x \n&= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b - \\int_1^b \\left(-\\frac{1}{x}\\right) \\cdot \\frac{1}{x+1}\\,\\mathrm{d}x \\\\[4pt]\n&= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b + \\int_1^b \\frac{1}{x(x+1)}\\,\\mathrm{d}x .\n\\end{aligned}\n$$\n步骤3：处理分部积分中的边界项\n计算边界项的极限：\n$$\n\\begin{aligned}\n\\lim_{b\\to +\\infty} \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b\n&= \\lim_{b\\to +\\infty} \\left( -\\frac{\\ln(b+1)}{b} \\right) - \\left( -\\frac{\\ln 2}{1} \\right) \\\\\n&= 0 + \\ln 2 = \\ln 2,\n\\end{aligned}\n$$\n其中 $\\displaystyle \\lim_{b\\to +\\infty} \\frac{\\ln(b+1)}{b} = 0$（由洛必达法则或已知极限 $\\frac{\\ln x}{x}\\to 0$）。\n步骤4：计算剩余的反常积分\n对 $\\frac{1}{x(x+1)}$ 进行部分分式分解：\n$$\n\\frac{1}{x(x+1)} = \\frac{1}{x} - \\frac{1}{x+1}.\n$$\n于是\n$$\n\\begin{aligned}\n\\int_1^{+\\infty} \\frac{1}{x(x+1)}\\,\\mathrm{d}x\n&= \\lim_{b\\to +\\infty} \\int_1^b \\left( \\frac{1}{x} - \\frac{1}{x+1} \\right)\\,\\mathrm{d}x \\\\[4pt]\n&= \\lim_{b\\to +\\infty} \\Bigl[ \\ln x - \\ln(x+1) \\Bigr]_1^b \\\\[4pt]\n&= \\lim_{b\\to +\\infty} \\left( \\ln\\frac{b}{b+1} - \\ln\\frac{1}{2} \\right) \\\\[4pt]\n&= \\ln 1 - (-\\ln 2) = \\ln 2 .\n\\end{aligned}\n$$\n步骤5：合并结果得原反常积分的值\n将步骤3与步骤4的结果相加：\n$$\nI = \\ln 2 + \\ln 2 = 2\\ln 2 .\n$$\n\n## 最终答案\n$$\n\\boxed{2\\ln 2}\n$$",
   "question_id": "2026-数一-014",
   "raw_question_text": "$14.$ $\\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2} dx = \\_\\_\\_\\_\\_\\_$",
-  "raw_answer_text": "\\ln 2"
+  "raw_answer_text": "\\ln 2",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780159986",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：将反常积分表示为极限形式\n原积分为无穷区间上的反常积分，被积函数在 $[1,+\\infty)$ 上连续，按定义有\n$$\n\\begin{aligned}I \\\\\n&= \\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x \\\\\n&= \\lim_{b\\to +\\infty} \\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x .\\end{aligned}\n$$\n步骤2：利用分部积分法求原函数\n令 $u = \\ln(x+1)$，则 $\\mathrm{d}u = \\frac{1}{x+1}\\mathrm{d}x$；令 $\\mathrm{d}v = \\frac{1}{x^2}\\mathrm{d}x$，则 $v = -\\frac{1}{x}$。因此\n$$\n\\begin{aligned}\n\\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x \n&= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b - \\int_1^b \\left(-\\frac{1}{x}\\right) \\cdot \\frac{1}{x+1}\\,\\mathrm{d}x \\\\[4pt]\n&= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b + \\int_1^b \\frac{1}{x(x+1)}\\,\\mathrm{d}x .\n\\end{aligned}\n$$\n步骤3：处理分部积分中的边界项\n计算边界项的极限：\n$$\n\\begin{aligned}\n\\lim_{b\\to +\\infty} \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b\n&= \\lim_{b\\to +\\infty} \\left( -\\frac{\\ln(b+1)}{b} \\right) - \\left( -\\frac{\\ln 2}{1} \\right) \\\\\n&= 0 + \\ln 2 = \\ln 2,\n\\end{aligned}\n$$\n其中 $\\displaystyle \\lim_{b\\to +\\infty} \\frac{\\ln(b+1)}{b} = 0$（由洛必达法则或已知极限 $\\frac{\\ln x}{x}\\to 0$）。\n步骤4：计算剩余的反常积分\n对 $\\frac{1}{x(x+1)}$ 进行部分分式分解：\n$$\n\\frac{1}{x(x+1)} = \\frac{1}{x} - \\frac{1}{x+1}.\n$$\n于是\n$$\n\\begin{aligned}\n\\int_1^{+\\infty} \\frac{1}{x(x+1)}\\,\\mathrm{d}x\n&= \\lim_{b\\to +\\infty} \\int_1^b \\left( \\frac{1}{x} - \\frac{1}{x+1} \\right)\\,\\mathrm{d}x \\\\[4pt]\n&= \\lim_{b\\to +\\infty} \\Bigl[ \\ln x - \\ln(x+1) \\Bigr]_1^b \\\\[4pt]\n&= \\lim_{b\\to +\\infty} \\left( \\ln\\frac{b}{b+1} - \\ln\\frac{1}{2} \\right) \\\\[4pt]\n&= \\ln 1 - (-\\ln 2) = \\ln 2 .\n\\end{aligned}\n$$\n步骤5：合并结果得原反常积分的值\n将步骤3与步骤4的结果相加：\n$$\nI = \\ln 2 + \\ln 2 = 2\\ln 2 .\n$$\n\n## 最终答案\n$$\n\\boxed{2\\ln 2}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-31 00:53",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将反常积分表示为极限形式\n原积分为无穷区间上的反常积分，被积函数在"
+              },
+              {
+                "type": "latex",
+                "content": "[1,+\\infty]"
+              },
+              {
+                "type": "text",
+                "content": "上连续，按定义有"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}I \\\\&= \\int_1^{+\\infty} \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x \\\\&= \\lim_{b\\to +\\infty} \\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x .\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用分部积分法求原函数\n令"
+              },
+              {
+                "type": "latex",
+                "content": "u = \\ln(x+1)"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}u = \\frac{1}{x+1}\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}v = \\frac{1}{x^2}\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "v = -\\frac{1}{x}"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\int_1^b \\frac{\\ln(x+1)}{x^2}\\,\\mathrm{d}x &= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b - \\int_1^b \\left(-\\frac{1}{x}\\right) \\cdot \\frac{1}{x+1}\\,\\mathrm{d}x \\[4pt]\n&= \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b + \\int_1^b \\frac{1}{x(x+1)}\\,\\mathrm{d}x .\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "处理分部积分中的边界项计算边界项的极限："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\lim_{b\\to +\\infty} \\left[ -\\frac{\\ln(x+1)}{x} \\right]_1^b&= \\lim_{b\\to +\\infty} \\left( -\\frac{\\ln(b+1)}{b} \\right) - \\left( -\\frac{\\ln 2}{1} \\right) \\\\&= 0 + \\ln 2 = \\ln 2,\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "其中"
+              },
+              {
+                "type": "latex",
+                "content": "\\displaystyle \\lim_{b\\to +\\infty} \\frac{\\ln(b+1)}{b} = 0"
+              },
+              {
+                "type": "text",
+                "content": "（由洛必达法则或已知极限"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\ln x}{x}\\to 0"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算剩余的反常积分\n对"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x(x+1)}"
+              },
+              {
+                "type": "text",
+                "content": "进行部分分式分"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x(x+1)} = \\frac{1}{x} - \\frac{1}{x+1}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\int_1^{+\\infty} \\frac{1}{x(x+1)}\\,\\mathrm{d}x&= \\lim_{b\\to +\\infty} \\int_1^b \\left( \\frac{1}{x} - \\frac{1}{x+1} \\right)\\,\\mathrm{d}x \\[4pt]&= \\lim_{b\\to +\\infty} \\Bigl[ \\ln x - \\ln(x+1) \\Bigr]_1^b \\[4pt]&= \\lim_{b\\to +\\infty} \\left( \\ln\\frac{b}{b+1} - \\ln\\frac{1}{2} \\right) \\[4pt]\n&= \\ln 1 - (-\\ln 2) = \\ln 2 .\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤5",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "合并结果得原反常积分的值将步骤3与步骤4的结果相加："
+              },
+              {
+                "type": "latex",
+                "content": "I = \\ln 2 + \\ln 2 = 2\\ln 2 .",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-31 00:53",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

@@ -184,6 +184,7 @@ class UserLoop:
                 total_score=result.total_score,
                 knowledge_points=result.knowledge_point,
                 difficulty=result.difficulty,
+                question_type=result.question_type,
             )
             if gresult.get("success"):
                 result.score = gresult.get("total", 0)

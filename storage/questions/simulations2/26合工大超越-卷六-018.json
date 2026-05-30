@@ -14,13 +14,12 @@
     "数列极限",
     "级数"
   ],
-  "question": "(本题满分12分) 设数列 $\\{a_n\\}$ 满足 $a_1>0$，$a_n=\\arctan(a_n+\\tan a_{n+1})$（$n=1,2,\\dots$），证明：\n$(1)$ 极限 $\\lim_{n\\to\\infty} a_n$ 存在；\n$(2)$ 级数 $\\sum_{n=1}^\\infty a_n$ 收敛；\n$(3)$ 级数 $\\sum_{n=1}^\\infty \\frac{a_{n+1}}{a_n^2}$ 收敛.",
+  "question": "(本题满分12分) 设数列 $\\{a_n\\}$ 满足 $a_1>0$，$a_n=\\arctan(a_n+\\tan a_{n+1})$（$n=1,2,\\dots$），证明\n$(1)$ 极限 $\\lim_{n\\to\\infty} a_n$ 存在；\n$(2)$ 级数 $\\sum_{n=1}^\\infty a_n$ 收敛；\n$(3)$ 级数 $\\sum_{n=1}^\\infty \\frac{a_{n+1}}{a_n^2}$ 收敛.",
   "standard_answer": "证明略",
   "source": "import_hegongda_v6",
   "solution_steps": [],
   "options": {},
   "volume": "卷六",
-  "__cached_at__": 1779502981.346112,
-  "raw_question_text": "(本题满分12分) 设数列 $\\{a_n\\}$ 满足 $a_1>0$，$a_n=\\arctan(a_n+\\tan a_{n+1})$（$n=1,2,\\dots$），证明：\n$(1)$ 极限 $\\lim_{n\\to\\infty} a_n$ 存在；\n$(2)$ 级数 $\\sum_{n=1}^\\infty a_n$ 收敛；\n$(3)$ 级数 $\\sum_{n=1}^\\infty \\frac{a_{n+1}}{a_n^2}$ 收敛.",
+  "raw_question_text": "(本题满分12分) 设数列 $\\{a_n\\}$ 满足 $a_1>0$，$a_n=\\arctan(a_n+\\tan a_{n+1})$（$n=1,2,\\dots$），证明\n$(1)$ 极限 $\\lim_{n\\to\\infty} a_n$ 存在；\n$(2)$ 级数 $\\sum_{n=1}^\\infty a_n$ 收敛；\n$(3)$ 级数 $\\sum_{n=1}^\\infty \\frac{a_{n+1}}{a_n^2}$ 收敛.",
   "raw_answer_text": "证明略"
 }

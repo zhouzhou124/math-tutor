@@ -9,6 +9,85 @@ from latex_utils import split_latex_text, render_ast
 
 logger = logging.getLogger(__name__)
 
+# ── P40: Grading result mobile CSS ──
+_GRADING_MOBILE_CSS = """
+<style>
+/* P40: AI 批改结果移动端响应式 */
+.grading-result-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.grading-card,
+.grading-score-card,
+.grading-diagnosis-card,
+.standard-solution-card,
+.solution-step-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.grading-math-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.grading-code-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.grading-action-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+.grading-debug-panel {
+    max-width: 100%;
+    overflow-x: auto;
+}
+@media (max-width: 768px) {
+    .grading-result-container {
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+    .grading-card,
+    .grading-score-card,
+    .grading-diagnosis-card,
+    .standard-solution-card,
+    .solution-step-card {
+        margin-bottom: 10px;
+    }
+    .grading-action-row {
+        flex-direction: column;
+    }
+    .grading-action-row button,
+    .grading-action-row .stButton > button {
+        width: 100% !important;
+    }
+    .grading-math-scroll {
+        padding: 4px 0;
+    }
+    .grading-debug-panel pre,
+    .grading-debug-panel code {
+        font-size: 0.75rem !important;
+        white-space: pre-wrap !important;
+        word-break: break-all !important;
+    }
+}
+</style>
+"""
+
+
+def inject_grading_mobile_css():
+    """P40: Inject grading result mobile responsive CSS."""
+    st.markdown(_GRADING_MOBILE_CSS, unsafe_allow_html=True)
+
 
 def _trace_raw_source_render_attempt(label: str, text: str, source: str = "") -> bool:
     """P37.6.4: Log when raw source text is about to reach a student-facing render.
@@ -114,6 +193,7 @@ def _render_blocked_solution_debug(solution: dict, grading_result: dict | None =
         status, source, len(issues), isinstance(candidate, dict),
     )
     with st.expander("🔧 调试：查看被拦截的标准解答候选（仅 admin）"):
+        st.markdown('<div class="grading-debug-panel">', unsafe_allow_html=True)
         st.warning("以下内容未通过质量门禁，仅供开发调试，不会保存为标准解答。")
         st.markdown(f"**状态：** `{status}`　**来源：** `{source}`　**模型：** `{model_used}`")
         if issues:
@@ -152,6 +232,7 @@ def _render_blocked_solution_debug(solution: dict, grading_result: dict | None =
             if snapshot_ans.strip():
                 st.markdown("**当前 standard_answer：**")
                 st.code(snapshot_ans[:3000], language=None)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_blocked_solution_debug_panel(
@@ -181,8 +262,10 @@ def _render_solution_failure_with_debug(
         def _request_retry():
             st.session_state["_solution_retry_requested"] = True
 
+        st.markdown('<div class="grading-action-row">', unsafe_allow_html=True)
         if st.button("🔄 重新生成标准解答", key="retry_sol_failure"):
             _request_retry()
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_score_card(gr: dict, total_score: int = 10) -> None:
@@ -199,7 +282,7 @@ def render_score_card(gr: dict, total_score: int = 10) -> None:
 
     with st.container(border=True):
         st.markdown(f"""
-        <div style="text-align:center;padding:8px 0;">
+        <div class="grading-score-card" style="text-align:center;padding:8px 0;">
             <span style="font-size:2.5em;">{emoji}</span><br>
             <span style="font-size:2.2em;font-weight:800;color:{color};">{score}</span>
             <span style="font-size:1.2em;color:#94a3b8;"> / {total_score}</span>
@@ -226,6 +309,7 @@ def render_knowledge_points(knowledge_points: list, question: dict = None, quest
             pass
 
     with st.container(border=True):
+        st.markdown('<div class="grading-card">', unsafe_allow_html=True)
         st.markdown("**📚 考查知识点**")
 
         if not knowledge_points:
@@ -254,6 +338,7 @@ def render_knowledge_points(knowledge_points: list, question: dict = None, quest
                 st.markdown("")
                 st.markdown("**⚠️ 常见易错点**")
                 st.info("暂无常见易错点标注")
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_diagnosis_card(dr: dict, gr: dict) -> None:
@@ -264,6 +349,7 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
     weak_points = dr.get("weak_points", [])
 
     with st.container(border=True):
+        st.markdown('<div class="grading-diagnosis-card">', unsafe_allow_html=True)
         st.markdown("**🔍 错因诊断**")
 
         if not error_type and not root_cause:
@@ -295,6 +381,7 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
         elif error_type:
             st.markdown("**薄弱知识点**:")
             st.info("暂无薄弱知识点分析")
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_standard_solution(solution: dict, expanded: bool = False) -> None:
@@ -317,6 +404,7 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
             return
 
     with st.expander("📖 查看标准解法", expanded=expanded):
+        st.markdown('<div class="standard-solution-card">', unsafe_allow_html=True)
         # ── Quality warnings ──
         raw_answer = solution.get("standard_answer", "")
         # Check if there's substantive derivation content (not just metadata)
@@ -332,6 +420,7 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                 "请确认已配置 API Key，然后重新点击「开始批改」或「查看答案」以触发 AI 生成。"
                 "如多次尝试仍无结果，可能是题目较复杂导致 AI 求解超时，请稍后重试。"
             )
+            st.markdown('</div>', unsafe_allow_html=True)
             return
         if raw_answer and not _has_content:
             st.info(
@@ -363,8 +452,48 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                         from latex_utils import render_structured_safe, validate_structured
                         is_valid, _ = validate_structured(structured)
                         if is_valid:
-                            render_structured_safe(structured)
-                            return
+                            # P41: Pre-validate latex_display blocks
+                            _p41_ok = True
+                            for _st in struct_steps:
+                                if not isinstance(_st, dict):
+                                    continue
+                                for _b in _st.get("blocks") or []:
+                                    if not isinstance(_b, dict):
+                                        continue
+                                    _btype = _b.get("type", "")
+                                    _bdisplay = _b.get("display", "")
+                                    # Validate all latex_display and block-level latex
+                                    if _btype == "latex_display" or (_btype == "latex" and _bdisplay == "block"):
+                                        _repaired = _validate_and_repair_latex_block(_b.get("content", ""))
+                                        if _repaired is None:
+                                            _p41_ok = False
+                                            break
+                                        _b["content"] = _repaired
+                                    # P41.2: Check text blocks for raw aligned environments
+                                    elif _btype == "text":
+                                        _tc = _b.get("content", "")
+                                        if r'\begin{aligned}' in _tc or r'\begin{cases}' in _tc:
+                                            try:
+                                                from latex_utils import split_text_and_latex_mixed_block
+                                                _sub = split_text_and_latex_mixed_block(_tc)
+                                                if len(_sub) > 1:
+                                                    # Replace this text block with split blocks
+                                                    _idx = _st.get("blocks", []).index(_b)
+                                                    _st["blocks"] = _st["blocks"][:_idx] + _sub + _st["blocks"][_idx+1:]
+                                            except Exception:
+                                                pass
+                                if not _p41_ok:
+                                    break
+                            if _p41_ok:
+                                render_structured_safe(structured)
+                                st.markdown('</div>', unsafe_allow_html=True)
+                                return
+                            else:
+                                st.warning("该公式格式异常，请重新生成标准解答。")
+                                if _should_show_solution_debug():
+                                    _render_blocked_solution_debug(solution)
+                                st.markdown('</div>', unsafe_allow_html=True)
+                                return
                     except Exception:
                         pass
                 # If no substance, fall through to text fallback below
@@ -407,6 +536,7 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
 
         if content_parts:
             raw = "\n\n".join(content_parts)
+            st.markdown('<div class="grading-math-scroll">', unsafe_allow_html=True)
             try:
                 from renderers.math_render_policy import render_grading_latex
                 render_grading_latex(raw)
@@ -423,6 +553,8 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
                             st.markdown(raw)
                         except Exception:
                             st.text(raw)
+            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_recommendations(dr: dict, question_db=None, current_question=None, is_correct: bool = None) -> None:
@@ -430,6 +562,7 @@ def render_recommendations(dr: dict, question_db=None, current_question=None, is
     weak_points = dr.get("weak_points", [])
 
     with st.container(border=True):
+        st.markdown('<div class="grading-card">', unsafe_allow_html=True)
         st.markdown("**📖 巩固建议**")
 
         if is_correct is True:
@@ -499,6 +632,7 @@ def render_recommendations(dr: dict, question_db=None, current_question=None, is
             st.markdown("")
             st.markdown("**🎯 同类练习推荐**")
             st.caption("建议在错题本中查看同类题目进行针对性练习")
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10,
@@ -511,12 +645,17 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     """
     is_view_only = bool(gr.get("view_only") or gr.get("hide_score_card"))
 
+    # P40: inject mobile CSS and wrap in container
+    inject_grading_mobile_css()
+    st.markdown('<div class="grading-result-container">', unsafe_allow_html=True)
+
     if is_view_only:
         st.info("📖 你当前未提交作答，正在查看标准解答。建议先独立完成本题，再对照标准解答检查思路。")
         st.markdown("---")
         render_standard_solution(sa, expanded=True)
         kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
         render_knowledge_points(kp_list, question, question_db)
+        st.markdown('</div>', unsafe_allow_html=True)
         return
 
     st.markdown("---")
@@ -563,6 +702,7 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     if not is_view_only:
         with st.expander("📖 巩固建议", expanded=True):
             render_recommendations(dr, question_db, question, is_correct=(gr.get("total", 0) >= total_score * 0.9))
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 def _render_step_comparison_body(gr: dict) -> None:
@@ -570,6 +710,8 @@ def _render_step_comparison_body(gr: dict) -> None:
     steps = gr.get("step_analysis") or []
     if not steps:
         return
+
+    st.markdown('<div class="grading-card">', unsafe_allow_html=True)
 
     h1, h2, h3 = st.columns([1, 0.15, 1])
     with h1:
@@ -606,6 +748,66 @@ def _render_step_comparison_body(gr: dict) -> None:
         st.caption(f"得分: {score_str}分")
         if s != steps[-1]:
             st.markdown("---")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+def _validate_and_repair_latex_block(content: str, block_type: str = "latex_display") -> str | None:
+    """P41: Validate and repair a latex block before rendering.
+
+    Returns repaired content if fixable, None if unrepairable (caller should
+    show safe fallback).
+    """
+    from services.solution_quality import (
+        detect_broken_derivation_formula_block, detect_broken_latex_environment,
+        detect_broken_cases_environment, detect_probability_formula_fragment_leak,
+    )
+    s = str(content or "").strip()
+    if not s:
+        return s
+
+    issues = detect_broken_derivation_formula_block(s)
+    env_issues = detect_broken_latex_environment(s)
+    cases_issues = detect_broken_cases_environment(s)
+    prob_issues = detect_probability_formula_fragment_leak(s)
+    all_issues = issues + env_issues + cases_issues + prob_issues
+
+    if not all_issues:
+        return s  # clean
+
+    # Try auto-repair
+    try:
+        from latex_utils import (
+            normalize_derivation_formula_block, repair_aligned_environment,
+            repair_cases_environment, repair_latex_row_spacing_markers,
+            repair_bare_fraction_commands, repair_probability_formula_fragments,
+        )
+        repaired = repair_bare_fraction_commands(s)
+        repaired = repair_probability_formula_fragments(repaired)
+        repaired = repair_latex_row_spacing_markers(repaired)
+        if r'\begin{cases}' in repaired:
+            repaired = repair_cases_environment(repaired)
+        repaired = repair_aligned_environment(repaired)
+        repaired = normalize_derivation_formula_block(repaired)
+        remaining = detect_broken_derivation_formula_block(repaired)
+        remaining_env = detect_broken_latex_environment(repaired)
+        remaining_cases = detect_broken_cases_environment(repaired)
+        remaining_prob = detect_probability_formula_fragment_leak(repaired)
+        # If repair fixed all issues or only non-critical ones remain
+        critical = {
+            "detached_substitution_annotation", "text_inside_latex_display",
+            "orphan_aligned_begin", "orphan_aligned_end",
+            "orphan_display_delimiter_in_cases",
+        }
+        if not (set(remaining + remaining_env + remaining_cases + remaining_prob) & critical):
+            return repaired
+    except Exception:
+        pass
+
+    # Unrepairable — check admin mode for debug display
+    if _is_admin_user():
+        # Admin sees the raw broken content in debug
+        return s
+    return None  # signal to show safe fallback
 
 
 def _render_text_or_latex(text: str) -> None:
@@ -613,18 +815,40 @@ def _render_text_or_latex(text: str) -> None:
 
     If content contains LaTeX commands → split and render block by block.
     If content is plain text → render as markdown.
+    P41.2: If content contains raw aligned environments, split them out
+    as latex_display blocks to prevent raw LaTeX leakage.
     """
     if not text:
         return
+    s = str(text)
+
+    # P41.2: Check for raw aligned environments in text content
+    if r'\begin{aligned}' in s or r'\begin{align}' in s or r'\begin{cases}' in s:
+        try:
+            from latex_utils import split_text_and_latex_mixed_block, render_structured_safe
+            blocks = split_text_and_latex_mixed_block(s)
+            if len(blocks) > 1:
+                structured = {"steps": [{"label": "", "blocks": blocks}]}
+                render_structured_safe(structured)
+                return
+        except Exception:
+            pass
+        # If split fails, show safe fallback instead of raw
+        if not _is_admin_user():
+            st.warning("该公式格式异常，无法正常显示。")
+            return
+
     try:
         from latex_utils import split_latex_text, render_ast
-        segments = split_latex_text(str(text))
+        segments = split_latex_text(s)
         if len(segments) == 1 and segments[0].get("type") == "text":
             st.markdown(segments[0]["content"])
         else:
+            st.markdown('<div class="grading-math-scroll">', unsafe_allow_html=True)
             render_ast(segments)
+            st.markdown('</div>', unsafe_allow_html=True)
     except Exception:
-        st.markdown(str(text))
+        st.markdown(s)
 
 
 def render_summary_header(gr: dict, dr: dict, total_score: int = 10) -> None:

@@ -13,12 +13,293 @@
     "渐近线"
   ],
   "question": "设 $y=y(x)$ 是 $y'+(x^2+1)y=x^2+\\sin^4 x$ 的一个解，则曲线 $y=y(x)$ 有一条水平渐近线 $y=\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$1$",
+  "standard_answer": "## 标准答案\n$y=1$\n步骤1：写出解的表达式，明确渐近线需求极限\n曲线 $y=y(x)$ 有水平渐近线 $y=b$，当且仅当 $\\lim\\limits_{x\\to +\\infty}y(x)=b$ 或 $\\lim\\limits_{x\\to -\\infty}y(x)=b$。 \n所给方程是一阶线性微分方程，标准形式为 \ny'+P(x)y=Q(x),\\quad P(x)=x^2+1,\\; Q(x)=x^2+\\sin^4 x. \n其通解为 \n$$\ny=e^{-\\int P(x)\\,\\mathrm{d}x}\\left[\\int Q(x)e^{\\int P(x)\\,\\mathrm{d}x}\\,\\mathrm{d}x + C\\right].\n$$ \n计算 \n$$\n\\int P(x)\\,\\mathrm{d}x = \\int (x^2+1)\\,\\mathrm{d}x = \\frac{x^3}{3}+x,\n$$ \n于是 \n$$\ny=e^{-\\frac{x^3}{3}-x}\\left[\\int (x^2+\\sin^4 x)\\,e^{\\frac{x^3}{3}+x}\\,\\mathrm{d}x + C\\right].\n$$ \n由于要讨论 $x\\to +\\infty$ 时的极限，我们可将解写成变上限积分的形式（取定下限 $x_0$，常数 $C$ 可吸收）：\n$$\ny(x)=\\frac{\\displaystyle\\int_{x_0}^x (t^2+\\sin^4 t)\\,e^{\\frac{t^3}{3}+t}\\,\\mathrm{d}t + C}{e^{\\frac{x^3}{3}+x}}.\n$$ \n当 $x\\to +\\infty$ 时，分母 $e^{\\frac{x^3}{3}+x}\\to +\\infty$；分子中的积分也趋于无穷大（因为被积函数正且无界），故极限为 $\\frac{\\infty}{\\infty}$ 型，可尝试洛必达法则。\n步骤2：利用洛必达法则求极限\n对分子和分母分别求导（注意分母是 $e^{\\frac{x^3}{3}+x}$，导数为 $(x^2+1)e^{\\frac{x^3}{3}+x}$）：\n$$\n\\begin{aligned}\n\\lim_{x\\to +\\infty} y(x) \n&= \\lim_{x\\to +\\infty} \\frac{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[\\int_{x_0}^x (t^2+\\sin^4 t)e^{\\frac{t^3}{3}+t}\\mathrm{d}t + C\\right]}{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[e^{\\frac{x^3}{3}+x}\\right]} \\\\\n&= \\lim_{x\\to +\\infty} \\frac{(x^2+\\sin^4 x)e^{\\frac{x^3}{3}+x}}{(x^2+1)e^{\\frac{x^3}{3}+x}} \\\\\n&= \\lim_{x\\to +\\infty} \\frac{x^2+\\sin^4 x}{x^2+1}.\n\\end{aligned}\n$$ \n分子分母同除以 $x^2$：\n$$\n\\lim_{x\\to +\\infty} \\frac{1+\\frac{\\sin^4 x}{x^2}}{1+\\frac{1}{x^2}} = \\frac{1+0}{1+0}=1.\n$$ \n因此 $\\lim\\limits_{x\\to +\\infty}y(x)=1$。 \n同时，原通解中的任意常数项 $C$ 在除以 $e^{\\frac{x^3}{3}+x}$ 后趋于 $0$，不影响极限值，故该极限对任意一个解均成立。\n步骤3：得出水平渐近线\n由极限知，当 $x\\to +\\infty$ 时 $y(x)\\to 1$，所以曲线 $y=y(x)$ 有一条水平渐近线 $y=1$。 \n\n## 结论\n故填 $1$。",
   "source": "import_hegongda_v8",
   "solution_steps": [],
   "options": {},
   "volume": "卷八",
   "__cached_at__": 1779502981.2763712,
   "raw_question_text": "设 $y=y(x)$ 是 $y'+(x^2+1)y=x^2+\\sin^4 x$ 的一个解，则曲线 $y=y(x)$ 有一条水平渐近线 $y=\\underline{\\qquad\\qquad}$",
-  "raw_answer_text": "$1$"
+  "raw_answer_text": "$1$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780154884",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\n$y=1$\n步骤1：写出解的表达式，明确渐近线需求极限\n曲线 $y=y(x)$ 有水平渐近线 $y=b$，当且仅当 $\\lim\\limits_{x\\to +\\infty}y(x)=b$ 或 $\\lim\\limits_{x\\to -\\infty}y(x)=b$。 \n所给方程是一阶线性微分方程，标准形式为 \ny'+P(x)y=Q(x),\\quad P(x)=x^2+1,\\; Q(x)=x^2+\\sin^4 x. \n其通解为 \n$$\ny=e^{-\\int P(x)\\,\\mathrm{d}x}\\left[\\int Q(x)e^{\\int P(x)\\,\\mathrm{d}x}\\,\\mathrm{d}x + C\\right].\n$$ \n计算 \n$$\n\\int P(x)\\,\\mathrm{d}x = \\int (x^2+1)\\,\\mathrm{d}x = \\frac{x^3}{3}+x,\n$$ \n于是 \n$$\ny=e^{-\\frac{x^3}{3}-x}\\left[\\int (x^2+\\sin^4 x)\\,e^{\\frac{x^3}{3}+x}\\,\\mathrm{d}x + C\\right].\n$$ \n由于要讨论 $x\\to +\\infty$ 时的极限，我们可将解写成变上限积分的形式（取定下限 $x_0$，常数 $C$ 可吸收）：\n$$\ny(x)=\\frac{\\displaystyle\\int_{x_0}^x (t^2+\\sin^4 t)\\,e^{\\frac{t^3}{3}+t}\\,\\mathrm{d}t + C}{e^{\\frac{x^3}{3}+x}}.\n$$ \n当 $x\\to +\\infty$ 时，分母 $e^{\\frac{x^3}{3}+x}\\to +\\infty$；分子中的积分也趋于无穷大（因为被积函数正且无界），故极限为 $\\frac{\\infty}{\\infty}$ 型，可尝试洛必达法则。\n步骤2：利用洛必达法则求极限\n对分子和分母分别求导（注意分母是 $e^{\\frac{x^3}{3}+x}$，导数为 $(x^2+1)e^{\\frac{x^3}{3}+x}$）：\n$$\n\\begin{aligned}\n\\lim_{x\\to +\\infty} y(x) \n&= \\lim_{x\\to +\\infty} \\frac{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[\\int_{x_0}^x (t^2+\\sin^4 t)e^{\\frac{t^3}{3}+t}\\mathrm{d}t + C\\right]}{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[e^{\\frac{x^3}{3}+x}\\right]} \\\\\n&= \\lim_{x\\to +\\infty} \\frac{(x^2+\\sin^4 x)e^{\\frac{x^3}{3}+x}}{(x^2+1)e^{\\frac{x^3}{3}+x}} \\\\\n&= \\lim_{x\\to +\\infty} \\frac{x^2+\\sin^4 x}{x^2+1}.\n\\end{aligned}\n$$ \n分子分母同除以 $x^2$：\n$$\n\\lim_{x\\to +\\infty} \\frac{1+\\frac{\\sin^4 x}{x^2}}{1+\\frac{1}{x^2}} = \\frac{1+0}{1+0}=1.\n$$ \n因此 $\\lim\\limits_{x\\to +\\infty}y(x)=1$。 \n同时，原通解中的任意常数项 $C$ 在除以 $e^{\\frac{x^3}{3}+x}$ 后趋于 $0$，不影响极限值，故该极限对任意一个解均成立。\n步骤3：得出水平渐近线\n由极限知，当 $x\\to +\\infty$ 时 $y(x)\\to 1$，所以曲线 $y=y(x)$ 有一条水平渐近线 $y=1$。 \n\n## 结论\n故填 $1$。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-30 23:28",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "写出解的表达式，明确渐近线需求极限\n曲线"
+              },
+              {
+                "type": "latex",
+                "content": "y=y(x)"
+              },
+              {
+                "type": "text",
+                "content": "有水平渐近线"
+              },
+              {
+                "type": "latex",
+                "content": "y=b"
+              },
+              {
+                "type": "text",
+                "content": "当且仅当"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim\\limits_{x\\to +\\infty}y(x)=b"
+              },
+              {
+                "type": "text",
+                "content": "或"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim\\limits_{x\\to -\\infty}y(x)=b"
+              },
+              {
+                "type": "text",
+                "content": "所给方程是一阶线性微分方程，标准形式为 \ny'+P(x)y=Q(x)"
+              },
+              {
+                "type": "latex",
+                "content": ",\\quad P(x)=x^2+1,\\; Q(x)=x^2+\\sin^4 x."
+              },
+              {
+                "type": "text",
+                "content": "其通解为"
+              },
+              {
+                "type": "latex",
+                "content": "y=e^{-\\int P(x)\\,\\mathrm{d}x}\\left[\\int Q(x)e^{\\int P(x)\\,\\mathrm{d}x}\\,\\mathrm{d}x + C\\right].",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "计算"
+              },
+              {
+                "type": "latex",
+                "content": "\\int P(x)\\,\\mathrm{d}x = \\int (x^2+1)\\,\\mathrm{d}x = \\frac{x^3}{3}+x,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "y=e^{-\\frac{x^3}{3}-x}\\left[\\int (x^2+\\sin^4 x)\\, e^{\\frac{x^3}{3}+x}\\,\\mathrm{d}x + C\\right].",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于要讨论"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时的极限，我们可将解写成变上限积分的形式（取定下限"
+              },
+              {
+                "type": "latex",
+                "content": "x_0"
+              },
+              {
+                "type": "text",
+                "content": "常数"
+              },
+              {
+                "type": "latex",
+                "content": "C"
+              },
+              {
+                "type": "text",
+                "content": "可吸收）："
+              },
+              {
+                "type": "latex",
+                "content": "y(x)=\\frac{\\displaystyle\\int_{x_0}^x (t^2+\\sin^4 t)\\, e^{\\frac{t^3}{3}+t}\\,\\mathrm{d}t + C}{e^{\\frac{x^3}{3}+x}}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时，分母"
+              },
+              {
+                "type": "latex",
+                "content": "e^{\\frac{x^3}{3}+x}\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "分子中的积分也趋于无穷大（因为被积函数正且无界），故极限为"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\infty}{\\infty}"
+              },
+              {
+                "type": "text",
+                "content": "型，可尝试洛必达法则。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用洛必达法则求极限\n对分子和分母分别求导（注意分母是"
+              },
+              {
+                "type": "latex",
+                "content": "e^{\\frac{x^3}{3}+x}"
+              },
+              {
+                "type": "text",
+                "content": "导数为"
+              },
+              {
+                "type": "latex",
+                "content": "(x^2+1)e^{\\frac{x^3}{3}+x}"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\lim_{x\\to +\\infty} y(x) &= \\lim_{x\\to +\\infty} \\frac{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[\\int_{x_0}^x (t^2+\\sin^4 t)e^{\\frac{t^3}{3}+t}\\mathrm{d}t + C\\right]}{\\displaystyle\\frac{d}{\\mathrm{d}x}\\left[e^{\\frac{x^3}{3}+x}\\right]} \\\\&= \\lim_{x\\to +\\infty} \\frac{(x^2+\\sin^4 x)e^{\\frac{x^3}{3}+x}}{(x^2+1)e^{\\frac{x^3}{3}+x}} \\\\\n&= \\lim_{x\\to +\\infty} \\frac{x^2+\\sin^4 x}{x^2+1}.\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "分子分母同除以"
+              },
+              {
+                "type": "latex",
+                "content": "x^2"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to +\\infty} \\frac{1+\\frac{\\sin^4 x}{x^2}}{1+\\frac{1}{x^2}} = \\frac{1+0}{1+0}=1.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim\\limits_{x\\to +\\infty}y(x)=1"
+              },
+              {
+                "type": "text",
+                "content": "同时，原通解中的任意常数项"
+              },
+              {
+                "type": "latex",
+                "content": "C"
+              },
+              {
+                "type": "text",
+                "content": "在除以"
+              },
+              {
+                "type": "latex",
+                "content": "e^{\\frac{x^3}{3}+x}"
+              },
+              {
+                "type": "text",
+                "content": "后趋于"
+              },
+              {
+                "type": "latex",
+                "content": "0"
+              },
+              {
+                "type": "text",
+                "content": "不影响极限值，故该极限对任意一个解均成立。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "得出水平渐近线\n由极限知，当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "y(x)\\to 1"
+              },
+              {
+                "type": "text",
+                "content": "所以曲线"
+              },
+              {
+                "type": "latex",
+                "content": "y=y(x)"
+              },
+              {
+                "type": "text",
+                "content": "有一条水平渐近线"
+              },
+              {
+                "type": "latex",
+                "content": "y=1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-30 23:28",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

@@ -1,10 +1,13 @@
 """Grading Agent — 按考研标准批改评分"""
 
 import json as _json
+import logging
 
 from prompts.system_prompts import GRADING_PROMPT
-from config import GRADING_RULES
+from config import GRADING_RULES, get_scoring_weights
 from .solver_agent import _extract_json
+
+logger = logging.getLogger(__name__)
 
 
 class GradingAgent:
@@ -17,7 +20,7 @@ class GradingAgent:
     def grade(self, question: str, standard_answer: str,
               student_answer: str, total_score: int = 10,
               knowledge_points: str = "", difficulty: str = "中等",
-              canonical_trace=None) -> dict:
+              canonical_trace=None, question_type: str = "") -> dict:
         """标准批改入口（Engine B 主路径）。双栈：先试结构化，失败回退 Markdown。"""
         from config import USE_STRUCTURED_OUTPUT
 
@@ -25,19 +28,21 @@ class GradingAgent:
             result = self._grade_structured(
                 question, standard_answer, student_answer,
                 total_score, knowledge_points, difficulty, canonical_trace,
+                question_type=question_type,
             )
             if result.get("success"):
                 return result
 
         return self._do_grade(question, standard_answer, student_answer,
                               total_score, knowledge_points, difficulty,
-                              canonical_trace)
+                              canonical_trace, question_type=question_type)
 
     def grade_with_evidence(self, question: str, standard_answer: str,
                             student_answer: str, total_score: int = 10,
                             knowledge_points: str = "", difficulty: str = "中等",
                             canonical_trace=None,
-                            engine_c_evidence: dict = None) -> dict:
+                            engine_c_evidence: dict = None,
+                            question_type: str = "") -> dict:
         """
         基于 Engine C 结构化证据的语义裁决（Engine B 作为 fallback 时使用）。
         不再从头理解题目，只对 Engine C 无法判断的部分做最终裁决。
@@ -67,20 +72,23 @@ class GradingAgent:
             total_score, knowledge_points, difficulty,
             canonical_trace,
             extra_context=evidence_text,
+            question_type=question_type,
         )
 
     def _grade_structured(self, question: str, standard_answer: str,
                            student_answer: str, total_score: int,
                            knowledge_points: str, difficulty: str,
-                           canonical_trace=None) -> dict:
+                           canonical_trace=None, question_type: str = "") -> dict:
         """结构化批改：LLM 输出 JSON，直接映射到结果字典"""
         if not self.client:
             return {"success": False}
 
         from prompts.structured_prompts import _STRUCTURED_GRADING_PROMPT
 
-        step_total = round(total_score * 0.5, 1)
-        result_total = round(total_score * 0.5, 1)
+        # P39: 使用 config 中的题型权重，不再硬编码 50/50
+        weights = get_scoring_weights(question_type)
+        step_total = round(total_score * (weights["correctness"] + weights["process"]) / 100, 1)
+        result_total = round(total_score * weights["format"] / 100, 1)
 
         system = _STRUCTURED_GRADING_PROMPT.format(
             question=question, standard_answer=standard_answer,
@@ -131,14 +139,17 @@ class GradingAgent:
     def _do_grade(self, question: str, standard_answer: str,
                   student_answer: str, total_score: int,
                   knowledge_points: str, difficulty: str,
-                  canonical_trace=None, extra_context: str = "") -> dict:
+                  canonical_trace=None, extra_context: str = "",
+                  question_type: str = "") -> dict:
         """内部统一批改实现。"""
 
         if not self.client:
             return {"success": False, "total": 0, "comment": "LLM 未配置，无法批改。"}
 
-        step_total = round(total_score * 0.5, 1)
-        result_total = round(total_score * 0.5, 1)
+        # P39: 使用 config 中的题型权重，不再硬编码 50/50
+        weights = get_scoring_weights(question_type)
+        step_total = round(total_score * (weights["correctness"] + weights["process"]) / 100, 1)
+        result_total = round(total_score * weights["format"] / 100, 1)
 
         # 格式化 canonical trace
         enriched_answer = standard_answer

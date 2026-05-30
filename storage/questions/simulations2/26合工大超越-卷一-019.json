@@ -14,12 +14,12 @@
     "曲面积分",
     "旋转曲面"
   ],
-  "question": "(本题满分12分) 设 $\\Sigma$ 为曲线 $\\begin{cases} x = \\sqrt{2}\\cos t \\\\ y = \\sin t \\\\ z = \\cos^2 t \\end{cases}$，$0\\le t\\le \\frac{\\pi}{2}$ 绕 $z$ 轴旋转一周所得的曲面，计算对面积的曲面积分 $$\\iint_{\\Sigma} \\frac{xy^3 + \\sqrt{5+4z}}{1+x^2+y^2} dS$$",
+  "question": "(本题满分12分) 设 $\\Sigma$ 为曲线 $\\begin{cases} x = \\sqrt{2}\\cos t \\\\ y = \\sin t \\\\ z = \\cos^2 t \\end{cases}$，$0\\le t\\le \\frac{\\pi}{2}$ 绕 $z$ 轴旋转一周所得的曲面，计算对面积的曲面积分 $$\\iint\\limits_{\\Sigma} \\frac{xy^3 + \\sqrt{5+4z}}{1+x^2+y^2} dS$$",
   "standard_answer": "$\\frac{4\\sqrt{5}\\pi}{3}$",
   "source": "import_hegongda",
   "solution_steps": [],
   "options": {},
   "volume": "卷一",
-  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 为曲线 $\\begin{cases} x = \\sqrt{2}\\cos t \\\\ y = \\sin t \\\\ z = \\cos^2 t \\end{cases}$，$0\\le t\\le \\frac{\\pi}{2}$ 绕 $z$ 轴旋转一周所得的曲面，计算对面积的曲面积分 $$\\iint_{\\Sigma} \\frac{xy^3 + \\sqrt{5+4z}}{1+x^2+y^2} dS$$",
+  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 为曲线 $\\begin{cases} x = \\sqrt{2}\\cos t \\\\ y = \\sin t \\\\ z = \\cos^2 t \\end{cases}$，$0\\le t\\le \\frac{\\pi}{2}$ 绕 $z$ 轴旋转一周所得的曲面，计算对面积的曲面积分 $$\\iint\\limits_{\\Sigma} \\frac{xy^3 + \\sqrt{5+4z}}{1+x^2+y^2} dS$$",
   "raw_answer_text": "$\\frac{4\\sqrt{5}\\pi}{3}$"
 }

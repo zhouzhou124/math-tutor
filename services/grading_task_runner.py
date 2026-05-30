@@ -165,6 +165,7 @@ def submit_grading_async(question, student_ans, ocr_data, selected_q, *,
         "answer_view_mode": False,
         "grading_triggered": False,
         "mistakes_force_reload": False,
+        "_task_id": task_id,
     }
 
     client = _state.get("_client") or get_client_fn()

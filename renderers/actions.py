@@ -11,6 +11,12 @@ def start_practice(qid: str) -> None:
     """Navigate to practice page with full question data."""
     db = st.session_state.get("question_db")
     q = db.get(qid) if db else None
+    # Clear stale grading state from previous question to prevent
+    # recovery logic from overwriting the new selection
+    for _k in ("ocr_result", "grading_result", "diagnosis_result",
+               "standard_answer", "pending_task_id", "answer_view_mode",
+               "active_grading_task_id", "active_grading_request_hash"):
+        st.session_state.pop(_k, None)
     st.session_state.selected_question = q if q else qid
     st.session_state.page = "practice"
     st.rerun()
@@ -21,6 +27,11 @@ def view_solution(qid: str) -> None:
     empty-answer path so the AI generates detailed step-by-step solution."""
     db = st.session_state.get("question_db")
     q = db.get(qid) if db else None
+    # Clear stale grading state from previous question
+    for _k in ("grading_result", "diagnosis_result", "standard_answer",
+               "pending_task_id", "active_grading_task_id",
+               "active_grading_request_hash"):
+        st.session_state.pop(_k, None)
     st.session_state.selected_question = q if q else qid
 
     # Build a minimal ocr_result so the grading page sees a "view only" request

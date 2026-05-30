@@ -12,13 +12,378 @@
   "tags": [
     "曲面积分"
   ],
-  "question": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
-  "standard_answer": "$4$",
+  "question": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint\\limits_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim\\limits_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
+  "standard_answer": "步骤1：利用高斯公式将曲面积分化为三重积分\n记向量场 $\\vec{F}=(P,Q,R)$，其中 $P=xf(y)$，$Q=yf(z)$，$R=zf(x)$。 \n曲面 $\\Sigma$ 是球心在原点、半径为 $t$ 的球面外侧，其所围区域为 $\\Omega=\\{(x,y,z)\\mid x^2+y^2+z^2\\leqslant t^2\\}$。 \n由高斯公式，\n$$\n\\begin{aligned}I(t) \\\\\n&= \\iint_{\\Sigma}P\\,\\,\\mathrm{d}y\\,\\mathrm{d}z+Q\\,\\,\\mathrm{d}z\\,\\mathrm{d}x+R\\,\\,\\mathrm{d}x\\,\\mathrm{d}y \\\\\n&= \\iiint_{\\Omega}\\Big(\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}\\Big)dV.\\end{aligned}\n$$\n计算偏导数：\n$$\n\\frac{\\partial P}{\\partial x}=f(y),\\quad\n\\frac{\\partial Q}{\\partial y}=f(z),\\quad\n\\frac{\\partial R}{\\partial z}=f(x).\n$$\n因此散度\n$$\n\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=f(x)+f(y)+f(z).\n$$\n于是\n$$\nI(t)=\\iiint_{\\Omega}\\big[f(x)+f(y)+f(z)\\big]dV.\n$$\n步骤2：利用对称性化简三重积分\n由于球体 $\\Omega$ 关于 $x,y,z$ 具有轮换对称性，且积分变量可任意置换，有\n$$\n\\iiint_{\\Omega}f(x)dV=\\iiint_{\\Omega}f(y)dV=\\iiint_{\\Omega}f(z)dV.\n$$\n从而\n$$\nI(t)=3\\iiint_{\\Omega}f(x)dV.\n$$\n步骤3：用“先二后一”法将三重积分化为定积分\n对固定的 $x$，截面 $y^2+z^2\\leqslant t^2-x^2$ 是半径为 $\\sqrt{t^2-x^2}$ 的圆盘，面积为 $\\pi(t^2-x^2)$。于是\n$$\n\\iiint_{\\Omega}f(x)dV\n=\\int_{-t}^{t}f(x)\\cdot\\pi(t^2-x^2)\\,\\mathrm{d}x.\n$$\n代入得\n$$\nI(t)=3\\pi\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.\n$$\n步骤4：计算极限 $\\displaystyle\\lim_{t\\to0^+}\\frac{I(t)}{\\pi t^3}$\n将 $I(t)$ 的表达式代入：\n$$\n\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\\n&= \\frac{3\\pi}{\\pi t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\\n&= \\frac{3}{t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.\\end{aligned}\n$$\n作代换 $x=tu$，则 $\\mathrm{d}x=t\\,\\mathrm{d}u$，积分限变为 $u\\in[-1,1]$，且 $t^2-x^2=t^2(1-u^2)$。于是\n$$\n\\begin{aligned}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\\n&= \\int_{-1}^{1}f(tu)\\cdot t^2(1-u^2)\\cdot t\\,\\mathrm{d}u \\\\\n&= t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}\n$$\n因此\n$$\n\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\\n&= \\frac{3}{t^3}\\cdot t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u \\\\\n&= 3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}\n$$\n由于 $f(u)$ 可导，从而连续，当 $t\\to0^+$ 时 $f(tu)\\to f(0)=1$，且 $(1-u^2)$ 在 $[-1,1]$ 上可积，极限与积分可交换，故\n$$\n\\lim_{t\\to0^+}\\frac{I(t)}{\\pi t^3}\n=3\\int_{-1}^{1}1\\cdot(1-u^2)\\,\\mathrm{d}u.\n$$\n计算定积分：\n$$\n\\int_{-1}^{1}(1-u^2)\\,\\mathrm{d}u\n=\\left[u-\\frac{u^3}{3}\\right]_{-1}^{1}\n=\\Big(1-\\frac13\\Big)-\\Big(-1+\\frac13\\Big)\n=\\frac23+\\frac23=\\frac43.\n$$\n所以极限值为\n$$\n3\\times\\frac43=4.\n$$\n\n## 最终答案\n$4$",
   "source": "import_hegongda_v6",
   "solution_steps": [],
   "options": {},
   "volume": "卷六",
-  "__cached_at__": 1779502981.3471127,
-  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
-  "raw_answer_text": "$4$"
+  "raw_question_text": "(本题满分12分) 设 $\\Sigma$ 是球心在原点，半径为 $t$ 的球面，取外侧，函数 $f(u)$ 可导，且 $f(0)=1$，若 $I(t)=\\iint\\limits_{\\Sigma} xf(y)dy dz + yf(z)dz dx + zf(x)dx dy$，计算极限 $\\lim\\limits_{t\\to 0^+} \\frac{I(t)}{\\pi t^3}$.",
+  "raw_answer_text": "$4$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780151608",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：利用高斯公式将曲面积分化为三重积分\n记向量场 $\\vec{F}=(P,Q,R)$，其中 $P=xf(y)$，$Q=yf(z)$，$R=zf(x)$。 \n曲面 $\\Sigma$ 是球心在原点、半径为 $t$ 的球面外侧，其所围区域为 $\\Omega=\\{(x,y,z)\\mid x^2+y^2+z^2\\leqslant t^2\\}$。 \n由高斯公式，\n$$\n\\begin{aligned}I(t) \\\\\n&= \\iint_{\\Sigma}P\\,\\,\\mathrm{d}y\\,\\mathrm{d}z+Q\\,\\,\\mathrm{d}z\\,\\mathrm{d}x+R\\,\\,\\mathrm{d}x\\,\\mathrm{d}y \\\\\n&= \\iiint_{\\Omega}\\Big(\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}\\Big)dV.\\end{aligned}\n$$\n计算偏导数：\n$$\n\\frac{\\partial P}{\\partial x}=f(y),\\quad\n\\frac{\\partial Q}{\\partial y}=f(z),\\quad\n\\frac{\\partial R}{\\partial z}=f(x).\n$$\n因此散度\n$$\n\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=f(x)+f(y)+f(z).\n$$\n于是\n$$\nI(t)=\\iiint_{\\Omega}\\big[f(x)+f(y)+f(z)\\big]dV.\n$$\n步骤2：利用对称性化简三重积分\n由于球体 $\\Omega$ 关于 $x,y,z$ 具有轮换对称性，且积分变量可任意置换，有\n$$\n\\iiint_{\\Omega}f(x)dV=\\iiint_{\\Omega}f(y)dV=\\iiint_{\\Omega}f(z)dV.\n$$\n从而\n$$\nI(t)=3\\iiint_{\\Omega}f(x)dV.\n$$\n步骤3：用“先二后一”法将三重积分化为定积分\n对固定的 $x$，截面 $y^2+z^2\\leqslant t^2-x^2$ 是半径为 $\\sqrt{t^2-x^2}$ 的圆盘，面积为 $\\pi(t^2-x^2)$。于是\n$$\n\\iiint_{\\Omega}f(x)dV\n=\\int_{-t}^{t}f(x)\\cdot\\pi(t^2-x^2)\\,\\mathrm{d}x.\n$$\n代入得\n$$\nI(t)=3\\pi\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.\n$$\n步骤4：计算极限 $\\displaystyle\\lim_{t\\to0^+}\\frac{I(t)}{\\pi t^3}$\n将 $I(t)$ 的表达式代入：\n$$\n\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\\n&= \\frac{3\\pi}{\\pi t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\\n&= \\frac{3}{t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.\\end{aligned}\n$$\n作代换 $x=tu$，则 $\\mathrm{d}x=t\\,\\mathrm{d}u$，积分限变为 $u\\in[-1,1]$，且 $t^2-x^2=t^2(1-u^2)$。于是\n$$\n\\begin{aligned}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\\n&= \\int_{-1}^{1}f(tu)\\cdot t^2(1-u^2)\\cdot t\\,\\mathrm{d}u \\\\\n&= t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}\n$$\n因此\n$$\n\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\\n&= \\frac{3}{t^3}\\cdot t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u \\\\\n&= 3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}\n$$\n由于 $f(u)$ 可导，从而连续，当 $t\\to0^+$ 时 $f(tu)\\to f(0)=1$，且 $(1-u^2)$ 在 $[-1,1]$ 上可积，极限与积分可交换，故\n$$\n\\lim_{t\\to0^+}\\frac{I(t)}{\\pi t^3}\n=3\\int_{-1}^{1}1\\cdot(1-u^2)\\,\\mathrm{d}u.\n$$\n计算定积分：\n$$\n\\int_{-1}^{1}(1-u^2)\\,\\mathrm{d}u\n=\\left[u-\\frac{u^3}{3}\\right]_{-1}^{1}\n=\\Big(1-\\frac13\\Big)-\\Big(-1+\\frac13\\Big)\n=\\frac23+\\frac23=\\frac43.\n$$\n所以极限值为\n$$\n3\\times\\frac43=4.\n$$\n\n## 最终答案\n$4$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-30 22:33",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用高斯公式将曲面积分化为三重积分\n记向量场"
+              },
+              {
+                "type": "latex",
+                "content": "\\vec{F}=(P,Q,R)"
+              },
+              {
+                "type": "text",
+                "content": "其中"
+              },
+              {
+                "type": "latex",
+                "content": "P=xf(y)"
+              },
+              {
+                "type": "latex",
+                "content": "Q=yf(z)"
+              },
+              {
+                "type": "latex",
+                "content": "R=zf(x)"
+              },
+              {
+                "type": "text",
+                "content": "曲面"
+              },
+              {
+                "type": "latex",
+                "content": "\\Sigma"
+              },
+              {
+                "type": "text",
+                "content": "是球心在原点、半径为"
+              },
+              {
+                "type": "latex",
+                "content": "t"
+              },
+              {
+                "type": "text",
+                "content": "的球面外侧，其所围区域为"
+              },
+              {
+                "type": "latex",
+                "content": "\\Omega=\\{(x,y,z)\\mid x^2+y^2+z^2\\leqslant t^2\\}"
+              },
+              {
+                "type": "text",
+                "content": "由高斯公式，"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}I(t) \\\\&= \\iint_{\\Sigma}P\\,\\,\\mathrm{d}y\\,\\mathrm{d}z+Q\\,\\,\\mathrm{d}z\\,\\mathrm{d}x+R\\,\\,\\mathrm{d}x\\,\\mathrm{d}y \\\\&= \\iiint_{\\Omega}\\Big(\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}\\Big)dV.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "计算偏导数："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\partial P}{\\partial x}=f(y),\\quad\\frac{\\partial Q}{\\partial y}=f(z),\\quad\n\\frac{\\partial R}{\\partial z}=f(x).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此散度"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=f(x)+f(y)+f(z).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "I(t)=\\iiint_{\\Omega}\\big[f(x)+f(y)+f(z)\\big]dV.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用对称性化简三重积分\n由于球体"
+              },
+              {
+                "type": "latex",
+                "content": "\\Omega"
+              },
+              {
+                "type": "text",
+                "content": "关于"
+              },
+              {
+                "type": "latex",
+                "content": "x,y,z"
+              },
+              {
+                "type": "text",
+                "content": "具有轮换对称性，且积分变量可任意置换，有"
+              },
+              {
+                "type": "latex",
+                "content": "\\iiint_{\\Omega}f(x)dV=\\iiint_{\\Omega}f(y)dV=\\iiint_{\\Omega}f(z)dV.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "从而"
+              },
+              {
+                "type": "latex",
+                "content": "I(t)=3\\iiint_{\\Omega}f(x)dV.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "用“先二后一”法将三重积分化为定积分\n对固定的"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "截面"
+              },
+              {
+                "type": "latex",
+                "content": "y^2+z^2\\leqslant t^2-x^2"
+              },
+              {
+                "type": "text",
+                "content": "是半径为"
+              },
+              {
+                "type": "latex",
+                "content": "\\sqrt{t^2-x^2}"
+              },
+              {
+                "type": "text",
+                "content": "的圆盘，面积为"
+              },
+              {
+                "type": "latex",
+                "content": "\\pi(t^2-x^2)"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\iiint_{\\Omega}f(x)dV\n=\\int_{-t}^{t}f(x)\\cdot\\pi(t^2-x^2)\\,\\mathrm{d}x.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入得"
+              },
+              {
+                "type": "latex",
+                "content": "I(t)=3\\pi\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算极限"
+              },
+              {
+                "type": "latex",
+                "content": "\\displaystyle\\lim_{t\\to 0^+}\\frac{I(t)}{\\pi t^3}"
+              },
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "I(t)"
+              },
+              {
+                "type": "text",
+                "content": "的表达式代入："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\&= \\frac{3\\pi}{\\pi t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\&= \\frac{3}{t^3}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "作代换"
+              },
+              {
+                "type": "latex",
+                "content": "x=tu"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}x=t\\,\\mathrm{d}u"
+              },
+              {
+                "type": "text",
+                "content": "积分限变为"
+              },
+              {
+                "type": "latex",
+                "content": "u\\in[-1,1]"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "t^2-x^2=t^2(1-u^2)"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\int_{-t}^{t}f(x)(t^2-x^2)\\,\\mathrm{d}x \\\\&= \\int_{-1}^{1}f(tu)\\cdot t^2(1-u^2)\\cdot t\\,\\mathrm{d}u \\\\&= t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\frac{I(t)}{\\pi t^3} \\\\&= \\frac{3}{t^3}\\cdot t^3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u \\\\&= 3\\int_{-1}^{1}f(tu)(1-u^2)\\,\\mathrm{d}u.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "f(u)"
+              },
+              {
+                "type": "text",
+                "content": "可导，从而连续，当"
+              },
+              {
+                "type": "latex",
+                "content": "t\\to 0^+"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "f(tu)\\to f(0)=1"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "(1-u^2)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "[-1,1]"
+              },
+              {
+                "type": "text",
+                "content": "上可积，极限与积分可交换，故"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{t\\to 0^+}\\frac{I(t)}{\\pi t^3}\n=3\\int_{-1}^{1}1\\cdot(1-u^2)\\,\\mathrm{d}u.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "计算定积分："
+              },
+              {
+                "type": "latex",
+                "content": "\\int_{-1}^{1}(1-u^2)\\,\\mathrm{d}u=\\left[u-\\frac{u^3}{3}\\right]_{-1}^{1}=\\Big(1-\\frac13\\Big)-\\Big(-1+\\frac13\\Big)\n=\\frac23+\\frac23=\\frac43.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "所以极限值为"
+              },
+              {
+                "type": "latex",
+                "content": "3\\times\\frac43=4.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-30 22:33",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

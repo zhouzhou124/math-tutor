@@ -676,6 +676,9 @@ def normalize_inline_math_text(text: str) -> str:
     s = re.sub(r'\$\$[^$]+\$\$', _p, s, flags=re.S)
     s = re.sub(r'(?<!\$)\$(?!\$)[^$\n]+\$(?!\$)', _p, s)
 
+    # P41.2: Protect LaTeX environments from being broken by inline patterns
+    s, env_protected = protect_latex_environments(s)
+
     # Pattern 1: f'(x) or g'(t) — function name + prime + parens with math content
     s = re.sub(
         r"([a-zA-Z])'(\([^)]*\))",
@@ -712,6 +715,43 @@ def normalize_inline_math_text(text: str) -> str:
         s,
     )
 
+    # P41 patterns (run before power/subscript to avoid conflicts):
+    # Pattern 8: lim t → 0+, lim t->0+, lim_{t→0+} → \lim_{t\to0^+}
+    s = re.sub(
+        r'(?<!\$)(?<!\\)lim\s+([a-zA-Z])\s*(?:→|->|\\to)\s*0\s*\+(?!\$)',
+        lambda m: f'$\\lim_{{{m.group(1)}\\to0^+}}$',
+        s,
+    )
+    # lim t → 0 (without +)
+    s = re.sub(
+        r'(?<!\$)(?<!\\)lim\s+([a-zA-Z])\s*(?:→|->|\\to)\s*0(?!\$)(?![\^+\d])',
+        lambda m: f'$\\lim_{{{m.group(1)}\\to0}}$',
+        s,
+    )
+    # lim n → ∞
+    s = re.sub(
+        r'(?<!\$)(?<!\\)lim\s+([a-zA-Z])\s*(?:→|->|\\to)\s*(?:∞|\\infty)(?!\$)',
+        lambda m: f'$\\lim_{{{m.group(1)}\\to\\infty}}$',
+        s,
+    )
+
+    # Pattern 9: ∫_{-1}^1 or ∫_a^b → \int_{-1}^{1}
+    s = re.sub(
+        r'(?<!\$)(?<!\\)∫(\s*_[{-]?[^}^]*[}]?\s*\^[{]?[^}\s]*[}]?)',
+        lambda m: f'$\\int{m.group(1).replace(" ", "")}$',
+        s,
+    )
+
+    # Pattern 10: [u - u^3/3]_{-1}^{1} → \left[u-\frac{u^3}{3}\right]_{-1}^{1}
+    s = re.sub(
+        r'(?<!\$)(?<!\\left)\[([^\]]+)\]_\{([^}]*)\}\^\{([^}]*)\}',
+        lambda m: f'$\\left[{m.group(1)}\\right]_{{{m.group(2)}}}^{{{m.group(3)}}}$',
+        s,
+    )
+
+    # Re-protect newly created $...$ regions
+    s = re.sub(r'(?<!\$)\$(?!\$)[^$\n]+\$(?!\$)', _p, s)
+
     # Pattern 5: x^2, x^{n+1} — variable with power
     s = re.sub(
         r'(?<!\$)(?<![a-zA-Z])([a-zA-Z])(\^(\{[^}]+\}|\d))(?!\$)(?![a-zA-Z}])',
@@ -742,7 +782,625 @@ def normalize_inline_math_text(text: str) -> str:
     for i, region in enumerate(protected):
         s = s.replace(f'\x00P{i}\x00', region)
 
+    # P41.2: Restore LaTeX environments
+    s = restore_latex_environments(s, env_protected)
+
     return s
+
+
+# ═══════════════════════════════════════════════
+#  P41: Derivation formula canonicalization
+# ═══════════════════════════════════════════════
+
+# Re: top-level = signs (not inside braces, not \neq etc.)
+_RE_TOPLEVEL_EQ = re.compile(r'(?<!\\)(?:=)(?!=)')
+# Re: top-level ⇒ arrows
+_RE_TOPLEVEL_ARROW = re.compile(r'(?:\\Rightarrow|\\Longrightarrow|⇒)')
+# Re: trailing substitution annotation like ", (x=tu)" or " (x=tu)"
+_RE_TRAILING_SUBSTITUTION = re.compile(
+    r'\s*[,，]\s*[\(（]([a-zA-Z])\s*=\s*([a-zA-Z][^)）]*)[\)）]\s*$'
+)
+# Re: inline substitution like "(x=tu)" at end of formula
+_RE_SUBSTITUTION_ANNOTATION = re.compile(
+    r'[\(（]([a-zA-Z])\s*=\s*([a-zA-Z][^)）]*)[\)）]'
+)
+# Re: bare lim notation
+_RE_BARE_LIM = re.compile(
+    r'(?<!\\)(?<!\$)lim\s+([a-zA-Z])\s*(?:→|->|\\to)\s*([^\s,;]+)'
+)
+# Re: Chinese sentence inside latex (2+ CJK chars)
+_RE_CHINESE_IN_LATEX = re.compile(r'[一-鿿]{2,}')
+
+# P41.2: LaTeX environment protection
+_LATEX_ENV_NAMES = (
+    'aligned', 'align', 'alignat',
+    'cases', 'matrix', 'pmatrix', 'bmatrix', 'vmatrix', 'Vmatrix',
+    'array', 'gathered', 'split', 'multline', 'eqnarray',
+)
+_RE_LATEX_ENV = re.compile(
+    r'\\begin\{(' + '|'.join(_LATEX_ENV_NAMES) + r')\}'
+    r'[\s\S]*?'
+    r'\\end\{\1\}',
+)
+
+
+def protect_latex_environments(text: str) -> tuple[str, dict]:
+    """Replace \\begin{env}...\\end{env} blocks with placeholders.
+
+    Returns (text_with_placeholders, {placeholder: original_content}).
+    """
+    if not text:
+        return text, {}
+    s = str(text)
+    protected: dict[str, str] = {}
+    counter = 0
+
+    def _replace(m):
+        nonlocal counter
+        key = f'\x00LENV{counter}\x00'
+        protected[key] = m.group(0)
+        counter += 1
+        return key
+
+    s = _RE_LATEX_ENV.sub(_replace, s)
+    return s, protected
+
+
+def restore_latex_environments(text: str, protected: dict) -> str:
+    """Restore placeholders back to original LaTeX environment content."""
+    if not protected:
+        return text
+    s = str(text)
+    for key, original in protected.items():
+        s = s.replace(key, original)
+    return s
+
+
+def repair_aligned_environment(latex: str) -> str:
+    r"""Repair common broken \begin{aligned}...\end{aligned} patterns.
+
+    Handles:
+    1. Escaped alignment markers: \&= → &=
+    2. Missing \end{aligned}: try to append
+    3. Orphan \end{aligned} without \begin: remove it
+    4. First line missing alignment point: add \n after first line
+    """
+    if not latex:
+        return latex
+    s = str(latex).strip()
+
+    has_begin = r'\begin{aligned}' in s or r'\begin{align}' in s
+    has_end = r'\end{aligned}' in s or r'\end{align}' in s
+
+    # Orphan end without begin
+    if has_end and not has_begin:
+        s = re.sub(r'\\end\{aligned\}', '', s)
+        s = re.sub(r'\\end\{align\}', '', s)
+        return s.strip()
+
+    # Missing end — try to append
+    if has_begin and not has_end:
+        s = s.rstrip() + '\n\\end{aligned}'
+
+    # Fix escaped alignment markers: \&= → &=
+    s = s.replace(r'\&=', '&=')
+    s = s.replace(r'\& ', '& ')
+
+    # Fix first line missing alignment point
+    begin_match = re.match(r'(\\begin\{aligned\})\s*(.*)', s, re.S)
+    if begin_match:
+        prefix = begin_match.group(1)
+        rest = begin_match.group(2)
+        lines = rest.split('\n')
+        if lines:
+            first_line = lines[0].strip()
+            if first_line and '&' not in first_line and r'\\' not in first_line:
+                # First line has no alignment point and no line break — check if
+                # subsequent lines have &=, meaning first line is a "header" expr
+                has_aligned_later = any('&' in l for l in lines[1:])
+                if has_aligned_later:
+                    lines[0] = first_line  # keep as-is, it's the LHS
+                    # Ensure it has a line break
+                    if len(lines) > 1:
+                        s = prefix + '\n' + ' \\\\\n'.join(
+                            l.strip() for l in lines if l.strip()
+                        )
+                        if not s.rstrip().endswith('\\end{aligned}'):
+                            s = s.rstrip() + '\n\\end{aligned}'
+                        return s
+
+    # P41.3: Fix row spacing markers inside environments
+    s = repair_latex_row_spacing_markers(s)
+
+    return s
+
+
+# P41.3: Row spacing marker patterns
+# Matches \[6pt], \[4pt], \[.5em], \[1ex] etc. — broken spacing markers
+# that lost a backslash and look like display math delimiters
+_RE_BROKEN_ROW_SPACING = re.compile(
+    r'(?<!\\)\\\[(\d*\.?\d+(?:pt|mm|cm|em|ex|baselineskip))\]'
+)
+
+
+def repair_latex_row_spacing_markers(latex: str) -> str:
+    r"""Repair broken row spacing markers in LaTeX environments.
+
+    Handles:
+    1. \[6pt] → \\[6pt] (fix missing backslash)
+    2. Inside cases: normalize all row spacing to plain \\
+    3. Inside aligned: keep \\[6pt] as valid spacing
+
+    Does NOT touch display math delimiters \[...\] (those have content,
+    not just a dimension).
+    """
+    if not latex:
+        return latex
+    s = str(latex)
+
+    # Fix broken spacing markers: \[6pt] → \\[6pt]
+    s = _RE_BROKEN_ROW_SPACING.sub(r'\\\\[\1]', s)
+
+    return s
+
+
+def repair_cases_environment(latex: str) -> str:
+    r"""Repair common broken \begin{cases}...\end{cases} patterns.
+
+    Handles:
+    1. Row spacing markers: \[6pt], \\[6pt] → \\ (plain line break)
+    2. Missing & before conditions: add & separator
+    3. Bare \[ inside cases (not spacing) → remove or fix
+    """
+    if not latex:
+        return latex
+    s = str(latex)
+
+    # Only process if cases environment exists
+    if r'\begin{cases}' not in s:
+        return s
+
+    # Fix row spacing inside cases: \\[6pt] → \\ and \[6pt] → \\
+    # First fix broken ones (missing backslash)
+    s = _RE_BROKEN_ROW_SPACING.sub(r'\\\\', s)
+    # Then normalize valid spacing markers to plain \\
+    s = re.sub(r'\\\\\[(\d+(?:\.\d+)?(?:pt|mm|cm|em|ex|baselineskip))\]', r'\\\\', s)
+
+    # Fix lines missing & before conditions
+    # Pattern: expression, condition (no &)
+    # Inside cases, each line should be: expr, & condition \\
+    lines = s.split('\n')
+    result = []
+    in_cases = False
+    for line in lines:
+        stripped = line.strip()
+        if r'\begin{cases}' in stripped:
+            in_cases = True
+            result.append(line)
+            continue
+        if r'\end{cases}' in stripped:
+            in_cases = False
+            result.append(line)
+            continue
+        if in_cases and stripped and '&' not in stripped and r'\\' not in stripped:
+            # Line in cases without & — might be: expr, condition
+            # Try to split at last comma
+            comma_pos = stripped.rfind(',')
+            if comma_pos > 0:
+                expr = stripped[:comma_pos + 1].strip()
+                cond = stripped[comma_pos + 1:].strip()
+                if cond:
+                    stripped = f"{expr} & {cond}"
+        result.append(stripped if in_cases else line)
+
+    return '\n'.join(result)
+
+
+# P41.4: Bare fraction patterns
+# Matches: frac14, frac12, frac18, dfrac18, frac34, etc.
+# Also: frac{1}{4}, dfrac{1}{8}
+_RE_BARE_FRAC = re.compile(
+    r'(?<!\\)(?:d?frac)(\d)(\d)'
+)
+_RE_BARE_FRAC_BRACES = re.compile(
+    r'(?<!\\)(d?frac)\{(\d+)\}\{(\d+)\}'
+)
+# Stray d before frac: d frac14 → \frac{1}{4}
+_RE_STRAY_D_FRAC = re.compile(
+    r'(?<![a-zA-Z])d\s*(?:\\?\s*)?frac(\d)(\d)'
+)
+# Incomplete \ frac or \frac 14
+_RE_INCOMPLETE_FRAC = re.compile(
+    r'\\?\s*frac(\d)(\d)'
+)
+
+
+def repair_bare_fraction_commands(text: str) -> str:
+    r"""Repair bare fraction commands in LaTeX.
+
+    Handles:
+    1. frac14 → \frac{1}{4}
+    2. dfrac18 → \dfrac{1}{8}
+    3. frac{1}{4} → \frac{1}{4} (already has braces but missing \)
+    4. d frac18 → \frac{1}{8}
+    5. \ frac14 → \frac{1}{4}
+    """
+    if not text:
+        return text
+    s = str(text)
+
+    # Skip if no frac-like pattern
+    if 'frac' not in s:
+        return s
+
+    # Protect existing \frac commands (already valid)
+    # We need to NOT match \frac{...}{...} that's already correct
+    # But DO match bare frac without backslash
+
+    # Step 1: dfrac18 / frac14 → \dfrac{1}{8} / \frac{1}{4}
+    def _replace_bare(m):
+        cmd = m.group(0)
+        # Extract the frac/dfrac prefix and two digits
+        if cmd.startswith('d'):
+            prefix = r'\dfrac'
+            digits = cmd[5:]  # after "dfrac"
+        else:
+            prefix = r'\frac'
+            digits = cmd[4:]  # after "frac"
+        return f'{prefix}{{{digits[0]}}}{{{digits[1]}}}'
+
+    # Match bare frac/dfrac followed by two digits, NOT preceded by backslash
+    s = re.sub(r'(?<![\\a-zA-Z])(d?frac)(\d)(\d)', lambda m: f'\\{m.group(1)}{{{m.group(2)}}}{{{m.group(3)}}}', s)
+
+    # Step 2: d frac18 → \frac{1}{8} (stray d)
+    s = _RE_STRAY_D_FRAC.sub(lambda m: f'\\frac{{{m.group(1)}}}{{{m.group(2)}}}', s)
+
+    # Step 3: \ frac14 → \frac{1}{4} (space after backslash)
+    s = re.sub(r'\\\s*frac(\d)(\d)', lambda m: f'\\frac{{{m.group(1)}}}{{{m.group(2)}}}', s)
+
+    # Step 4: frac{1}{4} without backslash → \frac{1}{4}
+    s = re.sub(r'(?<![\\a-zA-Z])(d?frac)\{(\d+)\}\{(\d+)\}', lambda m: f'\\{m.group(1)}{{{m.group(2)}}}{{{m.group(3)}}}', s)
+
+    return s
+
+
+# P41.4: Probability formula fragment patterns
+_RE_ORPHAN_BANG = re.compile(r'^\s*!\s*$', re.M)
+_RE_ORPHAN_SEMICOLON = re.sub  # not used directly
+_RE_ORPHAN_STAR = re.compile(r'^\s*\*\*\s*$', re.M)
+_RE_ORPHAN_DX_LINE = re.compile(r'^\s*(?:d[xyzt])\s*$', re.M)
+_RE_BANG_BEFORE_PAREN = re.compile(r'!\s*(\()')
+_RE_BANG_BEFORE_BRACE = re.compile(r'!\s*(\{)')
+
+
+def repair_probability_formula_fragments(text: str) -> str:
+    r"""Repair common probability formula fragments in LaTeX.
+
+    Handles:
+    1. Orphan ! on its own line → delete
+    2. Orphan ** on its own line → delete
+    3. Orphan dx/dy/dt on its own line → merge with previous line
+    4. !( → \left( or just (
+    5. !{ → \left\{ or just \{
+    6. Event set semicolons: {X<=a; Y<=b} → {X\le a,\ Y\le b}
+    7. F\n!\n(...) → F(...) (merge split function name)
+    """
+    if not text:
+        return text
+    s = str(text)
+
+    # Remove orphan markers on their own line
+    s = _RE_ORPHAN_BANG.sub('', s)
+    s = _RE_ORPHAN_STAR.sub('', s)
+
+    # Merge orphan dx/dy/dt lines with previous line
+    def _merge_dx_line(m):
+        # Find the line before this one
+        start = m.start()
+        before = s[:start].rstrip()
+        after = s[m.end():]
+        dx = m.group(0).strip()
+        # Add \, before dx if not already there
+        if not before.endswith(r'\,'):
+            before += r'\,'
+        return before + dx + after.lstrip('\n')
+
+    # This is tricky with regex — use a simpler approach
+    lines = s.split('\n')
+    merged_lines = []
+    for line in lines:
+        stripped = line.strip()
+        # Check if this line is just a differential
+        if stripped in ('dx', 'dy', 'dz', 'dt', 'du', 'dv') and merged_lines:
+            prev = merged_lines[-1].rstrip()
+            if not prev.endswith(r'\,'):
+                prev += r'\,'
+            merged_lines[-1] = prev + stripped
+        else:
+            merged_lines.append(line)
+    s = '\n'.join(merged_lines)
+
+    # Fix !( → (  (remove stray bang before paren)
+    s = _RE_BANG_BEFORE_PAREN.sub(r'\1', s)
+    # Fix !{ → \{  (remove stray bang before brace, keep as set delimiter)
+    s = _RE_BANG_BEFORE_BRACE.sub(r'\\' + r'\1', s)
+
+    # Fix event set semicolons inside braces
+    # Simple approach: replace ; with ,\  inside {...}
+    result = []
+    depth = 0
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch == '{':
+            depth += 1
+            result.append(ch)
+        elif ch == '}':
+            depth -= 1
+            result.append(ch)
+        elif ch == ';' and depth > 0:
+            result.append(r',\ ')
+        else:
+            result.append(ch)
+        i += 1
+    s = ''.join(result)
+
+    # Clean up empty lines from removed markers
+    s = re.sub(r'\n\s*\n', '\n', s)
+
+    return s
+
+
+def normalize_probability_derivation_block(text: str) -> str:
+    r"""Normalize probability derivation blocks (CDF/PDF) to aligned format.
+
+    Identifies patterns like:
+    - F_Y(y)=P(...)=\int...\int...=...
+    - f_Y(y)=\frac{d}{dy}F_Y(y)=...
+
+    Converts multi-= chains to \begin{aligned}...\end{aligned}.
+    """
+    if not text:
+        return text
+    s = str(text).strip()
+
+    # Only process if it looks like a probability derivation
+    if not re.search(r'[FPf]_[A-Z]\(|\\frac\{d\}\{d[xyzt]\}', s):
+        return s
+
+    # If already has aligned, just repair
+    if r'\begin{aligned}' in s:
+        return repair_aligned_environment(s)
+
+    # Count top-level = signs
+    clean = re.sub(r'\{[^}]*\}', '', s)
+    clean = re.sub(r'\\text\{[^}]*\}', '', clean)
+    clean = re.sub(r'(?:\\neq|\\ne|\\geq|\\leq|\\approx|\\equiv|==)', '', clean)
+    eq_count = len(_RE_TOPLEVEL_EQ.findall(clean))
+
+    if eq_count >= 2:
+        # Use the standard derivation normalization
+        return normalize_derivation_formula_block(s)
+
+    return s
+
+
+def normalize_derivation_formula_block(text: str) -> str:
+    """P41: Normalize a derivation formula block for display.
+
+    1. Strip outer $$ / \\[ \\].
+    2. Detect multi-= derivation chains → convert to aligned.
+    3. Convert trailing substitution ", (x=tu)" → "\\quad (x=tu)".
+    4. Normalize bare lim notation.
+    """
+    if not text:
+        return text
+    s = str(text).strip()
+
+    # 1. Strip outer delimiters
+    if s.startswith('$$') and s.endswith('$$'):
+        s = s[2:-2].strip()
+    elif s.startswith('\\[') and s.endswith('\\]'):
+        s = s[2:-2].strip()
+
+    # If already has aligned environment, repair it but don't re-split
+    if r'\begin{aligned}' in s or r'\begin{align}' in s:
+        return repair_aligned_environment(s)
+
+    # 2. Normalize bare lim notation
+    s = _RE_BARE_LIM.sub(
+        lambda m: f'\\lim_{{{m.group(1)}\\to{m.group(2)}}}', s
+    )
+
+    # 3. Handle trailing substitution annotation: ", (x=tu)" → "\quad (x=tu)"
+    m_sub = _RE_TRAILING_SUBSTITUTION.search(s)
+    if m_sub:
+        s = _RE_TRAILING_SUBSTITUTION.sub('', s).rstrip()
+        s += f'\\quad ({m_sub.group(1)}={m_sub.group(2)})'
+
+    # 4. Detect multi-= derivation chain → aligned
+    # Count top-level = signs (not inside braces)
+    clean = re.sub(r'\{[^}]*\}', '', s)  # remove braced content
+    clean = re.sub(r'\\text\{[^}]*\}', '', clean)
+    clean = re.sub(r'(?:\\neq|\\ne|\\geq|\\leq|\\approx|\\equiv|==)', '', clean)
+
+    eq_count = len(_RE_TOPLEVEL_EQ.findall(clean))
+    arrow_count = len(_RE_TOPLEVEL_ARROW.findall(clean))
+
+    if eq_count + arrow_count >= 2:
+        # Split at top-level = and ⇒
+        parts = _split_at_toplevel_operators(s)
+        if len(parts) >= 2:
+            lines = [parts[0].strip()]
+            for part in parts[1:]:
+                p = part.strip()
+                if p.startswith(('=', '\\Rightarrow', '\\Longrightarrow', '⇒')):
+                    p = '&' + p if not p.startswith('&') else p
+                elif _RE_TOPLEVEL_EQ.match(p):
+                    p = '&' + p
+                elif _RE_TOPLEVEL_ARROW.match(p):
+                    p = '&' + p
+                else:
+                    p = '&= ' + p
+                lines.append(p)
+            s = '\\begin{aligned}\n' + ' \\\\\n'.join(lines) + '\n\\end{aligned}'
+
+    return s
+
+
+def _split_at_toplevel_operators(text: str) -> list[str]:
+    """Split formula at top-level = and ⇒ arrows, respecting brace depth."""
+    parts = []
+    depth = 0
+    current = []
+    i = 0
+    s = text
+    while i < len(s):
+        ch = s[i]
+        if ch == '{':
+            depth += 1
+            current.append(ch)
+        elif ch == '}':
+            depth -= 1
+            current.append(ch)
+        elif depth == 0:
+            # Check for ⇒ or = at top level
+            if s[i:].startswith('\\Rightarrow') or s[i:].startswith('\\Longrightarrow'):
+                if current:
+                    parts.append(''.join(current))
+                # Find the arrow
+                arrow_match = re.match(r'\\Longrightarrow|\\Rightarrow', s[i:])
+                if arrow_match:
+                    parts.append(arrow_match.group(0))
+                    i += len(arrow_match.group(0))
+                    current = []
+                    continue
+            elif ch == '=' and (i == 0 or s[i-1] != '\\') and (i + 1 < len(s) and s[i+1] != '='):
+                # Top-level =
+                if current:
+                    parts.append(''.join(current))
+                parts.append('=')
+                i += 1
+                current = []
+                continue
+            else:
+                current.append(ch)
+        else:
+            current.append(ch)
+        i += 1
+    if current:
+        parts.append(''.join(current))
+
+    # Merge: each "=" or arrow should be prepended to the next part
+    merged = []
+    i = 0
+    while i < len(parts):
+        if parts[i] in ('=', '\\Rightarrow', '\\Longrightarrow') and i + 1 < len(parts):
+            merged.append(parts[i] + ' ' + parts[i + 1])
+            i += 2
+        else:
+            merged.append(parts[i])
+            i += 1
+    return merged
+
+
+def split_text_and_latex_mixed_block(text: str) -> list[dict]:
+    """P41: Split a mixed Chinese+formula block into clean text and latex blocks.
+
+    Rules:
+    1. Chinese prose stays in text blocks.
+    2. Pure formulas go to latex_display blocks.
+    3. Trailing substitution ", (x=tu)" → "\\quad (x=tu)" inside latex.
+    4. If unsafe to split, return original as text block.
+    5. P41.2: LaTeX environments (aligned, cases, etc.) are extracted first
+       as complete latex_display blocks, never split across lines.
+    """
+    if not text:
+        return []
+    s = str(text).strip()
+
+    # Quick check: if no LaTeX-like content, return as text
+    if not re.search(r'[\\{}^_=∫∑∏]|(?:frac|int|lim|sum|begin|end)', s):
+        return [{"type": "text", "content": s}]
+
+    # P41.2: Extract complete LaTeX environments first
+    s_protected, env_map = protect_latex_environments(s)
+    if env_map:
+        # Process around the placeholders
+        result = []
+        # Split by placeholders to separate env content from surrounding text
+        parts = re.split(r'(\x00LENV\d+\x00)', s_protected)
+        for part in parts:
+            part_stripped = part.strip()
+            if not part_stripped:
+                continue
+            if part_stripped.startswith('\x00LENV') and part_stripped.endswith('\x00'):
+                # This is a protected environment
+                original = env_map.get(part_stripped, part_stripped)
+                # P41.4: Fix bare fractions and probability fragments
+                repaired = repair_bare_fraction_commands(original)
+                repaired = repair_probability_formula_fragments(repaired)
+                # P41.3: Fix row spacing and cases before aligned repair
+                repaired = repair_latex_row_spacing_markers(repaired)
+                if r'\begin{cases}' in repaired:
+                    repaired = repair_cases_environment(repaired)
+                repaired = repair_aligned_environment(repaired)
+                result.append({"type": "latex_display", "content": repaired})
+            else:
+                # Surrounding text — process it for text/formula split
+                sub_blocks = _split_text_and_latex_no_env(part_stripped)
+                result.extend(sub_blocks)
+        return result if result else [{"type": "text", "content": s}]
+
+    return _split_text_and_latex_no_env(s)
+
+
+def _split_text_and_latex_no_env(s: str) -> list[dict]:
+    """Inner helper for split_text_and_latex_mixed_block — no env extraction."""
+    # Split by lines
+    lines = s.split('\n')
+    result = []
+    formula_buf = []
+    text_buf = []
+
+    def _flush_text():
+        if text_buf:
+            merged = '\n'.join(text_buf).strip()
+            if merged:
+                result.append({"type": "text", "content": merged})
+            text_buf.clear()
+
+    def _flush_formula():
+        if formula_buf:
+            merged = '\n'.join(formula_buf).strip()
+            if merged:
+                normalized = normalize_derivation_formula_block(merged)
+                result.append({"type": "latex_display", "content": normalized})
+            formula_buf.clear()
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        # Check if line is mostly formula
+        has_latex_cmd = bool(re.search(r'[\\{}^_=]|(?:frac|int|lim|sum|begin|end)', stripped))
+        chinese_chars = len(re.findall(r'[一-鿿]', stripped))
+        total_chars = len(stripped.replace(' ', ''))
+
+        if has_latex_cmd and (chinese_chars == 0 or chinese_chars < total_chars * 0.3):
+            # Mostly formula
+            _flush_text()
+            formula_buf.append(stripped)
+        else:
+            # Mostly text (or mixed with heavy Chinese)
+            _flush_formula()
+            text_buf.append(stripped)
+
+    _flush_text()
+    _flush_formula()
+
+    return result if result else [{"type": "text", "content": s}]
 
 
 def split_latex_text(text: str) -> list[dict]:
@@ -1737,6 +2395,10 @@ def format_independent_equation_list(latex: str) -> str:
     if not latex or not isinstance(latex, str):
         return latex
     s = latex.strip()
+
+    # P41.2: Don't break existing LaTeX environments
+    if _RE_LATEX_ENV.search(s):
+        return s
     segments: list[str] = []
     depth = 0
     current: list[str] = []

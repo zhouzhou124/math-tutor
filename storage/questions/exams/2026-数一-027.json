@@ -15,17 +15,14 @@
     "矩阵",
     "秩"
   ],
-  "question": "$5.$ 设 $A,E$ 为 $n$ 阶矩阵，$B$ 为 $n\\times m$ 矩阵，$C$ 为 $m\\times n$ 矩阵，$M = \\begin{pmatrix} A & AB \\\\ CA & O \\end{pmatrix}$，$N = \\begin{pmatrix} E & B \\\\ A & O \\end{pmatrix}$。其中 $r(M)=r(N)$，若 $r(C)=n$，则 $(A)$ $r(A)=n$ $(B)$ $r(A)=m$ $(C)$ $r(B)=n$ $(D)$ $r(B)=m$",
+  "question": "$5.$ 设 $A,E$ 为 $n$ 阶矩阵，$B$ 为 $n\\times m$ 矩阵，$C$ 为 $m\\times n$ 矩阵，$M = \\begin{pmatrix} A & AB \\\\ CA & O \\end{pmatrix}$，$N = \\begin{pmatrix} E & B \\\\ A & O \\end{pmatrix}$。其中 $r(M)=r(N)$，若 $r(C)=n$，则 \n$(A)$ $r(A)=n$ $(B)$ $r(A)=m$ $(C)$ $r(B)=n$ $(D)$ $r(B)=m$",
   "options": {
-    "A": "$r(A)=n$",
-    "B": "$r(A)=m$",
-    "C": "$r(B)=n$",
-    "D": "$r(B)=m$"
+    "A": "$r(A)=n$ $(B)$ $r(A)=m$ $(C)$ $r(B)=n$ $(D)$ $r(B)=m$"
   },
   "correct_option": "A",
   "standard_answer": "A",
   "source": "import_hegongda",
   "solution_steps": [],
-  "raw_question_text": "$5.$ 设 $A,E$ 为 $n$ 阶矩阵，$B$ 为 $n\\times m$ 矩阵，$C$ 为 $m\\times n$ 矩阵，$M = \\begin{pmatrix} A & AB \\\\ CA & O \\end{pmatrix}$，$N = \\begin{pmatrix} E & B \\\\ A & O \\end{pmatrix}$。其中 $r(M)=r(N)$，若 $r(C)=n$，则 $(A)$ $r(A)=n$ $(B)$ $r(A)=m$ $(C)$ $r(B)=n$ $(D)$ $r(B)=m$",
+  "raw_question_text": "$5.$ 设 $A,E$ 为 $n$ 阶矩阵，$B$ 为 $n\\times m$ 矩阵，$C$ 为 $m\\times n$ 矩阵，$M = \\begin{pmatrix} A & AB \\\\ CA & O \\end{pmatrix}$，$N = \\begin{pmatrix} E & B \\\\ A & O \\end{pmatrix}$。其中 $r(M)=r(N)$，若 $r(C)=n$，则 \n$(A)$ $r(A)=n$ $(B)$ $r(A)=m$ $(C)$ $r(B)=n$ $(D)$ $r(B)=m$",
   "raw_answer_text": "A"
 }

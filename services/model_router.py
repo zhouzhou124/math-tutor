@@ -93,3 +93,41 @@ def route_model(task: str, difficulty: str = "中等",
         model="deepseek-chat", max_tokens=2000, temperature=0.2,
         reason="默认路由",
     )
+
+
+def select_grading_model(
+    question: dict,
+    question_type: str,
+    user_selected_model: str | None = None,
+    *,
+    task: str = "grading",
+) -> tuple[str, str]:
+    """P39: 统一模型选择。返回 (model_name, route_reason).
+
+    Priority:
+    1. User explicit override (env or UI selection)
+    2. route_model() by question type and difficulty
+    3. Fallback to session/user model
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    # User override: env GRADING_MODEL or explicit UI selection
+    if user_selected_model:
+        logger.info(f"[MODEL_ROUTE] user_override model={user_selected_model}")
+        return user_selected_model, "user_override"
+
+    difficulty = question.get("difficulty", "中等") if isinstance(question, dict) else "中等"
+
+    try:
+        route = route_model(task=task, difficulty=difficulty, question_type=question_type)
+        if route.model and route.model != "local":
+            logger.info(f"[MODEL_ROUTE] type={question_type} diff={difficulty} "
+                        f"model={route.model} reason={route.reason}")
+            return route.model, "routed_by_question_type"
+    except Exception as e:
+        logger.warning(f"[MODEL_ROUTE] route_model error: {e}, falling back")
+
+    # Fallback
+    logger.info(f"[MODEL_ROUTE] fallback to default")
+    return "deepseek-chat", "fallback_session_model"

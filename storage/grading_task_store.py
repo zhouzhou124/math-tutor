@@ -151,6 +151,39 @@ def complete_task(task_id: str, results: dict):
         conn.close()
 
 
+def update_task_solution(task_id: str, solution: dict, grading_result_patch: dict | None = None):
+    """Update a completed task with async solution data.
+
+    Called by the daemon thread after detailed solution generation finishes.
+    Updates standard_answer_json and optionally patches grading_result_json
+    to flip _hide_until_solution_ready → False.
+    """
+    conn = _connect()
+    try:
+        conn.execute(
+            "UPDATE grading_tasks SET standard_answer_json = ? WHERE task_id = ?",
+            (json.dumps(solution, ensure_ascii=False), task_id),
+        )
+        if grading_result_patch:
+            row = conn.execute(
+                "SELECT grading_result_json FROM grading_tasks WHERE task_id = ?",
+                (task_id,),
+            ).fetchone()
+            if row and row["grading_result_json"]:
+                try:
+                    gr = json.loads(row["grading_result_json"])
+                    gr.update(grading_result_patch)
+                    conn.execute(
+                        "UPDATE grading_tasks SET grading_result_json = ? WHERE task_id = ?",
+                        (json.dumps(gr, ensure_ascii=False), task_id),
+                    )
+                except (json.JSONDecodeError, TypeError):
+                    pass
+        conn.commit()
+    finally:
+        conn.close()
+
+
 def fail_task(task_id: str, error_msg: str):
     conn = _connect()
     try:

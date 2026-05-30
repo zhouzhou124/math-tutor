@@ -15,7 +15,7 @@
     "向量组",
     "线性表示"
   ],
-  "question": "$6.$ 设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ a \\\\ 3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} 3 \\\\ 2 \\\\ b \\end{pmatrix}$，$a,b$ 为实数。已知 $\\beta$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，但不能由 $\\alpha_1,\\alpha_2$ 表示，则 $(A)$ $a \\neq -4, b$ 为任意实数 $(B)$ $a = 4, b = 1$ $(C)$ $a \\neq -4$ 且 $b \\neq 1$ $(D)$ $a = 4, b$ 为任意实数",
+  "question": "$6.$ 设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ a \\\\ 3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} 3 \\\\ 2 \\\\ b \\end{pmatrix}$，$a,b$ 为实数。已知 $\\beta$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，但不能由 $\\alpha_1,\\alpha_2$ 表示，则 \n$(A)$ $a \\neq -4, b$ 为任意实数 \n$(B)$ $a = 4, b = 1$ \n$(C)$ $a \\neq -4$ 且 $b \\neq 1$ \n$(D)$ $a = 4, b$ 为任意实数",
   "options": {
     "A": "$a \\neq -4, b$ 为任意实数",
     "B": "$a = 4, b = 1$",
@@ -26,6 +26,6 @@
   "standard_answer": "B",
   "source": "import_hegongda",
   "solution_steps": [],
-  "raw_question_text": "$6.$ 设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ a \\\\ 3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} 3 \\\\ 2 \\\\ b \\end{pmatrix}$，$a,b$ 为实数。已知 $\\beta$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，但不能由 $\\alpha_1,\\alpha_2$ 表示，则 $(A)$ $a \\neq -4, b$ 为任意实数 $(B)$ $a = 4, b = 1$ $(C)$ $a \\neq -4$ 且 $b \\neq 1$ $(D)$ $a = 4, b$ 为任意实数",
+  "raw_question_text": "$6.$ 设 $\\alpha_1 = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$，$\\alpha_2 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}$，$\\alpha_3 = \\begin{pmatrix} -1 \\\\ a \\\\ 3 \\end{pmatrix}$，$\\beta = \\begin{pmatrix} 3 \\\\ 2 \\\\ b \\end{pmatrix}$，$a,b$ 为实数。已知 $\\beta$ 可由 $\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，但不能由 $\\alpha_1,\\alpha_2$ 表示，则 \n$(A)$ $a \\neq -4, b$ 为任意实数 \n$(B)$ $a = 4, b = 1$ \n$(C)$ $a \\neq -4$ 且 $b \\neq 1$ \n$(D)$ $a = 4, b$ 为任意实数",
   "raw_answer_text": "B"
 }

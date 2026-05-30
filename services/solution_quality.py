@@ -950,3 +950,209 @@ def structured_has_raw_source_leak(structured: dict | None) -> bool:
             if content and detect_student_raw_source_leak(content):
                 return True
     return False
+
+
+# ═══════════════════════════════════════════════
+#  P41: Derivation formula quality detection
+# ═══════════════════════════════════════════════
+
+_DETACHED_SUBSTITUTION_PATTERNS = [
+    re.compile(r'^\s*[\(（]\s*[a-zA-Z]\s*$'),          # "(x" alone
+    re.compile(r'^\s*=\s*[a-zA-Z][^)）]*[\)）]\s*$'),   # "=tu)" alone
+    re.compile(r'^\s*[\(（]\s*[a-zA-Z]\s*=\s*$'),       # "(x =" alone
+]
+
+_TEXT_IN_LATEX_DISPLAY = re.compile(r'[一-鿿]{4,}')
+_BARE_LIMIT_NOTATION = re.compile(r'(?<!\\)(?<!_)lim\s+[a-zA-Z]\s*(?:→|->)')
+_MULTI_EQ_NO_ALIGNED = re.compile(r'(?<!\\)=(?!=).*?(?<!\\)=(?!=)')
+_COMMA_SUBSTITUTION = re.compile(
+    r'[,，]\s*[\(（][a-zA-Z]\s*=\s*[a-zA-Z][^)）]*[\)）]'
+)
+
+
+def detect_broken_derivation_formula_block(text: str) -> list[str]:
+    """P41: Detect broken derivation formula patterns.
+
+    Returns list of issue names (empty if clean):
+    - detached_substitution_annotation: "(x" / "=tu)" split fragments
+    - text_inside_latex_display: Chinese sentences in display math
+    - raw_limit_notation: bare "lim t → 0+" not converted to \\lim
+    - unaligned_derivation_chain: multiple = without aligned environment
+    - comma_annotation_in_formula: ", (x=tu)" should be \\quad
+    """
+    s = str(text or "")
+    if not s.strip():
+        return []
+
+    issues = []
+
+    # Check for detached substitution fragments
+    lines = s.split('\n')
+    for line in lines:
+        for pat in _DETACHED_SUBSTITUTION_PATTERNS:
+            if pat.search(line):
+                issues.append("detached_substitution_annotation")
+                break
+
+    # Check for Chinese in display math context
+    if re.search(r'\$\$|\\\[|\\begin\{aligned', s):
+        # Only check non-text regions
+        cleaned = re.sub(r'\\text\{[^}]*\}', '', s)
+        if _TEXT_IN_LATEX_DISPLAY.search(cleaned):
+            issues.append("text_inside_latex_display")
+
+    # Check for bare lim notation
+    if _BARE_LIMIT_NOTATION.search(s):
+        issues.append("raw_limit_notation")
+
+    # Check for multi-= without aligned
+    if r'\begin{aligned}' not in s and r'\begin{align}' not in s:
+        clean = re.sub(r'\{[^}]*\}', '', s)
+        clean = re.sub(r'(?:\\neq|\\ne|\\geq|\\leq|\\approx|\\equiv|==)', '', clean)
+        if len(re.findall(r'(?<!\\)=(?!=)', clean)) >= 3:
+            issues.append("unaligned_derivation_chain")
+
+    # Check for comma substitution annotation
+    if _COMMA_SUBSTITUTION.search(s):
+        issues.append("comma_annotation_in_formula")
+
+    return issues
+
+
+# P41.2: LaTeX environment detection
+_RE_ALIGNED_BEGIN = re.compile(r'\\begin\{aligned\}')
+_RE_ALIGNED_END = re.compile(r'\\end\{aligned\}')
+_RE_ESCAPED_AMP = re.compile(r'\\&=')
+_RE_ORPHAN_AMP_EQ = re.compile(r'(?<!\\)&=\s')
+
+
+def detect_broken_latex_environment(text: str) -> list[str]:
+    """P41.2: Detect broken LaTeX environment patterns.
+
+    Returns list of issue names (empty if clean):
+    - orphan_aligned_begin: has \\begin{aligned} without \\end{aligned}
+    - orphan_aligned_end: has \\end{aligned} without \\begin{aligned}
+    - escaped_alignment_marker: has \\&= instead of &=
+    - aligned_environment_in_text_block: aligned env found in what should be text
+    - orphan_alignment_marker: standalone &= without surrounding aligned env
+    - unclosed_latex_environment: generic unclosed env
+    """
+    s = str(text or "")
+    if not s.strip():
+        return []
+
+    issues = []
+    begins = _RE_ALIGNED_BEGIN.findall(s)
+    ends = _RE_ALIGNED_END.findall(s)
+
+    if len(begins) > len(ends):
+        issues.append("orphan_aligned_begin")
+    elif len(ends) > len(begins):
+        issues.append("orphan_aligned_end")
+
+    if _RE_ESCAPED_AMP.search(s):
+        issues.append("escaped_alignment_marker")
+
+    # Orphan &= outside of aligned environment
+    if not begins and _RE_ORPHAN_AMP_EQ.search(s):
+        issues.append("orphan_alignment_marker")
+
+    return issues
+
+
+# P41.3: Cases environment detection
+_RE_BROKEN_SPACING_IN_TEXT = re.compile(
+    r'(?<!\\)\\\[\d*\.?\d+(?:pt|mm|cm|em|ex|baselineskip)\]'
+)
+_RE_CASES_ENV = re.compile(r'\\begin\{cases\}')
+_RE_BARE_BRACKET_IN_CASES = re.compile(r'(?<!\\)\\\[(?!\d+(?:\.\d+)?(?:pt|mm|cm|em|ex))')
+
+
+def detect_broken_cases_environment(text: str) -> list[str]:
+    """P41.3: Detect broken cases environment patterns.
+
+    Returns list of issue names (empty if clean):
+    - broken_row_spacing_marker: \\[6pt] or \\[4pt] etc.
+    - cases_missing_alignment_ampersand: cases line has condition but no &
+    - cases_environment_in_text_block: cases found in text context
+    - orphan_display_delimiter_in_cases: bare \\[ or \\] inside cases
+    """
+    s = str(text or "")
+    if not s.strip():
+        return []
+
+    issues = []
+
+    # Check for broken row spacing markers
+    if _RE_BROKEN_SPACING_IN_TEXT.search(s):
+        issues.append("broken_row_spacing_marker")
+
+    # Check cases-specific issues
+    if r'\begin{cases}' in s:
+        # Extract cases body
+        cases_match = re.search(r'\\begin\{cases\}(.*?)\\end\{cases\}', s, re.S)
+        if cases_match:
+            body = cases_match.group(1)
+            lines = [l.strip() for l in body.split('\\\\') if l.strip()]
+            for line in lines:
+                # Check for bare \[ inside cases (not spacing)
+                if _RE_BARE_BRACKET_IN_CASES.search(line):
+                    issues.append("orphan_display_delimiter_in_cases")
+                    break
+
+            # Check for lines with conditions but no &
+            for line in lines:
+                if ',' in line and '&' not in line:
+                    # Might be: expr, condition
+                    parts = line.split(',')
+                    if len(parts) >= 2:
+                        last_part = parts[-1].strip()
+                        # If last part looks like a condition (has <, >, \le, etc.)
+                        if re.search(r'[<>≤≥\\le|\\ge|\\lt|\\gt]', last_part):
+                            issues.append("cases_missing_alignment_ampersand")
+                            break
+
+    return issues
+
+
+# P41.4: Probability formula fragment detection
+_RE_BARE_FRAC_PATTERN = re.compile(r'(?<![\\a-zA-Z])d?frac\d\d')
+_RE_ORPHAN_DX = re.compile(r'^\s*(?:d[xyzt])\s*$', re.M)
+_RE_ORPHAN_BANG_LINE = re.compile(r'^\s*!\s*$', re.M)
+_RE_ORPHAN_SEMI_LINE = re.compile(r'^\s*;\s*$', re.M)
+_RE_BANG_BEFORE_PAREN = re.compile(r'!\s*[\({]')
+
+
+def detect_probability_formula_fragment_leak(text: str) -> list[str]:
+    """P41.4: Detect probability formula fragment patterns.
+
+    Returns list of issue names (empty if clean):
+    - bare_fraction_command: frac14 / dfrac18 without backslash
+    - orphan_differential_line: dx/dy/dt on its own line
+    - orphan_marker_bang: standalone ! or !( / !{
+    - orphan_semicolon_line: standalone ; on its own line
+    - broken_left_marker: ! before ( or { (should be \\left)
+    - fragmented_cdf_pdf_formula: CDF/PDF derivation not in aligned
+    """
+    s = str(text or "")
+    if not s.strip():
+        return []
+
+    issues = []
+
+    if _RE_BARE_FRAC_PATTERN.search(s):
+        issues.append("bare_fraction_command")
+
+    if _RE_ORPHAN_DX.search(s):
+        issues.append("orphan_differential_line")
+
+    if _RE_ORPHAN_BANG_LINE.search(s):
+        issues.append("orphan_marker_bang")
+
+    if _RE_ORPHAN_SEMI_LINE.search(s):
+        issues.append("orphan_semicolon_line")
+
+    if _RE_BANG_BEFORE_PAREN.search(s):
+        issues.append("broken_left_marker")
+
+    return issues

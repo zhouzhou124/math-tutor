@@ -16,10 +16,66 @@
     "函数方程"
   ],
   "question": "$12.$ 设 $f(x)$ 是 $(-\\infty,+\\infty)$ 上的非负连续函数，且 $f(x) \\cdot \\int_0^x f(x-t) dt = x \\cos^4 x$，则 $f(x)$ 在 $[0,\\pi]$ 上的平均值为 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{3}{8}$",
+  "standard_answer": "步骤1：\n步骤1：化简积分方程: 令 u=x-t，则 du=-dt，t=0 时 u=x，t=x 时 u=0，于是 ∫_0^x f(x-t)\\,\\mathrm{d}t = ∫_x^0 f(u)(-du) = ∫_0^x f(u)\\,\\mathrm{d}u，代入原方程即得\n\n$ \\Rightarrow f(x) \\int_0^x f(u)\\,\\mathrm{d}u = x \\cos^4 x$\n步骤2：\n步骤2：构造原函数: 令 F(x)=∫_0^x f(t)\\,\\mathrm{d}t，则 F(0)=0，F'(x)=f(x)，代入即得关于 F(x) 的微分方程\n\n$f(x) \\int_0^x f(u)\\,\\mathrm{d}u = x \\cos^4 x \\Rightarrow F'(x) F(x) = x \\cos^4 x$\n步骤3：\n步骤3：解出 F(x)^2: 由 (F(x)^2)' = 2F'(x)F(x)，两边从 0 到 x 积分，利用 F(0)=0 确定积分常数为零\n\n$F'(x) F(x) = x \\cos^4 x \\Rightarrow F(x)^2 = \\int_0^x 2t \\cos^4 t \\, \\mathrm{d}t$\n步骤4：\n步骤4：计算定积分: 将 cos^4 t 用倍角公式展开为 3/8 + (1/2)cos2t + (1/8)cos4t，再分部积分，含 cos2t 和 cos4t 的积分在 [0,\\pi] 上均为零，仅保留 ∫_0^\\pi (3/4)t dt = 3\\pi^2/8\n\n$F(\\pi)^2 = \\int_0^\\pi 2t \\cos^4 t \\, \\mathrm{d}t \\Rightarrow \\int_0^\\pi 2t \\cos^4 t \\, \\mathrm{d}t = \\frac{3\\pi^2}{8}$\n步骤5：\n步骤5：求平均值: 由非负性取正根 F(\\pi) = π√(3/8) = π√6/4，再由平均值定义 (1/\\pi)∫_0^π f(x)\\,\\mathrm{d}x = (1/\\pi)F(\\pi) 得最终结果\n\n$F(\\pi)^2 = \\frac{3\\pi^2}{8} \\quad \\text{且} \\quad f(x)\\ge 0 \\Rightarrow \\overline{f} = \\frac{1}{\\pi} F(\\pi) = \\frac{\\sqrt{6}}{4}$\n\n### 最终答案\n$$\n\\frac{\\sqrt{6}}{4}\n$$",
   "source": "import_hegongda",
   "solution_steps": [],
   "options": {},
   "raw_question_text": "$12.$ 设 $f(x)$ 是 $(-\\infty,+\\infty)$ 上的非负连续函数，且 $f(x) \\cdot \\int_0^x f(x-t) dt = x \\cos^4 x$，则 $f(x)$ 在 $[0,\\pi]$ 上的平均值为 $\\underline{\\qquad\\qquad}$",
-  "raw_answer_text": "$\\frac{3}{8}$"
+  "raw_answer_text": "$\\frac{3}{8}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780160441",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：化简积分方程: 令 u=x-t，则 du=-dt，t=0 时 u=x，t=x 时 u=0，于是 ∫_0^x f(x-t)\\,\\mathrm{d}t = ∫_x^0 f(u)(-du) = ∫_0^x f(u)\\,\\mathrm{d}u，代入原方程即得\n\n$ \\Rightarrow f(x) \\int_0^x f(u)\\,\\mathrm{d}u = x \\cos^4 x$\n步骤2：\n步骤2：构造原函数: 令 F(x)=∫_0^x f(t)\\,\\mathrm{d}t，则 F(0)=0，F'(x)=f(x)，代入即得关于 F(x) 的微分方程\n\n$f(x) \\int_0^x f(u)\\,\\mathrm{d}u = x \\cos^4 x \\Rightarrow F'(x) F(x) = x \\cos^4 x$\n步骤3：\n步骤3：解出 F(x)^2: 由 (F(x)^2)' = 2F'(x)F(x)，两边从 0 到 x 积分，利用 F(0)=0 确定积分常数为零\n\n$F'(x) F(x) = x \\cos^4 x \\Rightarrow F(x)^2 = \\int_0^x 2t \\cos^4 t \\, \\mathrm{d}t$\n步骤4：\n步骤4：计算定积分: 将 cos^4 t 用倍角公式展开为 3/8 + (1/2)cos2t + (1/8)cos4t，再分部积分，含 cos2t 和 cos4t 的积分在 [0,\\pi] 上均为零，仅保留 ∫_0^\\pi (3/4)t dt = 3\\pi^2/8\n\n$F(\\pi)^2 = \\int_0^\\pi 2t \\cos^4 t \\, \\mathrm{d}t \\Rightarrow \\int_0^\\pi 2t \\cos^4 t \\, \\mathrm{d}t = \\frac{3\\pi^2}{8}$\n步骤5：\n步骤5：求平均值: 由非负性取正根 F(\\pi) = π√(3/8) = π√6/4，再由平均值定义 (1/\\pi)∫_0^π f(x)\\,\\mathrm{d}x = (1/\\pi)F(\\pi) 得最终结果\n\n$F(\\pi)^2 = \\frac{3\\pi^2}{8} \\quad \\text{且} \\quad f(x)\\ge 0 \\Rightarrow \\overline{f} = \\frac{1}{\\pi} F(\\pi) = \\frac{\\sqrt{6}}{4}$\n\n### 最终答案\n$$\n\\frac{\\sqrt{6}}{4}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-31 01:00",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          },
+          {
+            "label": "步骤5",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-31 01:00",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

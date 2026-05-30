@@ -431,7 +431,7 @@ def sanitize_structured_solution_for_render(solution: dict[str, Any]) -> dict[st
 
 
 def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]:
-    """P36: Final sanitization pass before rendering standard solution."""
+    """P36+P41: Final sanitization pass before rendering standard solution."""
     import copy
     from services.solution_legacy_repair import (
         _repair_backslash_bare_differential,
@@ -454,6 +454,37 @@ def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]
         t = _normalize_unicode_greek_in_latex(t)
         return t
 
+    # P41: derivation formula canonicalization
+    def _p41_repair_latex_display(text: str) -> str:
+        from latex_utils import (
+            normalize_derivation_formula_block, repair_aligned_environment,
+            repair_cases_environment, repair_latex_row_spacing_markers,
+            repair_bare_fraction_commands, repair_probability_formula_fragments,
+        )
+        t = str(text or "")
+        t = _p36_repair_formula(t)
+        # P41.4: Fix bare fractions first
+        t = repair_bare_fraction_commands(t)
+        # P41.4: Fix probability formula fragments (orphan !, dx lines, etc.)
+        t = repair_probability_formula_fragments(t)
+        # P41.3: Fix row spacing markers
+        t = repair_latex_row_spacing_markers(t)
+        # P41.3: Repair cases environments
+        if r'\begin{cases}' in t:
+            t = repair_cases_environment(t)
+        # P41.2: Repair aligned environments before normalization
+        if r'\begin{aligned}' in t or r'\begin{align}' in t:
+            t = repair_aligned_environment(t)
+        t = normalize_derivation_formula_block(t)
+        return t
+
+    def _p41_repair_text(text: str) -> str:
+        from latex_utils import normalize_inline_math_text
+        t = str(text or "")
+        t = _p36_repair(t)
+        t = normalize_inline_math_text(t)
+        return t
+
     for key in ("standard_answer", "answer"):
         if isinstance(s.get(key), str) and s[key]:
             s[key] = _p36_repair(s[key])
@@ -468,6 +499,20 @@ def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]
         "content", "body", "body_markdown", "derivation_markdown",
         "explanation", "conclusion",
     )
+    def _p41_repair_block_content(block: dict) -> None:
+        """P41: Apply appropriate repair based on block type."""
+        content = block.get("content")
+        if not content:
+            return
+        btype = block.get("type", "")
+        display = block.get("display", "")
+        if btype == "latex_display" or (btype == "latex" and display == "block"):
+            block["content"] = _p41_repair_latex_display(content)
+        elif btype == "text":
+            block["content"] = _p41_repair_text(content)
+        else:
+            block["content"] = _p36_repair(content)
+
     for step_list_key in ("steps",):
         for step in s.get(step_list_key) or []:
             if not isinstance(step, dict):
@@ -475,10 +520,10 @@ def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]
             _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
             for block in step.get("blocks") or []:
                 if isinstance(block, dict) and block.get("content"):
-                    block["content"] = _p36_repair(block["content"])
+                    _p41_repair_block_content(block)
             for formula in step.get("formulas") or []:
                 if isinstance(formula, dict) and formula.get("latex"):
-                    formula["latex"] = _p36_repair_formula(formula["latex"])
+                    formula["latex"] = _p41_repair_latex_display(formula["latex"])
 
     structured = s.get("_structured")
     if isinstance(structured, dict):
@@ -488,20 +533,20 @@ def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]
             _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
             for block in step.get("blocks") or []:
                 if isinstance(block, dict) and block.get("content"):
-                    block["content"] = _p36_repair(block["content"])
+                    _p41_repair_block_content(block)
             for formula in step.get("formulas") or []:
                 if isinstance(formula, dict) and formula.get("latex"):
-                    formula["latex"] = _p36_repair_formula(formula["latex"])
+                    formula["latex"] = _p41_repair_latex_display(formula["latex"])
         sfa = structured.get("final_answer")
         if isinstance(sfa, dict) and sfa.get("content"):
-            sfa["content"] = _p36_repair(sfa["content"])
+            sfa["content"] = _p41_repair_text(sfa["content"])
 
     for block in s.get("blocks") or []:
         if isinstance(block, dict) and block.get("content"):
-            block["content"] = _p36_repair(block["content"])
+            _p41_repair_block_content(block)
     for formula in s.get("formulas") or []:
         if isinstance(formula, dict) and formula.get("latex"):
-            formula["latex"] = _p36_repair_formula(formula["latex"])
+            formula["latex"] = _p41_repair_latex_display(formula["latex"])
 
     return s
 

@@ -165,7 +165,7 @@ _TYPE_ABBR = {
     "解答题": "solve", "证明题": "proof",
 }
 _SUBJECT_ABBR = {
-    "数学一": "math1", "数学二": "math2", "数学三": "math3",
+    "数学一": "math1",
 }
 
 

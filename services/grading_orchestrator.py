@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class GradingError(Exception):
@@ -81,14 +84,19 @@ def execute_grading(
             status_callback(msg)
 
     q_type = str(selected_q.get("question_type") or "")
+    _q_source = selected_q.get("category") or selected_q.get("source") or ""
+    _q_id = selected_q.get("question_id", "")
 
     # ── View-only: empty answer ──
     if not (student_ans or "").strip():
+        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=view_only")
         gresult = {
             "success": True, "total": None,
             "comment": "未作答，仅查看标准答案",
             "engine": "view_only", "view_only": True,
             "hide_score_card": True, "hide_diagnosis": True,
+            "question_type": q_type, "question_source": _q_source,
+            "grading_intent": "view_solution_only", "is_view_only": True,
         }
         dresult = {"error_type": "未作答", "root_cause": ""}
         solution = None
@@ -109,6 +117,7 @@ def execute_grading(
 
     # ── Choice fast path ──
     if "选择" in q_type:
+        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=choice_fast")
         gresult = _grade_choice_fast(selected_q, student_ans)
         gresult = normalize_grading_result(gresult, engine="local_choice_fast")
         dresult = {
@@ -125,6 +134,7 @@ def execute_grading(
         }
 
     # ── Full LLM grading ──
+    logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=llm")
     from agents import GradingAgent, DiagnosisAgent
     grading = GradingAgent(client, model)
 
@@ -144,8 +154,21 @@ def execute_grading(
         total_score=total_score,
         knowledge_points=ocr_data.get("knowledge_point", "") if ocr_data else "",
         difficulty=selected_q.get("difficulty", "中等"),
+        question_type=q_type,
     )
     gresult = normalize_grading_result(gresult)
+
+    # P39: Add unified logging fields
+    from config import get_scoring_weights
+    _weights = get_scoring_weights(q_type)
+    gresult["question_type"] = q_type
+    gresult["question_source"] = _q_source
+    gresult["grading_path"] = "llm"
+    gresult["grading_intent"] = "grade"
+    gresult["is_view_only"] = False
+    gresult["scoring_weights_used"] = _weights
+    logger.info(f"[SCORING_WEIGHTS] qid={_q_id} type={q_type} "
+                f"weights={_weights['correctness']}/{_weights['process']}/{_weights['format']}")
 
     emit("正在诊断...")
     diagnosis = DiagnosisAgent(client, model)
@@ -183,8 +206,8 @@ def _build_error_record(selected_q, question, student_ans, solution, ocr_data,
         "question_id": selected_q.get("question_id", ""),
         "math_type": source_math_type(ocr_data or selected_q),
         "ai_math_type": math_type_for_ai(ocr_data or selected_q),
-        "question_type": ocr_data.get("question_type", ""),
-        "knowledge_point": ocr_data.get("knowledge_point", ""),
+        "question_type": (ocr_data or {}).get("question_type", "") or selected_q.get("question_type", "") or "未知题型",
+        "knowledge_point": (ocr_data or {}).get("knowledge_point", ""),
         "knowledge_points": selected_q.get("knowledge_points", []) or dresult.get("knowledge_points", []),
         "difficulty": selected_q.get("difficulty", "中等"),
         "student_answer": student_ans,

@@ -6,9 +6,9 @@ import traceback
 import streamlit as st
 import logging
 from concurrent.futures import ThreadPoolExecutor
-from config import LLM_BASE_URL, LLM_MODEL
+from config import LLM_BASE_URL, LLM_MODEL, FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD
 from agents import GradingAgent, DiagnosisAgent, SolverAgent
-from renderers.components.grading_result import render_grading_result_cards, render_blocked_solution_debug_panel
+from renderers.components.grading_result import render_grading_result_cards, render_blocked_solution_debug_panel, inject_grading_mobile_css
 from services.grading_adapter import normalize_grading_result, normalize_standard_solution
 from ._shared import get_client
 from .mobile import inject_pull_to_refresh_guard, set_grading_active
@@ -249,6 +249,170 @@ def _ss_set(key, value, *, _state=None):
         st.session_state[key] = value
 
 
+# ═══════════════════════════════════════════════
+#  P42: Render gate compatibility shims
+# ═══════════════════════════════════════════════
+
+def _standard_solution_status(grading_result: dict | None, standard_answer: dict | None, *, _state: dict) -> str:
+    """Return the effective standard solution status.
+
+    Priority: _state["_solution_status"] when both sides are pending,
+    then grading_result status, then standard_answer status, then heuristic.
+    """
+    gr_status = (grading_result or {}).get("standard_solution_status")
+    sa_status = (standard_answer or {}).get("standard_solution_status")
+
+    # If both sides are pending, defer to async state
+    if gr_status == "pending" and sa_status == "pending":
+        async_status = (_state or {}).get("_solution_status")
+        if async_status:
+            return async_status
+        return "pending"
+
+    if gr_status:
+        return gr_status
+    if sa_status:
+        return sa_status
+
+    # Heuristic fallback
+    sol = standard_answer or grading_result or {}
+    if sol.get("_hide_until_solution_ready"):
+        return "pending"
+    if sol.get("standard_answer") or sol.get("_structured") or sol.get("_display_steps"):
+        return "ready"
+    if sol.get("standard_solution_error") or sol.get("_blocked_solution_candidate"):
+        return "failed"
+    return "missing"
+
+
+def _should_block_standard_solution_render(ocr_data: dict, solution: dict) -> bool:
+    """Low-risk render gate: block only clearly broken solutions.
+
+    Does NOT block legacy fallback. Does NOT enforce P38 strict.
+    """
+    status = (solution or {}).get("standard_solution_status", "")
+
+    # Explicit failed — block if nothing to show
+    if status == "failed":
+        structured = (solution or {}).get("_structured")
+        has_structured = isinstance(structured, dict) and bool(structured.get("steps"))
+        if not has_structured:
+            return True
+
+    # Incomplete with quality issues — always block (may have partial structured)
+    if status == "incomplete":
+        return True
+
+    # Mandatory IR failed
+    if (solution or {}).get("_mandatory_ir_failed"):
+        return True
+
+    # Hide-until-ready flag
+    if (solution or {}).get("_hide_until_solution_ready"):
+        return True
+
+    return False
+
+
+def _standard_solution_gate_message(solution: dict, status: str) -> str:
+    """Return a user-facing message for the gate failure."""
+    issues = (solution or {}).get("_quality_report", {}).get("issues") or []
+    if status == "incomplete":
+        for issue in issues:
+            if isinstance(issue, str) and issue.startswith("missing_subparts:"):
+                parts_str = issue.split(":", 1)[1]
+                parts = [p.strip() for p in parts_str.split(",") if p.strip()]
+                if parts:
+                    return f"标准解答生成不完整，缺少第 {'、'.join(parts)} 小问"
+    if status == "failed":
+        return "标准解答生成失败，请重新生成标准解答"
+    return "标准解答生成不完整，请重新生成标准解答"
+
+
+def _render_standard_solution_gate_failure(solution: dict, *, selected_q: dict, status: str) -> None:
+    """Render gate failure UI with retry button.
+
+    On button click: resets session state, marks pending, triggers rerun.
+    Does NOT start worker directly — only sets state markers.
+    """
+    import html as _html
+
+    msg = _standard_solution_gate_message(solution, status)
+    st.warning(msg)
+
+    # Debug panel for admin: show escaped raw preview
+    raw_preview = (solution or {}).get("standard_answer", "")
+    if raw_preview:
+        with st.expander("调试信息（仅管理员）", expanded=False):
+            escaped = _html.escape(str(raw_preview).replace('"', '\\"'), quote=True)
+            st.markdown(escaped)
+
+    if st.button("重新生成标准解答"):
+        # Reset state for retry
+        _ss_set("_solution_status", "pending")
+        _ss_set("_solution_error", None)
+        _ss_set("force_regenerate_solution", True)
+
+        # Increment attempt counter
+        current_attempt = _ss_get("solution_attempt_id", 0)
+        new_attempt = current_attempt + 1
+        _ss_set("solution_attempt_id", new_attempt)
+        _ss_set("_solution_active_attempt_id", new_attempt)
+        _ss_set("_poll_start", time.time())
+
+        # Update solution/grading_result status
+        sa = _ss_get("standard_answer", {})
+        if isinstance(sa, dict):
+            sa["standard_solution_status"] = "pending"
+        gr = _ss_get("grading_result", {})
+        if isinstance(gr, dict):
+            gr["standard_solution_status"] = "pending"
+            gr["_hide_until_solution_ready"] = True
+
+        # Remove stale keys
+        for key in list(st.session_state.keys()):
+            if key == "_async_solution" or key == "_async_solution_failed":
+                del st.session_state[key]
+            if key.startswith("_solution_running_"):
+                del st.session_state[key]
+            if key == "_solution_active_hash":
+                del st.session_state[key]
+            if key == "standard_answer_structured":
+                del st.session_state[key]
+
+        st.rerun()
+
+
+def _has_cached_canonical_trace(selected_q: dict) -> bool:
+    """Check if question has cached canonical trace with graph data."""
+    if not selected_q:
+        return False
+
+    # Check canonical_solution.methods
+    cs = selected_q.get("canonical_solution")
+    if isinstance(cs, dict):
+        for method in cs.get("methods") or []:
+            if isinstance(method, dict):
+                graph = method.get("graph")
+                if isinstance(graph, dict) and graph.get("nodes"):
+                    return True
+
+    # Check canonical_solutions pool
+    for entry in selected_q.get("canonical_solutions") or []:
+        if isinstance(entry, dict):
+            graph = entry.get("graph")
+            if isinstance(graph, dict) and graph.get("nodes"):
+                return True
+            # Also check methods within pool entries
+            for method in entry.get("methods") or []:
+                if isinstance(method, dict):
+                    graph = method.get("graph")
+                    if isinstance(graph, dict) and graph.get("nodes"):
+                        return True
+
+    return False
+
+
 def _clear_grading_state(preserve_ocr: bool = False):
     """清理所有批改相关的状态，释放内存
 
@@ -274,6 +438,9 @@ def _clear_grading_state(preserve_ocr: bool = False):
         '_last_main_progress',
         '_main_progress_rendered',
         '_progress_rendered_standard_solution',
+        'pending_task_id',
+        'active_grading_task_id',
+        'active_grading_request_hash',
     ]
     if not preserve_ocr:
         keys_to_clear.extend(['ocr_result'])
@@ -622,9 +789,18 @@ def _solution_to_text(solution: dict) -> str:
     return "\n\n".join(parts).strip()
 
 
-def _cache_detailed_answer(selected_q: dict, expanded: str, model: str = ""):
-    """Backward-compatible wrapper for save_as_canonical_solution."""
+def _cache_detailed_answer(selected_q: dict, expanded: str, model: str = "",
+                           solution: dict = None) -> bool:
+    """Backward-compatible wrapper for save_as_canonical_solution.
+
+    Returns False when solution has no IR (legacy-only answer not cached).
+    """
+    if solution is not None:
+        has_ir = bool(solution.get("_solution_ir") or solution.get("_canonical_ir"))
+        if not has_ir:
+            return False
     save_as_canonical_solution(selected_q, expanded, model=model)
+    return True
 
 
 def get_canonical_solutions(selected_q: dict) -> list[dict]:
@@ -1386,7 +1562,8 @@ def _solution_request_hash(selected_q: dict, model: str) -> str:
 
 
 def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
-                            client, model: str, _state=None) -> str | None:
+                            client, model: str, _state=None,
+                            force: bool = False, attempt_id=None) -> str | None:
     """P15: Ensure detailed solution is being generated in background.
 
     Returns None if already cached ("ready"), or a task identifier if generation
@@ -1397,8 +1574,10 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
       - Dedup via solution_request_hash (same qid+model won't spawn duplicates)
       - Writes status to session_state so it survives Streamlit rerun
       - Failed generation sets status="failed" without affecting grading result
+      - force=True bypasses cache hit
+      - attempt_id isolates concurrent attempts
     """
-    if _solution_cache_hit(selected_q):
+    if not force and _solution_cache_hit(selected_q):
         _ss_set("_solution_status", "ready", _state=_state)
         return None  # already ready
 
@@ -1415,6 +1594,11 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
 
     _ss_set(_key, True, _state=_state)
     _ss_set("_solution_active_hash", _req_hash, _state=_state)
+    if force:
+        _ss_set("force_regenerate_solution", True, _state=_state)
+
+    # Capture attempt_id at thread spawn time for staleness check
+    _my_attempt_id = attempt_id
 
     def _run():
         try:
@@ -1423,6 +1607,14 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
                 question, ocr_data, selected_q, client, status,
                 force_expansion=True, _state=_state, model=model,
             )
+            # P29: check if this attempt is still active (not superseded)
+            if _my_attempt_id is not None:
+                _current_active = _ss_get("_solution_active_attempt_id", None, _state=_state)
+                if _current_active is not None and _my_attempt_id != _current_active:
+                    # Stale attempt — discard result, set non-ready status
+                    _ss_set("_solution_status", "stale_discarded", _state=_state)
+                    return
+
             # P15/P24: only mark ready if solution passes the full quality gate.
             from services.solution_quality import solution_quality_report
             report = solution_quality_report(solution, selected_q)
@@ -1432,19 +1624,47 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
                 _ss_set("_async_solution", solution, _state=_state)
                 _ss_set("_solution_status", "ready", _state=_state)
                 _ss_set("_solution_error", "", _state=_state)
+                if force:
+                    _ss_set("force_regenerate_solution", False, _state=_state)
                 gr = _ss_get("grading_result", {}, _state=_state)
                 if isinstance(gr, dict) and gr.get("_hide_until_solution_ready"):
                     gr["_hide_until_solution_ready"] = False
                     gr["standard_solution_status"] = "ready"
                     _ss_set("grading_result", gr, _state=_state)
+                # Persist to SQLite so UI can restore on rerun/recovery
+                _tid = _ss_get("_task_id", "", _state=_state)
+                if _tid:
+                    try:
+                        from storage.grading_task_store import update_task_solution
+                        update_task_solution(_tid, solution, {
+                            "_hide_until_solution_ready": False,
+                            "standard_solution_status": "ready",
+                        })
+                    except Exception:
+                        pass
             else:
                 _ss_set("_solution_status", "failed", _state=_state)
                 issues = "、".join(report.get("issues", [])[:4]) or "质量门禁未通过"
                 _ss_set("_solution_error", f"标准解答生成不完整：{issues}", _state=_state)
+                # P29: quarantine failed candidate
+                import html as _html
+                raw_text = str(solution.get("standard_answer") or "")[:500]
+                failed_entry = {
+                    "standard_answer": "",
+                    "_debug_raw_standard_answer": _html.escape(raw_text, quote=True),
+                }
+                _ss_set("_async_solution_failed", failed_entry, _state=_state)
+                if _my_attempt_id is not None:
+                    _ss_set("_failed_solution_attempt_id", _my_attempt_id, _state=_state)
+                _ss_set("_failed_quality_report", report, _state=_state)
+                _ss_set("_failed_raw_preview", _html.escape(raw_text, quote=True), _state=_state)
         except Exception as exc:
             _ss_set("_solution_status", "failed", _state=_state)
             _ss_set("_solution_error", str(exc)[:200], _state=_state)
         finally:
+            # Small delay to ensure _solution_running flag is observable by
+            # the main thread's polling loop before it gets cleared.
+            time.sleep(0.05)
             _ss_set(_key, False, _state=_state)
 
     import threading
@@ -1514,12 +1734,14 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
 
     is_correct = False
     confidence = 0.5
+    _compare_status = "unknown"
     if final_ans and stu:
         try:
             from symbolic_executor import quick_compare
             result = quick_compare(stu, final_ans)
             is_correct = result.get("equivalent", False)
             confidence = 0.95
+            _compare_status = "equivalent" if is_correct else "not_equivalent"
         except Exception:
             pass
 
@@ -1542,6 +1764,10 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "_fast_path": True,
             "standard_solution_status": sol_status,
             "_hide_until_solution_ready": True,
+            # P39: unified fill escalation fields
+            "quick_compare_confidence": confidence,
+            "quick_compare_status": _compare_status,
+            "ok": is_correct,
         },
         "diagnosis_result": {
             "error_type": "无错误" if is_correct else "填空题错误",
@@ -1603,7 +1829,10 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     # ── 空作答快速通道：只展示标准答案，不进行AI批改和诊断 ──
     # This must run before choice/fill fast paths. Empty answers are allowed and
     # mean "view detailed solution", not "grade as wrong".
+    _q_source = selected_q.get("category") or selected_q.get("source") or ""
+    _q_id = selected_q.get("question_id", "")
     if not (student_ans or "").strip():
+        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=view_only")
         status = ctx.status("📖 查看标准答案...", expanded=True)
         force_detail = bool(client) and not _solution_cache_hit(selected_q)
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
@@ -1674,9 +1903,15 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     if q_type == "填空题" and (student_ans or "").strip():
         result = _grade_fill_fast(selected_q, student_ans, ocr_data,
                                   question=question, client=client, model=_model, _state=_state)
-        if result["grading_result"]["confidence"] >= 0.9:
+        from config import should_escalate_fill_to_llm
+        _fill_gr = result["grading_result"]
+        if not should_escalate_fill_to_llm(_fill_gr):
             return result
         # Low confidence — fall through to full AI path
+        logger.info(f"[FILL_ESCALATE] qid={selected_q.get('question_id','')} "
+                    f"confidence={_fill_gr.get('confidence')} "
+                    f"threshold={FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD} "
+                    f"reason=low_confidence")
 
     # client 已在函数开头获取，此处检查是否可用
     if client is None:
@@ -1905,24 +2140,42 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                     gresult["_matched_from_pool"] = True
                     status.write(f"✓ 解法池匹配完成（{pool_best.get('method_name', '')}）")
                 else:
-                    grading = GradingAgent(client, _model)
+                    # P39: use routed model for grading
+                    from services.model_router import select_grading_model
+                    _grading_model, _model_reason = select_grading_model(
+                        selected_q, q_type, _model, task="grading")
+                    grading = GradingAgent(client, _grading_model)
                     gresult = grading.grade(
                         question=question, standard_answer=std_ans,
                         student_answer=student_ans, total_score=total_score,
                         knowledge_points=ocr_data.get("knowledge_point", ""),
                         difficulty=selected_q.get("difficulty", "中等"),
                         canonical_trace=_canonical,
+                        question_type=q_type,
                     )
+                    gresult["_model_used"] = _grading_model
+                    gresult["_model_route_reason"] = _model_reason
+                    logger.info(f"[MODEL_ROUTE] qid={selected_q.get('question_id','')} "
+                                f"type={q_type} model={_grading_model} reason={_model_reason}")
                     status.write("✓ LLM批改完成")
             else:
-                grading = GradingAgent(client, _model)
+                # P39: use routed model for grading
+                from services.model_router import select_grading_model
+                _grading_model, _model_reason = select_grading_model(
+                    selected_q, q_type, _model, task="grading")
+                grading = GradingAgent(client, _grading_model)
                 gresult = grading.grade(
                     question=question, standard_answer=std_ans,
                     student_answer=student_ans, total_score=total_score,
                     knowledge_points=ocr_data.get("knowledge_point", ""),
                     difficulty=selected_q.get("difficulty", "中等"),
                     canonical_trace=_canonical,
+                    question_type=q_type,
                 )
+                gresult["_model_used"] = _grading_model
+                gresult["_model_route_reason"] = _model_reason
+                logger.info(f"[MODEL_ROUTE] qid={selected_q.get('question_id','')} "
+                            f"type={q_type} model={_grading_model} reason={_model_reason}")
                 status.write("✓ LLM批改完成")
 
         # Step 3: 诊断（高正确率跳过LLM，直接用本地诊断，节省5-30秒）
@@ -2184,6 +2437,17 @@ def _restore_results_to_session(task: dict):
             except (json.JSONDecodeError, TypeError):
                 pass
 
+    # Restore async solution status: if the daemon thread already persisted
+    # the completed solution to SQLite, wire it up so the rendering gate
+    # sees _solution_status="ready" and _async_solution populated.
+    gr = st.session_state.get("grading_result") or {}
+    if isinstance(gr, dict):
+        if gr.get("standard_solution_status") == "ready" and not gr.get("_hide_until_solution_ready"):
+            st.session_state["_solution_status"] = "ready"
+            sa = st.session_state.get("standard_answer")
+            if isinstance(sa, dict):
+                st.session_state["_async_solution"] = sa
+
     st.session_state["answer_view_mode"] = True
 
     # Restore selected_question from task
@@ -2258,6 +2522,25 @@ def render_grading_page(db, render_latex):
     # ── Recovery: check SQLite for a recent completed task only ──
     if "ocr_result" not in st.session_state and user_id:
         recent = get_recent_task(user_id)
+        if recent:
+            # Guard: skip recovery if user already selected a different question
+            _existing_sq = st.session_state.get("selected_question") or {}
+            _existing_qid = _existing_sq.get("question_id", "") if isinstance(_existing_sq, dict) else ""
+            _task_qid = ""
+            if recent.get("selected_q_json"):
+                try:
+                    _task_qid = (json.loads(recent["selected_q_json"]) or {}).get("question_id", "")
+                except Exception:
+                    pass
+            if _existing_qid and _task_qid and _existing_qid != _task_qid:
+                # User selected a new question — mark old task as viewed, skip recovery
+                try:
+                    from storage.grading_task_store import mark_viewed
+                    mark_viewed(recent["task_id"])
+                except Exception:
+                    pass
+                recent = None
+
         if recent and recent.get("status") == "processing":
             try:
                 st.session_state["pending_task_id"] = recent["task_id"]
@@ -2390,6 +2673,9 @@ def render_grading_page(db, render_latex):
         kp_tags = " · ".join(kp_list[:6])
         st.caption(f"🏷️ 考查知识点: {kp_tags}")
 
+    # P40: inject mobile CSS for grading result area
+    inject_grading_mobile_css()
+
     # ── Async polling block ──
     pending_task_id = st.session_state.get("pending_task_id")
     if pending_task_id:
@@ -2461,11 +2747,13 @@ def render_grading_page(db, render_latex):
                 st.warning("检测到服务曾重启，批改任务已中断。请重新提交。")
             else:
                 st.error(f"批改失败: {err_msg}")
+            st.markdown('<div class="grading-action-row">', unsafe_allow_html=True)
             if st.button("🔄 重新批改", key="retry_grading"):
                 # Clear the failed task so a fresh one is created
                 del st.session_state["pending_task_id"]
                 _clear_grading_state()
                 st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         return
 
     # ── Auto-submit for "查看解析" (view-only mode) ──
@@ -2532,6 +2820,15 @@ def render_grading_page(db, render_latex):
                 )
                 inject_progress_css()
 
+                # Timeout guard: if solution generation takes too long, treat as failed
+                _q_type_for_timeout = selected_q.get("question_type") or ocr_data.get("question_type", "")
+                _SOLUTION_TIMEOUT_S = _get_standard_solution_timeout_seconds(_q_type_for_timeout)
+                _sol_elapsed = time.time() - st.session_state.get("_poll_start", time.time())
+                if _sol_status != "failed" and _sol_elapsed > _SOLUTION_TIMEOUT_S:
+                    _sol_status = "failed"
+                    st.session_state["_solution_status"] = "failed"
+                    st.session_state["_solution_error"] = "标准解答生成超时，请重试"
+
                 if _sol_status == "failed":
                     _sol_err = st.session_state.get("_solution_error", "")
                     if "不完整" in str(_sol_err) or "incomplete" in str(_sol_err).lower():
@@ -2543,6 +2840,7 @@ def render_grading_page(db, render_latex):
                     if _sol_err:
                         st.caption(f"原因: {_sol_err[:150]}")
                     st.caption("批改结果已保留，你可以重新生成标准解答。")
+                    st.markdown('<div class="grading-action-row">', unsafe_allow_html=True)
                     if st.button("🔄 重新生成标准解答", key="retry_solution"):
                         st.session_state["_solution_status"] = "pending"
                         st.session_state.pop("_async_solution", None)
@@ -2554,6 +2852,7 @@ def render_grading_page(db, render_latex):
                             gr.pop("_hide_until_solution_ready", None)
                             gr["standard_solution_status"] = "pending"
                         st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
                 else:
                     # Show progress while waiting for detailed solution
                     expected_s = get_expected_grading_seconds(selected_q, ocr_data)
@@ -2634,7 +2933,8 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
                                 model: str = "", method_name: str = "标准解法",
                                 semantic_tags: list = None,
                                 structured: dict = None,
-                                canonical_ir: dict = None) -> bool:
+                                canonical_ir: dict = None,
+                                solution_ir: dict = None) -> bool:
     """Append a canonical solution to the question's solution pool."""
     if not selected_q or not expanded:
         return False
@@ -2661,6 +2961,7 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
             "standard_answer": expanded,
             "_structured": structured,
             "_canonical_ir": canonical_ir,
+            "_solution_ir": solution_ir,
         })
         report = solution_quality_report(solution_like, question_for_gate)
         if not report.get("ok"):
@@ -2668,6 +2969,7 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
         expanded = solution_like.get("standard_answer", expanded)
         structured = solution_like.get("_structured") or structured
         canonical_ir = solution_like.get("_canonical_ir") or canonical_ir
+        solution_ir = solution_like.get("_solution_ir") or solution_ir or canonical_ir
 
         new_solution = {
             "solution_id": f"sol_{int(_time.time())}",
@@ -2684,6 +2986,8 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
             new_solution["structured"] = structured
         if canonical_ir:
             new_solution["canonical_ir"] = canonical_ir
+        if solution_ir:
+            new_solution["solution_ir"] = solution_ir
         pool = data.get("canonical_solutions") or []
         existing_names = {s.get("method_name", "") for s in pool}
         if method_name not in existing_names:
@@ -2741,12 +3045,16 @@ def get_canonical_solutions(selected_q: dict) -> list[dict]:
 
 def _solution_from_canonical_entry(entry: dict, selected_q: dict) -> dict:
     """Build solution dict from a canonical pool entry."""
+    canonical_ir = entry.get("canonical_ir")
+    solution_ir = entry.get("solution_ir") or canonical_ir
     return {
         "success": True,
         "standard_answer": entry.get("standard_answer", ""),
         "total_score": selected_q.get("score", 10),
         "steps": entry.get("steps") or [],
         "_structured": entry.get("structured"),
-        "_canonical_ir": entry.get("canonical_ir"),
+        "_canonical_ir": canonical_ir,
+        "_solution_ir": solution_ir,
         "_ai_unverified": not bool(entry.get("reviewed", False)),
+        "standard_solution_source": "canonical",
     }
