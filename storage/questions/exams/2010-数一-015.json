@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "解答题",
   "question": "求微分方程 $y'' - 3y' + 2y = 2xe^x$ 的通解。",
-  "standard_answer": "$y = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x$",
+  "standard_answer": "## 标准答案\n$$\ny = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n步骤1：求对应齐次方程的通解\n齐次方程为 $y'' - 3y' + 2y = 0$，写出其特征方程：\n$$\nr^2 - 3r + 2 = 0\n$$\n分解因式得 $(r-1)(r-2)=0$，特征根为 $r_1=1,\\ r_2=2$（两个不相等的实根）。\n因此齐次方程的通解为\n$$\ny_h = C_1 e^{x} + C_2 e^{2x}\n$$\n其中 $C_1,C_2$ 为任意常数。\n步骤2：由非齐次项 $2xe^x$ 设定特解形式\n非齐次项 $f(x)=2xe^x$ 属于 $P_m(x)e^{\\lambda x}$ 型，这里 $\\lambda=1$，多项式 $P_m(x)=2x$ 为一次多项式，即 $m=1$。\n由于 $\\lambda=1$ 是特征方程的单根（与 $r_1=1$ 相同，但只出现一次），故特解应设为\n$$\ny_p = x^1 Q_1(x) e^{x} = x (Ax + B) e^x = (A x^2 + B x) e^x\n$$\n其中 $A,B$ 为待定常数。\n步骤3：求导并代入原方程确定系数\n对 $y_p = (A x^2 + B x) e^x$ 逐次求导。\n一阶导数（使用乘积求导法则）：\n$$\n\\begin{aligned}\ny_p' &= \\bigl(2A x + B\\bigr) e^x + (A x^2 + B x) e^x \\\\\n&= \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x\n\\end{aligned}\n$$\n二阶导数：\n$$\n\\begin{aligned}\ny_p'' &= \\bigl[2A x + (2A + B)\\bigr] e^x + \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x \\\\\n&= \\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] e^x\n\\end{aligned}\n$$\n\n将 $y_p, y_p', y_p''$ 代入原方程 $y'' - 3y' + 2y = 2x e^x$，并消去公共因子 $e^x$（$e^x \\neq 0$）：\n$$\n\\begin{aligned}\n&\\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] \\\\\n&\\quad -3\\bigl[A x^2 + (2A + B)x + B\\bigr] \\\\\n&\\quad +2\\bigl[A x^2 + B x\\bigr] = 2x\n\\end{aligned}\n$$\n\n合并同类项：\n- $x^2$ 的系数：$A - 3A + 2A = 0$\n- $x$ 的系数：$(4A + B) - 3(2A + B) + 2B = 4A + B - 6A - 3B + 2B = -2A$\n- 常数项：$(2A + 2B) - 3B = 2A - B$\n\n于是得到简化式\n$$\n-2A \\cdot x + (2A - B) = 2x\n$$\n比较两端 $x$ 的同次幂系数：\n$$\n\\begin{cases}\n-2A = 2 \\\\\n2A - B = 0\n\\end{cases}\n$$\n解得 $A = -1$，代入第二式得 $2(-1) - B = 0 \\Rightarrow B = -2$。\n\n因此特解为\n$$\ny_p = (-x^2 - 2x) e^x = -x^2 e^x - 2x e^x\n$$\n步骤4：写出原方程的通解\n非齐次线性方程的通解为其对应齐次方程的通解与一个特解之和：\n$$\ny = y_h + y_p = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n\n## 结论\n故微分方程 $y'' - 3y' + 2y = 2xe^x$ 的通解为\n$$\ny = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n其中 $C_1, C_2$ 为任意常数。",
   "knowledge_points": [
     "微分",
     "微分方程"
@@ -17,5 +17,355 @@
     "微分方程"
   ],
   "raw_question_text": "求微分方程 $y'' - 3y' + 2y = 2xe^x$ 的通解。",
-  "raw_answer_text": "$y = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x$"
+  "raw_answer_text": "$y = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780139483",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\n$$\ny = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n步骤1：求对应齐次方程的通解\n齐次方程为 $y'' - 3y' + 2y = 0$，写出其特征方程：\n$$\nr^2 - 3r + 2 = 0\n$$\n分解因式得 $(r-1)(r-2)=0$，特征根为 $r_1=1,\\ r_2=2$（两个不相等的实根）。\n因此齐次方程的通解为\n$$\ny_h = C_1 e^{x} + C_2 e^{2x}\n$$\n其中 $C_1,C_2$ 为任意常数。\n步骤2：由非齐次项 $2xe^x$ 设定特解形式\n非齐次项 $f(x)=2xe^x$ 属于 $P_m(x)e^{\\lambda x}$ 型，这里 $\\lambda=1$，多项式 $P_m(x)=2x$ 为一次多项式，即 $m=1$。\n由于 $\\lambda=1$ 是特征方程的单根（与 $r_1=1$ 相同，但只出现一次），故特解应设为\n$$\ny_p = x^1 Q_1(x) e^{x} = x (Ax + B) e^x = (A x^2 + B x) e^x\n$$\n其中 $A,B$ 为待定常数。\n步骤3：求导并代入原方程确定系数\n对 $y_p = (A x^2 + B x) e^x$ 逐次求导。\n一阶导数（使用乘积求导法则）：\n$$\n\\begin{aligned}\ny_p' &= \\bigl(2A x + B\\bigr) e^x + (A x^2 + B x) e^x \\\\\n&= \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x\n\\end{aligned}\n$$\n二阶导数：\n$$\n\\begin{aligned}\ny_p'' &= \\bigl[2A x + (2A + B)\\bigr] e^x + \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x \\\\\n&= \\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] e^x\n\\end{aligned}\n$$\n\n将 $y_p, y_p', y_p''$ 代入原方程 $y'' - 3y' + 2y = 2x e^x$，并消去公共因子 $e^x$（$e^x \\neq 0$）：\n$$\n\\begin{aligned}\n&\\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] \\\\\n&\\quad -3\\bigl[A x^2 + (2A + B)x + B\\bigr] \\\\\n&\\quad +2\\bigl[A x^2 + B x\\bigr] = 2x\n\\end{aligned}\n$$\n\n合并同类项：\n- $x^2$ 的系数：$A - 3A + 2A = 0$\n- $x$ 的系数：$(4A + B) - 3(2A + B) + 2B = 4A + B - 6A - 3B + 2B = -2A$\n- 常数项：$(2A + 2B) - 3B = 2A - B$\n\n于是得到简化式\n$$\n-2A \\cdot x + (2A - B) = 2x\n$$\n比较两端 $x$ 的同次幂系数：\n$$\n\\begin{cases}\n-2A = 2 \\\\\n2A - B = 0\n\\end{cases}\n$$\n解得 $A = -1$，代入第二式得 $2(-1) - B = 0 \\Rightarrow B = -2$。\n\n因此特解为\n$$\ny_p = (-x^2 - 2x) e^x = -x^2 e^x - 2x e^x\n$$\n步骤4：写出原方程的通解\n非齐次线性方程的通解为其对应齐次方程的通解与一个特解之和：\n$$\ny = y_h + y_p = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n\n## 结论\n故微分方程 $y'' - 3y' + 2y = 2xe^x$ 的通解为\n$$\ny = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x\n$$\n其中 $C_1, C_2$ 为任意常数。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-05-30 19:11",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "求对应齐次方程的通解\n齐次方程为"
+              },
+              {
+                "type": "latex",
+                "content": "y'' - 3y' + 2y = 0"
+              },
+              {
+                "type": "text",
+                "content": "写出其特征方程："
+              },
+              {
+                "type": "latex",
+                "content": "r^2 - 3r + 2 = 0",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "分解因式得"
+              },
+              {
+                "type": "latex",
+                "content": "(r-1)(r-2)=0"
+              },
+              {
+                "type": "text",
+                "content": "特征根为"
+              },
+              {
+                "type": "latex",
+                "content": "r_1=1,\\ r_2=2"
+              },
+              {
+                "type": "text",
+                "content": "（两个不相等的实根）。\n因此齐次方程的通解为"
+              },
+              {
+                "type": "latex",
+                "content": "y_h = C_1 e^{x} + C_2 e^{2x}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "其中"
+              },
+              {
+                "type": "latex",
+                "content": "C_1,C_2"
+              },
+              {
+                "type": "text",
+                "content": "为任意常数。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "由非齐次项"
+              },
+              {
+                "type": "latex",
+                "content": "2xe^x"
+              },
+              {
+                "type": "text",
+                "content": "设定特解形式\n非齐次项"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=2xe^x"
+              },
+              {
+                "type": "text",
+                "content": "属于"
+              },
+              {
+                "type": "latex",
+                "content": "P_m(x)e^{\\lambda x}"
+              },
+              {
+                "type": "text",
+                "content": "型，这里"
+              },
+              {
+                "type": "latex",
+                "content": "\\lambda=1"
+              },
+              {
+                "type": "text",
+                "content": "多项式"
+              },
+              {
+                "type": "latex",
+                "content": "P_m(x)=2x"
+              },
+              {
+                "type": "text",
+                "content": "为一次多项式，即"
+              },
+              {
+                "type": "latex",
+                "content": "m=1"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "\\lambda=1"
+              },
+              {
+                "type": "text",
+                "content": "是特征方程的单根（与"
+              },
+              {
+                "type": "latex",
+                "content": "r_1=1"
+              },
+              {
+                "type": "text",
+                "content": "相同，但只出现一次），故特解应设为"
+              },
+              {
+                "type": "latex",
+                "content": "y_p = x^1 Q_1(x) e^{x} = x (Ax + B) e^x = (A x^2 + B x) e^x",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "其中"
+              },
+              {
+                "type": "latex",
+                "content": "A,B"
+              },
+              {
+                "type": "text",
+                "content": "为待定常数。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "求导并代入原方程确定系数\n对"
+              },
+              {
+                "type": "latex",
+                "content": "y_p = (A x^2 + B x) e^x"
+              },
+              {
+                "type": "text",
+                "content": "逐次求导。\n一阶导数（使用乘积求导法则）："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}y_p' &= \\bigl(2A x + B\\bigr) e^x + (A x^2 + B x) e^x \\\\&= \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "二阶导数："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}y_p'' &= \\bigl[2A x + (2A + B)\\bigr] e^x + \\bigl[A x^2 + (2A + B)x + B\\bigr] e^x \\\\&= \\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] e^x\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "y_p, y_p', y_p''"
+              },
+              {
+                "type": "text",
+                "content": "代入原方程"
+              },
+              {
+                "type": "latex",
+                "content": "y'' - 3y' + 2y = 2x e^x"
+              },
+              {
+                "type": "text",
+                "content": "并消去公共因子"
+              },
+              {
+                "type": "latex",
+                "content": "e^x"
+              },
+              {
+                "type": "latex",
+                "content": "e^x \\ne 0"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}&\\bigl[A x^2 + (4A + B)x + (2A + 2B)\\bigr] \\\\&\\quad -3\\bigl[A x^2 + (2A + B)x + B\\bigr] \\\\&\\quad +2\\bigl[A x^2 + B x\\bigr] = 2x\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "合并同类项：\n-"
+              },
+              {
+                "type": "latex",
+                "content": "x^2"
+              },
+              {
+                "type": "text",
+                "content": "的系数："
+              },
+              {
+                "type": "latex",
+                "content": "A - 3A + 2A = 0"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "的系数："
+              },
+              {
+                "type": "latex",
+                "content": "(4A + B) - 3(2A + B) + 2B = 4A + B - 6A - 3B + 2B = -2A"
+              },
+              {
+                "type": "text",
+                "content": "常数项："
+              },
+              {
+                "type": "latex",
+                "content": "(2A + 2B) - 3B = 2A - B"
+              },
+              {
+                "type": "text",
+                "content": "于是得到简化式"
+              },
+              {
+                "type": "latex",
+                "content": "-2A \\cdot x + (2A - B) = 2x",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "比较两端"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "的同次幂系数："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{cases}-2A = 2 \\\\2A - B = 0\\end{cases}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "解得"
+              },
+              {
+                "type": "latex",
+                "content": "A = -1"
+              },
+              {
+                "type": "text",
+                "content": "代入第二式得"
+              },
+              {
+                "type": "latex",
+                "content": "2(-1) - B = 0 \\Rightarrow B = -2"
+              },
+              {
+                "type": "text",
+                "content": "因此特解为"
+              },
+              {
+                "type": "latex",
+                "content": "y_p = (-x^2 - 2x) e^x = -x^2 e^x - 2x e^x",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "写出原方程的通解非齐次线性方程的通解为其对应齐次方程的通解与一个特解之和："
+              },
+              {
+                "type": "latex",
+                "content": "y = y_h + y_p = C_1 e^x + C_2 e^{2x} - x^2 e^x - 2x e^x",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-05-30 19:11",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }
