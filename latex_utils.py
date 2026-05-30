@@ -647,6 +647,104 @@ def _demote_subquestion_math_labels(segments: list[dict]) -> list[dict]:
     return merged
 
 
+def normalize_inline_math_text(text: str) -> str:
+    """Wrap bare math expressions in $...$ for proper LaTeX rendering.
+
+    Handles patterns that _pre_wrap_bare_latex misses because they lack
+    a backslash command prefix:
+      - f'(x), g'(t)  — function with prime
+      - e^{-t^2}      — exponential with superscript
+      - x^2, x^{n+1} — variable with power
+      - a_n, x_{n+1}  — variable with subscript
+      - (-∞,-1), (1,+∞) — intervals with infinity
+      - f(0)=1/2      — function evaluation equations
+
+    Does NOT touch text already inside $...$ or $$...$$.
+    Does NOT wrap ordinary Chinese text.
+    """
+    if not text:
+        return text
+
+    s = str(text)
+
+    # Protect existing math regions
+    protected: list[str] = []
+    def _p(m):
+        protected.append(m.group(0))
+        return f'\x00P{len(protected) - 1}\x00'
+
+    s = re.sub(r'\$\$[^$]+\$\$', _p, s, flags=re.S)
+    s = re.sub(r'(?<!\$)\$(?!\$)[^$\n]+\$(?!\$)', _p, s)
+
+    # Pattern 1: f'(x) or g'(t) — function name + prime + parens with math content
+    s = re.sub(
+        r"([a-zA-Z])'(\([^)]*\))",
+        lambda m: f"${m.group(1)}'{m.group(2)}$",
+        s,
+    )
+
+    # Pattern 2: f(0)=..., f(1)=..., g(x)=... — function evaluation equations
+    s = re.sub(
+        r'(?<!\$)([a-zA-Z])\((\d+)\)\s*=\s*([0-9a-zA-Z/+\-.*^{}]+(?:\([0-9a-zA-Z/+\-.*^{}]+\))*)',
+        lambda m: f'${m.group(1)}({m.group(2)})={m.group(3)}$',
+        s,
+    )
+
+    # Pattern 3: d / dx, d/dy — bare differential operators
+    s = re.sub(
+        r'(?<!\$)(?<![a-zA-Z])d\s*/\s*d([xyztu])(?![a-zA-Z])',
+        lambda m: f'$\\frac{{d}}{{d{m.group(1)}}}$',
+        s,
+    )
+
+    # Re-protect newly created $...$ regions
+    s = re.sub(r'(?<!\$)\$(?!\$)[^$\n]+\$(?!\$)', _p, s)
+
+    # Pattern 4: e^{-t^2}, e^{x}, e^{-x^2}, e^x — exponential expressions
+    s = re.sub(
+        r'(?<!\$)e(\^\{[^}]+\})(?!\$)',
+        lambda m: f'$e{m.group(1)}$',
+        s,
+    )
+    s = re.sub(
+        r'(?<!\$)e\^([A-Za-z0-9])(?!\$)',
+        lambda m: f'$e^{{{m.group(1)}}}$',
+        s,
+    )
+
+    # Pattern 5: x^2, x^{n+1} — variable with power
+    s = re.sub(
+        r'(?<!\$)(?<![a-zA-Z])([a-zA-Z])(\^(\{[^}]+\}|\d))(?!\$)(?![a-zA-Z}])',
+        lambda m: f'${m.group(1)}{m.group(2)}$',
+        s,
+    )
+
+    # Pattern 6: a_n, x_{n+1} — variable with subscript
+    s = re.sub(
+        r'(?<!\$)(?<![a-zA-Z])([a-zA-Z])(_(\{[^}]+\}|\d))(?!\$)(?![a-zA-Z}])',
+        lambda m: f'${m.group(1)}{m.group(2)}$',
+        s,
+    )
+
+    # Pattern 7: Intervals with infinity
+    s = re.sub(
+        r'(?<!\$)\(([+-]?∞|[+-]?\\infty)\s*,\s*([+-]?∞|[+-]?\\infty|[0-9.-]+)\)(?!\$)',
+        lambda m: f'$({m.group(1)},{m.group(2)})$',
+        s,
+    )
+    s = re.sub(
+        r'(?<!\$)\(([0-9.-]+)\s*,\s*([+-]?∞|[+-]?\\infty)\)(?!\$)',
+        lambda m: f'$({m.group(1)},{m.group(2)})$',
+        s,
+    )
+
+    # Restore protected regions
+    for i, region in enumerate(protected):
+        s = s.replace(f'\x00P{i}\x00', region)
+
+    return s
+
+
 def split_latex_text(text: str) -> list[dict]:
     """
     将混合内容分离为文本和公式片段列表。
@@ -1194,6 +1292,45 @@ def _strip_math_delimiters(text: str) -> str:
     return s.replace("$$", "").replace("$", "").strip()
 
 
+# ── P32: Greek command corruption repair ──
+
+_GREEK_CORRUPTION_MAP = {
+    "alphas": "alpha", "betas": "beta", "gammas": "gamma",
+    "deltas": "delta", "epsilons": "epsilon", "etas": "eta",
+    "thetas": "theta", "iotas": "iota", "kappas": "kappa",
+    "lambdas": "lambda", "mus": "mu", "nus": "nu",
+    "xis": "xi", "pis": "pi", "rhos": "rho",
+    "sigmas": "sigma", "taus": "tau", "upsilons": "upsilon",
+    "phis": "phi", "chis": "chi", "psis": "psi",
+    "omegas": "omega",
+    "Gammas": "Gamma", "Deltas": "Delta", "Thetas": "Theta",
+    "Lambdas": "Lambda", "Xis": "Xi", "Pis": "Pi",
+    "Sigmas": "Sigma", "Upsilons": "Upsilon", "Phis": "Phi",
+    "Psis": "Psi", "Omegas": "Omega",
+    "varphis": "varphi", "varepsilons": "varepsilon",
+    "varthetas": "vartheta", "varkappas": "varkappa",
+    "varrhos": "varrho",
+    "alph": "alpha", "bet": "beta", "gam": "gamma",
+    "del": "delta", "eps": "epsilon", "the": "theta",
+    "lam": "lambda", "sig": "sigma", "ome": "omega",
+    "phi": "phi",
+}
+_GREEK_CORRUPTION_RE = re.compile(
+    r'\\(' + '|'.join(map(re.escape, sorted(_GREEK_CORRUPTION_MAP.keys(), key=len, reverse=True))) + r')(?=[^A-Za-z]|$)'
+)
+
+
+def _repair_corrupted_greek_commands(text: str) -> str:
+    """Fix LLM-corrupted Greek LaTeX commands: \\alphas → \\alpha, etc."""
+    def _replace(m: re.Match) -> str:
+        corrupted = m.group(1)
+        fixed = _GREEK_CORRUPTION_MAP.get(corrupted)
+        if fixed and fixed != corrupted:
+            return '\\' + fixed
+        return m.group(0)
+    return _GREEK_CORRUPTION_RE.sub(_replace, text)
+
+
 def sanitize_latex_for_render(text: str) -> str:
     """Normalize arbitrary LLM LaTeX into a string safe for st.latex().
 
@@ -1275,12 +1412,70 @@ def sanitize_latex_for_render(text: str) -> str:
     s = re.sub(r'\\(qquad|quad)(?=[A-Za-z])', r'\\\1 ', s)
     s = re.sub(r'\\,(?=[A-Za-z])', r'\\, ', s)
 
+    # P32: Fix corrupted Greek commands (\alphas → \alpha, etc.)
+    s = _repair_corrupted_greek_commands(s)
+
     # Plain R after membership is meant as the real-number set in generated
     # solutions. Normalize the common bare form before rendering.
     s = re.sub(r'\\in\s+R\b', r'\\in \\mathbb{R}', s)
 
     s = _clean_formula_tail(auto_fix_brackets(s))
     return s.strip()
+
+
+# ═══════════════════════════════════════════════
+# P37.2: Raw/invalid formula hard gate
+# ═══════════════════════════════════════════════
+
+_INVALID_FORMULA_PATTERNS = [
+    re.compile(r'\\int[A-Z][a-z]+'),
+    re.compile(r'(?<!\\mathrm\{d\})(?<!\\,)\\d[xyztu](?![a-zA-Z])'),
+    re.compile(r'\\frac\\partial'),
+    re.compile(r'\\partial\s*\{[^}]*\}(?!\s*\{)'),
+    re.compile(r'\\mathrm\{d\}[xyztu]\s+[a-zA-Z]'),
+    re.compile(r'\$\S+\$\s*\('),
+    re.compile(r'(?m)^\s*\$\$\s*$'),
+    re.compile(r'(?m)^\s*\\Rightarrow\s*$'),
+    re.compile(r'(?s)\\begin\{[^}]*\}(?!.*?\\end\{)'),
+    re.compile(r'(?<![\\a-zA-Z])int_\d'),
+    re.compile(r'(?<![\\a-zA-Z])frac\{'),
+    re.compile(r'(?<![\\a-zA-Z])partial\s+[a-zA-Z]'),
+    re.compile(r'\\var[φϕ]'),
+    re.compile(r'\\[φϕ]'),
+    re.compile(r'\\frac\{\s*\\partial\s*\}[^{]'),
+    re.compile(r'(?<!\\)mathrmd[txuyz]'),
+]
+
+
+def is_raw_or_invalid_latex_formula(text: str) -> bool:
+    """Check if a formula string contains raw or invalid LaTeX."""
+    if not text:
+        return False
+    s = str(text).strip()
+    if not s:
+        return False
+    for pat in _INVALID_FORMULA_PATTERNS:
+        if pat.search(s):
+            return True
+    return False
+
+
+def try_repair_formula(text: str) -> str | None:
+    """Attempt to repair a raw/invalid formula. Returns repaired text or None if unrepairable."""
+    if not text:
+        return None
+    s = str(text).strip()
+    if not s:
+        return None
+    s = sanitize_latex_for_render(s)
+    s = re.sub(r'\\var[φϕ]', r'\\varphi', s)
+    s = re.sub(r'\\[φ]', r'\\phi', s)
+    s = re.sub(r'(?<!\\)mathrmd([txuyz])', r'\\mathrm{d}\1', s)
+    s = re.sub(r'\\int([A-Z])([a-z]+)', r'\\int_{\\mathrm{\1}}', s)
+    s = re.sub(r'\\frac\\partial', r'\\frac{\\partial}', s)
+    if is_raw_or_invalid_latex_formula(s):
+        return None
+    return s
 
 
 _MATHY_COMMAND_RE = re.compile(
@@ -1475,6 +1670,121 @@ def _is_inline_math(content: str) -> bool:
     return True
 
 
+# ── P35.1: Independent equation list detection & formatting ──────────────
+
+def is_independent_equation_list(latex: str) -> bool:
+    """Detect comma-separated independent equations that would render as a broken chain."""
+    if not latex or not isinstance(latex, str):
+        return False
+    s = latex.strip()
+    if any(env in s for env in (
+        "\\begin{aligned}", "\\begin{align}", "\\begin{eqnarray}",
+        "\\begin{gather}", "\\begin{multline}",
+    )):
+        return False
+    if "\\Rightarrow" in s or "⇒" in s:
+        return False
+    segments: list[str] = []
+    depth = 0
+    current: list[str] = []
+    for ch in s:
+        if ch == "{":
+            depth += 1
+            current.append(ch)
+        elif ch == "}":
+            depth = max(depth - 1, 0)
+            current.append(ch)
+        elif ch == "," and depth == 0:
+            segments.append("".join(current).strip())
+            current = []
+        else:
+            current.append(ch)
+    tail = "".join(current).strip()
+    if tail:
+        segments.append(tail)
+    if len(segments) < 2:
+        return False
+    eq_segments = 0
+    for seg in segments:
+        if not seg:
+            return False
+        eq_pos = _find_top_level_equals(seg)
+        if eq_pos < 1:
+            return False
+        lhs = seg[:eq_pos].strip()
+        rhs = seg[eq_pos + 1:].strip()
+        if not lhs or not rhs:
+            return False
+        eq_segments += 1
+    return eq_segments >= 2
+
+
+def _find_top_level_equals(s: str) -> int:
+    """Find the first '=' at brace depth 0. Returns -1 if not found."""
+    depth = 0
+    for i, ch in enumerate(s):
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth = max(depth - 1, 0)
+        elif ch == "=" and depth == 0:
+            return i
+    return -1
+
+
+def format_independent_equation_list(latex: str) -> str:
+    """Format comma-separated independent equations as an aligned group."""
+    if not latex or not isinstance(latex, str):
+        return latex
+    s = latex.strip()
+    segments: list[str] = []
+    depth = 0
+    current: list[str] = []
+    for ch in s:
+        if ch == "{":
+            depth += 1
+            current.append(ch)
+        elif ch == "}":
+            depth = max(depth - 1, 0)
+            current.append(ch)
+        elif ch == "," and depth == 0:
+            seg = "".join(current).strip()
+            if seg:
+                segments.append(seg)
+            current = []
+        else:
+            current.append(ch)
+    tail = "".join(current).strip()
+    if tail:
+        segments.append(tail)
+    if len(segments) < 2:
+        return s
+    eq_parts: list[str] = []
+    for seg in segments:
+        eq_pos = _find_top_level_equals(seg)
+        if eq_pos >= 1:
+            lhs = seg[:eq_pos].strip()
+            rhs = seg[eq_pos + 1:].strip()
+            eq_parts.append(f"{lhs} &= {rhs}")
+        else:
+            eq_parts.append(seg)
+    lines: list[str] = []
+    for i in range(0, len(eq_parts), 2):
+        if i + 1 < len(eq_parts):
+            lines.append(f"{eq_parts[i]}, & {eq_parts[i + 1]}, \\\\")
+        else:
+            lines.append(f"{eq_parts[i]}.")
+    body = "\n".join(lines)
+    return f"\\begin{{aligned}}\n{body}\n\\end{{aligned}}"
+
+
+def _try_format_equation_list(content: str) -> str | None:
+    """If content is an independent equation list, return formatted aligned version."""
+    if is_independent_equation_list(content):
+        return format_independent_equation_list(content)
+    return None
+
+
 def _inject_katex_css() -> None:
     """Inject KaTeX display fix CSS once per session.
 
@@ -1593,6 +1903,10 @@ def render_ast(segments: list[dict], *, use_st_latex: bool = False) -> None:
                 c = sanitize_latex_for_render(c)
                 if not c:
                     continue
+                # P35.1: detect independent equation list → aligned group
+                formatted = _try_format_equation_list(c)
+                if formatted is not None:
+                    c = formatted
                 # Use st.markdown instead of st.latex to keep display math
                 # in the markdown flow and prevent block-element centering
                 # from bleeding into subsequent CJK inline text.
@@ -1836,7 +2150,7 @@ def validate_structured(solution: dict) -> tuple[bool, list[str]]:
         errors.append("'steps' 必须是非空 list")
         return False, errors
 
-    valid_types = {"text", "latex"}
+    valid_types = {"text", "latex", "latex_display", "latex_inline"}
     valid_displays = {"inline", "block", "hidden"}
     valid_operations = set(_OP_META.keys())
 
@@ -1881,7 +2195,8 @@ def validate_structured(solution: dict) -> tuple[bool, list[str]]:
     if "final_answer" in solution and solution["final_answer"]:
         fa = solution["final_answer"]
         if isinstance(fa, dict):
-            if fa.get("type") not in valid_types:
+            _fa_valid_types = valid_types | {"choice", "formula", "multi_part"}
+            if fa.get("type") not in _fa_valid_types:
                 errors.append("final_answer.type 无效")
             if "content" not in fa:
                 errors.append("final_answer 缺少 'content'")
@@ -2123,6 +2438,32 @@ def _split_mixed_latex_block(content: str, display: str = "inline") -> list[dict
         else:
             result.append({"type": "text", "content": c})
     return result if result else [{"type": "text", "content": content}]
+
+
+def _restore_bare_latex_commands(content: str) -> str:
+    """Restore backslash to bare LaTeX commands that lost it (JSON escape corruption)."""
+    import re as _re
+
+    boundary_cmds = [
+        'int', 'iint', 'oint', 'lim', 'ln', 'sin', 'cos', 'tan',
+        'cot', 'sec', 'csc', 'log', 'exp', 'sum', 'prod',
+    ]
+    safe_cmds = [
+        'begin', 'end', 'Rightarrow', 'Leftarrow', 'rightarrow', 'leftarrow',
+        'cdot', 'times', 'neq', 'leq', 'geq', 'operatorname',
+        'frac', 'dfrac', 'sqrt', 'partial', 'nabla', 'infty',
+        'alpha', 'beta', 'gamma', 'delta', 'sigma', 'phi', 'omega',
+        'lambda', 'theta', 'pi', 'left', 'right', 'mathrm',
+    ]
+
+    for cmd in boundary_cmds:
+        content = _re.sub(rf'(?<!\\)\b{_re.escape(cmd)}\b', lambda m, _cmd=cmd: f'\\{_cmd}', content)
+
+    for cmd in safe_cmds:
+        if cmd in content and f'\\{cmd}' not in content:
+            content = content.replace(cmd, f'\\{cmd}')
+
+    return content
 
 
 def validate_and_repair(data: dict) -> tuple[StructuredSolutionPydantic | None, list[str], list[str]]:

@@ -4,6 +4,8 @@ Scores a generated solution on structure, completeness, and block purity.
 Non-blocking: always returns a score, never raises.
 """
 
+import re
+
 
 def score_solution_quality(solution: dict) -> dict:
     """Score the quality of a generated structured solution. 0-100 scale.
@@ -99,8 +101,27 @@ def count_broken_latex_fragments(text: str) -> int:
         r"(?m)^\s*\}\s*$",             # orphan } on its own line
         r"\\frac\{[^{}]*$",            # unclosed frac
         r"�",                          # encoding artifact
+        r"(?<!\\)mathrmd[txuyz]",
+        r"\\(?:alphas|betas|gammas|deltas|epsilons|etas|thetas|iotas|kappas|"
+        r"lambdas|mus|nus|xis|pis|rhos|sigmas|taus|upsilons|phis|chis|psis|omegas|"
+        r"Gammas|Deltas|Thetas|Lambdas|Xis|Pis|Sigmas|Upsilons|Phis|Psis|Omegas|"
+        r"varphis|varepsilons|varthetas|varkappas|varrhos|"
+        r"alph|bet|gam|del|eps|the|lam|sig|ome)(?=[^A-Za-z]|$)",
+        r"\\var[φϕ]",
+        r"\\[φϕα-ωΑ-Ω](?=[^a-zA-Z]|$)",
+        r"(?<!\\)mathrm\s*d\s*[txuyz](?=[^a-zA-Z]|$)",
+        r"(?<![\\a-zA-Z])[φϕ]\s*[\(\[\{]",
+        r"(?<![\\a-zA-Z])[φϕ]\s*[_^]",
+        r"(?<![\\a-zA-Z])[φϕ]\s*\)",
+        r"(?<![\\a-zA-Z])[αβγδεζηθικλμνξπρστυχψω]\s*[\(\[\{]",
+        r"(?<![\\a-zA-Z])[αβγδεζηθικλμνξπρστυχψω]\s*[_^]",
+        r"(?<![\\a-zA-Z])[αβγδεζηθικλμνξπρστυχψω]\s*[<>=+\-\*/]",
+        r"(?<![\\a-zA-Z])[Α-Ω]\s*[\(\[\{^_]",
+        r"(?<![\\,]mathrm\{d\})\)\s*d[xyztu](?![a-zA-Z])",
+        r"\\(?:varphi|phi)\s*\([^)]*\)\s*d[xyztu](?![a-zA-Z])",
+        r"(?<!\\mathrm\{d\})(?<!\\,)\\d[xyztu](?![a-zA-Z])",
+        r"(?<![\\a-zA-Z])d[xyztu]d[xyztu](?![a-zA-Z])",
     ]
-    import re
     return sum(len(re.findall(p, s)) for p in patterns)
 
 
@@ -123,6 +144,71 @@ def structured_has_broken_latex(structured: dict | None) -> bool:
                 return True
     if has_broken_latex_fragments(str(structured.get("final_answer") or "")):
         return True
+    return False
+
+
+def structured_has_dirty_latex(structured: dict | None) -> bool:
+    """P32.1: Check if any display field in structured solution contains dirty LaTeX."""
+    if not isinstance(structured, dict):
+        return False
+    for step in structured.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        for key in ("body_markdown", "derivation_markdown", "explanation", "conclusion", "body"):
+            val = str(step.get(key) or "")
+            if val and has_broken_latex_fragments(val):
+                return True
+        for block in step.get("blocks") or []:
+            if not isinstance(block, dict):
+                continue
+            content = str(block.get("content") or "")
+            if content and has_broken_latex_fragments(content):
+                return True
+        for formula in step.get("formulas") or []:
+            if not isinstance(formula, dict):
+                continue
+            latex = str(formula.get("latex") or "")
+            if latex and has_broken_latex_fragments(latex):
+                return True
+    fa = structured.get("final_answer")
+    if isinstance(fa, dict):
+        content = str(fa.get("content") or "")
+        if content and has_broken_latex_fragments(content):
+            return True
+    elif fa:
+        if has_broken_latex_fragments(str(fa)):
+            return True
+    return False
+
+
+def solution_has_dirty_latex(solution: dict | None) -> bool:
+    """P32.1: Check if any display field in solution contains dirty LaTeX."""
+    if not isinstance(solution, dict):
+        return False
+    text = str(solution.get("standard_answer") or solution.get("answer") or "")
+    if text and has_broken_latex_fragments(text):
+        return True
+    for step in solution.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        for key in ("content", "body_markdown", "derivation_markdown", "explanation", "conclusion", "body"):
+            val = str(step.get(key) or "")
+            if val and has_broken_latex_fragments(val):
+                return True
+        for block in step.get("blocks") or []:
+            if not isinstance(block, dict):
+                continue
+            content = str(block.get("content") or "")
+            if content and has_broken_latex_fragments(content):
+                return True
+    if structured_has_dirty_latex(solution.get("_structured")):
+        return True
+    for block in solution.get("blocks") or []:
+        if not isinstance(block, dict):
+            continue
+        content = str(block.get("content") or "")
+        if content and has_broken_latex_fragments(content):
+            return True
     return False
 
 
@@ -528,11 +614,13 @@ def _structured_requires_derivation_gate(structured: dict | None) -> bool:
     for step in structured.get("steps") or []:
         if not isinstance(step, dict):
             continue
-        if any(step.get(key) for key in ("body_markdown", "derivation_markdown", "explanation")):
+        _injected = step.get("_body_markdown_injected")
+        if not _injected and step.get("body_markdown"):
             return True
-        for block in step.get("blocks") or []:
-            if isinstance(block, dict) and block.get("type") == "latex" and block.get("content"):
-                return True
+        if step.get("derivation_markdown") and not _injected:
+            return True
+        if step.get("explanation"):
+            return True
     return False
 
 
@@ -741,3 +829,124 @@ def solution_quality_report(solution: dict | None, question: dict | None = None)
         "issues": unique,
         "should_regenerate": not ok,
     }
+
+
+# ═══════════════════════════════════════════════
+#  P35: Malformed final answer detection
+# ═══════════════════════════════════════════════
+
+_MALFORMED_INTERVAL_PATTERNS = [
+    re.compile(r'\(\s*[-+]?\s*,\s*[-+]?\d*\s*\)'),
+    re.compile(r'\(\s*,\s*[-+]?\d+\s*\)'),
+    re.compile(r'\([-+]?(?:∞|\\infty)\s*,\s*[-+]?\d+(?!\s*\))'),
+    re.compile(r'(?<!\()\d+\s*,\s*[-+]?(?:∞|\\infty)\)'),
+    re.compile(r'\(\s*\)'),
+]
+
+
+def detect_malformed_final_answer(solution: dict | None) -> list[str]:
+    """P35: Detect malformed intervals and empty values in final answer."""
+    if not isinstance(solution, dict):
+        return []
+    issues: list[str] = []
+    texts: list[str] = []
+    fa = solution.get("final_answer")
+    if isinstance(fa, dict):
+        texts.append(str(fa.get("content") or ""))
+    elif fa:
+        texts.append(str(fa))
+    structured = solution.get("_structured")
+    if isinstance(structured, dict):
+        sfa = structured.get("final_answer")
+        if isinstance(sfa, dict):
+            texts.append(str(sfa.get("content") or ""))
+        elif sfa:
+            texts.append(str(sfa))
+    for text in texts:
+        for pat in _MALFORMED_INTERVAL_PATTERNS:
+            if pat.search(text):
+                issues.append("malformed_final_answer")
+                return issues
+    return issues
+
+
+def detect_unformatted_equation_list(solution: dict | None) -> list[str]:
+    """P35.1: Detect unformatted independent equation lists."""
+    if not isinstance(solution, dict):
+        return []
+    issues: list[str] = []
+    try:
+        from latex_utils import is_independent_equation_list
+        structured = solution.get("_structured")
+        if isinstance(structured, dict):
+            for step in structured.get("steps") or []:
+                if not isinstance(step, dict):
+                    continue
+                for block in step.get("blocks") or []:
+                    if not isinstance(block, dict):
+                        continue
+                    if block.get("type") == "latex" and is_independent_equation_list(str(block.get("content") or "")):
+                        issues.append("unformatted_equation_list")
+                        return issues
+    except Exception:
+        pass
+    return issues
+
+
+def detect_invalid_formula_source(solution: dict | None) -> list[str]:
+    """P37.2: Detect raw/invalid formula sources."""
+    if not isinstance(solution, dict):
+        return []
+    issues: list[str] = []
+    try:
+        from latex_utils import is_raw_or_invalid_latex_formula
+        structured = solution.get("_structured")
+        if isinstance(structured, dict):
+            for step in structured.get("steps") or []:
+                if not isinstance(step, dict):
+                    continue
+                for block in step.get("blocks") or []:
+                    if not isinstance(block, dict):
+                        continue
+                    if block.get("type") == "latex" and is_raw_or_invalid_latex_formula(str(block.get("content") or "")):
+                        issues.append("invalid_formula_source")
+                        return issues
+    except Exception:
+        pass
+    return issues
+
+
+_RAW_SOURCE_LEAK_PATTERNS = [
+    re.compile(r'##\s*步骤'),
+    re.compile(r'##\s*关键知识点'),
+    re.compile(r'##\s*易错提示'),
+    re.compile(r'##\s*常见误区'),
+    re.compile(r'##\s*秒杀技巧'),
+    re.compile(r'<span[^>]+>'),
+    re.compile(r'</span>'),
+]
+
+
+def detect_student_raw_source_leak(text: str) -> bool:
+    """P37.6.3: Detect raw source leak in student-facing fields."""
+    s = str(text or "")
+    for pat in _RAW_SOURCE_LEAK_PATTERNS:
+        if pat.search(s):
+            return True
+    return False
+
+
+def structured_has_raw_source_leak(structured: dict | None) -> bool:
+    """P37.6.3: Check if structured solution has raw source leak."""
+    if not isinstance(structured, dict):
+        return False
+    for step in structured.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        for block in step.get("blocks") or []:
+            if not isinstance(block, dict):
+                continue
+            content = str(block.get("content") or "")
+            if content and detect_student_raw_source_leak(content):
+                return True
+    return False
