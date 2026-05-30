@@ -20,6 +20,55 @@ from storage.grading_task_store import (
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+_SOLUTION_STATE_LOCK = threading.Lock()
+
+
+def _sync_solution_retry_state():
+    """Replay async solution thread state onto Streamlit state on the main thread."""
+    retry_state = st.session_state.get("_solution_retry_state")
+    if not isinstance(retry_state, dict):
+        return
+    with _SOLUTION_STATE_LOCK:
+        for key, value in list(retry_state.items()):
+            if key == "_lock":
+                continue
+            if key.startswith("_solution_") or key in {
+                "_async_solution", "grading_result", "standard_answer",
+                "standard_answer_structured",
+            }:
+                st.session_state[key] = value
+
+
+def _get_standard_solution_timeout_seconds(question_type: str, source: str | None = None) -> int:
+    """P32.6: Question-type based timeout for standard solution generation."""
+    import os
+    _env_map = {
+        "选择题": "SOLUTION_TIMEOUT_CHOICE_SECONDS",
+        "填空题": "SOLUTION_TIMEOUT_FILL_SECONDS",
+        "解答题": "SOLUTION_TIMEOUT_PROBLEM_SECONDS",
+        "证明题": "SOLUTION_TIMEOUT_PROOF_SECONDS",
+    }
+    _defaults = {
+        "选择题": 300,
+        "填空题": 300,
+        "解答题": 600,
+        "证明题": 600,
+    }
+    _default_fallback = int(os.getenv("SOLUTION_TIMEOUT_DEFAULT_SECONDS", "300"))
+    _env_key = _env_map.get(question_type)
+    if _env_key:
+        try:
+            val = int(os.getenv(_env_key, str(_defaults.get(question_type, _default_fallback))))
+        except (ValueError, TypeError):
+            val = _defaults.get(question_type, _default_fallback)
+    else:
+        val = _default_fallback
+    return max(60, min(val, 900))
+
+
+def _get_solution_polling_timeout_seconds(question_type: str, source: str | None = None) -> int:
+    """P32.6: UI polling timeout = future_timeout + 60s buffer."""
+    return _get_standard_solution_timeout_seconds(question_type, source) + 60
 
 
 # ═══════════════════════════════════════════════
@@ -200,8 +249,14 @@ def _ss_set(key, value, *, _state=None):
         st.session_state[key] = value
 
 
-def _clear_grading_state():
-    """清理所有批改相关的状态，释放内存"""
+def _clear_grading_state(preserve_ocr: bool = False):
+    """清理所有批改相关的状态，释放内存
+
+    Args:
+        preserve_ocr: If True, keep ocr_result in session state.
+            Used during resubmission to prevent recovery logic from
+            restoring stale task results while the new task processes.
+    """
     keys_to_clear = [
         'grading_result',
         'diagnosis_result',
@@ -210,9 +265,18 @@ def _clear_grading_state():
         'answer_view_mode',
         'grading_triggered',
         '_poll_start',
-        'ocr_result',            # OCR 数据可能很大
-        'ocr_progress',          # OCR 进度
+        'ocr_progress',
+        '_async_solution',
+        '_async_solution_failed',
+        '_solution_status',
+        '_solution_error',
+        '_solution_active_hash',
+        '_last_main_progress',
+        '_main_progress_rendered',
+        '_progress_rendered_standard_solution',
     ]
+    if not preserve_ocr:
+        keys_to_clear.extend(['ocr_result'])
     for key in keys_to_clear:
         if key in st.session_state:
             del st.session_state[key]
