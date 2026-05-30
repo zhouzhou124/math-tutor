@@ -8,7 +8,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from config import LLM_BASE_URL, LLM_MODEL
 from agents import GradingAgent, DiagnosisAgent, SolverAgent
-from renderers.components.grading_result import render_grading_result_cards
+from renderers.components.grading_result import render_grading_result_cards, render_blocked_solution_debug_panel
 from services.grading_adapter import normalize_grading_result, normalize_standard_solution
 from ._shared import get_client
 from .mobile import inject_pull_to_refresh_guard, set_grading_active

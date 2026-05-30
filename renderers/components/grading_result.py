@@ -3,8 +3,186 @@
 Card layout:
   Score → Knowledge Points → Diagnosis → Step Comparison → Standard Solution → Recommendations
 """
+import logging
 import streamlit as st
 from latex_utils import split_latex_text, render_ast
+
+logger = logging.getLogger(__name__)
+
+
+def _trace_raw_source_render_attempt(label: str, text: str, source: str = "") -> bool:
+    """P37.6.4: Log when raw source text is about to reach a student-facing render.
+
+    Returns True if a raw source leak was detected (caller should block rendering).
+    """
+    from services.solution_quality import detect_student_raw_source_leak
+    if not text or not isinstance(text, str):
+        return False
+    issues = detect_student_raw_source_leak(text)
+    if issues:
+        preview = text[:200].replace("\n", "\\n")
+        logger.warning(
+            "[RAW_SOURCE_LEAK_TRACE] label=%s source=%s issues=%s preview=%s",
+            label, source, issues, preview,
+        )
+        return True
+    return False
+
+
+def _is_admin_user() -> bool:
+    """Check if current user has admin role."""
+    auth = st.session_state.get("auth") or {}
+    if auth.get("is_admin"):
+        return True
+    if str(auth.get("role", "")).lower() == "admin":
+        return True
+    cu = st.session_state.get("current_user")
+    if cu is not None:
+        if getattr(cu, "is_admin", False):
+            return True
+        if str(getattr(cu, "role", "")).lower() == "admin":
+            return True
+    user = st.session_state.get("user") or {}
+    if str(user.get("role", "")).lower() == "admin":
+        return True
+    for key in ("user_role", "role"):
+        if str(st.session_state.get(key, "")).lower() == "admin":
+            return True
+    username = (
+        auth.get("username")
+        or user.get("username")
+        or st.session_state.get("username")
+        or st.session_state.get("user_name")
+        or ""
+    )
+    return str(username).lower() == "admin"
+
+
+def _should_show_solution_debug() -> bool:
+    """P37.4: Admin-only debug expander visibility check."""
+    import os
+    if not _is_admin_user():
+        return False
+    if st.session_state.get("debug_mode"):
+        return True
+    return os.environ.get("SHOW_SOLUTION_DEBUG", "") == "1"
+
+
+def _render_blocked_solution_debug(solution: dict, grading_result: dict | None = None) -> None:
+    """P37.4.2+: Admin-only debug preview for blocked solution candidates."""
+    if not _is_admin_user():
+        return
+
+    debug_on = _should_show_solution_debug()
+
+    if not debug_on:
+        st.caption("💡 你是 admin，但尚未开启开发者调试模式。请在侧边栏打开「开发者调试模式」查看被拦截的候选内容。")
+        return
+
+    gr = grading_result if isinstance(grading_result, dict) else (st.session_state.get("grading_result") or {})
+    issues = (
+        solution.get("_blocked_solution_issues")
+        or gr.get("_blocked_solution_issues")
+        or []
+    )
+    qr = (
+        solution.get("_blocked_solution_quality_report")
+        or gr.get("_blocked_solution_quality_report")
+        or solution.get("_quality_report")
+        or gr.get("_quality_report")
+        or {}
+    )
+    if not issues and isinstance(qr, dict):
+        issues = qr.get("issues") or []
+    locations = (
+        solution.get("_blocked_solution_error_locations")
+        or gr.get("_blocked_solution_error_locations")
+        or []
+    )
+    candidate = solution.get("_blocked_solution_candidate") or gr.get("_blocked_solution_candidate")
+    preview = solution.get("_failed_raw_preview") or gr.get("_failed_raw_preview")
+    source = (
+        solution.get("_blocked_solution_source")
+        or gr.get("_blocked_solution_source")
+        or solution.get("standard_solution_source", "")
+    )
+    model_used = solution.get("model_used") or solution.get("_model_used") or gr.get("_model_used", "")
+    status = solution.get("standard_solution_status", "")
+
+    logger.info(
+        "[ADMIN_DEBUG_RAW_PREVIEW] status=%s source=%s issues_count=%d has_candidate=%s",
+        status, source, len(issues), isinstance(candidate, dict),
+    )
+    with st.expander("🔧 调试：查看被拦截的标准解答候选（仅 admin）"):
+        st.warning("以下内容未通过质量门禁，仅供开发调试，不会保存为标准解答。")
+        st.markdown(f"**状态：** `{status}`　**来源：** `{source}`　**模型：** `{model_used}`")
+        if issues:
+            st.markdown("**质量问题：**")
+            for issue in issues:
+                st.markdown(f"- `{issue}`")
+
+        if locations:
+            st.markdown("**问题字段定位：**")
+            for loc in locations:
+                st.markdown(f"- **{loc.get('issue', '?')}** → `{loc.get('path', '?')}`")
+                if loc.get("preview"):
+                    st.code(loc["preview"], language=None)
+                if loc.get("suggestion"):
+                    st.caption(f"建议：{loc['suggestion']}")
+
+        if isinstance(candidate, dict):
+            raw_ans = candidate.get("standard_answer") or ""
+            if raw_ans.strip():
+                st.markdown("**原始 standard_answer：**")
+                st.code(raw_ans[:3000], language=None)
+            candidate_struct = candidate.get("_structured")
+            if isinstance(candidate_struct, dict):
+                import json
+                st.markdown("**原始 _structured (JSON)：**")
+                st.code(json.dumps(candidate_struct, ensure_ascii=False, indent=2)[:5000], language="json")
+        elif preview:
+            st.markdown("**原始内容预览：**")
+            st.code(preview, language=None)
+        else:
+            st.info(
+                "当前结果没有保存 blocked candidate，请点击「重新生成标准解答」后再查看。"
+                "以下为当前 solution debug snapshot。"
+            )
+            snapshot_ans = solution.get("standard_answer") or gr.get("standard_answer") or ""
+            if snapshot_ans.strip():
+                st.markdown("**当前 standard_answer：**")
+                st.code(snapshot_ans[:3000], language=None)
+
+
+def render_blocked_solution_debug_panel(
+    solution: dict,
+    grading_result: dict | None = None,
+    context: str = "",
+) -> None:
+    """Public API: render admin debug panel for blocked solutions."""
+    _render_blocked_solution_debug(solution, grading_result=grading_result)
+
+
+def _render_solution_failure_with_debug(
+    solution: dict,
+    message: str,
+    issues: list | None = None,
+    raw_answer: str = "",
+) -> None:
+    """Render solution failure warning with admin debug panel and retry button."""
+    with st.expander("📖 查看标准解法", expanded=False):
+        st.warning(message)
+        if issues:
+            st.caption("质量问题：" + "、".join(str(i) for i in issues[:4]))
+        _render_blocked_solution_debug(solution)
+        if raw_answer and len(raw_answer.strip()) >= 2:
+            st.markdown(f"**最终答案：** {raw_answer}")
+
+        def _request_retry():
+            st.session_state["_solution_retry_requested"] = True
+
+        if st.button("🔄 重新生成标准解答", key="retry_sol_failure"):
+            _request_retry()
 
 
 def render_score_card(gr: dict, total_score: int = 10) -> None:
