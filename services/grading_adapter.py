@@ -326,6 +326,186 @@ def _ensure_body_markdown_blocks(structured: dict[str, Any] | None) -> dict[str,
     return structured
 
 
+# ═══════════════════════════════════════════════
+#  P32/P36: Display sanitization helpers
+# ═══════════════════════════════════════════════
+
+def _repair_text_field(text: str) -> str:
+    """P32.1/P32.2/P32.2.1/P36: Apply all LaTeX repairs to a single text field."""
+    from services.solution_legacy_repair import (
+        _repair_mathrm_differential,
+        _repair_corrupted_greek_commands,
+        _repair_unicode_greek_commands,
+        _repair_bare_mathrm_differential,
+        _normalize_unicode_greek_math_symbols,
+        _repair_bare_differential_in_math_context,
+        _repair_backslash_bare_differential,
+        _repair_consecutive_bare_differential,
+    )
+    s = str(text or "")
+    s = _repair_mathrm_differential(s)
+    s = _repair_corrupted_greek_commands(s)
+    s = _repair_unicode_greek_commands(s)
+    s = _repair_bare_mathrm_differential(s)
+    s = _normalize_unicode_greek_math_symbols(s)
+    s = _repair_bare_differential_in_math_context(s)
+    s = _repair_backslash_bare_differential(s)
+    s = _repair_consecutive_bare_differential(s)
+    return s
+
+
+def _repair_formula_latex_field(text: str) -> str:
+    """P32.2/P32.2.1/P36: Apply repairs to a formula.latex field."""
+    from services.solution_legacy_repair import (
+        _repair_mathrm_differential,
+        _repair_corrupted_greek_commands,
+        _repair_unicode_greek_commands,
+        _repair_bare_mathrm_differential,
+        _normalize_unicode_greek_in_latex,
+        _repair_bare_differential_in_math_context,
+        _repair_backslash_bare_differential,
+        _repair_consecutive_bare_differential,
+    )
+    s = str(text or "")
+    s = _repair_mathrm_differential(s)
+    s = _repair_corrupted_greek_commands(s)
+    s = _repair_unicode_greek_commands(s)
+    s = _repair_bare_mathrm_differential(s)
+    s = _normalize_unicode_greek_in_latex(s)
+    s = _repair_bare_differential_in_math_context(s)
+    s = _repair_backslash_bare_differential(s)
+    s = _repair_consecutive_bare_differential(s)
+    return s
+
+
+def _repair_text_in_dict(d: dict[str, Any], keys: list[str]) -> dict[str, Any]:
+    """Apply repairs to specific keys in a dict (in-place)."""
+    for key in keys:
+        if key in d and isinstance(d[key], str) and d[key]:
+            d[key] = _repair_text_field(d[key])
+    return d
+
+
+def sanitize_structured_solution_for_render(solution: dict[str, Any]) -> dict[str, Any]:
+    """P32.1: Recursively sanitize all display fields in a structured solution."""
+    import copy
+    s = copy.deepcopy(dict(solution or {}))
+
+    for key in ("standard_answer", "answer"):
+        if isinstance(s.get(key), str) and s[key]:
+            s[key] = _repair_text_field(s[key])
+
+    _STEP_TEXT_KEYS = (
+        "content", "body", "body_markdown", "derivation_markdown",
+        "explanation", "conclusion",
+    )
+    for step in s.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
+        for block in step.get("blocks") or []:
+            if isinstance(block, dict) and block.get("content"):
+                block["content"] = _repair_text_field(block["content"])
+
+    structured = s.get("_structured")
+    if isinstance(structured, dict):
+        for step in structured.get("steps") or []:
+            if not isinstance(step, dict):
+                continue
+            _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
+            for block in step.get("blocks") or []:
+                if isinstance(block, dict) and block.get("content"):
+                    block["content"] = _repair_text_field(block["content"])
+            for formula in step.get("formulas") or []:
+                if isinstance(formula, dict) and formula.get("latex"):
+                    formula["latex"] = _repair_formula_latex_field(formula["latex"])
+        fa = structured.get("final_answer")
+        if isinstance(fa, dict) and fa.get("content"):
+            fa["content"] = _repair_text_field(fa["content"])
+
+    for block in s.get("blocks") or []:
+        if isinstance(block, dict) and block.get("content"):
+            block["content"] = _repair_text_field(block["content"])
+
+    return s
+
+
+def sanitize_solution_before_display(solution: dict[str, Any]) -> dict[str, Any]:
+    """P36: Final sanitization pass before rendering standard solution."""
+    import copy
+    from services.solution_legacy_repair import (
+        _repair_backslash_bare_differential,
+        _repair_consecutive_bare_differential,
+    )
+
+    s = sanitize_structured_solution_for_render(solution)
+
+    def _p36_repair(text: str) -> str:
+        t = str(text or "")
+        t = _repair_backslash_bare_differential(t)
+        t = _repair_consecutive_bare_differential(t)
+        return t
+
+    def _p36_repair_formula(text: str) -> str:
+        from services.solution_legacy_repair import _normalize_unicode_greek_in_latex
+        t = str(text or "")
+        t = _repair_backslash_bare_differential(t)
+        t = _repair_consecutive_bare_differential(t)
+        t = _normalize_unicode_greek_in_latex(t)
+        return t
+
+    for key in ("standard_answer", "answer"):
+        if isinstance(s.get(key), str) and s[key]:
+            s[key] = _p36_repair(s[key])
+
+    fa = s.get("final_answer")
+    if isinstance(fa, dict) and fa.get("content"):
+        fa["content"] = _p36_repair(fa["content"])
+    elif isinstance(fa, str) and fa:
+        s["final_answer"] = _p36_repair(fa)
+
+    _STEP_TEXT_KEYS = (
+        "content", "body", "body_markdown", "derivation_markdown",
+        "explanation", "conclusion",
+    )
+    for step_list_key in ("steps",):
+        for step in s.get(step_list_key) or []:
+            if not isinstance(step, dict):
+                continue
+            _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
+            for block in step.get("blocks") or []:
+                if isinstance(block, dict) and block.get("content"):
+                    block["content"] = _p36_repair(block["content"])
+            for formula in step.get("formulas") or []:
+                if isinstance(formula, dict) and formula.get("latex"):
+                    formula["latex"] = _p36_repair_formula(formula["latex"])
+
+    structured = s.get("_structured")
+    if isinstance(structured, dict):
+        for step in structured.get("steps") or []:
+            if not isinstance(step, dict):
+                continue
+            _repair_text_in_dict(step, list(_STEP_TEXT_KEYS))
+            for block in step.get("blocks") or []:
+                if isinstance(block, dict) and block.get("content"):
+                    block["content"] = _p36_repair(block["content"])
+            for formula in step.get("formulas") or []:
+                if isinstance(formula, dict) and formula.get("latex"):
+                    formula["latex"] = _p36_repair_formula(formula["latex"])
+        sfa = structured.get("final_answer")
+        if isinstance(sfa, dict) and sfa.get("content"):
+            sfa["content"] = _p36_repair(sfa["content"])
+
+    for block in s.get("blocks") or []:
+        if isinstance(block, dict) and block.get("content"):
+            block["content"] = _p36_repair(block["content"])
+    for formula in s.get("formulas") or []:
+        if isinstance(formula, dict) and formula.get("latex"):
+            formula["latex"] = _p36_repair_formula(formula["latex"])
+
+    return s
+
+
 def normalize_solution_for_render(solution: dict[str, Any] | None) -> dict[str, Any]:
     """P19-3: Normalize + quarantine broken LaTeX before rendering."""
     from services.solution_quality import (
