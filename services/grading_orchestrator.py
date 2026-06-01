@@ -33,29 +33,98 @@ def _normalize_choice_answer(ans: str) -> str:
     return m.group(0) if m else ""
 
 
+def _question_total_score(selected_q: dict[str, Any], default: float = 5) -> float:
+    for key in ("score", "total_score", "points"):
+        if selected_q.get(key) is not None:
+            try:
+                return float(selected_q.get(key))
+            except (TypeError, ValueError):
+                continue
+    return float(default)
+
+
 def _grade_choice_fast(selected_q: dict[str, Any], student_answer: str) -> dict[str, Any]:
-    total_score = float(selected_q.get("score") or selected_q.get("total_score") or 5)
+    from services.grading_question_adapter import resolve_correct_answer
+    total_score = _question_total_score(selected_q, 5)
     user_ans = _normalize_choice_answer(student_answer)
-    correct = _normalize_choice_answer(
-        selected_q.get("answer")
-        or selected_q.get("correct_answer")
-        or selected_q.get("correct_option")
-        or selected_q.get("standard_answer")
-        or ""
-    )
+    resolved = resolve_correct_answer(selected_q, question_type="选择题")
+    correct = str(resolved.get("correct_option") or "")
+    if not correct:
+        return {
+            "success": False, "total": None, "score": 0.0, "total_score": total_score,
+            "engine": "local_choice_fast", "method": "choice_exact_match",
+            "grading_method": "local_choice_match", "_fast_path": True,
+            "needs_review": True, "error_type": "standard_answer_missing",
+            "is_correct": None, "student_answer": user_ans,
+            "correct_answer": "", "correct_option": "",
+            "answer_source_field": str(resolved.get("source_field") or ""),
+            "answer_source_issues": list(resolved.get("issues") or []),
+            "comment": "该题缺少标准选项，无法自动判分。",
+            "steps": [],
+        }
     ok = bool(user_ans and correct and user_ans == correct)
     score = total_score if ok else 0.0
     return {
         "total": score, "score": score, "total_score": total_score,
         "engine": "local_choice_fast", "method": "choice_exact_match",
+        "grading_method": "local_choice_match",
         "_fast_path": True, "is_correct": ok,
         "student_answer": user_ans, "correct_answer": correct,
+        "correct_option": correct,
+        "answer_source_field": str(resolved.get("source_field") or ""),
         "comment": "答案正确。" if ok else f"答案错误，正确答案是 {correct}。",
+        "steps": [{
+            "label": "选择题判分",
+            "status": "correct" if ok else "incorrect",
+            "score": score,
+            "max_score": total_score,
+            "student_answer": user_ans,
+            "correct_answer": correct,
+        }],
         "diagnosis": {} if ok else {
             "error_type": "choice_wrong",
             "main_issue": f"选择题答案错误，正确答案是 {correct}。",
             "weak_points": selected_q.get("knowledge_points", []),
         },
+    }
+
+
+def _grade_fill_fast(selected_q: dict[str, Any], student_answer: str) -> dict[str, Any]:
+    from services.grading_question_adapter import resolve_correct_answer
+    from symbolic_executor import quick_compare
+
+    total_score = _question_total_score(selected_q, 5)
+    resolved = resolve_correct_answer(selected_q, question_type="填空题")
+    correct = str(resolved.get("answer") or "")
+    student = str(student_answer or "").strip()
+    if not correct:
+        return {
+            "success": False, "total": None, "score": 0.0, "total_score": total_score,
+            "engine": "fill_compare", "_fast_path": True,
+            "needs_review": True, "error_type": "standard_answer_missing",
+            "grading_method": "quick_compare",
+            "is_correct": None, "student_answer": student,
+            "correct_answer": "", "answer_source_field": str(resolved.get("source_field") or ""),
+            "answer_source_issues": list(resolved.get("issues") or []),
+            "comment": "该题缺少标准答案，无法自动判分。",
+        }
+
+    compare = quick_compare(student, correct)
+    ok = bool(compare.get("equivalent", False))
+    confidence = 0.95 if ok else 0.5
+    score = total_score if ok else 0.0
+    return {
+        "success": True, "total": score, "score": score,
+        "step_score": score, "result_score": 0,
+        "total_score": total_score, "engine": "fill_compare",
+        "_fast_path": True, "is_correct": ok, "ok": ok,
+        "student_answer": student, "correct_answer": correct,
+        "answer_source_field": str(resolved.get("source_field") or ""),
+        "confidence": confidence,
+        "quick_compare_confidence": confidence,
+        "quick_compare_status": "equivalent" if ok else "not_equivalent",
+        "grading_method": "quick_compare",
+        "comment": "答案正确。" if ok else "答案需进一步语义判定。",
     }
 
 
@@ -83,7 +152,7 @@ def execute_grading(
         if status_callback:
             status_callback(msg)
 
-    q_type = str(selected_q.get("question_type") or "")
+    q_type = str(selected_q.get("question_type") or (ocr_data or {}).get("question_type") or "")
     _q_source = selected_q.get("category") or selected_q.get("source") or ""
     _q_id = selected_q.get("question_id", "")
 
@@ -113,6 +182,9 @@ def execute_grading(
             "standard_answer": solution,
             "standard_answer_structured": (solution or {}).get("_structured") if solution else None,
             "error_record": None,
+            "mode": "view_only",
+            "is_view_only": True,
+            "mistake_record_created": False,
         }
 
     # ── Choice fast path ──
@@ -131,7 +203,45 @@ def execute_grading(
                                 "total_score": gresult.get("total_score", 10), "steps": []},
             "standard_answer_structured": None,
             "error_record": None,
+            "mistake_record_created": False,
         }
+
+    # ── Fill fast path with the same quick_compare escalation contract as UI ──
+    if "填空" in q_type:
+        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=fill_fast")
+        gresult = _grade_fill_fast(selected_q, student_ans)
+        from config import should_escalate_fill_to_llm
+        if not should_escalate_fill_to_llm(gresult):
+            gresult = normalize_grading_result(gresult, engine="fill_compare")
+            dresult = {
+                "error_type": "无错误" if gresult.get("is_correct") else "填空题错误",
+                "root_cause": "" if gresult.get("is_correct") else "答案与标准答案不等价",
+            }
+            return {
+                "grading_result": gresult,
+                "diagnosis_result": dresult,
+                "standard_answer": {"standard_answer": gresult.get("correct_answer", ""),
+                                    "total_score": gresult.get("total_score", 10), "steps": []},
+                "standard_answer_structured": None,
+                "error_record": None,
+                "mistake_record_created": False,
+            }
+        if client is None:
+            gresult["grading_method"] = "quick_compare_escalated_llm"
+            gresult["needs_review"] = True
+            gresult = normalize_grading_result(gresult, engine="fill_compare")
+            return {
+                "grading_result": gresult,
+                "diagnosis_result": {
+                    "error_type": "填空题需复核",
+                    "root_cause": "quick_compare 置信度不足或判为不等价，需要 LLM 复核",
+                },
+                "standard_answer": {"standard_answer": gresult.get("correct_answer", ""),
+                                    "total_score": gresult.get("total_score", 10), "steps": []},
+                "standard_answer_structured": None,
+                "error_record": None,
+                "mistake_record_created": False,
+            }
 
     # ── Full LLM grading ──
     logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=llm")
@@ -146,6 +256,9 @@ def execute_grading(
             client=client, force_expansion=False, model=model,
         )
     std_ans = (solution or {}).get("standard_answer", "") if solution else ""
+    if not std_ans and "填空" in q_type:
+        from services.grading_question_adapter import resolve_correct_answer
+        std_ans = str(resolve_correct_answer(selected_q, question_type="填空题").get("answer") or "")
     total_score = (solution or {}).get("total_score", 10) if solution else 10
 
     emit("正在批改...")

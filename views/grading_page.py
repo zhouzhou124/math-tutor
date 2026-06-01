@@ -1129,13 +1129,15 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
     model 参数覆盖 _state 中的 model 配置。
     """
     import re
+    from services.grading_question_adapter import resolve_correct_answer
     cached_answer = selected_q.get("standard_answer", "")
-    correct_option = selected_q.get("correct_option", "")
     q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
+    resolved_answer = resolve_correct_answer(selected_q, q_type)
+    correct_option = str(resolved_answer.get("correct_option") or "")
     opts = selected_q.get("options") or {}
     _model = model or _ss_get("model", LLM_MODEL, _state=_state)
 
-    _known_answer = cached_answer or ""
+    _known_answer = cached_answer or str(resolved_answer.get("answer") or "")
 
     _has_real_steps = bool(re.search(r'步骤\s*\d+\s*[：:]', _known_answer))
     _has_display_math = bool(re.search(r'\$\$[^$]+\$\$|\\\[[^\]]+\\\]', _known_answer))
@@ -1678,12 +1680,48 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
                         _state=None) -> dict:
     """P15: 选择题快速判分 + 后台生成详细解析."""
     import re
-    total_score = selected_q.get("score", 5)
-    correct_option = selected_q.get("correct_option", "")
+    from services.grading_question_adapter import resolve_correct_answer
+    total_score = selected_q.get("score") or selected_q.get("total_score") or selected_q.get("points") or 5
+    resolved = resolve_correct_answer(selected_q, question_type="选择题")
+    correct_option = str(resolved.get("correct_option") or "")
     stu = (student_ans or "").strip().upper()
     stu_letter = None
     for m in re.finditer(r'[A-D]', stu):
         stu_letter = m.group(0)
+
+    if not correct_option:
+        issues = list(resolved.get("issues") or ["missing_choice_answer"])
+        return {
+            "grading_result": {
+                "success": False, "total": None, "step_score": 0, "result_score": 0,
+                "step_analysis": [], "deductions": [],
+                "comment": "该题缺少标准选项，无法自动判分",
+                "engine": "choice_fast", "confidence": 0.0,
+                "_fast_path": True, "needs_review": True,
+                "error_type": "standard_answer_missing",
+                "answer_source_issues": issues,
+                "answer_source_field": str(resolved.get("source_field") or ""),
+                "correct_answer": "", "correct_option": "",
+                "student_answer": stu_letter or stu,
+                "total_score": total_score,
+                "is_correct": None,
+            },
+            "diagnosis_result": {
+                "error_type": "standard_answer_missing",
+                "root_cause": "该题缺少标准选项，无法自动判分",
+                "is_repeat": False, "repeat_count": 0, "affects_future": False,
+                "weak_points": [],
+            },
+            "standard_answer": {
+                "success": False,
+                "standard_answer": "",
+                "total_score": total_score, "steps": [],
+                "standard_solution_status": "missing",
+            },
+            "standard_answer_structured": None,
+            "error_record": None,
+        }
+
     is_correct = (stu_letter == correct_option)
     score = total_score if is_correct else 0
 
@@ -1702,6 +1740,13 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "comment": "回答正确" if is_correct else f"正确选项是 {correct_option}",
             "engine": "choice_fast", "confidence": 1.0,
             "_fast_path": True,
+            "correct_answer": correct_option,
+            "correct_option": correct_option,
+            "answer_source_field": str(resolved.get("source_field") or ""),
+            "is_correct": is_correct,
+            "student_answer": stu_letter or stu,
+            "total_score": total_score,
+            "grading_method": "local_choice_match",
             "standard_solution_status": sol_status,
             "standard_solution_task_id": sol_task,
             "_hide_until_solution_ready": True,
@@ -1727,9 +1772,11 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
                       question: str = "", client=None, model: str = "",
                       _state=None) -> dict:
     """P15: 填空题快速判分 + 后台生成详细解析."""
-    total_score = selected_q.get("score", 5)
+    from services.grading_question_adapter import resolve_correct_answer
+    total_score = selected_q.get("score") or selected_q.get("total_score") or selected_q.get("points") or 5
     cached = (selected_q.get("standard_answer") or "").strip()
-    final_ans = selected_q.get("final_answer", "") or cached
+    resolved = resolve_correct_answer(selected_q, question_type="填空题")
+    final_ans = str(resolved.get("answer") or selected_q.get("final_answer", "") or cached)
     stu = (student_ans or "").strip()
 
     is_correct = False
@@ -1768,6 +1815,11 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "quick_compare_confidence": confidence,
             "quick_compare_status": _compare_status,
             "ok": is_correct,
+            "is_correct": is_correct,
+            "correct_answer": final_ans,
+            "answer_source_field": str(resolved.get("source_field") or ""),
+            "total_score": total_score,
+            "grading_method": "quick_compare",
         },
         "diagnosis_result": {
             "error_type": "无错误" if is_correct else "填空题错误",
@@ -1888,7 +1940,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     # ═══════════════════════════════════════════════
     # P15 FAST PATH: 选择题/填空题 — 本地判分 + 后台解析
     # ═══════════════════════════════════════════════
-    if q_type == "选择题" and selected_q.get("correct_option"):
+    if q_type == "选择题":
         # Resolve client for async solution generation
         _fc = client
         if _fc is None and _state is not None:

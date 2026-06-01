@@ -188,7 +188,7 @@ def normalize_grading_result(raw: dict[str, Any] | None, engine: str = "") -> di
     except (TypeError, ValueError):
         confidence = 1.0
 
-    return {
+    normalized = {
         "success": bool(raw.get("success", True)),
         "total": total,
         "step_score": float(raw.get("step_score", 0) or 0),
@@ -210,6 +210,23 @@ def normalize_grading_result(raw: dict[str, Any] | None, engine: str = "") -> di
         "hide_score_card": raw.get("hide_score_card", False),
         "hide_diagnosis": raw.get("hide_diagnosis", False),
     }
+    normalized.update({
+        "is_correct": raw.get("is_correct", None),
+        "total_score": raw.get("total_score", None),
+        "correct_answer": raw.get("correct_answer", ""),
+        "correct_option": raw.get("correct_option", ""),
+        "student_answer": raw.get("student_answer", ""),
+        "steps": raw.get("steps") or [],
+        "needs_review": bool(raw.get("needs_review", False)),
+        "error_type": raw.get("error_type", ""),
+        "grading_method": raw.get("grading_method", raw.get("method", "")),
+        "answer_source_field": raw.get("answer_source_field", ""),
+        "answer_source_issues": raw.get("answer_source_issues", []),
+        "quick_compare_confidence": raw.get("quick_compare_confidence"),
+        "quick_compare_status": raw.get("quick_compare_status", ""),
+        "ok": raw.get("ok", raw.get("is_correct", None)),
+    })
+    return normalized
 
 
 def normalize_standard_solution(raw: dict[str, Any] | None) -> dict[str, Any]:
