@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷三-007",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "线性相关",
+    "空间解析几何"
+  ],
+  "tags": [
+    "线性相关",
+    "空间解析几何",
+    "方程组"
+  ],
+  "question": "设 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 是 $n$ 维非零列向量，$x_1\\alpha_1+x_2\\alpha_2=\\alpha_3$ 有唯一解，且 $\\alpha_1,\\alpha_2,\\alpha_4$ 线性相关。在空间直角坐标系 $O-xyz$ 中，关于 $x,y,z$ 的方程 $x\\alpha_1+y\\alpha_2+z\\alpha_3=\\alpha_4$ 的几何形是",
+  "options": {
+    "A": "过原点的一条直线",
+    "B": "过原点的一个平面",
+    "C": "不过原点的一条直线",
+    "D": "不过原点的一个平面"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 是 $n$ 维非零列向量，$x_1\\alpha_1+x_2\\alpha_2=\\alpha_3$ 有唯一解，且 $\\alpha_1,\\alpha_2,\\alpha_4$ 线性相关。在空间直角坐标系 $O-xyz$ 中，关于 $x,y,z$ 的方程 $x\\alpha_1+y\\alpha_2+z\\alpha_3=\\alpha_4$ 的几何形是",
+  "raw_answer_text": "C"
+}

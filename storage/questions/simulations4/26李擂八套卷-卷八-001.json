@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷八-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二重积分",
+    "变限积分"
+  ],
+  "tags": [
+    "二重积分",
+    "变限积分",
+    "求导"
+  ],
+  "question": "设 $f(x)$ 是连续函数，$F(t)=\\displaystyle\\int_0^{t^2}dy\\int_{\\sqrt y}^{t}f(x)\\,dx$，$t>0$，则 $F'(t)=$",
+  "options": {
+    "A": "$t^2f(t)$",
+    "B": "$tf(t)$",
+    "C": "$\\displaystyle\\int_0^t xf(x)\\,dx$",
+    "D": "$t\\displaystyle\\int_0^t f(x)\\,dx$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 是连续函数，$F(t)=\\displaystyle\\int_0^{t^2}dy\\int_{\\sqrt y}^{t}f(x)\\,dx$，$t>0$，则 $F'(t)=$",
+  "raw_answer_text": "A"
+}

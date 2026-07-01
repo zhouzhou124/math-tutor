@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷一-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "比较"
+  ],
+  "tags": [
+    "定积分",
+    "比较",
+    "反三角函数",
+    "对数"
+  ],
+  "question": "设 $K=\\displaystyle\\int_0^1\\frac{\\arctan x}{x}\\,dx$，$M=\\displaystyle\\int_0^1\\frac{\\arctan x^2}{x^2}\\,dx$，$N=\\displaystyle\\int_0^1\\frac{\\ln(1+\\tan x)}{\\tan x}\\,dx$，则",
+  "options": {
+    "A": "$N<K<M$",
+    "B": "$K<N<M$",
+    "C": "$M<K<N$",
+    "D": "$N<M<K$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A. $N<K<M$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $K=\\displaystyle\\int_0^1\\frac{\\arctan x}{x}\\,dx$，$M=\\displaystyle\\int_0^1\\frac{\\arctan x^2}{x^2}\\,dx$，$N=\\displaystyle\\int_0^1\\frac{\\ln(1+\\tan x)}{\\tan x}\\,dx$，则",
+  "raw_answer_text": "A. $N<K<M$"
+}

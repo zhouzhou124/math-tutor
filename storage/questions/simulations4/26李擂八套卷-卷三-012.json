@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "参数方程",
+    "二阶导数"
+  ],
+  "tags": [
+    "参数方程",
+    "二阶导数",
+    "求导"
+  ],
+  "question": "设函数 $y=y(x)$ 由参数方程 $\\begin{cases} x=e^t(\\sin t+\\cos t+2),\\\\ y=t^2+2t\\sin t+2\\cos t \\end{cases}$ 确定，则 $\\displaystyle\\left.\\frac{d^2y}{dx^2}\\right|_{x=3}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac14$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $y=y(x)$ 由参数方程 $\\begin{cases} x=e^t(\\sin t+\\cos t+2),\\\\ y=t^2+2t\\sin t+2\\cos t \\end{cases}$ 确定，则 $\\displaystyle\\left.\\frac{d^2y}{dx^2}\\right|_{x=3}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac14$"
+}

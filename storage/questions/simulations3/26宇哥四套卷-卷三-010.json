@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷三-010",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "大数定律",
+    "参数估计"
+  ],
+  "tags": [
+    "大数定律",
+    "参数估计",
+    "Beta分布"
+  ],
+  "question": "设总体 $X$ 的概率密度为 $f(x)= \\begin{cases} 6x(1-x),&0<x<1,\\\\ 0,&\\text{其他}, \\end{cases}$ $X_1,X_2,\\cdots,X_n,\\cdots$ 为来自总体 $X$ 的简单随机样本，且对任意的 $\\varepsilon>0$，有 $\\displaystyle\\lim_{n\\to\\infty}P\\left\\{\\left|\\sum_{i=1}^{n}\\frac{X_{2i}}{nX_{2i-1}}-a\\right|<\\varepsilon\\right\\}=1$，则 $a=$",
+  "options": {
+    "A": "$\\displaystyle\\frac12$",
+    "B": "$1$",
+    "C": "$\\displaystyle\\frac32$",
+    "D": "$\\displaystyle\\frac52$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设总体 $X$ 的概率密度为 $f(x)= \\begin{cases} 6x(1-x),&0<x<1,\\\\ 0,&\\text{其他}, \\end{cases}$ $X_1,X_2,\\cdots,X_n,\\cdots$ 为来自总体 $X$ 的简单随机样本，且对任意的 $\\varepsilon>0$，有 $\\displaystyle\\lim_{n\\to\\infty}P\\left\\{\\left|\\sum_{i=1}^{n}\\frac{X_{2i}}{nX_{2i-1}}-a\\right|<\\varepsilon\\right\\}=1$，则 $a=$",
+  "raw_answer_text": "C"
+}

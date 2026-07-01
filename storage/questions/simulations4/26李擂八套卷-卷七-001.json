@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设函数 $y=f(x)$ 由方程 $x^2\\cos x+x^4-2y-y^3=e^y$ 确定，则$(\\quad)$",
+  "options": {
+    "A": "$\\displaystyle\\int_0^x f(t)\\,dt$ 为奇函数，$\\displaystyle\\int_0^x f'(t)\\sin t\\,dt$ 为奇函数",
+    "B": "$\\displaystyle\\int_0^x f(t)\\,dt$ 为奇函数，$\\displaystyle\\int_0^x f'(t)\\sin t\\,dt$ 为偶函数",
+    "C": "$\\displaystyle\\int_0^x f(t)\\,dt$ 为偶函数，$\\displaystyle\\int_0^x f'(t)\\sin t\\,dt$ 为奇函数",
+    "D": "$\\displaystyle\\int_0^x f(t)\\,dt$ 为偶函数，$\\displaystyle\\int_0^x f'(t)\\sin t\\,dt$ 为偶函数"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "奇偶性",
+    "积分"
+  ],
+  "tags": [
+    "奇偶性",
+    "积分",
+    "隐函数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设函数 $y=f(x)$ 由方程 $x^2\\cos x+x^4-2y-y^3=e^y$ 确定，则$(\\quad)$",
+  "raw_answer_text": "A"
+}

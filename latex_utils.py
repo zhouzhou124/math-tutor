@@ -996,6 +996,229 @@ def repair_cases_environment(latex: str) -> str:
     return '\n'.join(result)
 
 
+_DERIVATION_LABEL_PREFIX_RE = re.compile(
+    r"^(?:关键变形为|中间公式为|因此本步得到结论|已知条件可写为)[：:，,]?\s*",
+)
+
+
+def strip_derivation_label_prefix(text: str) -> str:
+    """Remove step labels accidentally glued to display math."""
+    s = str(text or "").strip()
+    while s:
+        m = _DERIVATION_LABEL_PREFIX_RE.match(s)
+        if not m:
+            break
+        s = s[m.end() :].strip()
+    return s
+
+
+def repair_cases_amp_eq_rows(cases_body: str) -> str:
+    r"""Turn ``f \\ &= v \\ g \\ &= h`` rows into ``f = v \\ g = h`` inside cases."""
+    segments = re.split(r"\\\\", str(cases_body or ""))
+    rows: list[str] = []
+    pending = ""
+    for segment in segments:
+        seg = segment.strip()
+        if not seg:
+            continue
+        if seg.startswith("&="):
+            val = seg[2:].strip().rstrip(",")
+            if pending:
+                rows.append(f"{pending} = {val}")
+                pending = ""
+            elif val:
+                rows.append(val)
+            continue
+        if "=" in seg and not seg.startswith("&"):
+            rows.append(seg)
+            pending = ""
+            continue
+        if pending:
+            rows.append(pending)
+        pending = seg
+    if pending:
+        rows.append(pending)
+    return r" \\ ".join(rows)
+
+
+def repair_nested_aligned_wrapping_cases(latex: str) -> str:
+    """Unwrap invalid ``aligned`` wrappers around ``cases`` blocks."""
+    s = str(latex or "").strip()
+
+    def _unwrap(match: re.Match) -> str:
+        body = repair_cases_amp_eq_rows(match.group(1))
+        return f"\\begin{{cases}}\n{body}\n\\end{{cases}}"
+
+    s = re.sub(
+        r"\\begin\{aligned\}\s*\\begin\{cases\}(.*?)\\end\{cases\}\s*\\end\{aligned\}",
+        _unwrap,
+        s,
+        flags=re.S,
+    )
+    s = re.sub(
+        r"\\begin\{aligned\}\s*(\\begin\{cases\}.*?\\end\{cases\})\s*\\end\{aligned\}",
+        r"\1",
+        s,
+        flags=re.S,
+    )
+    return s
+
+
+_RE_ORPHAN_DERIV_LHS = re.compile(
+    r"^[A-Za-z](?:_\{[^{}]+\}|_[A-Za-z0-9]+)+$"
+)
+
+
+def _aligned_body_should_use_cases(body: str) -> bool:
+    """True only for broken partial-derivative stacks, not normal derivation chains."""
+    orphan_deriv = 0
+    for segment in re.split(r"(?<!\\)\\\\", str(body or "")):
+        seg = segment.strip().rstrip(",")
+        if not seg:
+            continue
+        if "&=" in seg:
+            if re.search(
+                r",\s*[A-Za-z](?:_\{[^{}]+\}|_[A-Za-z0-9]+)\s*$",
+                seg,
+            ):
+                return True
+            continue
+        if "=" in seg:
+            continue
+        if _RE_ORPHAN_DERIV_LHS.match(seg):
+            orphan_deriv += 1
+    return orphan_deriv >= 2
+
+
+def repair_aligned_equation_system(latex: str) -> str:
+    r"""Turn broken multi-LHS ``aligned`` blocks (f_x \\ &= ... \\ f_y \\ &= ...) into ``cases``."""
+    s = str(latex or "")
+
+    def _convert(match: re.Match) -> str:
+        body = match.group(1)
+        if not _aligned_body_should_use_cases(body):
+            return match.group(0)
+        rows: list[str] = []
+        pending_lhs = ""
+        for segment in re.split(r"(?<!\\)\\\\", body):
+            seg = segment.strip()
+            if not seg:
+                continue
+            expanded = _expand_equation_clause(seg)
+            if len(expanded) > 1:
+                rows.extend(expanded)
+                pending_lhs = ""
+                continue
+            if seg.startswith("&="):
+                val = seg[2:].strip().rstrip(",")
+                if pending_lhs:
+                    rows.append(f"{pending_lhs} = {val}")
+                    pending_lhs = ""
+                elif val:
+                    rows.append(val)
+                continue
+            if "&=" in seg:
+                lhs, _, rhs = seg.partition("&=")
+                lhs, rhs = lhs.strip(), rhs.strip().rstrip(",")
+                if lhs and rhs:
+                    rows.append(f"{lhs} = {rhs}")
+                pending_lhs = ""
+                continue
+            if "=" in seg and not seg.startswith("&"):
+                rows.append(seg.rstrip(","))
+                pending_lhs = ""
+                continue
+            if pending_lhs:
+                rows.append(pending_lhs.rstrip(","))
+            pending_lhs = seg.rstrip(",")
+        if pending_lhs:
+            rows.append(pending_lhs.rstrip(","))
+        if len(rows) >= 2 and all("=" in row for row in rows):
+            return "\\begin{cases}\n" + " \\\\\n".join(rows) + "\n\\end{cases}"
+        return match.group(0)
+
+    return re.sub(
+        r"\\begin\{aligned\}(.*?)\\end\{aligned\}",
+        _convert,
+        s,
+        flags=re.S,
+    )
+
+
+def repair_orphan_left_right_and_env_tails(latex: str) -> str:
+    r"""Remove wrapper fragments that make KaTeX expose red raw source."""
+    if not latex:
+        return latex
+    s = str(latex)
+    if r"\end{cases}" in s and r"\begin{cases}" not in s:
+        s = s.replace(r"\end{cases}", "")
+    s = re.sub(
+        r"\\left\s*(?=\\(?![{}]|langle\b|lfloor\b|lceil\b|vert\b|Vert\b))",
+        "",
+        s,
+    )
+    s = re.sub(
+        r"\\right\s*(?=\\(?![{}]|rangle\b|rfloor\b|rceil\b|vert\b|Vert\b))",
+        "",
+        s,
+    )
+    if r"\right" in s:
+        left_count = len(re.findall(
+            r"\\left(?:[()\[\]{}|.]|\\(?:langle|lfloor|lceil|vert|Vert))",
+            s,
+        ))
+        right_count = len(re.findall(
+            r"\\right(?:[)\]\}|.]|\\(?:rangle|rfloor|rceil|vert|Vert))",
+            s,
+        ))
+        if right_count > left_count:
+            extra = right_count - left_count
+
+            def _drop_extra(match: re.Match) -> str:
+                nonlocal extra
+                if extra <= 0:
+                    return match.group(0)
+                extra -= 1
+                return ""
+
+            s = re.sub(
+                r"\\right(?:[)\]\}|.]|\\(?:rangle|rfloor|rceil|vert|Vert))",
+                _drop_extra,
+                s,
+                count=right_count - left_count,
+            )
+    return re.sub(r"\s{2,}", " ", s).strip()
+
+
+def repair_system_display_latex(latex: str) -> str:
+    """Repair display math used in AI derivation steps (cases, aligned, labels)."""
+    s = strip_derivation_label_prefix(latex)
+    if not s:
+        return ""
+    s = repair_orphan_left_right_and_env_tails(s)
+    s = split_glued_display_equations(s)
+    s = re.sub(r"\\\)\s*$", "", s.strip())
+    s = re.sub(r"^\\\(", "", s)
+    s = re.sub(r"(?<!\$)\$(?!\$)", "", s)
+    s = re.sub(r"(?<!\\)\\backslash\s+", r"\\\\ ", s)
+    s = repair_aligned_equation_system(s)
+    s = repair_nested_aligned_wrapping_cases(s)
+
+    def _fix_cases(match: re.Match) -> str:
+        body = match.group(1)
+        if "&=" in body:
+            body = repair_cases_amp_eq_rows(body)
+        body = _split_chained_cases_rows(body.strip())
+        return f"\\begin{{cases}}\n{body}\n\\end{{cases}}"
+
+    s = re.sub(r"\\begin\{cases\}(.*?)\\end\{cases\}", _fix_cases, s, flags=re.S)
+    s = repair_cases_environment(s)
+    if r"\begin{aligned}" in s or r"\begin{align}" in s:
+        s = repair_aligned_environment(s)
+    s = repair_orphan_left_right_and_env_tails(s)
+    return s.strip()
+
+
 # P41.4: Bare fraction patterns
 # Matches: frac14, frac12, frac18, dfrac18, frac34, etc.
 # Also: frac{1}{4}, dfrac{1}{8}
@@ -1060,6 +1283,13 @@ def repair_bare_fraction_commands(text: str) -> str:
 
     # Step 4: frac{1}{4} without backslash → \frac{1}{4}
     s = re.sub(r'(?<![\\a-zA-Z])(d?frac)\{(\d+)\}\{(\d+)\}', lambda m: f'\\{m.group(1)}{{{m.group(2)}}}{{{m.group(3)}}}', s)
+
+    # \frac\pi^2{2} → \frac{\pi^2}{2}
+    s = re.sub(
+        r'\\frac([A-Za-z]+)(\^[0-9]+)?\{([^{}]+)\}',
+        lambda m: f'\\frac{{{m.group(1)}{m.group(2) or ""}}}{{{m.group(3)}}}',
+        s,
+    )
 
     return s
 
@@ -1185,6 +1415,404 @@ def normalize_probability_derivation_block(text: str) -> str:
     return s
 
 
+def _split_top_level_commas(text: str) -> list[str]:
+    """Split on commas at brace/paren depth zero (keeps ``f(x,y)`` intact)."""
+    segments: list[str] = []
+    depth_paren = 0
+    depth_brace = 0
+    current: list[str] = []
+    for ch in str(text or ""):
+        if ch == "{":
+            depth_brace += 1
+            current.append(ch)
+        elif ch == "}":
+            depth_brace = max(depth_brace - 1, 0)
+            current.append(ch)
+        elif ch == "(":
+            depth_paren += 1
+            current.append(ch)
+        elif ch == ")":
+            depth_paren = max(depth_paren - 1, 0)
+            current.append(ch)
+        elif ch == "," and depth_paren == 0 and depth_brace == 0:
+            # LaTeX spacing commands (\, \; \: \!) are not list separators.
+            if current and current[-1] == "\\":
+                current.append(ch)
+            else:
+                segments.append("".join(current).strip())
+                current = []
+        else:
+            current.append(ch)
+    tail = "".join(current).strip()
+    if tail:
+        segments.append(tail)
+    return [seg for seg in segments if seg]
+
+
+_MATH_BINDING_ID = r"[A-Za-z](?:_\{[^{}]+\}|_[A-Za-z0-9]+)?(?:'+)?"
+_RE_GLUE_BINDING = re.compile(rf"\s+({_MATH_BINDING_ID})\s*=")
+_RE_DIFFERENTIAL_PREFIX = re.compile(r"(?:\\mathrm\{d\}|(?<![a-zA-Z])d)[xyztu]?\s*$")
+_RE_LABELED_EQUATION = re.compile(rf"^[^\s=]+:\s*.+=", re.S)
+
+
+def _top_level_equals_positions(text: str) -> list[int]:
+    positions: list[int] = []
+    depth = 0
+    for i, ch in enumerate(str(text or "")):
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth = max(depth - 1, 0)
+        elif ch == "=" and depth == 0 and (i == 0 or text[i - 1] != "\\") and (i + 1 >= len(text) or text[i + 1] != "="):
+            positions.append(i)
+    return positions
+
+
+def _find_eq_index_from(text: str, start: int) -> int:
+    positions = _top_level_equals_positions(text)
+    for pos in positions:
+        if pos >= start:
+            return pos
+    return -1
+
+
+def _clause_is_annotation(clause: str) -> bool:
+    """Clause with no binding (e.g. endpoint range) — not part of an equation chain."""
+    c = str(clause or "").strip()
+    if not c:
+        return True
+    if _top_level_equals_positions(c):
+        return False
+    if re.search(r"\\to|→|⇒|\\(?:Rightarrow|Longrightarrow)", c):
+        return True
+    if re.match(r"^\([^)]*\)$", c):
+        return True
+    return False
+
+
+def _binding_identifier_before_equals(text: str, eq_pos: int) -> tuple[bool, str]:
+    """True when ``=`` binds a new symbol on its left (independent equation), not mid-expression."""
+    left = str(text[:eq_pos] or "").rstrip()
+    if not left:
+        return False, ""
+    m = re.search(rf"({_MATH_BINDING_ID})$", left)
+    if not m:
+        return False, ""
+    ident = m.group(1)
+    prefix = left[: m.start()]
+    if _RE_DIFFERENTIAL_PREFIX.search(prefix.rstrip()):
+        return False, ident
+    if not prefix:
+        return True, ident
+    prev = prefix[-1]
+    if prev in "([{,\\:+-*/^&|=":
+        return True, ident
+    if prev.isdigit() or prev.isalpha() or prev in ")}]":
+        return False, ident
+    return True, ident
+
+
+def _split_glued_subject_restarts(text: str) -> list[str]:
+    """Two complete equations written back-to-back: ``... dx I = ...``."""
+    s = str(text or "").strip()
+    for m in _RE_GLUE_BINDING.finditer(s):
+        eq_pos = m.start(1) + len(m.group(1))
+        while eq_pos < len(s) and s[eq_pos].isspace():
+            eq_pos += 1
+        if eq_pos >= len(s) or s[eq_pos] != "=":
+            continue
+        is_binding, ident = _binding_identifier_before_equals(s, eq_pos)
+        left = s[: m.start()].strip()
+        right = s[m.start(1) :].strip()
+        if re.fullmatch(r"\\[A-Za-z]+", left):
+            continue
+        if not right.count("="):
+            continue
+        if re.fullmatch(r"[^\s=]+:", left):
+            continue
+        if re.search(r"[^\s=]:\s*$", left):
+            continue
+        if left.rstrip().endswith((r"\Rightarrow", r"\Longrightarrow", "⇒")):
+            continue
+        trailing = left.rstrip()
+        if re.search(rf"d[xyztu]\s+{re.escape(ident)}\s*$", trailing):
+            continue
+        if left.count("=") >= 1 and is_binding:
+            return [left, right]
+        if left.count("=") == 0 and ident and "_" in ident and re.match(
+            r"^[0-9A-Za-z\\^_{}()+\-.* ]+$", left
+        ):
+            return [left, right]
+        if left.count("=") == 0 and is_binding and re.match(
+            r"^[0-9A-Za-z\\^_{}()+\-.* ]+$", left
+        ):
+            return [left, right]
+    return []
+
+
+def _split_numeric_coefficient_glued(text: str) -> list[str]:
+    """``B = -2y = C`` → ``B = -2`` and ``y = C`` (coefficient then new symbol)."""
+    s = str(text or "").strip()
+    m = re.match(rf"^(.+?) = (-?\d+)({_MATH_BINDING_ID}) = (.+)$", s)
+    if not m:
+        return []
+    return [f"{m.group(1).strip()} = {m.group(2)}", f"{m.group(3)} = {m.group(4).strip()}"]
+
+
+def _is_rewrite_chain(clause: str) -> bool:
+    """Same subject rewritten: ``a = b = c`` or ``f_x = expr1 = expr2``, not multiple bindings."""
+    s = str(clause or "").strip()
+    positions = _top_level_equals_positions(s)
+    if len(positions) < 2:
+        return False
+    subject = s[: positions[0]].strip()
+    if not subject or ":" in subject.split("=")[0]:
+        return False
+    for i in range(1, len(positions)):
+        prev_rhs = s[positions[i - 1] + 1 : positions[i]].strip()
+        is_binding, ident = _binding_identifier_before_equals(s, positions[i])
+        if not is_binding:
+            before_eq = s[:positions[i]].rstrip()
+            if _RE_DIFFERENTIAL_PREFIX.search(before_eq) or re.search(
+                r"(?:\\mathrm\{d\}|(?<![a-zA-Z])d)[xyztu]\s*$", before_eq
+            ):
+                continue
+            return False
+        if ident != prev_rhs:
+            return False
+    return True
+
+
+_RE_GLUE_EXPR_HEAD = re.compile(
+    r"(?:\\lim(?:_\{[^{}]+\})?"
+    r"|\\(?:sin|cos|tan|log|ln|exp|sec|csc|cot|arcsin|arccos|arctan|sinh|cosh|tanh)\b"
+    r"|\("
+    rf"|{_MATH_BINDING_ID}"
+    r")",
+    re.S,
+)
+
+
+def _looks_like_equation_restart(tail: str) -> bool:
+    t = str(tail or "").lstrip()
+    if not t or "=" not in t:
+        return False
+    if re.match(r"d[xyztu](?:\\mathrm|\s|$|=)", t):
+        return False
+    if re.match(r"\d", t):
+        return False
+    if t.startswith("("):
+        return False
+    if t.startswith("\\"):
+        return bool(
+            re.match(r"\\(?:lim(?:_\{[^{}]+\})?|(?:sin|cos|tan|log|ln|exp)\b)", t)
+            or t.startswith("\\(")
+        )
+    return bool(re.match(rf"({_MATH_BINDING_ID})\s*(?:_|\^|\{{|\(|\s)*=", t))
+
+
+def _split_glued_expression_restarts(text: str) -> list[str]:
+    """Split back-to-back equations like ``... + o(x^5) \\sin(\\sin x) = ...``."""
+    s = str(text or "").strip()
+    if not s or len(_top_level_equals_positions(s)) < 2:
+        return []
+    split_points: list[int] = []
+    for m in re.finditer(r"o\s*\([^)]+\)", s):
+        end = m.end()
+        tail = s[end:]
+        if not _looks_like_equation_restart(tail):
+            continue
+        sp = end
+        while sp < len(s) and s[sp].isspace():
+            sp += 1
+        if sp < len(s) and (not split_points or split_points[-1] != sp):
+            split_points.append(sp)
+    if not split_points:
+        return []
+    parts: list[str] = []
+    last = 0
+    for sp in split_points:
+        chunk = s[last:sp].strip().rstrip(",")
+        if chunk:
+            parts.append(chunk)
+        last = sp
+    tail = s[last:].strip().rstrip(",")
+    if tail:
+        parts.append(tail)
+    return parts if len(parts) >= 2 else []
+
+
+def _split_independent_bindings(clause: str) -> list[str]:
+    """Split a clause with multiple top-level bindings into separate equations."""
+    s = str(clause or "").strip()
+    positions = _top_level_equals_positions(s)
+    if len(positions) <= 1:
+        return [s]
+    rows: list[str] = []
+    lhs = s[: positions[0]].strip()
+    for i in range(len(positions)):
+        rhs_end = positions[i + 1] if i + 1 < len(positions) else len(s)
+        rhs = s[positions[i] + 1 : rhs_end].strip().rstrip(",")
+        if i == 0:
+            rows.append(f"{lhs} = {rhs}")
+            continue
+        is_binding, ident = _binding_identifier_before_equals(s, positions[i])
+        prev_rhs = s[positions[i - 1] + 1 : positions[i]].strip()
+        if is_binding and ident != prev_rhs:
+            m = re.fullmatch(rf"(-?\d+)({_MATH_BINDING_ID})", prev_rhs)
+            if m and m.group(2) == ident:
+                rows[-1] = f"{lhs} = {m.group(1)}"
+                lhs = ident
+                rows.append(f"{lhs} = {rhs}")
+                continue
+            lhs = ident
+        rows.append(f"{lhs} = {rhs}")
+    return rows
+
+
+def _expand_equation_clause(clause: str, _depth: int = 0) -> list[str]:
+    """Decompose one comma-free clause into independent equations or leave chain intact."""
+    s = str(clause or "").strip()
+    if not s:
+        return []
+    if _depth > 12:
+        return [s]
+    if _RE_LABELED_EQUATION.match(s):
+        return [s]
+    expr_glued = _split_glued_expression_restarts(s)
+    if expr_glued:
+        out: list[str] = []
+        for part in expr_glued:
+            out.extend(_expand_equation_clause(part, _depth + 1))
+        return out
+    glued = _split_glued_subject_restarts(s)
+    if glued:
+        out: list[str] = []
+        for part in glued:
+            out.extend(_expand_equation_clause(part, _depth + 1))
+        return out
+    numeric = _split_numeric_coefficient_glued(s)
+    if numeric:
+        return numeric
+    if _is_rewrite_chain(s):
+        return [s]
+    if len(_top_level_equals_positions(s)) >= 2:
+        return _split_independent_bindings(s)
+    return [s]
+
+
+def _to_aligned_chain(clause: str) -> str:
+    parts = _split_at_toplevel_operators(clause)
+    if len(parts) < 2:
+        return clause
+    lines: list[str] = []
+    head = parts[0].strip()
+    first_tail = parts[1].strip()
+    if first_tail.startswith("="):
+        lines.append(f"{head} &= {first_tail[1:].strip()}")
+    elif first_tail.startswith(("&=", "&", "\\Rightarrow", "\\Longrightarrow", "⇒")):
+        lines.append(f"{head} {first_tail}")
+    else:
+        lines.append(head)
+        lines.append("&= " + first_tail)
+    for part in parts[2:]:
+        p = part.strip()
+        if p.startswith(("=", "\\Rightarrow", "\\Longrightarrow", "⇒")):
+            p = "&" + p if not p.startswith("&") else p
+        elif _RE_TOPLEVEL_EQ.match(p):
+            p = "&" + p
+        elif _RE_TOPLEVEL_ARROW.match(p):
+            p = "&" + p
+        else:
+            p = "&= " + p
+        lines.append(p)
+    return "\\begin{aligned}\n" + " \\\\\n".join(lines) + "\n\\end{aligned}"
+
+
+def _format_math_structure_display(text: str) -> str:
+    """Classify by math logic: rewrite chains → aligned; independent bindings → cases; annotations → quad."""
+    s = str(text or "").strip()
+    if not s:
+        return s
+    clauses = _split_top_level_commas(s)
+    equations: list[str] = []
+    annotations: list[str] = []
+    for clause in clauses:
+        c = clause.strip()
+        if not c:
+            continue
+        if _clause_is_annotation(c):
+            annotations.append(c)
+            continue
+        for expanded in _expand_equation_clause(c):
+            equations.append(expanded)
+    if not equations:
+        return s
+    quad = (" \\quad " + ", ".join(annotations)) if annotations else ""
+    if len(equations) == 1 and _is_rewrite_chain(equations[0]):
+        return _to_aligned_chain(equations[0]) + quad
+    if len(equations) >= 2:
+        body = " \\\\\n".join(equations)
+        return f"\\begin{{cases}}\n{body}\n\\end{{cases}}" + quad
+    return equations[0] + quad
+
+
+def split_glued_display_equations(latex: str) -> str:
+    """Pre-split back-to-back equations before structural formatting."""
+    s = str(latex or "").strip()
+    if not s or r"\begin{cases}" in s or r"\begin{aligned}" in s:
+        return s
+    clauses = _split_top_level_commas(s)
+    if len(clauses) > 1:
+        parts: list[str] = []
+        for clause in clauses:
+            c = str(clause or "").strip()
+            if not c:
+                continue
+            glued = _split_glued_subject_restarts(c)
+            if glued:
+                parts.append(", ".join(glued))
+            else:
+                numeric = _split_numeric_coefficient_glued(c)
+                parts.append(", ".join(numeric) if numeric else c)
+        return ", ".join(parts)
+    expr_glued = _split_glued_expression_restarts(s)
+    if expr_glued:
+        return ", ".join(expr_glued)
+    glued = _split_glued_subject_restarts(s)
+    if glued:
+        return ", ".join(glued)
+    numeric = _split_numeric_coefficient_glued(s)
+    if numeric:
+        return ", ".join(numeric)
+    return s
+
+
+def _split_chained_cases_rows(cases_body: str) -> str:
+    """Split case rows that accidentally contain multiple independent bindings."""
+    segments = re.split(r"(?<!\\)\\\\", str(cases_body or ""))
+    rows: list[str] = []
+    for segment in segments:
+        seg = segment.strip().rstrip(",")
+        if not seg:
+            continue
+        rows.extend(_expand_equation_clause(seg))
+    if len(rows) >= 2:
+        return " \\\\\n".join(rows)
+    return str(cases_body or "").strip()
+
+
+def _try_independent_equations_cases_block(text: str) -> str | None:
+    """Comma-separated clauses → structural display (cases / aligned / quad)."""
+    segments = _split_top_level_commas(str(text or ""))
+    if len(segments) < 2:
+        return None
+    formatted = _format_math_structure_display(text)
+    if formatted != text.strip() and (r"\begin{cases}" in formatted or r"\begin{aligned}" in formatted):
+        return formatted
+    return None
+
+
 def normalize_derivation_formula_block(text: str) -> str:
     """P41: Normalize a derivation formula block for display.
 
@@ -1203,9 +1831,12 @@ def normalize_derivation_formula_block(text: str) -> str:
     elif s.startswith('\\[') and s.endswith('\\]'):
         s = s[2:-2].strip()
 
-    # If already has aligned environment, repair it but don't re-split
+    # If already has aligned environment, repair multi-LHS chaos → cases when needed
     if r'\begin{aligned}' in s or r'\begin{align}' in s:
+        s = repair_aligned_equation_system(s)
         return repair_aligned_environment(s)
+
+    s = _normalize_tex_spacing_before_binding(s)
 
     # 2. Normalize bare lim notation
     s = _RE_BARE_LIM.sub(
@@ -1218,34 +1849,37 @@ def normalize_derivation_formula_block(text: str) -> str:
         s = _RE_TRAILING_SUBSTITUTION.sub('', s).rstrip()
         s += f'\\quad ({m_sub.group(1)}={m_sub.group(2)})'
 
-    # 4. Detect multi-= derivation chain → aligned
-    # Count top-level = signs (not inside braces)
-    clean = re.sub(r'\{[^}]*\}', '', s)  # remove braced content
-    clean = re.sub(r'\\text\{[^}]*\}', '', clean)
-    clean = re.sub(r'(?:\\neq|\\ne|\\geq|\\leq|\\approx|\\equiv|==)', '', clean)
+    s = split_glued_display_equations(s)
+    s = re.sub(
+        rf"((?:\\mathrm{{d}}|(?<![a-zA-Z])d)[xyztu])\s+({_MATH_BINDING_ID})\s*(?=$|[,\s])",
+        r"\1",
+        s,
+    )
 
-    eq_count = len(_RE_TOPLEVEL_EQ.findall(clean))
-    arrow_count = len(_RE_TOPLEVEL_ARROW.findall(clean))
+    if re.search(r"\\(?:Rightarrow|Longrightarrow)|⇒", s) and len(_split_top_level_commas(s)) == 1:
+        return _to_aligned_chain(s)
 
-    if eq_count + arrow_count >= 2:
-        # Split at top-level = and ⇒
-        parts = _split_at_toplevel_operators(s)
-        if len(parts) >= 2:
-            lines = [parts[0].strip()]
-            for part in parts[1:]:
-                p = part.strip()
-                if p.startswith(('=', '\\Rightarrow', '\\Longrightarrow', '⇒')):
-                    p = '&' + p if not p.startswith('&') else p
-                elif _RE_TOPLEVEL_EQ.match(p):
-                    p = '&' + p
-                elif _RE_TOPLEVEL_ARROW.match(p):
-                    p = '&' + p
-                else:
-                    p = '&= ' + p
-                lines.append(p)
-            s = '\\begin{aligned}\n' + ' \\\\\n'.join(lines) + '\n\\end{aligned}'
+    if len(_top_level_equals_positions(s)) >= 2 and len(_split_top_level_commas(s)) == 1:
+        return _to_aligned_chain(s)
+
+    formatted = _format_math_structure_display(s)
+    if formatted != s and (r"\begin{cases}" in formatted or r"\begin{aligned}" in formatted or r"\quad" in formatted):
+        return formatted
+
+    if _is_rewrite_chain(s):
+        return _to_aligned_chain(s)
 
     return s
+
+
+def _normalize_tex_spacing_before_binding(text: str) -> str:
+    """Turn malformed TeX spacing before a new binding into a separator."""
+    s = str(text or "")
+    return re.sub(
+        rf"(?:\\(?:,|;|:|!|quad|qquad)|\\\s+|\\\\\s*)\s*({_MATH_BINDING_ID})\s*=",
+        r", \1=",
+        s,
+    )
 
 
 def _split_at_toplevel_operators(text: str) -> list[str]:
@@ -1342,9 +1976,7 @@ def split_text_and_latex_mixed_block(text: str) -> list[dict]:
                 repaired = repair_probability_formula_fragments(repaired)
                 # P41.3: Fix row spacing and cases before aligned repair
                 repaired = repair_latex_row_spacing_markers(repaired)
-                if r'\begin{cases}' in repaired:
-                    repaired = repair_cases_environment(repaired)
-                repaired = repair_aligned_environment(repaired)
+                repaired = repair_system_display_latex(repaired)
                 result.append({"type": "latex_display", "content": repaired})
             else:
                 # Surrounding text — process it for text/formula split
@@ -1388,12 +2020,12 @@ def _split_text_and_latex_no_env(s: str) -> list[dict]:
         chinese_chars = len(re.findall(r'[一-鿿]', stripped))
         total_chars = len(stripped.replace(' ', ''))
 
-        if has_latex_cmd and (chinese_chars == 0 or chinese_chars < total_chars * 0.3):
-            # Mostly formula
+        if has_latex_cmd and chinese_chars == 0:
+            # Pure formula line (no CJK)
             _flush_text()
             formula_buf.append(stripped)
         else:
-            # Mostly text (or mixed with heavy Chinese)
+            # Chinese prose and/or mixed CJK+LaTeX — keep as text, never latex_display
             _flush_formula()
             text_buf.append(stripped)
 
@@ -2337,29 +2969,12 @@ def is_independent_equation_list(latex: str) -> bool:
     s = latex.strip()
     if any(env in s for env in (
         "\\begin{aligned}", "\\begin{align}", "\\begin{eqnarray}",
-        "\\begin{gather}", "\\begin{multline}",
+        "\\begin{gather}", "\\begin{multline}", "\\begin{cases}",
     )):
         return False
     if "\\Rightarrow" in s or "⇒" in s:
         return False
-    segments: list[str] = []
-    depth = 0
-    current: list[str] = []
-    for ch in s:
-        if ch == "{":
-            depth += 1
-            current.append(ch)
-        elif ch == "}":
-            depth = max(depth - 1, 0)
-            current.append(ch)
-        elif ch == "," and depth == 0:
-            segments.append("".join(current).strip())
-            current = []
-        else:
-            current.append(ch)
-    tail = "".join(current).strip()
-    if tail:
-        segments.append(tail)
+    segments = _split_top_level_commas(s)
     if len(segments) < 2:
         return False
     eq_segments = 0
@@ -2391,7 +3006,7 @@ def _find_top_level_equals(s: str) -> int:
 
 
 def format_independent_equation_list(latex: str) -> str:
-    """Format comma-separated independent equations as an aligned group."""
+    """Format comma-separated independent equations as a cases block (one equation per row)."""
     if not latex or not isinstance(latex, str):
         return latex
     s = latex.strip()
@@ -2399,45 +3014,10 @@ def format_independent_equation_list(latex: str) -> str:
     # P41.2: Don't break existing LaTeX environments
     if _RE_LATEX_ENV.search(s):
         return s
-    segments: list[str] = []
-    depth = 0
-    current: list[str] = []
-    for ch in s:
-        if ch == "{":
-            depth += 1
-            current.append(ch)
-        elif ch == "}":
-            depth = max(depth - 1, 0)
-            current.append(ch)
-        elif ch == "," and depth == 0:
-            seg = "".join(current).strip()
-            if seg:
-                segments.append(seg)
-            current = []
-        else:
-            current.append(ch)
-    tail = "".join(current).strip()
-    if tail:
-        segments.append(tail)
-    if len(segments) < 2:
-        return s
-    eq_parts: list[str] = []
-    for seg in segments:
-        eq_pos = _find_top_level_equals(seg)
-        if eq_pos >= 1:
-            lhs = seg[:eq_pos].strip()
-            rhs = seg[eq_pos + 1:].strip()
-            eq_parts.append(f"{lhs} &= {rhs}")
-        else:
-            eq_parts.append(seg)
-    lines: list[str] = []
-    for i in range(0, len(eq_parts), 2):
-        if i + 1 < len(eq_parts):
-            lines.append(f"{eq_parts[i]}, & {eq_parts[i + 1]}, \\\\")
-        else:
-            lines.append(f"{eq_parts[i]}.")
-    body = "\n".join(lines)
-    return f"\\begin{{aligned}}\n{body}\n\\end{{aligned}}"
+    cases_block = _try_independent_equations_cases_block(s)
+    if cases_block:
+        return cases_block
+    return s
 
 
 def _try_format_equation_list(content: str) -> str | None:
@@ -2488,15 +3068,19 @@ def _inject_katex_css() -> None:
         }
         @media (max-width: 768px) {
             .katex-display,
-            [data-testid="stVerticalBlock"] .katex-display {
+            [data-testid="stVerticalBlock"] .katex-display,
+            [data-testid="stLatex"] {
                 max-width: 100% !important;
                 overflow-x: auto !important;
                 overflow-y: visible !important;
                 white-space: nowrap !important;
                 -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
             }
             .katex-display > .katex,
-            .katex-display .katex-html {
+            .katex-display .katex-html,
+            [data-testid="stLatex"] .katex,
+            [data-testid="stLatex"] .katex-html {
                 max-width: none !important;
                 overflow: visible !important;
                 white-space: nowrap !important;
@@ -3749,9 +4333,11 @@ def _normalize_fragmented_display_latex(content: str) -> str:
     if not s:
         return ""
 
+    if not _DISPLAY_ENV_RE.search(s):
+        s = _normalize_tex_spacing_before_binding(s)
     s = re.sub(r'\\(qquad|quad)(?=[A-Za-z])', r'\\\1 ', s)
     s = re.sub(r'\\in\s+R\b', r'\\in \\mathbb{R}', s)
-    s = re.sub(r'(?<!\\)\\(?![A-Za-z{}\[\]\\])', r'\\\\', s)
+    s = re.sub(r'(?<!\\)\\(?![A-Za-z{}\[\]\\,;:!])', r'\\\\', s)
     s = re.sub(r'\\\\\s*,', r'\\\\', s)
     return s.strip()
 

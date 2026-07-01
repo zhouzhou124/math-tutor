@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "条件收敛",
+    "级数"
+  ],
+  "tags": [
+    "条件收敛",
+    "级数",
+    "交错级数"
+  ],
+  "question": "下列级数中条件收敛的是",
+  "options": {
+    "A": "$\\displaystyle\\sum_{n=1}^{\\infty}\\left(e^{\\frac{(-1)^n}{\\sqrt n}}-1\\right)$",
+    "B": "$\\displaystyle\\sum_{n=1}^{\\infty}\\sin\\sqrt{n^2+\\pi}$",
+    "C": "$\\displaystyle\\sum_{n=1}^{\\infty}\\frac{(-1)^n}{\\sqrt{n+(-1)^{n-1}}}$",
+    "D": "$\\displaystyle\\sum_{n=1}^{\\infty}(-1)^n\\left(\\cos\\frac1{\\sqrt n}-e^{-\\frac1{2n}}\\right)$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "下列级数中条件收敛的是",
+  "raw_answer_text": "C"
+}

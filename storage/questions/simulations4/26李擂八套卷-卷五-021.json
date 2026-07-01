@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-021",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "二次型",
+    "惯性指数",
+    "可逆变换"
+  ],
+  "tags": [
+    "二次型",
+    "惯性指数",
+    "可逆变换"
+  ],
+  "question": "设有二次型 $f(x_1,x_2,x_3)=x_1^2+2x_2^2+(a^2+1)x_3^2+2x_1x_2+2x_2x_3$，$g(y_1,y_2,y_3)=y_1^2+5y_2^2+(5-b^2)y_3^2-2y_1y_2+(2b-10)y_2y_3$，若 $f(x_1,x_2,x_3)$ 经过非退化的线性变换 $x=Py$ 可以化为 $g(y_1,y_2,y_3)$。\n(1) 求 $a,b$；\n(2) 求可逆矩阵 $P$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $a=0$，$b=1$；(II) $P=\\begin{pmatrix} 1&-1&-1\\\\ 0&0&1\\\\ 0&2&-3 \\end{pmatrix}$。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有二次型 $f(x_1,x_2,x_3)=x_1^2+2x_2^2+(a^2+1)x_3^2+2x_1x_2+2x_2x_3$，$g(y_1,y_2,y_3)=y_1^2+5y_2^2+(5-b^2)y_3^2-2y_1y_2+(2b-10)y_2y_3$，若 $f(x_1,x_2,x_3)$ 经过非退化的线性变换 $x=Py$ 可以化为 $g(y_1,y_2,y_3)$。\n(1) 求 $a,b$；\n(2) 求可逆矩阵 $P$。",
+  "raw_answer_text": "(I) $a=0$，$b=1$；(II) $P=\\begin{pmatrix} 1&-1&-1\\\\ 0&0&1\\\\ 0&2&-3 \\end{pmatrix}$。"
+}

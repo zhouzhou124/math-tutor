@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "方向导数",
+    "多元函数"
+  ],
+  "tags": [
+    "方向导数",
+    "多元函数",
+    "极值"
+  ],
+  "question": "设 $f(x,y)=\\begin{cases} \\displaystyle\\frac{xy\\sqrt{x^2+y^2}}{x^2+xy+y^2},&(x,y)\\ne(0,0),\\\\ 0,&(x,y)=(0,0), \\end{cases}$ 则 $f(x,y)$ 在点 $(0,0)$ 处的方向导数的最小值和最大值分别为",
+  "options": {
+    "A": "$0,0$",
+    "B": "$-1,1$",
+    "C": "$-1,\\frac13$",
+    "D": "$-\\frac13,1$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x,y)=\\begin{cases} \\displaystyle\\frac{xy\\sqrt{x^2+y^2}}{x^2+xy+y^2},&(x,y)\\ne(0,0),\\\\ 0,&(x,y)=(0,0), \\end{cases}$ 则 $f(x,y)$ 在点 $(0,0)$ 处的方向导数的最小值和最大值分别为",
+  "raw_answer_text": "C"
+}

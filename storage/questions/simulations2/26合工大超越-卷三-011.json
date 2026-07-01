@@ -13,11 +13,59 @@
     "旋转体体积"
   ],
   "question": "$11.$ 曲线 $x^2+y^2=|x|-|y|$ 围成的区域绕 $y$ 轴旋转一周形成的旋转体体积是 $\\underline{\\qquad\\qquad}$",
-  "standard_answer": "$\\frac{\\pi}{2}$",
+  "standard_answer": "步骤1：\n步骤1：化简曲线方程: 利用绝对值对称性，将方程配方变形为标准圆方程，识别出曲线关于坐标轴和原点对称\n\n$ \\Rightarrow x^2+y^2=|x|-|y| \\Rightarrow (|x|-\\frac12)^2+(|y|+\\frac12)^2=\\frac12$\n步骤2：\n步骤2：建立旋转体体积积分: 由对称性，仅需计算右半平面(x≥0)部分旋转体积；利用圆方程解出x关于y的表达，应用圆盘法建立体积积分\n\n$x^2+y^2\\leqslant |x|-|y| \\Rightarrow V = \\pi \\int_{-y_0}^{y_0} \\bigl(x_{右}^2-x_{左}^2\\bigr)\\,\\mathrm{d}y,\\quad y_0=\\frac{\\sqrt2-1}{2},\\quad x_{右}^2-x_{左}^2=\\sqrt{1-4(y^2+|y|)}$\n步骤3：\n步骤3：计算定积分并化简: 通过变量代换 u=\\sqrt{2}(y+\\frac12) 化简积分，利用 \\int\\sqrt{1-u^2}\\,du 公式求得结果\n\n$V = 2\\pi\\int_{0}^{y_0}\\sqrt{1-4(y^2+y)}\\,\\mathrm{d}y \\Rightarrow V=\\frac{\\pi(\\pi-2)}{4}$\n\n### 最终答案\n\\dfrac{\\pi(\\pi-2)}{4}",
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
   "raw_question_text": "$11.$ 曲线 $x^2+y^2=|x|-|y|$ 围成的区域绕 $y$ 轴旋转一周形成的旋转体体积是 $\\underline{\\qquad\\qquad}$",
-  "raw_answer_text": "$\\frac{\\pi}{2}$"
+  "raw_answer_text": "$\\frac{\\pi}{2}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780738184",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：化简曲线方程: 利用绝对值对称性，将方程配方变形为标准圆方程，识别出曲线关于坐标轴和原点对称\n\n$ \\Rightarrow x^2+y^2=|x|-|y| \\Rightarrow (|x|-\\frac12)^2+(|y|+\\frac12)^2=\\frac12$\n步骤2：\n步骤2：建立旋转体体积积分: 由对称性，仅需计算右半平面(x≥0)部分旋转体积；利用圆方程解出x关于y的表达，应用圆盘法建立体积积分\n\n$x^2+y^2\\leqslant |x|-|y| \\Rightarrow V = \\pi \\int_{-y_0}^{y_0} \\bigl(x_{右}^2-x_{左}^2\\bigr)\\,\\mathrm{d}y,\\quad y_0=\\frac{\\sqrt2-1}{2},\\quad x_{右}^2-x_{左}^2=\\sqrt{1-4(y^2+|y|)}$\n步骤3：\n步骤3：计算定积分并化简: 通过变量代换 u=\\sqrt{2}(y+\\frac12) 化简积分，利用 \\int\\sqrt{1-u^2}\\,du 公式求得结果\n\n$V = 2\\pi\\int_{0}^{y_0}\\sqrt{1-4(y^2+y)}\\,\\mathrm{d}y \\Rightarrow V=\\frac{\\pi(\\pi-2)}{4}$\n\n### 最终答案\n\\dfrac{\\pi(\\pi-2)}{4}",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-06 17:29",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-06 17:29",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

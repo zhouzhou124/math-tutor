@@ -25,7 +25,7 @@ class SolutionService:
             return None
         try:
             from agents.solver_agent import SolverAgent
-            from services.grading_adapter import normalize_standard_solution
+            from services.grading_adapter import normalize_standard_solution, _has_structured_steps
             from services.math_type_router import math_type_for_ai
             agent = SolverAgent(self.client, self.model)
             result = agent.solve(
@@ -34,7 +34,10 @@ class SolutionService:
                 question_type=selected_q.get("question_type", "解答题"),
                 knowledge_point=", ".join(selected_q.get("knowledge_points", [])),
             )
-            if result.get("success") and result.get("standard_answer"):
+            if result.get("success") and (
+                result.get("standard_answer")
+                or _has_structured_steps(result.get("_structured"))
+            ):
                 return normalize_standard_solution({
                     **result,
                     "total_score": selected_q.get("score", 10),
@@ -73,34 +76,87 @@ class SolutionService:
 
     def _mandatory_ir_failure(self, sol: dict[str, Any] | None, issues: str) -> dict[str, Any]:
         import html
+
         raw_preview = ""
+        preserved_answer = ""
+        preserved_steps: list[Any] = []
+        preserved_structured = None
+        total_score = 10
         if isinstance(sol, dict):
             raw_preview = str(sol.get("standard_answer") or sol.get("answer") or "")[:500]
-        report = {
-            "ok": False,
-            "renderable": False,
-            "complete": False,
-            "detailed": False,
-            "covers_requirements": False,
-            "logically_plausible": False,
-            "issues": [i.strip() for i in str(issues or "missing_solution_ir").split(",") if i.strip()],
-            "should_regenerate": True,
-        }
+            preserved_answer = str(sol.get("standard_answer") or sol.get("answer") or "").strip()
+            preserved_steps = list(sol.get("steps") or [])
+            preserved_structured = sol.get("_structured")
+            total_score = int(sol.get("total_score") or 10)
+
         return {
             "success": True,
-            "standard_answer": "",
-            "total_score": int((sol or {}).get("total_score", 10)) if isinstance(sol, dict) else 10,
-            "steps": [],
-            "_structured": None,
-            "standard_solution_status": "failed",
-            "standard_solution_source": "failed",
-            "standard_solution_error": "新生成标准解答缺少合格 Solution IR，已阻止展示。",
-            "_quality_report": report,
-            "_should_regenerate": True,
+            "standard_answer": preserved_answer,
+            "total_score": total_score,
+            "steps": preserved_steps,
+            "_structured": preserved_structured,
             "_mandatory_ir_failed": True,
-            "_failed_quality_report": report,
+            "_ir_failure_issues": str(issues or "missing_solution_ir"),
             "_failed_raw_preview": html.escape(raw_preview, quote=True),
         }
+
+    def _finalize_mandatory_ir_failure(
+        self,
+        sol: dict[str, Any],
+        selected_q: dict[str, Any],
+    ) -> dict[str, Any]:
+        from services.grading_adapter import (
+            _annotate_solution_quality_issues,
+            _quarantine_solution_for_failed_render,
+            normalize_standard_solution,
+            normalize_solution_for_render,
+        )
+        from services.solution_quality import solution_quality_report
+
+        original_raw = str(sol.get("standard_answer") or sol.get("answer") or "")
+        sol = normalize_solution_for_render(normalize_standard_solution(sol))
+        raw = str(sol.get("standard_answer") or sol.get("answer") or "")
+        debug_raw = original_raw or raw
+        report = solution_quality_report(sol, selected_q)
+
+        if report.get("ok"):
+            ir_issues = str(sol.get("_ir_failure_issues") or "missing_solution_ir")
+            fail_report = {
+                "ok": False,
+                "renderable": False,
+                "complete": False,
+                "detailed": False,
+                "covers_requirements": False,
+                "logically_plausible": False,
+                "issues": [i.strip() for i in ir_issues.split(",") if i.strip()],
+                "should_regenerate": True,
+            }
+            quarantined = _quarantine_solution_for_failed_render(
+                dict(sol),
+                raw_text=debug_raw,
+                report=fail_report,
+                status="failed",
+            )
+            quarantined["_mandatory_ir_failed"] = True
+            quarantined["_should_regenerate"] = True
+            return quarantined
+
+        if not report.get("renderable", False):
+            quarantined = _quarantine_solution_for_failed_render(
+                dict(sol),
+                raw_text=debug_raw,
+                report=report,
+                status="failed",
+            )
+            quarantined["_mandatory_ir_failed"] = True
+            quarantined["_should_regenerate"] = True
+            return quarantined
+
+        sol.pop("standard_solution_status", None)
+        sol.pop("standard_solution_source", None)
+        marked = _annotate_solution_quality_issues(sol, raw_text=debug_raw, report=report)
+        marked["_mandatory_ir_failed"] = True
+        return marked
 
     def _generate_with_mandatory_ir(self, question, selected_q, ocr_data) -> dict[str, Any] | None:
         first = self._generate(question, selected_q, ocr_data)
@@ -154,17 +210,11 @@ class SolutionService:
             return bool(report.get("ok"))
 
         def _mark_quality_failure(sol: dict[str, Any]) -> dict[str, Any]:
+            from services.grading_adapter import _annotate_solution_quality_issues
+
             report = solution_quality_report(sol, selected_q)
-            sol["_quality_report"] = report
-            sol["_should_regenerate"] = True
-            issues = "、".join(report.get("issues", [])[:4]) or "quality_gate_failed"
-            if not report.get("renderable", False):
-                sol["standard_solution_status"] = "failed"
-                sol["standard_solution_error"] = f"标准解答生成失败：公式结构异常（{issues}）。"
-            else:
-                sol["standard_solution_status"] = "incomplete"
-                sol["standard_solution_error"] = f"标准解答生成不完整：{issues}。"
-            return sol
+            raw = str(sol.get("standard_answer") or sol.get("answer") or "")
+            return _annotate_solution_quality_issues(sol, raw_text=raw, report=report)
 
         # Canonical pool hit — validate + invalidate old formats
         for entry in pool:
@@ -207,7 +257,7 @@ class SolutionService:
         solution = self._generate_with_mandatory_ir(question, selected_q, ocr_data)
         if solution:
             if solution.get("_mandatory_ir_failed"):
-                return solution
+                return self._finalize_mandatory_ir_failure(solution, selected_q)
             if self._generated_ir_ready(solution) and _is_good(solution):
                 return solution
             solution = normalize_solution_for_render(solution)
@@ -222,7 +272,7 @@ class SolutionService:
             retry = self._generate_with_mandatory_ir(question, selected_q, ocr_data)
             if retry:
                 if retry.get("_mandatory_ir_failed"):
-                    return retry
+                    return self._finalize_mandatory_ir_failure(retry, selected_q)
                 if self._generated_ir_ready(retry) and _is_good(retry):
                     return retry
                 retry = normalize_solution_for_render(retry)

@@ -7,7 +7,7 @@
   "difficulty": "中等",
   "score": 9,
   "question": "求极限 $$\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4} \\sin x$$",
-  "standard_answer": "$\\frac{1}{6}$",
+  "standard_answer": "步骤1：分析未定式并确定求解思路\n当 $x \\to 0$ 时，分子中的 $\\sin x - \\sin(\\sin x) \\to 0$，分母 $x^4 \\to 0$，且因子 $\\sin x \\sim x$，故整个极限为 $\\frac{0}{0}$ 型未定式。由于表达式含有复合正弦，直接使用洛必达法则会非常繁琐，因此采用泰勒展开将分子各项展开到足够的阶数，再求极限。\n步骤2：将 $\\sin x$ 与 $\\sin(\\sin x)$ 泰勒展开至 $x^5$ 阶\n写出 $\\sin x$ 的麦克劳林公式：\n$$\n\\sin x = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5) \\quad (x \\to 0).\n$$\n令 $u = \\sin x$，则\n$$\n\\sin(\\sin x) = \\sin u = u - \\frac{u^3}{6} + \\frac{u^5}{120} + o(u^5).\n$$\n将 $u = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5)$ 代入并计算所需的各次幂（保留至 $x^5$）：\n$$\n\\begin{aligned}\nu^2 &= \\left(x - \\frac{x^3}{6}\\right)^2 + o(x^4) = x^2 - \\frac{x^4}{3} + o(x^4),\\\\\nu^3 &= u \\cdot u^2 = \\left(x - \\frac{x^3}{6}\\right)\\left(x^2 - \\frac{x^4}{3}\\right) + o(x^5) = x^3 - \\frac{x^5}{2} + o(x^5),\\\\\nu^5 &= x^5 + o(x^5).\n\\end{aligned}\n$$\n回代到 $\\sin u$ 的展开式中：\n$$\n\\begin{aligned}\n\\sin(\\sin x) &= \\left(x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right) - \\frac{1}{6}\\left(x^3 - \\frac{x^5}{2}\\right) + \\frac{1}{120}x^5 + o(x^5)\\\\\n&= x - \\frac{x^3}{6} + \\frac{x^5}{120} - \\frac{x^3}{6} + \\frac{x^5}{12} + \\frac{x^5}{120} + o(x^5)\\\\\n&= x - \\frac{1}{3}x^3 + \\frac{1}{10}x^5 + o(x^5).\n\\end{aligned}\n$$\n步骤3：求差并乘以 $\\sin x$，计算极限\n先计算 $\\sin x - \\sin(\\sin x)$：\n$$\n\\begin{aligned}\n\\sin x - \\sin(\\sin x) &= \\left[x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right] - \\left[x - \\frac{x^3}{3} + \\frac{x^5}{10}\\right] + o(x^5)\\\\\n&= \\left(-\\frac{1}{6} + \\frac{1}{3}\\right)x^3 + \\left(\\frac{1}{120} - \\frac{1}{10}\\right)x^5 + o(x^5)\\\\\n&= \\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5).\n\\end{aligned}\n$$\n再将此结果乘以 $\\sin x = x - \\frac{x^3}{6} + o(x^3)$，仅需保留到 $x^4$ 阶：\n$$\n\\begin{aligned}\n\\bigl(\\sin x - \\sin(\\sin x)\\bigr)\\sin x &= \\left(\\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5)\\right)\\left(x - \\frac{x^3}{6} + o(x^3)\\right)\\\\\n&= \\frac{1}{6}x^4 + \\text{高阶项}\\quad (\\text{因为 } \\frac{1}{6}x^3\\cdot x = \\frac{1}{6}x^4,\\; x^3\\cdot x^3 \\text{ 为 } x^6 \\text{ 阶})\\\\\n&= \\frac{1}{6}x^4 + o(x^4).\n\\end{aligned}\n$$\n于是原极限为\n$$\n\\begin{aligned}\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4}\\,\\sin x \\\\\n&= \\lim_{x\\to 0} \\frac{\\frac{1}{6}x^4 + o(x^4)}{x^4} \\\\\n&= \\frac{1}{6}.\\end{aligned}\n$$\n\n## 最终答案\n$$\n\\frac{1}{6}\n$$",
   "knowledge_points": [
     "极限与连续",
     "导数与微分"
@@ -19,5 +19,287 @@
   "solution_steps": [],
   "options": {},
   "raw_question_text": "求极限 $$\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4} \\sin x$$",
-  "raw_answer_text": "$\\frac{1}{6}$"
+  "raw_answer_text": "$\\frac{1}{6}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780398062",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：分析未定式并确定求解思路\n当 $x \\to 0$ 时，分子中的 $\\sin x - \\sin(\\sin x) \\to 0$，分母 $x^4 \\to 0$，且因子 $\\sin x \\sim x$，故整个极限为 $\\frac{0}{0}$ 型未定式。由于表达式含有复合正弦，直接使用洛必达法则会非常繁琐，因此采用泰勒展开将分子各项展开到足够的阶数，再求极限。\n步骤2：将 $\\sin x$ 与 $\\sin(\\sin x)$ 泰勒展开至 $x^5$ 阶\n写出 $\\sin x$ 的麦克劳林公式：\n$$\n\\sin x = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5) \\quad (x \\to 0).\n$$\n令 $u = \\sin x$，则\n$$\n\\sin(\\sin x) = \\sin u = u - \\frac{u^3}{6} + \\frac{u^5}{120} + o(u^5).\n$$\n将 $u = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5)$ 代入并计算所需的各次幂（保留至 $x^5$）：\n$$\n\\begin{aligned}\nu^2 &= \\left(x - \\frac{x^3}{6}\\right)^2 + o(x^4) = x^2 - \\frac{x^4}{3} + o(x^4),\\\\\nu^3 &= u \\cdot u^2 = \\left(x - \\frac{x^3}{6}\\right)\\left(x^2 - \\frac{x^4}{3}\\right) + o(x^5) = x^3 - \\frac{x^5}{2} + o(x^5),\\\\\nu^5 &= x^5 + o(x^5).\n\\end{aligned}\n$$\n回代到 $\\sin u$ 的展开式中：\n$$\n\\begin{aligned}\n\\sin(\\sin x) &= \\left(x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right) - \\frac{1}{6}\\left(x^3 - \\frac{x^5}{2}\\right) + \\frac{1}{120}x^5 + o(x^5)\\\\\n&= x - \\frac{x^3}{6} + \\frac{x^5}{120} - \\frac{x^3}{6} + \\frac{x^5}{12} + \\frac{x^5}{120} + o(x^5)\\\\\n&= x - \\frac{1}{3}x^3 + \\frac{1}{10}x^5 + o(x^5).\n\\end{aligned}\n$$\n步骤3：求差并乘以 $\\sin x$，计算极限\n先计算 $\\sin x - \\sin(\\sin x)$：\n$$\n\\begin{aligned}\n\\sin x - \\sin(\\sin x) &= \\left[x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right] - \\left[x - \\frac{x^3}{3} + \\frac{x^5}{10}\\right] + o(x^5)\\\\\n&= \\left(-\\frac{1}{6} + \\frac{1}{3}\\right)x^3 + \\left(\\frac{1}{120} - \\frac{1}{10}\\right)x^5 + o(x^5)\\\\\n&= \\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5).\n\\end{aligned}\n$$\n再将此结果乘以 $\\sin x = x - \\frac{x^3}{6} + o(x^3)$，仅需保留到 $x^4$ 阶：\n$$\n\\begin{aligned}\n\\bigl(\\sin x - \\sin(\\sin x)\\bigr)\\sin x &= \\left(\\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5)\\right)\\left(x - \\frac{x^3}{6} + o(x^3)\\right)\\\\\n&= \\frac{1}{6}x^4 + \\text{高阶项}\\quad (\\text{因为 } \\frac{1}{6}x^3\\cdot x = \\frac{1}{6}x^4,\\; x^3\\cdot x^3 \\text{ 为 } x^6 \\text{ 阶})\\\\\n&= \\frac{1}{6}x^4 + o(x^4).\n\\end{aligned}\n$$\n于是原极限为\n$$\n\\begin{aligned}\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4}\\,\\sin x \\\\\n&= \\lim_{x\\to 0} \\frac{\\frac{1}{6}x^4 + o(x^4)}{x^4} \\\\\n&= \\frac{1}{6}.\\end{aligned}\n$$\n\n## 最终答案\n$$\n\\frac{1}{6}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 19:01",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分析未定式并确定求解思路\n当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时，分子中的"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x - \\sin(\\sin x) \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "分母"
+              },
+              {
+                "type": "latex",
+                "content": "x^4 \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "且因子"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x \\sim x"
+              },
+              {
+                "type": "text",
+                "content": "故整个极限为"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{0}{0}"
+              },
+              {
+                "type": "text",
+                "content": "型未定式。由于表达式含有复合正弦，直接使用洛必达法则会非常繁琐，因此采用泰勒展开将分子各项展开到足够的阶数，再求极限。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin(\\sin x)"
+              },
+              {
+                "type": "text",
+                "content": "泰勒展开至"
+              },
+              {
+                "type": "latex",
+                "content": "x^5"
+              },
+              {
+                "type": "text",
+                "content": "阶\n写出"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x"
+              },
+              {
+                "type": "text",
+                "content": "的麦克劳林公式："
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5) \\quad (x \\to 0).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "u = \\sin x"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin(\\sin x) = \\sin u = u - \\frac{u^3}{6} + \\frac{u^5}{120} + o(u^5).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "u = x - \\frac{x^3}{6} + \\frac{x^5}{120} + o(x^5)"
+              },
+              {
+                "type": "text",
+                "content": "代入并计算所需的各次幂（保留至"
+              },
+              {
+                "type": "latex",
+                "content": "x^5"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}u^2 &= \\left(x - \\frac{x^3}{6}\\right)^2 + o(x^4) = x^2 - \\frac{x^4}{3} + o(x^4),\\u^3 &= u \\cdot u^2 = \\left(x - \\frac{x^3}{6}\\right)\\left(x^2 - \\frac{x^4}{3}\\right) + o(x^5) = x^3 - \\frac{x^5}{2} + o(x^5),\\\\\nu^5 &= x^5 + o(x^5).\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "回代到"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin u"
+              },
+              {
+                "type": "text",
+                "content": "的展开式中："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\sin(\\sin x) &= \\left(x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right) - \\frac{1}{6}\\left(x^3 - \\frac{x^5}{2}\\right) + \\frac{1}{120}x^5 + o(x^5)\\\\&= x - \\frac{x^3}{6} + \\frac{x^5}{120} - \\frac{x^3}{6} + \\frac{x^5}{12} + \\frac{x^5}{120} + o(x^5)\\\\\n&= x - \\frac{1}{3}x^3 + \\frac{1}{10}x^5 + o(x^5).\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "求差并乘以"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x"
+              },
+              {
+                "type": "text",
+                "content": "计算极限\n先计算"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x - \\sin(\\sin x)"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\sin x - \\sin(\\sin x) &= \\left[x - \\frac{x^3}{6} + \\frac{x^5}{120}\\right] - \\left[x - \\frac{x^3}{3} + \\frac{x^5}{10}\\right] + o(x^5)\\\\&= \\left(-\\frac{1}{6} + \\frac{1}{3}\\right)x^3 + \\left(\\frac{1}{120} - \\frac{1}{10}\\right)x^5 + o(x^5)\\\\\n&= \\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5).\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "再将此结果乘以"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin x = x - \\frac{x^3}{6} + o(x^3)"
+              },
+              {
+                "type": "text",
+                "content": "仅需保留到"
+              },
+              {
+                "type": "latex",
+                "content": "x^4"
+              },
+              {
+                "type": "text",
+                "content": "阶："
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\begin{aligned}\\bigl(\\sin x - \\sin(\\sin x)\\bigr)\\sin x &= \\left(\\frac{1}{6}x^3 - \\frac{11}{120}x^5 + o(x^5)\\right)\\left(x - \\frac{x^3}{6} + o(x^3)\\right)\\\\&= \\frac{1}{6}x^4 +"
+              },
+              {
+                "type": "text",
+                "content": "高阶项"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\quad ("
+              },
+              {
+                "type": "text",
+                "content": "因为"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\frac{1}{6}x^3\\cdot x = \\frac{1}{6}x^4,\\; x^3\\cdot x^3"
+              },
+              {
+                "type": "text",
+                "content": "为"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "x^6"
+              },
+              {
+                "type": "text",
+                "content": "阶"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": ")\\\\\n&= \\frac{1}{6}x^4 + o(x^4).\n\\end{aligned}"
+              },
+              {
+                "type": "text",
+                "content": "于是原极限为"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\lim_{x\\to 0} \\frac{\\sin x - \\sin(\\sin x)}{x^4}\\,\\sin x \\\\&= \\lim_{x\\to 0} \\frac{\\frac{1}{6}x^4 + o(x^4)}{x^4} \\\\&= \\frac{1}{6}.\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 19:01",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

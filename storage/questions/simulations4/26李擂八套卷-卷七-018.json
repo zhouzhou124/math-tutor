@@ -1,0 +1,32 @@
+{
+  "question_id": "26李擂八套卷-卷七-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 10,
+  "question": "函数 $y=f(x)$ 是微分方程 $2y'(1-x)\\sqrt{x}-\\sin y\\cos y\\sqrt{x}=\\sqrt{1-x}\\cos^2y$ 满足 $y(0)=0$ 的解，若 $f(x)$ 在区间 $[0,\\frac{\\pi}{2}]$ 上取值，则\n\n(1) 求 $f'(x)$；\n\n(2) 求曲线段 $L:y=f(x)-\\sqrt{x(1-x)}$，$0<x<1$ 绕 $x$ 轴旋转一周所得的旋转曲面面积。",
+  "correct_option": "",
+  "standard_answer": "(I) $f'(x)=\\frac{1}{2\\sqrt{x(1-x)}}$；(II) $S=\\frac{8\\pi}{3}$",
+  "knowledge_points": [
+    "微分方程",
+    "定积分应用"
+  ],
+  "tags": [
+    "微分方程",
+    "旋转曲面面积",
+    "定积分应用"
+  ],
+  "solution_steps": [
+    "(I) 令 $u=\\tan y$，则 $2(1-x)\\sqrt{x}\\,u'-\\sqrt{x}\\,u=\\sqrt{1-x}$",
+    "解得 $u=\\sqrt{\\frac{x}{1-x}}$，故 $f(x)=\\arcsin\\sqrt{x}$",
+    "因而 $f'(x)=\\frac{1}{2\\sqrt{x(1-x)}}$",
+    "(II) 令 $x=\\sin^2t$，$0<t<\\frac{\\pi}{2}$，则 $f(x)-\\sqrt{x(1-x)}=t-\\sin t\\cos t$",
+    "旋转曲面面积 $S=\\frac{8\\pi}{3}$"
+  ],
+  "raw_question_text": "函数 $y=f(x)$ 是微分方程 $2y'(1-x)\\sqrt{x}-\\sin y\\cos y\\sqrt{x}=\\sqrt{1-x}\\cos^2y$ 满足 $y(0)=0$ 的解，若 $f(x)$ 在区间 $[0,\\frac{\\pi}{2}]$ 上取值，则\n\n(1) 求 $f'(x)$；\n\n(2) 求曲线段 $L:y=f(x)-\\sqrt{x(1-x)}$，$0<x<1$ 绕 $x$ 轴旋转一周所得的旋转曲面面积。",
+  "raw_answer_text": "(I) $f'(x)=\\frac{1}{2\\sqrt{x(1-x)}}$；(II) $S=\\frac{8\\pi}{3}$",
+  "options": {}
+}

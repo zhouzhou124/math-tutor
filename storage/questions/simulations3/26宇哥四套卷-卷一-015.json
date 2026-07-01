@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-015",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "tags": [
+    "线性方程组",
+    "矩阵运算"
+  ],
+  "question": "已知方程组 $(I)\\begin{cases} x_2+ax_3=0,\\\\ x_1+x_2+(a+1)x_3=0 \\end{cases}$ 的解均是方程组 $(II)\\begin{cases} x_1+x_2+2x_3=0,\\\\ x_1+x_2+bx_3=0 \\end{cases}$ 的解，但方程组 $(I)$ 与方程组 $(II)$ 不同解，设矩阵 $A$ 为方程组 $(I)$ 的系数矩阵，矩阵 $B$ 为方程组 $(II)$ 的系数矩阵，则 $B^TA=\\_\\_\\_\\_\\_$",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "$\\begin{pmatrix} 1&2&3\\\\ 1&2&3\\\\ 2&4&6 \\end{pmatrix}$",
+  "solution_steps": [],
+  "raw_question_text": "已知方程组 $(I)\\begin{cases} x_2+ax_3=0,\\\\ x_1+x_2+(a+1)x_3=0 \\end{cases}$ 的解均是方程组 $(II)\\begin{cases} x_1+x_2+2x_3=0,\\\\ x_1+x_2+bx_3=0 \\end{cases}$ 的解，但方程组 $(I)$ 与方程组 $(II)$ 不同解，设矩阵 $A$ 为方程组 $(I)$ 的系数矩阵，矩阵 $B$ 为方程组 $(II)$ 的系数矩阵，则 $B^TA=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": ""
+}

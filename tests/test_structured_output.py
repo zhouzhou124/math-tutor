@@ -286,13 +286,18 @@ def test_legacy_solution_falls_back_without_structured():
 def test_canonical_entry_with_structured_returns_it():
     """_solution_from_canonical_entry maps pool entry structured → _structured."""
     from views.grading_page import _solution_from_canonical_entry
+    from services.grading_adapter import SOLUTION_FORMAT_VERSION
     entry = {
-        "standard_answer": "x=1",
+        "format_version": SOLUTION_FORMAT_VERSION,
+        "standard_answer": (
+            "步骤1：由题设建立方程 $x+1=2$，并根据条件整理。"
+            "步骤2：解得 $x=1$，代回验证成立。因此最终答案为 $x=1$。"
+        ),
         "structured": {"steps": [{"label": "步骤1", "blocks": [
             {"type": "text", "content": "结构化缓存"}
         ]}]},
     }
-    sol = _solution_from_canonical_entry(entry, {"score": 10})
+    sol = _solution_from_canonical_entry(entry, {"score": 10, "question_type": "解答题"})
     assert sol["_structured"] is not None
     assert sol["_structured"]["steps"][0]["blocks"][0]["content"] == "结构化缓存"
 
@@ -300,11 +305,16 @@ def test_canonical_entry_with_structured_returns_it():
 def test_canonical_entry_with_canonical_ir_returns_it():
     """_solution_from_canonical_entry passes through canonical_ir."""
     from views.grading_page import _solution_from_canonical_entry
+    from services.grading_adapter import SOLUTION_FORMAT_VERSION
     entry = {
-        "standard_answer": "x=1",
+        "format_version": SOLUTION_FORMAT_VERSION,
+        "standard_answer": (
+            "步骤1：由题设建立方程 $x+1=2$，并根据条件整理。"
+            "步骤2：解得 $x=1$，代回验证成立。因此最终答案为 $x=1$。"
+        ),
         "canonical_ir": {"proof_trace": {"steps": [{"id": "s1"}]}},
     }
-    sol = _solution_from_canonical_entry(entry, {"score": 10})
+    sol = _solution_from_canonical_entry(entry, {"score": 10, "question_type": "解答题"})
     assert sol["_canonical_ir"] is not None
     assert sol["_canonical_ir"]["proof_trace"]["steps"][0]["id"] == "s1"
 

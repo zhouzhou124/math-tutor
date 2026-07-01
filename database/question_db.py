@@ -23,6 +23,8 @@ from .question_schema import get_raw_question, get_raw_answer, has_question_text
 EXAM_DIR = Path(STORAGE_DIR) / "questions" / "exams"         # 历年真题
 SIMUL1_DIR = Path(STORAGE_DIR) / "questions" / "simulations1"  # 26宇哥八套卷
 SIMUL2_DIR = Path(STORAGE_DIR) / "questions" / "simulations2"  # 26合工大超越
+SIMUL3_DIR = Path(STORAGE_DIR) / "questions" / "simulations3"  # 26宇哥四套卷
+SIMUL4_DIR = Path(STORAGE_DIR) / "questions" / "simulations4"  # 26李擂八套卷
 # Legacy: keep for backward compat
 SIMUL_DIR = SIMUL1_DIR
 INDEX_PATH = Path(STORAGE_DIR) / "questions" / "_index.json"
@@ -34,6 +36,10 @@ def get_question_path(qid: str) -> Path:
         return SIMUL1_DIR / f"{qid}.json"
     if '合工大超越' in qid:
         return SIMUL2_DIR / f"{qid}.json"
+    if '宇哥四套卷' in qid:
+        return SIMUL3_DIR / f"{qid}.json"
+    if '李擂八套卷' in qid:
+        return SIMUL4_DIR / f"{qid}.json"
     return EXAM_DIR / f"{qid}.json"
 
 # 知识点标签全集
@@ -59,6 +65,8 @@ def _ensure_dirs():
     EXAM_DIR.mkdir(parents=True, exist_ok=True)
     SIMUL1_DIR.mkdir(parents=True, exist_ok=True)
     SIMUL2_DIR.mkdir(parents=True, exist_ok=True)
+    SIMUL3_DIR.mkdir(parents=True, exist_ok=True)
+    SIMUL4_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def make_question_id(year: int, math_type: str, number: int, volume: str = None) -> str:
@@ -285,7 +293,7 @@ class QuestionDB:
         # 卷号过滤：从 categories 索引获取该卷的题目 ID
         if filters.get("volume"):
             vol = filters.pop("volume")
-            mt = filters.get("math_type", "")
+            mt = filters.get("math_type", "") or filters.get("category", "")
             if mt:
                 vol_ids = index.get("categories", {}).get(mt, {}).get(vol, {})
                 candidate_ids = set()
@@ -333,7 +341,7 @@ class QuestionDB:
             # the right year/subset when filters are present.
             cats = index.get("categories", {})
             target_year = str(filters.get("year", "")) if filters.get("year") else ""
-            target_mt = filters.get("math_type", "")
+            target_mt = filters.get("math_type", "") or filters.get("category", "")
             has_filters = bool(target_year or target_mt or filters.get("question_type")
                               or filters.get("keyword"))
             # When filters are active, load everything from the targeted subset
@@ -434,7 +442,7 @@ class QuestionDB:
         # 结构2: categories -> 数学类别 -> 年份 -> 题型 (新结构)
         has_math_type = False
         first_key = next(iter(cats.keys()), None)
-        if first_key and first_key in ["数学一", "26宇哥八套卷", "26合工大超越"]:
+        if first_key and first_key in ["数学一", "26宇哥八套卷", "26合工大超越", "26宇哥四套卷", "26李擂八套卷"]:
             has_math_type = True
         
         if has_math_type:
@@ -626,7 +634,8 @@ class QuestionDB:
 
     def _match(self, question: dict, filters: dict) -> bool:
         """检查题目是否匹配过滤条件"""
-        if filters.get("math_type") and question.get("category") != filters["math_type"]:
+        mt = filters.get("math_type") or filters.get("category")
+        if mt and question.get("category") != mt:
             return False
         if filters.get("year") and question.get("year") != filters["year"]:
             return False
@@ -654,7 +663,7 @@ class QuestionDB:
                     pass
         
         # 加载模拟卷
-        for _sd in (SIMUL1_DIR, SIMUL2_DIR):
+        for _sd in (SIMUL1_DIR, SIMUL2_DIR, SIMUL3_DIR, SIMUL4_DIR):
             if _sd.exists():
                 for f in sorted(_sd.glob("*.json"))[:limit]:
                     try:
@@ -722,13 +731,19 @@ class QuestionDB:
             except ValueError:
                 pass
 
+    def _rebuild_categories(self, index: dict):
+        """重建分类索引（用于批量导入后）"""
+        index["categories"] = {}
+        for q in self._load_all(limit=100000):
+            self._update_categories(index, q)
+
     def _rebuild_knowledge_index(self, index: dict):
         """重建知识点索引（用于update操作后）"""
         index["knowledge_index"] = {}
-        for q in self._load_all(limit=10000):
+        for q in self._load_all(limit=100000):
             self._update_knowledge_index(index, q)
 
     def _rebuild_difficulty_index(self, index: dict):
         index["difficulty_index"] = {}
-        for q in self._load_all(limit=10000):
+        for q in self._load_all(limit=100000):
             self._update_difficulty_index(index, q)

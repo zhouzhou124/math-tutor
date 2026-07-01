@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "概率密度",
+    "独立性"
+  ],
+  "tags": [
+    "概率密度",
+    "独立性"
+  ],
+  "question": "设 $(X,Y)$ 的概率密度为 $f(x,y)=\\begin{cases} e^{-x-y},&x\\ge0,\\ y\\ge0,\\\\ 0,&\\text{其他}, \\end{cases}$ 令 $Z=X+Y$，$U=\\begin{cases} X+Y,&Y>X,\\\\ -X-Y,&Y\\le X, \\end{cases}$\n(1) 求 $U$ 的概率密度；\n(2) 判断 $Z$ 和 $U$ 是否不相关，是否独立。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $f_U(u)=\\frac{|u|}{2}e^{-|u|}$（$u\\ne0$）。(II) $Z$ 与 $U$ 不相关但不独立。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $(X,Y)$ 的概率密度为 $f(x,y)=\\begin{cases} e^{-x-y},&x\\ge0,\\ y\\ge0,\\\\ 0,&\\text{其他}, \\end{cases}$ 令 $Z=X+Y$，$U=\\begin{cases} X+Y,&Y>X,\\\\ -X-Y,&Y\\le X, \\end{cases}$\n(1) 求 $U$ 的概率密度；\n(2) 判断 $Z$ 和 $U$ 是否不相关，是否独立。",
+  "raw_answer_text": "(I) $f_U(u)=\\frac{|u|}{2}e^{-|u|}$（$u\\ne0$）。(II) $Z$ 与 $U$ 不相关但不独立。"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "无穷小量",
+    "阶的比较"
+  ],
+  "tags": [
+    "无穷小量",
+    "阶的比较",
+    "泰勒展开"
+  ],
+  "question": "当 $x\\to0$ 时，下列无穷小量中最高阶的是",
+  "options": {
+    "A": "$\\sin x-\\ln(x+\\sqrt{1+x^2})$",
+    "B": "$x-\\tan\\sin x$",
+    "C": "$(\\cos x)^{\\sin^2x}-1$",
+    "D": "$\\sqrt{\\cos x}-\\sqrt[4]{\\cos x}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "当 $x\\to0$ 时，下列无穷小量中最高阶的是",
+  "raw_answer_text": "A"
+}

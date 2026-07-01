@@ -7,7 +7,7 @@
   "difficulty": "较难",
   "score": 11,
   "question": "设 $X_1,X_2,\\dots,X_n$ 是总体 $N(\\mu,\\sigma^2)$ 的简单随机样本，记 $\\overline{X} = \\frac{1}{n}\\sum_{i=1}^n X_i$，$S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\overline{X})^2$，$T = \\overline{X}^2 - \\frac{1}{n}S^2$.\n$(1)$ 证明 $T$ 是 $\\mu^2$ 的无偏估计量；\n$(2)$ 当 $\\mu = 0$，$\\sigma = 1$ 时，求 $D(T)$.",
-  "standard_answer": "(I) 证明略\n(II) $D(T) = \\frac{2}{n}$",
+  "standard_answer": "步骤1：\n步骤1：理解题意并写出统计量 T: 识别题目：需证明 T 为 μ² 的无偏估计，并当 \\mu=0,\\sigma=1 时求 D(T)\n\n$ \\Rightarrow T = \\overline{X}^2 - \\frac{1}{n}S^2$\n步骤2：\n步骤2：写出样本均值和样本方差的期望与方差: 由正态总体样本均值和样本方差的性质\n\n$T = \\overline{X}^2 - \\frac{1}{n}S^2 \\Rightarrow E(\\overline{X}) = \\mu,\\ E(S^2) = \\sigma^2,\\ D(\\overline{X}) = \\frac{\\sigma^{2}}{n}$\n步骤3：\n步骤3：计算 E(\\overline{X}^2): 利用方差展开公式 E(X²)=D(X)+(E(X))²\n\n$E(\\overline{X}) = \\mu,\\ D(\\overline{X}) = \\frac{\\sigma^{2}}{n} \\Rightarrow E(\\overline{X}^2) = D(\\overline{X}) + (E(\\overline{X}))^2 = \\frac{\\sigma^{2}}{n} + \\mu^{2}$\n步骤4：\n步骤4：计算 E(T) 并化简: 代入 T 的表达式并化简\n\n$E(\\overline{X}^2) = \\frac{\\sigma^{2}}{n} + \\mu^{2},\\ E(S^2) = \\sigma^{2} \\Rightarrow E(T) = E(\\overline{X}^2) - \\frac{1}{n}E(S^2) = \\left(\\frac{\\sigma^{2}}{n} + \\mu^{2}\\right) - \\frac{\\sigma^{2}}{n} = \\mu^{2}$\n步骤5：\n步骤5：第(1)问结论: 因此 T 是 μ² 的无偏估计量，第(1)问得证\n\n$E(T) = \\mu^{2} \\Rightarrow E(T) = \\mu^{2}$\n步骤6：\n步骤6：设定第(2)问条件: 进入第(2)问，给定参数条件\n\n$E(T) = \\mu^{2} \\Rightarrow \\mu = 0,\\ \\sigma = 1$\n步骤7：\n步骤7：得到 \\overline{X} 和 S^2 的分布与独立性: 正态总体下样本均值的分布、样本方差与卡方分布的关系以及独立性\n\n$X_i \\sim N(0,1) \\Rightarrow \\overline{X} \\sim N(0, \\frac{1}{n}),\\ (n-1)S^2 \\sim \\chi^2(n-1),\\ \\overline{X} \\perp S^2$\n步骤8：\n步骤8：展开 D(T) 的表达式: 由独立性，方差可加；结合 D(aX)=a² D(X)\n\n$T = \\overline{X}^2 - \\frac{1}{n}S^2 \\Rightarrow D(T) = D(\\overline{X}^2) + D\\left(\\frac{1}{n}S^2\\right) = D(\\overline{X}^2) + \\frac{1}{n^{2}} D(S^2)$\n步骤9：\n步骤9：计算 D(\\overline{X}^2): 令 Z = √n X̄ ~ N(0,1)，则 Z² ~ χ²(1)，D(Z²)=2，故 D(X̄²) = (1/n²)D(Z²) = 2/n²\n\n$\\overline{X} \\sim N(0, \\frac{1}{n}) \\Rightarrow D(\\overline{X}^2) = \\frac{2}{n^{2}}$\n步骤10：\n步骤10：计算 D(S^2): 由卡方分布方差 D(χ²(k)) = 2k，得 D((n-1)S²)=2(n-1)，进而 (n-1)² D(S²)=2(n-1)，解得 D(S²)=2/(n-1)\n\n$(n-1)S^2 \\sim \\chi^2(n-1) \\Rightarrow D(S^2) = \\frac{2}{n-1}$\n步骤11：\n步骤11：代入并化简得到 D(T): 代入并化简，通分后得到最终结果\n\n$D(T) = D(\\overline{X}^2) + \\frac{1}{n^{2}}D(S^2),\\ D(\\overline{X}^2) = \\frac{2}{n^{2}},\\ D(S^2) = \\frac{2}{n-1} \\Rightarrow D(T) = \\frac{2}{n^{2}} + \\frac{1}{n^{2}}\\cdot\\frac{2}{n-1} = \\frac{2}{n^{2}}\\left(1 + \\frac{1}{n-1}\\right) = \\frac{2}{n(n-1)}$\n步骤12：\n步骤12：第(2)问结论: 得到第(2)问 D(T) 的结果\n\n$D(T) = \\frac{2}{n(n-1)} \\Rightarrow D(T) = \\frac{2}{n(n-1)}$\n\n### 最终答案\n$$\nE(T)=\\mu^{2},\\quad D(T)=\\frac{2}{n(n-1)}\n$$",
   "knowledge_points": [
     "参数估计",
     "数字特征"
@@ -19,5 +19,89 @@
   "solution_steps": [],
   "options": {},
   "raw_question_text": "设 $X_1,X_2,\\dots,X_n$ 是总体 $N(\\mu,\\sigma^2)$ 的简单随机样本，记 $\\overline{X} = \\frac{1}{n}\\sum_{i=1}^n X_i$，$S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\overline{X})^2$，$T = \\overline{X}^2 - \\frac{1}{n}S^2$.\n$(1)$ 证明 $T$ 是 $\\mu^2$ 的无偏估计量；\n$(2)$ 当 $\\mu = 0$，$\\sigma = 1$ 时，求 $D(T)$.",
-  "raw_answer_text": "(I) 证明略\n(II) $D(T) = \\frac{2}{n}$"
+  "raw_answer_text": "(I) 证明略\n(II) $D(T) = \\frac{2}{n}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780570221",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：理解题意并写出统计量 T: 识别题目：需证明 T 为 μ² 的无偏估计，并当 \\mu=0,\\sigma=1 时求 D(T)\n\n$ \\Rightarrow T = \\overline{X}^2 - \\frac{1}{n}S^2$\n步骤2：\n步骤2：写出样本均值和样本方差的期望与方差: 由正态总体样本均值和样本方差的性质\n\n$T = \\overline{X}^2 - \\frac{1}{n}S^2 \\Rightarrow E(\\overline{X}) = \\mu,\\ E(S^2) = \\sigma^2,\\ D(\\overline{X}) = \\frac{\\sigma^{2}}{n}$\n步骤3：\n步骤3：计算 E(\\overline{X}^2): 利用方差展开公式 E(X²)=D(X)+(E(X))²\n\n$E(\\overline{X}) = \\mu,\\ D(\\overline{X}) = \\frac{\\sigma^{2}}{n} \\Rightarrow E(\\overline{X}^2) = D(\\overline{X}) + (E(\\overline{X}))^2 = \\frac{\\sigma^{2}}{n} + \\mu^{2}$\n步骤4：\n步骤4：计算 E(T) 并化简: 代入 T 的表达式并化简\n\n$E(\\overline{X}^2) = \\frac{\\sigma^{2}}{n} + \\mu^{2},\\ E(S^2) = \\sigma^{2} \\Rightarrow E(T) = E(\\overline{X}^2) - \\frac{1}{n}E(S^2) = \\left(\\frac{\\sigma^{2}}{n} + \\mu^{2}\\right) - \\frac{\\sigma^{2}}{n} = \\mu^{2}$\n步骤5：\n步骤5：第(1)问结论: 因此 T 是 μ² 的无偏估计量，第(1)问得证\n\n$E(T) = \\mu^{2} \\Rightarrow E(T) = \\mu^{2}$\n步骤6：\n步骤6：设定第(2)问条件: 进入第(2)问，给定参数条件\n\n$E(T) = \\mu^{2} \\Rightarrow \\mu = 0,\\ \\sigma = 1$\n步骤7：\n步骤7：得到 \\overline{X} 和 S^2 的分布与独立性: 正态总体下样本均值的分布、样本方差与卡方分布的关系以及独立性\n\n$X_i \\sim N(0,1) \\Rightarrow \\overline{X} \\sim N(0, \\frac{1}{n}),\\ (n-1)S^2 \\sim \\chi^2(n-1),\\ \\overline{X} \\perp S^2$\n步骤8：\n步骤8：展开 D(T) 的表达式: 由独立性，方差可加；结合 D(aX)=a² D(X)\n\n$T = \\overline{X}^2 - \\frac{1}{n}S^2 \\Rightarrow D(T) = D(\\overline{X}^2) + D\\left(\\frac{1}{n}S^2\\right) = D(\\overline{X}^2) + \\frac{1}{n^{2}} D(S^2)$\n步骤9：\n步骤9：计算 D(\\overline{X}^2): 令 Z = √n X̄ ~ N(0,1)，则 Z² ~ χ²(1)，D(Z²)=2，故 D(X̄²) = (1/n²)D(Z²) = 2/n²\n\n$\\overline{X} \\sim N(0, \\frac{1}{n}) \\Rightarrow D(\\overline{X}^2) = \\frac{2}{n^{2}}$\n步骤10：\n步骤10：计算 D(S^2): 由卡方分布方差 D(χ²(k)) = 2k，得 D((n-1)S²)=2(n-1)，进而 (n-1)² D(S²)=2(n-1)，解得 D(S²)=2/(n-1)\n\n$(n-1)S^2 \\sim \\chi^2(n-1) \\Rightarrow D(S^2) = \\frac{2}{n-1}$\n步骤11：\n步骤11：代入并化简得到 D(T): 代入并化简，通分后得到最终结果\n\n$D(T) = D(\\overline{X}^2) + \\frac{1}{n^{2}}D(S^2),\\ D(\\overline{X}^2) = \\frac{2}{n^{2}},\\ D(S^2) = \\frac{2}{n-1} \\Rightarrow D(T) = \\frac{2}{n^{2}} + \\frac{1}{n^{2}}\\cdot\\frac{2}{n-1} = \\frac{2}{n^{2}}\\left(1 + \\frac{1}{n-1}\\right) = \\frac{2}{n(n-1)}$\n步骤12：\n步骤12：第(2)问结论: 得到第(2)问 D(T) 的结果\n\n$D(T) = \\frac{2}{n(n-1)} \\Rightarrow D(T) = \\frac{2}{n(n-1)}$\n\n### 最终答案\n$$\nE(T)=\\mu^{2},\\quad D(T)=\\frac{2}{n(n-1)}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-04 18:50",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          },
+          {
+            "label": "步骤5",
+            "blocks": []
+          },
+          {
+            "label": "步骤6",
+            "blocks": []
+          },
+          {
+            "label": "步骤7",
+            "blocks": []
+          },
+          {
+            "label": "步骤8",
+            "blocks": []
+          },
+          {
+            "label": "步骤9",
+            "blocks": []
+          },
+          {
+            "label": "步骤10",
+            "blocks": []
+          },
+          {
+            "label": "步骤11",
+            "blocks": []
+          },
+          {
+            "label": "步骤12",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-04 18:50",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

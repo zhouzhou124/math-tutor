@@ -72,3 +72,66 @@ class TestViewOnlyKeepsSolution:
 
         assert result["grading_result"]["engine"] == "view_only"
         assert seen["force_expansion"] is True
+
+    def test_view_only_choice_uses_detailed_choice_solution_generator(self, monkeypatch):
+        from views.grading_page import _build_standard_solution
+
+        calls = {}
+
+        def fake_generate(question, selected_q, client, model=""):
+            calls["question"] = question
+            calls["selected_q"] = selected_q
+            calls["client"] = client
+            calls["model"] = model
+            return {
+                "success": True,
+                "question_type": "选择题",
+                "standard_answer": (
+                    "## 步骤1：核心依据\n先求导并判断零点。\n\n"
+                    "## 步骤3：选项分析\nA: 错误\nB: 正确\nC: 错误\nD: 错误\n\n"
+                    "## 最终答案\n故选 B。"
+                ),
+                "choice_solution": {
+                    "thought_process": "先求导并判断零点。",
+                    "option_analysis": {"A": "错误", "B": "正确", "C": "错误", "D": "错误"},
+                    "answer": "B",
+                    "correct_answer": "B",
+                },
+            }
+
+        monkeypatch.setattr(
+            "choice_explainer.generate_choice_standard_solution",
+            fake_generate,
+        )
+
+        class Status:
+            def __init__(self):
+                self.messages = []
+
+            def write(self, msg):
+                self.messages.append(msg)
+
+        selected_q = {
+            "question_id": "choice-view-only",
+            "question_type": "选择题",
+            "question": "设函数 f(x)，求零点个数",
+            "options": {"A": "0", "B": "1", "C": "2", "D": "3"},
+            "correct_option": "B",
+            "score": 4,
+        }
+
+        solution = _build_standard_solution(
+            "设函数 f(x)，求零点个数",
+            {"question_type": "选择题"},
+            selected_q,
+            object(),
+            Status(),
+            force_expansion=True,
+            _state={},
+            model="test-model",
+        )
+
+        assert calls["selected_q"]["correct_option"] == "B"
+        assert calls["model"] == "test-model"
+        assert solution["choice_solution"]["option_analysis"]["B"] == "正确"
+        assert "详细解析暂未生成" not in solution["standard_answer"]

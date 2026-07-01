@@ -1,0 +1,24 @@
+{
+  "question_id": "26李擂八套卷-卷六-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $f(x)=\\displaystyle\\int_0^x\\frac{t^3}{\\sqrt{1-t^6}}\\,dt$，则 $\\displaystyle\\int_0^{\\frac{\\pi}{2}}f(\\sqrt[3]{\\cos x})\\cos2x\\,dx=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{1}{6}$",
+  "knowledge_points": [
+    "定积分",
+    "积分上限函数"
+  ],
+  "tags": [
+    "定积分",
+    "积分上限函数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)=\\displaystyle\\int_0^x\\frac{t^3}{\\sqrt{1-t^6}}\\,dt$，则 $\\displaystyle\\int_0^{\\frac{\\pi}{2}}f(\\sqrt[3]{\\cos x})\\cos2x\\,dx=\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{1}{6}$"
+}

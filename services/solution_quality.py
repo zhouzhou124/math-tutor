@@ -445,6 +445,7 @@ def count_broken_latex_fragments(text: str) -> int:
         r"\x00A[2-5]",
         r"[\x00-\x08\x0b\x0c\x0e-\x1f]",
         "\ufffd",
+        r"\\(?:Gamm|alph|bet|gam|del|eps|the|lam|sig|ome)(?=[^A-Za-z]|$)",
     ]
     count = sum(len(re.findall(p, s)) for p in patterns)
 
@@ -563,6 +564,40 @@ def _step_derivation_text(step: dict | None) -> str:
     return "\n".join(parts)
 
 
+def _step_derivation_meta_text(step: dict | None) -> str:
+    if not isinstance(step, dict):
+        return ""
+    parts: list[str] = []
+    for key in ("goal", "reason", "justification"):
+        value = str(step.get(key) or "").strip()
+        if value:
+            parts.append(value)
+    return "\n".join(parts)
+
+
+def _step_requires_derivation_body(step: dict | None) -> bool:
+    if not isinstance(step, dict):
+        return False
+    injected = bool(step.get("_body_markdown_injected"))
+    if not injected and step.get("body_markdown"):
+        return True
+    if not injected and step.get("derivation_markdown"):
+        return True
+    if step.get("explanation"):
+        return True
+    return bool(_step_derivation_meta_text(step))
+
+
+def _structured_derivation_required_steps(structured: dict | None) -> list[dict]:
+    if not isinstance(structured, dict):
+        return []
+    return [
+        step
+        for step in (structured.get("steps") or [])
+        if isinstance(step, dict) and _step_requires_derivation_body(step)
+    ]
+
+
 _DERIVATION_MARKERS = [
     "因为", "由于", "由", "利用", "根据", "代入", "化简", "整理", "解得",
     "可得", "得到", "推出", "所以", "故", "从而", "递推", "初值", "特征方程",
@@ -586,6 +621,63 @@ def _has_formula_like_content(text: str) -> bool:
     )
 
 
+def _derivation_body_only(body: str) -> str:
+    import re
+
+    text = str(body or "")
+    for pattern in (
+        r"\n##\s*(?:最终答案|最终结论|结论|故选|答案)",
+        r"\n(?:最终答案|最终结论|故选|证毕|得证)",
+        r"(?:因此|所以|故)[，,]?\s*(?:最终答案|最终结论|答案为|正确答案|得证|证毕)",
+    ):
+        match = re.search(pattern, text, flags=re.I)
+        if match:
+            text = text[: match.start()]
+    return text.strip()
+
+
+def _text_body_has_substantive_derivation(body: str) -> bool:
+    text = _derivation_body_only(body)
+    compact = "".join(text.split())
+    if len(compact) < 15:
+        return False
+    has_marker = any(marker and marker in text for marker in _DERIVATION_MARKERS)
+    has_formula = _has_formula_like_content(text)
+    conclusion_only = any(marker and marker in text for marker in _CONCLUSION_ONLY_MARKERS)
+    if has_formula and has_marker and not conclusion_only:
+        return True
+    return bool(len(compact) >= 80 and has_formula and not conclusion_only)
+
+
+def solution_text_has_substantive_derivation(
+    text: str,
+    *,
+    min_derivation_steps: int = 2,
+) -> bool:
+    """True when markdown/plain text has real math steps, not keyword-only prose."""
+    import re
+
+    s = str(text or "").strip()
+    if not s:
+        return False
+
+    parts = re.split(r"(?:\#{1,3}\s*)?步骤\s*\d+\s*[：:]", s, flags=re.I)
+    bodies = [part.strip() for part in parts[1:] if part.strip()]
+    if not bodies:
+        bodies = [s]
+        required = max(1, min(min_derivation_steps, 1))
+    else:
+        required = max(1, min_derivation_steps)
+
+    substantive = sum(1 for body in bodies if _text_body_has_substantive_derivation(body))
+    if substantive >= required:
+        return True
+
+    if re.search(r"\$\$[^$]+\$\$|\\\[[^\]]+\\\]", s) and raw_step_count(s) >= 1:
+        return substantive >= 1 or len("".join(s.split())) >= 120
+    return False
+
+
 def structured_step_has_derivation(step: dict | None) -> bool:
     text = _step_derivation_text(step)
     compact = "".join(str(text or "").split())
@@ -602,7 +694,9 @@ def structured_step_has_derivation(step: dict | None) -> bool:
 def structured_has_derivations(structured: dict | None) -> bool:
     if not isinstance(structured, dict):
         return False
-    steps = [s for s in (structured.get("steps") or []) if isinstance(s, dict)]
+    steps = _structured_derivation_required_steps(structured)
+    if not steps:
+        steps = [s for s in (structured.get("steps") or []) if isinstance(s, dict)]
     if not steps:
         return False
     return all(structured_step_has_derivation(step) for step in steps)
@@ -611,17 +705,7 @@ def structured_has_derivations(structured: dict | None) -> bool:
 def _structured_requires_derivation_gate(structured: dict | None) -> bool:
     if not isinstance(structured, dict):
         return False
-    for step in structured.get("steps") or []:
-        if not isinstance(step, dict):
-            continue
-        _injected = step.get("_body_markdown_injected")
-        if not _injected and step.get("body_markdown"):
-            return True
-        if step.get("derivation_markdown") and not _injected:
-            return True
-        if step.get("explanation"):
-            return True
-    return False
+    return bool(_structured_derivation_required_steps(structured))
 
 
 def _subparts_from_question(question: dict | None) -> list[str]:
@@ -825,6 +909,104 @@ def solution_quality_report(solution: dict | None, question: dict | None = None)
         "complete": complete,
         "detailed": detailed,
         "covers_requirements": covers,
+        "logically_plausible": plausible,
+        "issues": unique,
+        "should_regenerate": not ok,
+    }
+
+
+def solution_quality_report_choice_display(
+    solution: dict | None,
+    question: dict | None = None,
+) -> dict:
+    """Relaxed quality gate for async choice standard-solution generation.
+
+    Accepts option-analysis style output without requiring every option letter
+    to appear in a single markdown blob.
+    """
+    issues: list[str] = []
+    renderable = solution_is_renderable(solution)
+    if not renderable:
+        issues.append("not_renderable")
+
+    text = _combined_solution_text(solution)
+    structured = solution.get("_structured") if isinstance(solution, dict) else None
+    step_count = max(structured_step_count(structured), raw_step_count(text))
+    choice_payload = (solution or {}).get("choice_solution") or {}
+    thought = str(choice_payload.get("thought_process") or "").strip()
+    calc = (
+        choice_payload.get("calculation_steps")
+        or choice_payload.get("calculation")
+        or choice_payload.get("core_reason")
+        if isinstance(choice_payload, dict)
+        else ""
+    )
+    if isinstance(calc, list):
+        calc_text = "\n".join(str(item).strip() for item in calc if str(item).strip())
+    else:
+        calc_text = str(calc or "").strip()
+    option_analysis = choice_payload.get("option_analysis") if isinstance(choice_payload, dict) else {}
+    analyzed = sum(
+        1 for letter in ("A", "B", "C", "D")
+        if str((option_analysis or {}).get(letter) or "").strip()
+    )
+
+    has_final = (
+        structured_has_final_answer(structured)
+        or raw_has_final_marker(text)
+        or _has_any_marker(text, _CHOICE_MARKERS)
+    )
+    if not has_final:
+        issues.append("incomplete")
+
+    core_source = "\n".join(part for part in (thought, calc_text, text) if part)
+    has_core_reasoning = bool(
+        len(thought) >= 20
+        or len(calc_text) >= 20
+        or (
+            any(
+                marker in core_source
+                for marker in (
+                    "求导", "导数", "极限", "积分", "方程", "函数",
+                    "单调", "代入", "化简", "推导", "计算", "由",
+                )
+            )
+            and re.search(
+                r"(\\frac|\\int|\\lim|\\sum|\\sqrt|\\ln|\\sin|\\cos|\\tan|"
+                r"\\mathrm|[=<>]|[a-zA-Z]\s*\(|\^|_)",
+                core_source,
+            )
+        )
+    )
+    if not has_core_reasoning:
+        issues.append("missing_core_reasoning")
+
+    detailed = (
+        has_core_reasoning
+        and (
+            step_count >= 2
+            or len(text.strip()) >= 140
+            or (len(thought) >= 60 and analyzed >= 2)
+        )
+    )
+    if not detailed:
+        issues.append("missing_detailed_steps")
+
+    plausible, logic_issues = solution_is_logically_plausible(solution)
+    issues.extend(logic_issues)
+
+    unique: list[str] = []
+    for issue in issues:
+        if issue not in unique:
+            unique.append(issue)
+
+    ok = renderable and has_final and detailed and plausible and has_core_reasoning
+    return {
+        "ok": ok,
+        "renderable": renderable,
+        "complete": has_final,
+        "detailed": detailed,
+        "covers_requirements": True,
         "logically_plausible": plausible,
         "issues": unique,
         "should_regenerate": not ok,

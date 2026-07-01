@@ -1,0 +1,486 @@
+{
+  "question_id": "26宇哥八套卷-卷七-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "math_type": "26宇哥八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $f(x)$ 在 $(0,+\\infty)$ 内可导，$a$ 为常数。对于以下结论：\n① 若 $\\lim_{x\\to+\\infty} f'(x) = a$，则 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$；\n② 若 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$，则 $\\lim_{x\\to+\\infty} f'(x) = a$。\n下列说法中正确的是",
+  "options": {
+    "A": "①正确，②错误",
+    "B": "①错误，②正确",
+    "C": "①与②均正确",
+    "D": "①与②均错误"
+  },
+  "correct_option": "A",
+  "standard_answer": "步骤1：验证结论①的正确性\n\n已知 $\\lim_{x\\to+\\infty} f'(x) = a$。要证 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$。\n\n由导数极限的定义：对任意 $\\varepsilon > 0$，存在 $X > 0$，当 $x > X$ 时，有 $|f'(x)-a| < \\varepsilon$。\n\n任取 $x > X$，在区间 $[X, x]$ 上对 $f(x)$ 应用拉格朗日中值定理，存在 $\\xi \\in (X, x)$，使得\n$$\n\\frac{f(x)-f(X)}{x-X} = f'(\\xi).\n$$\n于是\n$$\nf(x) = f(X) + f'(\\xi)(x-X).\n$$\n两边同除以 $x$，得\n$$\n\\frac{f(x)}{x} = \\frac{f(X)}{x} + f'(\\xi)\\frac{x-X}{x}\n= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr).\n$$\n考虑 $\\frac{f(x)}{x} - a$：\n$$\n\\begin{aligned}\\frac{f(x)}{x} - a \\\\\n&= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr) - a \\\\\n&= \\frac{f(X)}{x} + \\bigl(f'(\\xi)-a\\bigr)\\Bigl(1-\\frac{X}{x}\\Bigr) - a\\frac{X}{x}.\\end{aligned}\n$$\n取绝对值并放大：\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n\\le \\frac{|f(X)|}{x} + |f'(\\xi)-a|\\Bigl(1-\\frac{X}{x}\\Bigr) + |a|\\frac{X}{x}.\n$$\n因为 $\\xi > X$，所以 $|f'(\\xi)-a| < \\varepsilon$；又 $1-\\frac{X}{x} < 1$，故\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n< \\frac{|f(X)|}{x} + \\varepsilon + |a|\\frac{X}{x}.\n$$\n当 $x \\to +\\infty$ 时，$\\frac{|f(X)|}{x} \\to 0$，$\\frac{X}{x} \\to 0$。因此对上述 $\\varepsilon$，可取 $X_1 > X$，使当 $x > X_1$ 时，$\\frac{|f(X)|}{x} < \\varepsilon$ 且 $|a|\\frac{X}{x} < \\varepsilon$。从而当 $x > X_1$ 时，\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr| < 3\\varepsilon.\n$$\n由 $\\varepsilon$ 的任意性即得 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$。结论①正确。\n步骤2：验证结论②的错误性\n\n结论②断言：若 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$，则 $\\lim_{x\\to+\\infty} f'(x) = a$。\n\n构造反例：取 $f(x) = x + \\sin x$，该函数在 $(0,+\\infty)$ 内可导。此时\n$$\n\\frac{f(x)}{x} = 1 + \\frac{\\sin x}{x}.\n$$\n由于 $\\bigl|\\frac{\\sin x}{x}\\bigr| \\le \\frac{1}{x} \\to 0$（当 $x\\to+\\infty$），所以\n$$\n\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = 1 = a.\n$$\n然而，$f'(x) = 1 + \\cos x$，当 $x\\to+\\infty$ 时，$\\cos x$ 在 $[-1,1]$ 内振荡，极限不存在，因此 $\\lim_{x\\to+\\infty} f'(x)$ 不存在，更不可能等于 $a=1$。这说明由 $\\frac{f(x)}{x}\\to a$ 不能推出 $f'(x)\\to a$。结论②错误。\n步骤3：确定正确选项\n\n由上述推导可知：结论①成立，结论②不成立。对照选项（通常为A.①正确，②错误；B.①错误，②正确；C.①②均正确；D.①②均错误），正确选项应为A。\n\n## 最终答案\n故选 A. ①正确，②错误。",
+  "knowledge_points": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "tags": [
+    "极限与连续",
+    "导数与微分"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $(0,+\\infty)$ 内可导，$a$ 为常数。对于以下结论：\n① 若 $\\lim_{x\\to+\\infty} f'(x) = a$，则 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$；\n② 若 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$，则 $\\lim_{x\\to+\\infty} f'(x) = a$。\n下列说法中正确的是",
+  "raw_answer_text": "A",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780305268",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：验证结论①的正确性\n\n已知 $\\lim_{x\\to+\\infty} f'(x) = a$。要证 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$。\n\n由导数极限的定义：对任意 $\\varepsilon > 0$，存在 $X > 0$，当 $x > X$ 时，有 $|f'(x)-a| < \\varepsilon$。\n\n任取 $x > X$，在区间 $[X, x]$ 上对 $f(x)$ 应用拉格朗日中值定理，存在 $\\xi \\in (X, x)$，使得\n$$\n\\frac{f(x)-f(X)}{x-X} = f'(\\xi).\n$$\n于是\n$$\nf(x) = f(X) + f'(\\xi)(x-X).\n$$\n两边同除以 $x$，得\n$$\n\\frac{f(x)}{x} = \\frac{f(X)}{x} + f'(\\xi)\\frac{x-X}{x}\n= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr).\n$$\n考虑 $\\frac{f(x)}{x} - a$：\n$$\n\\begin{aligned}\\frac{f(x)}{x} - a \\\\\n&= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr) - a \\\\\n&= \\frac{f(X)}{x} + \\bigl(f'(\\xi)-a\\bigr)\\Bigl(1-\\frac{X}{x}\\Bigr) - a\\frac{X}{x}.\\end{aligned}\n$$\n取绝对值并放大：\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n\\le \\frac{|f(X)|}{x} + |f'(\\xi)-a|\\Bigl(1-\\frac{X}{x}\\Bigr) + |a|\\frac{X}{x}.\n$$\n因为 $\\xi > X$，所以 $|f'(\\xi)-a| < \\varepsilon$；又 $1-\\frac{X}{x} < 1$，故\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n< \\frac{|f(X)|}{x} + \\varepsilon + |a|\\frac{X}{x}.\n$$\n当 $x \\to +\\infty$ 时，$\\frac{|f(X)|}{x} \\to 0$，$\\frac{X}{x} \\to 0$。因此对上述 $\\varepsilon$，可取 $X_1 > X$，使当 $x > X_1$ 时，$\\frac{|f(X)|}{x} < \\varepsilon$ 且 $|a|\\frac{X}{x} < \\varepsilon$。从而当 $x > X_1$ 时，\n$$\n\\Bigl|\\frac{f(x)}{x} - a\\Bigr| < 3\\varepsilon.\n$$\n由 $\\varepsilon$ 的任意性即得 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$。结论①正确。\n步骤2：验证结论②的错误性\n\n结论②断言：若 $\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a$，则 $\\lim_{x\\to+\\infty} f'(x) = a$。\n\n构造反例：取 $f(x) = x + \\sin x$，该函数在 $(0,+\\infty)$ 内可导。此时\n$$\n\\frac{f(x)}{x} = 1 + \\frac{\\sin x}{x}.\n$$\n由于 $\\bigl|\\frac{\\sin x}{x}\\bigr| \\le \\frac{1}{x} \\to 0$（当 $x\\to+\\infty$），所以\n$$\n\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = 1 = a.\n$$\n然而，$f'(x) = 1 + \\cos x$，当 $x\\to+\\infty$ 时，$\\cos x$ 在 $[-1,1]$ 内振荡，极限不存在，因此 $\\lim_{x\\to+\\infty} f'(x)$ 不存在，更不可能等于 $a=1$。这说明由 $\\frac{f(x)}{x}\\to a$ 不能推出 $f'(x)\\to a$。结论②错误。\n步骤3：确定正确选项\n\n由上述推导可知：结论①成立，结论②不成立。对照选项（通常为A.①正确，②错误；B.①错误，②正确；C.①②均正确；D.①②均错误），正确选项应为A。\n\n## 最终答案\n故选 A. ①正确，②错误。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-01 17:14",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "验证结论①的正确性\n\n已知"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} f'(x) = a"
+              },
+              {
+                "type": "text",
+                "content": "要证"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a"
+              },
+              {
+                "type": "text",
+                "content": "由导数极限的定义：对任意"
+              },
+              {
+                "type": "latex",
+                "content": "\\varepsilon > 0"
+              },
+              {
+                "type": "text",
+                "content": "存在"
+              },
+              {
+                "type": "latex",
+                "content": "X > 0"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x > X"
+              },
+              {
+                "type": "text",
+                "content": "时，有"
+              },
+              {
+                "type": "latex",
+                "content": "|f'(x)-a| < \\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "任取"
+              },
+              {
+                "type": "latex",
+                "content": "x > X"
+              },
+              {
+                "type": "text",
+                "content": "在区间"
+              },
+              {
+                "type": "latex",
+                "content": "[X, x]"
+              },
+              {
+                "type": "text",
+                "content": "上对"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "应用拉格朗日中值定理，存在"
+              },
+              {
+                "type": "latex",
+                "content": "\\xi \\in (X, x)"
+              },
+              {
+                "type": "text",
+                "content": "使得"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{f(x)-f(X)}{x-X} = f'(\\xi).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = f(X) + f'(\\xi)(x-X).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "两边同除以"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "得"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{f(x)}{x} = \\frac{f(X)}{x} + f'(\\xi)\\frac{x-X}{x}\n= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "考虑"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{f(x)}{x} - a"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\frac{f(x)}{x} - a \\\\&= \\frac{f(X)}{x} + f'(\\xi)\\Bigl(1-\\frac{X}{x}\\Bigr) - a \\\\&= \\frac{f(X)}{x} + \\bigl(f'(\\xi)-a\\bigr)\\Bigl(1-\\frac{X}{x}\\Bigr) - a\\frac{X}{x}.\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "取绝对值并放大："
+              },
+              {
+                "type": "latex",
+                "content": "\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n\\le \\frac{|f(X)|}{x} + |f'(\\xi)-a|\\Bigl(1-\\frac{X}{x}\\Bigr) + |a|\\frac{X}{x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因为"
+              },
+              {
+                "type": "latex",
+                "content": "\\xi > X"
+              },
+              {
+                "type": "text",
+                "content": "所以"
+              },
+              {
+                "type": "latex",
+                "content": "|f'(\\xi)-a| < \\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "又"
+              },
+              {
+                "type": "latex",
+                "content": "1-\\frac{X}{x} < 1"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "\\Bigl|\\frac{f(x)}{x} - a\\Bigr|\n< \\frac{|f(X)|}{x} + \\varepsilon + |a|\\frac{X}{x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{|f(X)|}{x} \\to 0"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{X}{x} \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "因此对上述"
+              },
+              {
+                "type": "latex",
+                "content": "\\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "可取"
+              },
+              {
+                "type": "latex",
+                "content": "X_1 > X"
+              },
+              {
+                "type": "text",
+                "content": "使当"
+              },
+              {
+                "type": "latex",
+                "content": "x > X_1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{|f(X)|}{x} < \\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "|a|\\frac{X}{x} < \\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "从而当"
+              },
+              {
+                "type": "latex",
+                "content": "x > X_1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\Bigl|\\frac{f(x)}{x} - a\\Bigr| < 3\\varepsilon.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由"
+              },
+              {
+                "type": "latex",
+                "content": "\\varepsilon"
+              },
+              {
+                "type": "text",
+                "content": "的任意性即得"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a"
+              },
+              {
+                "type": "text",
+                "content": "结论①正确。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "验证结论②的错误性\n\n结论②断言：若"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = a"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} f'(x) = a"
+              },
+              {
+                "type": "text",
+                "content": "构造反例：取"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = x + \\sin x"
+              },
+              {
+                "type": "text",
+                "content": "该函数在"
+              },
+              {
+                "type": "latex",
+                "content": "(0,+\\infty)"
+              },
+              {
+                "type": "text",
+                "content": "内可导。此时"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{f(x)}{x} = 1 + \\frac{\\sin x}{x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "\\bigl|\\frac{\\sin x}{x}\\bigr| \\le \\frac{1}{x} \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "（当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to+\\infty"
+              },
+              {
+                "type": "text",
+                "content": "），所以"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} \\frac{f(x)}{x} = 1 = a.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "然而，"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x) = 1 + \\cos x"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to+\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\cos x"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "[-1,1]"
+              },
+              {
+                "type": "text",
+                "content": "内振荡，极限不存在，因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x\\to+\\infty} f'(x)"
+              },
+              {
+                "type": "text",
+                "content": "不存在，更不可能等于"
+              },
+              {
+                "type": "latex",
+                "content": "a=1"
+              },
+              {
+                "type": "text",
+                "content": "这说明由"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{f(x)}{x}\\to a"
+              },
+              {
+                "type": "text",
+                "content": "不能推出"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x)\\to a"
+              },
+              {
+                "type": "text",
+                "content": "结论②错误。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "确定正确选项\n\n由上述推导可知：结论①成立，结论②不成立。对照选项（通常为A.①正确，②错误；B.①错误，②正确；C.①②均正确；D.①②均错误），正确选项应为A。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-01 17:14",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
+}

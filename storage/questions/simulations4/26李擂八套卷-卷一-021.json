@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷一-021",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "实对称矩阵",
+    "正交对角化",
+    "二次型"
+  ],
+  "tags": [
+    "实对称矩阵",
+    "正交对角化",
+    "二次型",
+    "矩阵方程"
+  ],
+  "question": "设 $A$ 为三阶实对称矩阵，满足 $A\\begin{pmatrix} 2&1&0\\\\ 0&3&2\\\\ 1&2&1 \\end{pmatrix}=\\begin{pmatrix} 3&3&1\\\\ 1&5&3\\\\ 2&4&2 \\end{pmatrix}$，若 $r(A)<3$，则 \n(1) 求正交矩阵 $Q$，使得 $Q^{-1}AQ$ 为对角矩阵；\n(2) 求 $A$；\n(3) 求方程 $x^TAx=x^Tx$ 的所有解。",
+  "source": "import_lilei8_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(II) 设 $A=\\begin{pmatrix} a_{11}&a_{12}&a_{13}\\\\ a_{12}&a_{22}&a_{23}\\\\ a_{13}&a_{23}&a_{33} \\end{pmatrix}$。由题设矩阵方程解得 $A=\\begin{pmatrix} \\frac{a_{33}}4+1&\\frac{a_{33}}4&1-\\frac{a_{33}}2\\\\ \\frac{a_{33}}4&\\frac{a_{33}}4+1&1-\\frac{a_{33}}2\\\\ 1-\\frac{a_{33}}2&1-\\frac{a_{33}}2&a_{33} \\end{pmatrix}$。又 $r(A)<3$，故 $|A|=0$，得 $3a_{33}-2=0$，$a_{33}=\\frac23$。因而 $A=\\begin{pmatrix} \\frac76&\\frac16&\\frac23\\\\ \\frac16&\\frac76&\\frac23\\\\ \\frac23&\\frac23&\\frac23 \\end{pmatrix}$。(I) 取 $Q=\\begin{pmatrix} -\\frac1{\\sqrt6}&-\\frac1{\\sqrt2}&\\frac1{\\sqrt3}\\\\ -\\frac1{\\sqrt6}&\\frac1{\\sqrt2}&\\frac1{\\sqrt3}\\\\ \\frac2{\\sqrt6}&0&\\frac1{\\sqrt3} \\end{pmatrix}$，则 $Q^{-1}AQ=Q^TAQ=\\begin{pmatrix} 0&0&0\\\\ 0&1&0\\\\ 0&0&2 \\end{pmatrix}$。(III) 令 $y=Q^Tx=(y_1,y_2,y_3)^T$，则 $x^TAx=x^Tx \\Longleftrightarrow y_3^2=y_1^2$。故全部解为 $x=Q\\begin{pmatrix}t\\\\s\\\\t\\end{pmatrix}$ 或 $x=Q\\begin{pmatrix}t\\\\s\\\\-t\\end{pmatrix}$，$s,t\\in\\mathbb R$。",
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为三阶实对称矩阵，满足 $A\\begin{pmatrix} 2&1&0\\\\ 0&3&2\\\\ 1&2&1 \\end{pmatrix}=\\begin{pmatrix} 3&3&1\\\\ 1&5&3\\\\ 2&4&2 \\end{pmatrix}$，若 $r(A)<3$，则 \n(1) 求正交矩阵 $Q$，使得 $Q^{-1}AQ$ 为对角矩阵；\n(2) 求 $A$；\n(3) 求方程 $x^TAx=x^Tx$ 的所有解。",
+  "raw_answer_text": "(II) 设 $A=\\begin{pmatrix} a_{11}&a_{12}&a_{13}\\\\ a_{12}&a_{22}&a_{23}\\\\ a_{13}&a_{23}&a_{33} \\end{pmatrix}$。由题设矩阵方程解得 $A=\\begin{pmatrix} \\frac{a_{33}}4+1&\\frac{a_{33}}4&1-\\frac{a_{33}}2\\\\ \\frac{a_{33}}4&\\frac{a_{33}}4+1&1-\\frac{a_{33}}2\\\\ 1-\\frac{a_{33}}2&1-\\frac{a_{33}}2&a_{33} \\end{pmatrix}$。又 $r(A)<3$，故 $|A|=0$，得 $3a_{33}-2=0$，$a_{33}=\\frac23$。因而 $A=\\begin{pmatrix} \\frac76&\\frac16&\\frac23\\\\ \\frac16&\\frac76&\\frac23\\\\ \\frac23&\\frac23&\\frac23 \\end{pmatrix}$。(I) 取 $Q=\\begin{pmatrix} -\\frac1{\\sqrt6}&-\\frac1{\\sqrt2}&\\frac1{\\sqrt3}\\\\ -\\frac1{\\sqrt6}&\\frac1{\\sqrt2}&\\frac1{\\sqrt3}\\\\ \\frac2{\\sqrt6}&0&\\frac1{\\sqrt3} \\end{pmatrix}$，则 $Q^{-1}AQ=Q^TAQ=\\begin{pmatrix} 0&0&0\\\\ 0&1&0\\\\ 0&0&2 \\end{pmatrix}$。(III) 令 $y=Q^Tx=(y_1,y_2,y_3)^T$，则 $x^TAx=x^Tx \\Longleftrightarrow y_3^2=y_1^2$。故全部解为 $x=Q\\begin{pmatrix}t\\\\s\\\\t\\end{pmatrix}$ 或 $x=Q\\begin{pmatrix}t\\\\s\\\\-t\\end{pmatrix}$，$s,t\\in\\mathbb R$。"
+}

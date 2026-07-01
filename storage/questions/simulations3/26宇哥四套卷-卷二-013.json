@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷二-013",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "递推"
+  ],
+  "tags": [
+    "定积分",
+    "递推",
+    "函数方程"
+  ],
+  "question": "设连续函数 $f(x)$ 满足 $f(x+1)-f(x)=x^2$，$\\displaystyle\\int_0^1f(x)\\,dx=0$，则 $\\displaystyle\\int_0^2f(x)\\,dx=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac13$",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设连续函数 $f(x)$ 满足 $f(x+1)-f(x)=x^2$，$\\displaystyle\\int_0^1f(x)\\,dx=0$，则 $\\displaystyle\\int_0^2f(x)\\,dx=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": ""
+}

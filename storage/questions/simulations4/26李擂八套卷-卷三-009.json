@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "切比雪夫不等式",
+    "正态分布"
+  ],
+  "tags": [
+    "切比雪夫不等式",
+    "正态分布",
+    "方差"
+  ],
+  "question": "设 $X_1,X_2,\\cdots,X_n$ 来自正态总体 $N(1,1)$ 的简单随机样本，$T=\\frac1n\\sum_{i=1}^nX_i^2$，用切比雪夫不等式估计 $\\forall\\varepsilon>0$，$P\\{|T-2|\\ge\\varepsilon\\}\\le$",
+  "options": {
+    "A": "$\\frac6{n\\varepsilon^2}$",
+    "B": "$\\frac5{n\\varepsilon^2}$",
+    "C": "$\\frac4{n\\varepsilon^2}$",
+    "D": "$\\frac3{n\\varepsilon^2}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $X_1,X_2,\\cdots,X_n$ 来自正态总体 $N(1,1)$ 的简单随机样本，$T=\\frac1n\\sum_{i=1}^nX_i^2$，用切比雪夫不等式估计 $\\forall\\varepsilon>0$，$P\\{|T-2|\\ge\\varepsilon\\}\\le$",
+  "raw_answer_text": "A"
+}

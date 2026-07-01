@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 10,
+  "question": "设二维随机变量 $(X,Y)$ 的概率密度为 $f(x,y)=\\begin{cases}2e^{-x-y},&y>x>0,\\\\0,&\\text{其他},\\end{cases}$ $Z=\\max\\{2X,Y\\}$，$U=\\min\\{Y-X,X\\}$。\n\n(1) 求 $Z$ 的概率密度；\n\n(2) 求 $U$ 的概率密度；\n\n(3) 求 $Z$ 和 $U+X$ 的协方差。",
+  "correct_option": "",
+  "standard_answer": "(I) $f_Z(z)=\\begin{cases}3e^{-z}-3e^{-\\frac{3}{2}z},&z>0,\\\\0,&z\\le 0\\end{cases}$；(II) $f_U(u)=\\begin{cases}3e^{-3u},&u>0,\\\\0,&u\\le 0\\end{cases}$；(III) $\\operatorname{cov}(Z,U+X)=\\frac{11}{18}$",
+  "knowledge_points": [
+    "多维随机变量",
+    "协方差"
+  ],
+  "tags": [
+    "多维随机变量",
+    "概率密度",
+    "协方差",
+    "函数变换"
+  ],
+  "solution_steps": [
+    "(I) $F_Z(z)=P\\{2X\\le z,Y\\le z\\}=\\int_0^{z/2}\\int_x^z 2e^{-x-y}dy\\,dx=1-3e^{-z}+2e^{-3z/2}$，$z>0$，故 $f_Z(z)=3e^{-z}-3e^{-3z/2}$",
+    "(II) 令 $V=Y-X$，则 $X$ 与 $V$ 独立，且 $X\\sim E(2)$，$V\\sim E(1)$。因 $U=\\min\\{X,V\\}$，故 $f_U(u)=3e^{-3u}$，$u>0$",
+    "(III) $Z=X+\\max\\{X,V\\}$，$U+X=X+\\min\\{X,V\\}$。计算得 $E(Z)=\\frac{5}{3}$，$E(U+X)=\\frac{5}{6}$，$E[Z(U+X)]=2$，故 $\\operatorname{cov}(Z,U+X)=2-\\frac{5}{3}\\cdot\\frac{5}{6}=\\frac{11}{18}$"
+  ],
+  "raw_question_text": "设二维随机变量 $(X,Y)$ 的概率密度为 $f(x,y)=\\begin{cases}2e^{-x-y},&y>x>0,\\\\0,&\\text{其他},\\end{cases}$ $Z=\\max\\{2X,Y\\}$，$U=\\min\\{Y-X,X\\}$。\n\n(1) 求 $Z$ 的概率密度；\n\n(2) 求 $U$ 的概率密度；\n\n(3) 求 $Z$ 和 $U+X$ 的协方差。",
+  "raw_answer_text": "(I) $f_Z(z)=\\begin{cases}3e^{-z}-3e^{-\\frac{3}{2}z},&z>0,\\\\0,&z\\le 0\\end{cases}$；(II) $f_U(u)=\\begin{cases}3e^{-3u},&u>0,\\\\0,&u\\le 0\\end{cases}$；(III) $\\operatorname{cov}(Z,U+X)=\\frac{11}{18}$",
+  "options": {}
+}

@@ -1,0 +1,25 @@
+{
+  "question_id": "26李擂八套卷-卷七-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "微分方程 $y'=\\displaystyle\\frac{2xy}{y-x^2}$ 满足 $y(1)=2$ 的解为$\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$y=2x^2$",
+  "knowledge_points": [
+    "微分方程",
+    "一阶微分方程"
+  ],
+  "tags": [
+    "微分方程",
+    "一阶微分方程",
+    "齐次方程"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "微分方程 $y'=\\displaystyle\\frac{2xy}{y-x^2}$ 满足 $y(1)=2$ 的解为$\\underline{\\qquad}$.",
+  "raw_answer_text": "$y=2x^2$"
+}

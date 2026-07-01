@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲线积分",
+    "Green公式"
+  ],
+  "tags": [
+    "曲线积分",
+    "Green公式",
+    "闭曲线"
+  ],
+  "question": "设 $L$ 为曲线 $(x^2+y^2)^2=x+y$ 在第一象限内的部分，方向沿逆时针，求曲线积分 $$\\displaystyle\\oint_L\\left[(1+4x^4+4x^3y)e^{x^4-y^2}-xy\\right]\\,dx+\\left[(1-2y^2-2xy)e^{x^4-y^2}+x^2\\right]\\,dy$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "注意 $d\\left[(x+y)e^{x^4-y^2}\\right]=(1+4x^4+4x^3y)e^{x^4-y^2}\\,dx+(1-2y^2-2xy)e^{x^4-y^2}\\,dy$。故原积分等于 $\\oint_L(-xy\\,dx+x^2\\,dy)$。由 Green 公式，且方向为逆时针，$I=\\iint_D3x\\,dx\\,dy$。曲线在极坐标下满足 $r^3=\\cos\\theta+\\sin\\theta$，$0\\le\\theta\\le\\frac{\\pi}{2}$。因而 $I=3\\int_0^{\\frac{\\pi}{2}}\\int_0^{(\\cos\\theta+\\sin\\theta)^{\\frac13}}r^2\\cos\\theta\\,dr\\,d\\theta=\\int_0^{\\frac{\\pi}{2}}\\cos\\theta(\\cos\\theta+\\sin\\theta)\\,d\\theta=\\frac{\\pi}{4}+\\frac12$。",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $L$ 为曲线 $(x^2+y^2)^2=x+y$ 在第一象限内的部分，方向沿逆时针，求曲线积分 $$\\displaystyle\\oint_L\\left[(1+4x^4+4x^3y)e^{x^4-y^2}-xy\\right]\\,dx+\\left[(1-2y^2-2xy)e^{x^4-y^2}+x^2\\right]\\,dy$$",
+  "raw_answer_text": "注意 $d\\left[(x+y)e^{x^4-y^2}\\right]=(1+4x^4+4x^3y)e^{x^4-y^2}\\,dx+(1-2y^2-2xy)e^{x^4-y^2}\\,dy$。故原积分等于 $\\oint_L(-xy\\,dx+x^2\\,dy)$。由 Green 公式，且方向为逆时针，$I=\\iint_D3x\\,dx\\,dy$。曲线在极坐标下满足 $r^3=\\cos\\theta+\\sin\\theta$，$0\\le\\theta\\le\\frac{\\pi}{2}$。因而 $I=3\\int_0^{\\frac{\\pi}{2}}\\int_0^{(\\cos\\theta+\\sin\\theta)^{\\frac13}}r^2\\cos\\theta\\,dr\\,d\\theta=\\int_0^{\\frac{\\pi}{2}}\\cos\\theta(\\cos\\theta+\\sin\\theta)\\,d\\theta=\\frac{\\pi}{4}+\\frac12$。"
+}

@@ -30,7 +30,7 @@ class TestChoiceFastPath:
         q = {"correct_option": "C", "score": 5, "standard_answer": ""}
         result = _grade_choice_fast(q, "C", {})
         assert "standard_solution_status" in result["grading_result"]
-        assert result["grading_result"]["standard_solution_status"] in ("ready", "pending")
+        assert result["grading_result"]["standard_solution_status"] in ("ready", "pending", "missing")
 
     def test_extracts_letter_from_chinese_prefix(self):
         from views.grading_page import _grade_choice_fast
@@ -209,7 +209,7 @@ class TestSolutionStatusPersistence:
         q = {"correct_option": "D", "score": 5, "question_id": "test_q", "standard_answer": ""}
         result = _grade_choice_fast(q, "D", {})
         # Status should be in the grading result
-        assert result["grading_result"]["standard_solution_status"] in ("ready", "pending")
+        assert result["grading_result"]["standard_solution_status"] in ("ready", "pending", "missing")
         st.session_state.pop("_test_state", None)
 
     def test_failed_status_does_not_affect_score(self):

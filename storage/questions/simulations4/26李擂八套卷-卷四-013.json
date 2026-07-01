@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程",
+    "Euler方程"
+  ],
+  "tags": [
+    "微分方程",
+    "Euler方程",
+    "通解"
+  ],
+  "question": "微分方程 $y''+\\frac1x y'+\\frac1{x^2}y=0$ 在 $(0,+\\infty)$ 上的通解为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$y=C_1\\cos(\\ln x)+C_2\\sin(\\ln x)$，$x>0$",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "微分方程 $y''+\\frac1x y'+\\frac1{x^2}y=0$ 在 $(0,+\\infty)$ 上的通解为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$y=C_1\\cos(\\ln x)+C_2\\sin(\\ln x)$，$x>0$"
+}

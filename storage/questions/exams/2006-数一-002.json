@@ -7,7 +7,7 @@
   "difficulty": "中等",
   "score": 4,
   "question": "微分方程 $y' = \\frac{y(1-x)}{x}$ 的通解是 $y =$ ______",
-  "standard_answer": "$y = Cxe^{-x}$",
+  "standard_answer": "步骤1：分离变量\n原方程为 \n$$\ny' = \\frac{y(1-x)}{x}.\n$$ \n当 $y \\neq 0$ 时，将 $y'$ 写成 $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$，并分离变量，得 \n$$\n\\frac{\\mathrm{d}y}{y} = \\frac{1-x}{x}\\,\\mathrm{d}x.\n$$\n步骤2：变形并积分\n将右端改写成 \n$$\n\\frac{1-x}{x} = \\frac{1}{x} - 1,\n$$ \n于是 \n$$\n\\frac{\\mathrm{d}y}{y} = \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x.\n$$ \n两边同时不定积分： \n$$\n\\int \\frac{\\mathrm{d}y}{y} = \\int \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x,\n$$ \n得到 \n$$\n\\ln|y| = \\ln|x| - x + C_1 \\quad (C_1 \\text{ 为任意常数}).\n$$\n步骤3：化简并写出通解\n将上式指数化： \n$$\n|y| = e^{\\ln|x| - x + C_1} = e^{C_1} |x| e^{-x}.\n$$ \n去掉绝对值符号时引入常数 $C = \\pm e^{C_1}$（它可取任意非零实数），则 \n$$\ny = C x e^{-x}.\n$$ \n此外，容易验证 $y \\equiv 0$ 也是原方程的解，这对应于 $C = 0$。因此，将常数 $C$ 理解为任意实数，原方程的通解为 \n$$\ny = C x e^{-x}.\n$$\n\n## 最终答案\n$$\ny = C x e^{-x}.\n$$",
   "knowledge_points": [
     "微分方程"
   ],
@@ -16,5 +16,202 @@
   ],
   "solution_steps": [],
   "raw_question_text": "微分方程 $y' = \\frac{y(1-x)}{x}$ 的通解是 $y =$ ______",
-  "raw_answer_text": "$y = Cxe^{-x}$"
+  "raw_answer_text": "$y = Cxe^{-x}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780663432",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：分离变量\n原方程为 \n$$\ny' = \\frac{y(1-x)}{x}.\n$$ \n当 $y \\neq 0$ 时，将 $y'$ 写成 $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$，并分离变量，得 \n$$\n\\frac{\\mathrm{d}y}{y} = \\frac{1-x}{x}\\,\\mathrm{d}x.\n$$\n步骤2：变形并积分\n将右端改写成 \n$$\n\\frac{1-x}{x} = \\frac{1}{x} - 1,\n$$ \n于是 \n$$\n\\frac{\\mathrm{d}y}{y} = \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x.\n$$ \n两边同时不定积分： \n$$\n\\int \\frac{\\mathrm{d}y}{y} = \\int \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x,\n$$ \n得到 \n$$\n\\ln|y| = \\ln|x| - x + C_1 \\quad (C_1 \\text{ 为任意常数}).\n$$\n步骤3：化简并写出通解\n将上式指数化： \n$$\n|y| = e^{\\ln|x| - x + C_1} = e^{C_1} |x| e^{-x}.\n$$ \n去掉绝对值符号时引入常数 $C = \\pm e^{C_1}$（它可取任意非零实数），则 \n$$\ny = C x e^{-x}.\n$$ \n此外，容易验证 $y \\equiv 0$ 也是原方程的解，这对应于 $C = 0$。因此，将常数 $C$ 理解为任意实数，原方程的通解为 \n$$\ny = C x e^{-x}.\n$$\n\n## 最终答案\n$$\ny = C x e^{-x}.\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-05 20:43",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分离变量原方程为"
+              },
+              {
+                "type": "latex",
+                "content": "y' = \\frac{y(1-x)}{x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "y \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "时，将"
+              },
+              {
+                "type": "latex",
+                "content": "y'"
+              },
+              {
+                "type": "text",
+                "content": "写成"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\mathrm{d}y}{\\mathrm{d}x}"
+              },
+              {
+                "type": "text",
+                "content": "并分离变量，得"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\mathrm{d}y}{y} = \\frac{1-x}{x}\\,\\mathrm{d}x.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "变形并积分将右端改写成"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1-x}{x} = \\frac{1}{x} - 1,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\mathrm{d}y}{y} = \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "两边同时不定积分："
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{\\mathrm{d}y}{y} = \\int \\left(\\frac{1}{x} - 1\\right)\\mathrm{d}x,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "得到"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\ln|y| = \\ln|x| - x + C_1 \\quad (C_1"
+              },
+              {
+                "type": "text",
+                "content": "为任意常数。"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": ")."
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "化简并写出通解将上式指数化："
+              },
+              {
+                "type": "latex",
+                "content": "|y| = e^{\\ln|x| - x + C_1} = e^{C_1} |x| e^{-x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "去掉绝对值符号时引入常数"
+              },
+              {
+                "type": "latex",
+                "content": "C = \\pm e^{C_1}"
+              },
+              {
+                "type": "text",
+                "content": "（它可取任意非零实数），则"
+              },
+              {
+                "type": "latex",
+                "content": "y = C x e^{-x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "此外，容易验证"
+              },
+              {
+                "type": "latex",
+                "content": "y \\equiv 0"
+              },
+              {
+                "type": "text",
+                "content": "也是原方程的解，这对应于"
+              },
+              {
+                "type": "latex",
+                "content": "C = 0"
+              },
+              {
+                "type": "text",
+                "content": "因此，将常数"
+              },
+              {
+                "type": "latex",
+                "content": "C"
+              },
+              {
+                "type": "text",
+                "content": "理解为任意实数，原方程的通解为"
+              },
+              {
+                "type": "latex",
+                "content": "y = C x e^{-x}.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-05 20:43",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

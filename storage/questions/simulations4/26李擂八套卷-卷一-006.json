@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷一-006",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵秩",
+    "线性方程组"
+  ],
+  "tags": [
+    "矩阵秩",
+    "线性方程组",
+    "同解"
+  ],
+  "question": "设有 $n$ 阶矩阵 $A,B$，满足 $r(A)=r(B)=r(BAB)$，则下列说法错误的是",
+  "options": {
+    "A": "齐次线性方程组 $Ax=0$ 与 $BAx=0$ 同解",
+    "B": "齐次线性方程组 $Bx=0$ 与 $BABx=0$ 同解",
+    "C": "齐次线性方程组 $ABx=0$ 与 $ABAx=0$ 同解",
+    "D": "对任意的 $n$ 维列向量 $b$，若 $Ax=b$ 有解，则 $Ax=b$ 与 $BAx=Bb$ 同解"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有 $n$ 阶矩阵 $A,B$，满足 $r(A)=r(B)=r(BAB)$，则下列说法错误的是",
+  "raw_answer_text": "C"
+}

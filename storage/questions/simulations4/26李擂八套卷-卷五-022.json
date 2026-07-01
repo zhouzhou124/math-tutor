@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩估计",
+    "最大似然估计",
+    "无偏性"
+  ],
+  "tags": [
+    "矩估计",
+    "最大似然估计",
+    "无偏性"
+  ],
+  "question": "设总体 $X$ 的概率密度为 $f(x)=\\begin{cases} \\displaystyle\\frac{|x|}{\\theta^2},&-\\theta<x<\\theta,\\\\ 0,&\\text{其他}, \\end{cases}$ 其中 $\\theta>0$ 为未知参数，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本。\n(1) 求 $\\theta^2$ 的矩估计量 $\\hat\\theta_1^2$ 与最大似然估计量 $\\hat\\theta_2^2$；\n(2) 判断估计量 $\\hat\\theta_1^2$ 与 $\\hat\\theta_2^2$ 作为 $\\theta^2$ 的估计量是否具有无偏性。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $\\hat\\theta_1^2=\\frac2n\\sum_{i=1}^nX_i^2$，$\\hat\\theta_2^2=(X_{(n)}^*)^2$；(II) $\\hat\\theta_1^2$ 无偏，$\\hat\\theta_2^2$ 有偏。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设总体 $X$ 的概率密度为 $f(x)=\\begin{cases} \\displaystyle\\frac{|x|}{\\theta^2},&-\\theta<x<\\theta,\\\\ 0,&\\text{其他}, \\end{cases}$ 其中 $\\theta>0$ 为未知参数，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本。\n(1) 求 $\\theta^2$ 的矩估计量 $\\hat\\theta_1^2$ 与最大似然估计量 $\\hat\\theta_2^2$；\n(2) 判断估计量 $\\hat\\theta_1^2$ 与 $\\hat\\theta_2^2$ 作为 $\\theta^2$ 的估计量是否具有无偏性。",
+  "raw_answer_text": "(I) $\\hat\\theta_1^2=\\frac2n\\sum_{i=1}^nX_i^2$，$\\hat\\theta_2^2=(X_{(n)}^*)^2$；(II) $\\hat\\theta_1^2$ 无偏，$\\hat\\theta_2^2$ 有偏。"
+}

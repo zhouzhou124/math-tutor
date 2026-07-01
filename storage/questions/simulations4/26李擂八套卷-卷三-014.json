@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "微分方程",
+    "反常积分"
+  ],
+  "tags": [
+    "微分方程",
+    "反常积分",
+    "特征方程"
+  ],
+  "question": "设 $f(x)$ 是微分方程 $y''+4ay'+2(a^2+1)y=0$ 的解，其中 $a<0$，若 $\\displaystyle\\lim_{x\\to1}\\frac{f(x)}{x-1}=1$，则 $\\displaystyle\\int_{-\\infty}^{1}f(x)\\,dx=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$-\\frac1{2(a^2+1)}$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 是微分方程 $y''+4ay'+2(a^2+1)y=0$ 的解，其中 $a<0$，若 $\\displaystyle\\lim_{x\\to1}\\frac{f(x)}{x-1}=1$，则 $\\displaystyle\\int_{-\\infty}^{1}f(x)\\,dx=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$-\\frac1{2(a^2+1)}$"
+}

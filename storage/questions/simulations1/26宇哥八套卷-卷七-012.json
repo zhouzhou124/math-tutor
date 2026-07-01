@@ -7,7 +7,7 @@
   "question_type": "填空题",
   "difficulty": "中等",
   "score": 5,
-  "question": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim_{x\\to 0^+} [y(x)]^x =$ ______",
+  "question": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim\\limits_{x\\to 0^+} [y(x)]^x =$ ______",
   "standard_answer": "1",
   "knowledge_points": [
     "微分方程",
@@ -18,6 +18,7 @@
     "极限与连续"
   ],
   "solution_steps": [],
-  "raw_question_text": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim_{x\\to 0^+} [y(x)]^x =$ ______",
-  "raw_answer_text": "1"
+  "raw_question_text": "过原点的曲线 $y = y(x)$ 满足 $\\frac{dy}{dx} = (x+y)^2$，则 $\\lim\\limits_{x\\to 0^+} [y(x)]^x =$ ______",
+  "raw_answer_text": "1",
+  "options": {}
 }

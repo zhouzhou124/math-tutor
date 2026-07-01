@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-005",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "特征向量",
+    "正交矩阵"
+  ],
+  "tags": [
+    "特征向量",
+    "正交矩阵",
+    "对称矩阵"
+  ],
+  "question": "设 $\\alpha,\\beta$ 是 $2$ 阶实矩阵 $A$ 的两个实特征向量，$|\\alpha+\\beta|=|\\alpha-\\beta|$，则矩阵 $A$ 必为",
+  "options": {
+    "A": "正定矩阵",
+    "B": "单位矩阵",
+    "C": "正交矩阵",
+    "D": "对称矩阵"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha,\\beta$ 是 $2$ 阶实矩阵 $A$ 的两个实特征向量，$|\\alpha+\\beta|=|\\alpha-\\beta|$，则矩阵 $A$ 必为",
+  "raw_answer_text": "D"
+}

@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷四-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率不等式"
+  ],
+  "tags": [
+    "概率不等式",
+    "随机事件"
+  ],
+  "question": "设 $A,B,C$ 为三个随机事件，则下列不等式中，不一定成立的是",
+  "options": {
+    "A": "$P(A(\\overline B\\cup\\overline C))\\ge P(A)-P(BC)$",
+    "B": "$P(A)+P(B)+P(C)\\ge P(A\\cup B\\cup C)+2P(ABC)$",
+    "C": "$P(A)\\ge\\sqrt[3]{P(AB)P(AC)P(BC)}$",
+    "D": "$\\sqrt{P(A)}+\\sqrt{P(B)}\\ge2P(C)\\sqrt{P(AB)}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B,C$ 为三个随机事件，则下列不等式中，不一定成立的是",
+  "raw_answer_text": "C"
+}

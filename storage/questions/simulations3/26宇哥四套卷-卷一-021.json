@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷一-021",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "正交矩阵",
+    "合同对角化"
+  ],
+  "tags": [
+    "正交矩阵",
+    "合同对角化",
+    "二次型"
+  ],
+  "question": "设 $A= \\begin{pmatrix} 1&1&1\\\\ 1&2&1\\\\ 1&1&2 \\end{pmatrix}$，$B= \\begin{pmatrix} 0&0&1\\\\ 0&2&1\\\\ 1&1&2 \\end{pmatrix}$.\n(1) 是否存在正交矩阵 $Q$，使得 $Q^TAQ=B$？若存在，求出 $Q$；若不存在，说明理由。\n(2) 求可逆矩阵 $P$，使得 $P^TAP$，$P^TBP$ 均为对角矩阵。",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) 不存在。因为若 $Q^TAQ=B$，则 $\\operatorname{tr}(A)=\\operatorname{tr}(B)$。但 $\\operatorname{tr}(A)=5$，$\\operatorname{tr}(B)=4$，矛盾。(2) 取 $P=\\begin{pmatrix} -2&0&-1\\\\ 0&0&1\\\\ 1&1&0 \\end{pmatrix}$，则 $|P|=2\\ne0$，且 $P^TAP=\\begin{pmatrix} 2&0&0\\\\ 0&2&0\\\\ 0&0&1 \\end{pmatrix}$，$P^TBP=\\begin{pmatrix} -2&0&0\\\\ 0&2&0\\\\ 0&0&2 \\end{pmatrix}$。",
+  "solution_steps": [],
+  "raw_question_text": "设 $A= \\begin{pmatrix} 1&1&1\\\\ 1&2&1\\\\ 1&1&2 \\end{pmatrix}$，$B= \\begin{pmatrix} 0&0&1\\\\ 0&2&1\\\\ 1&1&2 \\end{pmatrix}$.\n(1) 是否存在正交矩阵 $Q$，使得 $Q^TAQ=B$？若存在，求出 $Q$；若不存在，说明理由。\n(2) 求可逆矩阵 $P$，使得 $P^TAP$，$P^TBP$ 均为对角矩阵。",
+  "raw_answer_text": ""
+}

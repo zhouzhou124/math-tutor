@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "幂级数",
+    "收敛半径"
+  ],
+  "tags": [
+    "幂级数",
+    "收敛半径"
+  ],
+  "question": "设正项级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散，数列 $\\{a_n\\}$ 单调递减，$S_n=\\displaystyle\\sum_{k=1}^{n}a_k$，则级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{n^2}{4+S_n}x^{2n+1}$ 的收敛半径为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$1$",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设正项级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散，数列 $\\{a_n\\}$ 单调递减，$S_n=\\displaystyle\\sum_{k=1}^{n}a_k$，则级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{n^2}{4+S_n}x^{2n+1}$ 的收敛半径为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$1$"
+}

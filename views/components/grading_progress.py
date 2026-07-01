@@ -220,17 +220,13 @@ def estimate_smooth_progress(
 def get_expected_grading_seconds(selected_q: dict = None, ocr_data: dict = None) -> int:
     """Return expected grading time based on question type.
 
-    Choice questions are fast (~18s); proof/solution questions are slow (~95s).
+    All graded types use the same AI pipeline; expect similar wall-clock time.
     """
     q_type = (
         (selected_q or {}).get("question_type")
         or (ocr_data or {}).get("question_type")
         or ""
     )
-    if q_type == "选择题":
-        return 18
-    if q_type == "填空题":
-        return 25
-    if q_type in ("解答题", "证明题"):
+    if q_type in ("选择题", "填空题", "解答题", "证明题"):
         return 95
     return 60

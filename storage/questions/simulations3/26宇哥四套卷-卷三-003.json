@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷三-003",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "可微",
+    "偏导数"
+  ],
+  "tags": [
+    "可微",
+    "偏导数",
+    "法向量"
+  ],
+  "question": "已知函数 $f(x,y)$ 满足 $f(0,0)=0$，设 $n=(f'_x(0,0),f'_y(0,0),-1)$，$a=(x,y,f(x,y))$，则 $n\\cdot a=0$ 是 $f(x,y)$ 在点 $(0,0)$ 处可微的",
+  "options": {
+    "A": "充分非必要条件",
+    "B": "必要非充分条件",
+    "C": "充分必要条件",
+    "D": "既非充分也非必要条件"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "已知函数 $f(x,y)$ 满足 $f(0,0)=0$，设 $n=(f'_x(0,0),f'_y(0,0),-1)$，$a=(x,y,f(x,y))$，则 $n\\cdot a=0$ 是 $f(x,y)$ 在点 $(0,0)$ 处可微的",
+  "raw_answer_text": "A"
+}

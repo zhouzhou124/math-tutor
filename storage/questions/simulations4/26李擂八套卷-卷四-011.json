@@ -1,0 +1,334 @@
+{
+  "question_id": "26李擂八套卷-卷四-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "反常积分"
+  ],
+  "tags": [
+    "反常积分",
+    "参数",
+    "arctan"
+  ],
+  "question": "设 $\\displaystyle\\int_1^{+\\infty}\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x\\,dx=b$，则 $a+b=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac{\\pi}{4}+\\frac12\\ln2$",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\displaystyle\\int_1^{+\\infty}\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x\\,dx=b$，则 $a+b=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\displaystyle\\frac{\\pi}{4}+\\frac12\\ln2$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780757513",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\n$\\displaystyle\\frac{\\pi}{4}+\\frac12\\ln2$\n步骤1：分析积分收敛性确定参数 $a$\n要使反常积分 $\\int_1^{+\\infty}\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x\\,\\mathrm{d}x$ 收敛，必须考察被积函数当 $x\\to +\\infty$ 时的渐近行为。 \n已知 $\\displaystyle\\lim_{x\\to +\\infty}\\arctan x = \\frac{\\pi}{2}$，分母 $\\sqrt{x^4+a} \\sim x^2$（当 $x\\to +\\infty$）。 \n故被积函数\n$$\n\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x \\sim \\frac{ax}{x^2}\\cdot\\frac{\\pi}{2}= \\frac{a\\pi}{2x}.\n$$\n若 $a \\neq 0$，则被积函数与 $\\frac{1}{x}$ 同阶，而 $\\int_1^{+\\infty}\\frac{1}{x}\\,\\mathrm{d}x$ 发散，导致原积分发散，不满足题设“等于有限值 $b$”。因此必须有 $a=0$，此时被积函数在无穷远处 $\\sim \\frac{\\pi}{2x^2}$，积分收敛。\n步骤2：代入 $a=0$ 化简积分并计算\n令 $a=0$，则积分化为\n$$\nb = \\int_1^{+\\infty} \\frac{\\arctan x}{x^2}\\,\\mathrm{d}x.\n$$\n采用分部积分法。令\n$$\nu = \\arctan x,\\quad \\mathrm{d}v = \\frac{\\mathrm{d}x}{x^2},\n$$\n则\n$$\n\\mathrm{d}u = \\frac{\\mathrm{d}x}{1+x^2},\\quad v = -\\frac{1}{x}.\n$$\n于是\n$$\n\\begin{aligned}\nb &= \\left[ -\\frac{\\arctan x}{x} \\right]_1^{+\\infty} + \\int_1^{+\\infty} \\frac{1}{x(1+x^2)}\\,\\mathrm{d}x.\n\\end{aligned}\n$$\n步骤3：计算边界项与剩余反常积分\n边界项： \n$x\\to +\\infty$ 时，$-\\dfrac{\\arctan x}{x} \\to 0$； \n$x=1$ 时，$-\\dfrac{\\arctan 1}{1} = -\\dfrac{\\pi}{4}$。 \n故\n$$\n\\left[ -\\frac{\\arctan x}{x} \\right]_1^{+\\infty} = 0 - \\left(-\\frac{\\pi}{4}\\right) = \\frac{\\pi}{4}.\n$$\n\n计算剩余积分：将被积函数分解为部分分式：\n$$\n\\frac{1}{x(1+x^2)} = \\frac{1}{x} - \\frac{x}{1+x^2}.\n$$\n于是\n$$\n\\int \\frac{\\mathrm{d}x}{x(1+x^2)} = \\int\\left(\\frac{1}{x} - \\frac{x}{1+x^2}\\right)\\,\\mathrm{d}x = \\ln x - \\frac12\\ln(1+x^2) = \\ln\\frac{x}{\\sqrt{1+x^2}}.\n$$\n代入上下限：\n$$\n\\begin{aligned}\n\\int_1^{+\\infty} \\frac{\\mathrm{d}x}{x(1+x^2)} \n&= \\lim_{x\\to +\\infty} \\ln\\frac{x}{\\sqrt{1+x^2}} - \\ln\\frac{1}{\\sqrt{1+1^2}} \\\\\n&= \\ln 1 - \\ln\\frac{1}{\\sqrt{2}} = 0 - \\left(-\\frac12\\ln2\\right) = \\frac12\\ln2.\n\\end{aligned}\n$$\n步骤4：求和得到最终结果\n将以上结果合并：\n$$\nb = \\frac{\\pi}{4} + \\frac12\\ln2.\n$$\n由于已得 $a=0$，故\n$$\na+b = 0 + \\frac{\\pi}{4} + \\frac12\\ln2 = \\frac{\\pi}{4} + \\frac12\\ln2.\n$$\n\n## 结论\n故最终答案为 $\\displaystyle\\frac{\\pi}{4}+\\frac12\\ln2$。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-06 22:51",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分析积分收敛性确定参数"
+              },
+              {
+                "type": "latex",
+                "content": "a"
+              },
+              {
+                "type": "text",
+                "content": "要使反常积分"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_1^{+\\infty}\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "收敛，必须考察被积函数当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时的渐近行为。 \n已知"
+              },
+              {
+                "type": "latex",
+                "content": "\\displaystyle\\lim_{x\\to +\\infty}\\arctan x = \\frac{\\pi}{2}"
+              },
+              {
+                "type": "text",
+                "content": "分母"
+              },
+              {
+                "type": "latex",
+                "content": "\\sqrt{x^4+a} \\sim x^2"
+              },
+              {
+                "type": "text",
+                "content": "（当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "）。 \n故被积函数"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{ax+1}{\\sqrt{x^4+a}}\\arctan x \\sim \\frac{ax}{x^2}\\cdot\\frac{\\pi}{2}= \\frac{a\\pi}{2x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "若"
+              },
+              {
+                "type": "latex",
+                "content": "a \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "则被积函数与"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x}"
+              },
+              {
+                "type": "text",
+                "content": "同阶，而"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_1^{+\\infty}\\frac{1}{x}\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "发散，导致原积分发散，不满足题设“等于有限值"
+              },
+              {
+                "type": "latex",
+                "content": "b"
+              },
+              {
+                "type": "text",
+                "content": "”。因此必须有"
+              },
+              {
+                "type": "latex",
+                "content": "a=0"
+              },
+              {
+                "type": "text",
+                "content": "此时被积函数在无穷远处"
+              },
+              {
+                "type": "latex",
+                "content": "\\sim \\frac{\\pi}{2x^2}"
+              },
+              {
+                "type": "text",
+                "content": "积分收敛。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "代入"
+              },
+              {
+                "type": "latex",
+                "content": "a=0"
+              },
+              {
+                "type": "text",
+                "content": "化简积分并计算\n令"
+              },
+              {
+                "type": "latex",
+                "content": "a=0"
+              },
+              {
+                "type": "text",
+                "content": "则积分化为"
+              },
+              {
+                "type": "latex",
+                "content": "b = \\int_1^{+\\infty} \\frac{\\arctan x}{x^2}\\,\\mathrm{d}x.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "采用分部积分法。令"
+              },
+              {
+                "type": "latex",
+                "content": "u = \\arctan x,\\quad \\mathrm{d}v = \\frac{\\mathrm{d}x}{x^2},",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}u = \\frac{\\mathrm{d}x}{1+x^2},\\quad v = -\\frac{1}{x}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\nb &= \\left[ -\\frac{\\arctan x}{x} \\right]_1^{+\\infty} + \\int_1^{+\\infty} \\frac{1}{x(1+x^2)}\\,\\mathrm{d}x.\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算边界项与剩余反常积分边界项："
+              },
+              {
+                "type": "latex",
+                "content": "x\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "-\\dfrac{\\arctan x}{x} \\to 0"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "-\\dfrac{\\arctan 1}{1} = -\\dfrac{\\pi}{4}"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "\\left[ -\\frac{\\arctan x}{x} \\right]_1^{+\\infty} = 0 - \\left(-\\frac{\\pi}{4}\\right) = \\frac{\\pi}{4}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "计算剩余积分：将被积函数分解为部分分式："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x(1+x^2)} = \\frac{1}{x} - \\frac{x}{1+x^2}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{\\mathrm{d}x}{x(1+x^2)} = \\int\\left(\\frac{1}{x} - \\frac{x}{1+x^2}\\right)\\,\\mathrm{d}x = \\ln x - \\frac12\\ln(1+x^2) = \\ln\\frac{x}{\\sqrt{1+x^2}}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入上下限："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\int_1^{+\\infty} \\frac{\\mathrm{d}x}{x(1+x^2)} &= \\lim_{x\\to +\\infty} \\ln\\frac{x}{\\sqrt{1+x^2}} - \\ln\\frac{1}{\\sqrt{1+1^2}} \\\\\n&= \\ln 1 - \\ln\\frac{1}{\\sqrt{2}} = 0 - \\left(-\\frac12\\ln2\\right) = \\frac12\\ln2.\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "求和得到最终结果将以上结果合并："
+              },
+              {
+                "type": "latex",
+                "content": "b = \\frac{\\pi}{4} + \\frac12\\ln2.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于已得"
+              },
+              {
+                "type": "latex",
+                "content": "a=0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "a+b = 0 + \\frac{\\pi}{4} + \\frac12\\ln2 = \\frac{\\pi}{4} + \\frac12\\ln2.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-06 22:51",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
+}

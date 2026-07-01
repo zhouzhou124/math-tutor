@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-007",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "特征值",
+    "特征向量"
+  ],
+  "tags": [
+    "特征值",
+    "特征向量"
+  ],
+  "question": "设矩阵 $A=(a_{ij})_{n\\times n}$ 的元素全大于零，且每行元素之和等于 $1$，以下结论：① $\\lambda=1$ 是 $A$ 的特征值；② $(A-E)x=0$ 有非零解；③ $A$ 的每一个特征值 $\\lambda$ 都满足 $|\\lambda|<1$。正确结论的个数为",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "C",
+  "_original_answer": "",
+  "standard_answer": "C",
+  "raw_question_text": "设矩阵 $A=(a_{ij})_{n\\times n}$ 的元素全大于零，且每行元素之和等于 $1$，以下结论：① $\\lambda=1$ 是 $A$ 的特征值；② $(A-E)x=0$ 有非零解；③ $A$ 的每一个特征值 $\\lambda$ 都满足 $|\\lambda|<1$。正确结论的个数为",
+  "raw_answer_text": "C"
+}

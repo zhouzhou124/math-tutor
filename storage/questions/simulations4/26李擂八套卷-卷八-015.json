@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "伴随矩阵",
+    "矩阵方程"
+  ],
+  "tags": [
+    "伴随矩阵",
+    "矩阵方程"
+  ],
+  "question": "设 $3$ 阶矩阵 $A$ 满足 $(A+E)(A-E)(A+2E)=O$，且矩阵 $A+2E$ 的伴随矩阵的秩 $r[(A+2E)^*]=1$，则矩阵 $A^2+E$ 的伴随矩阵的迹 $\\operatorname{tr}[(A^2+E)^*]=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$24$",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $3$ 阶矩阵 $A$ 满足 $(A+E)(A-E)(A+2E)=O$，且矩阵 $A+2E$ 的伴随矩阵的秩 $r[(A+2E)^*]=1$，则矩阵 $A^2+E$ 的伴随矩阵的迹 $\\operatorname{tr}[(A^2+E)^*]=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$24$"
+}

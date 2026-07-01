@@ -13,12 +13,421 @@
     "极限"
   ],
   "question": "(本题满分10分) 求极限 $$\\lim_{n\\to\\infty} n^2[ (1+\\frac{1}{n+1})^{n+1} - (1+\\frac{1}{n})^n ]$$",
-  "standard_answer": "$\\frac{1}{2}e$",
+  "standard_answer": "步骤1：将数列极限转化为函数极限并利用泰勒展开 \n设函数 \n$$\nf(x) = \\left(1+\\frac{1}{x}\\right)^x \\quad (x>0),\n$$ \n则原极限可写为 \n$$\nL = \\lim_{n\\to\\infty} n^2 [f(n+1) - f(n)].\n$$ \n考虑 $x\\to+\\infty$ 时 $f(x)$ 的渐近展开。先将 $f(x)$ 改写为 \n$$\nf(x) = \\exp\\left( x \\ln\\left(1+\\frac{1}{x}\\right) \\right).\n$$ \n由 $\\ln(1+t) = t - \\frac{t^2}{2} + \\frac{t^3}{3} + O(t^4)$（$t\\to0$），令 $t = 1/x$，则 \n$$\n\\ln\\left(1+\\frac{1}{x}\\right) = \\frac{1}{x} - \\frac{1}{2x^2} + \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).\n$$ \n于是 \n$$\nx \\ln\\left(1+\\frac{1}{x}\\right) = 1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right).\n$$ \n因此 \n$$\nf(x) = \\exp\\left(1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)\\right)\n = e \\cdot \\exp\\left( -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right) \\right).\n$$ \n令 $u = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)$，则当 $x\\to+\\infty$ 时 $u\\to0$。利用 $e^u = 1 + u + \\frac{u^2}{2} + O(u^3)$，先计算 $u$ 与 $u^2$ 关于 $1/x$ 的展开：\n$$\nu = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right),\n$$\n$$\nu^2 = \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right)^2 + O\\left(\\frac{1}{x^3}\\right)\n = \\frac{1}{4x^2} - \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).\n$$ \n由于我们只需要 $O(1/x^2)$ 精度（乘以 $n^2$ 后常数为所求），在 $e^u$ 的展开中只保留到 $1/x^2$ 项即可：\n$$\ne^u = 1 + \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right) + \\frac{1}{2}\\cdot\\frac{1}{4x^2} + O\\left(\\frac{1}{x^3}\\right)\n = 1 - \\frac{1}{2x} + \\left(\\frac{1}{3} + \\frac{1}{8}\\right)\\frac{1}{x^2} + O\\left(\\frac{1}{x^3}\\right)\n = 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right).\n$$ \n因此得到 $f(x)$ 的渐近公式：\n$$\nf(x) = e\\left[ 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right) \\right] \\quad (x\\to+\\infty).\n$$\n步骤2：代入 $x=n$ 与 $x=n+1$ 并作差 \n分别写出 $f(n)$ 和 $f(n+1)$ 的展开式（注意 $n\\to\\infty$ 时 $1/n\\to0$）：\n$$\nf(n) = e\\left( 1 - \\frac{1}{2n} + \\frac{11}{24n^2} + O\\left(\\frac{1}{n^3}\\right) \\right),\n$$\n$$\nf(n+1) = e\\left( 1 - \\frac{1}{2(n+1)} + \\frac{11}{24(n+1)^2} + O\\left(\\frac{1}{n^3}\\right) \\right).\n$$ \n对 $n+1$ 的项我们也可以展开成 $1/n$ 的幂次：\n$$\n\\frac{1}{n+1} = \\frac{1}{n} \\cdot \\frac{1}{1+1/n} = \\frac{1}{n}\\left(1 - \\frac{1}{n} + \\frac{1}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} + O\\left(\\frac{1}{n^4}\\right),\n$$\n$$\n\\frac{1}{(n+1)^2} = \\frac{1}{n^2}\\left(1+\\frac{1}{n}\\right)^{-2} = \\frac{1}{n^2}\\left(1 - \\frac{2}{n} + \\frac{3}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n^2} - \\frac{2}{n^3} + O\\left(\\frac{1}{n^4}\\right).\n$$ \n因此\n$$\nf(n+1) = e\\left[ 1 - \\frac{1}{2}\\left( \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} \\right) + \\frac{11}{24}\\left( \\frac{1}{n^2} - \\frac{2}{n^3} \\right) + O\\left(\\frac{1}{n^3}\\right) \\right].\n$$ \n合并整理：\n$$\n\\begin{aligned}\nf(n+1) &= e\\left[ 1 - \\frac{1}{2n} + \\frac{1}{2n^2} - \\frac{1}{2n^3} + \\frac{11}{24n^2} - \\frac{11}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= e\\left[ 1 - \\frac{1}{2n} + \\left(\\frac{1}{2}+\\frac{11}{24}\\right)\\frac{1}{n^2} + \\left(-\\frac{1}{2} - \\frac{11}{12}\\right)\\frac{1}{n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= e\\left[ 1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}\n$$ \n接下来计算差值：\n$$\n\\begin{aligned}\nf(n+1) - f(n) &= e\\left[ \\left(1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3}\\right) - \\left(1 - \\frac{1}{2n} + \\frac{11}{24n^2}\\right) + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\left(\\frac{23}{24} - \\frac{11}{24}\\right)\\frac{1}{n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\frac{12}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}\n$$\n步骤3：乘以 $n^2$ 并求极限 \n将上述差值代入原极限表达式：\n$$\n\\begin{aligned}\nL &= \\lim_{n\\to\\infty} n^2 \\left[ f(n+1) - f(n) \\right] \\\\\n &= \\lim_{n\\to\\infty} n^2 \\cdot e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= \\lim_{n\\to\\infty} e\\left[ \\frac{1}{2} - \\frac{17}{12n} + O\\left(\\frac{1}{n}\\right) \\right] \\\\\n &= e \\cdot \\frac{1}{2}.\n\\end{aligned}\n$$\n\n## 最终答案 \n$$\n\\boxed{\\frac{e}{2}}\n$$",
   "source": "import_hegongda_v3",
   "solution_steps": [],
   "options": {},
   "volume": "卷三",
   "__cached_at__": 1779466679.5148015,
   "raw_question_text": "(本题满分10分) 求极限 $$\\lim_{n\\to\\infty} n^2[ (1+\\frac{1}{n+1})^{n+1} - (1+\\frac{1}{n})^n ]$$",
-  "raw_answer_text": "$\\frac{1}{2}e$"
+  "raw_answer_text": "$\\frac{1}{2}e$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780565927",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：将数列极限转化为函数极限并利用泰勒展开 \n设函数 \n$$\nf(x) = \\left(1+\\frac{1}{x}\\right)^x \\quad (x>0),\n$$ \n则原极限可写为 \n$$\nL = \\lim_{n\\to\\infty} n^2 [f(n+1) - f(n)].\n$$ \n考虑 $x\\to+\\infty$ 时 $f(x)$ 的渐近展开。先将 $f(x)$ 改写为 \n$$\nf(x) = \\exp\\left( x \\ln\\left(1+\\frac{1}{x}\\right) \\right).\n$$ \n由 $\\ln(1+t) = t - \\frac{t^2}{2} + \\frac{t^3}{3} + O(t^4)$（$t\\to0$），令 $t = 1/x$，则 \n$$\n\\ln\\left(1+\\frac{1}{x}\\right) = \\frac{1}{x} - \\frac{1}{2x^2} + \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).\n$$ \n于是 \n$$\nx \\ln\\left(1+\\frac{1}{x}\\right) = 1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right).\n$$ \n因此 \n$$\nf(x) = \\exp\\left(1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)\\right)\n = e \\cdot \\exp\\left( -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right) \\right).\n$$ \n令 $u = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)$，则当 $x\\to+\\infty$ 时 $u\\to0$。利用 $e^u = 1 + u + \\frac{u^2}{2} + O(u^3)$，先计算 $u$ 与 $u^2$ 关于 $1/x$ 的展开：\n$$\nu = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right),\n$$\n$$\nu^2 = \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right)^2 + O\\left(\\frac{1}{x^3}\\right)\n = \\frac{1}{4x^2} - \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).\n$$ \n由于我们只需要 $O(1/x^2)$ 精度（乘以 $n^2$ 后常数为所求），在 $e^u$ 的展开中只保留到 $1/x^2$ 项即可：\n$$\ne^u = 1 + \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right) + \\frac{1}{2}\\cdot\\frac{1}{4x^2} + O\\left(\\frac{1}{x^3}\\right)\n = 1 - \\frac{1}{2x} + \\left(\\frac{1}{3} + \\frac{1}{8}\\right)\\frac{1}{x^2} + O\\left(\\frac{1}{x^3}\\right)\n = 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right).\n$$ \n因此得到 $f(x)$ 的渐近公式：\n$$\nf(x) = e\\left[ 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right) \\right] \\quad (x\\to+\\infty).\n$$\n步骤2：代入 $x=n$ 与 $x=n+1$ 并作差 \n分别写出 $f(n)$ 和 $f(n+1)$ 的展开式（注意 $n\\to\\infty$ 时 $1/n\\to0$）：\n$$\nf(n) = e\\left( 1 - \\frac{1}{2n} + \\frac{11}{24n^2} + O\\left(\\frac{1}{n^3}\\right) \\right),\n$$\n$$\nf(n+1) = e\\left( 1 - \\frac{1}{2(n+1)} + \\frac{11}{24(n+1)^2} + O\\left(\\frac{1}{n^3}\\right) \\right).\n$$ \n对 $n+1$ 的项我们也可以展开成 $1/n$ 的幂次：\n$$\n\\frac{1}{n+1} = \\frac{1}{n} \\cdot \\frac{1}{1+1/n} = \\frac{1}{n}\\left(1 - \\frac{1}{n} + \\frac{1}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} + O\\left(\\frac{1}{n^4}\\right),\n$$\n$$\n\\frac{1}{(n+1)^2} = \\frac{1}{n^2}\\left(1+\\frac{1}{n}\\right)^{-2} = \\frac{1}{n^2}\\left(1 - \\frac{2}{n} + \\frac{3}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n^2} - \\frac{2}{n^3} + O\\left(\\frac{1}{n^4}\\right).\n$$ \n因此\n$$\nf(n+1) = e\\left[ 1 - \\frac{1}{2}\\left( \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} \\right) + \\frac{11}{24}\\left( \\frac{1}{n^2} - \\frac{2}{n^3} \\right) + O\\left(\\frac{1}{n^3}\\right) \\right].\n$$ \n合并整理：\n$$\n\\begin{aligned}\nf(n+1) &= e\\left[ 1 - \\frac{1}{2n} + \\frac{1}{2n^2} - \\frac{1}{2n^3} + \\frac{11}{24n^2} - \\frac{11}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= e\\left[ 1 - \\frac{1}{2n} + \\left(\\frac{1}{2}+\\frac{11}{24}\\right)\\frac{1}{n^2} + \\left(-\\frac{1}{2} - \\frac{11}{12}\\right)\\frac{1}{n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= e\\left[ 1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}\n$$ \n接下来计算差值：\n$$\n\\begin{aligned}\nf(n+1) - f(n) &= e\\left[ \\left(1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3}\\right) - \\left(1 - \\frac{1}{2n} + \\frac{11}{24n^2}\\right) + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\left(\\frac{23}{24} - \\frac{11}{24}\\right)\\frac{1}{n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\frac{12}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}\n$$\n步骤3：乘以 $n^2$ 并求极限 \n将上述差值代入原极限表达式：\n$$\n\\begin{aligned}\nL &= \\lim_{n\\to\\infty} n^2 \\left[ f(n+1) - f(n) \\right] \\\\\n &= \\lim_{n\\to\\infty} n^2 \\cdot e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= \\lim_{n\\to\\infty} e\\left[ \\frac{1}{2} - \\frac{17}{12n} + O\\left(\\frac{1}{n}\\right) \\right] \\\\\n &= e \\cdot \\frac{1}{2}.\n\\end{aligned}\n$$\n\n## 最终答案 \n$$\n\\boxed{\\frac{e}{2}}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-04 17:38",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将数列极限转化为函数极限并利用泰勒展开 设函数。"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = \\left(1+\\frac{1}{x}\\right)^x \\quad (x>0),",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "则原极限可写为"
+              },
+              {
+                "type": "latex",
+                "content": "L = \\lim_{n\\to\\infty} n^2 [f(n+1) - f(n)].",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "考虑"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to+\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的渐近展开。先将"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "改写为"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = \\exp\\left( x \\ln\\left(1+\\frac{1}{x}\\right) \\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln(1+t) = t - \\frac{t^2}{2} + \\frac{t^3}{3} + O(t^4)"
+              },
+              {
+                "type": "latex",
+                "content": "t\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "），令"
+              },
+              {
+                "type": "latex",
+                "content": "t = 1/x"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln\\left(1+\\frac{1}{x}\\right) = \\frac{1}{x} - \\frac{1}{2x^2} + \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ln\\left(1+\\frac{1}{x}\\right) = 1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = \\exp\\left(1 - \\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)\\right)\n = e \\cdot \\exp\\left( -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right) \\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "u = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right)"
+              },
+              {
+                "type": "text",
+                "content": "则当"
+              },
+              {
+                "type": "latex",
+                "content": "x\\to+\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "u\\to 0"
+              },
+              {
+                "type": "text",
+                "content": "利用"
+              },
+              {
+                "type": "latex",
+                "content": "e^u = 1 + u + \\frac{u^2}{2} + O(u^3)"
+              },
+              {
+                "type": "text",
+                "content": "先计算"
+              },
+              {
+                "type": "latex",
+                "content": "u"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "u^2"
+              },
+              {
+                "type": "text",
+                "content": "关于"
+              },
+              {
+                "type": "latex",
+                "content": "1/x"
+              },
+              {
+                "type": "text",
+                "content": "的展开："
+              },
+              {
+                "type": "latex",
+                "content": "u = -\\frac{1}{2x} + \\frac{1}{3x^2} + O\\left(\\frac{1}{x^3}\\right),",
+                "display": "block"
+              },
+              {
+                "type": "latex",
+                "content": "u^2 = \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right)^2 + O\\left(\\frac{1}{x^3}\\right)\n = \\frac{1}{4x^2} - \\frac{1}{3x^3} + O\\left(\\frac{1}{x^4}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于我们只需要"
+              },
+              {
+                "type": "latex",
+                "content": "O(1/x^2)"
+              },
+              {
+                "type": "text",
+                "content": "精度（乘以"
+              },
+              {
+                "type": "latex",
+                "content": "n^2"
+              },
+              {
+                "type": "text",
+                "content": "后常数为所求），在"
+              },
+              {
+                "type": "latex",
+                "content": "e^u"
+              },
+              {
+                "type": "text",
+                "content": "的展开中只保留到"
+              },
+              {
+                "type": "latex",
+                "content": "1/x^2"
+              },
+              {
+                "type": "text",
+                "content": "项即可："
+              },
+              {
+                "type": "latex",
+                "content": "e^u = 1 + \\left(-\\frac{1}{2x} + \\frac{1}{3x^2}\\right) + \\frac{1}{2}\\cdot\\frac{1}{4x^2} + O\\left(\\frac{1}{x^3}\\right) = 1 - \\frac{1}{2x} + \\left(\\frac{1}{3} + \\frac{1}{8}\\right)\\frac{1}{x^2} + O\\left(\\frac{1}{x^3}\\right)\n = 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此得到"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的渐近公式："
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = e\\left[ 1 - \\frac{1}{2x} + \\frac{11}{24x^2} + O\\left(\\frac{1}{x^3}\\right) \\right] \\quad (x\\to+\\infty).",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "代入"
+              },
+              {
+                "type": "latex",
+                "content": "x=n"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "x=n+1"
+              },
+              {
+                "type": "text",
+                "content": "并作差 \n分别写出"
+              },
+              {
+                "type": "latex",
+                "content": "f(n)"
+              },
+              {
+                "type": "text",
+                "content": "和"
+              },
+              {
+                "type": "latex",
+                "content": "f(n+1)"
+              },
+              {
+                "type": "text",
+                "content": "的展开式（注意"
+              },
+              {
+                "type": "latex",
+                "content": "n\\to\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时"
+              },
+              {
+                "type": "latex",
+                "content": "1/n\\to 0"
+              },
+              {
+                "type": "latex",
+                "content": "f(n) = e\\left( 1 - \\frac{1}{2n} + \\frac{11}{24n^2} + O\\left(\\frac{1}{n^3}\\right) \\right),",
+                "display": "block"
+              },
+              {
+                "type": "latex",
+                "content": "f(n+1) = e\\left( 1 - \\frac{1}{2(n+1)} + \\frac{11}{24(n+1)^2} + O\\left(\\frac{1}{n^3}\\right) \\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "对"
+              },
+              {
+                "type": "latex",
+                "content": "n+1"
+              },
+              {
+                "type": "text",
+                "content": "的项我们也可以展开成"
+              },
+              {
+                "type": "latex",
+                "content": "1/n"
+              },
+              {
+                "type": "text",
+                "content": "的幂次："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{n+1} = \\frac{1}{n} \\cdot \\frac{1}{1+1/n} = \\frac{1}{n}\\left(1 - \\frac{1}{n} + \\frac{1}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} + O\\left(\\frac{1}{n^4}\\right),",
+                "display": "block"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{(n+1)^2} = \\frac{1}{n^2}\\left(1+\\frac{1}{n}\\right)^{-2} = \\frac{1}{n^2}\\left(1 - \\frac{2}{n} + \\frac{3}{n^2} + O\\left(\\frac{1}{n^3}\\right)\\right) = \\frac{1}{n^2} - \\frac{2}{n^3} + O\\left(\\frac{1}{n^4}\\right).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "f(n+1) = e\\left[ 1 - \\frac{1}{2}\\left( \\frac{1}{n} - \\frac{1}{n^2} + \\frac{1}{n^3} \\right) + \\frac{11}{24}\\left( \\frac{1}{n^2} - \\frac{2}{n^3} \\right) + O\\left(\\frac{1}{n^3}\\right) \\right].",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "合并整理："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}f(n+1) &= e\\left[ 1 - \\frac{1}{2n} + \\frac{1}{2n^2} - \\frac{1}{2n^3} + \\frac{11}{24n^2} - \\frac{11}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\ &= e\\left[ 1 - \\frac{1}{2n} + \\left(\\frac{1}{2}+\\frac{11}{24}\\right)\\frac{1}{n^2} + \\left(-\\frac{1}{2} - \\frac{11}{12}\\right)\\frac{1}{n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n &= e\\left[ 1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "接下来计算差值："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}f(n+1) - f(n) &= e\\left[ \\left(1 - \\frac{1}{2n} + \\frac{23}{24n^2} - \\frac{17}{12n^3}\\right) - \\left(1 - \\frac{1}{2n} + \\frac{11}{24n^2}\\right) + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\&= e\\left[ \\left(\\frac{23}{24} - \\frac{11}{24}\\right)\\frac{1}{n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\&= e\\left[ \\frac{12}{24n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\\n&= e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right].\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "乘以"
+              },
+              {
+                "type": "latex",
+                "content": "n^2"
+              },
+              {
+                "type": "text",
+                "content": "并求极限 \n将上述差值代入原极限表达式："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}L &= \\lim_{n\\to\\infty} n^2 \\left[ f(n+1) - f(n) \\right] \\\\ &= \\lim_{n\\to\\infty} n^2 \\cdot e\\left[ \\frac{1}{2n^2} - \\frac{17}{12n^3} + O\\left(\\frac{1}{n^3}\\right) \\right] \\\\ &= \\lim_{n\\to\\infty} e\\left[ \\frac{1}{2} - \\frac{17}{12n} + O\\left(\\frac{1}{n}\\right) \\right] \\\\\n &= e \\cdot \\frac{1}{2}.\n\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-04 17:38",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

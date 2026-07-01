@@ -23,6 +23,614 @@
   },
   "correct_option": "B",
   "raw_question_text": "设 $f(x,y) = \\begin{cases} (y - e^{-\\frac{1}{x^2}})(y - 3e^{-\\frac{1}{x^2}}), & x \\neq 0, \\\\ y^2, & x = 0, \\end{cases}$ 则点 $(0,0)$",
-  "standard_answer": "B",
-  "raw_answer_text": "B"
+  "standard_answer": "## 标准答案\nB. 是 \\(f(x,x)\\) 的极小值点，不是 \\(f(x,y)\\) 的极小值点。\n步骤1：分析 \\(f(x,y)\\) 在 \\((0,0)\\) 处是否为极值点\n首先计算原点函数值：\\(f(0,0)=0^2=0\\)。 \n要判断 \\((0,0)\\) 是否为极值点，需考察在其任意去心邻域内是否存在函数值小于零或大于零的点。\n\n取 \\(x \\neq 0\\)，令 \\(a = e^{-\\frac{1}{x^2}} > 0\\)。沿路径\n$$\ny = 2a = 2e^{-\\frac{1}{x^2}},\n$$\n代入 \\(f(x,y)\\) 得\n$$\n\\begin{aligned}\nf(x,y) &= (2a - a)(2a - 3a) = a \\cdot (-a) = -a^2 \\\\\n&= -e^{-\\frac{2}{x^2}} < 0 .\n\\end{aligned}\n$$\n当 \\(x \\to 0\\) 时，\\(a \\to 0\\)，从而 \\(y \\to 0\\)。因此在 \\((0,0)\\) 的任何邻域内都存在满足 \\(x \\neq 0\\) 且 \\(y = 2e^{-1/x^2}\\) 的点，其函数值严格小于 \\(f(0,0)=0\\)。故 \\((0,0)\\) 不是 \\(f(x,y)\\) 的极小值点（排除 A）。\n\n又取 \\(x=0, y \\neq 0\\)，\\(f(0,y)=y^2 > 0 = f(0,0)\\)，表明在 \\((0,0)\\) 附近存在函数值大于零的点，故 \\((0,0)\\) 也不是极大值点（排除 C）。\n\n因此 \\((0,0)\\) 不是 \\(f(x,y)\\) 的极值点，A、C 均错误。\n步骤2：分析 \\(f(x,x)\\) 在 \\(x=0\\) 处的极值性质\n令 \\(g(x) = f(x,x)\\)。 \n当 \\(x = 0\\) 时，\\(g(0)=f(0,0)=0\\)。 \n当 \\(x \\neq 0\\) 时，\n$$\ng(x) = \\bigl(x - e^{-\\frac{1}{x^2}}\\bigr)\\bigl(x - 3e^{-\\frac{1}{x^2}}\\bigr).\n$$\n记 \\(a = e^{-\\frac{1}{x^2}} > 0\\)。因为指数衰减 \\(a\\) 在 \\(x \\to 0\\) 时趋于零的速度远快于 \\(|x|\\) 的任意正幂次，即有\n$$\n\\lim_{x \\to 0} \\frac{a}{|x|} = \\lim_{x \\to 0} \\frac{e^{-\\frac{1}{x^2}}}{|x|} = 0.\n$$\n由极限的局部保号性，存在 \\(\\delta > 0\\)，当 \\(0 < |x| < \\delta\\) 时，\\(a < \\dfrac{|x|}{3}\\)，即\n$$\n|x| > 3a.\n$$\n此时：\n- 若 \\(x > 0\\)，则 \\(x - a > 0\\) 且 \\(x - 3a > 0\\)，故 \\(g(x) > 0\\)；\n- 若 \\(x < 0\\)，则 \\(x - a < 0\\) 且 \\(x - 3a < 0\\)，两负相乘仍得 \\(g(x) > 0\\)。\n\n因此在 \\(x=0\\) 的某个去心邻域内恒有 \\(g(x) > 0 = g(0)\\)，按一元极值定义，\\(x=0\\) 是 \\(g(x)\\) 的极小值点。即 \\((0,0)\\) 是 \\(f(x,x)\\) 的极小值点。由此排除 D（极大值点错误），并确认 B 的前半句正确。\n步骤3：综合各选项得出最终结论\n- 选项 A：断言 \\((0,0)\\) 是 \\(f(x,y)\\) 的极小值点。由步骤1，在原点任意邻域内存在使 \\(f(x,y)<0\\) 的点，故不成立。\n- 选项 C：断言 \\((0,0)\\) 是 \\(f(x,y)\\) 的极大值点。由步骤1，在原点邻域内沿 \\(x=0\\) 有 \\(f>0\\)，故不成立。\n- 选项 D：断言 \\((0,0)\\) 是 \\(f(x,x)\\) 的极大值点。由步骤2，\\(x=0\\) 是 \\(g(x)\\) 的极小值点，不是极大值点，故不成立。\n- 选项 B：断言 \\((0,0)\\) 是 \\(f(x,x)\\) 的极小值点，但不是 \\(f(x,y)\\) 的极小值点。由步骤1与步骤2，两者皆成立。\n\n## 结论\n故选 B。",
+  "raw_answer_text": "B",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780384011",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\nB. 是 \\(f(x,x)\\) 的极小值点，不是 \\(f(x,y)\\) 的极小值点。\n步骤1：分析 \\(f(x,y)\\) 在 \\((0,0)\\) 处是否为极值点\n首先计算原点函数值：\\(f(0,0)=0^2=0\\)。 \n要判断 \\((0,0)\\) 是否为极值点，需考察在其任意去心邻域内是否存在函数值小于零或大于零的点。\n\n取 \\(x \\neq 0\\)，令 \\(a = e^{-\\frac{1}{x^2}} > 0\\)。沿路径\n$$\ny = 2a = 2e^{-\\frac{1}{x^2}},\n$$\n代入 \\(f(x,y)\\) 得\n$$\n\\begin{aligned}\nf(x,y) &= (2a - a)(2a - 3a) = a \\cdot (-a) = -a^2 \\\\\n&= -e^{-\\frac{2}{x^2}} < 0 .\n\\end{aligned}\n$$\n当 \\(x \\to 0\\) 时，\\(a \\to 0\\)，从而 \\(y \\to 0\\)。因此在 \\((0,0)\\) 的任何邻域内都存在满足 \\(x \\neq 0\\) 且 \\(y = 2e^{-1/x^2}\\) 的点，其函数值严格小于 \\(f(0,0)=0\\)。故 \\((0,0)\\) 不是 \\(f(x,y)\\) 的极小值点（排除 A）。\n\n又取 \\(x=0, y \\neq 0\\)，\\(f(0,y)=y^2 > 0 = f(0,0)\\)，表明在 \\((0,0)\\) 附近存在函数值大于零的点，故 \\((0,0)\\) 也不是极大值点（排除 C）。\n\n因此 \\((0,0)\\) 不是 \\(f(x,y)\\) 的极值点，A、C 均错误。\n步骤2：分析 \\(f(x,x)\\) 在 \\(x=0\\) 处的极值性质\n令 \\(g(x) = f(x,x)\\)。 \n当 \\(x = 0\\) 时，\\(g(0)=f(0,0)=0\\)。 \n当 \\(x \\neq 0\\) 时，\n$$\ng(x) = \\bigl(x - e^{-\\frac{1}{x^2}}\\bigr)\\bigl(x - 3e^{-\\frac{1}{x^2}}\\bigr).\n$$\n记 \\(a = e^{-\\frac{1}{x^2}} > 0\\)。因为指数衰减 \\(a\\) 在 \\(x \\to 0\\) 时趋于零的速度远快于 \\(|x|\\) 的任意正幂次，即有\n$$\n\\lim_{x \\to 0} \\frac{a}{|x|} = \\lim_{x \\to 0} \\frac{e^{-\\frac{1}{x^2}}}{|x|} = 0.\n$$\n由极限的局部保号性，存在 \\(\\delta > 0\\)，当 \\(0 < |x| < \\delta\\) 时，\\(a < \\dfrac{|x|}{3}\\)，即\n$$\n|x| > 3a.\n$$\n此时：\n- 若 \\(x > 0\\)，则 \\(x - a > 0\\) 且 \\(x - 3a > 0\\)，故 \\(g(x) > 0\\)；\n- 若 \\(x < 0\\)，则 \\(x - a < 0\\) 且 \\(x - 3a < 0\\)，两负相乘仍得 \\(g(x) > 0\\)。\n\n因此在 \\(x=0\\) 的某个去心邻域内恒有 \\(g(x) > 0 = g(0)\\)，按一元极值定义，\\(x=0\\) 是 \\(g(x)\\) 的极小值点。即 \\((0,0)\\) 是 \\(f(x,x)\\) 的极小值点。由此排除 D（极大值点错误），并确认 B 的前半句正确。\n步骤3：综合各选项得出最终结论\n- 选项 A：断言 \\((0,0)\\) 是 \\(f(x,y)\\) 的极小值点。由步骤1，在原点任意邻域内存在使 \\(f(x,y)<0\\) 的点，故不成立。\n- 选项 C：断言 \\((0,0)\\) 是 \\(f(x,y)\\) 的极大值点。由步骤1，在原点邻域内沿 \\(x=0\\) 有 \\(f>0\\)，故不成立。\n- 选项 D：断言 \\((0,0)\\) 是 \\(f(x,x)\\) 的极大值点。由步骤2，\\(x=0\\) 是 \\(g(x)\\) 的极小值点，不是极大值点，故不成立。\n- 选项 B：断言 \\((0,0)\\) 是 \\(f(x,x)\\) 的极小值点，但不是 \\(f(x,y)\\) 的极小值点。由步骤1与步骤2，两者皆成立。\n\n## 结论\n故选 B。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 15:06",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分析"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "处是否为极值点\n首先计算原点函数值："
+              },
+              {
+                "type": "latex",
+                "content": "f(0,0)=0^2=0"
+              },
+              {
+                "type": "text",
+                "content": "要判断"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是否为极值点，需考察在其任意去心邻域内是否存在函数值小于零或大于零的点。\n\n取"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "a = e^{-\\frac{1}{x^2}} > 0"
+              },
+              {
+                "type": "text",
+                "content": "沿路径"
+              },
+              {
+                "type": "latex",
+                "content": "y = 2a = 2e^{-\\frac{1}{x^2}},",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "得"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}f(x,y) &= (2a - a)(2a - 3a) = a \\cdot (-a) = -a^2 \\\\\n&= -e^{-\\frac{2}{x^2}} < 0 .\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "a \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "从而"
+              },
+              {
+                "type": "latex",
+                "content": "y \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "因此在"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "的任何邻域内都存在满足"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "y = 2e^{-1/x^2}"
+              },
+              {
+                "type": "text",
+                "content": "的点，其函数值严格小于"
+              },
+              {
+                "type": "latex",
+                "content": "f(0,0)=0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点（排除 A）。\n\n又取"
+              },
+              {
+                "type": "latex",
+                "content": "x=0, y \\ne 0"
+              },
+              {
+                "type": "latex",
+                "content": "f(0,y)=y^2 > 0 = f(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "表明在"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "附近存在函数值大于零的点，故"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "也不是极大值点（排除 C）。\n\n因此"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "的极值点，A、C 均错误。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分析"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "处的极值性质\n令"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) = f(x,x)"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x = 0"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "g(0)=f(0,0)=0"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) = \\bigl(x - e^{-\\frac{1}{x^2}}\\bigr)\\bigl(x - 3e^{-\\frac{1}{x^2}}\\bigr).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "记"
+              },
+              {
+                "type": "latex",
+                "content": "a = e^{-\\frac{1}{x^2}} > 0"
+              },
+              {
+                "type": "text",
+                "content": "因为指数衰减"
+              },
+              {
+                "type": "latex",
+                "content": "a"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 0"
+              },
+              {
+                "type": "text",
+                "content": "时趋于零的速度远快于"
+              },
+              {
+                "type": "latex",
+                "content": "|x|"
+              },
+              {
+                "type": "text",
+                "content": "的任意正幂次，即有"
+              },
+              {
+                "type": "latex",
+                "content": "\\lim_{x \\to 0} \\frac{a}{|x|} = \\lim_{x \\to 0} \\frac{e^{-\\frac{1}{x^2}}}{|x|} = 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由极限的局部保号性，存在"
+              },
+              {
+                "type": "latex",
+                "content": "\\delta > 0"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "0 < |x| < \\delta"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "a < \\dfrac{|x|}{3}"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "|x| > 3a.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "此时：\n- 若"
+              },
+              {
+                "type": "latex",
+                "content": "x > 0"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "x - a > 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "x - 3a > 0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) > 0"
+              },
+              {
+                "type": "text",
+                "content": "- 若"
+              },
+              {
+                "type": "latex",
+                "content": "x < 0"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "x - a < 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "x - 3a < 0"
+              },
+              {
+                "type": "text",
+                "content": "两负相乘仍得"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) > 0"
+              },
+              {
+                "type": "text",
+                "content": "因此在"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "的某个去心邻域内恒有"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) > 0 = g(0)"
+              },
+              {
+                "type": "text",
+                "content": "按一元极值定义，"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "g(x)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点。即"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,x)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点。由此排除 D（极大值点错误），并确认 B 的前半句正确。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "综合各选项得出最终结论\n- 选项 A：断言"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点。由步骤1，在原点任意邻域内存在使"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)<0"
+              },
+              {
+                "type": "text",
+                "content": "的点，故不成立。\n- 选项 C：断言"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "的极大值点。由步骤1，在原点邻域内沿"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "有"
+              },
+              {
+                "type": "latex",
+                "content": "f>0"
+              },
+              {
+                "type": "text",
+                "content": "故不成立。\n- 选项 D：断言"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,x)"
+              },
+              {
+                "type": "text",
+                "content": "的极大值点。由步骤2，"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "g(x)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点，不是极大值点，故不成立。\n- 选项 B：断言"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,x)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点，但不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)"
+              },
+              {
+                "type": "text",
+                "content": "的极小值点。由步骤1与步骤2，两者皆成立。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 15:06",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

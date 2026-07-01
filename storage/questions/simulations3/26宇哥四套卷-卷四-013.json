@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-013",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "傅里叶级数",
+    "和函数"
+  ],
+  "tags": [
+    "傅里叶级数",
+    "和函数",
+    "周期函数"
+  ],
+  "question": "以 $2\\pi$ 为周期的周期函数 $f(x)$ 在 $[-\\pi,\\pi]$ 上的表达式 $f(x)= \\begin{cases} x+\\pi,&-\\pi\\le x<0,\\\\ 0,&x=0,\\\\ 1,&0<x<\\pi, \\end{cases}$ 其傅里叶级数的和函数为 $S(x)$，则 $S(0)+S(-\\pi)=$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle 1+\\frac{\\pi}{2}$",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "以 $2\\pi$ 为周期的周期函数 $f(x)$ 在 $[-\\pi,\\pi]$ 上的表达式 $f(x)= \\begin{cases} x+\\pi,&-\\pi\\le x<0,\\\\ 0,&x=0,\\\\ 1,&0<x<\\pi, \\end{cases}$ 其傅里叶级数的和函数为 $S(x)$，则 $S(0)+S(-\\pi)=$",
+  "raw_answer_text": "$\\displaystyle 1+\\frac{\\pi}{2}$"
+}

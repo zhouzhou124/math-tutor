@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-015",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "线性方程组",
+    "通解"
+  ],
+  "tags": [
+    "线性方程组",
+    "通解",
+    "解的结构"
+  ],
+  "question": "设 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 是四元非齐次线性方程组 $Ax=b$ 的 $4$ 个解向量，且 $\\alpha_1+\\alpha_2=(2,4,6,8)^T$，$\\alpha_2+\\alpha_3+\\alpha_4=(3,5,7,9)^T$，$\\alpha_1+2\\alpha_2-\\alpha_3=(2,0,0,2)^T$，若 $r(A)=2$，则方程组 $Ax=b$ 的通解是",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$x=\\begin{pmatrix}1\\\\0\\\\0\\\\1\\end{pmatrix}+C_1\\begin{pmatrix}0\\\\2\\\\3\\\\3\\end{pmatrix}+C_2\\begin{pmatrix}0\\\\5\\\\7\\\\6\\end{pmatrix}$，$C_1,C_2\\in\\mathbb R$",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 是四元非齐次线性方程组 $Ax=b$ 的 $4$ 个解向量，且 $\\alpha_1+\\alpha_2=(2,4,6,8)^T$，$\\alpha_2+\\alpha_3+\\alpha_4=(3,5,7,9)^T$，$\\alpha_1+2\\alpha_2-\\alpha_3=(2,0,0,2)^T$，若 $r(A)=2$，则方程组 $Ax=b$ 的通解是",
+  "raw_answer_text": "$x=\\begin{pmatrix}1\\\\0\\\\0\\\\1\\end{pmatrix}+C_1\\begin{pmatrix}0\\\\2\\\\3\\\\3\\end{pmatrix}+C_2\\begin{pmatrix}0\\\\5\\\\7\\\\6\\end{pmatrix}$，$C_1,C_2\\in\\mathbb R$"
+}

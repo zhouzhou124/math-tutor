@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率",
+    "独立性"
+  ],
+  "tags": [
+    "条件概率",
+    "独立性",
+    "不等式"
+  ],
+  "question": "设 $A,B$ 为两个随机事件，$0<P(B)<1$，下列不等式中，$P(A|B)>P(A)$ 的充分条件有几个",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B$ 为两个随机事件，$0<P(B)<1$，下列不等式中，$P(A|B)>P(A)$ 的充分条件有几个",
+  "raw_answer_text": "C"
+}

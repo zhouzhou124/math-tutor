@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "微分方程",
+    "分段函数",
+    "旋转体体积"
+  ],
+  "tags": [
+    "微分方程",
+    "分段函数",
+    "旋转体体积"
+  ],
+  "question": "可导函数 $y=f(x)$ 满足微分方程 $y'-y=\\max\\{x,\\sin x\\}e^x$，且有 $\\displaystyle\\int_{-\\infty}^{0}f(x)\\,dx=\\frac12$，则 \n(1) 求 $f(x)$；\n(2) 求 $y=e^{-(|x|+x)}f(x)$ 和 $x$ 轴之间的无界区域绕 $x$ 轴旋转一周所得的旋转体体积。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $f(x)=\\begin{cases} e^x(1-\\cos x),&x<0,\\\\ \\frac{x^2}{2}e^x,&x\\ge0. \\end{cases}$ (II) $V=\\frac{21\\pi}{80}$。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "可导函数 $y=f(x)$ 满足微分方程 $y'-y=\\max\\{x,\\sin x\\}e^x$，且有 $\\displaystyle\\int_{-\\infty}^{0}f(x)\\,dx=\\frac12$，则 \n(1) 求 $f(x)$；\n(2) 求 $y=e^{-(|x|+x)}f(x)$ 和 $x$ 轴之间的无界区域绕 $x$ 轴旋转一周所得的旋转体体积。",
+  "raw_answer_text": "(I) $f(x)=\\begin{cases} e^x(1-\\cos x),&x<0,\\\\ \\frac{x^2}{2}e^x,&x\\ge0. \\end{cases}$ (II) $V=\\frac{21\\pi}{80}$。"
+}

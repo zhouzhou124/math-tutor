@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷二-021",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "线性无关",
+    "矩阵相似"
+  ],
+  "tags": [
+    "线性无关",
+    "矩阵相似",
+    "Jordan标准形"
+  ],
+  "question": "设 $4$ 阶实矩阵 $A$ 与 $4$ 维列向量 $\\alpha,\\beta$ 满足 $A(\\alpha+\\beta)=4\\alpha+3\\beta$，$A(\\alpha-\\beta)=2\\alpha-3\\beta$，$\\alpha,\\beta$ 线性无关。方程组 $Ax=0$ 有两个线性无关的解向量 $\\eta_1,\\eta_2$。(1) 证明 $\\alpha,\\beta,\\eta_1,\\eta_2$ 线性无关；(2) 判断矩阵 $A$ 与 $\\begin{pmatrix} 3&1&0&0\\\\ 0&3&0&0\\\\ 0&0&0&0\\\\ 0&0&0&0 \\end{pmatrix}$ 是否相似，并说明理由。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "由题设两式相加、相减得 $A\\alpha=3\\alpha$，$A\\beta=\\alpha+3\\beta$。(1) 若 $c_1\\alpha+c_2\\beta+c_3\\eta_1+c_4\\eta_2=0$，则 $c_1\\alpha+c_2\\beta\\in N(A)$。但 $A(c_1\\alpha+c_2\\beta)=(3c_1+c_2)\\alpha+3c_2\\beta=0$，由 $\\alpha,\\beta$ 线性无关得 $c_2=0$，$c_1=0$。再由 $\\eta_1,\\eta_2$ 线性无关得 $c_3=c_4=0$，故 $\\alpha,\\beta,\\eta_1,\\eta_2$ 线性无关。(2) 取 $P=(\\alpha,\\beta,\\eta_1,\\eta_2)$，则 $P$ 可逆，且 $AP=P\\begin{pmatrix} 3&1&0&0\\\\ 0&3&0&0\\\\ 0&0&0&0\\\\ 0&0&0&0 \\end{pmatrix}$。因此 $P^{-1}AP=\\begin{pmatrix} 3&1&0&0\\\\ 0&3&0&0\\\\ 0&0&0&0\\\\ 0&0&0&0 \\end{pmatrix}$，故二者相似。",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $4$ 阶实矩阵 $A$ 与 $4$ 维列向量 $\\alpha,\\beta$ 满足 $A(\\alpha+\\beta)=4\\alpha+3\\beta$，$A(\\alpha-\\beta)=2\\alpha-3\\beta$，$\\alpha,\\beta$ 线性无关。方程组 $Ax=0$ 有两个线性无关的解向量 $\\eta_1,\\eta_2$。(1) 证明 $\\alpha,\\beta,\\eta_1,\\eta_2$ 线性无关；(2) 判断矩阵 $A$ 与 $\\begin{pmatrix} 3&1&0&0\\\\ 0&3&0&0\\\\ 0&0&0&0\\\\ 0&0&0&0 \\end{pmatrix}$ 是否相似，并说明理由。",
+  "raw_answer_text": ""
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "级数收敛",
+    "方程根"
+  ],
+  "tags": [
+    "级数收敛",
+    "方程根"
+  ],
+  "question": "设数列 $\\{x_n\\}$ 为方程 $e^{-x}=\\tan x$ 的第 $n$ 个正根，按照从小到大的顺序排列，则下列说法中错误的有几个：① 级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{(-1)^n}{x_n}$ 条件收敛；② 级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac1{x_n^\\alpha}$ 收敛的充要条件是 $\\alpha>1$；③ 级数 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^n[x_n-(n-1)\\pi]$ 收敛。",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设数列 $\\{x_n\\}$ 为方程 $e^{-x}=\\tan x$ 的第 $n$ 个正根，按照从小到大的顺序排列，则下列说法中错误的有几个：① 级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{(-1)^n}{x_n}$ 条件收敛；② 级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac1{x_n^\\alpha}$ 收敛的充要条件是 $\\alpha>1$；③ 级数 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^n[x_n-(n-1)\\pi]$ 收敛。",
+  "raw_answer_text": "A"
+}

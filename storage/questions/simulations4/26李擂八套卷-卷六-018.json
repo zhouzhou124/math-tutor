@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 12,
+  "question": "设函数 $f(x,y)$ 具有连续的偏导数且满足 $f_x(x,y) - f(x,y) = 3e^x x^2$ 及 $f(x,x) = e^x(x^3 + x^2)$。\n\n(1) 令 $g(x,y) = e^{-x}f(x,y)$，求 $\\frac{\\partial g}{\\partial x}$；\n\n(2) 求 $f(x,y)$ 并求 $f(x,y)$ 的极值。",
+  "correct_option": "",
+  "standard_answer": "(I) $\\frac{\\partial g}{\\partial x} = 3x^2$；(II) $f(x,y) = e^x(x^3 + y^2)$，极小值 $-\\frac{27}{e^3}$，无极大值",
+  "knowledge_points": [
+    "多元函数微分",
+    "极值"
+  ],
+  "tags": [
+    "多元函数微分",
+    "极值",
+    "一阶线性微分方程"
+  ],
+  "solution_steps": [
+    "(I) 令 $g(x) = e^{-x}f(x,y)$，则 $g_x = e^{-x}(f_x - f) = 3x^2$，积分得 $g = x^3 + \\varphi(y)$，故 $f(x,y) = e^x(x^3 + \\varphi(y))$",
+    "由 $f(x,x) = e^x(x^3 + x^2)$ 得 $\\varphi(y) = y^2$，因此 $f(x,y) = e^x(x^3 + y^2)$",
+    "(II) $f_x = e^x(x^3 + y^2 + 3x^2)$，$f_y = 2ye^x$，驻点为 $(0,0), (-3,0)$",
+    "在 $(0,0)$ 处不是极值点；在 $(-3,0)$ 处取得极小值 $-\\frac{27}{e^3}$，无极大值"
+  ],
+  "raw_question_text": "设函数 $f(x,y)$ 具有连续的偏导数且满足 $f_x(x,y) - f(x,y) = 3e^x x^2$ 及 $f(x,x) = e^x(x^3 + x^2)$。\n\n(1) 令 $g(x,y) = e^{-x}f(x,y)$，求 $\\frac{\\partial g}{\\partial x}$；\n\n(2) 求 $f(x,y)$ 并求 $f(x,y)$ 的极值。",
+  "raw_answer_text": "(I) $\\frac{\\partial g}{\\partial x} = 3x^2$；(II) $f(x,y) = e^x(x^3 + y^2)$，极小值 $-\\frac{27}{e^3}$，无极大值",
+  "options": {}
+}

@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-001",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "无穷小量比较"
+  ],
+  "tags": [
+    "极限",
+    "无穷小量比较"
+  ],
+  "question": "当 $x \\to 0^+$ 时，下列无穷小量中，最高阶的是",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$\\displaystyle\\int_0^{x^2}(e^{t^2}+1)\\,dt$",
+    "B": "$\\displaystyle\\int_0^x \\ln(1+\\sqrt{t^3})\\,dt$",
+    "C": "$\\displaystyle\\int_0^{\\sin x}\\cos t^2\\,dt$",
+    "D": "$\\displaystyle\\int_0^{1-\\cos x}\\sqrt{\\arcsin^3 t}\\,dt$"
+  },
+  "correct_option": "D",
+  "_original_answer": "",
+  "standard_answer": "D",
+  "raw_question_text": "当 $x \\to 0^+$ 时，下列无穷小量中，最高阶的是",
+  "raw_answer_text": "D"
+}

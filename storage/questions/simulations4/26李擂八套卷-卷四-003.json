@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷四-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数列极限",
+    "定积分"
+  ],
+  "tags": [
+    "数列极限",
+    "定积分",
+    "Riemann和"
+  ],
+  "question": "$\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\{3\\ln3+5\\ln5+\\cdots+(2n-1)\\ln(2n-1)-n^2\\ln n\\}=$",
+  "options": {
+    "A": "$\\ln2-\\frac12$",
+    "B": "$\\ln2-\\frac14$",
+    "C": "$2\\ln2-\\frac12$",
+    "D": "$2\\ln2-\\frac14$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "$\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\{3\\ln3+5\\ln5+\\cdots+(2n-1)\\ln(2n-1)-n^2\\ln n\\}=$",
+  "raw_answer_text": "A"
+}

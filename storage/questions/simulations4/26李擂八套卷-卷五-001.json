@@ -1,0 +1,35 @@
+{
+  "question_id": "26李擂八套卷-卷五-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "无穷小量",
+    "阶的比较",
+    "洛必达法则"
+  ],
+  "tags": [
+    "无穷小量",
+    "阶的比较",
+    "洛必达法则",
+    "积分"
+  ],
+  "question": "设 $f(x)$ 和 $g(x)$ 具有连续的导数，当 $x\\to0$ 时，$f(x)$ 和 $f'(x)$ 以及 $g(x)$ 和 $g'(x)$ 均为无穷小量且有 $f(x)=o(g(x))$，则下列说法中正确的有几个：① 当 $x\\to0$ 时，$f'(x)=o(g'(x))$；② 当 $x\\to0$ 时，$\\displaystyle\\int_0^x f(t)\\,dt=o\\left(\\int_0^x g(t)\\,dt\\right)$；③ 当 $x\\to0$ 时，$x^2f'(x)=o(g(x))$；④ 当 $x\\to0$ 时，$x^2f(x)=o\\left(\\int_0^x g(t)\\,dt\\right)$。",
+  "options": {
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 和 $g(x)$ 具有连续的导数，当 $x\\to0$ 时，$f(x)$ 和 $f'(x)$ 以及 $g(x)$ 和 $g'(x)$ 均为无穷小量且有 $f(x)=o(g(x))$，则下列说法中正确的有几个：① 当 $x\\to0$ 时，$f'(x)=o(g'(x))$；② 当 $x\\to0$ 时，$\\displaystyle\\int_0^x f(t)\\,dt=o\\left(\\int_0^x g(t)\\,dt\\right)$；③ 当 $x\\to0$ 时，$x^2f'(x)=o(g(x))$；④ 当 $x\\to0$ 时，$x^2f(x)=o\\left(\\int_0^x g(t)\\,dt\\right)$。",
+  "raw_answer_text": "A"
+}

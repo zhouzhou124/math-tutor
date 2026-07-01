@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷六-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 12,
+  "question": "设 $f(x)$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内存在二阶导数，满足 $f(a) = f(b) = 0$，且有 $\\displaystyle\\int_a^b |f(x)|dx > \\left|\\int_a^b f(x)dx\\right|$，试证明\n\n(1) 存在 $\\xi_1, \\xi_2 \\in (a,b)$，使得 $f'(\\xi_i) - 2\\xi_i f(\\xi_i) = 0$，$i=1,2$；\n\n(2) 存在 $\\xi \\in (a,b)$，使得 $f''(\\xi) - (2 + 4\\xi^2)f(\\xi) = 0$。",
+  "correct_option": "",
+  "standard_answer": "(I) 存在 $\\xi_1, \\xi_2 \\in (a,b)$ 满足 $f'(\\xi_i) - 2\\xi_i f(\\xi_i) = 0$；(II) 存在 $\\xi \\in (a,b)$ 满足 $f''(\\xi) - (2 + 4\\xi^2)f(\\xi) = 0$",
+  "knowledge_points": [
+    "微分中值定理",
+    "辅助函数"
+  ],
+  "tags": [
+    "微分中值定理",
+    "Rolle定理",
+    "辅助函数"
+  ],
+  "solution_steps": [
+    "令 $F(x) = e^{-x^2}f(x)$，由 $f(a) = f(b) = 0$ 得 $F(a) = F(b) = 0$",
+    "又 $\\int_a^b |f(x)|dx > \\left|\\int_a^b f(x)dx\\right|$，故 $f$ 在 $(a,b)$ 内变号，$F$ 亦变号",
+    "因此 $F$ 在 $(a,b)$ 内至少有两个不同的极值点 $\\xi_1, \\xi_2$，从而 $F'(\\xi_i) = 0$",
+    "而 $F' = e^{-x^2}(f' - 2xf)$，故 $f'(\\xi_i) - 2\\xi_i f(\\xi_i) = 0$ ($i = 1,2$)",
+    "再令 $H(x) = e^{x^2}(f'(x) - 2xf(x))$，由上式 $H(\\xi_1) = H(\\xi_2) = 0$",
+    "由 Rolle 定理，存在 $\\xi \\in (\\xi_1, \\xi_2) \\subset (a,b)$，使 $H'(\\xi) = 0$",
+    "因 $H' = e^{x^2}[f'' - (2 + 4x^2)f]$，故 $f''(\\xi) - (2 + 4\\xi^2)f(\\xi) = 0$"
+  ],
+  "raw_question_text": "设 $f(x)$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内存在二阶导数，满足 $f(a) = f(b) = 0$，且有 $\\displaystyle\\int_a^b |f(x)|dx > \\left|\\int_a^b f(x)dx\\right|$，试证明\n\n(1) 存在 $\\xi_1, \\xi_2 \\in (a,b)$，使得 $f'(\\xi_i) - 2\\xi_i f(\\xi_i) = 0$，$i=1,2$；\n\n(2) 存在 $\\xi \\in (a,b)$，使得 $f''(\\xi) - (2 + 4\\xi^2)f(\\xi) = 0$。",
+  "raw_answer_text": "(I) 存在 $\\xi_1, \\xi_2 \\in (a,b)$ 满足 $f'(\\xi_i) - 2\\xi_i f(\\xi_i) = 0$；(II) 存在 $\\xi \\in (a,b)$ 满足 $f''(\\xi) - (2 + 4\\xi^2)f(\\xi) = 0$",
+  "options": {}
+}

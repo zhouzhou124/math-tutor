@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷三-019",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "变量替换",
+    "偏微分方程"
+  ],
+  "tags": [
+    "变量替换",
+    "偏微分方程",
+    "链式法则"
+  ],
+  "question": "设 $u=\\frac{x}{y}$，$v=x$，$w=xz-y$，$z=z(x,y)$ 具有二阶连续偏导数。(1) 将函数 $z=z(x,y)$ 的方程 $\\displaystyle\\frac{\\partial^2z}{\\partial y^2}+x\\frac{\\partial^2z}{\\partial x\\partial y}+2\\frac{\\partial z}{\\partial y}=\\frac1x-\\frac{x}{y}$ 化为 $w=w(u,v)$ 的方程；(2) 若 $w'_u(u,0)=1$，$w(1,v)=v^2$，求 $w=w(u,v)$ 的表达式。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "由 $u=\\frac{x}{y}$，$v=x$，$w=xz-y$，得 $z=\\frac{w}{v}+\\frac1u$，$\\frac{\\partial}{\\partial x}=\\frac{u}{v}\\frac{\\partial}{\\partial u}+\\frac{\\partial}{\\partial v}$，$\\frac{\\partial}{\\partial y}=-\\frac{u^2}{v}\\frac{\\partial}{\\partial u}$。代入原方程化得 $v^2w_{uv}-u(u-v)w_{uu}-2(u-v)w_u=\\frac{v^3}{u}$。结合 $w_u(u,0)=1$，$w(1,v)=v^2$ 求解即可得到相应 $w=w(u,v)$。",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $u=\\frac{x}{y}$，$v=x$，$w=xz-y$，$z=z(x,y)$ 具有二阶连续偏导数。(1) 将函数 $z=z(x,y)$ 的方程 $\\displaystyle\\frac{\\partial^2z}{\\partial y^2}+x\\frac{\\partial^2z}{\\partial x\\partial y}+2\\frac{\\partial z}{\\partial y}=\\frac1x-\\frac{x}{y}$ 化为 $w=w(u,v)$ 的方程；(2) 若 $w'_u(u,0)=1$，$w(1,v)=v^2$，求 $w=w(u,v)$ 的表达式。",
+  "raw_answer_text": "由 $u=\\frac{x}{y}$，$v=x$，$w=xz-y$，得 $z=\\frac{w}{v}+\\frac1u$，$\\frac{\\partial}{\\partial x}=\\frac{u}{v}\\frac{\\partial}{\\partial u}+\\frac{\\partial}{\\partial v}$，$\\frac{\\partial}{\\partial y}=-\\frac{u^2}{v}\\frac{\\partial}{\\partial u}$。代入原方程化得 $v^2w_{uv}-u(u-v)w_{uu}-2(u-v)w_u=\\frac{v^3}{u}$。结合 $w_u(u,0)=1$，$w(1,v)=v^2$ 求解即可得到相应 $w=w(u,v)$。"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "傅里叶级数",
+    "求和"
+  ],
+  "tags": [
+    "傅里叶级数",
+    "求和",
+    "余弦级数"
+  ],
+  "question": "已知函数 $f(x)=\\sin x$，$x\\in[0,\\frac{\\pi}{2}]$ 的傅里叶级数为 $\\displaystyle\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}a_n\\cos2nx$，则 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^n(2n-1)a_n=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac4\\pi-1$",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "已知函数 $f(x)=\\sin x$，$x\\in[0,\\frac{\\pi}{2}]$ 的傅里叶级数为 $\\displaystyle\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}a_n\\cos2nx$，则 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^n(2n-1)a_n=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac4\\pi-1$"
+}

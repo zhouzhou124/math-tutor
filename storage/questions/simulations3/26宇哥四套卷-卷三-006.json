@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷三-006",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "特征值",
+    "符号判定"
+  ],
+  "tags": [
+    "特征值",
+    "符号判定",
+    "对称矩阵"
+  ],
+  "question": "设矩阵 $\\begin{pmatrix} 1&2&0\\\\ 2&a&1\\\\ 0&1&b \\end{pmatrix}$ 有 $2$ 个正特征值和 $1$ 个负特征值，则",
+  "options": {
+    "A": "$a>4,\\ b>1$",
+    "B": "$a<4,\\ b>1$",
+    "C": "$(a-4)b>1$",
+    "D": "$(a-4)b<1$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设矩阵 $\\begin{pmatrix} 1&2&0\\\\ 2&a&1\\\\ 0&1&b \\end{pmatrix}$ 有 $2$ 个正特征值和 $1$ 个负特征值，则",
+  "raw_answer_text": "D"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "行列式",
+    "三对角行列式"
+  ],
+  "tags": [
+    "行列式",
+    "三对角行列式",
+    "递推"
+  ],
+  "question": "行列式 $\\begin{vmatrix} 5&6&0&0&0\\\\ 1&5&6&0&0\\\\ 0&1&5&6&0\\\\ 0&0&1&5&6\\\\ 0&0&0&1&5 \\end{vmatrix}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$665$",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "行列式 $\\begin{vmatrix} 5&6&0&0&0\\\\ 1&5&6&0&0\\\\ 0&1&5&6&0\\\\ 0&0&1&5&6\\\\ 0&0&0&1&5 \\end{vmatrix}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$665$"
+}

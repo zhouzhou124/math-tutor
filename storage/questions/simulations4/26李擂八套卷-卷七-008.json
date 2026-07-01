@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "困难",
+  "score": 5,
+  "question": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(0,0;4,1;\\frac{1}{2})$，则 $D[(X-Y)^2+|Y|]=(\\quad)$",
+  "options": {
+    "A": "$18-\\dfrac{2}{\\pi}$",
+    "B": "$19-\\dfrac{2}{\\pi}$",
+    "C": "$8-\\dfrac{2}{\\pi}$",
+    "D": "$9-\\dfrac{2}{\\pi}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B. $19-\\frac{2}{\\pi}$",
+  "knowledge_points": [
+    "多维随机变量",
+    "数字特征"
+  ],
+  "tags": [
+    "多维随机变量",
+    "二维正态分布",
+    "方差"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(0,0;4,1;\\frac{1}{2})$，则 $D[(X-Y)^2+|Y|]=(\\quad)$",
+  "raw_answer_text": "B. $19-\\frac{2}{\\pi}$"
+}

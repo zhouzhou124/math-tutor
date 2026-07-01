@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "偏微分方程",
+    "多元函数极值"
+  ],
+  "tags": [
+    "偏微分方程",
+    "多元函数极值",
+    "偏导数"
+  ],
+  "question": "设函数 $f(x,y)$ 具有连续的偏导数且满足 $\\displaystyle\\frac{f'_x(x,y)}{f(x,y)}=\\frac1{x-y}-2x$，$f(x,-x)=2xe^{-x^2}$.\n(1) 求 $f(x,y)$；\n(2) 求 $f(x,y)$ 的极值。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $\\frac{\\partial}{\\partial x}\\ln f(x,y)=\\frac1{x-y}-2x$，故 $\\ln f(x,y)=\\ln|x-y|-x^2+\\varphi(y)$。由 $f(x,-x)=2xe^{-x^2}$ 得 $\\varphi(y)=0$，所以 $f(x,y)=(x-y)e^{-x^2}$。(II) $f_x=e^{-x^2}[1-2x(x-y)]$，$f_y=-e^{-x^2}$。因 $f_y\\ne0$，故 $f(x,y)$ 无极值。",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x,y)$ 具有连续的偏导数且满足 $\\displaystyle\\frac{f'_x(x,y)}{f(x,y)}=\\frac1{x-y}-2x$，$f(x,-x)=2xe^{-x^2}$.\n(1) 求 $f(x,y)$；\n(2) 求 $f(x,y)$ 的极值。",
+  "raw_answer_text": "(I) $\\frac{\\partial}{\\partial x}\\ln f(x,y)=\\frac1{x-y}-2x$，故 $\\ln f(x,y)=\\ln|x-y|-x^2+\\varphi(y)$。由 $f(x,-x)=2xe^{-x^2}$ 得 $\\varphi(y)=0$，所以 $f(x,y)=(x-y)e^{-x^2}$。(II) $f_x=e^{-x^2}[1-2x(x-y)]$，$f_y=-e^{-x^2}$。因 $f_y\\ne0$，故 $f(x,y)$ 无极值。"
+}

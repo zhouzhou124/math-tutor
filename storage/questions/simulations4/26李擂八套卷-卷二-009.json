@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二维正态分布",
+    "概率"
+  ],
+  "tags": [
+    "二维正态分布",
+    "概率",
+    "参数影响"
+  ],
+  "question": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(1,2;\\sigma^2,\\sigma^2;\\rho)$，其中 $\\sigma>0$，$-1<\\rho<1$，则概率 $P\\{2X-Y<-1\\}$",
+  "options": {
+    "A": "随 $\\sigma$ 增大而增大，随 $\\rho$ 增大而增大",
+    "B": "随 $\\sigma$ 增大而减小，随 $\\rho$ 增大而减小",
+    "C": "随 $\\sigma$ 增大而增大，随 $\\rho$ 增大而减小",
+    "D": "随 $\\sigma$ 增大而减小，随 $\\rho$ 增大而增大"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(1,2;\\sigma^2,\\sigma^2;\\rho)$，其中 $\\sigma>0$，$-1<\\rho<1$，则概率 $P\\{2X-Y<-1\\}$",
+  "raw_answer_text": "C"
+}

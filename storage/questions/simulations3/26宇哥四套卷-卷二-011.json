@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷二-011",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "等价无穷小"
+  ],
+  "tags": [
+    "极限",
+    "等价无穷小"
+  ],
+  "question": "$\\displaystyle\\lim_{x\\to0}\\frac{(1+\\sin^2x)^2-\\cos^2x}{\\ln(1+x^2)}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$3$",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "$\\displaystyle\\lim_{x\\to0}\\frac{(1+\\sin^2x)^2-\\cos^2x}{\\ln(1+x^2)}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": ""
+}

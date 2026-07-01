@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "实对称矩阵",
+    "二次型"
+  ],
+  "tags": [
+    "实对称矩阵",
+    "二次型",
+    "行列式"
+  ],
+  "question": "设 $A$ 为 $n$ 阶实对称矩阵，下列说法正确的是",
+  "options": {
+    "A": "若对任意的 $n$ 维列向量 $\\alpha$，都有 $\\alpha^TA\\alpha\\ge0$，则 $|A|\\ge0$",
+    "B": "若对任意的 $n$ 维列向量 $\\alpha$，都有 $\\alpha^TA\\alpha\\le0$，则 $|A|\\le0$",
+    "C": "若既存在 $n$ 维列向量 $\\alpha$ 使得 $\\alpha^TA\\alpha>0$，也存在 $n$ 维列向量 $\\beta$ 使得 $\\beta^TA\\beta<0$，则 $|A|\\ge0$",
+    "D": "若既存在 $n$ 维列向量 $\\alpha$ 使得 $\\alpha^TA\\alpha>0$，也存在 $n$ 维列向量 $\\beta$ 使得 $\\beta^TA\\beta<0$，则 $|A|\\le0$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为 $n$ 阶实对称矩阵，下列说法正确的是",
+  "raw_answer_text": "A"
+}

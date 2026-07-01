@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 12,
+  "question": "设区域 $\\Omega = \\left\\{(x,y,z)\\mid 4x^2 + \\frac{z^2}{4} \\le \\ln y, 1 \\le y \\le e\\right\\}$，曲面 $\\varSigma$ 为 $\\Omega$ 的表面，方向向外，求曲面积分 $$\\iint\\limits_{\\varSigma} \\left[x\\sin(z^2) - x^2(x + \\cos y)\\right]dydz + \\left[y^3 - y\\sin(16x^2)\\right]dzdx + \\left[z^3 - x\\sin(4y^2)\\right]dxdy$$",
+  "correct_option": "",
+  "standard_answer": "$\\frac{\\pi}{48}(32e^3 + 135e - 254)$",
+  "knowledge_points": [
+    "曲面积分",
+    "高斯公式"
+  ],
+  "tags": [
+    "曲面积分",
+    "高斯公式",
+    "三重积分"
+  ],
+  "solution_steps": [
+    "由高斯公式，原积分等于 $\\iiint_\\Omega [\\sin(z^2) - 6x - 2x\\cos y + 2y + 6z - \\sin(16x^2)]dV$",
+    "令 $u = 2x$，$v = \\frac{z}{2}$，则 $4x^2 + \\frac{z^2}{4} = u^2 + v^2$，$dxdz = \\frac{1}{4}dudv$",
+    "对固定 $y$，$u^2 + v^2 \\le \\ln y$。由对称性，$\\sin(z^2)$ 与 $\\sin(16x^2)$ 的积分相消，$x\\cos y$ 项积分为 $0$",
+    "因而 $I = \\int_1^e \\left(3\\pi y^2\\ln y + \\frac{45\\pi}{16}(\\ln y)^2\\right)dy = \\frac{\\pi}{48}(32e^3 + 135e - 254)$"
+  ],
+  "raw_question_text": "设区域 $\\Omega = \\left\\{(x,y,z)\\mid 4x^2 + \\frac{z^2}{4} \\le \\ln y, 1 \\le y \\le e\\right\\}$，曲面 $\\varSigma$ 为 $\\Omega$ 的表面，方向向外，求曲面积分 $$\\iint\\limits_{\\varSigma} \\left[x\\sin(z^2) - x^2(x + \\cos y)\\right]dydz + \\left[y^3 - y\\sin(16x^2)\\right]dzdx + \\left[z^3 - x\\sin(4y^2)\\right]dxdy$$",
+  "raw_answer_text": "$\\frac{\\pi}{48}(32e^3 + 135e - 254)$",
+  "options": {}
+}

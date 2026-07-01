@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷一-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "凹函数",
+    "积分上限函数"
+  ],
+  "tags": [
+    "凹函数",
+    "积分上限函数",
+    "单调递增"
+  ],
+  "question": "设 $f(x)$ 在 $[0,+\\infty)$ 上具有连续的导数，若 $f(x)$ 在 $[0,+\\infty)$ 上为单调递增的凹函数，则下列一定是 $[0,+\\infty)$ 上的凹函数的有多少个？① $\\varphi(x)=\\displaystyle\\int_0^x f'(e^t)\\,dt$；② $\\varphi(x)=\\displaystyle\\int_0^x e^{f(x-t)}\\,dt$；③ $\\varphi(x)=\\displaystyle\\int_0^x f(e^x-e^t)e^t\\,dt$；④ $\\varphi(x)=\\displaystyle\\int_0^x\\frac{f(t)-f(0)}{t}\\,dt$。",
+  "options": {
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B. $2$ 个",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $[0,+\\infty)$ 上具有连续的导数，若 $f(x)$ 在 $[0,+\\infty)$ 上为单调递增的凹函数，则下列一定是 $[0,+\\infty)$ 上的凹函数的有多少个？① $\\varphi(x)=\\displaystyle\\int_0^x f'(e^t)\\,dt$；② $\\varphi(x)=\\displaystyle\\int_0^x e^{f(x-t)}\\,dt$；③ $\\varphi(x)=\\displaystyle\\int_0^x f(e^x-e^t)e^t\\,dt$；④ $\\varphi(x)=\\displaystyle\\int_0^x\\frac{f(t)-f(0)}{t}\\,dt$。",
+  "raw_answer_text": "B. $2$ 个"
+}

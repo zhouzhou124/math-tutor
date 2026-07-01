@@ -13,8 +13,8 @@
   "tags": [
     "极限"
   ],
-  "question": "$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} =$ ______",
+  "question": "$$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} = \\_\\_\\_\\_\\_\\_$$",
   "source": "import_v4",
   "options": {},
-  "raw_question_text": "$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} =$ ______"
+  "raw_question_text": "$$\\lim_{x\\to 0} (\\frac{\\arctan x}{x})^{\\frac{1}{\\tan^2 x}} = \\_\\_\\_\\_\\_\\_$$"
 }

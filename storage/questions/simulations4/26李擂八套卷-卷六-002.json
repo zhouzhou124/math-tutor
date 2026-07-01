@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷六-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设函数 $f(x)$ 在 $x=0$ 的某邻域内有定义，则在以下四个条件中，是 $f(x)$ 在 $x=0$ 处可导的必要条件的有$(\\quad)$ 个\n\n① $\\displaystyle\\lim_{x\\to0}\\frac{f(x^2)-f(\\ln\\cos x)}{\\sin x^2}$ 存在;\n② $\\displaystyle\\lim_{x\\to0}\\frac{f(e^{x^2}-1)}{x}$ 存在;\n③ $\\displaystyle\\lim_{x\\to0}\\frac{f(x)-f(\\sin x)}{x^3}$ 存在;\n④ $\\displaystyle\\lim_{x\\to0}\\frac{f(e^x-1)-f(\\ln(1+x))}{x^2}$ 存在.",
+  "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "导数与微分"
+  ],
+  "tags": [
+    "导数与微分",
+    "可导条件"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)$ 在 $x=0$ 的某邻域内有定义，则在以下四个条件中，是 $f(x)$ 在 $x=0$ 处可导的必要条件的有$(\\quad)$ 个\n\n① $\\displaystyle\\lim_{x\\to0}\\frac{f(x^2)-f(\\ln\\cos x)}{\\sin x^2}$ 存在;\n② $\\displaystyle\\lim_{x\\to0}\\frac{f(e^{x^2}-1)}{x}$ 存在;\n③ $\\displaystyle\\lim_{x\\to0}\\frac{f(x)-f(\\sin x)}{x^3}$ 存在;\n④ $\\displaystyle\\lim_{x\\to0}\\frac{f(e^x-1)-f(\\ln(1+x))}{x^2}$ 存在.",
+  "raw_answer_text": "C"
+}

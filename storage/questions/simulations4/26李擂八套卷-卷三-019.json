@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷三-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "幂级数",
+    "和函数",
+    "收敛区间"
+  ],
+  "tags": [
+    "幂级数",
+    "和函数",
+    "收敛区间",
+    "递推数列"
+  ],
+  "question": "设数列 $\\{a_n\\}$ 满足 $a_0=1$，$(n+1)a_{n+1}=(\\frac34-n)a_n$，$n=0,1,2,\\cdots$，求幂级数 $\\displaystyle\\sum_{n=0}^{\\infty}a_nx^{2n+1}$ 的收敛区间及和函数。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "由递推式得 $a_n=\\binom{\\frac34}{n}$。因而 $\\sum_{n=0}^{\\infty}a_nx^{2n+1}=x\\sum_{n=0}^{\\infty}\\binom{\\frac34}{n}x^{2n}=x(1+x^2)^{\\frac34}$。收敛区间为 $[-1,1]$，和函数为 $S(x)=x(1+x^2)^{\\frac34}$。",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设数列 $\\{a_n\\}$ 满足 $a_0=1$，$(n+1)a_{n+1}=(\\frac34-n)a_n$，$n=0,1,2,\\cdots$，求幂级数 $\\displaystyle\\sum_{n=0}^{\\infty}a_nx^{2n+1}$ 的收敛区间及和函数。",
+  "raw_answer_text": "由递推式得 $a_n=\\binom{\\frac34}{n}$。因而 $\\sum_{n=0}^{\\infty}a_nx^{2n+1}=x\\sum_{n=0}^{\\infty}\\binom{\\frac34}{n}x^{2n}=x(1+x^2)^{\\frac34}$。收敛区间为 $[-1,1]$，和函数为 $S(x)=x(1+x^2)^{\\frac34}$。"
+}

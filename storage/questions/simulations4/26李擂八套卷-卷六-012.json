@@ -1,0 +1,24 @@
+{
+  "question_id": "26李擂八套卷-卷六-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $a_n=\\displaystyle\\frac1{\\sqrt[n]{1\\times3\\times5\\times\\cdots\\times(2n-1)}}$，当 $n\\to\\infty$ 时，$a_n$ 等价于 $\\frac an$，则 $a=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{e}{2}$",
+  "knowledge_points": [
+    "数列极限",
+    "等价无穷小"
+  ],
+  "tags": [
+    "数列极限",
+    "等价无穷小"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $a_n=\\displaystyle\\frac1{\\sqrt[n]{1\\times3\\times5\\times\\cdots\\times(2n-1)}}$，当 $n\\to\\infty$ 时，$a_n$ 等价于 $\\frac an$，则 $a=\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{e}{2}$"
+}

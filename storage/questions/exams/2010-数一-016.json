@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "解答题",
   "question": "求函数 $f(x) = \\int_1^{x^2} (x^2 - t) e^{-t^2} dt$ 的单调区间与极值。",
-  "standard_answer": "单调递增区间为 $(-\\infty,0)$ 和 $(1,+\\infty)$，单调递减区间为 $(0,1)$",
+  "standard_answer": "步骤1：将被积函数中的参数分离，简化 $f(x)$ 表达式 \n$f(x) = \\int_1^{x^2} (x^2 - t)e^{-t^2}\\,\\mathrm{d}t$ 中的 $x$ 既出现在上限又出现在被积函数里，不能直接对 $x$ 求导。先将 $x^2$ 提出积分号外： \n$$\nf(x) = x^2\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t - \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t.\n$$\n记 \n$$\ng(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t, \\qquad h(x) = \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t,\n$$\n则 $f(x) = x^2 g(x) - h(x)$，为下一步使用乘积求导与变限积分求导做好准备。\n步骤2：计算 $f(x)$ 的导数 $f'(x)$ \n利用乘积法则与变上限积分求导公式（莱布尼茨法则）： \n- $g'(x) = e^{-(x^2)^2} \\cdot 2x = 2x e^{-x^4}$； \n- $h'(x) = (x^2) e^{-(x^2)^2} \\cdot 2x = 2x^3 e^{-x^4}$。 \n\n于是 \n$$\n\\begin{aligned}\nf'(x) &= 2x \\cdot g(x) + x^2 \\cdot g'(x) - h'(x) \\\\\n&= 2x g(x) + x^2 \\cdot 2x e^{-x^4} - 2x^3 e^{-x^4} \\\\\n&= 2x g(x) + 2x^3 e^{-x^4} - 2x^3 e^{-x^4} \\\\\n&= 2x \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t.\n\\end{aligned}\n$$\n可见 $f'(x)$ 的表达式极其简洁，仅与 $x$ 和定积分 $\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t$ 的乘积有关。\n步骤3：分析导函数 $f'(x)$ 的符号 \n由于 $e^{-t^2}>0$，积分 $I(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t$ 的符号完全取决于积分上下限的大小： \n- 当 $x^2 > 1$ 即 $|x|>1$ 时，$I(x) > 0$； \n- 当 $x^2 < 1$ 即 $|x|<1$ 时，$I(x) < 0$（因为积分方向从 $1$ 到小于 $1$ 的数，相当于 $- \\int_{x^2}^1 e^{-t^2}\\,\\mathrm{d}t$）； \n- 当 $x^2 = 1$ 即 $x = \\pm 1$ 时，$I(x) = 0$。 \n\n$f'(x) = 2x \\cdot I(x)$，故符号由 $x$ 与 $I(x)$ 共同决定： \n- $x < -1$：$x<0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) < 0$，函数递减； \n- $-1 < x < 0$：$x<0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) > 0$，函数递增； \n- $0 < x < 1$：$x>0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) < 0$，函数递减； \n- $x > 1$：$x>0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) > 0$，函数递增。 \n\n$f'(0) = 0$ 且 $f'(x)$ 在 $0$ 左右由正变负，$x=0$ 是极大值点；$f'(\\pm1)=0$，$x=-1$ 左侧减右侧增，为极小值点；$x=1$ 左侧减右侧增，也为极小值点。\n步骤4：写出单调区间与极值 \n由符号分析得： \n- 单调递增区间：$(-1,\\,0) \\cup (1,\\,+\\infty)$； \n- 单调递减区间：$(-\\infty,\\,-1) \\cup (0,\\,1)$。 \n\n极值： \n- 极大值 $f(0)$：代入原函数 $f(0)=\\int_1^{0} (0 - t)e^{-t^2}\\,\\mathrm{d}t = \\int_0^{1} t e^{-t^2}\\,\\mathrm{d}t = \\left[-\\frac12 e^{-t^2}\\right]_0^1 = \\frac{1}{2}(1 - e^{-1})$； \n- 极小值 $f(-1)$ 与 $f(1)$：由于 $f(x)$ 是偶函数（$f(-x)=f(x)$），$f(-1)=f(1)$。计算 $f(1)=\\int_1^{1} (1 - t)e^{-t^2}\\,\\mathrm{d}t = 0$，故极小值为 $0$。 \n\n## 最终答案 \n函数 $f(x)$ 的单调递增区间为 $(-1,\\,0) \\cup (1,\\,+\\infty)$，单调递减区间为 $(-\\infty,\\,-1) \\cup (0,\\,1)$。 \n极大值为 $\\displaystyle f(0)=\\frac{1}{2}(1-e^{-1})$，极小值为 $f(-1)=f(1)=0$。 \n\n（注：题目预设的“已知答案”$(-\\infty,0)$ 与 $(1,+\\infty)$ 递增、$(0,1)$ 递减，与通过严谨推导得到的上述结果不一致。正确结果应当基于 $f'(x)=2x\\int_1^{x^2}e^{-t^2}\\,\\mathrm{d}t$ 的符号分析，并结合偶函数性质得出的对称区间。）",
   "knowledge_points": [
     "定积分",
     "导数与微分"
@@ -17,5 +17,528 @@
     "导数与微分"
   ],
   "raw_question_text": "求函数 $f(x) = \\int_1^{x^2} (x^2 - t) e^{-t^2} dt$ 的单调区间与极值。",
-  "raw_answer_text": "单调递增区间为 $(-\\infty,0)$ 和 $(1,+\\infty)$，单调递减区间为 $(0,1)$"
+  "raw_answer_text": "单调递增区间为 $(-\\infty,0)$ 和 $(1,+\\infty)$，单调递减区间为 $(0,1)$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780391425",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：将被积函数中的参数分离，简化 $f(x)$ 表达式 \n$f(x) = \\int_1^{x^2} (x^2 - t)e^{-t^2}\\,\\mathrm{d}t$ 中的 $x$ 既出现在上限又出现在被积函数里，不能直接对 $x$ 求导。先将 $x^2$ 提出积分号外： \n$$\nf(x) = x^2\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t - \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t.\n$$\n记 \n$$\ng(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t, \\qquad h(x) = \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t,\n$$\n则 $f(x) = x^2 g(x) - h(x)$，为下一步使用乘积求导与变限积分求导做好准备。\n步骤2：计算 $f(x)$ 的导数 $f'(x)$ \n利用乘积法则与变上限积分求导公式（莱布尼茨法则）： \n- $g'(x) = e^{-(x^2)^2} \\cdot 2x = 2x e^{-x^4}$； \n- $h'(x) = (x^2) e^{-(x^2)^2} \\cdot 2x = 2x^3 e^{-x^4}$。 \n\n于是 \n$$\n\\begin{aligned}\nf'(x) &= 2x \\cdot g(x) + x^2 \\cdot g'(x) - h'(x) \\\\\n&= 2x g(x) + x^2 \\cdot 2x e^{-x^4} - 2x^3 e^{-x^4} \\\\\n&= 2x g(x) + 2x^3 e^{-x^4} - 2x^3 e^{-x^4} \\\\\n&= 2x \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t.\n\\end{aligned}\n$$\n可见 $f'(x)$ 的表达式极其简洁，仅与 $x$ 和定积分 $\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t$ 的乘积有关。\n步骤3：分析导函数 $f'(x)$ 的符号 \n由于 $e^{-t^2}>0$，积分 $I(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t$ 的符号完全取决于积分上下限的大小： \n- 当 $x^2 > 1$ 即 $|x|>1$ 时，$I(x) > 0$； \n- 当 $x^2 < 1$ 即 $|x|<1$ 时，$I(x) < 0$（因为积分方向从 $1$ 到小于 $1$ 的数，相当于 $- \\int_{x^2}^1 e^{-t^2}\\,\\mathrm{d}t$）； \n- 当 $x^2 = 1$ 即 $x = \\pm 1$ 时，$I(x) = 0$。 \n\n$f'(x) = 2x \\cdot I(x)$，故符号由 $x$ 与 $I(x)$ 共同决定： \n- $x < -1$：$x<0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) < 0$，函数递减； \n- $-1 < x < 0$：$x<0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) > 0$，函数递增； \n- $0 < x < 1$：$x>0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) < 0$，函数递减； \n- $x > 1$：$x>0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) > 0$，函数递增。 \n\n$f'(0) = 0$ 且 $f'(x)$ 在 $0$ 左右由正变负，$x=0$ 是极大值点；$f'(\\pm1)=0$，$x=-1$ 左侧减右侧增，为极小值点；$x=1$ 左侧减右侧增，也为极小值点。\n步骤4：写出单调区间与极值 \n由符号分析得： \n- 单调递增区间：$(-1,\\,0) \\cup (1,\\,+\\infty)$； \n- 单调递减区间：$(-\\infty,\\,-1) \\cup (0,\\,1)$。 \n\n极值： \n- 极大值 $f(0)$：代入原函数 $f(0)=\\int_1^{0} (0 - t)e^{-t^2}\\,\\mathrm{d}t = \\int_0^{1} t e^{-t^2}\\,\\mathrm{d}t = \\left[-\\frac12 e^{-t^2}\\right]_0^1 = \\frac{1}{2}(1 - e^{-1})$； \n- 极小值 $f(-1)$ 与 $f(1)$：由于 $f(x)$ 是偶函数（$f(-x)=f(x)$），$f(-1)=f(1)$。计算 $f(1)=\\int_1^{1} (1 - t)e^{-t^2}\\,\\mathrm{d}t = 0$，故极小值为 $0$。 \n\n## 最终答案 \n函数 $f(x)$ 的单调递增区间为 $(-1,\\,0) \\cup (1,\\,+\\infty)$，单调递减区间为 $(-\\infty,\\,-1) \\cup (0,\\,1)$。 \n极大值为 $\\displaystyle f(0)=\\frac{1}{2}(1-e^{-1})$，极小值为 $f(-1)=f(1)=0$。 \n\n（注：题目预设的“已知答案”$(-\\infty,0)$ 与 $(1,+\\infty)$ 递增、$(0,1)$ 递减，与通过严谨推导得到的上述结果不一致。正确结果应当基于 $f'(x)=2x\\int_1^{x^2}e^{-t^2}\\,\\mathrm{d}t$ 的符号分析，并结合偶函数性质得出的对称区间。）",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 17:10",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将被积函数中的参数分离，简化"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "表达式"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = \\int_1^{x^2} (x^2 - t)e^{-t^2}\\,\\mathrm{d}t"
+              },
+              {
+                "type": "text",
+                "content": "中的"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "既出现在上限又出现在被积函数里，不能直接对"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "求导。先将"
+              },
+              {
+                "type": "latex",
+                "content": "x^2"
+              },
+              {
+                "type": "text",
+                "content": "提出积分号外："
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = x^2\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t - \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "记"
+              },
+              {
+                "type": "latex",
+                "content": "g(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t, \\qquad h(x) = \\int_1^{x^2} t e^{-t^2}\\,\\mathrm{d}t,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = x^2 g(x) - h(x)"
+              },
+              {
+                "type": "text",
+                "content": "为下一步使用乘积求导与变限积分求导做好准备。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的导数"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x)"
+              },
+              {
+                "type": "text",
+                "content": "利用乘积法则与变上限积分求导公式（莱布尼茨法则）： \n-"
+              },
+              {
+                "type": "latex",
+                "content": "g'(x) = e^{-(x^2)^2} \\cdot 2x = 2x e^{-x^4}"
+              },
+              {
+                "type": "text",
+                "content": "-"
+              },
+              {
+                "type": "latex",
+                "content": "h'(x) = (x^2) e^{-(x^2)^2} \\cdot 2x = 2x^3 e^{-x^4}"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}f'(x) &= 2x \\cdot g(x) + x^2 \\cdot g'(x) - h'(x) \\\\&= 2x g(x) + x^2 \\cdot 2x e^{-x^4} - 2x^3 e^{-x^4} \\\\&= 2x g(x) + 2x^3 e^{-x^4} - 2x^3 e^{-x^4} \\\\\n&= 2x \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t.\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "可见"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x)"
+              },
+              {
+                "type": "text",
+                "content": "的表达式极其简洁，仅与"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "和定积分"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t"
+              },
+              {
+                "type": "text",
+                "content": "的乘积有关。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "分析导函数"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x)"
+              },
+              {
+                "type": "text",
+                "content": "的符号 \n由于"
+              },
+              {
+                "type": "latex",
+                "content": "e^{-t^2}>0"
+              },
+              {
+                "type": "text",
+                "content": "积分"
+              },
+              {
+                "type": "latex",
+                "content": "I(x) = \\int_1^{x^2} e^{-t^2}\\,\\mathrm{d}t"
+              },
+              {
+                "type": "text",
+                "content": "的符号完全取决于积分上下限的大小： \n- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x^2 > 1"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "|x|>1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "I(x) > 0"
+              },
+              {
+                "type": "text",
+                "content": "- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x^2 < 1"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "|x|<1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "I(x) < 0"
+              },
+              {
+                "type": "text",
+                "content": "（因为积分方向从"
+              },
+              {
+                "type": "latex",
+                "content": "1"
+              },
+              {
+                "type": "text",
+                "content": "到小于"
+              },
+              {
+                "type": "latex",
+                "content": "1"
+              },
+              {
+                "type": "text",
+                "content": "的数，相当于"
+              },
+              {
+                "type": "latex",
+                "content": "- \\int_{x^2}^1 e^{-t^2}\\,\\mathrm{d}t"
+              },
+              {
+                "type": "text",
+                "content": "）； \n- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x^2 = 1"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "x = \\pm 1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "I(x) = 0"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x) = 2x \\cdot I(x)"
+              },
+              {
+                "type": "text",
+                "content": "故符号由"
+              },
+              {
+                "type": "latex",
+                "content": "x"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "I(x)"
+              },
+              {
+                "type": "text",
+                "content": "共同决定： \n-"
+              },
+              {
+                "type": "latex",
+                "content": "x < -1"
+              },
+              {
+                "type": "latex",
+                "content": "x<0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) < 0"
+              },
+              {
+                "type": "text",
+                "content": "函数递减； \n-"
+              },
+              {
+                "type": "latex",
+                "content": "-1 < x < 0"
+              },
+              {
+                "type": "latex",
+                "content": "x<0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) > 0"
+              },
+              {
+                "type": "text",
+                "content": "函数递增； \n-"
+              },
+              {
+                "type": "latex",
+                "content": "0 < x < 1"
+              },
+              {
+                "type": "latex",
+                "content": "x>0,\\; I(x)<0 \\;\\Rightarrow\\; f'(x) < 0"
+              },
+              {
+                "type": "text",
+                "content": "函数递减； \n-"
+              },
+              {
+                "type": "latex",
+                "content": "x > 1"
+              },
+              {
+                "type": "latex",
+                "content": "x>0,\\; I(x)>0 \\;\\Rightarrow\\; f'(x) > 0"
+              },
+              {
+                "type": "text",
+                "content": "函数递增。"
+              },
+              {
+                "type": "latex",
+                "content": "f'(0) = 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "f'(x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "0"
+              },
+              {
+                "type": "text",
+                "content": "左右由正变负，"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "是极大值点；"
+              },
+              {
+                "type": "latex",
+                "content": "f'(\\pm1)=0"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "左侧减右侧增，为极小值点；"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "左侧减右侧增，也为极小值点。"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "写出单调区间与极值 由符号分析得： \n- 单调递增区间："
+              },
+              {
+                "type": "latex",
+                "content": "(-1,\\,0) \\cup (1,\\,+\\infty)"
+              },
+              {
+                "type": "text",
+                "content": "- 单调递减区间："
+              },
+              {
+                "type": "latex",
+                "content": "(-\\infty,\\,-1) \\cup (0,\\,1)"
+              },
+              {
+                "type": "text",
+                "content": "极值： \n- 极大值"
+              },
+              {
+                "type": "latex",
+                "content": "f(0)"
+              },
+              {
+                "type": "text",
+                "content": "代入原函数"
+              },
+              {
+                "type": "latex",
+                "content": "f(0)=\\int_1^{0} (0 - t)e^{-t^2}\\,\\mathrm{d}t = \\int_0^{1} t e^{-t^2}\\,\\mathrm{d}t = \\left[-\\frac12 e^{-t^2}\\right]_0^1 = \\frac{1}{2}(1 - e^{-1})"
+              },
+              {
+                "type": "text",
+                "content": "- 极小值"
+              },
+              {
+                "type": "latex",
+                "content": "f(-1)"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "f(1)"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "是偶函数（"
+              },
+              {
+                "type": "latex",
+                "content": "f(-x)=f(x)"
+              },
+              {
+                "type": "latex",
+                "content": "f(-1)=f(1)"
+              },
+              {
+                "type": "text",
+                "content": "计算"
+              },
+              {
+                "type": "latex",
+                "content": "f(1)=\\int_1^{1} (1 - t)e^{-t^2}\\,\\mathrm{d}t = 0"
+              },
+              {
+                "type": "text",
+                "content": "故极小值为"
+              },
+              {
+                "type": "latex",
+                "content": "0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 17:10",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

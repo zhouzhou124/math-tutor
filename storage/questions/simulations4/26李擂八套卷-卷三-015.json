@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "行列式",
+    "多项式"
+  ],
+  "tags": [
+    "行列式",
+    "多项式",
+    "系数"
+  ],
+  "question": "多项式 $f(x)=\\begin{vmatrix} x&3&x&2x\\\\ x+1&x+3&x+3&2x+2\\\\ 2x+5&2x+4&3x+6&4x+8\\\\ 2x+7&2x+7&3x+7&5x+8 \\end{vmatrix}$ 中 $x$ 的系数为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$11$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "多项式 $f(x)=\\begin{vmatrix} x&3&x&2x\\\\ x+1&x+3&x+3&2x+2\\\\ 2x+5&2x+4&3x+6&4x+8\\\\ 2x+7&2x+7&3x+7&5x+8 \\end{vmatrix}$ 中 $x$ 的系数为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$11$"
+}

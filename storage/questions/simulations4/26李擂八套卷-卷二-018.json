@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "形心",
+    "三重积分"
+  ],
+  "tags": [
+    "形心",
+    "三重积分",
+    "曲面"
+  ],
+  "question": "设 $\\Omega$ 是由曲面 $x^2+2y^2+3z^2-2xz+4yz=\\displaystyle\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$，$0\\le z\\le\\pi$ 和 $xOy$ 平面所围成的空间区域，求 $\\Omega$ 的形心坐标。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "固定 $z$，截面方程为 $(x-z)^2+2(y+z)^2=\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$。故截面形心为 $(z,-z,z)$，截面面积为 $A(z)=\\frac{\\pi}{\\sqrt2}\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$。于是 $\\overline x=\\overline z=\\frac{\\int_0^\\pi zA(z)\\,dz}{\\int_0^\\pi A(z)\\,dz}$，$\\overline y=-\\overline x$。又 $\\int_0^\\pi\\int_z^\\pi\\frac{\\sin t}{t}\\,dt\\,dz=2$，$\\int_0^\\pi z\\int_z^\\pi\\frac{\\sin t}{t}\\,dt\\,dz=\\frac{\\pi}{2}$。因此 $\\Omega$ 的形心坐标为 $(\\frac{\\pi}{4},-\\frac{\\pi}{4},\\frac{\\pi}{4})$。",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\Omega$ 是由曲面 $x^2+2y^2+3z^2-2xz+4yz=\\displaystyle\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$，$0\\le z\\le\\pi$ 和 $xOy$ 平面所围成的空间区域，求 $\\Omega$ 的形心坐标。",
+  "raw_answer_text": "固定 $z$，截面方程为 $(x-z)^2+2(y+z)^2=\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$。故截面形心为 $(z,-z,z)$，截面面积为 $A(z)=\\frac{\\pi}{\\sqrt2}\\int_z^{\\pi}\\frac{\\sin t}{t}\\,dt$。于是 $\\overline x=\\overline z=\\frac{\\int_0^\\pi zA(z)\\,dz}{\\int_0^\\pi A(z)\\,dz}$，$\\overline y=-\\overline x$。又 $\\int_0^\\pi\\int_z^\\pi\\frac{\\sin t}{t}\\,dt\\,dz=2$，$\\int_0^\\pi z\\int_z^\\pi\\frac{\\sin t}{t}\\,dt\\,dz=\\frac{\\pi}{2}$。因此 $\\Omega$ 的形心坐标为 $(\\frac{\\pi}{4},-\\frac{\\pi}{4},\\frac{\\pi}{4})$。"
+}

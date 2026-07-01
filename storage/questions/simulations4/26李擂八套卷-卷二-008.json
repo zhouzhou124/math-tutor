@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "概率",
+    "古典概型"
+  ],
+  "tags": [
+    "概率",
+    "古典概型",
+    "随机事件"
+  ],
+  "question": "从 $1,2,3,4,5$ 中随机地取 $3$ 个数，可重复，令 $E_i$ 表示存在某数取出来 $i$ 次的随机事件，$i=0,1,2,3$。则下列说法错误的是",
+  "options": {
+    "A": "$P(E_0)=1$",
+    "B": "$P(E_1)=\\frac45$",
+    "C": "$P(E_2)=\\frac{12}{25}$",
+    "D": "$P(E_3)=\\frac1{25}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "从 $1,2,3,4,5$ 中随机地取 $3$ 个数，可重复，令 $E_i$ 表示存在某数取出来 $i$ 次的随机事件，$i=0,1,2,3$。则下列说法错误的是",
+  "raw_answer_text": "B"
+}

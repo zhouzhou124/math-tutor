@@ -1,0 +1,24 @@
+{
+  "question_id": "26李擂八套卷-卷六-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "曲线 $\\begin{cases} x+2y+z=4,\\\\ 2z=x^2+y^2 \\end{cases}$ 在点 $(1,1)$ 处的法平面方程为 $\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$3x - 2y + z = 2$",
+  "knowledge_points": [
+    "空间解析几何",
+    "曲面"
+  ],
+  "tags": [
+    "空间解析几何",
+    "法平面"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "曲线 $\\begin{cases} x+2y+z=4,\\\\ 2z=x^2+y^2 \\end{cases}$ 在点 $(1,1)$ 处的法平面方程为 $\\underline{\\qquad}$.",
+  "raw_answer_text": "$3x - 2y + z = 2$"
+}

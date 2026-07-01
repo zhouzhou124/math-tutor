@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "证明题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "积分不等式",
+    "Cauchy不等式"
+  ],
+  "tags": [
+    "积分不等式",
+    "Cauchy不等式",
+    "分部积分"
+  ],
+  "question": "设 $f(x)$ 在 $[0,1]$ 上具有连续的二阶导数，$f(0)=f'(0)=0$，证明下列不等式：\n(1) $\\displaystyle\\int_0^1 f^2(x)\\,dx\\le\\frac12\\int_0^1[f'(x)]^2\\,dx$；\n(2) $\\displaystyle\\int_0^1 f^4(x)\\,dx\\le\\frac1{28}\\left(\\int_0^1[f''(x)]^2\\,dx\\right)^2$.",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 由 $f(x)=\\int_0^x f'(t)\\,dt$ 及 Cauchy 不等式，$f^2(x)\\le x\\int_0^x[f'(t)]^2\\,dt$。两边在 $[0,1]$ 上积分，得 $\\int_0^1f^2(x)\\,dx\\le\\frac12\\int_0^1[f'(x)]^2\\,dx$。(II) 继续利用 $f(0)=f'(0)=0$，可由两次 Cauchy 不等式及积分估计得到 $\\int_0^1f^4(x)\\,dx\\le\\frac1{28}\\left(\\int_0^1[f''(x)]^2\\,dx\\right)^2$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上具有连续的二阶导数，$f(0)=f'(0)=0$，证明下列不等式：\n(1) $\\displaystyle\\int_0^1 f^2(x)\\,dx\\le\\frac12\\int_0^1[f'(x)]^2\\,dx$；\n(2) $\\displaystyle\\int_0^1 f^4(x)\\,dx\\le\\frac1{28}\\left(\\int_0^1[f''(x)]^2\\,dx\\right)^2$.",
+  "raw_answer_text": "(I) 由 $f(x)=\\int_0^x f'(t)\\,dt$ 及 Cauchy 不等式，$f^2(x)\\le x\\int_0^x[f'(t)]^2\\,dt$。两边在 $[0,1]$ 上积分，得 $\\int_0^1f^2(x)\\,dx\\le\\frac12\\int_0^1[f'(x)]^2\\,dx$。(II) 继续利用 $f(0)=f'(0)=0$，可由两次 Cauchy 不等式及积分估计得到 $\\int_0^1f^4(x)\\,dx\\le\\frac1{28}\\left(\\int_0^1[f''(x)]^2\\,dx\\right)^2$。"
+}

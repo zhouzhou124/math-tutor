@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷六-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设有向量组 $(I)\\ \\alpha_1=(-1,2,-2,1)^T,\\ \\alpha_2=(2,-3,5,-3)^T$ 和 $(II)\\ \\beta_1=(1,1,2,-4)^T,\\ \\beta_2=(3,1,a,b)^T$，若存在既能由 $\\alpha_1,\\alpha_2$ 线性表示又能由 $\\beta_1,\\beta_2$ 线性表示的非零向量，则$(\\quad)$",
+  "options": {
+    "A": "$a=-13,\\ b=-10$",
+    "B": "$a=-13,\\ b=10$",
+    "C": "$b=-10,\\ a$ 为任意实数",
+    "D": "$b=10,\\ a$ 为任意实数"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "向量组与线性空间"
+  ],
+  "tags": [
+    "向量组与线性空间",
+    "线性表示"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设有向量组 $(I)\\ \\alpha_1=(-1,2,-2,1)^T,\\ \\alpha_2=(2,-3,5,-3)^T$ 和 $(II)\\ \\beta_1=(1,1,2,-4)^T,\\ \\beta_2=(3,1,a,b)^T$，若存在既能由 $\\alpha_1,\\alpha_2$ 线性表示又能由 $\\beta_1,\\beta_2$ 线性表示的非零向量，则$(\\quad)$",
+  "raw_answer_text": "C"
+}

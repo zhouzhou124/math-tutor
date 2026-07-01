@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-021",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵相似",
+    "特征值"
+  ],
+  "tags": [
+    "矩阵相似",
+    "特征值"
+  ],
+  "question": "设 $A=\\begin{pmatrix}-1&b&a\\\\ -3&2&2\\\\ -1&1&1\\end{pmatrix}$ 相似于 $B=\\begin{pmatrix}1&0&0\\\\ 1&1&0\\\\ 0&0&0\\end{pmatrix}$。\n(1) 求 $a,b$；\n(2) 求一个可逆矩阵 $P$，使得 $P^{-1}AP=B$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $a=b=1$。(II) $P=\\begin{pmatrix}0&1&0\\\\ 1&1&-1\\\\ 0&1&1\\end{pmatrix}$，则 $P^{-1}AP=B$。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A=\\begin{pmatrix}-1&b&a\\\\ -3&2&2\\\\ -1&1&1\\end{pmatrix}$ 相似于 $B=\\begin{pmatrix}1&0&0\\\\ 1&1&0\\\\ 0&0&0\\end{pmatrix}$。\n(1) 求 $a,b$；\n(2) 求一个可逆矩阵 $P$，使得 $P^{-1}AP=B$。",
+  "raw_answer_text": "(I) $a=b=1$。(II) $P=\\begin{pmatrix}0&1&0\\\\ 1&1&-1\\\\ 0&1&1\\end{pmatrix}$，则 $P^{-1}AP=B$。"
+}

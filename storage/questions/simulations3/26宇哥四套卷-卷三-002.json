@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷三-002",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "凸性"
+  ],
+  "tags": [
+    "定积分",
+    "凸性",
+    "不等式"
+  ],
+  "question": "设函数 $f(x)$ 在 $[0,1]$ 上二阶可导，则",
+  "options": {
+    "A": "当 $f'(x)<0$ 时，$\\displaystyle f(\\frac12)<\\int_0^1 f(x)\\,dx$",
+    "B": "当 $f'(x)>0$ 时，$\\displaystyle f(\\frac12)<\\int_0^1 f(x)\\,dx$",
+    "C": "当 $f''(x)<0$ 时，$\\displaystyle f(\\frac13)<\\int_0^1 f(x^2)\\,dx$",
+    "D": "当 $f''(x)>0$ 时，$\\displaystyle f(\\frac13)<\\int_0^1 f(x^2)\\,dx$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)$ 在 $[0,1]$ 上二阶可导，则",
+  "raw_answer_text": "D"
+}

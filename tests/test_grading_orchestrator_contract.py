@@ -1,12 +1,50 @@
 """P31.1: GradingOrchestrator result contract tests.
 
 Verifies that normalize_grading_result preserves grading fields,
-the choice fast path includes steps, and execute_grading uses
-the real total_score from the question.
+the legacy choice fast helper still works in isolation, and
+execute_grading routes 选择题/填空题 through the unified LLM path.
 """
+
+import pytest
 
 from services.grading_adapter import normalize_grading_result
 from services.grading_orchestrator import _grade_choice_fast, execute_grading
+
+
+def _run_execute_grading_with_llm_mocks(
+    monkeypatch,
+    *,
+    selected_q: dict,
+    student_ans: str,
+    grade_payload: dict,
+    build_solution=None,
+):
+    def fake_build(**kwargs):
+        if build_solution:
+            return build_solution(**kwargs)
+        score = selected_q.get("score") or selected_q.get("total_score") or 5
+        return {"standard_answer": "标准解析", "total_score": score}
+
+    class _Grading:
+        def grade(self, **kwargs):
+            return dict(grade_payload)
+
+    class _Diagnosis:
+        def diagnose(self, **kwargs):
+            return {"error_type": "", "root_cause": ""}
+
+    monkeypatch.setattr("agents.GradingAgent", lambda c, m: _Grading())
+    monkeypatch.setattr("agents.DiagnosisAgent", lambda c, m: _Diagnosis())
+
+    return execute_grading(
+        question="test",
+        student_ans=student_ans,
+        ocr_data={"question_type": selected_q.get("question_type", "")},
+        selected_q=selected_q,
+        client=object(),
+        model="deepseek-chat",
+        build_solution_fn=fake_build,
+    )
 
 
 # ── normalize_grading_result field preservation ──
@@ -172,70 +210,81 @@ def test_choice_fast_has_is_correct():
     assert _grade_choice_fast(selected_q, "B")["is_correct"] is False
 
 
-# ── execute_grading contract ──
+# ── execute_grading contract (unified LLM path) ──
 
-def test_execute_grading_choice_uses_question_score():
+def test_execute_grading_choice_uses_question_score(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "score": 5,
         "knowledge_points": ["极限"],
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={"success": True, "total": 5, "total_score": 5, "comment": "ok"},
     )
     gr = result["grading_result"]
     assert gr["total"] == 5
     assert gr["total_score"] == 5
+    assert gr["grading_path"] == "llm"
 
 
-def test_execute_grading_choice_wrong_total_zero():
+def test_execute_grading_choice_wrong_total_zero(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="B",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="B",
+        grade_payload={"success": True, "total": 0, "total_score": 5, "comment": "wrong"},
     )
     gr = result["grading_result"]
     assert gr["total"] == 0
     assert gr["total_score"] == 5
 
 
-def test_execute_grading_choice_has_steps():
+def test_execute_grading_choice_has_steps(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={
+            "success": True,
+            "total": 5,
+            "total_score": 5,
+            "steps": [{"label": "LLM判分", "status": "correct", "score": 5}],
+        },
     )
     gr = result["grading_result"]
     assert "steps" in gr
     assert len(gr["steps"]) == 1
 
 
-def test_execute_grading_choice_has_mistake_record_created():
+def test_execute_grading_choice_returns_llm_result_shape(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={"success": True, "total": 5, "total_score": 5},
     )
-    assert "mistake_record_created" in result
-    assert result["mistake_record_created"] is False
+    assert result["error_record"] is None
+    assert result["grading_result"].get("_fast_path") is not True
+    assert result["grading_result"]["grading_path"] == "llm"
 
 
 def test_execute_grading_view_only():
@@ -260,98 +309,131 @@ def test_execute_grading_view_only_grading_result():
     assert gr["view_only"] is True
 
 
-def test_execute_grading_choice_with_total_score_field():
+def test_execute_grading_choice_with_total_score_field(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "total_score": 10,
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={"success": True, "total": 10, "total_score": 10},
+        build_solution=lambda **kwargs: {"standard_answer": "解析", "total_score": 10},
     )
     gr = result["grading_result"]
     assert gr["total"] == 10
     assert gr["total_score"] == 10
 
 
-def test_execute_grading_choice_result_has_is_correct():
+def test_execute_grading_choice_result_has_is_correct(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "A",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={"success": True, "total": 5, "total_score": 5, "is_correct": True},
     )
     gr = result["grading_result"]
     assert gr["is_correct"] is True
 
 
-def test_execute_grading_choice_result_has_correct_answer():
+def test_execute_grading_choice_result_has_correct_answer(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "correct_option": "B",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="A",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="A",
+        grade_payload={
+            "success": True,
+            "total": 0,
+            "total_score": 5,
+            "is_correct": False,
+            "correct_answer": "B",
+        },
     )
     gr = result["grading_result"]
     assert gr["correct_answer"] == "B"
 
 
-def test_execute_grading_choice_has_grading_method():
+def test_execute_grading_choice_uses_llm_not_local_match(monkeypatch):
     selected_q = {
         "question_type": "选择题",
         "answer": "C",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="C",
-        ocr_data={"question_type": "选择题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="C",
+        grade_payload={
+            "success": True,
+            "total": 5,
+            "total_score": 5,
+            "correct_option": "C",
+            "grading_method": "llm_structured",
+        },
     )
     gr = result["grading_result"]
-    assert gr["grading_method"] == "local_choice_match"
-    assert gr["correct_option"] == "C"
+    assert gr["grading_path"] == "llm"
+    assert gr.get("engine") != "local_choice_fast"
+    assert gr.get("grading_method") != "local_choice_match"
 
 
-def test_execute_grading_fill_high_confidence_quick_compare():
+def test_execute_grading_fill_uses_llm_path(monkeypatch):
     selected_q = {
         "question_type": "填空题",
         "answer": "2",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="2",
-        ocr_data={"question_type": "填空题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
+        student_ans="2",
+        grade_payload={
+            "success": True,
+            "total": 5,
+            "total_score": 5,
+            "is_correct": True,
+            "grading_method": "llm_structured",
+        },
     )
     gr = result["grading_result"]
     assert gr["is_correct"] is True
-    assert gr["grading_method"] == "quick_compare"
+    assert gr["grading_path"] == "llm"
+    assert gr.get("engine") != "fill_compare"
     assert gr["total"] == 5
 
 
-def test_execute_grading_fill_low_confidence_marks_escalation_without_client():
+def test_execute_grading_fill_wrong_answer_via_llm(monkeypatch):
     selected_q = {
         "question_type": "填空题",
         "answer": "2",
         "score": 5,
     }
-    result = execute_grading(
-        question="test", student_ans="3",
-        ocr_data={"question_type": "填空题"},
+    result = _run_execute_grading_with_llm_mocks(
+        monkeypatch,
         selected_q=selected_q,
-        client=None,
+        student_ans="3",
+        grade_payload={
+            "success": True,
+            "total": 0,
+            "total_score": 5,
+            "is_correct": False,
+            "correct_answer": "2",
+            "grading_method": "llm_structured",
+        },
     )
     gr = result["grading_result"]
-    assert gr["needs_review"] is True
-    assert gr["grading_method"] == "quick_compare_escalated_llm"
+    assert gr["total"] == 0
     assert gr["correct_answer"] == "2"
+    assert gr["grading_path"] == "llm"

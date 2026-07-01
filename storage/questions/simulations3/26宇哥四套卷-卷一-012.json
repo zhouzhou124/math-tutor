@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-012",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "渐近线"
+  ],
+  "tags": [
+    "极限",
+    "渐近线"
+  ],
+  "question": "曲线 $y=xe^{-\\frac1{x+1}}$ 的斜渐近线方程为 $\\_\\_\\_\\_\\_$",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "$y=x-1$",
+  "solution_steps": [],
+  "raw_question_text": "曲线 $y=xe^{-\\frac1{x+1}}$ 的斜渐近线方程为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$y=x-1$"
+}

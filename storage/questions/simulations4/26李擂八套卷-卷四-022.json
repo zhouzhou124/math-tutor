@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷四-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "概率密度",
+    "协方差"
+  ],
+  "tags": [
+    "概率密度",
+    "协方差",
+    "泊松分布",
+    "独立随机变量"
+  ],
+  "question": "设 $X$ 的概率密度为 $f_X(x)=\\begin{cases} e^x,&x<0\\\\ 0,&x\\ge0 \\end{cases}$， $Y$ 服从泊松分布 $P(1)$，$X$ 与 $Y$ 相互独立，令 $Z=\\displaystyle\\frac{X}{Y+1}$。\n(1) 求 $Z$ 的概率密度；\n(2) 求 $X$ 和 $Z$ 的协方差 $\\operatorname{cov}(X,Z)$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 当 $z<0$ 时，$f_Z(z)=\\sum_{k=0}^{\\infty}\\frac{e^{-1}}{k!}(k+1)e^{(k+1)z}=e^{z-1+e^z}(1+e^z)$。故 $f_Z(z)=\\begin{cases} e^{z-1+e^z}(1+e^z),&z<0,\\\\ 0,&z\\ge0. \\end{cases}$ (II) $E(X)=-1$，$E(X^2)=2$，$E\\left(\\frac1{Y+1}\\right)=1-e^{-1}$。因此 $\\operatorname{cov}(X,Z)=1-e^{-1}$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $X$ 的概率密度为 $f_X(x)=\\begin{cases} e^x,&x<0\\\\ 0,&x\\ge0 \\end{cases}$， $Y$ 服从泊松分布 $P(1)$，$X$ 与 $Y$ 相互独立，令 $Z=\\displaystyle\\frac{X}{Y+1}$。\n(1) 求 $Z$ 的概率密度；\n(2) 求 $X$ 和 $Z$ 的协方差 $\\operatorname{cov}(X,Z)$。",
+  "raw_answer_text": "(I) 当 $z<0$ 时，$f_Z(z)=\\sum_{k=0}^{\\infty}\\frac{e^{-1}}{k!}(k+1)e^{(k+1)z}=e^{z-1+e^z}(1+e^z)$。故 $f_Z(z)=\\begin{cases} e^{z-1+e^z}(1+e^z),&z<0,\\\\ 0,&z\\ge0. \\end{cases}$ (II) $E(X)=-1$，$E(X^2)=2$，$E\\left(\\frac1{Y+1}\\right)=1-e^{-1}$。因此 $\\operatorname{cov}(X,Z)=1-e^{-1}$。"
+}

@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-013",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "无穷级数",
+    "幂级数"
+  ],
+  "tags": [
+    "无穷级数",
+    "幂级数"
+  ],
+  "question": "$\\displaystyle \\sum_{n=0}^{\\infty}(-1)^n\\frac{2n}{(2n+1)!}=\\_\\_\\_\\_\\_$",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "$\\cos 1 - \\sin 1$",
+  "solution_steps": [],
+  "raw_question_text": "$\\displaystyle \\sum_{n=0}^{\\infty}(-1)^n\\frac{2n}{(2n+1)!}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\cos 1 - \\sin 1$"
+}

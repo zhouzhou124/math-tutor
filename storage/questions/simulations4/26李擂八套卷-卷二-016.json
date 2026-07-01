@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "相关系数",
+    "正态分布"
+  ],
+  "tags": [
+    "相关系数",
+    "正态分布",
+    "泊松分布"
+  ],
+  "question": "设随机变量 $X$ 服从正态分布 $N(2,4)$，$Y$ 服从泊松分布 $P(2)$，若 $X$ 与 $Y$ 相互独立，则 $X+Y$ 与 $X+2Y$ 的相关系数为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac{2\\sqrt2}{3}$",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 服从正态分布 $N(2,4)$，$Y$ 服从泊松分布 $P(2)$，若 $X$ 与 $Y$ 相互独立，则 $X+Y$ 与 $X+2Y$ 的相关系数为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac{2\\sqrt2}{3}$"
+}

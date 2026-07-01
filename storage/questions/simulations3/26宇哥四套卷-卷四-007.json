@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-007",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "严格对角占优矩阵",
+    "线性方程组"
+  ],
+  "tags": [
+    "严格对角占优矩阵",
+    "线性方程组",
+    "可逆"
+  ],
+  "question": "若矩阵 $A=(a_{ij})_{n\\times n}$，对 $i=1,2,\\cdots,n$，均有 $|a_{ii}|>\\displaystyle\\sum_{j\\ne i}|a_{ij}|$，其中 $|a_{ij}|$ 表示元素 $a_{ij}$ 的绝对值，$\\beta$ 为任一 $n$ 维列向量，则",
+  "options": {
+    "A": "$Ax=0$ 有非零解",
+    "B": "$Ax=\\beta$ 有唯一解",
+    "C": "$Ax=\\beta$ 一定有解",
+    "D": "$Ax=0$ 不一定有非零解"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "若矩阵 $A=(a_{ij})_{n\\times n}$，对 $i=1,2,\\cdots,n$，均有 $|a_{ii}|>\\displaystyle\\sum_{j\\ne i}|a_{ij}|$，其中 $|a_{ij}|$ 表示元素 $a_{ij}$ 的绝对值，$\\beta$ 为任一 $n$ 维列向量，则",
+  "raw_answer_text": "B"
+}

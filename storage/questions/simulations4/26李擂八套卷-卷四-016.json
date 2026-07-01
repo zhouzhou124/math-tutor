@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "分布函数",
+    "概率密度"
+  ],
+  "tags": [
+    "分布函数",
+    "概率密度",
+    "指数分布"
+  ],
+  "question": "设随机变量 $X$ 的概率密度为 $f(x)=\\begin{cases} e^{-x},&x\\ge0,\\\\ 0,&x<0, \\end{cases}$ $F(x)$ 表示 $X^2$ 的分布函数，则 $P\\{F(X)<\\frac1{E(X^2)}\\}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$1-e^{-(\\ln2)^2}$",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 的概率密度为 $f(x)=\\begin{cases} e^{-x},&x\\ge0,\\\\ 0,&x<0, \\end{cases}$ $F(x)$ 表示 $X^2$ 的分布函数，则 $P\\{F(X)<\\frac1{E(X^2)}\\}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$1-e^{-(\\ln2)^2}$"
+}

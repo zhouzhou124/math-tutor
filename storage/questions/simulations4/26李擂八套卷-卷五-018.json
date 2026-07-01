@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲线积分",
+    "路径无关",
+    "原函数"
+  ],
+  "tags": [
+    "曲线积分",
+    "路径无关",
+    "原函数"
+  ],
+  "question": "设曲线积分 $\\displaystyle\\int\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy$ 在上半平面 $y>0$ 内与路径无关，其中 $Q(x,y)$ 具有连续的偏导数，且有 $\\displaystyle\\int_{(0,1)}^{(0,a)}\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy=2\\ln a\\ (a>0)$.\n(1) 求 $Q(x,y)$；\n(2) 设 $L$ 为下半圆 $y=-\\sqrt{1-x^2}$，从点 $(-1,0)$ 到点 $(1,0)$，求 $\\displaystyle\\int_L\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $Q(x,y)=\\frac{x+2y}{x^2+xy+y^2}$；(II) 积分为 $0$。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设曲线积分 $\\displaystyle\\int\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy$ 在上半平面 $y>0$ 内与路径无关，其中 $Q(x,y)$ 具有连续的偏导数，且有 $\\displaystyle\\int_{(0,1)}^{(0,a)}\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy=2\\ln a\\ (a>0)$.\n(1) 求 $Q(x,y)$；\n(2) 设 $L$ 为下半圆 $y=-\\sqrt{1-x^2}$，从点 $(-1,0)$ 到点 $(1,0)$，求 $\\displaystyle\\int_L\\frac{2x+y}{x^2+xy+y^2}\\,dx+Q(x,y)\\,dy$。",
+  "raw_answer_text": "(I) $Q(x,y)=\\frac{x+2y}{x^2+xy+y^2}$；(II) 积分为 $0$。"
+}

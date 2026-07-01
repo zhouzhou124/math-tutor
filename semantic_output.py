@@ -523,6 +523,8 @@ def proof_trace_to_structured(trace: ProofTrace) -> dict:
         """Check if string is pure LaTeX (no Chinese characters)."""
         return not bool(_has_chinese.search(s)) if s else True
 
+    from services.grading_adapter import formula_requires_display_layout
+
     for ps in trace.steps:
         blocks = []
 
@@ -556,18 +558,16 @@ def proof_trace_to_structured(trace: ProofTrace) -> dict:
         # Pure LaTeX: show only the key result (output), not the full chain
         # The justification text already explains the transformation
         if out:
-            # Short expressions → inline, long/complex → block
-            is_long = len(out) > 60 or '\n' in out or '\\\\' in out
             blocks.append({
                 "type": "latex",
                 "content": out,
-                "display": "block" if is_long else "inline",
+                "display": "block" if formula_requires_display_layout(out) else "inline",
             })
         elif inp and _is_pure_math(inp):
             blocks.append({
                 "type": "latex",
                 "content": inp,
-                "display": "block" if len(inp) > 60 else "inline",
+                "display": "block" if formula_requires_display_layout(inp) else "inline",
             })
 
         # Error analysis

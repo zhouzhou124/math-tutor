@@ -16,6 +16,20 @@ import streamlit as st
 
 # ── CSS Content Tests ──
 
+class TestGlobalMobileMathCSS:
+    """Global mobile formula rules in views/mobile.py."""
+
+    def test_mobile_css_block_math_horizontal_scroll(self):
+        from views.mobile import MOBILE_CSS
+        assert '[data-testid="stLatex"]' in MOBILE_CSS
+        assert "max-width: none" in MOBILE_CSS
+        assert "touch-action: pan-x" in MOBILE_CSS
+
+    def test_mobile_css_does_not_squeeze_inner_katex(self):
+        from views.mobile import MOBILE_CSS
+        assert ".katex-display, .katex {" not in MOBILE_CSS
+
+
 class TestGradingMobileCSS:
     """Test that the mobile CSS is correctly defined."""
 
@@ -67,6 +81,11 @@ class TestGradingMobileCSS:
     def test_math_scroll_touch_scrolling(self):
         from renderers.components.grading_result import _GRADING_MOBILE_CSS
         assert "-webkit-overflow-scrolling: touch" in _GRADING_MOBILE_CSS
+
+    def test_grading_css_covers_st_latex_on_mobile(self):
+        from renderers.components.grading_result import _GRADING_MOBILE_CSS
+        assert '[data-testid="stLatex"]' in _GRADING_MOBILE_CSS
+        assert "max-width: none" in _GRADING_MOBILE_CSS
 
     def test_word_break_anywhere(self):
         from renderers.components.grading_result import _GRADING_MOBILE_CSS
@@ -304,18 +323,26 @@ class TestDesktopNoRegression:
     def test_desktop_css_no_max_width_on_cards(self):
         """Desktop cards should not have forced max-width."""
         from renderers.components.grading_result import _GRADING_MOBILE_CSS
-        # The mobile max-width rules should only be inside @media block
-        # Outside @media, cards should have max-width: 100% (not a fixed pixel value)
-        lines = _GRADING_MOBILE_CSS.split("\n")
-        in_media = False
-        issues = []
-        for line in lines:
-            if "@media" in line:
-                in_media = True
-            elif in_media and line.strip() == "}":
-                in_media = False
-            elif not in_media and "max-width" in line and "100%" not in line:
-                issues.append(line.strip())
+        css = _GRADING_MOBILE_CSS
+        media_start = css.find("@media")
+        if media_start == -1:
+            return
+        depth = 0
+        media_end = len(css)
+        for i, ch in enumerate(css[media_start:], start=media_start):
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    media_end = i
+                    break
+        outside_css = css[:media_start] + css[media_end + 1:]
+        issues = [
+            line.strip()
+            for line in outside_css.split("\n")
+            if "max-width" in line and "100%" not in line
+        ]
         assert not issues, f"Desktop cards have restrictive max-width: {issues}"
 
     def test_desktop_action_row_stays_flex_row(self):

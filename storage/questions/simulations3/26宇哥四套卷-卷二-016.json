@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷二-016",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "概率",
+    "独立性"
+  ],
+  "tags": [
+    "概率",
+    "独立性",
+    "事件运算"
+  ],
+  "question": "设三个随机事件 $A,B,C$ 两两独立且 $P(A)=P(B)=P(C)$，若 $ABC$ 为不可能事件，则 $P(\\overline A\\overline B\\overline C)$ 的最小值为$\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac14$",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设三个随机事件 $A,B,C$ 两两独立且 $P(A)=P(B)=P(C)$，若 $ABC$ 为不可能事件，则 $P(\\overline A\\overline B\\overline C)$ 的最小值为$\\_\\_\\_\\_\\_$",
+  "raw_answer_text": ""
+}

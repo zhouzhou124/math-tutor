@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷一-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "不定积分"
+  ],
+  "tags": [
+    "不定积分",
+    "反三角函数",
+    "分部积分"
+  ],
+  "question": "$$\\displaystyle\\int\\frac1{x^2}\\arctan\\sqrt{x-1}\\,dx=\\_\\_\\_\\_\\_$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac{\\sqrt{x-1}}{2x}+\\frac{x-2}{2x}\\arctan\\sqrt{x-1}+C$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "$$\\displaystyle\\int\\frac1{x^2}\\arctan\\sqrt{x-1}\\,dx=\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\displaystyle\\frac{\\sqrt{x-1}}{2x}+\\frac{x-2}{2x}\\arctan\\sqrt{x-1}+C$"
+}

@@ -1,0 +1,23 @@
+{
+  "question_id": "26李擂八套卷-卷七-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "已知函数 $f(x)=e^x$，$x\\in[0,1]$ 的傅里叶级数为 $\\displaystyle\\sum_{n=1}^{\\infty}b_n\\sin n\\pi x$，则 $\\displaystyle\\lim_{n\\to\\infty}nb_{2n}=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{1-e}{\\pi}$",
+  "knowledge_points": [
+    "傅里叶级数"
+  ],
+  "tags": [
+    "傅里叶级数",
+    "正弦级数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "已知函数 $f(x)=e^x$，$x\\in[0,1]$ 的傅里叶级数为 $\\displaystyle\\sum_{n=1}^{\\infty}b_n\\sin n\\pi x$，则 $\\displaystyle\\lim_{n\\to\\infty}nb_{2n}=\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{1-e}{\\pi}$"
+}

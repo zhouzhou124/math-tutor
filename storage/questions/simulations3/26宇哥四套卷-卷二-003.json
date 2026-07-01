@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-003",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "反常积分",
+    "收敛性"
+  ],
+  "tags": [
+    "反常积分",
+    "收敛性",
+    "积分判别"
+  ],
+  "question": "设 $a$ 与 $b$ 都是常数，若反常积分 $\\displaystyle\\int_0^{+\\infty}\\frac{x^a(1-e^{-x})}{(1+x)^b}\\,dx$ 收敛，则 $a$ 与 $b$ 的取值范围为",
+  "options": {
+    "A": "$a<-2,\\ b>a+1$",
+    "B": "$a<-2,\\ b<a+1$",
+    "C": "$a>-2,\\ b<a+1$",
+    "D": "$a>-2,\\ b>a+1$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $a$ 与 $b$ 都是常数，若反常积分 $\\displaystyle\\int_0^{+\\infty}\\frac{x^a(1-e^{-x})}{(1+x)^b}\\,dx$ 收敛，则 $a$ 与 $b$ 的取值范围为",
+  "raw_answer_text": ""
+}

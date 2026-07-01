@@ -15,7 +15,7 @@
     "D": "$|\\rho| = |a|$"
   },
   "correct_option": "B",
-  "standard_answer": "B",
+  "standard_answer": "## 标准答案\n$\\rho = -\\dfrac{a}{|a|}$，对应选项 B。\n步骤1：由概率条件导出 $X$ 与 $Y$ 的线性关系\n由 $P\\{aX+Y=0\\}=1$ 可知，事件 $\\{aX+Y=0\\}$ 几乎必然发生，即\n$$\naX + Y = 0 \\quad \\text{a.s.}\n$$\n从而得到 $Y$ 与 $X$ 的精确线性关系：\n$$\nY = -aX \\quad \\text{a.s.}\n$$\n步骤2：计算协方差与标准差\n随机变量的相关系数定义为 $\\rho = \\dfrac{\\operatorname{Cov}(X,Y)}{\\sqrt{\\operatorname{Var}(X)}\\sqrt{\\operatorname{Var}(Y)}}$。 \n利用 $Y=-aX$ 计算：\n$$\n\\operatorname{Cov}(X,Y) = \\operatorname{Cov}(X,-aX) = -a\\operatorname{Var}(X),\n$$\n$$\n\\operatorname{Var}(Y) = \\operatorname{Var}(-aX) = a^2 \\operatorname{Var}(X),\n$$\n因此 $\\sqrt{\\operatorname{Var}(Y)} = |a|\\sqrt{\\operatorname{Var}(X)}$。\n步骤3：代入相关系数公式并化简\n将上述结果代入 $\\rho$ 的表达式：\n$$\n\\begin{aligned}\\rho \\\\\n&= \\frac{-a\\operatorname{Var}(X)}{\\sqrt{\\operatorname{Var}(X)}\\;\\cdot\\;|a|\\sqrt{\\operatorname{Var}(X)}} \\\\\n&= \\frac{-a}{|a|}\\cdot\\frac{\\operatorname{Var}(X)}{\\operatorname{Var}(X)} \\\\\n&= -\\frac{a}{|a|}.\\end{aligned}\n$$\n步骤4：选项分析（选择题）\n- A. $\\rho = 1$：仅在 $a$ 为负数且 $|a|=-a$ 时成立，并非对所有非零 $a$ 成立，错误。\n- B. $\\rho = -\\dfrac{a}{|a|}$：由推导得出，正确。\n- C. $\\rho = \\dfrac{a}{|a|}$：当 $a>0$ 时此值为 $1$，与 $-\\dfrac{a}{|a|}=-1$ 不符；当 $a<0$ 时此值为 $-1$，与 $-\\dfrac{a}{|a|}=1$ 不符，错误。\n- D. $\\rho = 0$：仅在 $a=0$ 时成立，但已知 $a$ 为非零常数，错误。\n\n## 结论\n由计算知相关系数 $\\rho = -\\dfrac{a}{|a|}$，故选 B。",
   "knowledge_points": [
     "数字特征"
   ],
@@ -24,5 +24,306 @@
   ],
   "solution_steps": [],
   "raw_question_text": "设存在非零常数 $a$ 使得 $P\\{aX + Y = 0\\} = 1$，则随机变量 $X$ 与 $Y$ 的相关系数 $\\rho$ 满足",
-  "raw_answer_text": "B"
+  "raw_answer_text": "B",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780321046",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\n$\\rho = -\\dfrac{a}{|a|}$，对应选项 B。\n步骤1：由概率条件导出 $X$ 与 $Y$ 的线性关系\n由 $P\\{aX+Y=0\\}=1$ 可知，事件 $\\{aX+Y=0\\}$ 几乎必然发生，即\n$$\naX + Y = 0 \\quad \\text{a.s.}\n$$\n从而得到 $Y$ 与 $X$ 的精确线性关系：\n$$\nY = -aX \\quad \\text{a.s.}\n$$\n步骤2：计算协方差与标准差\n随机变量的相关系数定义为 $\\rho = \\dfrac{\\operatorname{Cov}(X,Y)}{\\sqrt{\\operatorname{Var}(X)}\\sqrt{\\operatorname{Var}(Y)}}$。 \n利用 $Y=-aX$ 计算：\n$$\n\\operatorname{Cov}(X,Y) = \\operatorname{Cov}(X,-aX) = -a\\operatorname{Var}(X),\n$$\n$$\n\\operatorname{Var}(Y) = \\operatorname{Var}(-aX) = a^2 \\operatorname{Var}(X),\n$$\n因此 $\\sqrt{\\operatorname{Var}(Y)} = |a|\\sqrt{\\operatorname{Var}(X)}$。\n步骤3：代入相关系数公式并化简\n将上述结果代入 $\\rho$ 的表达式：\n$$\n\\begin{aligned}\\rho \\\\\n&= \\frac{-a\\operatorname{Var}(X)}{\\sqrt{\\operatorname{Var}(X)}\\;\\cdot\\;|a|\\sqrt{\\operatorname{Var}(X)}} \\\\\n&= \\frac{-a}{|a|}\\cdot\\frac{\\operatorname{Var}(X)}{\\operatorname{Var}(X)} \\\\\n&= -\\frac{a}{|a|}.\\end{aligned}\n$$\n步骤4：选项分析（选择题）\n- A. $\\rho = 1$：仅在 $a$ 为负数且 $|a|=-a$ 时成立，并非对所有非零 $a$ 成立，错误。\n- B. $\\rho = -\\dfrac{a}{|a|}$：由推导得出，正确。\n- C. $\\rho = \\dfrac{a}{|a|}$：当 $a>0$ 时此值为 $1$，与 $-\\dfrac{a}{|a|}=-1$ 不符；当 $a<0$ 时此值为 $-1$，与 $-\\dfrac{a}{|a|}=1$ 不符，错误。\n- D. $\\rho = 0$：仅在 $a=0$ 时成立，但已知 $a$ 为非零常数，错误。\n\n## 结论\n由计算知相关系数 $\\rho = -\\dfrac{a}{|a|}$，故选 B。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-01 21:37",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "由概率条件导出"
+              },
+              {
+                "type": "latex",
+                "content": "X"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "Y"
+              },
+              {
+                "type": "text",
+                "content": "的线性关系\n由"
+              },
+              {
+                "type": "latex",
+                "content": "P\\{aX+Y=0\\}=1"
+              },
+              {
+                "type": "text",
+                "content": "可知，事件"
+              },
+              {
+                "type": "latex",
+                "content": "\\{aX+Y=0\\}"
+              },
+              {
+                "type": "text",
+                "content": "几乎必然发生，即"
+              },
+              {
+                "type": "latex",
+                "content": "aX + Y = 0 \\quad \\text{a.s.}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "从而得到"
+              },
+              {
+                "type": "latex",
+                "content": "Y"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "X"
+              },
+              {
+                "type": "text",
+                "content": "的精确线性关系："
+              },
+              {
+                "type": "latex",
+                "content": "Y = -aX \\quad \\text{a.s.}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算协方差与标准差\n随机变量的相关系数定义为"
+              },
+              {
+                "type": "latex",
+                "content": "\\rho = \\dfrac{\\operatorname{Cov}(X,Y)}{\\sqrt{\\operatorname{Var}(X)}\\sqrt{\\operatorname{Var}(Y)}}"
+              },
+              {
+                "type": "text",
+                "content": "利用"
+              },
+              {
+                "type": "latex",
+                "content": "Y=-aX"
+              },
+              {
+                "type": "text",
+                "content": "计算："
+              },
+              {
+                "type": "latex",
+                "content": "\\operatorname{Cov}(X,Y) = \\operatorname{Cov}(X,-aX) = -a\\operatorname{Var}(X),",
+                "display": "block"
+              },
+              {
+                "type": "latex",
+                "content": "\\operatorname{Var}(Y) = \\operatorname{Var}(-aX) = a^2 \\operatorname{Var}(X),",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "\\sqrt{\\operatorname{Var}(Y)} = |a|\\sqrt{\\operatorname{Var}(X)}"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "代入相关系数公式并化简\n将上述结果代入"
+              },
+              {
+                "type": "latex",
+                "content": "\\rho"
+              },
+              {
+                "type": "text",
+                "content": "的表达式："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\rho \\\\&= \\frac{-a\\operatorname{Var}(X)}{\\sqrt{\\operatorname{Var}(X)}\\;\\cdot\\;|a|\\sqrt{\\operatorname{Var}(X)}} \\\\&= \\frac{-a}{|a|}\\cdot\\frac{\\operatorname{Var}(X)}{\\operatorname{Var}(X)} \\\\&= -\\frac{a}{|a|}.\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "选项分析（选择题）\n- A."
+              },
+              {
+                "type": "latex",
+                "content": "\\rho = 1"
+              },
+              {
+                "type": "text",
+                "content": "仅在"
+              },
+              {
+                "type": "latex",
+                "content": "a"
+              },
+              {
+                "type": "text",
+                "content": "为负数且"
+              },
+              {
+                "type": "latex",
+                "content": "|a|=-a"
+              },
+              {
+                "type": "text",
+                "content": "时成立，并非对所有非零"
+              },
+              {
+                "type": "latex",
+                "content": "a"
+              },
+              {
+                "type": "text",
+                "content": "成立，错误。\n- B."
+              },
+              {
+                "type": "latex",
+                "content": "\\rho = -\\dfrac{a}{|a|}"
+              },
+              {
+                "type": "text",
+                "content": "由推导得出，正确。\n- C."
+              },
+              {
+                "type": "latex",
+                "content": "\\rho = \\dfrac{a}{|a|}"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "a>0"
+              },
+              {
+                "type": "text",
+                "content": "时此值为"
+              },
+              {
+                "type": "latex",
+                "content": "1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "-\\dfrac{a}{|a|}=-1"
+              },
+              {
+                "type": "text",
+                "content": "不符；当"
+              },
+              {
+                "type": "latex",
+                "content": "a<0"
+              },
+              {
+                "type": "text",
+                "content": "时此值为"
+              },
+              {
+                "type": "latex",
+                "content": "-1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "-\\dfrac{a}{|a|}=1"
+              },
+              {
+                "type": "text",
+                "content": "不符，错误。\n- D."
+              },
+              {
+                "type": "latex",
+                "content": "\\rho = 0"
+              },
+              {
+                "type": "text",
+                "content": "仅在"
+              },
+              {
+                "type": "latex",
+                "content": "a=0"
+              },
+              {
+                "type": "text",
+                "content": "时成立，但已知"
+              },
+              {
+                "type": "latex",
+                "content": "a"
+              },
+              {
+                "type": "text",
+                "content": "为非零常数，错误。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-01 21:37",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

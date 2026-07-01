@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-016",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率",
+    "独立性"
+  ],
+  "tags": [
+    "条件概率",
+    "独立性",
+    "概率计算"
+  ],
+  "question": "设事件 $A,B,C$ 相互独立，$P(A)=\\frac12$，$P(B)=P(C)=\\frac34$，则 $P(A\\cup C\\mid A\\cup B)=$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle \\frac{25}{28}$",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设事件 $A,B,C$ 相互独立，$P(A)=\\frac12$，$P(B)=P(C)=\\frac34$，则 $P(A\\cup C\\mid A\\cup B)=$",
+  "raw_answer_text": "$\\displaystyle \\frac{25}{28}$"
+}

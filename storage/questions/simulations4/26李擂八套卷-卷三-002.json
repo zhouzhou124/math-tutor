@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "可导性",
+    "极限"
+  ],
+  "tags": [
+    "可导性",
+    "极限",
+    "导数定义"
+  ],
+  "question": "设函数 $f(x)$ 在 $x=1$ 的某邻域内有定义，且 $\\displaystyle\\lim_{x\\to0}f(\\frac{\\ln(1+x)}{x})=0$，则",
+  "options": {
+    "A": "若 $\\displaystyle\\lim_{x\\to1}\\frac{f(x^2)}{x^2-1}$ 存在，则 $f(x)$ 在 $x=1$ 处可导",
+    "B": "若 $f(x)$ 在 $x=1$ 处可导，则 $\\displaystyle\\lim_{x\\to1}\\frac{f(x^2)}{x^3-1}$ 存在",
+    "C": "若 $\\displaystyle\\lim_{x\\to1^+}f'(x)$ 与 $\\displaystyle\\lim_{x\\to1^-}f'(x)$ 均存在且相等，则 $f(x)$ 在 $x=1$ 处可导",
+    "D": "若 $f(x)$ 在 $x=1$ 处可导，则 $\\displaystyle\\lim_{x\\to1^+}f'(x)$ 与 $\\displaystyle\\lim_{x\\to1^-}f'(x)$ 均存在且相等"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)$ 在 $x=1$ 的某邻域内有定义，且 $\\displaystyle\\lim_{x\\to0}f(\\frac{\\ln(1+x)}{x})=0$，则",
+  "raw_answer_text": "B"
+}

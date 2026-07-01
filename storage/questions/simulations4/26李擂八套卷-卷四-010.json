@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷四-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "简单",
+  "knowledge_points": [
+    "假设检验",
+    "两类错误"
+  ],
+  "tags": [
+    "假设检验",
+    "两类错误",
+    "检验水平"
+  ],
+  "question": "假设检验的检验水平 $\\alpha$ 和两类错误的关系，下列说法正确的是",
+  "options": {
+    "A": "减小 $\\alpha$，犯第一类错误和第二类错误的概率都升高",
+    "B": "减小 $\\alpha$，犯第一类错误和第二类错误的概率都降低",
+    "C": "减小 $\\alpha$，犯第一类错误的概率升高，犯第二类错误的概率降低",
+    "D": "减小 $\\alpha$，犯第一类错误的概率降低，犯第二类错误的概率升高"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "假设检验的检验水平 $\\alpha$ 和两类错误的关系，下列说法正确的是",
+  "raw_answer_text": "D"
+}

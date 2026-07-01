@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $A$ 为 $n$ 阶矩阵，则下列说法中错误的有$(\\quad)$ 个\n\n① $AA^T$ 与 $A^TA$ 的特征值相同；\n② 设 $\\alpha$ 为 $A$ 属于特征值 $\\lambda_1$ 的特征向量，$\\beta$ 为 $A$ 属于特征值 $\\lambda_2$ 的特征向量，若 $\\lambda_1\\ne\\lambda_2$，则 $\\alpha$ 与 $\\beta$ 正交；\n③ $AA^T$ 与 $A^TA$ 的特征向量相同。",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "C",
+  "standard_answer": "C. 2个",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "正交"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "正交",
+    "矩阵运算"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为 $n$ 阶矩阵，则下列说法中错误的有$(\\quad)$ 个\n\n① $AA^T$ 与 $A^TA$ 的特征值相同；\n② 设 $\\alpha$ 为 $A$ 属于特征值 $\\lambda_1$ 的特征向量，$\\beta$ 为 $A$ 属于特征值 $\\lambda_2$ 的特征向量，若 $\\lambda_1\\ne\\lambda_2$，则 $\\alpha$ 与 $\\beta$ 正交；\n③ $AA^T$ 与 $A^TA$ 的特征向量相同。",
+  "raw_answer_text": "C. 2个"
+}

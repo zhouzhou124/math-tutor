@@ -1,0 +1,24 @@
+{
+  "question_id": "26李擂八套卷-卷六-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $\\alpha_1=(2,3,a)^T,\\ \\alpha_2=(1,-2,4)^T,\\ \\alpha_3=(3,1,2a+3)^T,\\ \\alpha_4=(a,1-a,a+2)^T$，已知三维列向量 $\\beta$ 与 $\\alpha_1,\\alpha_2,\\alpha_3$ 均正交，且 $\\beta^T\\alpha_4=1$，则 $\\beta=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$(-2,1,1)^T$",
+  "knowledge_points": [
+    "向量组与线性空间",
+    "正交"
+  ],
+  "tags": [
+    "向量组与线性空间",
+    "正交"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1=(2,3,a)^T,\\ \\alpha_2=(1,-2,4)^T,\\ \\alpha_3=(3,1,2a+3)^T,\\ \\alpha_4=(a,1-a,a+2)^T$，已知三维列向量 $\\beta$ 与 $\\alpha_1,\\alpha_2,\\alpha_3$ 均正交，且 $\\beta^T\\alpha_4=1$，则 $\\beta=\\underline{\\qquad}$.",
+  "raw_answer_text": "$(-2,1,1)^T$"
+}

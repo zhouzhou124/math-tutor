@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-002",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数求导",
+    "偏导数"
+  ],
+  "tags": [
+    "隐函数求导",
+    "偏导数",
+    "积分上限函数"
+  ],
+  "question": "设 $z=z(x,y)$ 是由方程 $\\displaystyle\\int_{2x-3y}^{z}f(2x-3y+z-t)\\,dt=\\sin(2x-3y+z)$ 所确定的函数，其中 $f$ 为大于 $1$ 的连续函数，则",
+  "options": {
+    "A": "$3\\frac{\\partial z}{\\partial x}+2\\frac{\\partial z}{\\partial y}=0$",
+    "B": "$3\\frac{\\partial z}{\\partial x}-2\\frac{\\partial z}{\\partial y}=0$",
+    "C": "$2\\frac{\\partial z}{\\partial x}+3\\frac{\\partial z}{\\partial y}=0$",
+    "D": "$2\\frac{\\partial z}{\\partial x}-3\\frac{\\partial z}{\\partial y}=0$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $z=z(x,y)$ 是由方程 $\\displaystyle\\int_{2x-3y}^{z}f(2x-3y+z-t)\\,dt=\\sin(2x-3y+z)$ 所确定的函数，其中 $f$ 为大于 $1$ 的连续函数，则",
+  "raw_answer_text": ""
+}

@@ -7,6 +7,42 @@ eliminating the fragile regex-parse-markdown step.
 
 from prompts.system_prompts import CORE_MATH_SEMANTIC_PROMPT, _SAFE_BASE
 
+QUESTION_TYPE_SOLUTION_VIEW_RULES = r"""
+# 题型化标准答案展示建议
+
+选择题：输出 answer、core_reason、calculation_steps、option_analysis、conclusion；不要长篇步骤化，不要 raw LaTeX。
+填空题：输出 answer、calculation_steps、answer_form_note、conclusion；重点说明等价形式。
+解答题：输出 steps，每步包含 goal/reason/blocks/conclusion；短公式写 inline，成组公式用 equation_group。
+证明题：输出 proof_goal、known_conditions、proof_steps、conclusion；强调逻辑关系。
+
+标准答案展示格式：
+1. text block 只能写中文解释和 inline math \( ... \)，不要混入 display 公式。
+2. display formula 必须单独放 latex_display / block latex，不要把中文句子放进公式。
+3. 不要输出孤立的 A=、C=、y=、I_1=、I_2=，必须与后续公式在同一块。
+4. 积分微分必须写 dx\,dy 或 \,dx\,dy，不要写 dxdy、dx dy。
+5. 变量下标必须写 X_{{10}}，不要写 X_\{{10\}} 或 X_[10]。
+6. 无穷必须写 \infty，不要写 \infy 或 \lnfty。
+7. 极限必须写 \lim_{{x\to0}}，不要写 \lim_x\to0。
+8. goal 不得与步骤 label 同义重复（label 已是「步骤N：…」时，goal 写具体操作，不要复读标题）。
+9. reason 只写文字依据；display 公式放 blocks，禁止在 reason 内写「关键变形为」或 \\begin{cases}。
+10. conclusion 只写本步短结论；若 blocks 已含该公式，conclusion 留空或只写一句中文，不要重复 display。
+11. 短结论公式写在 conclusion 内时，不要再单独重复 latex_display。
+12. final_answer 只写最终答案，不要包含完整过程。
+13. text 中数学表达必须写 \( ... \)，不要输出裸 X_i、u_n、p=...、\dfrac。
+14. cases 每行只用 \\ 换行，不要使用 [2mm]、\\[2mm] 或其他行距残片。
+15. 选择题必须分开输出 core_reason、calculation_steps、option_analysis、conclusion，不要把步骤和选项分析混在一个字段里。
+16. 选择题必须输出 answer、core_reason、calculation_steps、option_analysis、conclusion；option_analysis 必须是数组或按 A/B/C/D 分开的对象，conclusion 只写“故选 X”。
+17. 填空题必须输出 answer、key_conditions、calculation_steps、answer_form_note、conclusion；answer 只写最终填空答案，不要塞完整解析，等价形式写入 answer_form_note。
+18. text 块中禁止出现裸 TeX 命令：不能写 frac、int、lim、ln、sin、cos、Rightarrow 等不带反斜杠的命令名。必须写成 \\( \\frac{...}{...} \\) 或放入 latex_display 块。
+19. text 块中禁止出现 \\begin、\\end、\\left、\\right 等环境标记，这些必须放在 latex_display 块中。
+20. 不要使用 @@MATH\\d+@@ 占位符，直接输出完整公式。
+21. 微分符号 dx、dy、dt 必须紧跟积分号或用 \\, 间距，不要写成 dxdy 连在一起。
+22. text 块中的短公式必须用 \\( ... \\) 包裹，不要输出裸 \\frac{1}{2} 或裸 x^2。
+23. 公式必须放入 latex_display / equation_group / derivation_chain，不要把"中间公式：f(x)=..."塞进 text block。
+24. 禁止输出 int_0^1，必须写 \\int_0^1；禁止输出 frac{...}{...}，必须写 \\frac{...}{...}；禁止输出 Rightarrow，必须写 \\Rightarrow。
+25. final_answer 只写最终结果，不重复推导过程。
+"""
+
 _STRUCTURED_SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + r"""
 # 当前任务：生成标准解答（结构化 JSON 输出）
 
@@ -101,7 +137,9 @@ _STRUCTURED_SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + r"""
 21. **事件集合用花括号**：写成 \\{X\\le a,\\ Y\\le b\\}，不要用裸 { 和分号
 22. **CDF/PDF 推导必须用 aligned**：多步推导写成 \\begin{aligned} F_Y(y) &= ... \\\\ &= ... \\end{aligned}
 23. **不要在公式中留空 !**：`!(` 应写成 `(`，不要用 `!` 作为空格或占位符
-"""
+24. **方程组用 cases，不要用 aligned 堆多个未知量**：如 f_x=... 与 f_y=... 必须写 \\begin{cases} f_x=... \\\\ f_y=... \\end{cases}，禁止在同一 aligned 行写 ``f_y \\ &=``。
+25. **禁止在 aligned/cases 内插入 $ 或 \\$**：display 块内不要出现美元符号。
+""" + QUESTION_TYPE_SOLUTION_VIEW_RULES
 
 _CANONICAL_SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + r"""
 # 当前任务：生成规范解答（CanonicalIR 格式）
@@ -188,7 +226,7 @@ _CANONICAL_SOLVER_PROMPT = CORE_MATH_SEMANTIC_PROMPT + r"""
 6. justification 必须实质性地解释推理依据，不要写"显然""易得"
 7. 不要添加未列出的字段（会被自动丢弃）
 8. **严禁在 output_state / input_state 中出现 $ 符号**（这些字段会被 st.latex() 渲染，已自动处于数学模式。$ 会导致嵌套崩溃）
-"""
+""" + QUESTION_TYPE_SOLUTION_VIEW_RULES
 
 _STRUCTURED_GRADING_PROMPT = _SAFE_BASE + r"""
 # Current task: grading (structured JSON)

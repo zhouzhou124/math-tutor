@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷六-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "下列矩阵中不可相似对角化的是$(\\quad)$",
+  "options": {
+    "A": "$\\begin{pmatrix} -1&\\frac1a&2\\\\ -a&2&a\\\\ -5&\\frac1a&6 \\end{pmatrix}$",
+    "B": "$\\begin{pmatrix} 2&-a&1\\\\ 1&1-a&1\\\\ a&a-a^2&a+2 \\end{pmatrix}$",
+    "C": "$\\begin{pmatrix} 3&a&2\\\\ a&5&b+2\\\\ 2&b+2&-2 \\end{pmatrix}$",
+    "D": "$\\begin{pmatrix} -2&1&1-a\\\\ -6a&1+2a&2a-2a^2\\\\ -6&2&3-2a \\end{pmatrix}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "特征值与特征向量",
+    "相似对角化"
+  ],
+  "tags": [
+    "特征值与特征向量",
+    "相似对角化"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "下列矩阵中不可相似对角化的是$(\\quad)$",
+  "raw_answer_text": "D"
+}

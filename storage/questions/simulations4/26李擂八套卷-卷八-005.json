@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵秩",
+    "伴随矩阵"
+  ],
+  "tags": [
+    "矩阵秩",
+    "伴随矩阵"
+  ],
+  "question": "设 $A,B$ 均为 $n$ 阶矩阵，$r(AB)<r(BA)$，则",
+  "options": {
+    "A": "$AB^*=O$",
+    "B": "$B^*A=O$",
+    "C": "$AB^*\\ne O$",
+    "D": "$B^*A\\ne O$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C。按题面条件四个选项不能唯一推出；若补充 $r(B)=n-1$，则可推出 $AB^*\\ne O$，对应 C。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B$ 均为 $n$ 阶矩阵，$r(AB)<r(BA)$，则",
+  "raw_answer_text": "C。按题面条件四个选项不能唯一推出；若补充 $r(B)=n-1$，则可推出 $AB^*\\ne O$，对应 C。"
+}

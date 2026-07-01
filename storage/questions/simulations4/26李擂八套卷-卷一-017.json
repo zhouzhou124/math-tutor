@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方程组",
+    "多元函数"
+  ],
+  "tags": [
+    "方程组",
+    "多元函数",
+    "非线性方程组"
+  ],
+  "question": "求出方程组 $\\begin{cases} e^{z-2}-2(x+y)+5=0,\\\\ 2x^2+y^2=z+4,\\\\ x+y-z=1 \\end{cases}$ 的所有解。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "由 $x+y-z=1$ 得 $x+y=z+1$。第一式化为 $e^{z-2}-2z+3=0$。又由 $2x^2+y^2=z+4$，$x+y=z+1$，实数解存在要求 $2z^2+z-10\\le0$，即 $z\\le2$。当 $z\\le2$ 时，$e^{z-2}-2z+3$ 单调递减，且在 $z=2$ 处为 $0$，故 $z=2$。此时 $x+y=3$，$2x^2+y^2=6$，解得 $x=1$，$y=2$。所以方程组的所有解为 $(x,y,z)=(1,2,2)$。",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "求出方程组 $\\begin{cases} e^{z-2}-2(x+y)+5=0,\\\\ 2x^2+y^2=z+4,\\\\ x+y-z=1 \\end{cases}$ 的所有解。",
+  "raw_answer_text": "由 $x+y-z=1$ 得 $x+y=z+1$。第一式化为 $e^{z-2}-2z+3=0$。又由 $2x^2+y^2=z+4$，$x+y=z+1$，实数解存在要求 $2z^2+z-10\\le0$，即 $z\\le2$。当 $z\\le2$ 时，$e^{z-2}-2z+3$ 单调递减，且在 $z=2$ 处为 $0$，故 $z=2$。此时 $x+y=3$，$2x^2+y^2=6$，解得 $x=1$，$y=2$。所以方程组的所有解为 $(x,y,z)=(1,2,2)$。"
+}

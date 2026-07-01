@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "正交向量",
+    "代数余子式"
+  ],
+  "tags": [
+    "正交向量",
+    "代数余子式",
+    "矩阵运算"
+  ],
+  "question": "设 $3$ 维列向量组 $\\alpha,\\beta,\\gamma$ 为一个正交向量组，满足 $\\alpha^T\\alpha=1$，$\\beta^T\\beta=2$，$\\gamma^T\\gamma=4$，设 $A=\\alpha\\beta^T+\\beta\\gamma^T+\\gamma\\alpha^T$，令 $A_{ij}$ 为矩阵 $A$ 中第 $i$ 行、第 $j$ 列元素的代数余子式，则 $A_{11}+A_{22}+A_{33}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$0$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $3$ 维列向量组 $\\alpha,\\beta,\\gamma$ 为一个正交向量组，满足 $\\alpha^T\\alpha=1$，$\\beta^T\\beta=2$，$\\gamma^T\\gamma=4$，设 $A=\\alpha\\beta^T+\\beta\\gamma^T+\\gamma\\alpha^T$，令 $A_{ij}$ 为矩阵 $A$ 中第 $i$ 行、第 $j$ 列元素的代数余子式，则 $A_{11}+A_{22}+A_{33}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$0$"
+}

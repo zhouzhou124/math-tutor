@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二项分布",
+    "概率近似"
+  ],
+  "tags": [
+    "二项分布",
+    "概率近似"
+  ],
+  "question": "某工厂生产的一批产品由 $400$ 件一等品和 $800$ 件二等品组成，现从中随机抽取 $5$ 件，用二项分布近似估计可以得到至少抽到两件一等品的概率约为",
+  "options": {
+    "A": "$\\displaystyle\\frac{131}{243}$",
+    "B": "$\\displaystyle\\frac{125}{243}$",
+    "C": "$\\displaystyle\\frac{119}{243}$",
+    "D": "$\\displaystyle\\frac{113}{243}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "某工厂生产的一批产品由 $400$ 件一等品和 $800$ 件二等品组成，现从中随机抽取 $5$ 件，用二项分布近似估计可以得到至少抽到两件一等品的概率约为",
+  "raw_answer_text": "A"
+}

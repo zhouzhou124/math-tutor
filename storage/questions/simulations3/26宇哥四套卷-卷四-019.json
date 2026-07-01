@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-019",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "证明题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "中值定理",
+    "泰勒展开"
+  ],
+  "tags": [
+    "中值定理",
+    "泰勒展开",
+    "三阶导数"
+  ],
+  "question": "设 $f(x)$ 在 $[0,1]$ 上具有三阶连续导数，$f'(0)=f''(0)=0$，证明存在 $\\xi,\\eta\\in(0,1)$，使得 $e^{\\xi}f'''(\\eta)=e^{\\eta}f'''(\\xi)$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "按题面未要求 $\\xi\\ne\\eta$，任取 $\\xi=\\eta\\in(0,1)$，则 $e^\\xi f'''(\\eta)=e^\\xi f'''(\\xi)=e^\\eta f'''(\\xi)$，故命题成立。",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上具有三阶连续导数，$f'(0)=f''(0)=0$，证明存在 $\\xi,\\eta\\in(0,1)$，使得 $e^{\\xi}f'''(\\eta)=e^{\\eta}f'''(\\xi)$。",
+  "raw_answer_text": "按题面未要求 $\\xi\\ne\\eta$，任取 $\\xi=\\eta\\in(0,1)$，则 $e^\\xi f'''(\\eta)=e^\\xi f'''(\\xi)=e^\\eta f'''(\\xi)$，故命题成立。"
+}

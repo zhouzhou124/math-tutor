@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "函数项级数",
+    "和函数",
+    "泰勒展开"
+  ],
+  "tags": [
+    "函数项级数",
+    "和函数",
+    "泰勒展开"
+  ],
+  "question": "函数项级数 $\\displaystyle\\sum_{n=0}^{\\infty}\\frac{(2n+1)x^n}{(2n)!}$ 在 $(0,+\\infty)$ 上的和函数为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\cosh\\sqrt{x}+\\sqrt{x}\\sinh\\sqrt{x}$",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "函数项级数 $\\displaystyle\\sum_{n=0}^{\\infty}\\frac{(2n+1)x^n}{(2n)!}$ 在 $(0,+\\infty)$ 上的和函数为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\cosh\\sqrt{x}+\\sqrt{x}\\sinh\\sqrt{x}$"
+}

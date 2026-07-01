@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷一-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵秩",
+    "分块矩阵"
+  ],
+  "tags": [
+    "矩阵秩",
+    "分块矩阵",
+    "初等变换"
+  ],
+  "question": "设 $A,B$ 均为 $n$ 阶矩阵，则下列等式不一定成立的是 \n$(A)$ $r\\begin{pmatrix}E&B\\\\ A&O\\end{pmatrix}=r\\begin{pmatrix}E&B\\\\ A&3AB\\end{pmatrix}$ $(B)$ $r\\begin{pmatrix}E&A\\\\ B&O\\end{pmatrix}=r\\begin{pmatrix}A&O\\\\ E&B\\end{pmatrix}$ $(C)$ $r\\begin{pmatrix}O&B\\\\ A&E\\end{pmatrix}=r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}$ $(D)$ $r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}=r\\begin{pmatrix}E&A\\\\ B&-BA\\end{pmatrix}$",
+  "options": {
+    "A": "$r\\begin{pmatrix}E&B\\\\ A&O\\end{pmatrix}=r\\begin{pmatrix}E&B\\\\ A&3AB\\end{pmatrix}$ $(B)$ $r\\begin{pmatrix}E&A\\\\ B&O\\end{pmatrix}=r\\begin{pmatrix}A&O\\\\ E&B\\end{pmatrix}$ $(C)$ $r\\begin{pmatrix}O&B\\\\ A&E\\end{pmatrix}=r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}$ $(D)$ $r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}=r\\begin{pmatrix}E&A\\\\ B&-BA\\end{pmatrix}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B$ 均为 $n$ 阶矩阵，则下列等式不一定成立的是 \n$(A)$ $r\\begin{pmatrix}E&B\\\\ A&O\\end{pmatrix}=r\\begin{pmatrix}E&B\\\\ A&3AB\\end{pmatrix}$ $(B)$ $r\\begin{pmatrix}E&A\\\\ B&O\\end{pmatrix}=r\\begin{pmatrix}A&O\\\\ E&B\\end{pmatrix}$ $(C)$ $r\\begin{pmatrix}O&B\\\\ A&E\\end{pmatrix}=r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}$ $(D)$ $r\\begin{pmatrix}A&E\\\\ O&B\\end{pmatrix}=r\\begin{pmatrix}E&A\\\\ B&-BA\\end{pmatrix}$",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $X$ 服从指数分布 $E(1)$，当 $X=x$ 时 $(x>0)$，$Y$ 的条件概率密度为 $f_{Y|X}(y|x)=\\begin{cases}\\displaystyle\\frac{2y}{x^2},&0<y<x,\\\\ 0,&\\text{其他},\\end{cases}$ 则 $X$ 和 $Y$ 的相关系数 $\\rho_{XY}=(\\quad)$",
+  "options": {
+    "A": "$-\\frac1{\\sqrt5}$",
+    "B": "$\\frac1{\\sqrt5}$",
+    "C": "$-\\frac2{\\sqrt5}$",
+    "D": "$\\frac2{\\sqrt5}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "数字特征"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "指数分布",
+    "相关系数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $X$ 服从指数分布 $E(1)$，当 $X=x$ 时 $(x>0)$，$Y$ 的条件概率密度为 $f_{Y|X}(y|x)=\\begin{cases}\\displaystyle\\frac{2y}{x^2},&0<y<x,\\\\ 0,&\\text{其他},\\end{cases}$ 则 $X$ 和 $Y$ 的相关系数 $\\rho_{XY}=(\\quad)$",
+  "raw_answer_text": "D"
+}

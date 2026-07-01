@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率",
+    "独立事件"
+  ],
+  "tags": [
+    "条件概率",
+    "独立事件"
+  ],
+  "question": "设随机事件 $A,B,C$ 两两独立，$ABC=\\varnothing$，$P(A)=P(B)=\\frac12$，$P(C)=\\frac13$，则 $P(\\overline A\\cup B\\mid C)=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac12$",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机事件 $A,B,C$ 两两独立，$ABC=\\varnothing$，$P(A)=P(B)=\\frac12$，$P(C)=\\frac13$，则 $P(\\overline A\\cup B\\mid C)=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\displaystyle\\frac12$"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-001",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "间断点",
+    "极限"
+  ],
+  "tags": [
+    "间断点",
+    "极限",
+    "连续性"
+  ],
+  "question": "函数 $f(x)=\\frac{(e^{\\frac{1}{x-1}}-1)|x|}{(x+1)\\ln|x-1|}$ 的第一类间断点的个数为",
+  "options": {
+    "A": "$0$",
+    "B": "$1$",
+    "C": "$2$",
+    "D": "$3$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "函数 $f(x)=\\frac{(e^{\\frac{1}{x-1}}-1)|x|}{(x+1)\\ln|x-1|}$ 的第一类间断点的个数为",
+  "raw_answer_text": ""
+}

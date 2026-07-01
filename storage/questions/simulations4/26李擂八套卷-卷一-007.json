@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷一-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "相似对角化",
+    "特征值"
+  ],
+  "tags": [
+    "相似对角化",
+    "特征值",
+    "必要条件"
+  ],
+  "question": "设 $A$ 为 $n$ 阶矩阵，则下列是矩阵 $A$ 可相似对角化的必要条件的有多少个？① $r(A)=r(A^3)$；② 设 $f(x)=|xE-A|$，若 $f(0)=f'(0)=0$，则 $r(A)<n-2$；③ 对任意的实数 $a$，$A^2-aA+E$ 都可相似对角化；④ 若 $A^2-A\\ne O$，则对任意两个正整数 $m,k$，都有 $A^m(A-E)^k\\ne O$。",
+  "options": {
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C. $3$ 个",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为 $n$ 阶矩阵，则下列是矩阵 $A$ 可相似对角化的必要条件的有多少个？① $r(A)=r(A^3)$；② 设 $f(x)=|xE-A|$，若 $f(0)=f'(0)=0$，则 $r(A)<n-2$；③ 对任意的实数 $a$，$A^2-aA+E$ 都可相似对角化；④ 若 $A^2-A\\ne O$，则对任意两个正整数 $m,k$，都有 $A^m(A-E)^k\\ne O$。",
+  "raw_answer_text": "C. $3$ 个"
+}

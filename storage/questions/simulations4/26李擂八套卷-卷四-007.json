@@ -1,0 +1,35 @@
+{
+  "question_id": "26李擂八套卷-卷四-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "相似对角化",
+    "秩",
+    "特征值"
+  ],
+  "tags": [
+    "相似对角化",
+    "秩",
+    "特征值",
+    "零化多项式"
+  ],
+  "question": "设 $3$ 阶矩阵 $A$ 满足 $A(A-E)(A-2E)=O$，则下列说法中正确的有几个",
+  "options": {
+    "A": "$4$",
+    "B": "$3$",
+    "C": "$2$",
+    "D": "$1$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $3$ 阶矩阵 $A$ 满足 $A(A-E)(A-2E)=O$，则下列说法中正确的有几个",
+  "raw_answer_text": "A"
+}

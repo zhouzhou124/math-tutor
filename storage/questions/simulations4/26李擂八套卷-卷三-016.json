@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "数学期望",
+    "概率密度"
+  ],
+  "tags": [
+    "数学期望",
+    "概率密度",
+    "取整函数"
+  ],
+  "question": "设随机变量 $X$ 的概率密度为 $f(x)=\\begin{cases} e^{-x},&x\\ge0,\\\\ 0,&x<0, \\end{cases}$ $Y=X-[X]$，其中 $[X]$ 表示不超过 $X$ 的最大整数，则 $E(Y)=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac{e-2}{e-1}$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 的概率密度为 $f(x)=\\begin{cases} e^{-x},&x\\ge0,\\\\ 0,&x<0, \\end{cases}$ $Y=X-[X]$，其中 $[X]$ 表示不超过 $X$ 的最大整数，则 $E(Y)=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac{e-2}{e-1}$"
+}

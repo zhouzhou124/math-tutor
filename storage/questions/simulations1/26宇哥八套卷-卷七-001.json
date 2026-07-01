@@ -15,7 +15,7 @@
     "D": "$x=0$ 不是 $y=f(x)$ 的渐近线"
   },
   "correct_option": "C",
-  "standard_answer": "## 题目重述\n设函数 $f(x) = |\\ln|x||$，给出下列四个选项：\nA. $x=1$ 是 $f(x)$ 的驻点\nB. $x=-1$ 是 $f(x)$ 的驻点\nC. $x=-1$ 不是 $f(x)$ 的驻点\nD. $x=\\mathrm{e}$ 是 $f(x)$ 的驻点\n试判断正确选项。\n\n## 标准答案\n正确选项为 C，即 $x=-1$ 不是 $f(x)$ 的驻点。\n步骤1：写出函数的分段表达式并明确定义域\n$$\n由 $f(x)=|\\ln|x||$，其定义域为 $x \\neq 0$。\n$$\n去掉绝对值，由对数函数的符号可得：\n- 当 $|x|>1$ 时，$\\ln|x|>0$，故 $f(x)=\\ln|x|$；\n- 当 $0<|x|<1$ 时，$\\ln|x|<0$，故 $f(x)=-\\ln|x|$；\n- 当 $|x|=1$ 时，$f(x)=0$。 \n\n函数的驻点是指：函数在该点可导，且导数值等于 $0$。因此，要判断一个点是否为驻点，应先考察其可导性，再考察导数是否为零。\n步骤2：重点分析 $x=-1$ 处的状况（验证选项 C）\n**$x=-1$ 附近的表达式：**\n- 当 $x<-1$（即 $|x|>1$ 且 $x<0$）时，$f(x)=\\ln(-x)$，此时 $f'(x)=\\dfrac{1}{x}$；\n- 当 $-1<x<0$（即 $0<|x|<1$ 且 $x<0$）时，$f(x)=-\\ln(-x)$，此时 $f'(x)=-\\dfrac{1}{x}$。\n\n**考察左右导数：**\n$$\nf'_{-}(-1)=\\lim_{x\\to -1^{-}}f'(x)=\\lim_{x\\to -1^{-}}\\frac{1}{x}=-1,\n$$\n$$\nf'_{+}(-1)=\\lim_{x\\to -1^{+}}f'(x)=\\lim_{x\\to -1^{+}}\\left(-\\frac{1}{x}\\right)=-\\frac{1}{-1}=1.\n$$\n$$\n左、右导数不相等（$-1 \\neq 1$），故 $f(x)$ 在 $x=-1$ 处不可导。\n$$\n由于驻点必须是可导且导数为零的点，因此 **$x=-1$ 不是 $f(x)$ 的驻点**。这直接说明选项 C 正确，同时选项 B 错误。\n步骤3：逐项分析其余选项，完成排除\n**分析选项 A（$x=1$）：** \n类似地，$x=1$ 附近：\n- 当 $x>1$ 时，$f(x)=\\ln x$，$f'(x)=\\dfrac{1}{x}$，$f'(1^{+})=1$；\n- 当 $0<x<1$ 时，$f(x)=-\\ln x$，$f'(x)=-\\dfrac{1}{x}$，$f'(1^{-})=-1$。 \n左右导数不相等，$x=1$ 处不可导，因此 $x=1$ 不是驻点。选项 A 错误。\n\n**分析选项 D（$x=\\mathrm{e}$）：** \n因为 $\\mathrm{e}>1$，此时 $|x|>1$，$f(x)=\\ln x$，在该点邻域内可导，且\n$$\nf'(x)=\\frac{1}{x},\\quad f'(\\mathrm{e})=\\frac{1}{\\mathrm{e}}\\neq 0.\n$$\n导数不为零，故 $x=\\mathrm{e}$ 也不是驻点。选项 D 错误。\n\n综上，只有选项 C 成立。\n\n## 结论\n故选 C。\n\n## 关键知识点\n- 绝对值函数 $|g(x)|$ 的导数与分段讨论\n- 驻点的定义：函数可导且导数为零的点\n- 不可导点一定不是驻点\n\n## 易错提示\n- 忽略定义域：$x=0$ 不在定义域内，但选项常涉及 $x=\\pm 1$ 等，需注意 $\\ln|x|$ 在 $x=0$ 无定义\n- 误将 $\\ln|x|$ 的零点 $x=\\pm 1$ 当作驻点，实际上这些点由于绝对值作用导致不可导，不满足驻点条件\n$$\n- 对 $x=\\mathrm{e}$ 忘记求导，或误以为 $f'(\\mathrm{e})=0$，实际上 $\\frac{1}{\\mathrm{e}}\\neq 0$\n$$",
+  "standard_answer": "步骤1：写出函数的分段表达式并确定定义域\n\n函数为 $f(x)=|\\ln|x||$。由于含有 $\\ln|x|$，要求 $|x|>0$，故定义域为 $x \\neq 0$。 \n去掉绝对值的层次： \n- 当 $x>0$ 时，$f(x)=|\\ln x|$； \n- 当 $x<0$ 时，$f(x)=|\\ln(-x)|$。 \n\n可见函数在 $x=0$ 处无定义，不可能是驻点，直接排除涉及 $x=0$ 的选项（若有）。\n\n---\n步骤2：讨论 $x=1$ 处的可导性，判断 $x=1$ 是否为驻点\n\n在 $x=1$ 附近，$x>0$，故 $f(x)=|\\ln x|$。 \n由于 $\\ln 1=0$，需分左右讨论 $|\\ln x|$ 的表达式： \n- 当 $0<x<1$ 时，$\\ln x<0$，故 $f(x)=-\\ln x$； \n- 当 $x>1$ 时，$\\ln x>0$，故 $f(x)=\\ln x$。 \n\n计算左、右导数： \n\n左导数（$x \\to 1^-$）： \n$$\nf'_-(1)=\\lim_{x\\to 1^-}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^-}\\frac{-\\ln x-0}{x-1}.\n$$\n利用等价无穷小或导数定义：$(-\\ln x)'=-\\frac{1}{x}$，在 $x=1$ 处极限为 $-1$，故 $f'_-(1)=-1$。 \n\n右导数（$x \\to 1^+$）： \n$$\nf'_+(1)=\\lim_{x\\to 1^+}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^+}\\frac{\\ln x-0}{x-1}=(\\ln x)'\\big|_{x=1}=1.\n$$\n左、右导数不相等（$-1 \\neq 1$），因此 $f(x)$ 在 $x=1$ 处不可导。 \n驻点要求函数在该点可导且导数为零，故 $x=1$ 不是 $f(x)$ 的驻点。 \n由此，选项“$x=1$ 是驻点”错误。\n\n---\n步骤3：讨论 $x=-1$ 处的可导性，判断 $x=-1$ 是否为驻点\n\n在 $x=-1$ 附近，$x<0$，故 $f(x)=|\\ln(-x)|$。 \n由于 $\\ln 1=0$，同样需分左右： \n- 当 $x<-1$（即 $-x>1$）时，$\\ln(-x)>0$，故 $f(x)=\\ln(-x)$； \n- 当 $-1<x<0$（即 $0<-x<1$）时，$\\ln(-x)<0$，故 $f(x)=-\\ln(-x)$。 \n\n计算左、右导数： \n\n左导数（$x \\to -1^-$，此时 $x<-1$，$f(x)=\\ln(-x)$）： \n$$\nf'_-(-1)=\\lim_{x\\to -1^-}\\frac{\\ln(-x)-0}{x-(-1)}.\n$$\n由导数公式 $\\frac{d}{\\mathrm{d}x}\\ln(-x)=\\frac{1}{-x}\\cdot(-1)=\\frac{1}{x}$，当 $x \\to -1^-$ 时，$\\frac{1}{x}\\to -1$。 \n也可用导数定义极限得到 $-1$，故 $f'_-(-1)=-1$。\n\n右导数（$x \\to -1^+$，此时 $-1<x<0$，$f(x)=-\\ln(-x)$）： \n$$\nf'_+(-1)=\\lim_{x\\to -1^+}\\frac{-\\ln(-x)-0}{x-(-1)}.\n$$\n导数公式：$\\frac{d}{\\mathrm{d}x}[-\\ln(-x)]=-\\frac{1}{-x}\\cdot(-1)=-\\frac{1}{x}$，当 $x \\to -1^+$ 时，$-\\frac{1}{x} \\to 1$。 \n故 $f'_+(-1)=1$。\n\n左、右导数不相等（$-1 \\neq 1$），因此 $f(x)$ 在 $x=-1$ 处也不可导。 \n所以 $x=-1$ 不是 $f(x)$ 的驻点。 \n选项“$x=-1$ 是驻点”错误，而选项“$x=-1$ 不是 $f(x)$ 的驻点”正确。\n\n---\n步骤4：逐项判断各选项\n\n结合已知的常见选项结构，假设本题选项为： \nA. $x=1$ 是 $f(x)$ 的驻点； \nB. $x=-1$ 是 $f(x)$ 的驻点； \nC. $x=-1$ 不是 $f(x)$ 的驻点； \nD. $x=0$ 是 $f(x)$ 的驻点。 \n\n- 由步骤2知 $x=1$ 不可导，不是驻点，故 A 错误。 \n- 由步骤3知 $x=-1$ 不可导，不是驻点，故 B 错误。 \n- 由步骤3直接得 C 正确。 \n- 由步骤1知 $x=0$ 无定义，更不可能是驻点，故 D 错误。 \n\n因此唯一正确的选项是 C。\n\n---\n\n## 最终答案\n故选 C.",
   "knowledge_points": [
     "导数与微分"
   ],
@@ -27,12 +27,12 @@
   "raw_answer_text": "C",
   "canonical_solutions": [
     {
-      "solution_id": "sol_1779761952",
+      "solution_id": "sol_1780407854",
       "method_name": "标准解法",
       "semantic_tags": [],
-      "standard_answer": "## 题目重述\n设函数 $f(x) = |\\ln|x||$，给出下列四个选项：\nA. $x=1$ 是 $f(x)$ 的驻点\nB. $x=-1$ 是 $f(x)$ 的驻点\nC. $x=-1$ 不是 $f(x)$ 的驻点\nD. $x=\\mathrm{e}$ 是 $f(x)$ 的驻点\n试判断正确选项。\n\n## 标准答案\n正确选项为 C，即 $x=-1$ 不是 $f(x)$ 的驻点。\n步骤1：写出函数的分段表达式并明确定义域\n$$\n由 $f(x)=|\\ln|x||$，其定义域为 $x \\neq 0$。\n$$\n去掉绝对值，由对数函数的符号可得：\n- 当 $|x|>1$ 时，$\\ln|x|>0$，故 $f(x)=\\ln|x|$；\n- 当 $0<|x|<1$ 时，$\\ln|x|<0$，故 $f(x)=-\\ln|x|$；\n- 当 $|x|=1$ 时，$f(x)=0$。 \n\n函数的驻点是指：函数在该点可导，且导数值等于 $0$。因此，要判断一个点是否为驻点，应先考察其可导性，再考察导数是否为零。\n步骤2：重点分析 $x=-1$ 处的状况（验证选项 C）\n**$x=-1$ 附近的表达式：**\n- 当 $x<-1$（即 $|x|>1$ 且 $x<0$）时，$f(x)=\\ln(-x)$，此时 $f'(x)=\\dfrac{1}{x}$；\n- 当 $-1<x<0$（即 $0<|x|<1$ 且 $x<0$）时，$f(x)=-\\ln(-x)$，此时 $f'(x)=-\\dfrac{1}{x}$。\n\n**考察左右导数：**\n$$\nf'_{-}(-1)=\\lim_{x\\to -1^{-}}f'(x)=\\lim_{x\\to -1^{-}}\\frac{1}{x}=-1,\n$$\n$$\nf'_{+}(-1)=\\lim_{x\\to -1^{+}}f'(x)=\\lim_{x\\to -1^{+}}\\left(-\\frac{1}{x}\\right)=-\\frac{1}{-1}=1.\n$$\n$$\n左、右导数不相等（$-1 \\neq 1$），故 $f(x)$ 在 $x=-1$ 处不可导。\n$$\n由于驻点必须是可导且导数为零的点，因此 **$x=-1$ 不是 $f(x)$ 的驻点**。这直接说明选项 C 正确，同时选项 B 错误。\n步骤3：逐项分析其余选项，完成排除\n**分析选项 A（$x=1$）：** \n类似地，$x=1$ 附近：\n- 当 $x>1$ 时，$f(x)=\\ln x$，$f'(x)=\\dfrac{1}{x}$，$f'(1^{+})=1$；\n- 当 $0<x<1$ 时，$f(x)=-\\ln x$，$f'(x)=-\\dfrac{1}{x}$，$f'(1^{-})=-1$。 \n左右导数不相等，$x=1$ 处不可导，因此 $x=1$ 不是驻点。选项 A 错误。\n\n**分析选项 D（$x=\\mathrm{e}$）：** \n因为 $\\mathrm{e}>1$，此时 $|x|>1$，$f(x)=\\ln x$，在该点邻域内可导，且\n$$\nf'(x)=\\frac{1}{x},\\quad f'(\\mathrm{e})=\\frac{1}{\\mathrm{e}}\\neq 0.\n$$\n导数不为零，故 $x=\\mathrm{e}$ 也不是驻点。选项 D 错误。\n\n综上，只有选项 C 成立。\n\n## 结论\n故选 C。\n\n## 关键知识点\n- 绝对值函数 $|g(x)|$ 的导数与分段讨论\n- 驻点的定义：函数可导且导数为零的点\n- 不可导点一定不是驻点\n\n## 易错提示\n- 忽略定义域：$x=0$ 不在定义域内，但选项常涉及 $x=\\pm 1$ 等，需注意 $\\ln|x|$ 在 $x=0$ 无定义\n- 误将 $\\ln|x|$ 的零点 $x=\\pm 1$ 当作驻点，实际上这些点由于绝对值作用导致不可导，不满足驻点条件\n$$\n- 对 $x=\\mathrm{e}$ 忘记求导，或误以为 $f'(\\mathrm{e})=0$，实际上 $\\frac{1}{\\mathrm{e}}\\neq 0$\n$$",
+      "standard_answer": "步骤1：写出函数的分段表达式并确定定义域\n\n函数为 $f(x)=|\\ln|x||$。由于含有 $\\ln|x|$，要求 $|x|>0$，故定义域为 $x \\neq 0$。 \n去掉绝对值的层次： \n- 当 $x>0$ 时，$f(x)=|\\ln x|$； \n- 当 $x<0$ 时，$f(x)=|\\ln(-x)|$。 \n\n可见函数在 $x=0$ 处无定义，不可能是驻点，直接排除涉及 $x=0$ 的选项（若有）。\n\n---\n步骤2：讨论 $x=1$ 处的可导性，判断 $x=1$ 是否为驻点\n\n在 $x=1$ 附近，$x>0$，故 $f(x)=|\\ln x|$。 \n由于 $\\ln 1=0$，需分左右讨论 $|\\ln x|$ 的表达式： \n- 当 $0<x<1$ 时，$\\ln x<0$，故 $f(x)=-\\ln x$； \n- 当 $x>1$ 时，$\\ln x>0$，故 $f(x)=\\ln x$。 \n\n计算左、右导数： \n\n左导数（$x \\to 1^-$）： \n$$\nf'_-(1)=\\lim_{x\\to 1^-}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^-}\\frac{-\\ln x-0}{x-1}.\n$$\n利用等价无穷小或导数定义：$(-\\ln x)'=-\\frac{1}{x}$，在 $x=1$ 处极限为 $-1$，故 $f'_-(1)=-1$。 \n\n右导数（$x \\to 1^+$）： \n$$\nf'_+(1)=\\lim_{x\\to 1^+}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^+}\\frac{\\ln x-0}{x-1}=(\\ln x)'\\big|_{x=1}=1.\n$$\n左、右导数不相等（$-1 \\neq 1$），因此 $f(x)$ 在 $x=1$ 处不可导。 \n驻点要求函数在该点可导且导数为零，故 $x=1$ 不是 $f(x)$ 的驻点。 \n由此，选项“$x=1$ 是驻点”错误。\n\n---\n步骤3：讨论 $x=-1$ 处的可导性，判断 $x=-1$ 是否为驻点\n\n在 $x=-1$ 附近，$x<0$，故 $f(x)=|\\ln(-x)|$。 \n由于 $\\ln 1=0$，同样需分左右： \n- 当 $x<-1$（即 $-x>1$）时，$\\ln(-x)>0$，故 $f(x)=\\ln(-x)$； \n- 当 $-1<x<0$（即 $0<-x<1$）时，$\\ln(-x)<0$，故 $f(x)=-\\ln(-x)$。 \n\n计算左、右导数： \n\n左导数（$x \\to -1^-$，此时 $x<-1$，$f(x)=\\ln(-x)$）： \n$$\nf'_-(-1)=\\lim_{x\\to -1^-}\\frac{\\ln(-x)-0}{x-(-1)}.\n$$\n由导数公式 $\\frac{d}{\\mathrm{d}x}\\ln(-x)=\\frac{1}{-x}\\cdot(-1)=\\frac{1}{x}$，当 $x \\to -1^-$ 时，$\\frac{1}{x}\\to -1$。 \n也可用导数定义极限得到 $-1$，故 $f'_-(-1)=-1$。\n\n右导数（$x \\to -1^+$，此时 $-1<x<0$，$f(x)=-\\ln(-x)$）： \n$$\nf'_+(-1)=\\lim_{x\\to -1^+}\\frac{-\\ln(-x)-0}{x-(-1)}.\n$$\n导数公式：$\\frac{d}{\\mathrm{d}x}[-\\ln(-x)]=-\\frac{1}{-x}\\cdot(-1)=-\\frac{1}{x}$，当 $x \\to -1^+$ 时，$-\\frac{1}{x} \\to 1$。 \n故 $f'_+(-1)=1$。\n\n左、右导数不相等（$-1 \\neq 1$），因此 $f(x)$ 在 $x=-1$ 处也不可导。 \n所以 $x=-1$ 不是 $f(x)$ 的驻点。 \n选项“$x=-1$ 是驻点”错误，而选项“$x=-1$ 不是 $f(x)$ 的驻点”正确。\n\n---\n步骤4：逐项判断各选项\n\n结合已知的常见选项结构，假设本题选项为： \nA. $x=1$ 是 $f(x)$ 的驻点； \nB. $x=-1$ 是 $f(x)$ 的驻点； \nC. $x=-1$ 不是 $f(x)$ 的驻点； \nD. $x=0$ 是 $f(x)$ 的驻点。 \n\n- 由步骤2知 $x=1$ 不可导，不是驻点，故 A 错误。 \n- 由步骤3知 $x=-1$ 不可导，不是驻点，故 B 错误。 \n- 由步骤3直接得 C 正确。 \n- 由步骤1知 $x=0$ 无定义，更不可能是驻点，故 D 错误。 \n\n因此唯一正确的选项是 C。\n\n---\n\n## 最终答案\n故选 C.",
       "generated_by": "deepseek-v4-pro",
-      "generated_at": "2026-05-26 10:19",
+      "generated_at": "2026-06-02 21:44",
       "reviewed": false,
       "format_version": "p24_solution_quality_gate",
       "quality_report": {
@@ -52,20 +52,43 @@
             "blocks": [
               {
                 "type": "text",
-                "content": "写出函数的分段表达式并明确定义域。"
+                "content": "写出函数的分段表达式并确定定义域\n\n函数为"
               },
               {
                 "type": "latex",
-                "content": "由 f(x)=|\\ln|x||，其定义域为 x \\ne 0",
-                "display": "block"
+                "content": "f(x)=|\\ln|x||"
               },
               {
                 "type": "text",
-                "content": "去掉绝对值，由对数函数的符号可得：\n- 当"
+                "content": "由于含有"
               },
               {
                 "type": "latex",
-                "content": "|x|>1"
+                "content": "\\ln|x|"
+              },
+              {
+                "type": "text",
+                "content": "要求"
+              },
+              {
+                "type": "latex",
+                "content": "|x|>0"
+              },
+              {
+                "type": "text",
+                "content": "故定义域为"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "去掉绝对值的层次： \n- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x>0"
               },
               {
                 "type": "text",
@@ -73,12 +96,43 @@
               },
               {
                 "type": "latex",
-                "content": "\\ln|x|>0，故 f(x)=\\ln|x|；\n- 当 0<|x|<1 时，\\ln|x|<0，故 f(x)=-\\ln|x|；\n- 当 |x|=1 时，f(x)=0。 \n\n函数的驻点是指：函数在该点可导，且导数值等于 0",
-                "display": "block"
+                "content": "f(x)=|\\ln x|"
               },
               {
                 "type": "text",
-                "content": "因此，要判断一个点是否为驻点，应先考察其可导性，再考察导数是否为零。"
+                "content": "- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x<0"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=|\\ln(-x)|"
+              },
+              {
+                "type": "text",
+                "content": "可见函数在"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "处无定义，不可能是驻点，直接排除涉及"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "的选项（若有）。"
               }
             ]
           },
@@ -87,7 +141,226 @@
             "blocks": [
               {
                 "type": "text",
-                "content": "重点分析"
+                "content": "讨论"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "处的可导性，判断"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "是否为驻点\n\n在"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "附近，"
+              },
+              {
+                "type": "latex",
+                "content": "x>0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=|\\ln x|"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln 1=0"
+              },
+              {
+                "type": "text",
+                "content": "需分左右讨论"
+              },
+              {
+                "type": "latex",
+                "content": "|\\ln x|"
+              },
+              {
+                "type": "text",
+                "content": "的表达式： \n- 当"
+              },
+              {
+                "type": "latex",
+                "content": "0<x<1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln x<0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=-\\ln x"
+              },
+              {
+                "type": "text",
+                "content": "- 当"
+              },
+              {
+                "type": "latex",
+                "content": "x>1"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln x>0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=\\ln x"
+              },
+              {
+                "type": "text",
+                "content": "计算左、右导数： \n\n左导数（"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 1^-"
+              },
+              {
+                "type": "latex",
+                "content": "f'_-(1)=\\lim_{x\\to 1^-}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^-}\\frac{-\\ln x-0}{x-1}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "利用等价无穷小或导数定义："
+              },
+              {
+                "type": "latex",
+                "content": "(-\\ln x)'=-\\frac{1}{x}"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "处极限为"
+              },
+              {
+                "type": "latex",
+                "content": "-1"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f'_-(1)=-1"
+              },
+              {
+                "type": "text",
+                "content": "右导数（"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to 1^+"
+              },
+              {
+                "type": "latex",
+                "content": "f'_+(1)=\\lim_{x\\to 1^+}\\frac{f(x)-f(1)}{x-1}=\\lim_{x\\to 1^+}\\frac{\\ln x-0}{x-1}=(\\ln x)'\\big|_{x=1}=1.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "左、右导数不相等（"
+              },
+              {
+                "type": "latex",
+                "content": "-1 \\ne 1"
+              },
+              {
+                "type": "text",
+                "content": "），因此"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "处不可导。 \n驻点要求函数在该点可导且导数为零，故"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点。 \n由此，选项“"
+              },
+              {
+                "type": "latex",
+                "content": "x=1"
+              },
+              {
+                "type": "text",
+                "content": "是驻点”错误。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "讨论"
               },
               {
                 "type": "latex",
@@ -95,7 +368,7 @@
               },
               {
                 "type": "text",
-                "content": "处的状况（验证选项 C）"
+                "content": "处的可导性，判断"
               },
               {
                 "type": "latex",
@@ -103,7 +376,39 @@
               },
               {
                 "type": "text",
-                "content": "附近的表达式：\n- 当"
+                "content": "是否为驻点\n\n在"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "附近，"
+              },
+              {
+                "type": "latex",
+                "content": "x<0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=|\\ln(-x)|"
+              },
+              {
+                "type": "text",
+                "content": "由于"
+              },
+              {
+                "type": "latex",
+                "content": "\\ln 1=0"
+              },
+              {
+                "type": "text",
+                "content": "同样需分左右： \n- 当"
               },
               {
                 "type": "latex",
@@ -115,15 +420,7 @@
               },
               {
                 "type": "latex",
-                "content": "|x|>1"
-              },
-              {
-                "type": "text",
-                "content": "且"
-              },
-              {
-                "type": "latex",
-                "content": "x<0"
+                "content": "-x>1"
               },
               {
                 "type": "text",
@@ -131,15 +428,15 @@
               },
               {
                 "type": "latex",
-                "content": "f(x)=\\ln(-x)"
+                "content": "\\ln(-x)>0"
               },
               {
                 "type": "text",
-                "content": "此时"
+                "content": "故"
               },
               {
                 "type": "latex",
-                "content": "f'(x)=\\dfrac{1}{x}"
+                "content": "f(x)=\\ln(-x)"
               },
               {
                 "type": "text",
@@ -155,15 +452,7 @@
               },
               {
                 "type": "latex",
-                "content": "0<|x|<1"
-              },
-              {
-                "type": "text",
-                "content": "且"
-              },
-              {
-                "type": "latex",
-                "content": "x<0"
+                "content": "0<-x<1"
               },
               {
                 "type": "text",
@@ -171,7 +460,23 @@
               },
               {
                 "type": "latex",
+                "content": "\\ln(-x)<0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
                 "content": "f(x)=-\\ln(-x)"
+              },
+              {
+                "type": "text",
+                "content": "计算左、右导数： \n\n左导数（"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to -1^-"
               },
               {
                 "type": "text",
@@ -179,30 +484,141 @@
               },
               {
                 "type": "latex",
-                "content": "f'(x)=-\\dfrac{1}{x}"
-              },
-              {
-                "type": "text",
-                "content": "考察左右导数："
+                "content": "x<-1"
               },
               {
                 "type": "latex",
-                "content": "f'_{-}(-1)=\\lim_{x\\to -1^{-}}f'(x)=\\lim_{x\\to -1^{-}}\\frac{1}{x}=-1,",
-                "display": "block"
+                "content": "f(x)=\\ln(-x)"
               },
               {
                 "type": "latex",
-                "content": "f'_{+}(-1)=\\lim_{x\\to -1^{+}}f'(x)=\\lim_{x\\to -1^{+}}\\left(-\\frac{1}{x}\\right)=-\\frac{1}{-1}=1.",
-                "display": "block"
-              },
-              {
-                "type": "latex",
-                "content": "左、右导数不相等（-1 \\ne 1），故 f(x) 在 x=-1 处不可导",
+                "content": "f'_-(-1)=\\lim_{x\\to -1^-}\\frac{\\ln(-x)-0}{x-(-1)}.",
                 "display": "block"
               },
               {
                 "type": "text",
-                "content": "由于驻点必须是可导且导数为零的点，因此"
+                "content": "由导数公式"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{d}{\\mathrm{d}x}\\ln(-x)=\\frac{1}{-x}\\cdot(-1)=\\frac{1}{x}"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to -1^-"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{1}{x}\\to -1"
+              },
+              {
+                "type": "text",
+                "content": "也可用导数定义极限得到"
+              },
+              {
+                "type": "latex",
+                "content": "-1"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f'_-(-1)=-1"
+              },
+              {
+                "type": "text",
+                "content": "右导数（"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to -1^+"
+              },
+              {
+                "type": "text",
+                "content": "此时"
+              },
+              {
+                "type": "latex",
+                "content": "-1<x<0"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)=-\\ln(-x)"
+              },
+              {
+                "type": "latex",
+                "content": "f'_+(-1)=\\lim_{x\\to -1^+}\\frac{-\\ln(-x)-0}{x-(-1)}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "导数公式："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{d}{\\mathrm{d}x}[-\\ln(-x)]=-\\frac{1}{-x}\\cdot(-1)=-\\frac{1}{x}"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\to -1^+"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "-\\frac{1}{x} \\to 1"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "f'_+(-1)=1"
+              },
+              {
+                "type": "text",
+                "content": "左、右导数不相等（"
+              },
+              {
+                "type": "latex",
+                "content": "-1 \\ne 1"
+              },
+              {
+                "type": "text",
+                "content": "），因此"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "处也不可导。 \n所以"
               },
               {
                 "type": "latex",
@@ -218,16 +634,40 @@
               },
               {
                 "type": "text",
-                "content": "的驻点。这直接说明选项 C 正确，同时选项 B 错误。"
+                "content": "的驻点。 \n选项“"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "是驻点”错误，而选项“"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点”正确。"
               }
             ]
           },
           {
-            "label": "步骤3",
+            "label": "步骤4",
             "blocks": [
               {
                 "type": "text",
-                "content": "逐项分析其余选项，完成排除\n分析选项 A（"
+                "content": "逐项判断各选项\n\n结合已知的常见选项结构，假设本题选项为： \nA."
               },
               {
                 "type": "latex",
@@ -235,7 +675,63 @@
               },
               {
                 "type": "text",
-                "content": "）： \n类似地，"
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点； \nB."
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点； \nC."
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "不是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点； \nD."
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "的驻点。 \n\n- 由步骤2知"
               },
               {
                 "type": "latex",
@@ -243,116 +739,23 @@
               },
               {
                 "type": "text",
-                "content": "附近：\n- 当"
+                "content": "不可导，不是驻点，故 A 错误。 \n- 由步骤3知"
               },
               {
                 "type": "latex",
-                "content": "x>1"
+                "content": "x=-1"
               },
               {
                 "type": "text",
-                "content": "时，"
+                "content": "不可导，不是驻点，故 B 错误。 \n- 由步骤3直接得 C 正确。 \n- 由步骤1知"
               },
               {
                 "type": "latex",
-                "content": "f(x)=\\ln x"
-              },
-              {
-                "type": "latex",
-                "content": "f'(x)=\\dfrac{1}{x}"
-              },
-              {
-                "type": "latex",
-                "content": "f'(1^{+})=1"
+                "content": "x=0"
               },
               {
                 "type": "text",
-                "content": "- 当"
-              },
-              {
-                "type": "latex",
-                "content": "0<x<1"
-              },
-              {
-                "type": "text",
-                "content": "时，"
-              },
-              {
-                "type": "latex",
-                "content": "f(x)=-\\ln x"
-              },
-              {
-                "type": "latex",
-                "content": "f'(x)=-\\dfrac{1}{x}"
-              },
-              {
-                "type": "latex",
-                "content": "f'(1^{-})=-1"
-              },
-              {
-                "type": "text",
-                "content": "左右导数不相等，"
-              },
-              {
-                "type": "latex",
-                "content": "x=1"
-              },
-              {
-                "type": "text",
-                "content": "处不可导，因此"
-              },
-              {
-                "type": "latex",
-                "content": "x=1"
-              },
-              {
-                "type": "text",
-                "content": "不是驻点。选项 A 错误。\n\n分析选项 D（"
-              },
-              {
-                "type": "latex",
-                "content": "x=\\mathrm{e}"
-              },
-              {
-                "type": "text",
-                "content": "）： \n因为"
-              },
-              {
-                "type": "latex",
-                "content": "\\mathrm{e}>1"
-              },
-              {
-                "type": "text",
-                "content": "此时"
-              },
-              {
-                "type": "latex",
-                "content": "|x|>1"
-              },
-              {
-                "type": "latex",
-                "content": "f(x)=\\ln x"
-              },
-              {
-                "type": "text",
-                "content": "在该点邻域内可导，且"
-              },
-              {
-                "type": "latex",
-                "content": "f'(x)=\\frac{1}{x},\\quad f'(\\mathrm{e})=\\frac{1}{\\mathrm{e}}\\ne 0.",
-                "display": "block"
-              },
-              {
-                "type": "text",
-                "content": "导数不为零，故"
-              },
-              {
-                "type": "latex",
-                "content": "x=\\mathrm{e}"
-              },
-              {
-                "type": "text",
-                "content": "也不是驻点。选项 D 错误。\n\n综上，只有选项 C 成立。"
+                "content": "无定义，更不可能是驻点，故 D 错误。 \n\n因此唯一正确的选项是 C。"
               }
             ]
           }
@@ -365,7 +768,7 @@
     "has_steps": false,
     "pool_size": 1,
     "generated_by": "deepseek-v4-pro",
-    "generated_at": "2026-05-26 10:19",
+    "generated_at": "2026-06-02 21:44",
     "reviewed": false,
     "render_version": "v2",
     "solution_format_version": "p24_solution_quality_gate"

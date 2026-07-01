@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲线积分",
+    "格林公式"
+  ],
+  "tags": [
+    "曲线积分",
+    "格林公式"
+  ],
+  "question": "设有向闭合曲线 $L$ 为椭圆 $x^2+xy+2y^2=1$，方向沿逆时针，求曲线积分 $$\\displaystyle\\oint_L\\frac{y\\,dx-x\\,dy}{2x^2+xy+y^2}$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\oint_L\\frac{y\\,dx-x\\,dy}{2x^2+xy+y^2}=-\\frac{4\\pi}{\\sqrt7}$。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有向闭合曲线 $L$ 为椭圆 $x^2+xy+2y^2=1$，方向沿逆时针，求曲线积分 $$\\displaystyle\\oint_L\\frac{y\\,dx-x\\,dy}{2x^2+xy+y^2}$$",
+  "raw_answer_text": "$\\displaystyle\\oint_L\\frac{y\\,dx-x\\,dy}{2x^2+xy+y^2}=-\\frac{4\\pi}{\\sqrt7}$。"
+}

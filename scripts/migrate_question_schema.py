@@ -28,6 +28,8 @@ DIRS = [
     ROOT / "storage" / "questions" / "exams",
     ROOT / "storage" / "questions" / "simulations1",
     ROOT / "storage" / "questions" / "simulations2",
+    ROOT / "storage" / "questions" / "simulations3",
+    ROOT / "storage" / "questions" / "simulations4",
 ]
 
 BACKUP_BASE = ROOT / "storage" / "questions" / "_schema_backups"

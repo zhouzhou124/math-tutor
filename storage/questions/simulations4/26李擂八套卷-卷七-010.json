@@ -1,0 +1,32 @@
+{
+  "question_id": "26李擂八套卷-卷七-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "困难",
+  "score": 5,
+  "question": "设随机变量 $X$ 服从指数分布 $E(\\frac{1}{2})$，$Y$ 服从二项分布 $B(12,\\frac{1}{2})$，若 $X+Y$ 和 $X-2Y$ 不相关，则 $X+Y$ 和 $X-Y$ 的相关系数为$(\\quad)$",
+  "options": {
+    "A": "$-\\dfrac{1}{\\sqrt{22}}$",
+    "B": "$\\dfrac{1}{\\sqrt{22}}$",
+    "C": "$-\\dfrac{1}{\\sqrt{33}}$",
+    "D": "$\\dfrac{1}{\\sqrt{33}}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D. $\\frac{1}{\\sqrt{33}}$",
+  "knowledge_points": [
+    "随机变量",
+    "相关系数"
+  ],
+  "tags": [
+    "随机变量",
+    "相关系数",
+    "指数分布",
+    "二项分布"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 服从指数分布 $E(\\frac{1}{2})$，$Y$ 服从二项分布 $B(12,\\frac{1}{2})$，若 $X+Y$ 和 $X-2Y$ 不相关，则 $X+Y$ 和 $X-Y$ 的相关系数为$(\\quad)$",
+  "raw_answer_text": "D. $\\frac{1}{\\sqrt{33}}$"
+}

@@ -1,0 +1,63 @@
+{
+  "question_id": "26李擂八套卷-卷三-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲面积分",
+    "第一类曲面积分"
+  ],
+  "tags": [
+    "曲面积分",
+    "第一类曲面积分",
+    "参数化"
+  ],
+  "question": "设 $\\Sigma$ 曲面 $\\sqrt2z=\\sqrt{(x-z)^2+(y-z)^2}$ 被平面 $z=1$ 所截的有限部分，求曲面积分 $$\\displaystyle\\iint_{\\Sigma}\\frac{(xz+yz)|x+y|}{\\sqrt{x^2+y^2+2z^2+2xy}}\\,dS$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$3\\pi$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [
+    "曲面方程 $\\sqrt{2}z=\\sqrt{(x-z)^2+(y-z)^2}$ 可化为 $(x-z)^2+(y-z)^2=2z^2$，在 $z\\in[0,1]$ 上参数化为 $x=z(1+\\sqrt{2}\\cos\\theta)$，$y=z(1+\\sqrt{2}\\sin\\theta)$，$0\\le\\theta\\le2\\pi$。",
+    "由 $x+y=2z\\left(1+\\frac{\\sqrt{2}}{2}(\\cos\\theta+\\sin\\theta)\\right)$ 且 $z\\ge0$，在 $\\Sigma$ 上有 $x+y\\ge0$，故 $|x+y|=x+y$。又 $xz+yz=z(x+y)$。",
+    "分母 $\\sqrt{x^2+y^2+2z^2+2xy}=\\sqrt{(x+y)^2+2z^2}$。计算参数化面积元得 $\\mathrm{d}S=\\sqrt{(x+y)^2+2z^2}\\,\\mathrm{d}z\\,\\mathrm{d}\\theta$，于是被积函数化为 $z(x+y)^2$。",
+    "因此 $\\displaystyle\\iint_{\\Sigma}\\frac{(xz+yz)|x+y|}{\\sqrt{x^2+y^2+2z^2+2xy}}\\,\\mathrm{d}S=\\int_0^1\\int_0^{2\\pi} z(x+y)^2\\,\\mathrm{d}\\theta\\,\\mathrm{d}z$。",
+    "其中 $x+y=2z\\left(1+\\sin(\\theta+\\pi/4)\\right)$，故 $(x+y)^2=4z^2\\left(1+\\sin(\\theta+\\pi/4)\\right)^2$。",
+    "$\\displaystyle\\int_0^{2\\pi}\\left(1+\\sin(\\theta+\\pi/4)\\right)^2\\,\\mathrm{d}\\theta=3\\pi$，故 $\\displaystyle\\int_0^1\\int_0^{2\\pi} z(x+y)^2\\,\\mathrm{d}\\theta\\,\\mathrm{d}z=\\int_0^1 4z^3\\cdot3\\pi\\,\\mathrm{d}z=3\\pi$。"
+  ],
+  "raw_question_text": "设 $\\Sigma$ 曲面 $\\sqrt2z=\\sqrt{(x-z)^2+(y-z)^2}$ 被平面 $z=1$ 所截的有限部分，求曲面积分 $$\\displaystyle\\iint_{\\Sigma}\\frac{(xz+yz)|x+y|}{\\sqrt{x^2+y^2+2z^2+2xy}}\\,dS$$",
+  "raw_answer_text": "$3\\pi$",
+  "canonical_solutions": [
+    {
+      "solution_id": "default",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "$3\\pi$",
+      "steps": [
+        "曲面方程 $\\sqrt{2}z=\\sqrt{(x-z)^2+(y-z)^2}$ 可化为 $(x-z)^2+(y-z)^2=2z^2$，在 $z\\in[0,1]$ 上参数化为 $x=z(1+\\sqrt{2}\\cos\\theta)$，$y=z(1+\\sqrt{2}\\sin\\theta)$，$0\\le\\theta\\le2\\pi$。",
+        "由 $x+y=2z\\left(1+\\frac{\\sqrt{2}}{2}(\\cos\\theta+\\sin\\theta)\\right)$ 且 $z\\ge0$，在 $\\Sigma$ 上有 $x+y\\ge0$，故 $|x+y|=x+y$。又 $xz+yz=z(x+y)$。",
+        "分母 $\\sqrt{x^2+y^2+2z^2+2xy}=\\sqrt{(x+y)^2+2z^2}$。计算参数化面积元得 $\\mathrm{d}S=\\sqrt{(x+y)^2+2z^2}\\,\\mathrm{d}z\\,\\mathrm{d}\\theta$，于是被积函数化为 $z(x+y)^2$。",
+        "因此 $\\displaystyle\\iint_{\\Sigma}\\frac{(xz+yz)|x+y|}{\\sqrt{x^2+y^2+2z^2+2xy}}\\,\\mathrm{d}S=\\int_0^1\\int_0^{2\\pi} z(x+y)^2\\,\\mathrm{d}\\theta\\,\\mathrm{d}z$。",
+        "其中 $x+y=2z\\left(1+\\sin(\\theta+\\pi/4)\\right)$，故 $(x+y)^2=4z^2\\left(1+\\sin(\\theta+\\pi/4)\\right)^2$。",
+        "$\\displaystyle\\int_0^{2\\pi}\\left(1+\\sin(\\theta+\\pi/4)\\right)^2\\,\\mathrm{d}\\theta=3\\pi$，故 $\\displaystyle\\int_0^1\\int_0^{2\\pi} z(x+y)^2\\,\\mathrm{d}\\theta\\,\\mathrm{d}z=\\int_0^1 4z^3\\cdot3\\pi\\,\\mathrm{d}z=3\\pi$。"
+      ],
+      "generated_by": "legacy",
+      "generated_at": "",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": true,
+    "pool_size": 1,
+    "generated_by": "auto-migrated",
+    "generated_at": "",
+    "reviewed": false,
+    "render_version": "v2"
+  }
+}

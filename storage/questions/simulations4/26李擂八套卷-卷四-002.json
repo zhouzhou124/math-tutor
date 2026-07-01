@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷四-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "泰勒多项式"
+  ],
+  "tags": [
+    "泰勒多项式",
+    "高阶展开"
+  ],
+  "question": "设函数 $f(x)=(1+x^2)\\ln\\cos x$ 在 $x=0$ 处的 $4$ 次泰勒多项式为 $ax^2+bx^3+cx^4$，则",
+  "options": {
+    "A": "$a=-\\frac12,\\ b=1,\\ c=-\\frac5{12}$",
+    "B": "$a=-\\frac12,\\ b=1,\\ c=-\\frac7{12}$",
+    "C": "$a=-\\frac12,\\ b=0,\\ c=-\\frac5{12}$",
+    "D": "$a=-\\frac12,\\ b=0,\\ c=-\\frac7{12}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)=(1+x^2)\\ln\\cos x$ 在 $x=0$ 处的 $4$ 次泰勒多项式为 $ax^2+bx^3+cx^4$，则",
+  "raw_answer_text": "D"
+}

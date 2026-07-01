@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "置信区间",
+    "t分布"
+  ],
+  "tags": [
+    "置信区间",
+    "t分布"
+  ],
+  "question": "设一批零件的长度服从正态分布 $N(\\mu,\\sigma^2)$，其中 $\\mu$ 和 $\\sigma$ 均未知，现从中随机抽取 $36$ 个零件，测得样本均值 $\\overline x=50$ cm，样本标准差 $S=2.52$ cm，则 $\\mu$ 的置信度为 $0.98$ 的置信区间是（其中 $t_\\alpha(n)$ 表示自由度为 $n$ 的 $t$ 分布的上 $\\alpha$ 分位点）",
+  "options": {
+    "A": "$(50-0.42t_{0.02}(35),\\ 50+0.42t_{0.02}(35))$",
+    "B": "$(50-0.21t_{0.02}(35),\\ 50+0.21t_{0.02}(35))$",
+    "C": "$(50-0.42t_{0.01}(35),\\ 50+0.42t_{0.01}(35))$",
+    "D": "$(50-0.21t_{0.01}(35),\\ 50+0.21t_{0.01}(35))$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设一批零件的长度服从正态分布 $N(\\mu,\\sigma^2)$，其中 $\\mu$ 和 $\\sigma$ 均未知，现从中随机抽取 $36$ 个零件，测得样本均值 $\\overline x=50$ cm，样本标准差 $S=2.52$ cm，则 $\\mu$ 的置信度为 $0.98$ 的置信区间是（其中 $t_\\alpha(n)$ 表示自由度为 $n$ 的 $t$ 分布的上 $\\alpha$ 分位点）",
+  "raw_answer_text": "C"
+}

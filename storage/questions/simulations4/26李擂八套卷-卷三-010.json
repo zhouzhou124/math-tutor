@@ -1,0 +1,32 @@
+{
+  "question_id": "26李擂八套卷-卷三-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "最大似然估计"
+  ],
+  "tags": [
+    "最大似然估计",
+    "概率",
+    "独立事件"
+  ],
+  "question": "设工厂有两台相互独立的设备，它们在一天内产生故障的概率分别为 $p$ 和 $2p$，其中 $0<p<\\frac12$ 为未知参数，对设备进行了独立的 $5$ 天观测，这 $5$ 天产生故障的设备数量分别为 $0,0,2,2,0$，则 $p$ 的最大似然估计值为",
+  "options": {
+    "A": "$\\frac13$",
+    "B": "$\\frac14$",
+    "C": "$\\frac15$",
+    "D": "$\\frac16$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设工厂有两台相互独立的设备，它们在一天内产生故障的概率分别为 $p$ 和 $2p$，其中 $0<p<\\frac12$ 为未知参数，对设备进行了独立的 $5$ 天观测，这 $5$ 天产生故障的设备数量分别为 $0,0,2,2,0$，则 $p$ 的最大似然估计值为",
+  "raw_answer_text": "B"
+}

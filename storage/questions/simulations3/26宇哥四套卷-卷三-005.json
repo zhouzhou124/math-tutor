@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷三-005",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵秩"
+  ],
+  "tags": [
+    "矩阵秩",
+    "秩不等式"
+  ],
+  "question": "设 $n$ 阶矩阵 $A,B,C$ 满足 $r(ABC)+2n=r(A)+r(B)+r(C)$，则",
+  "options": {
+    "A": "$r(A)+r(B)+r(C)=r(AB)$",
+    "B": "$r(AB)+n=r(A)+r(B)$",
+    "C": "$r(AC)>r(A)+r(BC)-n$",
+    "D": "$r(AB)=r(BC)=n$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $n$ 阶矩阵 $A,B,C$ 满足 $r(ABC)+2n=r(A)+r(B)+r(C)$，则",
+  "raw_answer_text": "B"
+}

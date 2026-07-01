@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "微分方程",
+    "旋转体体积"
+  ],
+  "tags": [
+    "微分方程",
+    "旋转体体积",
+    "几何应用"
+  ],
+  "question": "设 $L:y=y(x)$ 是第一象限内过点 $(0,1)$ 的一条光滑曲线，满足 $y'_+(0)=\\frac1e$ 及 $y'(x)>0$。设 $P$ 是曲线 $L$ 上任意一点，过点 $P$ 作曲线 $L$ 的切线交 $x$ 轴于点 $M$，过点 $P$ 作 $x$ 轴的垂线交 $x$ 轴于点 $Q$，设三角形 $PMQ$ 的面积为 $S_1$，曲线 $L$ 与直线 $PQ$ 及两个坐标轴所围成的曲边梯形 $D$ 的面积为 $S_2$，$D$ 绕 $x$ 轴旋转一周所得的旋转体体积为 $V$，若在变化过程中恒有 $V=2\\pi S_1-3\\pi S_2-e\\pi$，则 (I) 求曲线 $L$ 的方程，用隐函数表示；(II) 求曲线 $L$ 与直线 $y=2$ 和 $y$ 轴所围成的平面区域绕 $x$ 轴旋转一周所得的旋转体体积。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 设 $P=(x,y)$，$y'=p>0$。则 $S_1=\\frac{y^2}{2y'}$，$S_2=\\int_0^x y(t)\\,dt$，$V=\\pi\\int_0^x y^2(t)\\,dt$。由题设得 $\\int_0^x y^2(t)\\,dt=\\frac{y^2}{y'}-3\\int_0^xy(t)\\,dt-e$。两边对 $x$ 求导，得 $y^2=\\left(\\frac{y^2}{y'}\\right)'-3y$，即 $y+1=-\\frac{yy''}{(y')^2}$。令 $p=y'$，$y''=p\\frac{dp}{dy}$，得 $\\frac{dp}{p}=-\\left(1+\\frac1y\\right)dy$。由 $y(0)=1$，$y'_+(0)=\\frac1e$ 得 $p=\\frac{e^{-y}}y$。故 $\\frac{dx}{dy}=ye^y$，$x=\\int_1^y te^t\\,dt=(y-1)e^y$。所以曲线 $L$ 的方程为 $x=(y-1)e^y$。(II) 当 $y=2$ 时 $x=e^2$，所求体积 $V_0=\\pi\\int_0^{e^2}(4-y^2)\\,dx=\\pi\\int_1^2(4-y^2)ye^y\\,dy=2\\pi e(e-1)$。",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $L:y=y(x)$ 是第一象限内过点 $(0,1)$ 的一条光滑曲线，满足 $y'_+(0)=\\frac1e$ 及 $y'(x)>0$。设 $P$ 是曲线 $L$ 上任意一点，过点 $P$ 作曲线 $L$ 的切线交 $x$ 轴于点 $M$，过点 $P$ 作 $x$ 轴的垂线交 $x$ 轴于点 $Q$，设三角形 $PMQ$ 的面积为 $S_1$，曲线 $L$ 与直线 $PQ$ 及两个坐标轴所围成的曲边梯形 $D$ 的面积为 $S_2$，$D$ 绕 $x$ 轴旋转一周所得的旋转体体积为 $V$，若在变化过程中恒有 $V=2\\pi S_1-3\\pi S_2-e\\pi$，则 (I) 求曲线 $L$ 的方程，用隐函数表示；(II) 求曲线 $L$ 与直线 $y=2$ 和 $y$ 轴所围成的平面区域绕 $x$ 轴旋转一周所得的旋转体体积。",
+  "raw_answer_text": "(I) 设 $P=(x,y)$，$y'=p>0$。则 $S_1=\\frac{y^2}{2y'}$，$S_2=\\int_0^x y(t)\\,dt$，$V=\\pi\\int_0^x y^2(t)\\,dt$。由题设得 $\\int_0^x y^2(t)\\,dt=\\frac{y^2}{y'}-3\\int_0^xy(t)\\,dt-e$。两边对 $x$ 求导，得 $y^2=\\left(\\frac{y^2}{y'}\\right)'-3y$，即 $y+1=-\\frac{yy''}{(y')^2}$。令 $p=y'$，$y''=p\\frac{dp}{dy}$，得 $\\frac{dp}{p}=-\\left(1+\\frac1y\\right)dy$。由 $y(0)=1$，$y'_+(0)=\\frac1e$ 得 $p=\\frac{e^{-y}}y$。故 $\\frac{dx}{dy}=ye^y$，$x=\\int_1^y te^t\\,dt=(y-1)e^y$。所以曲线 $L$ 的方程为 $x=(y-1)e^y$。(II) 当 $y=2$ 时 $x=e^2$，所求体积 $V_0=\\pi\\int_0^{e^2}(4-y^2)\\,dx=\\pi\\int_1^2(4-y^2)ye^y\\,dy=2\\pi e(e-1)$。"
+}

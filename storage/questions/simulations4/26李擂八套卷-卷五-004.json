@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷五-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "数列极限",
+    "广义积分",
+    "收敛与发散"
+  ],
+  "tags": [
+    "数列极限",
+    "广义积分",
+    "收敛与发散"
+  ],
+  "question": "设数列 $\\{x_n\\}$ 收敛，$\\{y_n\\}$ 发散，则下列说法中正确的有几个：① 数列 $\\left\\{y_n\\displaystyle\\int_{-\\infty}^{x_n}(t-1)e^{-t}\\,dt\\right\\}$ 发散；② 数列 $\\left\\{y_n\\displaystyle\\int_{-\\infty}^{x_n}(t+1)e^{-t^2}\\,dt\\right\\}$ 发散；③ 数列 $\\left\\{e^{x_n}\\displaystyle\\int_{-\\infty}^{y_n}e^{-t^2}\\,dt\\right\\}$ 发散；④ 数列 $\\left\\{e^{x_n}\\displaystyle\\int_0^{y_n}\\frac{|t|^3}{1+t^4}\\,dt\\right\\}$ 发散。",
+  "options": {
+    "A": "$1$",
+    "B": "$2$",
+    "C": "$3$",
+    "D": "$4$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设数列 $\\{x_n\\}$ 收敛，$\\{y_n\\}$ 发散，则下列说法中正确的有几个：① 数列 $\\left\\{y_n\\displaystyle\\int_{-\\infty}^{x_n}(t-1)e^{-t}\\,dt\\right\\}$ 发散；② 数列 $\\left\\{y_n\\displaystyle\\int_{-\\infty}^{x_n}(t+1)e^{-t^2}\\,dt\\right\\}$ 发散；③ 数列 $\\left\\{e^{x_n}\\displaystyle\\int_{-\\infty}^{y_n}e^{-t^2}\\,dt\\right\\}$ 发散；④ 数列 $\\left\\{e^{x_n}\\displaystyle\\int_0^{y_n}\\frac{|t|^3}{1+t^4}\\,dt\\right\\}$ 发散。",
+  "raw_answer_text": "B"
+}

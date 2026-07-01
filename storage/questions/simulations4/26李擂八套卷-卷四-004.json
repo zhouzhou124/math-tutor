@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷四-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数存在定理"
+  ],
+  "tags": [
+    "隐函数存在定理",
+    "偏导数"
+  ],
+  "question": "方程 $e^{x+y+z-3}+e^{-z}\\displaystyle\\int_x^y e^{y-t^2}\\,dt-\\ln z=1$ 在点 $(1,1,1)$ 附近",
+  "options": {
+    "A": "只能确定一个有连续偏导数的函数 $z=z(x,y)$",
+    "B": "只能确定一个有连续偏导数的函数 $y=y(x,z)$",
+    "C": "能确定两个有连续偏导数的函数 $y=y(x,z)$ 和 $x=x(y,z)$",
+    "D": "能确定两个有连续偏导数的函数 $z=z(x,y)$ 和 $x=x(y,z)$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "方程 $e^{x+y+z-3}+e^{-z}\\displaystyle\\int_x^y e^{y-t^2}\\,dt-\\ln z=1$ 在点 $(1,1,1)$ 附近",
+  "raw_answer_text": "B"
+}

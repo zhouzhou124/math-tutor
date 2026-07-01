@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程",
+    "伯努利方程"
+  ],
+  "tags": [
+    "微分方程",
+    "伯努利方程",
+    "初值问题"
+  ],
+  "question": "微分方程 $xy'=x^2y^2-y$ 满足 $y(1)=\\frac12$ 的解为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$y=\\frac1{x+1}$",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "微分方程 $xy'=x^2y^2-y$ 满足 $y(1)=\\frac12$ 的解为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$y=\\frac1{x+1}$"
+}

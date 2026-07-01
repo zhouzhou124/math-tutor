@@ -1,0 +1,47 @@
+{
+  "question_id": "26宇哥四套卷-卷一-018",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程",
+    "复合函数"
+  ],
+  "tags": [
+    "微分方程",
+    "复合函数"
+  ],
+  "question": "设 $f(x)= \\begin{cases} x,&x<1,\\\\ \\ln x,&x>1, \\end{cases}$ $g(x)=e^{x-1}$.\n(1) 求 $\\varphi(x)=f[g(x)]$；\n(2) 求在 $(-\\infty,+\\infty)$ 内的连续函数 $y$，使之在 $(-\\infty,1)$ 与 $(1,+\\infty)$ 内满足微分方程 $y'-y=\\varphi(x)$，且 $y(0)=0$.",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) $\\varphi(x)=f(g(x))= \\begin{cases} e^{x-1},&x<1,\\\\ x-1,&x>1. \\end{cases}$ (2) $x<1$ 时，$y'-y=e^{x-1}$，由 $y(0)=0$ 得 $y=xe^{x-1}$。因此 $y(1-0)=1$。$x>1$ 时，$y'-y=x-1$，通解为 $y=Ce^x-x$。由连续性 $y(1+0)=1$ 得 $Ce-1=1$，$C=\\frac2e$。故 $y= \\begin{cases} xe^{x-1},&x<1,\\\\ 1,&x=1,\\\\ 2e^{x-1}-x,&x>1. \\end{cases}$",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)= \\begin{cases} x,&x<1,\\\\ \\ln x,&x>1, \\end{cases}$ $g(x)=e^{x-1}$.\n(1) 求 $\\varphi(x)=f[g(x)]$；\n(2) 求在 $(-\\infty,+\\infty)$ 内的连续函数 $y$，使之在 $(-\\infty,1)$ 与 $(1,+\\infty)$ 内满足微分方程 $y'-y=\\varphi(x)$，且 $y(0)=0$.",
+  "raw_answer_text": "",
+  "canonical_solutions": [
+    {
+      "solution_id": "default",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "(1) $\\varphi(x)=f(g(x))= \\begin{cases} e^{x-1},&x<1,\\\\ x-1,&x>1. \\end{cases}$ (2) $x<1$ 时，$y'-y=e^{x-1}$，由 $y(0)=0$ 得 $y=xe^{x-1}$。因此 $y(1-0)=1$。$x>1$ 时，$y'-y=x-1$，通解为 $y=Ce^x-x$。由连续性 $y(1+0)=1$ 得 $Ce-1=1$，$C=\\frac2e$。故 $y= \\begin{cases} xe^{x-1},&x<1,\\\\ 1,&x=1,\\\\ 2e^{x-1}-x,&x>1. \\end{cases}$",
+      "generated_by": "legacy",
+      "generated_at": "",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "auto-migrated",
+    "generated_at": "",
+    "reviewed": false,
+    "render_version": "v2"
+  }
+}

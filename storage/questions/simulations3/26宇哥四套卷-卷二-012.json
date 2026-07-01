@@ -1,0 +1,26 @@
+{
+  "question_id": "26宇哥四套卷-卷二-012",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "tags": [
+    "微分方程",
+    "变量替换"
+  ],
+  "question": "微分方程 $3(x+y-1)\\,dx+(x+y)\\,dy=0$ 的通解为$\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$6x+2y+3\\ln|3-2x-2y|=C$",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "微分方程 $3(x+y-1)\\,dx+(x+y)\\,dy=0$ 的通解为$\\_\\_\\_\\_\\_$",
+  "raw_answer_text": ""
+}

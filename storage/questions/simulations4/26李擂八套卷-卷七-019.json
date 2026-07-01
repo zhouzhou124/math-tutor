@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷七-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "困难",
+  "score": 10,
+  "question": "设有向曲线 $L$ 为曲面 $x^2+y^2+z^2=2z$，$z\\ge 0$ 和 $x^2+y^2=x$ 的交线，从 $z$ 轴正向向负向看去，$L$ 沿逆时针，求曲线积分 $$\\oint_L[(y+z)^2-2xyz^3]\\,dx+[(x+z)^2-x^2z^3]\\,dy+[(x+y)^2-3x^2yz^2]\\,dz$$",
+  "correct_option": "",
+  "standard_answer": "$0$（两支曲线积分互相抵消）或 $-\\frac{4}{3}$（只取上支）",
+  "knowledge_points": [
+    "曲线积分",
+    "斯托克斯公式"
+  ],
+  "tags": [
+    "曲线积分",
+    "斯托克斯公式"
+  ],
+  "solution_steps": [
+    "若按题面「交线」取两支曲线整体，并按投影逆时针方向计，则两支曲线积分互相抵消，故积分为 $0$",
+    "若只取上支 $z=1+\\sin\\frac{t}{2}$，$x=\\frac{1+\\cos t}{2}$，$y=\\frac{\\sin t}{2}$，$0\\le t\\le 2\\pi$，则积分为 $-\\frac{4}{3}$"
+  ],
+  "raw_question_text": "设有向曲线 $L$ 为曲面 $x^2+y^2+z^2=2z$，$z\\ge 0$ 和 $x^2+y^2=x$ 的交线，从 $z$ 轴正向向负向看去，$L$ 沿逆时针，求曲线积分 $$\\oint_L[(y+z)^2-2xyz^3]\\,dx+[(x+z)^2-x^2z^3]\\,dy+[(x+y)^2-3x^2yz^2]\\,dz$$",
+  "raw_answer_text": "$0$（两支曲线积分互相抵消）或 $-\\frac{4}{3}$（只取上支）"
+}

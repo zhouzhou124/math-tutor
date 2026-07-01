@@ -43,6 +43,34 @@ def _question_total_score(selected_q: dict[str, Any], default: float = 5) -> flo
     return float(default)
 
 
+def _is_choice_or_fill_single_answer(question_type: str, student_ans: str) -> bool:
+    q_type = str(question_type or "")
+    q_type_lower = q_type.lower()
+    is_choice_or_fill = (
+        "选择" in q_type
+        or "填空" in q_type
+        or "閫夋嫨" in q_type
+        or "濉┖" in q_type
+        or "choice" in q_type_lower
+        or "fill" in q_type_lower
+    )
+    if not is_choice_or_fill:
+        return False
+    ans = str(student_ans or "").strip()
+    if not ans:
+        return False
+    return not any(marker in ans for marker in ("步骤", "过程", "解：", "证明", "\n"))
+
+
+def _suppress_choice_fill_analysis(gresult: dict[str, Any]) -> dict[str, Any]:
+    gresult["step_analysis"] = []
+    gresult["deductions"] = []
+    gresult["hide_diagnosis"] = True
+    gresult["skip_diagnosis"] = True
+    gresult["skip_step_analysis"] = True
+    return {}
+
+
 def _grade_choice_fast(selected_q: dict[str, Any], student_answer: str) -> dict[str, Any]:
     from services.grading_question_adapter import resolve_correct_answer
     total_score = _question_total_score(selected_q, 5)
@@ -187,63 +215,7 @@ def execute_grading(
             "mistake_record_created": False,
         }
 
-    # ── Choice fast path ──
-    if "选择" in q_type:
-        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=choice_fast")
-        gresult = _grade_choice_fast(selected_q, student_ans)
-        gresult = normalize_grading_result(gresult, engine="local_choice_fast")
-        dresult = {
-            "error_type": "无错误" if gresult.get("total", 0) > 0 else "选择题答案错误",
-            "root_cause": "",
-        }
-        return {
-            "grading_result": gresult,
-            "diagnosis_result": dresult,
-            "standard_answer": {"standard_answer": gresult.get("correct_answer", ""),
-                                "total_score": gresult.get("total_score", 10), "steps": []},
-            "standard_answer_structured": None,
-            "error_record": None,
-            "mistake_record_created": False,
-        }
-
-    # ── Fill fast path with the same quick_compare escalation contract as UI ──
-    if "填空" in q_type:
-        logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=fill_fast")
-        gresult = _grade_fill_fast(selected_q, student_ans)
-        from config import should_escalate_fill_to_llm
-        if not should_escalate_fill_to_llm(gresult):
-            gresult = normalize_grading_result(gresult, engine="fill_compare")
-            dresult = {
-                "error_type": "无错误" if gresult.get("is_correct") else "填空题错误",
-                "root_cause": "" if gresult.get("is_correct") else "答案与标准答案不等价",
-            }
-            return {
-                "grading_result": gresult,
-                "diagnosis_result": dresult,
-                "standard_answer": {"standard_answer": gresult.get("correct_answer", ""),
-                                    "total_score": gresult.get("total_score", 10), "steps": []},
-                "standard_answer_structured": None,
-                "error_record": None,
-                "mistake_record_created": False,
-            }
-        if client is None:
-            gresult["grading_method"] = "quick_compare_escalated_llm"
-            gresult["needs_review"] = True
-            gresult = normalize_grading_result(gresult, engine="fill_compare")
-            return {
-                "grading_result": gresult,
-                "diagnosis_result": {
-                    "error_type": "填空题需复核",
-                    "root_cause": "quick_compare 置信度不足或判为不等价，需要 LLM 复核",
-                },
-                "standard_answer": {"standard_answer": gresult.get("correct_answer", ""),
-                                    "total_score": gresult.get("total_score", 10), "steps": []},
-                "standard_answer_structured": None,
-                "error_record": None,
-                "mistake_record_created": False,
-            }
-
-    # ── Full LLM grading ──
+    # ── Full LLM grading (选择题/填空题/解答题/证明题统一) ──
     logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=grade path=llm")
     from agents import GradingAgent, DiagnosisAgent
     grading = GradingAgent(client, model)
@@ -283,12 +255,15 @@ def execute_grading(
     logger.info(f"[SCORING_WEIGHTS] qid={_q_id} type={q_type} "
                 f"weights={_weights['correctness']}/{_weights['process']}/{_weights['format']}")
 
-    emit("正在诊断...")
-    diagnosis = DiagnosisAgent(client, model)
-    dresult = diagnosis.diagnose(
-        question=question, student_answer=student_ans,
-        standard_answer=std_ans, grading_result=gresult, error_history=[],
-    )
+    if _is_choice_or_fill_single_answer(q_type, student_ans):
+        dresult = _suppress_choice_fill_analysis(gresult)
+    else:
+        emit("正在诊断...")
+        diagnosis = DiagnosisAgent(client, model)
+        dresult = diagnosis.diagnose(
+            question=question, student_answer=student_ans,
+            standard_answer=std_ans, grading_result=gresult, error_history=[],
+        )
 
     emit("批改完成")
     return {

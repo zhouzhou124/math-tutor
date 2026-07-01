@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷二-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩估计",
+    "最大似然估计",
+    "无偏性"
+  ],
+  "tags": [
+    "矩估计",
+    "最大似然估计",
+    "无偏性",
+    "概率密度"
+  ],
+  "question": "设总体 $X$ 的概率密度为 $f(x)=\\begin{cases} \\theta\\sin(\\theta x),&0<x<\\frac{\\pi}{2\\theta},\\\\ 0,&\\text{其他}, \\end{cases}$ 其中 $\\theta>0$ 为未知参数，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本。(I) 求 $\\frac1\\theta$ 的矩估计量与最大似然估计量；(II) 判断 (I) 中最大似然估计量是否具有无偏性。",
+  "source": "import_lilei8_v2",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(I) 先求 $E(X)$：$E(X)=\\int_0^{\\frac{\\pi}{2\\theta}}x\\theta\\sin(\\theta x)\\,dx=\\frac1\\theta\\int_0^{\\frac{\\pi}{2}}u\\sin u\\,du=\\frac1\\theta$。故 $\\frac1\\theta$ 的矩估计量为 $\\widehat{\\frac1\\theta}_{\\,M}=\\overline X$。似然函数为 $L(\\theta)=\\prod_{i=1}^n\\theta\\sin(\\theta X_i)$，$0<\\theta<\\frac{\\pi}{2X_{(n)}}$，$X_{(n)}=\\max\\{X_1,\\cdots,X_n\\}$。在该区间内 $L(\\theta)$ 关于 $\\theta$ 单调递增，故 $\\hat\\theta=\\frac{\\pi}{2X_{(n)}}$，$\\widehat{\\frac1\\theta}_{\\,\\mathrm{MLE}}=\\frac{2X_{(n)}}{\\pi}$。(II) 由于 $0<X_{(n)}<\\frac{\\pi}{2\\theta}$ 几乎处处成立，故 $0<\\frac{2X_{(n)}}{\\pi}<\\frac1\\theta$ 几乎处处成立，从而 $E\\left(\\frac{2X_{(n)}}{\\pi}\\right)<\\frac1\\theta$。因此 (I) 中最大似然估计量不具有无偏性。",
+  "solution_steps": [],
+  "raw_question_text": "设总体 $X$ 的概率密度为 $f(x)=\\begin{cases} \\theta\\sin(\\theta x),&0<x<\\frac{\\pi}{2\\theta},\\\\ 0,&\\text{其他}, \\end{cases}$ 其中 $\\theta>0$ 为未知参数，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本。(I) 求 $\\frac1\\theta$ 的矩估计量与最大似然估计量；(II) 判断 (I) 中最大似然估计量是否具有无偏性。",
+  "raw_answer_text": "(I) 先求 $E(X)$：$E(X)=\\int_0^{\\frac{\\pi}{2\\theta}}x\\theta\\sin(\\theta x)\\,dx=\\frac1\\theta\\int_0^{\\frac{\\pi}{2}}u\\sin u\\,du=\\frac1\\theta$。故 $\\frac1\\theta$ 的矩估计量为 $\\widehat{\\frac1\\theta}_{\\,M}=\\overline X$。似然函数为 $L(\\theta)=\\prod_{i=1}^n\\theta\\sin(\\theta X_i)$，$0<\\theta<\\frac{\\pi}{2X_{(n)}}$，$X_{(n)}=\\max\\{X_1,\\cdots,X_n\\}$。在该区间内 $L(\\theta)$ 关于 $\\theta$ 单调递增，故 $\\hat\\theta=\\frac{\\pi}{2X_{(n)}}$，$\\widehat{\\frac1\\theta}_{\\,\\mathrm{MLE}}=\\frac{2X_{(n)}}{\\pi}$。(II) 由于 $0<X_{(n)}<\\frac{\\pi}{2\\theta}$ 几乎处处成立，故 $0<\\frac{2X_{(n)}}{\\pi}<\\frac1\\theta$ 几乎处处成立，从而 $E\\left(\\frac{2X_{(n)}}{\\pi}\\right)<\\frac1\\theta$。因此 (I) 中最大似然估计量不具有无偏性。"
+}

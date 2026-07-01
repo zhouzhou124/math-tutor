@@ -218,11 +218,13 @@ def test_save_as_canonical_solution_uses_canonical_ir_as_solution_ir(tmp_path, m
 
 def test_solution_from_canonical_entry_reads_solution_ir_and_legacy_cache_still_works():
     from views.grading_page import _solution_from_canonical_entry
+    from services.grading_adapter import SOLUTION_FORMAT_VERSION
 
     ir = {"proof_trace": {"steps": [{"id": "s1"}]}}
+    standard_answer, _ = _valid_solution_payload()
     sol = _solution_from_canonical_entry(
-        {"standard_answer": "x=1", "solution_ir": ir},
-        {"score": 10},
+        {"format_version": SOLUTION_FORMAT_VERSION, "standard_answer": standard_answer, "solution_ir": ir},
+        {"score": 10, "question_type": "解答题"},
     )
     legacy = _solution_from_canonical_entry(
         {"standard_answer": "x=1"},
@@ -236,11 +238,13 @@ def test_solution_from_canonical_entry_reads_solution_ir_and_legacy_cache_still_
 
 def test_solution_from_canonical_entry_falls_back_to_canonical_ir():
     from views.grading_page import _solution_from_canonical_entry
+    from services.grading_adapter import SOLUTION_FORMAT_VERSION
 
     canonical_ir = {"proof_trace": {"steps": [{"id": "s1"}]}}
+    standard_answer, _ = _valid_solution_payload()
     sol = _solution_from_canonical_entry(
-        {"standard_answer": "x=1", "canonical_ir": canonical_ir},
-        {"score": 10},
+        {"format_version": SOLUTION_FORMAT_VERSION, "standard_answer": standard_answer, "canonical_ir": canonical_ir},
+        {"score": 10, "question_type": "解答题"},
     )
 
     assert sol["_canonical_ir"] == canonical_ir

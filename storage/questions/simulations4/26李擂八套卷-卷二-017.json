@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷二-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数极值"
+  ],
+  "tags": [
+    "多元函数极值",
+    "驻点",
+    "Hessian矩阵"
+  ],
+  "question": "求函数 $f(x,y)=2x^5+2y^5-5x^2y$ 的极值。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$f_x=10x^4-10xy$，$f_y=10y^4-5x^2$。由 $f_x=f_y=0$ 得驻点 $(0,0)$，$(2^{-\\frac1{10}},2^{-\\frac3{10}})$，$(-2^{-\\frac1{10}},-2^{-\\frac3{10}})$。点 $(0,0)$ 不是极值点；在 $(2^{-\\frac1{10}},2^{-\\frac3{10}})$ 处取得极小值 $-\\sqrt2$；在 $(-2^{-\\frac1{10}},-2^{-\\frac3{10}})$ 处取得极大值 $\\sqrt2$。",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "求函数 $f(x,y)=2x^5+2y^5-5x^2y$ 的极值。",
+  "raw_answer_text": "$f_x=10x^4-10xy$，$f_y=10y^4-5x^2$。由 $f_x=f_y=0$ 得驻点 $(0,0)$，$(2^{-\\frac1{10}},2^{-\\frac3{10}})$，$(-2^{-\\frac1{10}},-2^{-\\frac3{10}})$。点 $(0,0)$ 不是极值点；在 $(2^{-\\frac1{10}},2^{-\\frac3{10}})$ 处取得极小值 $-\\sqrt2$；在 $(-2^{-\\frac1{10}},-2^{-\\frac3{10}})$ 处取得极大值 $\\sqrt2$。"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷四-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "过渡矩阵",
+    "基变换"
+  ],
+  "tags": [
+    "过渡矩阵",
+    "基变换",
+    "坐标"
+  ],
+  "question": "设 $\\alpha_1,\\alpha_2,\\alpha_3$ 为 $\\mathbb R^3$ 的一组基，向量 $\\beta_1=\\alpha_1+\\alpha_2+k\\alpha_3$，$\\beta_2=\\alpha_1+2\\alpha_2+k\\alpha_3$，$\\beta_3=\\alpha_1+\\alpha_2+(1+k)\\alpha_3$ 和 $\\gamma_1=\\alpha_1$，$\\gamma_2=\\alpha_1+2\\alpha_2$，$\\gamma_3=2\\alpha_1+\\alpha_2+\\alpha_3$ 都是 $\\mathbb R^3$ 的基。若存在在基 $\\beta_1,\\beta_2,\\beta_3$ 和基 $\\gamma_1,\\gamma_2,\\gamma_3$ 下坐标相同的非零向量，则从基 $\\beta_1,\\beta_2,\\beta_3$ 到基 $\\gamma_1,\\gamma_2,\\gamma_3$ 的过渡矩阵为",
+  "options": {
+    "A": "$\\begin{pmatrix}2&1&2\\\\1&0&1\\\\0&0&1\\end{pmatrix}$",
+    "B": "$\\begin{pmatrix}2&0&2\\\\-1&1&-1\\\\0&0&1\\end{pmatrix}$",
+    "C": "$\\begin{pmatrix}2&-1&-1\\\\-1&1&0\\\\0&1&1\\end{pmatrix}$",
+    "D": "$\\begin{pmatrix}2&-1&-1\\\\1&-1&0\\\\0&0&1\\end{pmatrix}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1,\\alpha_2,\\alpha_3$ 为 $\\mathbb R^3$ 的一组基，向量 $\\beta_1=\\alpha_1+\\alpha_2+k\\alpha_3$，$\\beta_2=\\alpha_1+2\\alpha_2+k\\alpha_3$，$\\beta_3=\\alpha_1+\\alpha_2+(1+k)\\alpha_3$ 和 $\\gamma_1=\\alpha_1$，$\\gamma_2=\\alpha_1+2\\alpha_2$，$\\gamma_3=2\\alpha_1+\\alpha_2+\\alpha_3$ 都是 $\\mathbb R^3$ 的基。若存在在基 $\\beta_1,\\beta_2,\\beta_3$ 和基 $\\gamma_1,\\gamma_2,\\gamma_3$ 下坐标相同的非零向量，则从基 $\\beta_1,\\beta_2,\\beta_3$ 到基 $\\gamma_1,\\gamma_2,\\gamma_3$ 的过渡矩阵为",
+  "raw_answer_text": "B"
+}

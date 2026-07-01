@@ -6,18 +6,21 @@ import re as _re
 from prompts.system_prompts import SOLVER_PROMPT, CANONICAL_SOLVE_PROMPT
 
 
+def _render_named_prompt(template: str, **values) -> str:
+    """Replace known prompt variables without parsing JSON/LaTeX braces."""
+    rendered = str(template or "")
+    for key, value in values.items():
+        rendered = rendered.replace("{" + key + "}", str(value))
+    return rendered
+
+
 def _proof_step_body_markdown(step) -> str:
-    """Build a full derivation body from a CanonicalIR proof step."""
-    label = str(getattr(step, "label", "") or getattr(step, "id", "") or "").strip()
-    justification = str(getattr(step, "justification", "") or "").strip()
+    """Build math-only derivation body; goal/reason are stored on structured step fields."""
     input_state = str(getattr(step, "input_state", "") or "").strip()
     output_state = str(getattr(step, "output_state", "") or "").strip()
     parts: list[str] = []
-    if label:
-        parts.append(f"推导目标：{label}。")
-    if justification:
-        parts.append(f"推导理由：{justification}")
-    if input_state and output_state:
+    showed_transition = bool(input_state and output_state)
+    if showed_transition:
         parts.append("关键变形为：")
         parts.append(f"$$\n{input_state}\n\\Rightarrow\n{output_state}\n$$")
     elif output_state:
@@ -26,8 +29,6 @@ def _proof_step_body_markdown(step) -> str:
     elif input_state:
         parts.append("已知条件可写为：")
         parts.append(f"$$\n{input_state}\n$$")
-    if output_state:
-        parts.append(f"因此本步得到结论：${output_state}$。")
     return "\n\n".join(p for p in parts if p).strip()
 
 
@@ -92,9 +93,10 @@ class SolverAgent:
         """CanonicalIR 路径：LLM → CanonicalIR JSON → ProofTrace → StructuredSolution"""
         from prompts.structured_prompts import _CANONICAL_SOLVER_PROMPT
         from semantic_output import validate_canonical_ir, proof_trace_to_structured
-        from latex_utils import normalize_latex_style
+        from services.latex_normalization import normalize_latex as normalize_latex_style
 
-        system = _CANONICAL_SOLVER_PROMPT.format(
+        system = _render_named_prompt(
+            _CANONICAL_SOLVER_PROMPT,
             math_type=math_type, question_type=question_type,
             knowledge_point=knowledge_point, question=question,
         )
@@ -149,16 +151,23 @@ class SolverAgent:
 
             structured = proof_trace_to_structured(model.proof_trace)
 
+            from services.grading_adapter import _strip_step_title_prefix
+
             for idx, step in enumerate(structured.get("steps", [])):
                 proof_step = model.proof_trace.steps[idx] if idx < len(model.proof_trace.steps) else None
                 if proof_step is not None:
+                    step["goal"] = _strip_step_title_prefix(
+                        str(getattr(proof_step, "label", "") or getattr(proof_step, "id", "") or "")
+                    )
+                    step["reason"] = str(getattr(proof_step, "justification", "") or "").strip()
                     body = _proof_step_body_markdown(proof_step)
                     if body:
                         step["body_markdown"] = body
                         step["derivation_markdown"] = body
-                        step["explanation"] = str(getattr(proof_step, "justification", "") or "")
+                        step["explanation"] = step["reason"]
                 for block in step.get("blocks", []):
                     if block.get("type") == "latex":
+                        block["type"] = "latex_display"
                         block["content"] = normalize_latex_style(block.get("content", ""))
 
             fa = structured.get("final_answer") or {}
@@ -195,12 +204,13 @@ class SolverAgent:
         """StructuredSolution 路径（回退用）"""
         from prompts.structured_prompts import _STRUCTURED_SOLVER_PROMPT
 
-        system = _STRUCTURED_SOLVER_PROMPT.format(
+        system = _render_named_prompt(
+            _STRUCTURED_SOLVER_PROMPT,
             math_type=math_type, question_type=question_type,
             knowledge_point=knowledge_point, question=question,
         )
 
-        from latex_utils import normalize_latex_style
+        from services.latex_normalization import normalize_latex as normalize_latex_style
 
         user_msg = f"请生成这道{math_type}{question_type}的标准解答。只输出 JSON。"
         # 多小题检测：如果题目包含 (1)/(2) 或 (I)/(II) 标记，明确要求全覆盖
@@ -270,10 +280,11 @@ class SolverAgent:
                 steps_pydantic = model.steps
 
                 # Normalize LaTeX in latex-type blocks
-                from latex_utils import normalize_latex_style
+                from services.latex_normalization import normalize_latex as normalize_latex_style
                 for s in steps_pydantic:
                     for b in s.blocks:
                         if b.type == "latex":
+                            b.type = "latex_display"
                             b.content = normalize_latex_style(b.content)
 
                 # Convert Pydantic models back to dict for _structured storage
@@ -281,8 +292,9 @@ class SolverAgent:
                 for s in steps_pydantic:
                     blocks = []
                     for b in s.blocks:
+                        block_type = "latex_display" if b.type == "latex" else b.type
                         blocks.append({
-                            "type": b.type, "content": b.content,
+                            "type": block_type, "content": b.content,
                             "display": b.display, "operation": b.operation,
                         })
                     steps.append({
@@ -301,6 +313,7 @@ class SolverAgent:
                 for step in steps:
                     for block in step.get("blocks", []):
                         if block.get("type") == "latex":
+                            block["type"] = "latex_display"
                             block["content"] = normalize_latex_style(block.get("content", ""))
 
                 fa_model = model.final_answer
@@ -391,7 +404,8 @@ class SolverAgent:
             if json_text:
                 try:
                     data = _json.loads(json_text)
-                    from latex_utils import validate_and_repair, normalize_latex_style
+                    from latex_utils import validate_and_repair
+                    from services.latex_normalization import normalize_latex as normalize_latex_style
                     model, errors, repairs = validate_and_repair(data)
                     if model and not errors:
                         _structured = model.model_dump()
@@ -418,7 +432,8 @@ class SolverAgent:
 
             # JSON failed or validation failed → convert to structured
             try:
-                from latex_utils import from_legacy_text, normalize_latex_style
+                from latex_utils import from_legacy_text
+                from services.latex_normalization import normalize_latex as normalize_latex_style
                 text = normalize_latex_style(text)
                 _structured = from_legacy_text(text)
             except Exception:

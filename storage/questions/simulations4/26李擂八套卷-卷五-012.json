@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷五-012",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "广义积分",
+    "含参积分"
+  ],
+  "tags": [
+    "广义积分",
+    "含参积分"
+  ],
+  "question": "$$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{x\\sqrt{x}}\\,dx=\\_\\_\\_\\_\\_$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\sqrt2\\pi$",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "$$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{x\\sqrt{x}}\\,dx=\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\sqrt2\\pi$"
+}

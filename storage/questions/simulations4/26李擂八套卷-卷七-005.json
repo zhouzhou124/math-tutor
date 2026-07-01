@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $A$ 为 $m\\times n$ 矩阵，$\\alpha_1,\\alpha_2,\\cdots,\\alpha_s$ 是一个 $n$ 维列向量组，则向量组 $A\\alpha_1,A\\alpha_2,\\cdots,A\\alpha_s$ 线性无关是向量组 $A^TA\\alpha_1,A^TA\\alpha_2,\\cdots,A^TA\\alpha_s$ 线性无关的$(\\quad)$",
+  "options": {
+    "A": "必要非充分条件",
+    "B": "充分非必要条件",
+    "C": "充要条件",
+    "D": "既非充分也非必要条件"
+  },
+  "correct_option": "C",
+  "standard_answer": "C. 充要条件",
+  "knowledge_points": [
+    "向量组",
+    "线性无关"
+  ],
+  "tags": [
+    "向量组",
+    "线性无关",
+    "矩阵运算"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $A$ 为 $m\\times n$ 矩阵，$\\alpha_1,\\alpha_2,\\cdots,\\alpha_s$ 是一个 $n$ 维列向量组，则向量组 $A\\alpha_1,A\\alpha_2,\\cdots,A\\alpha_s$ 线性无关是向量组 $A^TA\\alpha_1,A^TA\\alpha_2,\\cdots,A^TA\\alpha_s$ 线性无关的$(\\quad)$",
+  "raw_answer_text": "C. 充要条件"
+}

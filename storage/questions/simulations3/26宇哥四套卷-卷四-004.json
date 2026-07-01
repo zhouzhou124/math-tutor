@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-004",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "幂级数",
+    "收敛半径"
+  ],
+  "tags": [
+    "幂级数",
+    "收敛半径",
+    "收敛性"
+  ],
+  "question": "设 $R$ 为幂级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_nx^n$ 的收敛半径，$r$ 是实数，则",
+  "options": {
+    "A": "当 $\\displaystyle\\sum_{n=1}^{\\infty}a_nr^{2n}$ 发散时，$|r|\\ge R$",
+    "B": "当 $\\displaystyle\\sum_{n=1}^{\\infty}a_{2n}r^{2n}$ 收敛时，$|r|\\le R$",
+    "C": "当 $|r|>R$ 时，$\\displaystyle\\sum_{n=1}^{\\infty}a_{2n+1}r^{2n+1}$ 发散",
+    "D": "当 $|r|<R$ 时，$\\displaystyle\\sum_{n=1}^{\\infty}a_{2n}r^{2n}$ 收敛"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $R$ 为幂级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_nx^n$ 的收敛半径，$r$ 是实数，则",
+  "raw_answer_text": "D"
+}

@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷三-022",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "概率密度",
+    "联合分布函数"
+  ],
+  "tags": [
+    "概率密度",
+    "联合分布函数",
+    "指数分布",
+    "二项分布"
+  ],
+  "question": "设随机变量 $X_1,X_2,X_3$ 相互独立，$X_1$ 和 $X_2$ 均服从参数为 $1$ 的指数分布，$X_3$ 服从二项分布 $B(2,\\frac12)$，$Y=X_3X_1+(2-X_3)X_2$。\n(1) 求 $Y$ 的概率密度；\n(2) 设 $Z=\\cos(\\pi X_3)$，求 $Y$ 和 $Z$ 的联合分布函数.",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) \\{X_3=0\\}=\\frac14$，\\{X_3=1\\}=\\frac12$，\\{X_3=2\\}=\\frac14$。当 =0$ 或 $ 时，=2X_i$；当 =1$ 时，=X_1+X_2$。因此 (y)=\\begin{cases} \\frac14e^{-\\frac y2}+\\frac12ye^{-y},&y>0,\\\\ 0,&y\\le0. \\end{cases}$ (II) =\\cos(\\pi X_3)=\\begin{cases} 1,&X_3=0,2,\\\\ -1,&X_3=1. \\end{cases}$ 故 {Y,Z}(y,z)=P\\{Y\\le y,Z\\le z\\}=\\begin{cases} 0,&y<0\\text{ 或 }z<-1,\\\\ \\frac12[1-e^{-y}(1+y)],&y\\ge0,\\ -1\\le z<1,\\\\ 1-\\frac12e^{-\\frac y2}-\\frac12(1+y)e^{-y},&y\\ge0,\\ z\\ge1. \\end{cases}$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X_1,X_2,X_3$ 相互独立，$X_1$ 和 $X_2$ 均服从参数为 $1$ 的指数分布，$X_3$ 服从二项分布 $B(2,\\frac12)$，$Y=X_3X_1+(2-X_3)X_2$。\n(1) 求 $Y$ 的概率密度；\n(2) 设 $Z=\\cos(\\pi X_3)$，求 $Y$ 和 $Z$ 的联合分布函数.",
+  "raw_answer_text": "(I) \\{X_3=0\\}=\\frac14$，\\{X_3=1\\}=\\frac12$，\\{X_3=2\\}=\\frac14$。当 =0$ 或 $ 时，=2X_i$；当 =1$ 时，=X_1+X_2$。因此 (y)=\\begin{cases} \\frac14e^{-\\frac y2}+\\frac12ye^{-y},&y>0,\\\\ 0,&y\\le0. \\end{cases}$ (II) =\\cos(\\pi X_3)=\\begin{cases} 1,&X_3=0,2,\\\\ -1,&X_3=1. \\end{cases}$ 故 {Y,Z}(y,z)=P\\{Y\\le y,Z\\le z\\}=\\begin{cases} 0,&y<0\\text{ 或 }z<-1,\\\\ \\frac12[1-e^{-y}(1+y)],&y\\ge0,\\ -1\\le z<1,\\\\ 1-\\frac12e^{-\\frac y2}-\\frac12(1+y)e^{-y},&y\\ge0,\\ z\\ge1. \\end{cases}$"
+}

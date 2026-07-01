@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-006",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "线性方程组",
+    "无穷多解"
+  ],
+  "tags": [
+    "线性方程组",
+    "无穷多解"
+  ],
+  "question": "已知 $A=\\begin{pmatrix}1&2&1\\\\ a&3&-4\\\\ 4&2a+3&-2\\end{pmatrix}$，$b=\\begin{pmatrix}1\\\\ 5\\\\ 3a+1\\end{pmatrix}$，若线性方程组 $Ax=b$ 有无穷多解，则 $a=$",
+  "options": {
+    "A": "$2$",
+    "B": "$-2$",
+    "C": "$\\displaystyle\\frac{19}{2}$",
+    "D": "$-\\displaystyle\\frac{19}{2}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "已知 $A=\\begin{pmatrix}1&2&1\\\\ a&3&-4\\\\ 4&2a+3&-2\\end{pmatrix}$，$b=\\begin{pmatrix}1\\\\ 5\\\\ 3a+1\\end{pmatrix}$，若线性方程组 $Ax=b$ 有无穷多解，则 $a=$",
+  "raw_answer_text": "A"
+}

@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷六-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设正项级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散，若 $\\{a_n\\}$ 单调递减，则下列说法中正确的有$(\\quad)$ 个\n\n① 级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散;\n② 级数 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^na_n$ 收敛;\n③ $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_1+a_3+\\cdots+a_{2n-1}}{a_2+a_4+\\cdots+a_{2n}}=1$.",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "无穷级数"
+  ],
+  "tags": [
+    "无穷级数",
+    "正项级数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设正项级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散，若 $\\{a_n\\}$ 单调递减，则下列说法中正确的有$(\\quad)$ 个\n\n① 级数 $\\displaystyle\\sum_{n=1}^{\\infty}a_n$ 发散;\n② 级数 $\\displaystyle\\sum_{n=1}^{\\infty}(-1)^na_n$ 收敛;\n③ $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_1+a_3+\\cdots+a_{2n-1}}{a_2+a_4+\\cdots+a_{2n}}=1$.",
+  "raw_answer_text": "A"
+}

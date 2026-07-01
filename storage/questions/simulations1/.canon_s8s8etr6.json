@@ -1,0 +1,411 @@
+{
+  "question_id": "26宇哥八套卷-卷五-002",
+  "year": 2026,
+  "category": "26宇哥八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "多元函数微分学"
+  ],
+  "tags": [
+    "多元函数微分学"
+  ],
+  "question": "设 $f(x,y) = x^2 + y^2(1 + x^3)$，则",
+  "source": "import_v5",
+  "options": {
+    "A": "点 $(0,0)$ 是唯一极小值点也是最大值点",
+    "B": "点 $(0,0)$ 是唯一极大值点也是最小值点",
+    "C": "点 $(0,0)$ 是唯一极值点但不是最大值点",
+    "D": "点 $(0,0)$ 是唯一极小值点但不是最大值点"
+  },
+  "correct_option": "D",
+  "raw_question_text": "设 $f(x,y) = x^2 + y^2(1 + x^3)$，则",
+  "standard_answer": "步骤1：求偏导数，找出所有驻点\n\n对函数 $f(x,y)=x^2+y^2(1+x^3)$ 分别求一阶偏导数：\n\n$$\nf_x(x,y)=2x+y^2\\cdot 3x^2=2x+3x^2y^2,\n$$\n$$\nf_y(x,y)=2y(1+x^3).\n$$\n\n令偏导数为零，得驻点方程组：\n\n$$\n\\begin{cases}\n2x+3x^2y^2=0,\\\\\n2y(1+x^3)=0.\n\\end{cases}\n$$\n\n由第二个方程得 $y=0$ 或 $x=-1$。\n\n- 若 $y=0$，代入第一个方程得 $2x=0$，即 $x=0$，得驻点 $(0,0)$。\n- 若 $x=-1$，代入第一个方程得 $2(-1)+3(-1)^2y^2=-2+3y^2=0$，解得 $y^2=\\dfrac{2}{3}$，即 $y=\\pm\\sqrt{\\dfrac{2}{3}}$，得驻点 $\\bigl(-1,\\sqrt{\\frac{2}{3}}\\bigr)$ 与 $\\bigl(-1,-\\sqrt{\\frac{2}{3}}\\bigr)$。\n\n因此，函数共有三个驻点。\n步骤2：计算二阶偏导数，判定各驻点极值类型\n\n先求二阶偏导数：\n\n$$\n\\begin{aligned}\nf_{xx} &= 2+6xy^2,\\\\\nf_{xy} &= 6x^2y,\\\\\nf_{yy} &= 2(1+x^3).\n\\end{aligned}\n$$\n\n记 $A=f_{xx}$，$B=f_{xy}$，$C=f_{yy}$，判别式 $\\Delta=AC-B^2$。\n\n**(1) 对驻点 $(0,0)$：** \n$A=2,\\ B=0,\\ C=2$， \n$\\Delta=2\\times2-0^2=4>0$，且 $A=2>0$，故 $(0,0)$ 为极小值点，极小值为 $f(0,0)=0$。\n\n**(2) 对驻点 $\\bigl(-1,\\pm\\sqrt{\\frac{2}{3}}\\bigr)$：** \n此时 $x=-1,\\ y^2=\\frac{2}{3}$。计算 \n$A = 2+6(-1)\\cdot\\frac{2}{3}=2-4=-2$， \n$B = 6(-1)^2 \\bigl(\\pm\\sqrt{\\frac{2}{3}}\\bigr) = \\pm6\\sqrt{\\frac{2}{3}}$， \n$C = 2\\bigl(1+(-1)^3\\bigr)=2(1-1)=0$。 \n\n判别式 \n$\\Delta = AC-B^2 = (-2)\\times0 - \\bigl(\\pm6\\sqrt{\\frac{2}{3}}\\bigr)^2 = -36\\times\\frac{2}{3} = -24 <0$。 \n$\\Delta<0$，故这两个驻点均不是极值点（它们是鞍点）。\n\n综上，函数 **只有唯一的极小值点** $(0,0)$，不存在其他极值点。这一事实排除了“有多个极值点”或“$(0,0)$ 是极大值点”等错误选项。\n步骤3：判断函数是否存在最大值\n\n考虑沿 $x=0$ 的路径，此时 $f(0,y)=y^2$。当 $y\\to\\infty$ 时，$f(0,y)\\to +\\infty$；这说明函数值无上界，**函数在整个定义域上没有最大值**。因此，$(0,0)$ 虽然是极小值点，但决不是最大值点。同时，也可以取 $x=-1$，$y\\to\\infty$ 等路径验证函数值均可趋于无穷，从而不存在最大值。\n\n结合步骤2的结论，$(0,0)$ 是 **唯一极小值点但不是最大值点**。故选项 D 正确。\n\n## 最终答案\n\n故选 D.",
+  "raw_answer_text": "D",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780321551",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：求偏导数，找出所有驻点\n\n对函数 $f(x,y)=x^2+y^2(1+x^3)$ 分别求一阶偏导数：\n\n$$\nf_x(x,y)=2x+y^2\\cdot 3x^2=2x+3x^2y^2,\n$$\n$$\nf_y(x,y)=2y(1+x^3).\n$$\n\n令偏导数为零，得驻点方程组：\n\n$$\n\\begin{cases}\n2x+3x^2y^2=0,\\\\\n2y(1+x^3)=0.\n\\end{cases}\n$$\n\n由第二个方程得 $y=0$ 或 $x=-1$。\n\n- 若 $y=0$，代入第一个方程得 $2x=0$，即 $x=0$，得驻点 $(0,0)$。\n- 若 $x=-1$，代入第一个方程得 $2(-1)+3(-1)^2y^2=-2+3y^2=0$，解得 $y^2=\\dfrac{2}{3}$，即 $y=\\pm\\sqrt{\\dfrac{2}{3}}$，得驻点 $\\bigl(-1,\\sqrt{\\frac{2}{3}}\\bigr)$ 与 $\\bigl(-1,-\\sqrt{\\frac{2}{3}}\\bigr)$。\n\n因此，函数共有三个驻点。\n步骤2：计算二阶偏导数，判定各驻点极值类型\n\n先求二阶偏导数：\n\n$$\n\\begin{aligned}\nf_{xx} &= 2+6xy^2,\\\\\nf_{xy} &= 6x^2y,\\\\\nf_{yy} &= 2(1+x^3).\n\\end{aligned}\n$$\n\n记 $A=f_{xx}$，$B=f_{xy}$，$C=f_{yy}$，判别式 $\\Delta=AC-B^2$。\n\n**(1) 对驻点 $(0,0)$：** \n$A=2,\\ B=0,\\ C=2$， \n$\\Delta=2\\times2-0^2=4>0$，且 $A=2>0$，故 $(0,0)$ 为极小值点，极小值为 $f(0,0)=0$。\n\n**(2) 对驻点 $\\bigl(-1,\\pm\\sqrt{\\frac{2}{3}}\\bigr)$：** \n此时 $x=-1,\\ y^2=\\frac{2}{3}$。计算 \n$A = 2+6(-1)\\cdot\\frac{2}{3}=2-4=-2$， \n$B = 6(-1)^2 \\bigl(\\pm\\sqrt{\\frac{2}{3}}\\bigr) = \\pm6\\sqrt{\\frac{2}{3}}$， \n$C = 2\\bigl(1+(-1)^3\\bigr)=2(1-1)=0$。 \n\n判别式 \n$\\Delta = AC-B^2 = (-2)\\times0 - \\bigl(\\pm6\\sqrt{\\frac{2}{3}}\\bigr)^2 = -36\\times\\frac{2}{3} = -24 <0$。 \n$\\Delta<0$，故这两个驻点均不是极值点（它们是鞍点）。\n\n综上，函数 **只有唯一的极小值点** $(0,0)$，不存在其他极值点。这一事实排除了“有多个极值点”或“$(0,0)$ 是极大值点”等错误选项。\n步骤3：判断函数是否存在最大值\n\n考虑沿 $x=0$ 的路径，此时 $f(0,y)=y^2$。当 $y\\to\\infty$ 时，$f(0,y)\\to +\\infty$；这说明函数值无上界，**函数在整个定义域上没有最大值**。因此，$(0,0)$ 虽然是极小值点，但决不是最大值点。同时，也可以取 $x=-1$，$y\\to\\infty$ 等路径验证函数值均可趋于无穷，从而不存在最大值。\n\n结合步骤2的结论，$(0,0)$ 是 **唯一极小值点但不是最大值点**。故选项 D 正确。\n\n## 最终答案\n\n故选 D.",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-01 21:45",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "求偏导数，找出所有驻点\n\n对函数"
+              },
+              {
+                "type": "latex",
+                "content": "f(x,y)=x^2+y^2(1+x^3)"
+              },
+              {
+                "type": "text",
+                "content": "分别求一阶偏导数："
+              },
+              {
+                "type": "latex",
+                "content": "f_x(x,y)=2x+y^2\\cdot 3x^2=2x+3x^2y^2,",
+                "display": "block"
+              },
+              {
+                "type": "latex",
+                "content": "f_y(x,y)=2y(1+x^3).",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "令偏导数为零，得驻点方程组："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{cases}2x+3x^2y^2=0,\\\\\n2y(1+x^3)=0.\n\\end{cases}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由第二个方程得"
+              },
+              {
+                "type": "latex",
+                "content": "y=0"
+              },
+              {
+                "type": "text",
+                "content": "或"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "- 若"
+              },
+              {
+                "type": "latex",
+                "content": "y=0"
+              },
+              {
+                "type": "text",
+                "content": "代入第一个方程得"
+              },
+              {
+                "type": "latex",
+                "content": "2x=0"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "得驻点"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "- 若"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "text",
+                "content": "代入第一个方程得"
+              },
+              {
+                "type": "latex",
+                "content": "2(-1)+3(-1)^2y^2=-2+3y^2=0"
+              },
+              {
+                "type": "text",
+                "content": "解得"
+              },
+              {
+                "type": "latex",
+                "content": "y^2=\\dfrac{2}{3}"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "y=\\pm\\sqrt{\\dfrac{2}{3}}"
+              },
+              {
+                "type": "text",
+                "content": "得驻点"
+              },
+              {
+                "type": "latex",
+                "content": "\\bigl(-1,\\sqrt{\\frac{2}{3}}\\bigr)"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\bigl(-1,-\\sqrt{\\frac{2}{3}}\\bigr)"
+              },
+              {
+                "type": "text",
+                "content": "因此，函数共有三个驻点。"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算二阶偏导数，判定各驻点极值类型\n\n先求二阶偏导数："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}f_{xx} &= 2+6xy^2,\\f_{xy} &= 6x^2y,\\\\\nf_{yy} &= 2(1+x^3).\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "记"
+              },
+              {
+                "type": "latex",
+                "content": "A=f_{xx}"
+              },
+              {
+                "type": "latex",
+                "content": "B=f_{xy}"
+              },
+              {
+                "type": "latex",
+                "content": "C=f_{yy}"
+              },
+              {
+                "type": "text",
+                "content": "判别式"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta=AC-B^2"
+              },
+              {
+                "type": "text",
+                "content": "(1) 对驻点"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "latex",
+                "content": "A=2,\\ B=0,\\ C=2"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta=2\\times2-0^2=4>0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "A=2>0"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "为极小值点，极小值为"
+              },
+              {
+                "type": "latex",
+                "content": "f(0,0)=0"
+              },
+              {
+                "type": "text",
+                "content": "(2) 对驻点"
+              },
+              {
+                "type": "latex",
+                "content": "\\bigl(-1,\\pm\\sqrt{\\frac{2}{3}}\\bigr)"
+              },
+              {
+                "type": "text",
+                "content": "此时"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1,\\ y^2=\\frac{2}{3}"
+              },
+              {
+                "type": "text",
+                "content": "计算"
+              },
+              {
+                "type": "latex",
+                "content": "A = 2+6(-1)\\cdot\\frac{2}{3}=2-4=-2"
+              },
+              {
+                "type": "latex",
+                "content": "B = 6(-1)^2 \\bigl(\\pm\\sqrt{\\frac{2}{3}}\\bigr) = \\pm6\\sqrt{\\frac{2}{3}}"
+              },
+              {
+                "type": "latex",
+                "content": "C = 2\\bigl(1+(-1)^3\\bigr)=2(1-1)=0"
+              },
+              {
+                "type": "text",
+                "content": "判别式"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta = AC-B^2 = (-2)\\times0 - \\bigl(\\pm6\\sqrt{\\frac{2}{3}}\\bigr)^2 = -36\\times\\frac{2}{3} = -24 <0"
+              },
+              {
+                "type": "latex",
+                "content": "\\Delta<0"
+              },
+              {
+                "type": "text",
+                "content": "故这两个驻点均不是极值点（它们是鞍点）。\n\n综上，函数 只有唯一的极小值点"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "不存在其他极值点。这一事实排除了“有多个极值点”或“"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是极大值点”等错误选项。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "判断函数是否存在最大值\n\n考虑沿"
+              },
+              {
+                "type": "latex",
+                "content": "x=0"
+              },
+              {
+                "type": "text",
+                "content": "的路径，此时"
+              },
+              {
+                "type": "latex",
+                "content": "f(0,y)=y^2"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "y\\to\\infty"
+              },
+              {
+                "type": "text",
+                "content": "时，"
+              },
+              {
+                "type": "latex",
+                "content": "f(0,y)\\to +\\infty"
+              },
+              {
+                "type": "text",
+                "content": "这说明函数值无上界，函数在整个定义域上没有最大值。因此，"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "虽然是极小值点，但决不是最大值点。同时，也可以取"
+              },
+              {
+                "type": "latex",
+                "content": "x=-1"
+              },
+              {
+                "type": "latex",
+                "content": "y\\to\\infty"
+              },
+              {
+                "type": "text",
+                "content": "等路径验证函数值均可趋于无穷，从而不存在最大值。\n\n结合步骤2的结论，"
+              },
+              {
+                "type": "latex",
+                "content": "(0,0)"
+              },
+              {
+                "type": "text",
+                "content": "是 唯一极小值点但不是最大值点。故选项 D 正确。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-01 21:45",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
+}

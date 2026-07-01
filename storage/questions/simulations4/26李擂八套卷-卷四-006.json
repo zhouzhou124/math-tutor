@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷四-006",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩阵秩",
+    "分块矩阵"
+  ],
+  "tags": [
+    "矩阵秩",
+    "分块矩阵",
+    "秩不等式"
+  ],
+  "question": "设 $A,B,C,D$ 均为 $n$ 阶矩阵，满足 $A=BCD$，则下列各式中不一定成立的是",
+  "options": {
+    "A": "$r(B)=r\\begin{pmatrix}A&B\\end{pmatrix}$",
+    "B": "$r(D)=r\\begin{pmatrix}A\\\\D\\end{pmatrix}$",
+    "C": "$r(BC)=r(BCA)$",
+    "D": "$r(C)\\ge r(D^TC^TA^T)$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B,C,D$ 均为 $n$ 阶矩阵，满足 $A=BCD$，则下列各式中不一定成立的是",
+  "raw_answer_text": "C"
+}

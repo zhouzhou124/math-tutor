@@ -1,0 +1,29 @@
+{
+  "question_id": "26宇哥四套卷-卷二-020",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲面积分",
+    "空间解析几何"
+  ],
+  "tags": [
+    "曲面积分",
+    "空间解析几何",
+    "圆锥面",
+    "Gauss公式"
+  ],
+  "question": "设 $\\Sigma$ 是圆锥面，其顶点在原点，准线为点 $P(0,0,1)$ 绕直线 $\\begin{cases} x=t,\\\\ y=t,\\\\ z=t \\end{cases}$ ($t$ 为参数) 旋转一周得到的圆，取外侧。\n(1) 求 $\\Sigma$ 的方程；\n(2) 计算曲面积分 $I=\\displaystyle\\iint_\\Sigma x\\,dy\\,dz+y\\,dz\\,dx+z\\,dx\\,dy$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(1) 点 $P(0,0,1)$ 绕直线 $x=y=z$ 旋转所得圆为平面 $x+y+z=1$ 与球面 $x^2+y^2+z^2=1$ 的交线。圆锥面由原点发出的射线经过该圆得到，故 $\\Sigma: x^2+y^2+z^2=(x+y+z)^2$，$0\\le x+y+z\\le1$，即 $xy+yz+zx=0$，$0\\le x+y+z\\le1$。(2) 被积向量场为 $(x,y,z)$，在圆锥面上位置向量沿母线方向，故与外法向量垂直，因此 $I=0$。",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\Sigma$ 是圆锥面，其顶点在原点，准线为点 $P(0,0,1)$ 绕直线 $\\begin{cases} x=t,\\\\ y=t,\\\\ z=t \\end{cases}$ ($t$ 为参数) 旋转一周得到的圆，取外侧。\n(1) 求 $\\Sigma$ 的方程；\n(2) 计算曲面积分 $I=\\displaystyle\\iint_\\Sigma x\\,dy\\,dz+y\\,dz\\,dx+z\\,dx\\,dy$。",
+  "raw_answer_text": ""
+}

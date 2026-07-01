@@ -13,9 +13,10 @@
   "tags": [
     "极限"
   ],
-  "question": "$11.$ $\\lim_{x\\to 0} \\frac{|x|^{x+2}}{\\sqrt{1+x^2}-1} = \\_\\_\\_\\_\\_\\_$",
+  "question": "$11.$ $$\\lim_{x\\to 0} \\frac{|x|^{x+2}}{\\sqrt{1+x^2}-1} = \\_\\_\\_\\_\\_\\_$$",
   "source": "import_zhangyu_v1",
-  "raw_question_text": "$11.$ $\\lim_{x\\to 0} \\frac{|x|^{x+2}}{\\sqrt{1+x^2}-1} = \\_\\_\\_\\_\\_\\_$",
+  "raw_question_text": "$11.$ $$\\lim_{x\\to 0} \\frac{|x|^{x+2}}{\\sqrt{1+x^2}-1} = \\_\\_\\_\\_\\_\\_$$",
   "standard_answer": "$2$",
-  "raw_answer_text": "$2$"
+  "raw_answer_text": "$2$",
+  "options": {}
 }

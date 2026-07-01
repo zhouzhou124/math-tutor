@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-021",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "相似对角化",
+    "特征值"
+  ],
+  "tags": [
+    "相似对角化",
+    "特征值",
+    "可逆矩阵"
+  ],
+  "question": "设 $A=\\begin{pmatrix} 3a&1-a&3-a\\\\ 2a&1&3-a\\\\ 2a&1-a&3 \\end{pmatrix}$，其中 $a\\ne0$，试判断 $A$ 是否可相似对角化，如果可相似对角化，求可逆矩阵 $P$ 及对角矩阵 $\\Lambda$，使得 $P^{-1}AP=\\Lambda$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$A$ 的特征多项式为 $|\\lambda E-A|=(\\lambda-a)^2(\\lambda-a-4)$。对特征值 $a$，有 $A-aE=\\begin{pmatrix} 2a&1-a&3-a\\\\ 2a&1-a&3-a\\\\ 2a&1-a&3-a \\end{pmatrix}$，因 $a\\ne0$，$r(A-aE)=1$，所以 $\\lambda=a$ 的几何重数为 $2$。因而 $A$ 可相似对角化。取 $P=\\begin{pmatrix} a-1&a-3&1\\\\ 2a&0&1\\\\ 0&2a&1 \\end{pmatrix}$，$\\Lambda=\\begin{pmatrix} a&0&0\\\\ 0&a&0\\\\ 0&0&a+4 \\end{pmatrix}$，则 $|P|=8a\\ne0$，$P^{-1}AP=\\Lambda$。",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A=\\begin{pmatrix} 3a&1-a&3-a\\\\ 2a&1&3-a\\\\ 2a&1-a&3 \\end{pmatrix}$，其中 $a\\ne0$，试判断 $A$ 是否可相似对角化，如果可相似对角化，求可逆矩阵 $P$ 及对角矩阵 $\\Lambda$，使得 $P^{-1}AP=\\Lambda$。",
+  "raw_answer_text": "$A$ 的特征多项式为 $|\\lambda E-A|=(\\lambda-a)^2(\\lambda-a-4)$。对特征值 $a$，有 $A-aE=\\begin{pmatrix} 2a&1-a&3-a\\\\ 2a&1-a&3-a\\\\ 2a&1-a&3-a \\end{pmatrix}$，因 $a\\ne0$，$r(A-aE)=1$，所以 $\\lambda=a$ 的几何重数为 $2$。因而 $A$ 可相似对角化。取 $P=\\begin{pmatrix} a-1&a-3&1\\\\ 2a&0&1\\\\ 0&2a&1 \\end{pmatrix}$，$\\Lambda=\\begin{pmatrix} a&0&0\\\\ 0&a&0\\\\ 0&0&a+4 \\end{pmatrix}$，则 $|P|=8a\\ne0$，$P^{-1}AP=\\Lambda$。"
+}

@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷四-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方向导数",
+    "投影曲线"
+  ],
+  "tags": [
+    "方向导数",
+    "投影曲线",
+    "梯度",
+    "最值"
+  ],
+  "question": "设函数 $f(x,y)=x^2+y^2-xy$，曲面 $z=f(x,y)$ 与 $z=2-x^2-y^2$ 的交线在 $xOy$ 平面内的投影曲线为 $L$，再设 $L$ 在 $xOy$ 平面内所围成的有界闭区域为 $D$，求 $f(x,y)$ 在 $D$ 内最大的方向导数。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$D$：$2x^2+2y^2-xy\\le2$。又 $|\\nabla f|^2=(2x-y)^2+(2y-x)^2=5x^2+5y^2-8xy$。在 $2x^2+2y^2-xy=2$ 上求最大值，得 $|\\nabla f|_{\\max}=\\frac6{\\sqrt5}$。因此 $f(x,y)$ 在 $D$ 内最大的方向导数为 $\\frac6{\\sqrt5}$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x,y)=x^2+y^2-xy$，曲面 $z=f(x,y)$ 与 $z=2-x^2-y^2$ 的交线在 $xOy$ 平面内的投影曲线为 $L$，再设 $L$ 在 $xOy$ 平面内所围成的有界闭区域为 $D$，求 $f(x,y)$ 在 $D$ 内最大的方向导数。",
+  "raw_answer_text": "$D$：$2x^2+2y^2-xy\\le2$。又 $|\\nabla f|^2=(2x-y)^2+(2y-x)^2=5x^2+5y^2-8xy$。在 $2x^2+2y^2-xy=2$ 上求最大值，得 $|\\nabla f|_{\\max}=\\frac6{\\sqrt5}$。因此 $f(x,y)$ 在 $D$ 内最大的方向导数为 $\\frac6{\\sqrt5}$。"
+}

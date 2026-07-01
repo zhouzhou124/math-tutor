@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "Gauss公式",
+    "旋转曲面"
+  ],
+  "tags": [
+    "Gauss公式",
+    "旋转曲面",
+    "曲面积分"
+  ],
+  "question": "设有向曲面 $\\Sigma$ 是圆 $\\begin{cases} x^2+y^2+z^2=2,\\\\ x-y+z=1 \\end{cases}$ 绕直线 $L:\\begin{cases} x=1+t,\\\\ y=-2t,\\\\ z=t \\end{cases}$ 旋转一周得到的，方向向外，$\\Omega$ 为 $\\Sigma$ 所围成的空间区域，求 $\\displaystyle\\iint\\limits_{\\Sigma}(3x+xz)\\,dy\\,dz+yz\\,dz\\,dx-(z+1)^2\\,dx\\,dy$.",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\operatorname{div}(3x+xz,\\ yz,\\ -(z+1)^2)=1$。由高斯公式，所求积分等于 $\\Omega$ 的体积。旋转所得体积为 $V=\\frac{5\\sqrt2\\pi^2}{9}$。故原曲面积分为 $\\frac{5\\sqrt2\\pi^2}{9}$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有向曲面 $\\Sigma$ 是圆 $\\begin{cases} x^2+y^2+z^2=2,\\\\ x-y+z=1 \\end{cases}$ 绕直线 $L:\\begin{cases} x=1+t,\\\\ y=-2t,\\\\ z=t \\end{cases}$ 旋转一周得到的，方向向外，$\\Omega$ 为 $\\Sigma$ 所围成的空间区域，求 $\\displaystyle\\iint\\limits_{\\Sigma}(3x+xz)\\,dy\\,dz+yz\\,dz\\,dx-(z+1)^2\\,dx\\,dy$.",
+  "raw_answer_text": "$\\operatorname{div}(3x+xz,\\ yz,\\ -(z+1)^2)=1$。由高斯公式，所求积分等于 $\\Omega$ 的体积。旋转所得体积为 $V=\\frac{5\\sqrt2\\pi^2}{9}$。故原曲面积分为 $\\frac{5\\sqrt2\\pi^2}{9}$。"
+}

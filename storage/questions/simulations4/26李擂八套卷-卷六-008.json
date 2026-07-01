@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-008",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(0,0;1,4;\\frac12)$，$aX+bY$ 与 $X+Y$ 相互独立且 $aX+bY$ 服从标准正态分布，则 $ab=(\\quad)$",
+  "options": {
+    "A": "$-\\frac{10}{21}$",
+    "B": "$\\frac{10}{21}$",
+    "C": "$-\\frac5{21}$",
+    "D": "$\\frac5{21}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "knowledge_points": [
+    "多维随机变量",
+    "数字特征"
+  ],
+  "tags": [
+    "多维随机变量",
+    "二维正态分布",
+    "相关系数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $(X,Y)$ 服从二维正态分布 $N(0,0;1,4;\\frac12)$，$aX+bY$ 与 $X+Y$ 相互独立且 $aX+bY$ 服从标准正态分布，则 $ab=(\\quad)$",
+  "raw_answer_text": "A"
+}

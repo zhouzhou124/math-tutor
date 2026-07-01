@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "高斯公式",
+    "曲面积分"
+  ],
+  "tags": [
+    "高斯公式",
+    "曲面积分"
+  ],
+  "question": "设 $\\Sigma$ 为空间区域 $\\{(x,y,z)\\mid |x|+|y|+z^2\\le1,\\ 0\\le z\\le1\\}$ 表面的外侧，则 $\\displaystyle\\iint_{\\Sigma}\\left[xy+\\ln(1-x^2+y^4)\\right]\\,dy\\,dz+\\left[yz+\\cos(x^4y)\\right]\\,dz\\,dx+z\\sin(x^3+y^3)\\,dx\\,dy=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac13$",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\Sigma$ 为空间区域 $\\{(x,y,z)\\mid |x|+|y|+z^2\\le1,\\ 0\\le z\\le1\\}$ 表面的外侧，则 $\\displaystyle\\iint_{\\Sigma}\\left[xy+\\ln(1-x^2+y^4)\\right]\\,dy\\,dz+\\left[yz+\\cos(x^4y)\\right]\\,dz\\,dx+z\\sin(x^3+y^3)\\,dx\\,dy=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\displaystyle\\frac13$"
+}

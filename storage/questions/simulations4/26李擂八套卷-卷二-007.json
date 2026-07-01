@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次型",
+    "条件极值"
+  ],
+  "tags": [
+    "二次型",
+    "条件极值",
+    "特征值"
+  ],
+  "question": "设二次型 $f(x_1,x_2,x_3)=5x_1^2+5x_2^2+8x_3^2+2x_1x_2$，在 $5x_1^2+5x_2^2+8x_3^2+2x_1x_2=1$ 的条件下，$x_1^2+x_2^2+x_3^2$ 的最大值为",
+  "options": {
+    "A": "$\\frac13$",
+    "B": "$\\frac14$",
+    "C": "$\\frac15$",
+    "D": "$\\frac16$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设二次型 $f(x_1,x_2,x_3)=5x_1^2+5x_2^2+8x_3^2+2x_1x_2$，在 $5x_1^2+5x_2^2+8x_3^2+2x_1x_2=1$ 的条件下，$x_1^2+x_2^2+x_3^2$ 的最大值为",
+  "raw_answer_text": "B"
+}

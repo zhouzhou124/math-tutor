@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷四-011",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数",
+    "二阶偏导"
+  ],
+  "tags": [
+    "隐函数",
+    "二阶偏导"
+  ],
+  "question": "设函数 $z=z(x,y)$ 由 $e^z+yz=2y-x$ 确定，则 $\\displaystyle\\left.\\frac{\\partial^2z}{\\partial y^2}\\right|_{(1,1)}=$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle -\\frac32$",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $z=z(x,y)$ 由 $e^z+yz=2y-x$ 确定，则 $\\displaystyle\\left.\\frac{\\partial^2z}{\\partial y^2}\\right|_{(1,1)}=$",
+  "raw_answer_text": "$\\displaystyle -\\frac32$"
+}

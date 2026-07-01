@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷三-021",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵对角化",
+    "马尔可夫链"
+  ],
+  "tags": [
+    "矩阵对角化",
+    "马尔可夫链",
+    "特征值"
+  ],
+  "question": "设某高校每年有 $\\frac16$ 的职工由行政岗转为教师岗，有 $\\frac14$ 的职工由教师岗转为行政岗。若该高校职工总数不变，记 $n$ 年后行政岗人数与教师岗人数占总职工人数的比例分别为 $x_n$ 与 $y_n$，$x_n+y_n=1$。(1) 求关系式 $\\begin{pmatrix}x_{n+1}\\\\y_{n+1}\\end{pmatrix}=A\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}$ 中的矩阵 $A$；(2) 设 $\\begin{pmatrix}x_0\\\\y_0\\end{pmatrix}=\\begin{pmatrix}\\frac12\\\\\\frac12\\end{pmatrix}$，求 $\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(1) $x_{n+1}=\\frac56x_n+\\frac14y_n$，$y_{n+1}=\\frac16x_n+\\frac34y_n$，故 $A=\\begin{pmatrix} \\frac56&\\frac14\\\\ \\frac16&\\frac34 \\end{pmatrix}$。(2) $\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}=\\begin{pmatrix} \\frac35-\\frac1{10}(\\frac7{12})^n\\\\ \\frac25+\\frac1{10}(\\frac7{12})^n \\end{pmatrix}$。",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设某高校每年有 $\\frac16$ 的职工由行政岗转为教师岗，有 $\\frac14$ 的职工由教师岗转为行政岗。若该高校职工总数不变，记 $n$ 年后行政岗人数与教师岗人数占总职工人数的比例分别为 $x_n$ 与 $y_n$，$x_n+y_n=1$。(1) 求关系式 $\\begin{pmatrix}x_{n+1}\\\\y_{n+1}\\end{pmatrix}=A\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}$ 中的矩阵 $A$；(2) 设 $\\begin{pmatrix}x_0\\\\y_0\\end{pmatrix}=\\begin{pmatrix}\\frac12\\\\\\frac12\\end{pmatrix}$，求 $\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}$。",
+  "raw_answer_text": "(1) $x_{n+1}=\\frac56x_n+\\frac14y_n$，$y_{n+1}=\\frac16x_n+\\frac34y_n$，故 $A=\\begin{pmatrix} \\frac56&\\frac14\\\\ \\frac16&\\frac34 \\end{pmatrix}$。(2) $\\begin{pmatrix}x_n\\\\y_n\\end{pmatrix}=\\begin{pmatrix} \\frac35-\\frac1{10}(\\frac7{12})^n\\\\ \\frac25+\\frac1{10}(\\frac7{12})^n \\end{pmatrix}$。"
+}

@@ -171,6 +171,7 @@ def generate_choice_explanation(
             ],
             temperature=0.2,
             max_tokens=2048,
+            timeout=90,
         )
         text = response.choices[0].message.content
         result = _parse_explanation(text, correct_option, question)
@@ -542,3 +543,164 @@ def _is_answer_good_enough(text: str) -> bool:
 def _is_detailed_answer_complete(text: str) -> bool:
     """Heuristic guard against token-limit truncation in detailed answers."""
     return _is_answer_good_enough(text)
+
+
+def _choice_explanation_to_markdown(
+    explanation: dict,
+    correct_option: str,
+    options: dict | None = None,
+) -> str:
+    """Turn structured choice explanation into step-marked markdown for grading display."""
+    parts: list[str] = []
+    thought = str((explanation or {}).get("thought_process") or "").strip()
+    if thought:
+        parts.append(f"## 步骤1：解题思路\n{thought}")
+
+    calc = (explanation or {}).get("calculation_steps") or (explanation or {}).get("calculation")
+    if calc:
+        if isinstance(calc, list):
+            calc_text = "\n".join(str(x).strip() for x in calc if str(x).strip())
+        else:
+            calc_text = str(calc).strip()
+        if calc_text:
+            parts.append(f"## 步骤2：关键计算\n{calc_text}")
+
+    option_analysis = (explanation or {}).get("option_analysis") or {}
+    if isinstance(option_analysis, dict) and any(str(v).strip() for v in option_analysis.values()):
+        lines = ["## 步骤3：选项分析"]
+        for letter in ("A", "B", "C", "D"):
+            snippet = str(option_analysis.get(letter) or "").strip()
+            if snippet:
+                lines.append(f"{letter}: {snippet}")
+        parts.append("\n".join(lines))
+
+    letter = (correct_option or "").strip().upper()[:1]
+    if letter:
+        parts.append(f"## 最终答案\n故选 {letter}。")
+    elif options:
+        parts.append("## 最终答案\n请结合选项分析确定正确答案。")
+
+    return "\n\n".join(parts).strip()
+
+
+def _choice_calculation_text(explanation: dict) -> str:
+    calc = (explanation or {}).get("calculation_steps") or (explanation or {}).get("calculation")
+    if isinstance(calc, list):
+        return "\n".join(str(x).strip() for x in calc if str(x).strip())
+    return str(calc or "").strip()
+
+
+def _choice_explanation_has_core_derivation(explanation: dict) -> bool:
+    """True when the choice explanation contains real reasoning, not just A/B/C/D labels."""
+    if not isinstance(explanation, dict):
+        return False
+    thought = str(explanation.get("thought_process") or "").strip()
+    calc_text = _choice_calculation_text(explanation)
+    if len(thought) >= 20 or len(calc_text) >= 20:
+        return True
+    return bool(
+        thought
+        and any(marker in thought for marker in ("求", "计算", "推导", "导数", "极限", "积分", "单调", "利用", "由"))
+    )
+
+
+def generate_choice_standard_solution(
+    question: str,
+    selected_q: dict,
+    client,
+    model: str = "deepseek-chat",
+) -> dict:
+    """Fast, choice-specific standard solution (single LLM call, option-aware).
+
+    Returns a grading-page compatible solution dict with choice_solution payload.
+    """
+    from services.grading_question_adapter import resolve_correct_answer
+
+    selected_q = dict(selected_q or {})
+    resolved = resolve_correct_answer(selected_q, question_type="选择题")
+    correct_option = str(
+        resolved.get("correct_option")
+        or selected_q.get("correct_option")
+        or ""
+    ).strip().upper()[:1]
+    opts = selected_q.get("options") or {}
+    if correct_option and opts and correct_option in opts:
+        known_line = f"正确选项: {correct_option}. {opts[correct_option]}"
+    elif correct_option:
+        known_line = f"正确选项: {correct_option}"
+    else:
+        known_line = (selected_q.get("standard_answer") or "").strip()
+
+    full_q = dict(selected_q)
+    raw_q = selected_q.get("raw_question_text") or selected_q.get("question") or question
+    full_q["question"] = raw_q
+    if correct_option:
+        full_q["correct_option"] = correct_option
+
+    explanation = generate_choice_explanation(
+        full_q,
+        student_answer="",
+        is_correct=True,
+        client=client,
+        model=model,
+    )
+    text = _choice_explanation_to_markdown(explanation, correct_option, opts)
+    if not _choice_explanation_has_core_derivation(explanation):
+        detailed = generate_detailed_answer(
+            question=full_q,
+            known_answer=known_line,
+            question_type="选择题",
+            client=client,
+            model=model,
+        )
+        if detailed and detailed.strip() and detailed.strip() != known_line.strip():
+            text = detailed.strip()
+            explanation = {
+                **(explanation or {}),
+                "thought_process": detailed.strip(),
+                "correct_answer": correct_option,
+            }
+    calc_text = _choice_calculation_text(explanation)
+    if not calc_text and text:
+        calc_match = re.search(
+            r"##\s*步骤2[：:]\s*关键计算\s*\n(.*?)(?=\n##\s*步骤|\n##\s*最终|\Z)",
+            text,
+            flags=re.S,
+        )
+        if calc_match:
+            calc_text = calc_match.group(1).strip()
+            explanation = {**(explanation or {}), "calculation_steps": calc_text}
+    if not text and known_line:
+        text = (
+            f"## 步骤1：解题思路\n{known_line}\n\n"
+            f"## 最终答案\n故选 {correct_option}。" if correct_option else known_line
+        )
+
+    solution = {
+        "success": True,
+        "standard_answer": text or known_line or "",
+        "total_score": (
+            selected_q.get("score")
+            or selected_q.get("total_score")
+            or selected_q.get("points")
+            or 5
+        ),
+        "steps": [],
+        "choice_solution": {
+            "thought_process": explanation.get("thought_process"),
+            "calculation_steps": explanation.get("calculation_steps") or explanation.get("calculation"),
+            "option_analysis": explanation.get("option_analysis"),
+            "knowledge_points": explanation.get("knowledge_points"),
+            "common_traps": explanation.get("common_traps"),
+            "fast_method": explanation.get("fast_method"),
+            "correct_answer": correct_option,
+            "answer": correct_option,
+        },
+    }
+    if text.strip():
+        try:
+            from latex_utils import from_legacy_text
+            solution["_structured"] = from_legacy_text(text)
+        except Exception:
+            pass
+    return solution

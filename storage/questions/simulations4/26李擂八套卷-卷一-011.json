@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "等价无穷小"
+  ],
+  "tags": [
+    "极限",
+    "等价无穷小",
+    "幂指函数"
+  ],
+  "question": "$$\\displaystyle\\lim_{x\\to0}\\frac{(\\cos x)^{\\frac1x}-1}{\\sin x-\\sin2x}=\\_\\_\\_\\_\\_$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac12$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "$$\\displaystyle\\lim_{x\\to0}\\frac{(\\cos x)^{\\frac1x}-1}{\\sin x-\\sin2x}=\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$\\displaystyle\\frac12$"
+}

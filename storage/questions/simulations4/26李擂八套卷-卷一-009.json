@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷一-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "矩估计",
+    "最大似然估计"
+  ],
+  "tags": [
+    "矩估计",
+    "最大似然估计",
+    "分布律"
+  ],
+  "question": "设总体 $X$ 的分布律为 $P\\{X=k\\}=(k-1)p^{k-2}(1-p)^2$，$k=2,3,4,\\cdots$，其中未知参数 $p$ 满足 $0<p<1$，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本，$\\overline X$ 表示该简单随机样本的样本均值，则 $p$ 的矩估计量和最大似然估计量分别是",
+  "options": {
+    "A": "$1-\\frac2{\\overline X},\\ 1-\\frac2{\\overline X}$",
+    "B": "$1-\\frac2{\\overline X},\\ \\frac2{\\overline X}$",
+    "C": "$\\frac2{\\overline X},\\ 1-\\frac2{\\overline X}$",
+    "D": "$\\frac2{\\overline X},\\ \\frac2{\\overline X}$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A. $\\hat p=1-\\frac2{\\overline X}$，$\\hat p_{\\mathrm{MLE}}=1-\\frac2{\\overline X}$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设总体 $X$ 的分布律为 $P\\{X=k\\}=(k-1)p^{k-2}(1-p)^2$，$k=2,3,4,\\cdots$，其中未知参数 $p$ 满足 $0<p<1$，$X_1,X_2,\\cdots,X_n$ 是来自总体 $X$ 的简单随机样本，$\\overline X$ 表示该简单随机样本的样本均值，则 $p$ 的矩估计量和最大似然估计量分别是",
+  "raw_answer_text": "A. $\\hat p=1-\\frac2{\\overline X}$，$\\hat p_{\\mathrm{MLE}}=1-\\frac2{\\overline X}$"
+}

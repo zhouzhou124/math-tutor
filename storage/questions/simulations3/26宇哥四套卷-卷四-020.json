@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-020",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲面积分",
+    "Gauss公式"
+  ],
+  "tags": [
+    "曲面积分",
+    "Gauss公式",
+    "补面法"
+  ],
+  "question": "设有界曲面 $\\Sigma$ 为旋转抛物面 $z=a-x^2-y^2$ $(x\\ge0,y\\ge0)$ 被柱面 $x^2+y^2=\\frac a2$ 所截出部分的上侧，其中 $a>0$，计算 $\\displaystyle I=\\iint_{\\Sigma}xz\\,dy\\,dz+xy\\,dz\\,dx+yz\\,dx\\,dy$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$z=a-x^2-y^2$，$z_x=-2x$，$z_y=-2y$。取上侧，投影区域为 $D: x\\ge0, y\\ge0, x^2+y^2\\le\\frac a2$。因而 $I=\\iint_D[-xz\\,z_x-xy\\,z_y+yz]\\,dx\\,dy=\\iint_D[2x^2z+2xy^2+yz]\\,dx\\,dy$。令 $x=r\\cos\\theta$，$y=r\\sin\\theta$，$0\\le\\theta\\le\\frac{\\pi}{2}$，$0\\le r\\le\\sqrt{\\frac a2}$，得 $I=\\frac{\\pi a^3}{48}+\\frac{3\\sqrt2}{40}a^{\\frac52}$。",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有界曲面 $\\Sigma$ 为旋转抛物面 $z=a-x^2-y^2$ $(x\\ge0,y\\ge0)$ 被柱面 $x^2+y^2=\\frac a2$ 所截出部分的上侧，其中 $a>0$，计算 $\\displaystyle I=\\iint_{\\Sigma}xz\\,dy\\,dz+xy\\,dz\\,dx+yz\\,dx\\,dy$。",
+  "raw_answer_text": "$z=a-x^2-y^2$，$z_x=-2x$，$z_y=-2y$。取上侧，投影区域为 $D: x\\ge0, y\\ge0, x^2+y^2\\le\\frac a2$。因而 $I=\\iint_D[-xz\\,z_x-xy\\,z_y+yz]\\,dx\\,dy=\\iint_D[2x^2z+2xy^2+yz]\\,dx\\,dy$。令 $x=r\\cos\\theta$，$y=r\\sin\\theta$，$0\\le\\theta\\le\\frac{\\pi}{2}$，$0\\le r\\le\\sqrt{\\frac a2}$，得 $I=\\frac{\\pi a^3}{48}+\\frac{3\\sqrt2}{40}a^{\\frac52}$。"
+}

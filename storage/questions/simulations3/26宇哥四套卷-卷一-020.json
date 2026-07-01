@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-020",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲面积分",
+    "微分方程"
+  ],
+  "tags": [
+    "曲面积分",
+    "微分方程"
+  ],
+  "question": "设非负函数 $f(x)$ 有连续的二阶导数，$f(x)$ 满足 $f(0)=1$，$f'(0)=2$，对于任意的位于 $xOy$ 面上方的分片光滑闭曲面 $\\Sigma$ 的内侧，都有 $\\displaystyle \\iint_{\\Sigma} z^2f'(x)\\,dy\\,dz-3yz^2\\sqrt{f(x)}\\,dz\\,dx=0$。求 $f(x)$.",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "设 $P=z^2f'(x)$，$Q=-3yz^2\\sqrt{f(x)}$，$R=0$。由 Gauss 公式及题设对任意闭曲面成立，得 $\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=z^2f''(x)-3z^2\\sqrt{f(x)}=0$。故 $f''(x)=3\\sqrt{f(x)}$。结合 $f(0)=1$，$f'(0)=2$，解得 $f(x)=(1+\\frac x2)^4$。",
+  "solution_steps": [],
+  "raw_question_text": "设非负函数 $f(x)$ 有连续的二阶导数，$f(x)$ 满足 $f(0)=1$，$f'(0)=2$，对于任意的位于 $xOy$ 面上方的分片光滑闭曲面 $\\Sigma$ 的内侧，都有 $\\displaystyle \\iint_{\\Sigma} z^2f'(x)\\,dy\\,dz-3yz^2\\sqrt{f(x)}\\,dz\\,dx=0$。求 $f(x)$.",
+  "raw_answer_text": ""
+}

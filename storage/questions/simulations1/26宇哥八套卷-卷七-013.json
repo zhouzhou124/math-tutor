@@ -8,7 +8,7 @@
   "difficulty": "较难",
   "score": 5,
   "question": "设 $f(x)$ 在 $[0,1]$ 上连续，$\\int_0^1 2x^2 f(x) dx \\ge \\int_0^1 f^2(x) dx + \\frac{1}{5}$，则 $f(x) =$ ______",
-  "standard_answer": "$x^2$",
+  "standard_answer": "## 标准答案\n$f(x)=x^2$\n步骤1：构造非负积分得到反向不等式\n由于 $f(x)$ 连续，可考虑积分 $\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x$，它显然非负。将平方展开：\n$$\n\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = \\int_0^1\\Bigl(f^2(x)-2x^2f(x)+x^4\\Bigr)\\,\\mathrm{d}x \\ge 0.\n$$\n利用积分的线性性质，得\n$$\n\\int_0^1 f^2(x)\\,\\mathrm{d}x - 2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x \\ge 0.\n$$\n移项即得\n$$\n2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x. \\tag{1}\n$$\n步骤2：计算定积分 $\\int_0^1 x^4 \\mathrm{d}x$\n直接计算幂函数的积分：\n$$\n\\int_0^1 x^4 \\mathrm{d}x = \\left.\\frac{x^5}{5}\\right|_0^1 = \\frac{1}{5}.\n$$\n代入 (1) 式，得到\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{2}\n$$\n步骤3：结合已知条件强迫取等\n已知条件为\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\ge \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{3}\n$$\n比较 (2) 与 (3) 可知，二者同时成立当且仅当\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x = \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}.\n$$\n这意味着步骤1中构造的非负积分必为零：\n$$\n\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = 0.\n$$\n由于被积函数非负且 $f(x)$ 连续，积分为零推出 $f(x)-x^2 \\equiv 0$ 在 $[0,1]$ 上恒成立。\n步骤4：得出函数表达式\n由 $f(x)-x^2\\equiv 0$ 立即得到\n$$\nf(x) = x^2,\\quad x\\in[0,1].\n$$\n该函数连续，且满足原不等式（实际取等），故为所求。\n\n## 结论\n故最终答案为 $f(x)=x^2$。",
   "knowledge_points": [
     "定积分"
   ],
@@ -17,5 +17,206 @@
   ],
   "solution_steps": [],
   "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上连续，$\\int_0^1 2x^2 f(x) dx \\ge \\int_0^1 f^2(x) dx + \\frac{1}{5}$，则 $f(x) =$ ______",
-  "raw_answer_text": "$x^2$"
+  "raw_answer_text": "$x^2$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780737458",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "## 标准答案\n$f(x)=x^2$\n步骤1：构造非负积分得到反向不等式\n由于 $f(x)$ 连续，可考虑积分 $\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x$，它显然非负。将平方展开：\n$$\n\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = \\int_0^1\\Bigl(f^2(x)-2x^2f(x)+x^4\\Bigr)\\,\\mathrm{d}x \\ge 0.\n$$\n利用积分的线性性质，得\n$$\n\\int_0^1 f^2(x)\\,\\mathrm{d}x - 2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x \\ge 0.\n$$\n移项即得\n$$\n2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x. \\tag{1}\n$$\n步骤2：计算定积分 $\\int_0^1 x^4 \\mathrm{d}x$\n直接计算幂函数的积分：\n$$\n\\int_0^1 x^4 \\mathrm{d}x = \\left.\\frac{x^5}{5}\\right|_0^1 = \\frac{1}{5}.\n$$\n代入 (1) 式，得到\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{2}\n$$\n步骤3：结合已知条件强迫取等\n已知条件为\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\ge \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{3}\n$$\n比较 (2) 与 (3) 可知，二者同时成立当且仅当\n$$\n\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x = \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}.\n$$\n这意味着步骤1中构造的非负积分必为零：\n$$\n\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = 0.\n$$\n由于被积函数非负且 $f(x)$ 连续，积分为零推出 $f(x)-x^2 \\equiv 0$ 在 $[0,1]$ 上恒成立。\n步骤4：得出函数表达式\n由 $f(x)-x^2\\equiv 0$ 立即得到\n$$\nf(x) = x^2,\\quad x\\in[0,1].\n$$\n该函数连续，且满足原不等式（实际取等），故为所求。\n\n## 结论\n故最终答案为 $f(x)=x^2$。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-06 17:17",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "构造非负积分得到反向不等式\n由于"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "连续，可考虑积分"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "它显然非负。将平方展开："
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = \\int_0^1\\Bigl(f^2(x)-2x^2f(x)+x^4\\Bigr)\\,\\mathrm{d}x \\ge 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "利用积分的线性性质，得"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 f^2(x)\\,\\mathrm{d}x - 2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x \\ge 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "移项即得"
+              },
+              {
+                "type": "latex",
+                "content": "2\\int_0^1 x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\int_0^1 x^4 \\mathrm{d}x. \\tag{1}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算定积分"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 x^4 \\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "直接计算幂函数的积分："
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 x^4 \\mathrm{d}x = \\left.\\frac{x^5}{5}\\right|_0^1 = \\frac{1}{5}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "代入 (1) 式，得到。"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\le \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{2}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "结合已知条件强迫取等已知条件为"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x \\ge \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}. \\tag{3}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "比较 (2) 与 (3) 可知，二者同时成立当且仅当。"
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1 2x^2 f(x)\\,\\mathrm{d}x = \\int_0^1 f^2(x)\\,\\mathrm{d}x + \\frac{1}{5}.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "这意味着步骤1中构造的非负积分必为零："
+              },
+              {
+                "type": "latex",
+                "content": "\\int_0^1\\bigl(f(x)-x^2\\bigr)^2 \\mathrm{d}x = 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由于被积函数非负且"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)"
+              },
+              {
+                "type": "text",
+                "content": "连续，积分为零推出"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)-x^2 \\equiv 0"
+              },
+              {
+                "type": "text",
+                "content": "在"
+              },
+              {
+                "type": "latex",
+                "content": "[0,1]"
+              },
+              {
+                "type": "text",
+                "content": "上恒成立。"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "得出函数表达式\n由"
+              },
+              {
+                "type": "latex",
+                "content": "f(x)-x^2\\equiv 0"
+              },
+              {
+                "type": "text",
+                "content": "立即得到"
+              },
+              {
+                "type": "latex",
+                "content": "f(x) = x^2,\\quad x\\in[0,1].",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "该函数连续，且满足原不等式（实际取等），故为所求。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-06 17:17",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

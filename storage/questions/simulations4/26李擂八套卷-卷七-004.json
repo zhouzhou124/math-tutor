@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷七-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "困难",
+  "score": 5,
+  "question": "设 $\\varSigma$ 为曲面 $z=\\sqrt{x^2+y^2}$，$0\\le z\\le 1$ 在第一卦限和第二卦限的部分，方向向上，则 $$\\iint_{\\varSigma}(\\sin x^2+x\\sin y^2-x)\\,dy\\,dz+(x\\sin y^2-y\\sin x^2-y)\\,dz\\,dx+(x\\sin z^2+z)\\,dx\\,dy=(\\quad)$$",
+  "options": {
+    "A": "$\\displaystyle\\frac{2\\pi}{3}$",
+    "B": "$\\displaystyle\\frac{4\\pi}{3}$",
+    "C": "$\\displaystyle\\frac{8\\pi}{3}$",
+    "D": "$0$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A. $\\frac{2\\pi}{3}$",
+  "knowledge_points": [
+    "曲面积分",
+    "高斯公式"
+  ],
+  "tags": [
+    "曲面积分",
+    "高斯公式"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $\\varSigma$ 为曲面 $z=\\sqrt{x^2+y^2}$，$0\\le z\\le 1$ 在第一卦限和第二卦限的部分，方向向上，则 $$\\iint_{\\varSigma}(\\sin x^2+x\\sin y^2-x)\\,dy\\,dz+(x\\sin y^2-y\\sin x^2-y)\\,dz\\,dx+(x\\sin z^2+z)\\,dx\\,dy=(\\quad)$$",
+  "raw_answer_text": "A. $\\frac{2\\pi}{3}$"
+}

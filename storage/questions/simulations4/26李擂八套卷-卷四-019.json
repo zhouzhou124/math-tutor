@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷四-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "证明题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "积分递推",
+    "数列极限"
+  ],
+  "tags": [
+    "积分递推",
+    "数列极限",
+    "分部积分"
+  ],
+  "question": "令 $a_n=\\displaystyle\\frac1{2^n}\\int_1^{\\sqrt2}x^{2n}\\sqrt{x^2-1}\\,dx$，$n=1,2,3,\\cdots$.\n(1) 证明 $a_{n+1}=\\frac{\\sqrt2}{4n+8}+\\frac{2n+1}{4n+8}a_n$；\n(2) 证明 $\\displaystyle\\lim_{n\\to\\infty}a_n$ 存在，并求 $\\displaystyle\\lim_{n\\to\\infty}a_n$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 分部积分可得 $a_{n+1}=\\frac{\\sqrt2}{4n+8}+\\frac{2n+1}{4n+8}a_n$。(II) 由递推式及 $a_n>0$，可知极限存在。设 $\\lim_{n\\to\\infty}a_n=A$，则 $A=\\frac12A$，故 $A=0$。因此 $\\lim_{n\\to\\infty}a_n=0$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "令 $a_n=\\displaystyle\\frac1{2^n}\\int_1^{\\sqrt2}x^{2n}\\sqrt{x^2-1}\\,dx$，$n=1,2,3,\\cdots$.\n(1) 证明 $a_{n+1}=\\frac{\\sqrt2}{4n+8}+\\frac{2n+1}{4n+8}a_n$；\n(2) 证明 $\\displaystyle\\lim_{n\\to\\infty}a_n$ 存在，并求 $\\displaystyle\\lim_{n\\to\\infty}a_n$。",
+  "raw_answer_text": "(I) 分部积分可得 $a_{n+1}=\\frac{\\sqrt2}{4n+8}+\\frac{2n+1}{4n+8}a_n$。(II) 由递推式及 $a_n>0$，可知极限存在。设 $\\lim_{n\\to\\infty}a_n=A$，则 $A=\\frac12A$，故 $A=0$。因此 $\\lim_{n\\to\\infty}a_n=0$。"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "证明题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "不等式证明",
+    "函数单调性"
+  ],
+  "tags": [
+    "不等式证明",
+    "函数单调性",
+    "对数不等式"
+  ],
+  "question": "证明下列不等式：(I) $x(x+1)\\ln^2(1+\\frac1x)<1$，$x\\in(0,+\\infty)$；(II) 对任意正整数 $n$ 恒有 $\\displaystyle(1+\\frac1n)^{n+\\frac12}>e$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 令 $t=\\ln(1+\\frac1x)>0$，则 $x=\\frac1{e^t-1}$，$x+1=\\frac{e^t}{e^t-1}$。因而 $x(x+1)\\ln^2(1+\\frac1x)=\\frac{t^2e^t}{(e^t-1)^2}=\\left(\\frac{t}{e^{t/2}-e^{-t/2}}\\right)^2<1$，因为 $e^{t/2}-e^{-t/2}>t$。(II) 令 $u=\\frac1{2n+1}$，则 $\\ln(1+\\frac1n)=\\ln\\frac{1+u}{1-u}=2\\left(u+\\frac{u^3}{3}+\\frac{u^5}{5}+\\cdots\\right)>2u=\\frac2{2n+1}$。故 $\\left(n+\\frac12\\right)\\ln(1+\\frac1n)>1$，即 $(1+\\frac1n)^{n+\\frac12}>e$。",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "证明下列不等式：(I) $x(x+1)\\ln^2(1+\\frac1x)<1$，$x\\in(0,+\\infty)$；(II) 对任意正整数 $n$ 恒有 $\\displaystyle(1+\\frac1n)^{n+\\frac12}>e$。",
+  "raw_answer_text": "(I) 令 $t=\\ln(1+\\frac1x)>0$，则 $x=\\frac1{e^t-1}$，$x+1=\\frac{e^t}{e^t-1}$。因而 $x(x+1)\\ln^2(1+\\frac1x)=\\frac{t^2e^t}{(e^t-1)^2}=\\left(\\frac{t}{e^{t/2}-e^{-t/2}}\\right)^2<1$，因为 $e^{t/2}-e^{-t/2}>t$。(II) 令 $u=\\frac1{2n+1}$，则 $\\ln(1+\\frac1n)=\\ln\\frac{1+u}{1-u}=2\\left(u+\\frac{u^3}{3}+\\frac{u^5}{5}+\\cdots\\right)>2u=\\frac2{2n+1}$。故 $\\left(n+\\frac12\\right)\\ln(1+\\frac1n)>1$，即 $(1+\\frac1n)^{n+\\frac12}>e$。"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-005",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "向量组",
+    "线性表示"
+  ],
+  "tags": [
+    "向量组",
+    "线性表示",
+    "秩"
+  ],
+  "question": "设有向量组 (I) $\\alpha_1=(a^2-3,1,a)^T$，$\\alpha_2=(2,a-1,a^2-1)^T$，$\\alpha_3=(3,b,2b+1)^T$ 和 (II) $\\beta_1=(2,-a-2,1)^T$，$\\beta_2=(5,-9,4)^T$，$\\beta_3=(2,a-2,7)^T$。若已知向量组 (II) 能由向量组 (I) 线性表示，但向量组 (I) 不能由向量组 (II) 线性表示，则",
+  "options": {
+    "A": "$a=-2,\\ b\\ne2$",
+    "B": "$a=-2,\\ b\\ne-2$",
+    "C": "$a=2,\\ b\\ne2$",
+    "D": "$a=2,\\ b\\ne-2$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有向量组 (I) $\\alpha_1=(a^2-3,1,a)^T$，$\\alpha_2=(2,a-1,a^2-1)^T$，$\\alpha_3=(3,b,2b+1)^T$ 和 (II) $\\beta_1=(2,-a-2,1)^T$，$\\beta_2=(5,-9,4)^T$，$\\beta_3=(2,a-2,7)^T$。若已知向量组 (II) 能由向量组 (I) 线性表示，但向量组 (I) 不能由向量组 (II) 线性表示，则",
+  "raw_answer_text": "C"
+}

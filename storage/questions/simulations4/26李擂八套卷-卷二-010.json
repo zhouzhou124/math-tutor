@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "简单",
+  "knowledge_points": [
+    "泊松分布",
+    "独立性"
+  ],
+  "tags": [
+    "泊松分布",
+    "独立性",
+    "可加性"
+  ],
+  "question": "设随机变量 $X,Y$ 相互独立且均服从参数为 $1$ 的泊松分布，则下列随机变量中仍然服从泊松分布的是",
+  "options": {
+    "A": "$X+Y$",
+    "B": "$XY$",
+    "C": "$2X$",
+    "D": "$X-Y$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X,Y$ 相互独立且均服从参数为 $1$ 的泊松分布，则下列随机变量中仍然服从泊松分布的是",
+  "raw_answer_text": "A"
+}

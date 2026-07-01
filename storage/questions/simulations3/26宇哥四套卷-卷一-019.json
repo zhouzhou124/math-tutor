@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-019",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "证明题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "中值定理",
+    "定积分"
+  ],
+  "tags": [
+    "中值定理",
+    "定积分"
+  ],
+  "question": "(1) 设 $f(x)$ 在 $[a,b]$ 上具有二阶连续导数，证明存在 $\\xi\\in(a,b)$，使得 $\\displaystyle \\int_a^b f(x)\\,dx=f(\\frac{a+b}{2})(b-a)+\\frac{f''(\\xi)}{24}(b-a)^3$；\n(2) 设 $g(x)$ 在 $[-1,1]$ 上具有三阶连续导数，且 $g(-1)=g(1)$，$g'(0)=0$，证明存在 $\\eta\\in(-1,1)$，使得 $g'''(\\eta)=0$.",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) 令 $m=\\frac{a+b}{2}$，$h=\\frac{b-a}{2}$。由 Taylor 公式，$f(m+t)=f(m)+f'(m)t+\\frac12 f''(\\xi_t)t^2$。对 $t\\in[-h,h]$ 积分，奇函数项积分为 $0$，得 $\\int_a^b f(x)\\,dx=2hf(m)+\\frac12\\int_{-h}^{h}f''(\\xi_t)t^2\\,dt$。由积分中值定理，存在 $\\xi\\in(a,b)$，使 $\\frac12\\int_{-h}^{h}f''(\\xi_t)t^2\\,dt=\\frac12f''(\\xi)\\int_{-h}^{h}t^2\\,dt=\\frac{f''(\\xi)h^3}{3}$。因 $2h=b-a$，故 $\\int_a^b f(x)\\,dx=f(m)(b-a)+\\frac{f''(\\xi)}{24}(b-a)^3$。(2) 若 $g'''(x)$ 在 $(-1,1)$ 内恒正，则 $g'$ 严格凸，故对 $t\\in(0,1)$ 有 $g'(t)+g'(-t)>2g'(0)=0$，从而 $0=g(1)-g(-1)=\\int_{-1}^{1}g'(x)\\,dx=\\int_0^1[g'(t)+g'(-t)]\\,dt>0$，矛盾。若 $g'''(x)$ 恒负，同理得矛盾。由连续性知，存在 $\\eta\\in(-1,1)$，使 $g'''(\\eta)=0$。",
+  "solution_steps": [],
+  "raw_question_text": "(1) 设 $f(x)$ 在 $[a,b]$ 上具有二阶连续导数，证明存在 $\\xi\\in(a,b)$，使得 $\\displaystyle \\int_a^b f(x)\\,dx=f(\\frac{a+b}{2})(b-a)+\\frac{f''(\\xi)}{24}(b-a)^3$；\n(2) 设 $g(x)$ 在 $[-1,1]$ 上具有三阶连续导数，且 $g(-1)=g(1)$，$g'(0)=0$，证明存在 $\\eta\\in(-1,1)$，使得 $g'''(\\eta)=0$.",
+  "raw_answer_text": ""
+}

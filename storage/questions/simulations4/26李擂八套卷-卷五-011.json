@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷五-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方向导数",
+    "梯度"
+  ],
+  "tags": [
+    "方向导数",
+    "梯度"
+  ],
+  "question": "设函数 $f(x,y,z)=x\\arctan(x^2+y^3-2z)$，向量 $n=(1,2,2)$，则 $\\displaystyle\\left.\\frac{\\partial u}{\\partial n}\\right|_{(1,1,1)}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac43$",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x,y,z)=x\\arctan(x^2+y^3-2z)$，向量 $n=(1,2,2)$，则 $\\displaystyle\\left.\\frac{\\partial u}{\\partial n}\\right|_{(1,1,1)}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac43$"
+}

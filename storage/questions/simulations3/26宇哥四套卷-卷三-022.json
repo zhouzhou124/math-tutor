@@ -1,0 +1,30 @@
+{
+  "question_id": "26宇哥四套卷-卷三-022",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "二维随机变量",
+    "独立性",
+    "分布函数"
+  ],
+  "tags": [
+    "二维随机变量",
+    "独立性",
+    "分布函数",
+    "均匀分布"
+  ],
+  "question": "设随机变量 $(X,Y)$ 服从区域 $D=\\{(x,y)\\mid 0<x\\le1,\\ 1-\\sqrt{2x-x^2}\\le y\\le\\sqrt{1-x^2}\\}$ 上的均匀分布，记 $Z= \\begin{cases} 1,&X+Y>1,\\\\ 0,&X+Y\\le1, \\end{cases}$ $U=XZ$ 的分布函数为 $F_U(u)$。(1) 证明 $X$ 与 $Z$ 不相互独立；(2) 计算 $F_U(\\frac12)$ 的值。",
+  "source": "import_zhangyu4_v3",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) 当给定 $X=x$ 时，$Z=1$ 等价于 $Y>1-x$，其条件概率随 $x$ 改变，故 $X$ 与 $Z$ 不相互独立。(2) $D$ 的面积为 $S_D=\\frac{\\pi}{2}-1$。$F_U(\\frac12)=P(U\\le\\frac12)=1-P(X>\\frac12,\\ X+Y>1)$。而 $P(X>\\frac12,\\ X+Y>1)=\\frac{\\frac{\\pi}{6}-\\frac{\\sqrt3+1}{8}}{\\frac{\\pi}{2}-1}$。故 $F_U(\\frac12)=1-\\frac{\\frac{\\pi}{6}-\\frac{\\sqrt3+1}{8}}{\\frac{\\pi}{2}-1}=\\frac{\\frac{\\pi}{3}+\\frac{\\sqrt3-7}{8}}{\\frac{\\pi}{2}-1}$。",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $(X,Y)$ 服从区域 $D=\\{(x,y)\\mid 0<x\\le1,\\ 1-\\sqrt{2x-x^2}\\le y\\le\\sqrt{1-x^2}\\}$ 上的均匀分布，记 $Z= \\begin{cases} 1,&X+Y>1,\\\\ 0,&X+Y\\le1, \\end{cases}$ $U=XZ$ 的分布函数为 $F_U(u)$。(1) 证明 $X$ 与 $Z$ 不相互独立；(2) 计算 $F_U(\\frac12)$ 的值。",
+  "raw_answer_text": "(1) 当给定 $X=x$ 时，$Z=1$ 等价于 $Y>1-x$，其条件概率随 $x$ 改变，故 $X$ 与 $Z$ 不相互独立。(2) $D$ 的面积为 $S_D=\\frac{\\pi}{2}-1$。$F_U(\\frac12)=P(U\\le\\frac12)=1-P(X>\\frac12,\\ X+Y>1)$。而 $P(X>\\frac12,\\ X+Y>1)=\\frac{\\frac{\\pi}{6}-\\frac{\\sqrt3+1}{8}}{\\frac{\\pi}{2}-1}$。故 $F_U(\\frac12)=1-\\frac{\\frac{\\pi}{6}-\\frac{\\sqrt3+1}{8}}{\\frac{\\pi}{2}-1}=\\frac{\\frac{\\pi}{3}+\\frac{\\sqrt3-7}{8}}{\\frac{\\pi}{2}-1}$。"
+}

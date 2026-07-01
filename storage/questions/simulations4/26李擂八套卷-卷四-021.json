@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷四-021",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "二次型",
+    "标准形",
+    "广义特征值"
+  ],
+  "tags": [
+    "二次型",
+    "标准形",
+    "广义特征值",
+    "可逆变换"
+  ],
+  "question": "设二次型 $f(x_1,x_2,x_3)=x_1^2+x_2^2+x_3^2+2x_1x_2-4x_1x_3+2ax_2x_3$ 通过可逆的线性变换 $x=Py$ 可以化为标准形 $4y_1^2-3y_2^2$。\n(1) 求 $a$；\n(2) 求可逆矩阵 $P$；\n(3) 求函数 $\\displaystyle\\frac{f(x_1,x_2,x_3)}{x_1^2+2x_2^2+x_3^2+2x_1x_2}$ 的最大值与最小值。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "二次型对应矩阵为 $A=\\begin{pmatrix} 1&1&-2\\\\ 1&1&a\\\\ -2&a&1 \\end{pmatrix}$。因标准形为 $4y_1^2-3y_2^2$，故 $r(A)=2$，$|A|=0$，得 $a=-2$。此时 $f=(x_1+x_2-2x_3)^2-3x_3^2$。取 $P=\\begin{pmatrix} 2&2&-1\\\\ 0&0&1\\\\ 0&1&0 \\end{pmatrix}$，则 $x=Py$ 将 $f$ 化为 $4y_1^2-3y_2^2$。广义特征方程 $|A-\\lambda B|=0$，$B=\\begin{pmatrix} 1&1&0\\\\ 1&2&0\\\\ 0&0&1 \\end{pmatrix}$，得 $\\lambda=-1,0,3$。故所求最大值为 $3$，最小值为 $-1$。",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设二次型 $f(x_1,x_2,x_3)=x_1^2+x_2^2+x_3^2+2x_1x_2-4x_1x_3+2ax_2x_3$ 通过可逆的线性变换 $x=Py$ 可以化为标准形 $4y_1^2-3y_2^2$。\n(1) 求 $a$；\n(2) 求可逆矩阵 $P$；\n(3) 求函数 $\\displaystyle\\frac{f(x_1,x_2,x_3)}{x_1^2+2x_2^2+x_3^2+2x_1x_2}$ 的最大值与最小值。",
+  "raw_answer_text": "二次型对应矩阵为 $A=\\begin{pmatrix} 1&1&-2\\\\ 1&1&a\\\\ -2&a&1 \\end{pmatrix}$。因标准形为 $4y_1^2-3y_2^2$，故 $r(A)=2$，$|A|=0$，得 $a=-2$。此时 $f=(x_1+x_2-2x_3)^2-3x_3^2$。取 $P=\\begin{pmatrix} 2&2&-1\\\\ 0&0&1\\\\ 0&1&0 \\end{pmatrix}$，则 $x=Py$ 将 $f$ 化为 $4y_1^2-3y_2^2$。广义特征方程 $|A-\\lambda B|=0$，$B=\\begin{pmatrix} 1&1&0\\\\ 1&2&0\\\\ 0&0&1 \\end{pmatrix}$，得 $\\lambda=-1,0,3$。故所求最大值为 $3$，最小值为 $-1$。"
+}

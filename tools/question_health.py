@@ -26,8 +26,10 @@ DATA_DIRS = [
     QUESTIONS_ROOT / "exams",
     QUESTIONS_ROOT / "simulations1",
     QUESTIONS_ROOT / "simulations2",
+    QUESTIONS_ROOT / "simulations3",
+    QUESTIONS_ROOT / "simulations4",
 ]
-SOURCE_OF_TRUTH = "storage/questions/{data,exams,simulations1,simulations2}"
+SOURCE_OF_TRUTH = "storage/questions/{data,exams,simulations1,simulations2,simulations3,simulations4}"
 INDEX_PATH = ROOT / "storage" / "questions" / "_index.json"
 VERSION_PATH = ROOT / "VERSION.json"
 

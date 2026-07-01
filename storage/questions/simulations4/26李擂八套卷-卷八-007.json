@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷八-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次曲面"
+  ],
+  "tags": [
+    "二次曲面"
+  ],
+  "question": "二次曲面 $2(x+y-2z)(3x-y+z)-3z^2=1$ 的类型是",
+  "options": {
+    "A": "椭球面",
+    "B": "双曲柱面",
+    "C": "双叶双曲面",
+    "D": "单叶双曲面"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "二次曲面 $2(x+y-2z)(3x-y+z)-3z^2=1$ 的类型是",
+  "raw_answer_text": "C"
+}

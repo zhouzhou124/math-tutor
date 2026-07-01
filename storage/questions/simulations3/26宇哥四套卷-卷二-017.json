@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷二-017",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "定积分",
+    "极限"
+  ],
+  "tags": [
+    "定积分",
+    "极限",
+    "黎曼和"
+  ],
+  "question": "计算 $$\\displaystyle\\lim_{n\\to\\infty}\\sum_{k=1}^{n}\\frac{k}{n^2}\\ln(1+\\frac{k^2}{n^2})$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\lim_{n\\to\\infty}\\sum_{k=1}^{n}\\frac{k}{n^2}\\ln(1+\\frac{k^2}{n^2})=\\int_0^1x\\ln(1+x^2)\\,dx=\\ln2-\\frac12$",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "计算 $$\\displaystyle\\lim_{n\\to\\infty}\\sum_{k=1}^{n}\\frac{k}{n^2}\\ln(1+\\frac{k^2}{n^2})$$",
+  "raw_answer_text": ""
+}

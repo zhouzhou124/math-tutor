@@ -1,0 +1,35 @@
+{
+  "question_id": "26李擂八套卷-卷四-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "参数方程",
+    "连续性",
+    "可导性"
+  ],
+  "tags": [
+    "参数方程",
+    "连续性",
+    "可导性",
+    "绝对值"
+  ],
+  "question": "设函数 $y=f(x)$ 由参数方程 $\\begin{cases} x=\\tan t-|t|,\\\\ y=\\displaystyle\\int_0^t\\sin(t-u)^2\\,du, \\end{cases}$ $-\\frac{\\pi}{2}<t<\\frac{\\pi}{2}$ 确定，则",
+  "options": {
+    "A": "$f(x)$ 在 $x=0$ 处不连续",
+    "B": "$f(x)$ 在 $x=0$ 处连续但 $f'(0)$ 不存在",
+    "C": "$f'(0)$ 存在，但 $f'(x)$ 在 $x=0$ 处不连续",
+    "D": "$f'(x)$ 在 $x=0$ 处连续"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $y=f(x)$ 由参数方程 $\\begin{cases} x=\\tan t-|t|,\\\\ y=\\displaystyle\\int_0^t\\sin(t-u)^2\\,du, \\end{cases}$ $-\\frac{\\pi}{2}<t<\\frac{\\pi}{2}$ 确定，则",
+  "raw_answer_text": "B"
+}

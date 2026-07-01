@@ -7,7 +7,7 @@
   "difficulty": "中等",
   "score": 9,
   "question": "计算曲线积分 $$\\int_L \\sin 2x dx + 2(x^2-1)y dy$$\n其中 $L$ 是曲线 $y = \\sin x$ 上从点 $(0,0)$ 到点 $(\\pi,0)$ 的一段.",
-  "standard_answer": "0",
+  "standard_answer": "步骤1：将曲线积分化为定积分\n曲线 $L$ 的参数方程为 \n$$\nx = x,\\quad y = \\sin x,\\qquad x\\text{ 从 }0\\text{ 变到 }\\pi.\n$$\n由此得 \n$$\n\\mathrm{d}x = \\mathrm{d}x,\\qquad \\mathrm{d}y = \\cos x\\,\\mathrm{d}x.\n$$\n将上述表达式代入原曲线积分：\n$$\n\\begin{aligned}I \\\\\n&= \\int_L \\sin 2x\\,\\mathrm{d}x + 2(x^2-1)y\\,\\mathrm{d}y \\\\\n&= \\int_0^\\pi \\Bigl[\\sin 2x + 2(x^2-1)\\sin x\\cos x\\Bigr]\\,\\mathrm{d}x.\\end{aligned}\n$$\n步骤2：化简被积函数\n利用三角恒等式 $\\sin 2x = 2\\sin x\\cos x$，被积函数可化简为 \n$$\n\\begin{aligned}\n\\sin 2x + 2(x^2-1)\\sin x\\cos x\n&= 2\\sin x\\cos x + 2(x^2-1)\\sin x\\cos x \\\\\n&= 2\\sin x\\cos x\\Bigl[1 + (x^2-1)\\Bigr] \\\\\n&= 2x^2\\sin x\\cos x \\\\\n&= x^2\\sin 2x.\n\\end{aligned}\n$$\n因此积分化为\n$$\nI = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x.\n$$\n步骤3：计算定积分\n计算 $I = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x$，使用两次分部积分。 \n令 $u = x^2$，$\\mathrm{d}v = \\sin 2x\\,\\mathrm{d}x$，则 $\\mathrm{d}u = 2x\\,\\mathrm{d}x$，$v = -\\frac12\\cos 2x$， \n$$\n\\begin{aligned}\nI &= \\Bigl[-\\frac12 x^2\\cos 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\Bigl(-\\frac12\\cos 2x\\Bigr)\\cdot 2x\\,\\mathrm{d}x \\\\\n&= -\\frac12\\pi^2\\cos 2\\pi + 0 + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x \\\\\n&= -\\frac{\\pi^2}{2} + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x.\n\\end{aligned}\n$$\n再对 $J = \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x$ 分部积分：令 $u = x$，$\\mathrm{d}v = \\cos 2x\\,\\mathrm{d}x$，则 $\\mathrm{d}u = \\mathrm{d}x$，$v = \\frac12\\sin 2x$，\n$$\n\\begin{aligned}\nJ &= \\Bigl[\\frac{x}{2}\\sin 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\frac12\\sin 2x\\,\\mathrm{d}x \\\\\n&= 0 - \\frac12\\int_0^\\pi \\sin 2x\\,\\mathrm{d}x \\\\\n&= -\\frac12\\Bigl[-\\frac12\\cos 2x\\Bigr]_0^\\pi \\\\\n&= \\frac14(\\cos 2\\pi - \\cos 0) = \\frac14(1-1)=0.\n\\end{aligned}\n$$\n于是 \n$$\nI = -\\frac{\\pi^2}{2} + 0 = -\\frac{\\pi^2}{2}.\n$$\n\n## 最终答案\n$$\n-\\frac{\\pi^2}{2}\n$$",
   "knowledge_points": [
     "曲线积分"
   ],
@@ -17,5 +17,218 @@
   "solution_steps": [],
   "options": {},
   "raw_question_text": "计算曲线积分 $$\\int_L \\sin 2x dx + 2(x^2-1)y dy$$\n其中 $L$ 是曲线 $y = \\sin x$ 上从点 $(0,0)$ 到点 $(\\pi,0)$ 的一段.",
-  "raw_answer_text": "0"
+  "raw_answer_text": "0",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780395960",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：将曲线积分化为定积分\n曲线 $L$ 的参数方程为 \n$$\nx = x,\\quad y = \\sin x,\\qquad x\\text{ 从 }0\\text{ 变到 }\\pi.\n$$\n由此得 \n$$\n\\mathrm{d}x = \\mathrm{d}x,\\qquad \\mathrm{d}y = \\cos x\\,\\mathrm{d}x.\n$$\n将上述表达式代入原曲线积分：\n$$\n\\begin{aligned}I \\\\\n&= \\int_L \\sin 2x\\,\\mathrm{d}x + 2(x^2-1)y\\,\\mathrm{d}y \\\\\n&= \\int_0^\\pi \\Bigl[\\sin 2x + 2(x^2-1)\\sin x\\cos x\\Bigr]\\,\\mathrm{d}x.\\end{aligned}\n$$\n步骤2：化简被积函数\n利用三角恒等式 $\\sin 2x = 2\\sin x\\cos x$，被积函数可化简为 \n$$\n\\begin{aligned}\n\\sin 2x + 2(x^2-1)\\sin x\\cos x\n&= 2\\sin x\\cos x + 2(x^2-1)\\sin x\\cos x \\\\\n&= 2\\sin x\\cos x\\Bigl[1 + (x^2-1)\\Bigr] \\\\\n&= 2x^2\\sin x\\cos x \\\\\n&= x^2\\sin 2x.\n\\end{aligned}\n$$\n因此积分化为\n$$\nI = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x.\n$$\n步骤3：计算定积分\n计算 $I = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x$，使用两次分部积分。 \n令 $u = x^2$，$\\mathrm{d}v = \\sin 2x\\,\\mathrm{d}x$，则 $\\mathrm{d}u = 2x\\,\\mathrm{d}x$，$v = -\\frac12\\cos 2x$， \n$$\n\\begin{aligned}\nI &= \\Bigl[-\\frac12 x^2\\cos 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\Bigl(-\\frac12\\cos 2x\\Bigr)\\cdot 2x\\,\\mathrm{d}x \\\\\n&= -\\frac12\\pi^2\\cos 2\\pi + 0 + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x \\\\\n&= -\\frac{\\pi^2}{2} + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x.\n\\end{aligned}\n$$\n再对 $J = \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x$ 分部积分：令 $u = x$，$\\mathrm{d}v = \\cos 2x\\,\\mathrm{d}x$，则 $\\mathrm{d}u = \\mathrm{d}x$，$v = \\frac12\\sin 2x$，\n$$\n\\begin{aligned}\nJ &= \\Bigl[\\frac{x}{2}\\sin 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\frac12\\sin 2x\\,\\mathrm{d}x \\\\\n&= 0 - \\frac12\\int_0^\\pi \\sin 2x\\,\\mathrm{d}x \\\\\n&= -\\frac12\\Bigl[-\\frac12\\cos 2x\\Bigr]_0^\\pi \\\\\n&= \\frac14(\\cos 2\\pi - \\cos 0) = \\frac14(1-1)=0.\n\\end{aligned}\n$$\n于是 \n$$\nI = -\\frac{\\pi^2}{2} + 0 = -\\frac{\\pi^2}{2}.\n$$\n\n## 最终答案\n$$\n-\\frac{\\pi^2}{2}\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 18:26",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将曲线积分化为定积分\n曲线"
+              },
+              {
+                "type": "latex",
+                "content": "L"
+              },
+              {
+                "type": "text",
+                "content": "的参数方程为"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "x = x,\\quad y = \\sin x,\\qquad x"
+              },
+              {
+                "type": "text",
+                "content": "从"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "0"
+              },
+              {
+                "type": "text",
+                "content": "变到"
+              },
+              {
+                "type": "latex",
+                "display": "block",
+                "content": "\\pi."
+              },
+              {
+                "type": "text",
+                "content": "由此得"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}x = \\mathrm{d}x,\\qquad \\mathrm{d}y = \\cos x\\,\\mathrm{d}x.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "将上述表达式代入原曲线积分："
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}I \\\\&= \\int_L \\sin 2x\\,\\mathrm{d}x + 2(x^2-1)y\\,\\mathrm{d}y \\\\&= \\int_0^\\pi \\Bigl[\\sin 2x + 2(x^2-1)\\sin x\\cos x\\Bigr]\\,\\mathrm{d}x.\\end{aligned}",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "化简被积函数\n利用三角恒等式"
+              },
+              {
+                "type": "latex",
+                "content": "\\sin 2x = 2\\sin x\\cos x"
+              },
+              {
+                "type": "text",
+                "content": "被积函数可化简为"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}\\sin 2x + 2(x^2-1)\\sin x\\cos x&= 2\\sin x\\cos x + 2(x^2-1)\\sin x\\cos x \\\\&= 2\\sin x\\cos x\\Bigl[1 + (x^2-1)\\Bigr] \\\\&= 2x^2\\sin x\\cos x \\\\\n&= x^2\\sin 2x.\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此积分化为"
+              },
+              {
+                "type": "latex",
+                "content": "I = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "计算定积分\n计算"
+              },
+              {
+                "type": "latex",
+                "content": "I = \\int_0^\\pi x^2\\sin 2x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "使用两次分部积分。 \n令"
+              },
+              {
+                "type": "latex",
+                "content": "u = x^2"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}v = \\sin 2x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}u = 2x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "latex",
+                "content": "v = -\\frac12\\cos 2x"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}I &= \\Bigl[-\\frac12 x^2\\cos 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\Bigl(-\\frac12\\cos 2x\\Bigr)\\cdot 2x\\,\\mathrm{d}x \\\\&= -\\frac12\\pi^2\\cos 2\\pi + 0 + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x \\\\\n&= -\\frac{\\pi^2}{2} + \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x.\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "再对"
+              },
+              {
+                "type": "latex",
+                "content": "J = \\int_0^\\pi x\\cos 2x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "分部积分：令"
+              },
+              {
+                "type": "latex",
+                "content": "u = x"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}v = \\cos 2x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "则"
+              },
+              {
+                "type": "latex",
+                "content": "\\mathrm{d}u = \\mathrm{d}x"
+              },
+              {
+                "type": "latex",
+                "content": "v = \\frac12\\sin 2x"
+              },
+              {
+                "type": "latex",
+                "content": "\\begin{aligned}J &= \\Bigl[\\frac{x}{2}\\sin 2x\\Bigr]_0^\\pi - \\int_0^\\pi \\frac12\\sin 2x\\,\\mathrm{d}x \\\\&= 0 - \\frac12\\int_0^\\pi \\sin 2x\\,\\mathrm{d}x \\\\&= -\\frac12\\Bigl[-\\frac12\\cos 2x\\Bigr]_0^\\pi \\\\\n&= \\frac14(\\cos 2\\pi - \\cos 0) = \\frac14(1-1)=0.\n\\end{aligned}",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是"
+              },
+              {
+                "type": "latex",
+                "content": "I = -\\frac{\\pi^2}{2} + 0 = -\\frac{\\pi^2}{2}.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 18:26",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

@@ -13,12 +13,76 @@
     "全微分方程"
   ],
   "question": "(本题满分10分) $f(t)$ 二阶连续可导，$t\\to0^+$ 时 $f(t)$ 与 $t^2$ 同阶无穷小，$D=\\{(x,y)\\mid x>0,y>0\\}$ 内 $du=[\\frac{1}{x}(f(xy)+e^{xy})]dx + \\frac{1}{y}f'(xy)dy$.\n$(1)$ 求 $f(t)$；\n$(2)$ 求 $f(t)$ 在 $[0,2]$ 上的平均值.",
-  "standard_answer": "(I) $f(t)=t^2$\\n(II) $\\frac{4}{3}$",
+  "standard_answer": "步骤1：\n步骤1：写出 P 和 Q: 由已知 du 表达式，令 P 为 dx 系数，Q 为 dy 系数，写出 P 和 Q 的表达式。\n\n$ \\Rightarrow P=\\frac{1}{x}[f(xy)+e^{xy}],\\ Q=\\frac{1}{y}f'(xy)$\n步骤2：\n步骤2：求偏导并令相等: 利用全微分充要条件 ∂P/∂y = ∂Q/∂x，分别对 y 和 x 求偏导数。\n\n$P=\\frac{1}{x}[f(xy)+e^{xy}],\\ Q=\\frac{1}{y}f'(xy) \\Rightarrow \\frac{\\partial P}{\\partial y}=f'(xy)+e^{xy},\\ \\frac{\\partial Q}{\\partial x}=f''(xy)$\n步骤3：\n步骤3：令 t=xy 化简得微分方程: 令 t = xy，代入上式，整理即得关于 t 的二阶微分方程。\n\n$f'(xy)+e^{xy}=f''(xy) \\Rightarrow f''(t)-f'(t)=e^{t}\\ (t=xy>0)$\n步骤4：\n步骤4：由同阶无穷小确定初始条件: 由同阶无穷小条件，利用极限与导数定义，得 f(0)=0 且 f'(0)=0。\n\n$\\lim_{t\\to0^+}\\frac{f(t)}{t^2}=C\\neq0 \\Rightarrow f(0)=0,\\ f'(0)=0$\n步骤5：\n步骤5：求解微分方程得 f(t): 特征方程 r^2-r=0 得 r=0,1，齐次通解 C₁ + C₂eᵗ；非齐次项 eᵗ 对应单根，设特解 Ateᵗ，代入得 A=1，再利用初始条件确定 C₁=1,C₂=-1。\n\n$f''(t)-f'(t)=e^{t},\\ f(0)=0,\\ f'(0)=0 \\Rightarrow f(t)=1-e^{t}+te^{t}$\n步骤6：\n步骤6：计算 f(t) 在 [0,2] 上的定积分: 为求平均值，先计算定积分 ∫₀² f(t)\\,\\mathrm{d}t，利用分部积分求出原函数。\n\n$f(t)=1-e^{t}+te^{t} \\Rightarrow \\int_0^2 f(t)\\,\\mathrm{d}t = \\left[ t - 2e^{t} + te^{t} \\right]_0^2 = 4$\n步骤7：\n步骤7：求平均值: 平均值等于积分值除以区间长度 2，得到最终结果。\n\n$\\int_0^2 f(t)\\,\\mathrm{d}t = 4 \\Rightarrow \\frac{1}{2}\\times 4 = 2$\n\n### 最终答案\n$$\n(1)\\ f(t)=1-\\mathrm{e}^{t}+t\\mathrm{e}^{t};\\ (2)\\ \\text{平均值 }2\n$$",
   "source": "import_hegongda_v7",
   "solution_steps": [],
   "options": {},
   "volume": "卷七",
   "__cached_at__": 1779502378.1981075,
   "raw_question_text": "(本题满分10分) $f(t)$ 二阶连续可导，$t\\to0^+$ 时 $f(t)$ 与 $t^2$ 同阶无穷小，$D=\\{(x,y)\\mid x>0,y>0\\}$ 内 $du=[\\frac{1}{x}(f(xy)+e^{xy})]dx + \\frac{1}{y}f'(xy)dy$.\n$(1)$ 求 $f(t)$；\n$(2)$ 求 $f(t)$ 在 $[0,2]$ 上的平均值.",
-  "raw_answer_text": "(I) $f(t)=t^2$\\n(II) $\\frac{4}{3}$"
+  "raw_answer_text": "(I) $f(t)=t^2$\\n(II) $\\frac{4}{3}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780581669",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：写出 P 和 Q: 由已知 du 表达式，令 P 为 dx 系数，Q 为 dy 系数，写出 P 和 Q 的表达式。\n\n$ \\Rightarrow P=\\frac{1}{x}[f(xy)+e^{xy}],\\ Q=\\frac{1}{y}f'(xy)$\n步骤2：\n步骤2：求偏导并令相等: 利用全微分充要条件 ∂P/∂y = ∂Q/∂x，分别对 y 和 x 求偏导数。\n\n$P=\\frac{1}{x}[f(xy)+e^{xy}],\\ Q=\\frac{1}{y}f'(xy) \\Rightarrow \\frac{\\partial P}{\\partial y}=f'(xy)+e^{xy},\\ \\frac{\\partial Q}{\\partial x}=f''(xy)$\n步骤3：\n步骤3：令 t=xy 化简得微分方程: 令 t = xy，代入上式，整理即得关于 t 的二阶微分方程。\n\n$f'(xy)+e^{xy}=f''(xy) \\Rightarrow f''(t)-f'(t)=e^{t}\\ (t=xy>0)$\n步骤4：\n步骤4：由同阶无穷小确定初始条件: 由同阶无穷小条件，利用极限与导数定义，得 f(0)=0 且 f'(0)=0。\n\n$\\lim_{t\\to0^+}\\frac{f(t)}{t^2}=C\\neq0 \\Rightarrow f(0)=0,\\ f'(0)=0$\n步骤5：\n步骤5：求解微分方程得 f(t): 特征方程 r^2-r=0 得 r=0,1，齐次通解 C₁ + C₂eᵗ；非齐次项 eᵗ 对应单根，设特解 Ateᵗ，代入得 A=1，再利用初始条件确定 C₁=1,C₂=-1。\n\n$f''(t)-f'(t)=e^{t},\\ f(0)=0,\\ f'(0)=0 \\Rightarrow f(t)=1-e^{t}+te^{t}$\n步骤6：\n步骤6：计算 f(t) 在 [0,2] 上的定积分: 为求平均值，先计算定积分 ∫₀² f(t)\\,\\mathrm{d}t，利用分部积分求出原函数。\n\n$f(t)=1-e^{t}+te^{t} \\Rightarrow \\int_0^2 f(t)\\,\\mathrm{d}t = \\left[ t - 2e^{t} + te^{t} \\right]_0^2 = 4$\n步骤7：\n步骤7：求平均值: 平均值等于积分值除以区间长度 2，得到最终结果。\n\n$\\int_0^2 f(t)\\,\\mathrm{d}t = 4 \\Rightarrow \\frac{1}{2}\\times 4 = 2$\n\n### 最终答案\n$$\n(1)\\ f(t)=1-\\mathrm{e}^{t}+t\\mathrm{e}^{t};\\ (2)\\ \\text{平均值 }2\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-04 22:01",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          },
+          {
+            "label": "步骤5",
+            "blocks": []
+          },
+          {
+            "label": "步骤6",
+            "blocks": []
+          },
+          {
+            "label": "步骤7",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-04 22:01",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷五-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "参数方程",
+    "原函数",
+    "不定积分"
+  ],
+  "tags": [
+    "参数方程",
+    "原函数",
+    "不定积分"
+  ],
+  "question": "设函数 $y=f(x)$ 由参数方程 $\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} 2t,&t\\ge0,\\\\ \\displaystyle\\frac{2t}{(e^t+1)(t^2+1)},&t<0 \\end{cases} \\end{cases}$ 确定，则下列参数方程所确定的函数中，可以作为 $f(x)$ 的原函数的是",
+  "options": {
+    "A": "$\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} (t-1)e^t+\\frac{t^2}{2},&t\\ge0,\\\\ \\ln(1+t^2),&t<0 \\end{cases} \\end{cases}$",
+    "B": "$\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} (t-1)e^t+\\frac{t^2}{2}+1,&t\\ge0,\\\\ \\ln(1+t^2),&t<0 \\end{cases} \\end{cases}$",
+    "C": "$\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} (t+1)e^t+\\frac{t^2}{2},&t\\ge0,\\\\ \\ln(1+t^2),&t<0 \\end{cases} \\end{cases}$",
+    "D": "$\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} (t+1)e^t+\\frac{t^2}{2}-1,&t\\ge0,\\\\ \\ln(1+t^2),&t<0 \\end{cases} \\end{cases}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B。按题面 $t\\ge0$ 时 $y=2t$，则四个选项均不能作为 $f(x)$ 的原函数；若原题该处为 $y=t$，则答案为 B。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $y=f(x)$ 由参数方程 $\\begin{cases} x=e^t+t,\\\\ y=\\begin{cases} 2t,&t\\ge0,\\\\ \\displaystyle\\frac{2t}{(e^t+1)(t^2+1)},&t<0 \\end{cases} \\end{cases}$ 确定，则下列参数方程所确定的函数中，可以作为 $f(x)$ 的原函数的是",
+  "raw_answer_text": "B。按题面 $t\\ge0$ 时 $y=2t$，则四个选项均不能作为 $f(x)$ 的原函数；若原题该处为 $y=t$，则答案为 B。"
+}

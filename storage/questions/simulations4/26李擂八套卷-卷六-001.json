@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "曲线 $\\begin{cases} x=e^t+t,\\\\ y=\\displaystyle\\frac{t}{t+1}e^t \\end{cases}$ 的渐近线条数为$(\\quad)$",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "导数与微分",
+    "极限与连续"
+  ],
+  "tags": [
+    "导数与微分",
+    "极限与连续",
+    "渐近线"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "曲线 $\\begin{cases} x=e^t+t,\\\\ y=\\displaystyle\\frac{t}{t+1}e^t \\end{cases}$ 的渐近线条数为$(\\quad)$",
+  "raw_answer_text": "C"
+}

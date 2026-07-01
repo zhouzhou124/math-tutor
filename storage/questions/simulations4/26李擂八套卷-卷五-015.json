@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷五-015",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "矩阵交换",
+    "对称矩阵"
+  ],
+  "tags": [
+    "矩阵交换",
+    "对称矩阵"
+  ],
+  "question": "设矩阵 $A=\\begin{pmatrix} 2&1\\\\ 1&2 \\end{pmatrix}$，矩阵 $B$ 满足 $AB=BA$，则 $B=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$B=\\begin{pmatrix} m&n\\\\ n&m \\end{pmatrix}$，$m,n\\in\\mathbb R$",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设矩阵 $A=\\begin{pmatrix} 2&1\\\\ 1&2 \\end{pmatrix}$，矩阵 $B$ 满足 $AB=BA$，则 $B=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$B=\\begin{pmatrix} m&n\\\\ n&m \\end{pmatrix}$，$m,n\\in\\mathbb R$"
+}

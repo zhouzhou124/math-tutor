@@ -7,7 +7,7 @@
   "difficulty": "中等",
   "score": 4,
   "question": "微分方程 $xy' + y = 0$ 满足条件 $y(1)=1$ 的解是 $y =$ ______",
-  "standard_answer": "$\\frac{1}{x}$",
+  "standard_answer": "## 标准答案\n$\\displaystyle y = \\frac{1}{x}$\n步骤1：分离变量，将方程化为可积分形式\n原方程为\n$$\nxy' + y = 0 .\n$$\n将导数写成微商形式 $y' = \\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$，得\n$$\nx\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y = 0 .\n$$\n把含 $y$ 的项移到等号右侧，化为\n$$\nx\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -y .\n$$\n设 $x \\neq 0$ 且 $y \\neq 0$ （$y=0$ 是方程的一个特解，最终通解会包含它），两边同除以 $xy$，实现变量分离：\n$$\n\\frac{1}{y}\\,\\mathrm{d}y = -\\frac{1}{x}\\,\\mathrm{d}x .\n$$\n此时等式左边仅含变量 $y$，右边仅含变量 $x$，可直接积分。\n步骤2：两边积分求通解\n对上述等式两边积分：\n$$\n\\int \\frac{1}{y}\\,\\mathrm{d}y = -\\int \\frac{1}{x}\\,\\mathrm{d}x ,\n$$\n得到\n$$\n\\ln|y| = -\\ln|x| + C_1,\n$$\n其中 $C_1$ 为积分常数。将 $-\\ln|x|$ 写成 $\\ln\\frac{1}{|x|}$，有\n$$\n\\ln|y| = \\ln\\frac{1}{|x|} + C_1 .\n$$\n两边同时取指数函数消去对数：\n$$\n|y| = e^{C_1} \\cdot \\frac{1}{|x|} .\n$$\n去掉绝对值后引入新常数 $C = \\pm e^{C_1}$ （可取任意非零实数），并补充 $C=0$ 对应平凡解 $y=0$，则原方程的通解为\n$$\ny = \\frac{C}{x}, \\qquad C \\in \\mathbb{R} .\n$$\n步骤3：利用初始条件确定积分常数，求出特解\n已知 $y(1)=1$，代入通解表达式：\n$$\n1 = \\frac{C}{1} \\quad \\Longrightarrow \\quad C = 1 .\n$$\n故满足初始条件的特解为\n$$\ny = \\frac{1}{x} .\n$$\n\n## 结论\n故最终答案为 $\\displaystyle \\frac{1}{x}$。",
   "knowledge_points": [
     "微分方程"
   ],
@@ -16,5 +16,202 @@
   ],
   "solution_steps": [],
   "raw_question_text": "微分方程 $xy' + y = 0$ 满足条件 $y(1)=1$ 的解是 $y =$ ______",
-  "raw_answer_text": "$\\frac{1}{x}$"
+  "raw_answer_text": "$\\frac{1}{x}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780385908",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：将方程化为可分离变量形式\n原方程为 $xy' + y = 0$，即 $x\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y = 0$。 \n移项得 $x\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -y$。当 $x \\neq 0$ 且 $y \\neq 0$ 时，分离变量：\n$$\n\\frac{\\mathrm{d}y}{y} = -\\frac{\\mathrm{d}x}{x}.\n$$\n步骤2：积分求通解\n对上式两边积分：\n$$\n\\int \\frac{\\mathrm{d}y}{y} = -\\int \\frac{\\mathrm{d}x}{x} \\implies \\ln|y| = -\\ln|x| + C_1,\n$$\n其中 $C_1$ 为积分常数。化简：\n$$\n\\ln|y| = \\ln\\frac{1}{|x|} + C_1 \\implies |y| = e^{C_1}\\frac{1}{|x|},\n$$\n令 $C = \\pm e^{C_1}$（$C$ 为任意非零常数），同时考虑 $y=0$ 也是原方程的解（可并入 $C=0$ 的情形），得通解：\n$$\ny = \\frac{C}{x}, \\quad C \\in \\mathbb{R}.\n$$\n步骤3：利用初值条件 $y(1)=1$ 确定常数\n将 $x=1, y=1$ 代入通解：\n$$\n1 = \\frac{C}{1} \\implies C = 1.\n$$\n故满足条件的特解为：\n$$\ny = \\frac{1}{x}.\n$$\n\n## 最终答案\n故最终答案为 $\\displaystyle \\frac{1}{x}$。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 15:38",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "将方程化为可分离变量形式\n原方程为"
+              },
+              {
+                "type": "latex",
+                "content": "xy' + y = 0"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "x\\frac{\\mathrm{d}y}{\\mathrm{d}x} + y = 0"
+              },
+              {
+                "type": "text",
+                "content": "移项得"
+              },
+              {
+                "type": "latex",
+                "content": "x\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -y"
+              },
+              {
+                "type": "text",
+                "content": "当"
+              },
+              {
+                "type": "latex",
+                "content": "x \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "y \\ne 0"
+              },
+              {
+                "type": "text",
+                "content": "时，分离变量："
+              },
+              {
+                "type": "latex",
+                "content": "\\frac{\\mathrm{d}y}{y} = -\\frac{\\mathrm{d}x}{x}.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "积分求通解对上式两边积分："
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{\\mathrm{d}y}{y} = -\\int \\frac{\\mathrm{d}x}{x} \\implies \\ln|y| = -\\ln|x| + C_1,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "其中"
+              },
+              {
+                "type": "latex",
+                "content": "C_1"
+              },
+              {
+                "type": "text",
+                "content": "为积分常数。化简："
+              },
+              {
+                "type": "latex",
+                "content": "\\ln|y| = \\ln\\frac{1}{|x|} + C_1 \\implies |y| = e^{C_1}\\frac{1}{|x|},",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "令"
+              },
+              {
+                "type": "latex",
+                "content": "C = \\pm e^{C_1}"
+              },
+              {
+                "type": "latex",
+                "content": "C"
+              },
+              {
+                "type": "text",
+                "content": "为任意非零常数），同时考虑"
+              },
+              {
+                "type": "latex",
+                "content": "y=0"
+              },
+              {
+                "type": "text",
+                "content": "也是原方程的解（可并入"
+              },
+              {
+                "type": "latex",
+                "content": "C=0"
+              },
+              {
+                "type": "text",
+                "content": "的情形），得通"
+              },
+              {
+                "type": "latex",
+                "content": "y = \\frac{C}{x}, \\quad C \\in \\mathbb{R}.",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用初值条件"
+              },
+              {
+                "type": "latex",
+                "content": "y(1)=1"
+              },
+              {
+                "type": "text",
+                "content": "确定常数\n将"
+              },
+              {
+                "type": "latex",
+                "content": "x=1, y=1"
+              },
+              {
+                "type": "text",
+                "content": "代入通"
+              },
+              {
+                "type": "latex",
+                "content": "1 = \\frac{C}{1} \\implies C = 1.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "故满足条件的特解为："
+              },
+              {
+                "type": "latex",
+                "content": "y = \\frac{1}{x}.",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 16:24",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

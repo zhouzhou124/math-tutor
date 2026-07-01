@@ -15,9 +15,81 @@
   ],
   "question": "$17.$ (本题满分10分) 求 $f(x) = \\int_0^1 |\\ln|x - t|| dt$（$0 \\le x \\le 1$）的最大值。",
   "source": "import_v2",
-  "standard_answer": "最大值点为 $x = \\frac{1}{2}$，最大值为 $\\ln 2$",
+  "standard_answer": "## 标准答案\n最大值在 $x = \\dfrac12$ 处取得，最大值为 $1 + \\ln 2$。\n步骤1：去绝对值并简化被积函数\n由于 $0 \\le x \\le 1$，$0 \\le t \\le 1$，故 $|x-t| \\in [0,1]$。在 $(0,1]$ 上恒有 $\\ln u \\le 0$，且 $u=0$ 时 $\\ln u \\to -\\infty$ 但积分仍收敛，因此\n$$\n|\\ln|x-t|| = -\\ln|x-t|.\n$$\n于是\n$$\nf(x) = \\int_0^1 |\\ln|x-t||\\,\\mathrm{d}t = -\\int_0^1 \\ln|x-t|\\,\\mathrm{d}t.\n$$\n步骤2：按 $t=x$ 拆分积分并作变量代换\n将积分区间以 $t=x$ 为界拆分为 $[0,x]$ 和 $[x,1]$：\n$$\nf(x) = -\\left( \\int_0^x \\ln(x-t)\\,\\mathrm{d}t + \\int_x^1 \\ln(t-x)\\,\\mathrm{d}t \\right).\n$$\n- 对第一个积分，令 $u = x-t$，则 $t=0$ 时 $u=x$，$t=x$ 时 $u=0$，$\\mathrm{d}t=-\\mathrm{d}u$，得\n$$\n\\int_0^x \\ln(x-t)\\,\\mathrm{d}t = \\int_x^0 \\ln u\\,(-\\mathrm{d}u) = \\int_0^x \\ln u\\,\\mathrm{d}u.\n$$\n- 对第二个积分，令 $u = t-x$，则 $t=x$ 时 $u=0$，$t=1$ 时 $u=1-x$，$\\mathrm{d}t=\\mathrm{d}u$，得\n$$\n\\int_x^1 \\ln(t-x)\\,\\mathrm{d}t = \\int_0^{1-x} \\ln u\\,\\mathrm{d}u.\n$$\n因此\n$$\nf(x) = -\\left( \\int_0^x \\ln u\\,\\mathrm{d}u + \\int_0^{1-x} \\ln u\\,\\mathrm{d}u \\right).\n$$\n步骤3：计算对数积分并化为初等函数\n由基本积分公式 $\\int \\ln u\\,\\mathrm{d}u = u\\ln u - u + C$，且 $\\lim\\limits_{u\\to 0^+} u\\ln u = 0$，得\n$$\n\\int_0^x \\ln u\\,\\mathrm{d}u = \\bigl[u\\ln u - u\\bigr]_0^x = x\\ln x - x,\n$$\n$$\n\\int_0^{1-x} \\ln u\\,\\mathrm{d}u = (1-x)\\ln(1-x) - (1-x).\n$$\n代入 $f(x)$：\n$$\n\\begin{aligned}\nf(x) &= -\\bigl[ (x\\ln x - x) + \\bigl((1-x)\\ln(1-x) - (1-x)\\bigr) \\bigr] \\\\\n&= -x\\ln x + x - (1-x)\\ln(1-x) + 1 - x \\\\\n&= 1 - x\\ln x - (1-x)\\ln(1-x).\n\\end{aligned}\n$$\n此即 $f(x)$ 在 $[0,1]$ 上的初等表达式。\n步骤4：求导并化简\n对 $f(x)=1 - x\\ln x - (1-x)\\ln(1-x)$ 求导：\n$$\n\\frac{d}{\\mathrm{d}x}(x\\ln x) = \\ln x + 1,\n$$\n$$\n\\frac{d}{\\mathrm{d}x}[(1-x)\\ln(1-x)] = -\\ln(1-x) - 1.\n$$\n因此\n$$\n\\begin{aligned}\nf'(x) &= -(\\ln x + 1) - [-\\ln(1-x) - 1] \\\\\n&= -\\ln x - 1 + \\ln(1-x) + 1 \\\\\n&= \\ln(1-x) - \\ln x = \\ln\\frac{1-x}{x}.\n\\end{aligned}\n$$\n步骤5：求驻点\n令 $f'(x)=0$：\n$$\n\\ln\\frac{1-x}{x} = 0 \\;\\Longrightarrow\\; \\frac{1-x}{x} = 1 \\;\\Longrightarrow\\; x = \\frac12.\n$$\n这是 $(0,1)$ 内唯一的驻点。\n步骤6：判断极值类型并确认最大值点\n二阶导数：\n$$\nf''(x) = \\frac{d}{\\mathrm{d}x}\\ln\\frac{1-x}{x} = \\frac{d}{\\mathrm{d}x}[\\ln(1-x)-\\ln x] = -\\frac{1}{1-x} - \\frac{1}{x}.\n$$\n在 $0<x<1$ 时，$f''(x) = -\\bigl(\\frac{1}{x}+\\frac{1}{1-x}\\bigr) < 0$，故 $f(x)$ 是严格凹（上凸）函数。因此 $x=\\frac12$ 是极大值点，也是该区间上的最大值点。亦可由一阶导数符号判断：$x<\\frac12$ 时 $f'(x)>0$，$x>\\frac12$ 时 $f'(x)<0$，同样说明 $x=\\frac12$ 为最大值点。\n步骤7：计算最大值并与端点比较\n代入 $x=\\frac12$：\n$$\n\\begin{aligned}\nf\\!\\left(\\frac12\\right) &= 1 - \\frac12\\ln\\frac12 - \\frac12\\ln\\frac12 \\\\\n&= 1 - \\frac12(-\\ln2) - \\frac12(-\\ln2) \\\\\n&= 1 + \\frac12\\ln2 + \\frac12\\ln2 = 1 + \\ln2.\n\\end{aligned}\n$$\n端点值（取极限）：\n$$\nf(0) = \\lim_{x\\to0^+}[1 - x\\ln x - (1-x)\\ln(1-x)] = 1 - 0 - 1\\cdot0 = 1,\n$$\n$$\nf(1) = 1 - 1\\cdot0 - 0\\cdot(-\\infty) = 1.\n$$\n显然 $1+\\ln2 > 1$，故最大值为 $1+\\ln2$。\n\n## 结论\n函数 $f(x) = \\displaystyle\\int_0^1 |\\ln|x-t||\\,\\mathrm{d}t$ 在 $[0,1]$ 上的最大值为 $1+\\ln2$，在 $x=\\dfrac12$ 处取得。",
   "solution_steps": [],
   "_ai_expanded_at": "2026-05-22 00:32",
   "raw_question_text": "$17.$ (本题满分10分) 求 $f(x) = \\int_0^1 |\\ln|x - t|| dt$（$0 \\le x \\le 1$）的最大值。",
-  "raw_answer_text": "最大值点为 $x = \\frac{1}{2}$，最大值为 $\\ln 2$"
+  "raw_answer_text": "最大值点为 $x = \\frac{1}{2}$，最大值为 $\\ln 2$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780322990",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：\n步骤1：识别题型并写出原函数: 本题给出含参积分函数，需先化简积分表达式，再通过求导寻找最大值；属于一元函数极值问题。\n\n$ \\Rightarrow f(x) = \\int_0^1 |\\ln|x-t|| \\mathrm{d}t$\n步骤2：\n步骤2：去掉绝对值符号: 当0≤x≤1, 0≤t≤1时，|x-t|∈[0,1]，故\\ln|x-t|≤0，因此|\\ln|x-t|| = -\\ln|x-t|。\n\n$f(x) = \\int_0^1 |\\ln|x-t|| \\mathrm{d}t \\Rightarrow f(x) = -\\int_0^1 \\ln|x-t| \\mathrm{d}t$\n步骤3：\n步骤3：拆分区间并做变量代换: 将积分按x拆分为[0,x]和[x,1]；对前者令u=x-t，对后者令u=t-x，并换限得到两个标准积分。\n\n$f(x) = -\\int_0^1 \\ln|x-t| \\mathrm{d}t \\Rightarrow f(x) = -\\left(\\int_0^x \\ln u \\mathrm{d}u + \\int_0^{1-x} \\ln u \\mathrm{d}u\\right)$\n步骤4：\n步骤4：计算定积分: 利用∫\\ln u du = u\\ln u - u + C，并注意到u→0⁺时u\\ln u→0，代入上下限计算每个定积分。\n\n$-\\left(\\int_0^x \\ln u \\mathrm{d}u + \\int_0^{1-x} \\ln u \\mathrm{d}u\\right) \\Rightarrow f(x) = -[(x\\ln x - x) + ((1-x)\\ln(1-x) - (1-x))]$\n步骤5：\n步骤5：化简积分结果: 合并常数项与对数项，化简得到f(x)的显式表达式。\n\n$f(x) = -[(x\\ln x - x) + ((1-x)\\ln(1-x) - (1-x))] \\Rightarrow f(x) = 1 - x\\ln x - (1-x)\\ln(1-x)$\n步骤6：\n步骤6：求一阶导数: 使用乘积求导法则：(x\\ln x)' = \\ln x+1，同理对(1-x)\\ln(1-x)求导，合并后化简得到导数。\n\n$f(x) = 1 - x\\ln x - (1-x)\\ln(1-x) \\Rightarrow f'(x) = \\ln\\frac{1-x}{x}$\n步骤7：\n步骤7：求驻点: 由对数函数性质，\\ln\\frac{1-x}{x}=0当且仅当\\frac{1-x}{x}=1，解得唯一驻点x=1/2。\n\n$f'(x) = \\ln\\frac{1-x}{x} = 0 \\Rightarrow x = \\frac{1}{2}$\n步骤8：\n步骤8：判断最大值点: 计算二阶导数判断极值类型，因f''(x)<0恒成立，故x=1/2是极大值点，且由函数连续性知即为最大值点。\n\n$x = \\frac{1}{2} \\Rightarrow f''(x) = -\\frac{1}{x} - \\frac{1}{1-x} < 0$\n步骤9：\n步骤9：求出最大值: 计算驻点函数值并与区间端点值比较，f(1/2)=1+\\ln 2 > 1，故最大值为1+\\ln 2。\n\n$f(1/2) = 1+\\ln 2, 端点f(0)=f(1)=1 \\Rightarrow \\max_{0\\le x\\le 1} f(x) = 1 + \\ln 2$\n\n### 最终答案\n1+\\ln 2",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-01 22:09",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": []
+          },
+          {
+            "label": "步骤2",
+            "blocks": []
+          },
+          {
+            "label": "步骤3",
+            "blocks": []
+          },
+          {
+            "label": "步骤4",
+            "blocks": []
+          },
+          {
+            "label": "步骤5",
+            "blocks": []
+          },
+          {
+            "label": "步骤6",
+            "blocks": []
+          },
+          {
+            "label": "步骤7",
+            "blocks": []
+          },
+          {
+            "label": "步骤8",
+            "blocks": []
+          },
+          {
+            "label": "步骤9",
+            "blocks": []
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-01 23:38",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

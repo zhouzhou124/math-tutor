@@ -17,8 +17,29 @@
   "source": "import_zhangyu_v1",
   "options": {},
   "_original_answer": "",
-  "standard_answer": "(1) $P\\{Y > 0\\} = e^{-2}$\\n(2) $M \\sim P(2)$，即 $P\\{M = m\\} = \\frac{2^m}{m!} e^{-2}$，$m = 0,1,2,\\dots$",
+  "standard_answer": "## 标准答案\n(1) $P\\{Y>0\\}=e^{-2}$。 \n(2) $M\\sim P(2)$，即 $P\\{M=m\\}=\\dfrac{2^{m}}{m!}e^{-2}$，$m=0,1,2,\\dots$\n步骤1：计算 $P\\{Y>0\\}$\n由 $T_1,T_2$ 独立同分布于参数 $1$ 的指数分布，其生存函数为 $P\\{T_i>t\\}=e^{-t}\\;(t>0)$。 \n$X=\\min\\{T_1,T_2\\}$，故 \nP\\{X>t\\}=P\\{T_1>t,\\;T_2>t\\}=P\\{T_1>t\\}P\\{T_2>t\\}=e^{-t}\\cdot e^{-t}=e^{-2t}. \n收益 $Y>0$ 等价于 $X>1$（此时 $Y=X-1>0$），因此 \nP\\{Y>0\\}=P\\{X>1\\}=e^{-2\\cdot1}=e^{-2}.\n步骤2：求 $M$ 的概率分布\n已知 $N\\sim P(2e^{2})$，其概率分布为 \n$$\nP\\{N=n\\}=\\frac{(2e^{2})^{n}}{n!}e^{-2e^{2}},\\quad n=0,1,2,\\dots\n$$\n在 $N=n\\;(n\\ge1)$ 条件下 $M\\sim B(n,p)$，其中 $p=P\\{Y>0\\}=e^{-2}$，且当 $n=0$ 时约定 $M=0$。 \n由全概率公式，对任意 $m=0,1,2,\\dots$， \n$$\n\\begin{aligned}\nP\\{M=m\\}\n&=\\sum_{n=m}^{\\infty}P\\{N=n\\}\\,P\\{M=m\\mid N=n\\}\\\\[4pt]\n&=\\sum_{n=m}^{\\infty}\\frac{(2e^{2})^{n}}{n!}e^{-2e^{2}}\\;\\binom{n}{m}p^{m}(1-p)^{n-m}.\n\\end{aligned}\n$$\n代入 $p=e^{-2}$，$1-p=1-e^{-2}$，并将 $\\binom{n}{m}=\\dfrac{n!}{m!(n-m)!}$ 代入： \n$$\n\\begin{aligned}\nP\\{M=m\\}\n&=e^{-2e^{2}}\\sum_{n=m}^{\\infty}\\frac{(2e^{2})^{n}}{n!}\\cdot\\frac{n!}{m!(n-m)!}\\,e^{-2m}(1-e^{-2})^{n-m}\\\\[4pt]\n&=\\frac{e^{-2e^{2}}e^{-2m}}{m!}\\sum_{n=m}^{\\infty}\\frac{(2e^{2})^{n}}{(n-m)!}(1-e^{-2})^{n-m}.\n\\end{aligned}\n$$\n令 $k=n-m$，当 $n=m,m+1,\\dots$ 时 $k=0,1,\\dots$，则 \n$$\n\\begin{aligned}\nP\\{M=m\\}\n&=\\frac{e^{-2e^{2}}e^{-2m}}{m!}\\sum_{k=0}^{\\infty}\\frac{(2e^{2})^{m+k}}{k!}(1-e^{-2})^{k}\\\\[4pt]\n&=\\frac{e^{-2e^{2}}e^{-2m}(2e^{2})^{m}}{m!}\\sum_{k=0}^{\\infty}\\frac{\\bigl[2e^{2}(1-e^{-2})\\bigr]^{k}}{k!}.\n\\end{aligned}\n$$\n由指数函数的 Taylor 展开 $\\displaystyle\\sum_{k=0}^{\\infty}\\frac{x^{k}}{k!}=e^{x}$，取 $x=2e^{2}(1-e^{-2})=2e^{2}-2$，得 \n$$\nP\\{M=m\\}=\\frac{e^{-2e^{2}}e^{-2m}(2e^{2})^{m}}{m!}\\,e^{2e^{2}-2}.\n$$\n化简 $(2e^{2})^{m}=2^{m}e^{2m}$，于是 \n$$\nP\\{M=m\\}=\\frac{e^{-2e^{2}}\\cdot e^{-2m}\\cdot 2^{m}e^{2m}}{m!}\\,e^{2e^{2}-2}=\\frac{2^{m}}{m!}e^{-2}.\n$$\n因此 $M$ 服从参数为 $2$ 的 Poisson 分布。\n\n## 结论\n(1) $P\\{Y>0\\}=e^{-2}$。 \n(2) $M\\sim P(2)$，即 $P\\{M=m\\}=\\dfrac{2^{m}}{m!}e^{-2},\\;m=0,1,2,\\dots$",
   "_ai_expanded_at": "2026-05-22 20:26",
   "raw_question_text": "(本题满分12分) 设一组两台机器同时启动开始制作产品，其独立工作时间 $T_1, T_2$ 均服从参数为 $1$ 的指数分布，$X$ 表示两台机器较早出现故障的时间，且收益 $Y = \\begin{cases} X-1, & X > 1, \\\\ 0, & X \\le 1. \\end{cases}$.\n$(1)$ 求 $P\\{Y > 0\\}$；\n$(2)$ 若有 $N$ 组机器承接制作产品的任务，收益大于 $0$ 的组数记为 $M$，记 $N \\sim P(2e^2)$，在 $N = n (n \\ge 1)$ 的条件下，$M \\sim B(n, P\\{Y > 0\\})$，求 $M$ 的概率分布.",
-  "raw_answer_text": "(1) $P\\{Y > 0\\} = e^{-2}$\\n(2) $M \\sim P(2)$，即 $P\\{M = m\\} = \\frac{2^m}{m!} e^{-2}$，$m = 0,1,2,\\dots$"
+  "raw_answer_text": "(1) $P\\{Y > 0\\} = e^{-2}$\\n(2) $M \\sim P(2)$，即 $P\\{M = m\\} = \\frac{2^m}{m!} e^{-2}$，$m = 0,1,2,\\dots$",
+  "canonical_solutions": [
+    {
+      "solution_id": "default",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "(1) $P\\{Y > 0\\} = e^{-2}$\\n(2) $M \\sim P(2)$，即 $P\\{M = m\\} = \\frac{2^m}{m!} e^{-2}$，$m = 0,1,2,\\dots$",
+      "generated_by": "legacy",
+      "generated_at": "",
+      "reviewed": false
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-04 17:17",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

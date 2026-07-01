@@ -1,0 +1,26 @@
+{
+  "question_id": "26李擂八套卷-卷七-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "困难",
+  "score": 5,
+  "question": "设 $A,B,C$ 为三个随机事件，$A$ 与 $B$ 相互独立，$B$ 与 $C$ 相互独立，$A$ 与 $C$ 互不相容，设 $P(A)=P(B)=P(C)$，且在 $A$ 与 $B$ 不同时发生的条件下，$A$ 与 $B$ 恰有一个发生的概率为 $\\frac{2}{5}$，则在事件 $A,B,C$ 至少有一个发生的条件下，$A,B,C$ 中至少有两个发生的概率为$\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{1}{5}$",
+  "knowledge_points": [
+    "概率",
+    "条件概率"
+  ],
+  "tags": [
+    "概率",
+    "条件概率",
+    "独立性",
+    "互不相容"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $A,B,C$ 为三个随机事件，$A$ 与 $B$ 相互独立，$B$ 与 $C$ 相互独立，$A$ 与 $C$ 互不相容，设 $P(A)=P(B)=P(C)$，且在 $A$ 与 $B$ 不同时发生的条件下，$A$ 与 $B$ 恰有一个发生的概率为 $\\frac{2}{5}$，则在事件 $A,B,C$ 至少有一个发生的条件下，$A,B,C$ 中至少有两个发生的概率为$\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{1}{5}$"
+}

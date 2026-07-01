@@ -276,6 +276,31 @@ def test_standalone_ascii_math_text_is_promoted_for_render():
     assert r"\mathbb{R}" in fixed[1]["content"]
 
 
+def test_tex_spacing_before_binding_does_not_become_aligned_break():
+    from latex_utils import normalize_derivation_formula_block
+
+    fixed = normalize_derivation_formula_block(
+        r"f''(t)-f'(t)=e^t\, t=xy>0"
+    )
+
+    assert r"e^t t" not in fixed
+    assert r"&= xy" not in fixed
+    assert "t=xy>0" in fixed
+    assert r"\begin{cases}" in fixed
+
+
+def test_orphan_backslash_before_binding_is_separator_not_newline():
+    from latex_utils import normalize_derivation_formula_block
+
+    fixed = normalize_derivation_formula_block(
+        r"f''(t)-f'(t)=e^t\\ t=xy>0"
+    )
+
+    assert r"e^t t" not in fixed
+    assert r"&= xy" not in fixed
+    assert "t=xy>0" in fixed
+
+
 # ═══════════════════════════════════════════════
 # Group 8: P1 structural fixes
 # ═══════════════════════════════════════════════

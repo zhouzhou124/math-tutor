@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "切平面",
+    "曲面"
+  ],
+  "tags": [
+    "切平面",
+    "曲面"
+  ],
+  "question": "曲面 $x^2+2y^2+z^2+xy=2$ 在 $x$ 轴和 $z$ 轴上截距均为 $2$ 的切平面方程为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$2x+y+2z=4$",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "曲面 $x^2+2y^2+z^2+xy=2$ 在 $x$ 轴和 $z$ 轴上截距均为 $2$ 的切平面方程为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$2x+y+2z=4$"
+}

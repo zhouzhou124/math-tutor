@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-008",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "分布函数",
+    "二项分布"
+  ],
+  "tags": [
+    "分布函数",
+    "二项分布",
+    "0-1分布"
+  ],
+  "question": "设随机变量 $X\\sim \\begin{pmatrix} 1&0\\\\ p&1-p \\end{pmatrix}$，$Y\\sim B(2,p)$，$0<p<1$，$F_X(x),F_Y(y)$ 分别为 $X,Y$ 的分布函数，则",
+  "options": {
+    "A": "$P\\{X\\ge Y\\}=1$",
+    "B": "$P\\{X\\le Y\\}=1$",
+    "C": "$F_X(z)\\le F_Y(z)$",
+    "D": "$F_X(z)\\ge F_Y(z)$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X\\sim \\begin{pmatrix} 1&0\\\\ p&1-p \\end{pmatrix}$，$Y\\sim B(2,p)$，$0<p<1$，$F_X(x),F_Y(y)$ 分别为 $X,Y$ 的分布函数，则",
+  "raw_answer_text": "D"
+}

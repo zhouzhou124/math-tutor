@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷六-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $y(x)$ 为常系数齐次线性微分方程 $y''+(a-1)y'-(a-1)y-y=0$ 的解，其中 $a$ 为常数，若 $y(x)$ 在 $(-\\infty,0)$ 和 $(0,+\\infty)$ 上都无界，则 $a$ 的取值范围为$(\\quad)$",
+  "options": {
+    "A": "$(2,+\\infty)$",
+    "B": "$(0,+\\infty)$",
+    "C": "$[2,+\\infty)$",
+    "D": "$[0,+\\infty)$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "knowledge_points": [
+    "微分方程"
+  ],
+  "tags": [
+    "微分方程",
+    "常系数齐次线性微分方程"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $y(x)$ 为常系数齐次线性微分方程 $y''+(a-1)y'-(a-1)y-y=0$ 的解，其中 $a$ 为常数，若 $y(x)$ 在 $(-\\infty,0)$ 和 $(0,+\\infty)$ 上都无界，则 $a$ 的取值范围为$(\\quad)$",
+  "raw_answer_text": "B"
+}

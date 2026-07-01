@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷五-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "偏导数",
+    "极限",
+    "变上限积分"
+  ],
+  "tags": [
+    "偏导数",
+    "极限",
+    "变上限积分"
+  ],
+  "question": "设函数 $f(x,y)$ 具有连续的偏导数，且满足 $f(x,\\ln(1+x))=\\frac{xe^x}{1+x}$ 及 $f(2x,x)=e^{2x}-e^x$，则 $\\displaystyle\\lim_{x\\to0}\\frac{\\int_0^x f(\\ln\\cos t,t^2)\\,dt}{x-\\sin x}=$",
+  "options": {
+    "A": "$-2$",
+    "B": "$2$",
+    "C": "$-1$",
+    "D": "$1$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x,y)$ 具有连续的偏导数，且满足 $f(x,\\ln(1+x))=\\frac{xe^x}{1+x}$ 及 $f(2x,x)=e^{2x}-e^x$，则 $\\displaystyle\\lim_{x\\to0}\\frac{\\int_0^x f(\\ln\\cos t,t^2)\\,dt}{x-\\sin x}=$",
+  "raw_answer_text": "B"
+}

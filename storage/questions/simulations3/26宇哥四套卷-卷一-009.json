@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-009",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "假设检验",
+    "正态分布"
+  ],
+  "tags": [
+    "假设检验",
+    "正态分布"
+  ],
+  "question": "设 $X_1,X_2,\\cdots,X_{25}$ 是来自总体 $N(\\mu,\\sigma^2)(\\sigma>0)$ 的简单随机样本，$\\Phi(x)$ 表示标准正态分布函数，考虑假设检验问题：$H_0:\\mu\\le 10$，$H_1:\\mu>10$，若该检验问题的拒绝域为 $W=\\{\\overline X>20\\}$，其中 $\\overline X=\\frac1{25}\\sum_{i=1}^{25}X_i$，当 $\\mu=20.5$ 时，该检验犯第一类错误的概率为 $1-\\Phi(\\frac12)$，则 $\\sigma=$",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$5$",
+    "B": "$6$",
+    "C": "$7$",
+    "D": "$8$"
+  },
+  "correct_option": "A",
+  "_original_answer": "",
+  "standard_answer": "A",
+  "raw_question_text": "设 $X_1,X_2,\\cdots,X_{25}$ 是来自总体 $N(\\mu,\\sigma^2)(\\sigma>0)$ 的简单随机样本，$\\Phi(x)$ 表示标准正态分布函数，考虑假设检验问题：$H_0:\\mu\\le 10$，$H_1:\\mu>10$，若该检验问题的拒绝域为 $W=\\{\\overline X>20\\}$，其中 $\\overline X=\\frac1{25}\\sum_{i=1}^{25}X_i$，当 $\\mu=20.5$ 时，该检验犯第一类错误的概率为 $1-\\Phi(\\frac12)$，则 $\\sigma=$",
+  "raw_answer_text": "A"
+}

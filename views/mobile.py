@@ -157,24 +157,35 @@ html, body {
     }
 }
 
-/* --- 公式：移动端横向滚动，不压缩变形 --- */
+/* --- 公式：移动端横向滚动，不压缩块级公式 --- */
 @media (max-width: 768px) {
-    img, svg, .katex-display, .katex {
+    img, svg {
         max-width: 100% !important;
         height: auto !important;
     }
-    .katex-display {
+    .katex-display,
+    [data-testid="stLatex"],
+    [data-testid="stMarkdownContainer"] .katex-display {
+        box-sizing: border-box !important;
+        max-width: 100% !important;
         overflow-x: auto !important;
-        overflow-y: hidden !important;
+        overflow-y: visible !important;
         white-space: nowrap !important;
         padding: 0.35rem 0 !important;
         margin: 0.65rem 0 !important;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
     }
-    .katex-display > .katex {
-        overflow-x: visible !important;
+    .katex-display > .katex,
+    .katex-display .katex-html,
+    [data-testid="stLatex"] .katex,
+    [data-testid="stLatex"] .katex-html {
+        max-width: none !important;
+        overflow: visible !important;
+        white-space: nowrap !important;
     }
-    .katex {
+    /* 行内公式随段落换行，略放大字号 */
+    .katex:not(.katex-display .katex) {
         font-size: 1.02em !important;
     }
 }
@@ -325,7 +336,7 @@ html, body {
         bottom: 0;
         z-index: 100000;
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 2px;
         padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
         background: rgba(255, 255, 255, 0.96);
@@ -344,13 +355,13 @@ html, body {
         border-radius: 14px;
         color: #64748b;
         text-decoration: none;
-        font-size: 11px !important;
+        font-size: 10px !important;
         font-weight: 650;
         line-height: 1.1;
         -webkit-tap-highlight-color: transparent;
     }
     .mobile-bottom-nav a .nav-icon {
-        font-size: 20px !important;
+        font-size: 18px !important;
         line-height: 1;
     }
     .mobile-bottom-nav a.active {
@@ -384,6 +395,37 @@ html, body {
         font-size: 1rem;
         color: #1e293b;
     }
+    .mobile-topbar .user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+    .mobile-topbar .user-name {
+        font-size: 0.82rem;
+        color: #64748b;
+        max-width: 7rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .mobile-topbar .user-settings {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        color: #334155;
+        text-decoration: none;
+        font-size: 1rem !important;
+        flex-shrink: 0;
+    }
+    .mobile-topbar .user-settings.active {
+        color: #1d4ed8;
+        background: #eff6ff;
+    }
 }
 </style>
 """
@@ -398,6 +440,7 @@ NAV_ITEMS = [
     {"id": "grading",       "label": "批改",   "icon": "🤖"},
     {"id": "question_bank", "label": "题库",   "icon": "📚"},
     {"id": "error_notebook","label": "错题本", "icon": "📝"},
+    {"id": "settings",      "label": "设置",   "icon": "⚙️"},
 ]
 
 
@@ -410,11 +453,18 @@ def render_mobile_topbar():
     """渲染移动端顶部栏（仅在小屏幕上可见）。"""
     username = st.session_state.get("auth", {}).get("username", "")
     safe_username = html.escape(str(username or ""))
+    current_page = st.session_state.get("page", "dashboard")
+    settings_href = "?" + urlencode({"page": "settings"})
+    settings_active = " active" if current_page == "settings" else ""
     st.markdown(
         f"""
         <div class="mobile-topbar">
             <div class="brand">📘 Math Tutor</div>
-            <div class="user">{safe_username}</div>
+            <div class="user">
+                <span class="user-name">{safe_username}</span>
+                <a class="user-settings{settings_active}" href="{settings_href}" target="_self"
+                   aria-label="系统设置">⚙️</a>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -509,16 +559,24 @@ def inject_mobile_hardening_css() -> None:
         .stTextInput input, .stTextArea textarea, .stSelectbox div {
             font-size: 16px !important;
         }
-        .katex-display, .stMarkdown, .element-container {
+        .stMarkdown, .element-container {
             max-width: 100%;
+            min-width: 0 !important;
         }
-        .katex-display {
+        .katex-display,
+        [data-testid="stLatex"],
+        [data-testid="stMarkdownContainer"] .katex-display {
+            max-width: 100% !important;
             overflow-x: auto !important;
-            overflow-y: hidden !important;
+            overflow-y: visible !important;
             -webkit-overflow-scrolling: touch;
+            touch-action: pan-x;
             padding-bottom: 0.3rem;
+            white-space: nowrap !important;
         }
-        .katex-display > .katex {
+        .katex-display > .katex,
+        [data-testid="stLatex"] .katex {
+            max-width: none !important;
             white-space: nowrap !important;
         }
     }

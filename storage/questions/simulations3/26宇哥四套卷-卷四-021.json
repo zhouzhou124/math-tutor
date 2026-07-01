@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷四-021",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "解答题",
+  "question_no": 21,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "正交对角化",
+    "正定矩阵"
+  ],
+  "tags": [
+    "正交对角化",
+    "正定矩阵",
+    "矩阵运算"
+  ],
+  "question": "设 $A= \\begin{pmatrix} a&1&-1\\\\ 1&a&-1\\\\ -1&-1&a \\end{pmatrix}$，$B^2= \\begin{pmatrix} 3&-1&1\\\\ -1&3&1\\\\ 1&1&3 \\end{pmatrix}$。(1) 求正交矩阵 $P$，使 $P^TAP=\\Lambda$，并写出 $\\Lambda$；(2) 若 $B$ 为正定矩阵，求 $B^3$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(1) $P=\\begin{pmatrix} \\frac{\\sqrt2}{2}&\\frac{\\sqrt6}{6}&\\frac{\\sqrt3}{3}\\\\ -\\frac{\\sqrt2}{2}&\\frac{\\sqrt6}{6}&\\frac{\\sqrt3}{3}\\\\ 0&\\frac{\\sqrt6}{3}&-\\frac{\\sqrt3}{3} \\end{pmatrix}$，$\\Lambda=\\begin{pmatrix} a-1&0&0\\\\ 0&a-1&0\\\\ 0&0&a+2 \\end{pmatrix}$。(2) $B=P\\begin{pmatrix} 2&0&0\\\\ 0&2&0\\\\ 0&0&1 \\end{pmatrix}P^T$，$B^3=P\\begin{pmatrix} 8&0&0\\\\ 0&8&0\\\\ 0&0&1 \\end{pmatrix}P^T=\\begin{pmatrix} \\frac{17}{3}&-\\frac73&\\frac73\\\\ -\\frac73&\\frac{17}{3}&\\frac73\\\\ \\frac73&\\frac73&\\frac{17}{3} \\end{pmatrix}$。",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $A= \\begin{pmatrix} a&1&-1\\\\ 1&a&-1\\\\ -1&-1&a \\end{pmatrix}$，$B^2= \\begin{pmatrix} 3&-1&1\\\\ -1&3&1\\\\ 1&1&3 \\end{pmatrix}$。(1) 求正交矩阵 $P$，使 $P^TAP=\\Lambda$，并写出 $\\Lambda$；(2) 若 $B$ 为正定矩阵，求 $B^3$。",
+  "raw_answer_text": "(1) $P=\\begin{pmatrix} \\frac{\\sqrt2}{2}&\\frac{\\sqrt6}{6}&\\frac{\\sqrt3}{3}\\\\ -\\frac{\\sqrt2}{2}&\\frac{\\sqrt6}{6}&\\frac{\\sqrt3}{3}\\\\ 0&\\frac{\\sqrt6}{3}&-\\frac{\\sqrt3}{3} \\end{pmatrix}$，$\\Lambda=\\begin{pmatrix} a-1&0&0\\\\ 0&a-1&0\\\\ 0&0&a+2 \\end{pmatrix}$。(2) $B=P\\begin{pmatrix} 2&0&0\\\\ 0&2&0\\\\ 0&0&1 \\end{pmatrix}P^T$，$B^3=P\\begin{pmatrix} 8&0&0\\\\ 0&8&0\\\\ 0&0&1 \\end{pmatrix}P^T=\\begin{pmatrix} \\frac{17}{3}&-\\frac73&\\frac73\\\\ -\\frac73&\\frac{17}{3}&\\frac73\\\\ \\frac73&\\frac73&\\frac{17}{3} \\end{pmatrix}$。"
+}

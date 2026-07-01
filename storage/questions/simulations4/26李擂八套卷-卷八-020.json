@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "证明题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "积分不等式",
+    "证明题"
+  ],
+  "tags": [
+    "积分不等式",
+    "证明题"
+  ],
+  "question": "设 $n$ 为正整数，证明：当 $0\\le x\\le n$ 时，恒有 $\\displaystyle x-\\frac{x^3}{3n}\\le n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "令 $u=nt$，则 $n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt=\\int_0^x\\left(1-\\frac un\\right)^ne^u\\,du$。对 $0\\le u\\le n$，令 $s=\\frac un$，有 $e^s(1-s)\\ge(1+s)(1-s)=1-s^2$。因而 $\\left(1-\\frac un\\right)^ne^u=\\left[e^{\\frac un}\\left(1-\\frac un\\right)\\right]^n\\ge\\left(1-\\frac{u^2}{n^2}\\right)^n\\ge1-\\frac{u^2}{n}$。所以 $n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt\\ge\\int_0^x\\left(1-\\frac{u^2}{n}\\right)\\,du=x-\\frac{x^3}{3n}$。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $n$ 为正整数，证明：当 $0\\le x\\le n$ 时，恒有 $\\displaystyle x-\\frac{x^3}{3n}\\le n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt$。",
+  "raw_answer_text": "令 $u=nt$，则 $n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt=\\int_0^x\\left(1-\\frac un\\right)^ne^u\\,du$。对 $0\\le u\\le n$，令 $s=\\frac un$，有 $e^s(1-s)\\ge(1+s)(1-s)=1-s^2$。因而 $\\left(1-\\frac un\\right)^ne^u=\\left[e^{\\frac un}\\left(1-\\frac un\\right)\\right]^n\\ge\\left(1-\\frac{u^2}{n^2}\\right)^n\\ge1-\\frac{u^2}{n}$。所以 $n\\int_0^{\\frac xn}(1-t)^ne^{nt}\\,dt\\ge\\int_0^x\\left(1-\\frac{u^2}{n}\\right)\\,du=x-\\frac{x^3}{3n}$。"
+}

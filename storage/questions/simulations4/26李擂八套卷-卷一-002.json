@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷一-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极限",
+    "定积分"
+  ],
+  "tags": [
+    "极限",
+    "定积分",
+    "积分和"
+  ],
+  "question": "设 $\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\left(\\frac{n^2}{n^2+1^2}+\\frac{n^2\\cdot2^a}{n^2+2^2}+\\frac{n^2\\cdot3^a}{n^2+3^2}+\\cdots+\\frac{n^2\\cdot n^a}{n^2+n^2}\\right)=b$，其中 $a,b$ 为常数且 $b\\ne0$，则 $ab=$",
+  "options": {
+    "A": "$\\ln2$",
+    "B": "$\\frac12\\ln2$",
+    "C": "$\\ln3$",
+    "D": "$\\frac12\\ln3$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B. $ab=\\frac12\\ln2$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\left(\\frac{n^2}{n^2+1^2}+\\frac{n^2\\cdot2^a}{n^2+2^2}+\\frac{n^2\\cdot3^a}{n^2+3^2}+\\cdots+\\frac{n^2\\cdot n^a}{n^2+n^2}\\right)=b$，其中 $a,b$ 为常数且 $b\\ne0$，则 $ab=$",
+  "raw_answer_text": "B. $ab=\\frac12\\ln2$"
+}

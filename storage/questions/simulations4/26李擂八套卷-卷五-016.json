@@ -1,0 +1,27 @@
+{
+  "question_id": "26李擂八套卷-卷五-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "条件概率",
+    "独立事件"
+  ],
+  "tags": [
+    "条件概率",
+    "独立事件"
+  ],
+  "question": "设甲乙丙三名射手独立地向目标各射击一次，三人各自命中目标的概率分别为 $p,2p,3p$，已知在 $3$ 人中至少有一人命中目标的条件下，乙和丙恰有一人命中目标的概率为 $\\frac{16}{29}$，则 $p=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac14$",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设甲乙丙三名射手独立地向目标各射击一次，三人各自命中目标的概率分别为 $p,2p,3p$，已知在 $3$ 人中至少有一人命中目标的条件下，乙和丙恰有一人命中目标的概率为 $\\frac{16}{29}$，则 $p=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac14$"
+}

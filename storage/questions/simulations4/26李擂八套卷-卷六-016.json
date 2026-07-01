@@ -1,0 +1,25 @@
+{
+  "question_id": "26李擂八套卷-卷六-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设随机变量 $X$ 服从几何分布 $G(\\frac12)$，$Y$ 服从泊松分布 $P(1)$，若 $X,Y$ 相互独立，则 $P(X=Y)=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{e^{-\\frac{1}{2}}}{2}$",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "常见分布"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "几何分布",
+    "泊松分布"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 服从几何分布 $G(\\frac12)$，$Y$ 服从泊松分布 $P(1)$，若 $X,Y$ 相互独立，则 $P(X=Y)=\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{e^{-\\frac{1}{2}}}{2}$"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "泰勒多项式",
+    "多元函数"
+  ],
+  "tags": [
+    "泰勒多项式",
+    "多元函数",
+    "二阶展开"
+  ],
+  "question": "设 $f(x,y)=\\sqrt{1+x^2}\\ln\\cos y$ 在点 $(0,0)$ 处的二次泰勒多项式为 $ax^2+bxy+cy^2$，则",
+  "options": {
+    "A": "$a=b=0,\\ c=-\\frac12$",
+    "B": "$a=b=0,\\ c=\\frac12$",
+    "C": "$a=\\frac12,\\ b=0,\\ c=-\\frac12$",
+    "D": "$a=\\frac12,\\ b=0,\\ c=\\frac12$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x,y)=\\sqrt{1+x^2}\\ln\\cos y$ 在点 $(0,0)$ 处的二次泰勒多项式为 $ax^2+bxy+cy^2$，则",
+  "raw_answer_text": "A"
+}

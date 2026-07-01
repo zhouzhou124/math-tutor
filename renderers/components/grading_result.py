@@ -3,7 +3,9 @@
 Card layout:
   Score → Knowledge Points → Diagnosis → Step Comparison → Standard Solution → Recommendations
 """
+import json
 import logging
+import re
 import streamlit as st
 from latex_utils import split_latex_text, render_ast
 
@@ -28,6 +30,13 @@ _GRADING_MOBILE_CSS = """
     box-sizing: border-box;
     overflow-wrap: anywhere;
     word-break: break-word;
+}
+/* 批改区块级公式：与全局 .katex-display / st.latex 横滚规则对齐 */
+.grading-result-container .katex-display,
+.grading-result-container [data-testid="stLatex"],
+.grading-result-container [data-testid="stMarkdownContainer"] .katex-display {
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .grading-math-scroll {
     max-width: 100%;
@@ -54,7 +63,22 @@ _GRADING_MOBILE_CSS = """
 @media (max-width: 768px) {
     .grading-result-container {
         padding: 0 !important;
-        overflow-x: hidden;
+        overflow-x: clip;
+        min-width: 0;
+    }
+    .grading-result-container .katex-display,
+    .grading-result-container [data-testid="stLatex"],
+    .grading-result-container [data-testid="stMarkdownContainer"] .katex-display {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        white-space: nowrap !important;
+    }
+    .grading-result-container .katex-display > .katex,
+    .grading-result-container [data-testid="stLatex"] .katex {
+        max-width: none !important;
+        white-space: nowrap !important;
     }
     .grading-card,
     .grading-score-card,
@@ -249,8 +273,9 @@ def _render_solution_failure_with_debug(
     message: str,
     issues: list | None = None,
     raw_answer: str = "",
-) -> None:
+) -> list[dict]:
     """Render solution failure warning with admin debug panel and retry button."""
+    events: list[dict] = []
     with st.expander("📖 查看标准解法", expanded=False):
         st.warning(message)
         if issues:
@@ -259,13 +284,11 @@ def _render_solution_failure_with_debug(
         if raw_answer and len(raw_answer.strip()) >= 2:
             st.markdown(f"**最终答案：** {raw_answer}")
 
-        def _request_retry():
-            st.session_state["_solution_retry_requested"] = True
-
         st.markdown('<div class="grading-action-row">', unsafe_allow_html=True)
         if st.button("🔄 重新生成标准解答", key="retry_sol_failure"):
-            _request_retry()
+            events.append({"type": "retry_solution"})
         st.markdown('</div>', unsafe_allow_html=True)
+    return events
 
 
 def render_score_card(gr: dict, total_score: int = 10) -> None:
@@ -384,8 +407,478 @@ def render_diagnosis_card(dr: dict, gr: dict) -> None:
         st.markdown('</div>', unsafe_allow_html=True)
 
 
-def render_standard_solution(solution: dict, expanded: bool = False) -> None:
+def _view_question_type(solution: dict, grading_result: dict | None = None) -> str:
+    gr = grading_result or {}
+    selected = st.session_state.get("selected_question") or {}
+    ocr = st.session_state.get("ocr_result") or {}
+    return (
+        gr.get("question_type")
+        or solution.get("question_type")
+        or selected.get("question_type")
+        or ocr.get("question_type")
+        or ""
+    )
+
+
+def _has_raw_latex_fragment(text: str) -> bool:
+    s = str(text or "")
+    try:
+        from services.grading_adapter import contains_raw_tex_outside_math
+        if contains_raw_tex_outside_math(s):
+            return True
+    except Exception:
+        pass
+    return any(marker in s for marker in (
+        r"\begin", r"\end", "$$", r"\[", r"\]", r"\frac", r"\dfrac",
+        r"\sum", r"\lim", r"\sim", r"\le", r"\ge", r"\mathrm",
+        r"\Rightarrow", r"\Leftarrow", r"\cdot", r"\text", r"\sqrt",
+        r"\int", r"\iint", r"\ln", r"\pi", r"\overline",
+    ))
+
+
+def _should_decompose_math_text(text: str) -> bool:
+    s = str(text or "")
+    if not s.strip():
+        return False
+    if _has_raw_latex_fragment(s):
+        return True
+    return bool(re.search(r"\\\(|\\\[|\$\$", s))
+
+
+def render_math_text(text: str) -> bool:
+    """Render view-pipeline text (P57: same path as 3289443 grading LaTeX, no block re-split)."""
+    if not text:
+        return False
+    try:
+        from services.grading_adapter import _unescape_json_newlines
+        s = _unescape_json_newlines(str(text))
+    except Exception:
+        s = str(text).replace("\\n", "\n")
+
+    try:
+        from services.grading_adapter import (
+            _has_cjk,
+            _prepare_prose_math_text,
+            balance_inline_math_delimiters,
+            normalize_inline_math_tokens,
+            repair_ai_grading_math_artifacts,
+            repair_derivation_text_block,
+            prepare_grading_math_for_render,
+        )
+        repaired = repair_ai_grading_math_artifacts(repair_derivation_text_block(s))
+        if _has_cjk(repaired):
+            s = _prepare_prose_math_text(repaired)
+        else:
+            s = prepare_grading_math_for_render(
+                normalize_inline_math_tokens(
+                    balance_inline_math_delimiters(repaired)
+                )
+            )
+    except Exception:
+        pass
+
+    if _has_raw_latex_fragment(s) and s.count("{") > s.count("}"):
+        st.code(s, language="latex")
+        return True
+    try:
+        from services.grading_adapter import _has_cjk, contains_raw_tex_outside_math
+        if (
+            _has_cjk(s)
+            and "$" in s
+            and r"\begin{" not in s
+            and r"\begin{aligned}" not in s
+            and not contains_raw_tex_outside_math(s)
+        ):
+            st.markdown(s)
+            return True
+    except Exception:
+        pass
+    if "\n" in s and not _has_raw_latex_fragment(s):
+        st.markdown(s)
+        return True
+    try:
+        _render_text_or_latex(s)
+    except Exception:
+        if _has_raw_latex_fragment(s):
+            st.code(s, language="latex")
+        else:
+            st.markdown(s)
+    return True
+
+
+def _format_solution_title(title: str) -> str:
+    s = str(title or "").strip()
+    if not s:
+        return ""
+    try:
+        from services.grading_adapter import _prepare_prose_math_text, repair_derivation_text_block
+        return _prepare_prose_math_text(repair_derivation_text_block(s))
+    except Exception:
+        return s
+
+
+def _safe_json(value) -> str:
+    try:
+        return json.dumps(value, ensure_ascii=False, indent=2)
+    except Exception:
+        return str(value)
+
+
+def _render_degraded_answer_card(answer_card, exc: Exception | None = None) -> bool:
+    if not answer_card:
+        return False
+    st.warning("答案卡部分字段渲染异常，以下为可读取内容：")
+    if isinstance(answer_card, dict):
+        correct = answer_card.get("correct_answer") or answer_card.get("correct_option")
+        if correct:
+            st.success(f"正确答案：{correct}")
+        for key in ("student_answer", "is_correct", "is_equivalent", "confidence", "proof_status"):
+            if answer_card.get(key) is not None and answer_card.get(key) != "":
+                st.caption(f"{key}: {answer_card.get(key)}")
+    else:
+        st.code(_safe_json(answer_card))
+    return True
+
+
+def _render_answer_card(view: dict, *, best_effort: bool = True) -> bool:
+    q_type = view.get("question_type", "")
+    card = view.get("answer_card") or {}
+    if not card:
+        return False
+    if q_type == "选择题":
+        correct = card.get("correct_answer") or ""
+        if correct:
+            st.success(f"正确答案：{correct}")
+        else:
+            st.warning("正确答案暂未生成。")
+        if card.get("student_answer"):
+            verdict = "正确" if card.get("is_correct") is True else "错误" if card.get("is_correct") is False else "需复核"
+            st.caption(f"你的答案：{card.get('student_answer')}　判定：{verdict}")
+    elif q_type == "填空题":
+        correct = card.get("correct_answer") or ""
+        if correct:
+            st.markdown("**标准答案：**")
+            text = str(correct).strip()
+            text = re.sub(r"^(?:标准答案|最终答案|故填|填)\s*[：:为]?\s*", "", text).strip()
+            try:
+                from services.grading_adapter import _is_incomplete_math_expr
+                if _is_incomplete_math_expr(text):
+                    text = ""
+            except Exception:
+                pass
+            if not text:
+                st.warning("标准答案暂未识别，详细解析见下方。")
+            else:
+                is_long_formula = (
+                    len(text) > 80
+                    or any(marker in text for marker in (r"\begin", r"\\", r"\int", r"\sum", "cases", "matrix"))
+                )
+                if is_long_formula:
+                    render_solution_block({"type": "latex_display", "content": text})
+                else:
+                    render_math_text(text)
+        else:
+            st.warning("标准答案暂未识别，详细解析见下方。")
+        if card.get("student_answer"):
+            verdict = "等价" if card.get("is_equivalent") is True else "不等价" if card.get("is_equivalent") is False else "需人工复核"
+            conf = card.get("confidence")
+            suffix = f"　confidence={conf}" if conf is not None else ""
+            st.caption(f"你的答案：{card.get('student_answer')}　比对结果：{verdict}{suffix}")
+    elif q_type == "证明题":
+        st.info(card.get("proof_status") or "证明过程如下")
+    else:
+        score = card.get("score")
+        total = card.get("total_score")
+        if score is not None and total:
+            st.caption(f"本题得分：{score} / {total}")
+    return True
+
+
+def render_equation_group(block: dict) -> bool:
+    items = [str(i).strip().replace("$$", "") for i in (block.get("items") or []) if str(i).strip()]
+    if not items:
+        return False
+    layout = block.get("layout", "vertical")
+    if layout == "inline_pair":
+        st.latex(r"\qquad ".join(items))
+        return True
+    rows = []
+    for item in items:
+        if "&" in item or "=" not in item:
+            rows.append(item)
+        else:
+            lhs, rhs = item.split("=", 1)
+            rows.append(f"{lhs.strip()} &= {rhs.strip()}")
+    st.latex("\\begin{aligned}\n" + r"\\".join(rows) + "\n\\end{aligned}")
+    return True
+
+
+def render_derivation_chain(block: dict) -> bool:
+    items = [str(i).strip().replace("$$", "") for i in (block.get("items") or []) if str(i).strip()]
+    if not items:
+        return False
+    rows = []
+    for idx, item in enumerate(items):
+        rows.append(item if idx == 0 or "&" in item else f"&= {item}")
+    st.latex("\\begin{aligned}\n" + r"\\".join(rows) + "\n\\end{aligned}")
+    return True
+
+
+def _case_condition(text: str) -> str:
+    s = str(text or "").strip()
+    if not s:
+        return ""
+    if any("\u4e00" <= ch <= "\u9fff" for ch in s):
+        return r"\text{" + s.replace("{", "").replace("}", "") + "}"
+    return s
+
+
+def render_cases_block(block: dict) -> bool:
+    rows = []
+    for row in block.get("rows") or []:
+        if isinstance(row, dict):
+            expr = str(row.get("expr") or row.get("value") or "").strip()
+            cond = _case_condition(row.get("condition") or "")
+        elif isinstance(row, (list, tuple)) and len(row) >= 2:
+            expr, cond = str(row[0]).strip(), _case_condition(str(row[1]))
+        else:
+            continue
+        if expr:
+            rows.append(f"{expr} & {cond}" if cond else expr)
+    if rows:
+        lhs = str(block.get("lhs") or "").strip()
+        prefix = f"{lhs}=" if lhs else ""
+        st.latex(prefix + "\\begin{cases}\n" + r"\\".join(rows) + "\n\\end{cases}")
+        return True
+    return False
+
+
+def _render_degraded_block(block: dict, exc: Exception | None = None) -> bool:
+    block = block or {}
+    btype = str(block.get("type") or "text")
+    if btype == "text":
+        text = str(block.get("content") or "").replace("\\n", "\n")
+        if _has_raw_latex_fragment(text):
+            render_math_text(text)
+        else:
+            st.markdown(text)
+        return bool(text.strip())
+    if btype == "latex_display":
+        st.warning("公式渲染失败，原始公式：")
+        st.code(str(block.get("content") or ""), language="latex")
+        return True
+    if btype == "equation_group":
+        st.warning("公式组渲染失败，原始公式组：")
+        for item in block.get("items") or []:
+            st.code(str(item), language="latex")
+        return True
+    if btype == "derivation_chain":
+        st.warning("推导链渲染失败，原始推导链：")
+        for item in block.get("items") or []:
+            st.code(str(item), language="latex")
+        return True
+    if btype == "cases":
+        st.warning("分段公式渲染失败，原始分段结构：")
+        if block.get("lhs"):
+            st.code(str(block.get("lhs")), language="latex")
+        for row in block.get("rows") or []:
+            if isinstance(row, dict):
+                st.code(f"{row.get('expr') or row.get('value') or ''} | {row.get('condition') or ''}", language="latex")
+            else:
+                st.code(str(row), language="latex")
+        return True
+    st.code(_safe_json(block))
+    return True
+
+
+def render_solution_block(block: dict, *, best_effort: bool = True) -> bool:
+    try:
+        return _render_solution_block_strict(block)
+    except Exception as exc:
+        if best_effort:
+            logger.warning("standard_solution block render degraded: %s", exc)
+            return _render_degraded_block(block, exc)
+        raise
+
+
+def _render_solution_block_strict(block: dict) -> bool:
+    btype = str((block or {}).get("type") or "text")
+    if btype == "text":
+        content = str(block.get("content") or "")
+        if r"\begin{" in content:
+            if _should_show_solution_debug():
+                st.caption("文本块包含未结构化公式，已隐藏。")
+            raise ValueError("raw latex environment in text block")
+        return render_math_text(content)
+    elif btype == "latex_display":
+        from services.grading_adapter import _finalize_display_latex, _has_cjk, _latex_display_blocks_without_cjk
+
+        raw = str(block.get("content") or "").replace("$$", "").strip()
+        if raw and _has_cjk(raw):
+            parts = _latex_display_blocks_without_cjk([{"type": "latex_display", "content": raw}])
+            if len(parts) != 1 or parts[0].get("type") != "latex_display":
+                return any(_render_solution_block_strict(part) for part in parts if isinstance(part, dict))
+        content = _finalize_display_latex(raw)
+        if content:
+            st.markdown('<div class="grading-math-scroll">', unsafe_allow_html=True)
+            try:
+                from renderers.math_render_policy import render_grading_latex
+                render_grading_latex(f"$$\n{content}\n$$")
+            finally:
+                st.markdown('</div>', unsafe_allow_html=True)
+            return True
+    elif btype == "equation_group":
+        return render_equation_group(block)
+    elif btype == "derivation_chain":
+        return render_derivation_chain(block)
+    elif btype == "cases":
+        return render_cases_block(block)
+    return False
+
+
+def _render_derivation_meta(section: dict) -> bool:
+    """Render derivation goal/reason on separate lines (title already shown separately)."""
+    from services.grading_adapter import _goal_redundant_with_title, _strip_step_title_prefix
+
+    rendered = False
+    goal = _strip_step_title_prefix(str(section.get("goal") or "").strip())
+    reason = str(section.get("reason") or "").strip()
+    if goal and not _goal_redundant_with_title(goal, str(section.get("title") or "")):
+        st.markdown("**推导目标**")
+        rendered |= render_math_text(goal)
+    if reason:
+        st.markdown("**推导理由**")
+        rendered |= render_math_text(reason)
+    return rendered
+
+
+def _render_degraded_section(section: dict, exc: Exception | None = None) -> bool:
+    section = section or {}
+    title = section.get("title") or "解答"
+    st.markdown(f"**{_format_solution_title(title)}**")
+    if section.get("kind"):
+        st.caption(f"kind: {section.get('kind')}")
+    st.warning("本部分部分内容渲染异常，以下为 AI 生成的原始步骤内容：")
+    _render_derivation_meta(section)
+    for block in section.get("blocks") or []:
+        _render_degraded_block(block, exc)
+    return True
+
+
+def render_solution_section(section: dict, *, best_effort: bool = True) -> bool:
+    rendered_any = False
+    with st.container(border=True):
+        title = section.get("title") or "解答"
+        st.markdown(f"**{_format_solution_title(title)}**")
+        rendered_any |= _render_derivation_meta(section)
+        for block in section.get("blocks") or []:
+            try:
+                rendered_any |= render_solution_block(block, best_effort=best_effort)
+            except Exception as exc:
+                if best_effort:
+                    rendered_any |= _render_degraded_block(block, exc)
+                else:
+                    raise
+    return rendered_any or bool(section.get("title"))
+
+
+def _render_degraded_final_answer(final_answer, exc: Exception | None = None) -> bool:
+    if not final_answer:
+        return False
+    st.markdown("**最终结论**")
+    if isinstance(final_answer, str):
+        render_math_text(final_answer)
+    elif isinstance(final_answer, dict):
+        content = final_answer.get("content") or final_answer.get("value")
+        if final_answer.get("type"):
+            st.caption(f"type: {final_answer.get('type')}")
+        if content:
+            render_math_text(str(content))
+        else:
+            st.code(_safe_json(final_answer))
+    else:
+        st.code(_safe_json(final_answer))
+    return True
+
+
+def render_final_answer(final_answer: dict, *, best_effort: bool = True) -> bool:
+    if not isinstance(final_answer, dict) or not final_answer.get("content"):
+        return False
+    with st.container(border=True):
+        st.markdown("**最终结论**")
+        return render_solution_block(final_answer, best_effort=best_effort)
+
+
+def render_standard_solution_view(view: dict, *, best_effort: bool = True) -> bool:
+    """Render a normalized standard solution view without parsing business logic."""
+    rendered_any = False
+    try:
+        rendered_any |= _render_answer_card(view, best_effort=best_effort)
+    except Exception as exc:
+        if best_effort:
+            rendered_any |= _render_degraded_answer_card((view or {}).get("answer_card"), exc)
+        else:
+            raise
+    for section in view.get("sections") or []:
+        try:
+            rendered_any |= render_solution_section(section, best_effort=best_effort)
+        except Exception as exc:
+            if best_effort:
+                with st.container(border=True):
+                    rendered_any |= _render_degraded_section(section, exc)
+            else:
+                raise
+    skip_final = (
+        view.get("question_type") == "填空题"
+        and bool((view.get("answer_card") or {}).get("correct_answer"))
+    )
+    if not skip_final:
+        try:
+            rendered_any |= render_final_answer(view.get("final_answer") or {}, best_effort=best_effort)
+        except Exception as exc:
+            if best_effort:
+                with st.container(border=True):
+                    rendered_any |= _render_degraded_final_answer(view.get("final_answer"), exc)
+            else:
+                raise
+    return rendered_any
+
+
+def _standard_solution_pending(
+    solution: dict,
+    grading_result: dict | None = None,
+) -> bool:
+    gr = grading_result or {}
+    status = (
+        solution.get("standard_solution_status")
+        or gr.get("standard_solution_status")
+        or st.session_state.get("_solution_status")
+        or ""
+    )
+    if status == "pending":
+        return True
+    if status == "failed":
+        return False
+    try:
+        from services.grading_adapter import is_choice_solution_stub
+        if is_choice_solution_stub(solution, gr) and st.session_state.get("_solution_status") == "pending":
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def render_standard_solution(solution: dict, expanded: bool = False,
+                             grading_result: dict | None = None) -> None:
     """Standard solution card — collapsed by default. Pass expanded=True to show open."""
+    if _standard_solution_pending(solution, grading_result):
+        with st.expander("📖 查看标准解法", expanded=True):
+            st.markdown('<div class="standard-solution-card">', unsafe_allow_html=True)
+            st.info("⏳ 正在生成带步骤的详细解析，请稍候…")
+            st.caption("批改结果已就绪；完整解题过程生成后会自动刷新本页。")
+            st.markdown('</div>', unsafe_allow_html=True)
+        return
+
     steps = solution.get("steps") or []
     answer = solution.get("standard_answer", "")
 
@@ -394,10 +887,30 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
     # after a new grading run.
     structured = solution.get("_structured") or st.session_state.get("standard_answer_structured")
 
-    if not steps and not answer:
+    gr_answer = ""
+    if isinstance(grading_result, dict):
+        gr_answer = str(grading_result.get("correct_option") or grading_result.get("correct_answer") or "")
+
+    if not steps and not answer and not gr_answer:
         if isinstance(structured, dict) and structured.get("steps"):
             pass  # Has structured data, proceed to rendering
         else:
+            gr = grading_result if isinstance(grading_result, dict) else {}
+            status = str(solution.get("standard_solution_status") or gr.get("standard_solution_status") or "")
+            if status in {"failed", "incomplete"}:
+                err = str(solution.get("standard_solution_error") or gr.get("standard_solution_error") or "")
+                with st.expander("📖 查看标准解法", expanded=expanded):
+                    if status == "incomplete":
+                        st.warning("标准解答生成不完整，请重新生成标准解答。")
+                    else:
+                        st.warning("标准解答生成失败，请重新生成。")
+                    if err:
+                        st.caption(f"原因: {err[:150]}")
+                return
+            if status == "missing":
+                with st.expander("📖 查看标准解法", expanded=expanded):
+                    st.info("标准解答尚未生成，请重新生成标准解答。")
+                return
             # Truly no content available
             with st.expander("📖 查看标准解法", expanded=expanded):
                 st.info("暂无标准解法数据")
@@ -405,160 +918,42 @@ def render_standard_solution(solution: dict, expanded: bool = False) -> None:
 
     with st.expander("📖 查看标准解法", expanded=expanded):
         st.markdown('<div class="standard-solution-card">', unsafe_allow_html=True)
-        # ── Quality warnings ──
-        raw_answer = solution.get("standard_answer", "")
-        # Check if there's substantive derivation content (not just metadata)
-        struct_steps_count = len(structured.get("steps", [])) if isinstance(structured, dict) else 0
-        _has_content = (
-            len(steps) > 0
-            or struct_steps_count > 0
-            or len(raw_answer.strip()) >= 80
-        )
-        if not raw_answer or (not _has_content and not struct_steps_count):
-            st.warning(
-                "📝 此题暂未生成详细步骤解答。"
-                "请确认已配置 API Key，然后重新点击「开始批改」或「查看答案」以触发 AI 生成。"
-                "如多次尝试仍无结果，可能是题目较复杂导致 AI 求解超时，请稍后重试。"
-            )
-            st.markdown('</div>', unsafe_allow_html=True)
-            return
-        if raw_answer and not _has_content:
-            st.info(
-                "💡 当前解答较简短。如需查看详细推导步骤，请重新触发 AI 批改。"
-            )
-        if solution.get("_ai_consistency_warning"):
-            st.warning("⚠️ AI 生成的解答与已知正确答案不完全一致，仅供参考学习，请以题目给定的正确答案为准。")
-        if solution.get("_ai_unverified"):
-            st.info("💡 此解答由 AI 自动生成，尚未经过人工审核验证。如有疑问请对照教材确认。")
-        if solution.get("standard_solution_status") in ("failed", "incomplete"):
-            st.warning(solution.get("standard_solution_error") or "标准解答生成不完整，请重新触发生成。")
-        # ── 优先：结构化渲染路径 ──
-        if isinstance(structured, dict):
-            # 检查是否有步骤
-            struct_steps = structured.get("steps", [])
-            if struct_steps:
-                # 预检查：步骤是否有实质性内容（非空 block）
-                _has_substance = False
-                for s in struct_steps:
-                    blocks = s.get("blocks", []) if isinstance(s, dict) else []
-                    for b in blocks:
-                        if isinstance(b, dict) and b.get("content", "").strip():
-                            _has_substance = True
-                            break
-                    if _has_substance:
-                        break
-                if _has_substance:
-                    try:
-                        from latex_utils import render_structured_safe, validate_structured
-                        is_valid, _ = validate_structured(structured)
-                        if is_valid:
-                            # P41: Pre-validate latex_display blocks
-                            _p41_ok = True
-                            for _st in struct_steps:
-                                if not isinstance(_st, dict):
-                                    continue
-                                for _b in _st.get("blocks") or []:
-                                    if not isinstance(_b, dict):
-                                        continue
-                                    _btype = _b.get("type", "")
-                                    _bdisplay = _b.get("display", "")
-                                    # Validate all latex_display and block-level latex
-                                    if _btype == "latex_display" or (_btype == "latex" and _bdisplay == "block"):
-                                        _repaired = _validate_and_repair_latex_block(_b.get("content", ""))
-                                        if _repaired is None:
-                                            _p41_ok = False
-                                            break
-                                        _b["content"] = _repaired
-                                    # P41.2: Check text blocks for raw aligned environments
-                                    elif _btype == "text":
-                                        _tc = _b.get("content", "")
-                                        if r'\begin{aligned}' in _tc or r'\begin{cases}' in _tc:
-                                            try:
-                                                from latex_utils import split_text_and_latex_mixed_block
-                                                _sub = split_text_and_latex_mixed_block(_tc)
-                                                if len(_sub) > 1:
-                                                    # Replace this text block with split blocks
-                                                    _idx = _st.get("blocks", []).index(_b)
-                                                    _st["blocks"] = _st["blocks"][:_idx] + _sub + _st["blocks"][_idx+1:]
-                                            except Exception:
-                                                pass
-                                if not _p41_ok:
-                                    break
-                            if _p41_ok:
-                                render_structured_safe(structured)
-                                st.markdown('</div>', unsafe_allow_html=True)
-                                return
-                            else:
-                                st.warning("该公式格式异常，请重新生成标准解答。")
-                                if _should_show_solution_debug():
-                                    _render_blocked_solution_debug(solution)
-                                st.markdown('</div>', unsafe_allow_html=True)
-                                return
-                    except Exception:
-                        pass
-                # If no substance, fall through to text fallback below
-            else:
-                # 结构化数据存在但没有步骤，尝试获取最终答案
-                fa = structured.get("final_answer", {})
-                if fa and isinstance(fa, dict):
-                    fa_content = fa.get("content", "")
-                    if fa_content:
-                        answer = fa_content
-
-        # ── 回退：将 steps + answer 组装为统一文本 ──
-        content_parts = []
-        for i, step in enumerate(steps):
-            if isinstance(step, dict):
-                label = step.get("label", f"步骤{i+1}")
-                if step.get("content"):
-                    content_parts.append(f"### {label.rstrip('：:')}：\n{step['content']}")
-                elif step.get("blocks"):
-                    block_texts = []
-                    for b in step["blocks"]:
-                        bc = str(b.get("content", ""))
-                        # Safety: never render dict/list as text
-                        if b.get("type") == "latex" and bc:
-                            block_texts.append(f"${bc}$")
-                        elif bc:
-                            block_texts.append(bc)
-                    if block_texts:
-                        content_parts.append(f"### {label.rstrip('：:')}：\n" + "\n".join(block_texts))
-                # If step has neither content nor blocks, skip it (don't str() it)
-            elif isinstance(step, str):
-                content_parts.append(f"### 步骤{i+1}：\n{step}")
-        
-        # 确保最终答案被添加
-        if answer and isinstance(answer, str) and answer.strip():
-            # 如果没有步骤，只显示答案会显得单薄，添加一些说明
-            if not content_parts:
-                content_parts.append("### 标准解答")
-            content_parts.append(f"**最终答案**：{answer}")
-
-        if content_parts:
-            raw = "\n\n".join(content_parts)
-            st.markdown('<div class="grading-math-scroll">', unsafe_allow_html=True)
+        rendered_any = False
+        try:
+            from services.grading_adapter import build_answer_only_view, build_standard_solution_view
+            q_type = _view_question_type(solution, grading_result)
+            view = build_standard_solution_view(solution, q_type, grading_result)
+            rendered_any = render_standard_solution_view(view, best_effort=True)
+        except Exception:
+            logger.exception("standard_solution_view build/render failed; trying answer-only view")
             try:
-                from renderers.math_render_policy import render_grading_latex
-                render_grading_latex(raw)
+                q_type = _view_question_type(solution, grading_result)
+                fallback_view = build_answer_only_view(solution, q_type, grading_result)
+                rendered_any = render_standard_solution_view(fallback_view, best_effort=True)
             except Exception:
-                try:
-                    from latex_utils import from_legacy_text, render_structured_safe
-                    render_structured_safe(from_legacy_text(raw))
-                except Exception:
-                    try:
-                        from latex_utils import split_latex_text, render_ast
-                        render_ast(split_latex_text(raw))
-                    except Exception:
-                        try:
-                            st.markdown(raw)
-                        except Exception:
-                            st.text(raw)
-            st.markdown('</div>', unsafe_allow_html=True)
+                logger.exception("answer-only standard_solution_view failed")
+        if not rendered_any:
+            gr = grading_result if isinstance(grading_result, dict) else {}
+            status = str(solution.get("standard_solution_status") or gr.get("standard_solution_status") or "")
+            err = str(solution.get("standard_solution_error") or gr.get("standard_solution_error") or "")
+            if status == "incomplete":
+                st.warning("标准解答生成不完整，请重新生成标准解答。")
+                if err:
+                    st.caption(f"原因: {err[:150]}")
+            elif status == "failed":
+                st.warning("标准解答生成失败，请重新生成。")
+                if err:
+                    st.caption(f"原因: {err[:150]}")
+            elif status == "missing":
+                st.info("标准解答尚未生成，请重新生成标准解答。")
+            else:
+                st.info("暂无标准解法数据")
         st.markdown('</div>', unsafe_allow_html=True)
 
 
-def render_recommendations(dr: dict, question_db=None, current_question=None, is_correct: bool = None) -> None:
+def render_recommendations(dr: dict, question_db=None, current_question=None, is_correct: bool = None) -> list[dict]:
     """Learning recommendations card — always shown, tailored to performance."""
+    events: list[dict] = []
     weak_points = dr.get("weak_points", [])
 
     with st.container(border=True):
@@ -616,9 +1011,10 @@ def render_recommendations(dr: dict, question_db=None, current_question=None, is
                                 width="stretch",
                                 help=f"{year}年 {qtype}"
                             ):
-                                st.session_state.selected_question = q
-                                st.session_state.page = "practice"
-                                st.rerun()
+                                events.append({
+                                    "type": "open_practice_question",
+                                    "question": q,
+                                })
                 else:
                     st.markdown("")
                     st.markdown("**🎯 同类练习推荐**")
@@ -633,16 +1029,18 @@ def render_recommendations(dr: dict, question_db=None, current_question=None, is
             st.markdown("**🎯 同类练习推荐**")
             st.caption("建议在错题本中查看同类题目进行针对性练习")
         st.markdown('</div>', unsafe_allow_html=True)
+    return events
 
 
 def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int = 10,
                                  knowledge_points: list = None, question: dict = None,
-                                 question_db=None, solution_expanded: bool = False) -> None:
+                                 question_db=None, solution_expanded: bool = False) -> list[dict]:
     """Progressive disclosure layout.
 
-    P22: view_only mode skips score, diagnosis, and recommendations,
-    showing only the standard solution and knowledge points.
+    P22: view_only mode skips score, diagnosis, knowledge points, and recommendations,
+    showing only the standard solution.
     """
+    events: list[dict] = []
     is_view_only = bool(gr.get("view_only") or gr.get("hide_score_card"))
 
     # P40: inject mobile CSS and wrap in container
@@ -650,13 +1048,9 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     st.markdown('<div class="grading-result-container">', unsafe_allow_html=True)
 
     if is_view_only:
-        st.info("📖 你当前未提交作答，正在查看标准解答。建议先独立完成本题，再对照标准解答检查思路。")
-        st.markdown("---")
-        render_standard_solution(sa, expanded=True)
-        kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
-        render_knowledge_points(kp_list, question, question_db)
+        render_standard_solution(sa, expanded=True, grading_result=gr)
         st.markdown('</div>', unsafe_allow_html=True)
-        return
+        return events
 
     st.markdown("---")
 
@@ -692,7 +1086,7 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
             _render_step_comparison_body(gr)
 
     # ═══ Collapsed / Expanded: Standard solution ═══
-    render_standard_solution(sa, expanded=solution_expanded)
+    render_standard_solution(sa, expanded=solution_expanded, grading_result=gr)
 
     # ═══ Knowledge Points — below Standard Solution, always visible ═══
     kp_list = knowledge_points or (question.get("knowledge_points", []) if question else [])
@@ -701,8 +1095,12 @@ def render_grading_result_cards(gr: dict, sa: dict, dr: dict, total_score: int =
     # ═══ Recommendations — skipped when view_only ═══
     if not is_view_only:
         with st.expander("📖 巩固建议", expanded=True):
-            render_recommendations(dr, question_db, question, is_correct=(gr.get("total", 0) >= total_score * 0.9))
+            events.extend(render_recommendations(
+                dr, question_db, question,
+                is_correct=(gr.get("total", 0) >= total_score * 0.9),
+            ))
     st.markdown('</div>', unsafe_allow_html=True)
+    return events
 
 
 def _render_step_comparison_body(gr: dict) -> None:
@@ -840,6 +1238,11 @@ def _render_text_or_latex(text: str) -> None:
 
     try:
         from latex_utils import split_latex_text, render_ast
+        try:
+            from services.grading_adapter import prepare_grading_math_for_render
+            s = prepare_grading_math_for_render(s)
+        except Exception:
+            pass
         segments = split_latex_text(s)
         if len(segments) == 1 and segments[0].get("type") == "text":
             st.markdown(segments[0]["content"])

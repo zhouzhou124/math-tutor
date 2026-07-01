@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷二-003",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "无穷小量",
+    "等价无穷小"
+  ],
+  "tags": [
+    "无穷小量",
+    "等价无穷小",
+    "对数"
+  ],
+  "question": "设当 $x\\to0$ 时，$u(x)$ 和 $v(x)$ 均为无穷小量且有 $u(x)>0$，$v(x)>0$，则下列说法中正确的是",
+  "options": {
+    "A": "$\\frac1{\\ln u(x)}\\sim\\frac1{\\ln v(x)}$ 当且仅当 $u(x)\\sim v(x)$",
+    "B": "$\\frac1{\\ln u(x)}\\sim\\frac1{\\ln v(x)}$ 当且仅当 $u(x)$ 与 $v(x)$ 同阶",
+    "C": "若 $u(x)=o(v(x))$，则 $\\frac1{\\ln u(x)}=o(\\frac1{\\ln v(x)})$",
+    "D": "若 $\\frac1{\\ln u(x)}=o(\\frac1{\\ln v(x)})$，则 $u(x)=o(v(x))$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设当 $x\\to0$ 时，$u(x)$ 和 $v(x)$ 均为无穷小量且有 $u(x)>0$，$v(x)>0$，则下列说法中正确的是",
+  "raw_answer_text": "D"
+}

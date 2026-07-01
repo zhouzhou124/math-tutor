@@ -13,10 +13,10 @@
   "tags": [
     "极限"
   ],
-  "question": "设 \\(x \\to 0\\) 时，\\(\\ln \\frac{2+x}{2+\\sin x}\\) 与 \\(x^n\\) 为同阶无穷小，则 \\(n = \\underline{\\hspace{3cm}}\\)",
+  "question": "设 $x \\to 0$ 时，$\\ln \\frac{2+x}{2+\\sin x}$与 $x^n$ 为同阶无穷小，则 $n = \\underline{\\hspace{3cm}}$",
   "source": "import_v6",
   "options": {},
-  "raw_question_text": "设 \\(x \\to 0\\) 时，\\(\\ln \\frac{2+x}{2+\\sin x}\\) 与 \\(x^n\\) 为同阶无穷小，则 \\(n = \\underline{\\hspace{3cm}}\\)",
+  "raw_question_text": "设 $x \\to 0$ 时，$\\ln \\frac{2+x}{2+\\sin x}$与 $x^n$ 为同阶无穷小，则 $n = \\underline{\\hspace{3cm}}$",
   "standard_answer": "$2$",
   "raw_answer_text": "$2$"
 }

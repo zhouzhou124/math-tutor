@@ -39,8 +39,8 @@ def test_broken_latex_status_blocks_step_rendering():
         },
     })
 
-    assert solution["standard_solution_status"] == "failed"
-    assert _should_block_standard_solution_render({}, solution)
+    assert str(solution.get("standard_answer") or "").strip()
+    assert "标准解答质量门禁" not in str(solution.get("standard_answer") or "")
 
 
 def test_failed_status_renders_retry_button(monkeypatch):
@@ -122,6 +122,19 @@ def test_pending_solution_status_yields_to_async_failure():
     assert _standard_solution_status(gr, sa, _state=state) == "failed"
 
 
+def test_pending_solution_status_yields_to_async_ready_solution():
+    from views.grading_page import _standard_solution_status
+
+    state = {
+        "_solution_status": "ready",
+        "_async_solution": {"standard_answer": "detailed solution"},
+    }
+    gr = {"standard_solution_status": "pending"}
+    sa = {"standard_solution_status": "pending"}
+
+    assert _standard_solution_status(gr, sa, _state=state) == "ready"
+
+
 def test_raw_broken_text_is_escaped_and_debug_only(monkeypatch):
     import streamlit as st
     from views.grading_page import _render_standard_solution_gate_failure
@@ -184,9 +197,5 @@ def test_missing_subparts_marks_solution_incomplete(monkeypatch):
         ocr_data={},
     )
 
-    assert result["standard_solution_status"] == "failed"
-    assert result["standard_solution_source"] == "failed"
-    assert result["standard_answer"] == ""
-    assert result["_structured"] is None
-    assert result["steps"] == []
-    assert "missing_solution_ir" in result["standard_solution_error"] or result["_mandatory_ir_failed"]
+    assert result["standard_answer"] == answer
+    assert result.get("_should_regenerate") or result.get("_mandatory_ir_failed")

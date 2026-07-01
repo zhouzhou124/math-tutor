@@ -17,6 +17,51 @@ from config import LLM_BASE_URL, LLM_MODEL
 _log = _logging.getLogger(__name__)
 
 RUNNING_STATUSES = {"pending", "running", "processing"}
+_TASK_PHASES: dict[str, dict] = {}
+_TASK_PHASE_LOCK = threading.Lock()
+
+_PHASE_DEFAULT_PROGRESS = {
+    "prepare": 5,
+    "solution": 20,
+    "grading": 55,
+    "diagnosis": 78,
+    "finalize": 92,
+    "completed": 100,
+    "failed": 0,
+}
+
+
+def update_task_phase(task_id: str, phase: str, detail: str = "",
+                      progress: int | None = None) -> dict:
+    """Record the real in-process phase for an async grading task."""
+    phase = str(phase or "prepare")
+    if phase not in _PHASE_DEFAULT_PROGRESS:
+        phase = "prepare"
+        progress = None
+    try:
+        pct = int(progress if progress is not None else _PHASE_DEFAULT_PROGRESS[phase])
+    except (TypeError, ValueError):
+        pct = _PHASE_DEFAULT_PROGRESS[phase]
+    event = {
+        "phase": phase,
+        "detail": str(detail or ""),
+        "progress": max(0, min(100, pct)),
+    }
+    with _TASK_PHASE_LOCK:
+        _TASK_PHASES[str(task_id)] = event
+    return dict(event)
+
+
+def get_task_phase(task_id: str) -> dict | None:
+    """Return the latest real phase event for a running async grading task."""
+    with _TASK_PHASE_LOCK:
+        event = _TASK_PHASES.get(str(task_id))
+        return dict(event) if event else None
+
+
+def clear_task_phase(task_id: str):
+    with _TASK_PHASE_LOCK:
+        _TASK_PHASES.pop(str(task_id), None)
 
 
 def build_grading_request_hash(question: dict, student_answer: str) -> str:
@@ -64,15 +109,24 @@ def run_grading_bg(task_id: str, task_data: dict, *, executor):
     from storage.grading_task_store import complete_task, fail_task, update_task_stream
     import traceback
 
-    # ── Streaming callback: persists LLM output to SQLite so the
-    #     polling page can display it in near-real-time. ──
-    def _stream_callback(text: str):
+    # ── Progress/stream callback: phase dicts stay in-process for the
+    #     polling page; plain strings still go to SQLite stream_answer.
+    def _stream_callback(event):
         try:
-            update_task_stream(task_id, text)
+            if isinstance(event, dict):
+                update_task_phase(
+                    task_id,
+                    event.get("phase", "prepare"),
+                    event.get("detail", ""),
+                    event.get("progress"),
+                )
+            else:
+                update_task_stream(task_id, str(event or ""))
         except Exception:
             pass  # streaming is best-effort; never crash the grading run
 
     try:
+        update_task_phase(task_id, "prepare", "正在准备批改任务", 5)
         _state = task_data["_state"]
         _model = task_data["model"]
         _user_id = task_data["user_id"]
@@ -96,13 +150,16 @@ def run_grading_bg(task_id: str, task_data: dict, *, executor):
         results = executor(**kwargs)
 
         if results is None:
+            update_task_phase(task_id, "failed", "批改未返回结果", 0)
             fail_task(task_id, "LLM client unavailable or grading returned no results")
             return
 
+        update_task_phase(task_id, "completed", "批改完成", 100)
         complete_task(task_id, results)
     except Exception as exc:
         _log.error("Background grading failed for task %s: %s", task_id, exc)
         _log.error(traceback.format_exc())
+        update_task_phase(task_id, "failed", str(exc)[:120], 0)
         fail_task(task_id, str(exc))
 
 

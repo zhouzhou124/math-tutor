@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "幂级数",
+    "和函数"
+  ],
+  "tags": [
+    "幂级数",
+    "和函数",
+    "双阶乘"
+  ],
+  "question": "函数项级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{x^{n-1}}{(2n)!!}$ 在 $(0,+\\infty)$ 上的和函数为 $\\_\\_\\_\\_\\_$.\n双阶乘 $(2n)!!$ 的定义：当 $n=1$ 时，$(2n)!!=2$；当 $n\\ge2$ 时，$(2n)!!=2n(2n-2)\\cdots2$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac{e^{\\frac x2}-1}{x}$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "函数项级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{x^{n-1}}{(2n)!!}$ 在 $(0,+\\infty)$ 上的和函数为 $\\_\\_\\_\\_\\_$.\n双阶乘 $(2n)!!$ 的定义：当 $n=1$ 时，$(2n)!!=2$；当 $n\\ge2$ 时，$(2n)!!=2n(2n-2)\\cdots2$。",
+  "raw_answer_text": "$\\displaystyle\\frac{e^{\\frac x2}-1}{x}$"
+}

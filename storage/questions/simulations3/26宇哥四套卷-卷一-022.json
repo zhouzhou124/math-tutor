@@ -1,0 +1,30 @@
+{
+  "question_id": "26宇哥四套卷-卷一-022",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "多维随机变量",
+    "条件概率",
+    "独立性"
+  ],
+  "tags": [
+    "多维随机变量",
+    "条件概率",
+    "独立性",
+    "概率密度"
+  ],
+  "question": "设随机变量 $(X,Y)$ 的概率密度 $f(x,y)= \\begin{cases} a(x^2+\\frac{xy}{2}),&0<x<1,\\ 0<y<2\\\\ 0,&\\text{其他} \\end{cases}$ .\n(1) 求 $a$ 的值；\n(2) $X,Y$ 是否相互独立，说明理由；\n(3) 计算 $P\\{Y>1\\mid X=\\frac12\\}$.",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) $1=\\int_0^1\\int_0^2 a(x^2+\\frac{xy}{2})\\,dy\\,dx=a\\int_0^1(2x^2+x)\\,dx=a(\\frac23+\\frac12)=\\frac{7a}{6}$，故 $a=\\frac67$。(2) $f_X(x)=\\frac67(2x^2+x)$，$0<x<1$；$f_Y(y)=\\frac67(\\frac13+\\frac y4)$，$0<y<2$。因 $f(x,y)\\ne f_X(x)f_Y(y)$，故 $X,Y$ 不相互独立。(3) $f_{Y|X}(y|\\frac12)=\\frac{1+y}{4}$，$0<y<2$。因而 $P\\{Y>1|X=\\frac12\\}=\\int_1^2\\frac{1+y}{4}\\,dy=\\frac58$。",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $(X,Y)$ 的概率密度 $f(x,y)= \\begin{cases} a(x^2+\\frac{xy}{2}),&0<x<1,\\ 0<y<2\\\\ 0,&\\text{其他} \\end{cases}$ .\n(1) 求 $a$ 的值；\n(2) $X,Y$ 是否相互独立，说明理由；\n(3) 计算 $P\\{Y>1\\mid X=\\frac12\\}$.",
+  "raw_answer_text": ""
+}

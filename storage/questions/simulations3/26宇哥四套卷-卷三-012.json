@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷三-012",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 12,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数求导",
+    "复合函数"
+  ],
+  "tags": [
+    "隐函数求导",
+    "复合函数",
+    "偏导数"
+  ],
+  "question": "设 $u=e^{\\frac{x}{z}}\\sin(x^2+y^2)$，其中 $z=z(x,y)$ 是由方程 $3x^2+2y^2+2z=7$ 确定的隐函数，则 $\\displaystyle\\left.\\frac{\\partial u}{\\partial x}\\right|_{(1,1)}=$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$e(4\\sin2+2\\cos2)$",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $u=e^{\\frac{x}{z}}\\sin(x^2+y^2)$，其中 $z=z(x,y)$ 是由方程 $3x^2+2y^2+2z=7$ 确定的隐函数，则 $\\displaystyle\\left.\\frac{\\partial u}{\\partial x}\\right|_{(1,1)}=$",
+  "raw_answer_text": "$e(4\\sin2+2\\cos2)$"
+}

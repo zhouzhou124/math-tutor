@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-008",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 8,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "相关系数",
+    "多维随机变量"
+  ],
+  "tags": [
+    "相关系数",
+    "多维随机变量"
+  ],
+  "question": "设总体 $X$ 的概率分布如下：$X$ 取 $-1,0,1$ 的概率分别为 $\\frac14,\\frac12,\\frac14$。从总体 $X$ 中抽取 $n$ 个简单随机样本，$N_1$ 表示 $n$ 个样本中取到 $-1$ 的个数，$N_2$ 表示 $n$ 个样本中取到 $0$ 的个数，$N_3$ 表示 $n$ 个样本中取到 $1$ 的个数，则 $N_1$ 与 $N_2$ 的相关系数为",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$-1$",
+    "B": "$1$",
+    "C": "$-\\frac{\\sqrt3}{3}$",
+    "D": "$\\frac{\\sqrt3}{3}$"
+  },
+  "correct_option": "C",
+  "_original_answer": "",
+  "standard_answer": "C",
+  "raw_question_text": "设总体 $X$ 的概率分布如下：$X$ 取 $-1,0,1$ 的概率分别为 $\\frac14,\\frac12,\\frac14$。从总体 $X$ 中抽取 $n$ 个简单随机样本，$N_1$ 表示 $n$ 个样本中取到 $-1$ 的个数，$N_2$ 表示 $n$ 个样本中取到 $0$ 的个数，$N_3$ 表示 $n$ 个样本中取到 $1$ 的个数，则 $N_1$ 与 $N_2$ 的相关系数为",
+  "raw_answer_text": "C"
+}

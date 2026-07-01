@@ -39,6 +39,123 @@ def _sync_solution_retry_state():
                 st.session_state[key] = value
 
 
+def _task_has_pending_solution(task: dict | None) -> bool:
+    if not isinstance(task, dict):
+        return False
+    raw = task.get("grading_result_json")
+    if not raw:
+        return False
+    try:
+        gr = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
+        return False
+    return bool(
+        isinstance(gr, dict)
+        and gr.get("standard_solution_status") == "pending"
+    )
+
+
+def _remember_pending_solution_task(task: dict | None, *, session_state=None) -> bool:
+    """Remember a completed fast-path task whose detailed solution is pending."""
+    state = session_state if session_state is not None else st.session_state
+    if not _task_has_pending_solution(task):
+        return False
+    task_id = str((task or {}).get("task_id") or "")
+    if not task_id:
+        return False
+    state["_pending_solution_task_id"] = task_id
+    state["_solution_progress_start"] = time.time()
+    return True
+
+
+def _refresh_pending_solution_task(*, session_state=None, task_fetcher=None) -> bool:
+    """Poll the completed fast-path task for async detailed-solution updates."""
+    state = session_state if session_state is not None else st.session_state
+    task_id = state.get("_pending_solution_task_id")
+    if not task_id:
+        return False
+    fetch = task_fetcher or get_task
+    task = fetch(task_id)
+    if not task:
+        return False
+    raw_gr = task.get("grading_result_json")
+    if not raw_gr:
+        return False
+    try:
+        gr = json.loads(raw_gr)
+    except (json.JSONDecodeError, TypeError):
+        return False
+    if not (
+        isinstance(gr, dict)
+        and gr.get("standard_solution_status") == "ready"
+        and not gr.get("_hide_until_solution_ready")
+    ):
+        return False
+
+    state["grading_result"] = gr
+    raw_solution = task.get("standard_answer_json")
+    if raw_solution:
+        try:
+            solution = json.loads(raw_solution)
+            state["standard_answer"] = solution
+            if isinstance(solution, dict):
+                state["_async_solution"] = solution
+                if solution.get("_structured"):
+                    state["standard_answer_structured"] = solution["_structured"]
+        except (json.JSONDecodeError, TypeError):
+            pass
+    state["_solution_status"] = "ready"
+    state.pop("_pending_solution_task_id", None)
+    state.pop("_solution_progress_start", None)
+    return True
+
+
+def _standard_solution_wait_state(sol_status: str | None, sol_task: str | None = None) -> dict:
+    """Return the UI wait flags for a detailed standard solution."""
+    status = str(sol_status or "")
+    return {
+        "standard_solution_status": status or "missing",
+        "standard_solution_task_id": sol_task,
+        # Keep grading/diagnosis visible; standard solution section loads asynchronously.
+        "_hide_until_solution_ready": False,
+    }
+
+
+def _is_choice_or_fill_single_answer(question_type: str, student_ans: str) -> bool:
+    """True when a choice/fill submission is only an answer value, not steps."""
+    q_type = str(question_type or "")
+    q_type_lower = q_type.lower()
+    is_choice_or_fill = (
+        "选择" in q_type
+        or "填空" in q_type
+        or "閫夋嫨" in q_type
+        or "濉┖" in q_type
+        or "choice" in q_type_lower
+        or "fill" in q_type_lower
+    )
+    if not is_choice_or_fill:
+        return False
+    ans = str(student_ans or "").strip()
+    if not ans:
+        return False
+    step_markers = ("步骤", "过程", "解：", "证明", "\n")
+    return not any(marker in ans for marker in step_markers)
+
+
+def _suppress_choice_fill_analysis(gresult: dict, dresult: dict | None = None) -> dict:
+    """Keep answer scoring, but skip diagnosis and step comparison for single-answer items."""
+    if not isinstance(gresult, dict):
+        return dresult or {}
+    gresult["step_analysis"] = []
+    gresult["deductions"] = []
+    gresult["hide_diagnosis"] = True
+    gresult["skip_diagnosis"] = True
+    gresult["skip_step_analysis"] = True
+    if isinstance(dresult, dict):
+        dresult.clear()
+    return dresult or {}
+
+
 def _get_standard_solution_timeout_seconds(question_type: str, source: str | None = None) -> int:
     """P32.6: Question-type based timeout for standard solution generation."""
     import os
@@ -49,8 +166,8 @@ def _get_standard_solution_timeout_seconds(question_type: str, source: str | Non
         "证明题": "SOLUTION_TIMEOUT_PROOF_SECONDS",
     }
     _defaults = {
-        "选择题": 300,
-        "填空题": 300,
+        "选择题": 120,
+        "填空题": 180,
         "解答题": 600,
         "证明题": 600,
     }
@@ -261,10 +378,16 @@ def _standard_solution_status(grading_result: dict | None, standard_answer: dict
     """
     gr_status = (grading_result or {}).get("standard_solution_status")
     sa_status = (standard_answer or {}).get("standard_solution_status")
+    async_status = (_state or {}).get("_solution_status")
+    async_solution = (_state or {}).get("_async_solution")
+
+    if async_status == "ready" and isinstance(async_solution, dict):
+        return "ready"
+    if async_status in {"failed", "incomplete"} and gr_status == "pending":
+        return async_status
 
     # If both sides are pending, defer to async state
     if gr_status == "pending" and sa_status == "pending":
-        async_status = (_state or {}).get("_solution_status")
         if async_status:
             return async_status
         return "pending"
@@ -359,6 +482,7 @@ def _render_standard_solution_gate_failure(solution: dict, *, selected_q: dict, 
         _ss_set("solution_attempt_id", new_attempt)
         _ss_set("_solution_active_attempt_id", new_attempt)
         _ss_set("_poll_start", time.time())
+        _ss_set("_solution_progress_start", time.time())
 
         # Update solution/grading_result status
         sa = _ss_get("standard_answer", {})
@@ -381,6 +505,22 @@ def _render_standard_solution_gate_failure(solution: dict, *, selected_q: dict, 
                 del st.session_state[key]
 
         st.rerun()
+
+
+def _handle_grading_renderer_events(events: list[dict] | None) -> None:
+    """Handle renderer-returned UI events at the page layer."""
+    for event in events or []:
+        if not isinstance(event, dict):
+            continue
+        event_type = event.get("type")
+        if event_type == "open_practice_question":
+            question = event.get("question")
+            if isinstance(question, dict):
+                st.session_state.selected_question = question
+                st.session_state.page = "practice"
+                st.rerun()
+        elif event_type == "retry_solution":
+            st.session_state["_solution_retry_requested"] = True
 
 
 def _has_cached_canonical_trace(selected_q: dict) -> bool:
@@ -438,6 +578,8 @@ def _clear_grading_state(preserve_ocr: bool = False):
         '_last_main_progress',
         '_main_progress_rendered',
         '_progress_rendered_standard_solution',
+        '_pending_solution_task_id',
+        '_solution_progress_start',
         'pending_task_id',
         'active_grading_task_id',
         'active_grading_request_hash',
@@ -509,6 +651,21 @@ def _standard_answer_needs_expansion(answer: str, steps: list, q_type: str,
         return True
 
     import re
+    if q_type == "选择题":
+        try:
+            from services.solution_quality import solution_quality_report_choice_display
+            candidate = {
+                "standard_answer": text,
+                "choice_solution": (selected_q or {}).get("choice_solution") or {},
+            }
+            report = solution_quality_report_choice_display(candidate, selected_q)
+            if report.get("ok"):
+                _migrate_to_canonical(selected_q)
+                return False
+            return True
+        except Exception:
+            pass
+
     # Has step markers → genuinely detailed
     if re.search(r'步骤\s*\d+\s*[：:]', text):
         _migrate_to_canonical(selected_q)
@@ -607,6 +764,172 @@ def _migrate_to_canonical(selected_q: dict) -> None:
         pass
 
 
+def _extract_choice_letter_for_consistency(text: str) -> str:
+    """Extract an explicit choice conclusion from text for answer consistency checks."""
+    import re
+
+    raw = str(text or "")
+    if not raw.strip():
+        return ""
+    patterns = [
+        r"(?:正确选项|正确答案|标准答案|最终答案|答案)\s*[：:为是]?\s*[（(]?\s*([A-D])\s*[）)]?",
+        r"(?:故选|应选|选择|选)\s*[（(]?\s*([A-D])\s*[）)]?",
+        r"选项\s*[（(]?\s*([A-D])\s*[）)]?\s*(?:正确|符合|匹配|成立)",
+        r"([A-D])\s*(?:项|选项)\s*(?:正确|符合|匹配|成立)",
+    ]
+    candidates: list[tuple[int, str]] = []
+    for pattern in patterns:
+        for match in re.finditer(pattern, raw, flags=re.I):
+            candidates.append((match.start(), match.group(1).upper()))
+    if not candidates:
+        return ""
+    candidates.sort(key=lambda item: item[0])
+    return candidates[-1][1]
+
+
+_CONSISTENCY_MISMATCH_MSG = (
+    "AI 生成答案与题库标准答案不一致，已停止使用本次生成结果，请人工复核标准答案。"
+)
+
+
+def _legacy_step_text_len(step) -> int:
+    if isinstance(step, dict):
+        return len(str(step.get("content") or ""))
+    return len(str(step or ""))
+
+
+def _normalize_answer_for_consistency(text: str) -> str:
+    """Normalize final-answer strings before symbolic/string consistency checks."""
+    import re
+
+    s = str(text or "").strip()
+    if not s:
+        return ""
+
+    s = re.sub(r"\$\$(.+?)\$\$", r"\1", s, flags=re.S)
+    s = re.sub(r"(?<!\$)\$(?!\$)(.+?)(?<!\$)\$(?!\$)", r"\1", s, flags=re.S)
+    s = re.sub(r"\\\((.+?)\\\)", r"\1", s, flags=re.S)
+    s = re.sub(r"\\\[(.+?)\\\]", r"\1", s, flags=re.S)
+    s = re.sub(r"\s+", "", s)
+    s = s.replace(r"\dfrac", r"\frac").replace(r"\tfrac", r"\frac")
+    s = re.sub(r"\\frac(\d)(\d)", r"\\frac{\1}{\2}", s)
+
+    slash = re.fullmatch(r"(-?)(\d+)/(\d+)", s)
+    if slash:
+        sign = "-" if slash.group(1) == "-" else ""
+        return rf"{sign}\frac{{{slash.group(2)}}}{{{slash.group(3)}}}"
+    return s
+
+
+def _question_bank_has_stored_solution(selected_q: dict | None) -> bool:
+    """True when the question bank already has steps or a detailed solution to show."""
+    if not isinstance(selected_q, dict):
+        return False
+
+    steps = selected_q.get("solution_steps") or []
+    if any(str(step or "").strip() for step in steps):
+        return True
+
+    structured = selected_q.get("_structured")
+    if isinstance(structured, dict):
+        for step in structured.get("steps") or []:
+            if not isinstance(step, dict):
+                continue
+            body = str(
+                step.get("body_markdown")
+                or step.get("derivation_markdown")
+                or step.get("explanation")
+                or ""
+            ).strip()
+            if body:
+                return True
+            for block in step.get("blocks") or []:
+                if isinstance(block, dict) and str(block.get("content") or "").strip():
+                    return True
+
+    if selected_q.get("canonical_solutions"):
+        return True
+
+    text = str(selected_q.get("standard_answer") or "").strip()
+    if not text:
+        return False
+    import re
+    if re.search(r"步骤\s*\d+\s*[：:]", text):
+        return True
+    return len(text) >= 250
+
+
+def _view_only_should_force_expansion(selected_q: dict | None, client) -> bool:
+    """View-only mode: expand only when the bank has no stored solution to reuse."""
+    if not client:
+        return False
+    if _question_bank_has_stored_solution(selected_q):
+        return False
+    return not _solution_cache_hit(selected_q)
+
+
+def _bank_solution_fallback(selected_q: dict | None) -> dict | None:
+    """Extract reusable bank content when AI output fails consistency checks."""
+    if not isinstance(selected_q, dict):
+        return None
+
+    standard_answer = str(selected_q.get("standard_answer") or "").strip()
+    steps = [
+        step for step in (selected_q.get("solution_steps") or [])
+        if str(step or "").strip()
+    ]
+    structured = selected_q.get("_structured")
+    has_structured = isinstance(structured, dict) and bool(structured.get("steps"))
+
+    if not standard_answer and not steps and not has_structured:
+        return None
+
+    payload: dict = {
+        "standard_answer": standard_answer,
+        "steps": steps,
+    }
+    if has_structured:
+        payload["_structured"] = structured
+    return payload
+
+
+def _inconsistent_solution_payload(
+    *,
+    known_answer: str,
+    generated_text: str,
+    score: int | float,
+    selected_q: dict | None = None,
+) -> dict:
+    fallback = _bank_solution_fallback(selected_q)
+    if fallback and (fallback.get("standard_answer") or fallback.get("steps") or fallback.get("_structured")):
+        return {
+            "success": True,
+            "standard_answer": fallback.get("standard_answer") or "",
+            "total_score": score,
+            "steps": fallback.get("steps") or [],
+            "_structured": fallback.get("_structured"),
+            "standard_solution_status": "ready",
+            "standard_solution_error": _CONSISTENCY_MISMATCH_MSG,
+            "_ai_consistency_warning": True,
+            "_answer_consistency_blocked": True,
+            "_debug_known_answer_preview": str(known_answer or "")[:500],
+            "_debug_generated_answer_preview": str(generated_text or "")[:500],
+        }
+
+    return {
+        "success": False,
+        "standard_answer": "",
+        "total_score": score,
+        "steps": [],
+        "standard_solution_status": "failed",
+        "standard_solution_error": _CONSISTENCY_MISMATCH_MSG,
+        "_ai_consistency_warning": True,
+        "_answer_consistency_blocked": True,
+        "_debug_known_answer_preview": str(known_answer or "")[:500],
+        "_debug_generated_answer_preview": str(generated_text or "")[:500],
+    }
+
+
 def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
     """Check whether the AI-generated detailed answer is consistent with the known correct answer.
 
@@ -623,6 +946,11 @@ def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
         return True
 
     import re
+
+    known_choice = _extract_choice_letter_for_consistency(known)
+    generated_choice = _extract_choice_letter_for_consistency(expanded)
+    if known_choice and generated_choice:
+        return known_choice == generated_choice
 
     # Extract final answer from generated text — try multiple patterns
     final_candidates = []
@@ -653,6 +981,8 @@ def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
     if not final_candidates:
         return True  # Can't extract → assume OK
 
+    known_norm = _normalize_answer_for_consistency(known)
+
     # Compare each candidate against known_answer
     from symbolic_executor import quick_compare
 
@@ -660,15 +990,18 @@ def _verify_answer_consistency(expanded: str, known_answer: str) -> bool:
         candidate = candidate.strip()
         if not candidate:
             continue
-        result = quick_compare(candidate, known)
+        candidate_norm = _normalize_answer_for_consistency(candidate)
+        if candidate_norm and known_norm and candidate_norm == known_norm:
+            return True
+        result = quick_compare(candidate_norm or candidate, known_norm or known)
         if result.get("equivalent"):
             return True  # At least one candidate matches → consistent
 
     # No candidate matched — this is suspicious. Check if the known answer
     # text appears anywhere in the expanded text (fuzzy match).
-    known_clean = re.sub(r'[\s$]+', '', known)[:30]
-    expanded_clean = re.sub(r'[\s$]+', '', expanded)
-    if known_clean in expanded_clean:
+    known_clean = known_norm[:50]
+    expanded_clean = _normalize_answer_for_consistency(expanded)
+    if known_clean and known_clean in expanded_clean:
         return True  # Known answer found in text → likely consistent
 
     return False  # Contradiction detected
@@ -801,28 +1134,6 @@ def _cache_detailed_answer(selected_q: dict, expanded: str, model: str = "",
             return False
     save_as_canonical_solution(selected_q, expanded, model=model)
     return True
-
-
-def get_canonical_solutions(selected_q: dict) -> list[dict]:
-    """Return all canonical solutions for a question (from pool or legacy)."""
-    if not selected_q:
-        return []
-    pool = selected_q.get("canonical_solutions") or []
-    if pool:
-        return pool
-    # Legacy: single canonical_solution stored in standard_answer
-    meta = selected_q.get("solution_metadata") or {}
-    if meta.get("canonical") and selected_q.get("standard_answer"):
-        return [{
-            "solution_id": "default",
-            "method_name": "标准解法",
-            "semantic_tags": [],
-            "steps": selected_q.get("solution_steps", []),
-            "standard_answer": selected_q.get("standard_answer", ""),
-            "generated_by": meta.get("generated_by", "legacy"),
-            "generated_at": meta.get("generated_at", ""),
-        }]
-    return []
 
 
 def save_as_canonical_solution(selected_q: dict, expanded: str,
@@ -972,16 +1283,19 @@ def find_best_canonical_match(student_trace: dict,
     for sol in canonical_solutions:
         # Simple textual similarity as baseline — graph matching is preferred
         # when available (handled by the caller via Engine C).
-        sol_text = sol.get("standard_answer", "")
+        from services.grading_adapter import canonical_entry_to_solution
+        solution = canonical_entry_to_solution(sol)
+        sol_text = solution.get("standard_answer", "")
         stu_text = str(student_trace.get("final_answer", ""))
         if not sol_text or not stu_text:
             continue
         from symbolic_executor import quick_compare
-        result = quick_compare(stu_text, sol.get("final_answer", sol_text[:100]))
+        normalized_entry = solution.get("_canonical_entry") or {}
+        result = quick_compare(stu_text, normalized_entry.get("final_answer", sol_text[:100]))
         score = 1.0 if result.get("equivalent") else 0.0
         if score > best_score:
             best_score = score
-            best = sol
+            best = normalized_entry
     if best:
         return {"solution": best, "score": best_score,
                 "method_name": best.get("method_name", "")}
@@ -1178,6 +1492,49 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         }
         status.write("✓ 标准答案已加载（缓存）")
 
+    # 路径2a：选择题需要展开 → 使用选项感知的专用生成器
+    elif _needs_exp and q_type == "选择题" and client is not None:
+        status.write("⏳ AI 生成选择题详细解析...")
+        try:
+            from choice_explainer import generate_choice_standard_solution
+            solution = generate_choice_standard_solution(
+                question,
+                selected_q,
+                client,
+                model=_model,
+            )
+            if not isinstance(solution, dict):
+                solution = {}
+            solution.setdefault("success", True)
+            solution.setdefault("total_score", selected_q.get("score", 10))
+            solution.setdefault("steps", [])
+            solution["question_type"] = "选择题"
+            if not solution.get("standard_answer"):
+                solution["standard_answer"] = _known_answer
+            generated_text = _solution_to_text(solution) or str(solution.get("standard_answer") or "")
+            if _known_answer and not _verify_answer_consistency(generated_text, _known_answer):
+                status.write("⚠️ AI 生成答案与题库标准答案不一致，已停止使用本次生成结果，请人工复核。")
+                solution = _inconsistent_solution_payload(
+                    known_answer=_known_answer,
+                    generated_text=generated_text,
+                    score=selected_q.get("score", 10),
+                    selected_q=selected_q,
+                )
+                solution["question_type"] = "选择题"
+            else:
+                status.write("✓ 选择题详细解析已生成")
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning(
+                "Choice standard solution generation failed: %s", exc)
+            solution = {
+                "success": True,
+                "standard_answer": _known_answer or "解答生成失败",
+                "total_score": selected_q.get("score", 10),
+                "steps": [],
+                "question_type": "选择题",
+            }
+
     # 路径2：有已知答案但太简短 → 直接用 generate_detailed_answer 生成详细版（1次LLM）
     elif _needs_exp and _known_answer and client is not None:
         status.write("⏳ AI 生成详细解答...")
@@ -1228,15 +1585,20 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
 
                 if expanded != _known_answer and not _is_empty_shell:
                     consistent = _verify_answer_consistency(expanded, _known_answer)
-                    # Always save as canonical — consistency check only
-                    # controls the warning, never blocks persistence.
-                    _cache_detailed_answer(selected_q, expanded, _model)
                     if not consistent:
-                        status.write("⚠️ AI 生成的答案与已知正确答案不完全一致，已保存为参考")
-                        solution["_ai_consistency_warning"] = True
+                        status.write("⚠️ AI 生成答案与题库标准答案不一致，已停止使用本次生成结果，请人工复核。")
+                        solution = _inconsistent_solution_payload(
+                            known_answer=_known_answer,
+                            generated_text=expanded,
+                            score=selected_q.get("score", 10),
+                            selected_q=selected_q,
+                        )
+                    else:
+                        _cache_detailed_answer(selected_q, expanded, _model)
                 else:
                     status.write("⚠️ AI 未生成新内容，将使用简略答案")
-            status.write("✓ 详细解答已生成")
+            if not solution.get("_answer_consistency_blocked"):
+                status.write("✓ 详细解答已生成")
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Detailed answer generation failed: %s", exc)
@@ -1257,8 +1619,10 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         _total_content = len(_ans.strip()) + sum(
             len(str(b.get("content", ""))) for s in (_struc.get("steps") or [])
             for b in (s.get("blocks") or []) if isinstance(s, dict)
-        ) + sum(len(str(s.get("content", ""))) for s in _steps)
-        if _total_content < 80:
+        ) + sum(_legacy_step_text_len(s) for s in _steps)
+        if solution.get("_answer_consistency_blocked"):
+            status.write("⚠️ 已阻断后续降级生成，避免继续展示与题库答案冲突的解答。")
+        elif _total_content < 80:
             status.write("⏳ 主生成路径未产生详细解答，尝试 SolverAgent 降级...")
             try:
                 full_question = question
@@ -1291,7 +1655,7 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                         fb_total = len(fb_answer.strip()) + sum(
                             len(str(b.get("content", ""))) for s in (fb_struc.get("steps") or [])
                             for b in (s.get("blocks") or []) if isinstance(s, dict)
-                        ) + sum(len(str(s.get("content", ""))) for s in fb_steps)
+                        ) + sum(_legacy_step_text_len(s) for s in fb_steps)
                         if fb_total >= 80:
                             solution["standard_answer"] = fb_answer
                             solution["steps"] = fb_steps
@@ -1396,8 +1760,8 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
 
     # 规范化 LaTeX（仅对 AI 生成的批改内容，不影响题库）
     try:
-        from latex_normalizer import normalize_latex_style
-        solution["standard_answer"] = normalize_latex_style(solution.get("standard_answer", ""))
+        from services.latex_normalization import normalize_latex
+        solution["standard_answer"] = normalize_latex(solution.get("standard_answer", ""))
         # Unicode 数学符号包裹（π, ≤, →, Δ 等）——仅 AI 生成内容需要
         solution["standard_answer"] = _wrap_unicode_math(solution["standard_answer"])
         # ASCII 数学表达式包裹（B^2=E, a^Tx=0 等）
@@ -1408,16 +1772,16 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
             for s in steps:
                 if isinstance(s, dict):
                     if s.get("content"):
-                        s["content"] = normalize_latex_style(s.get("content", ""))
+                        s["content"] = normalize_latex(s.get("content", ""))
                         s["content"] = _wrap_unicode_math(s["content"])
                         s["content"] = _wrap_ascii_math(s["content"])
                     for b in s.get("blocks") or []:
                         if isinstance(b, dict) and b.get("type") == "latex":
-                            b["content"] = normalize_latex_style(b.get("content", ""))
+                            b["content"] = normalize_latex(b.get("content", ""))
                             b["content"] = _wrap_unicode_math(b["content"])
                             b["content"] = _wrap_ascii_math(b["content"])
                 elif isinstance(s, str):
-                    s = normalize_latex_style(s)
+                    s = normalize_latex(s)
                     s = _wrap_unicode_math(s)
                     s = _wrap_ascii_math(s)
                 normalized_steps.append(s)
@@ -1432,11 +1796,33 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
         from services.grading_adapter import normalize_solution_for_render
         from services.solution_quality import solution_quality_report
 
-        solution = normalize_solution_for_render(solution)
-        quality_report = solution_quality_report(solution, selected_q)
+        consistency_blocked = bool(solution.get("_answer_consistency_blocked"))
+        has_preserved_bank = consistency_blocked and bool(
+            str(solution.get("standard_answer") or "").strip()
+            or solution.get("steps")
+            or (
+                isinstance(solution.get("_structured"), dict)
+                and (solution.get("_structured") or {}).get("steps")
+            )
+        )
+        if has_preserved_bank:
+            solution = normalize_solution_for_render(solution)
+            quality_report = solution_quality_report(solution, selected_q)
+            solution.setdefault("standard_solution_status", "ready")
+        elif consistency_blocked:
+            quality_report = {
+                "ok": False,
+                "renderable": False,
+                "complete": False,
+                "should_regenerate": False,
+                "issues": ["answer_consistency_mismatch"],
+            }
+        else:
+            solution = normalize_solution_for_render(solution)
+            quality_report = solution_quality_report(solution, selected_q)
         solution["_quality_report"] = quality_report
         solution["_should_regenerate"] = bool(quality_report.get("should_regenerate"))
-        if client is not None and quality_report.get("should_regenerate"):
+        if client is not None and quality_report.get("should_regenerate") and not consistency_blocked:
             status.write("⏳ 标准解答不够完整，尝试结构化重生成...")
             full_question = question
             if selected_q.get("options"):
@@ -1477,15 +1863,24 @@ def _build_standard_solution(question, ocr_data, selected_q, client, status,
                 logging.getLogger(__name__).warning(
                     "Structured solution retry failed: %s", _retry_exc)
 
-        final_report = solution_quality_report(solution, selected_q)
+        final_report = quality_report if consistency_blocked else solution_quality_report(solution, selected_q)
         solution["_quality_report"] = final_report
         solution["_should_regenerate"] = bool(final_report.get("should_regenerate"))
-        if not final_report.get("ok"):
-            issues = "、".join(final_report.get("issues", [])[:4]) or "质量门禁未通过"
-            solution["standard_solution_status"] = (
-                "failed" if not final_report.get("renderable", False) else "incomplete"
+        if consistency_blocked and not has_preserved_bank:
+            solution["standard_solution_status"] = "failed"
+            solution["standard_solution_error"] = (
+                solution.get("standard_solution_error")
+                or _CONSISTENCY_MISMATCH_MSG
             )
-            solution["standard_solution_error"] = f"标准解答质量门禁未通过：{issues}。"
+        if not final_report.get("ok"):
+            issues = "、".join(final_report.get("issues", [])[:4])
+            if issues:
+                solution["_quality_warning"] = issues
+            if not solution.get("standard_solution_status"):
+                solution["standard_solution_status"] = (
+                    "incomplete" if final_report.get("renderable") else "failed"
+                )
+                solution["standard_solution_error"] = issues or "standard_solution_quality_gate_failed"
     except Exception:
         pass
 
@@ -1528,18 +1923,13 @@ def _solution_has_renderable_content(solution: dict | None) -> bool:
 
 def _solution_cache_hit(selected_q: dict) -> bool:
     """P15/P24: Check if cache has a complete, renderable detailed solution."""
-    from services.grading_adapter import normalize_canonical_entry
+    from services.grading_adapter import canonical_entry_to_solution
     from services.solution_quality import solution_quality_report
 
     pool = selected_q.get("canonical_solutions") or []
     if pool:
         for entry in pool:
-            normalized = normalize_canonical_entry(entry, question=selected_q)
-            solution_like = {
-                "standard_answer": normalized.get("standard_answer", ""),
-                "_structured": normalized.get("structured"),
-                "_canonical_ir": normalized.get("canonical_ir"),
-            }
+            solution_like = canonical_entry_to_solution(entry, selected_q)
             if solution_quality_report(solution_like, selected_q).get("ok"):
                 return True
     cached = (selected_q.get("standard_answer") or "").strip()
@@ -1596,6 +1986,7 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
 
     _ss_set(_key, True, _state=_state)
     _ss_set("_solution_active_hash", _req_hash, _state=_state)
+    _ss_set("_solution_progress_start", time.time(), _state=_state)
     if force:
         _ss_set("force_regenerate_solution", True, _state=_state)
 
@@ -1605,10 +1996,23 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
     def _run():
         try:
             status = _NoOpStatus()
-            solution = _build_standard_solution(
-                question, ocr_data, selected_q, client, status,
-                force_expansion=True, _state=_state, model=model,
+            _ss_set("_solution_progress_start", time.time(), _state=_state)
+            q_type = (
+                (selected_q or {}).get("question_type")
+                or (ocr_data or {}).get("question_type")
+                or ""
             )
+            if q_type == "选择题" and client is not None:
+                from choice_explainer import generate_choice_standard_solution
+                solution = generate_choice_standard_solution(
+                    question, selected_q, client, model=model,
+                )
+            else:
+                solution = _build_standard_solution(
+                    question, ocr_data, selected_q, client, status,
+                    force_expansion=bool(force),
+                    _state=_state, model=model,
+                )
             # P29: check if this attempt is still active (not superseded)
             if _my_attempt_id is not None:
                 _current_active = _ss_get("_solution_active_attempt_id", None, _state=_state)
@@ -1617,17 +2021,50 @@ def _ensure_solution_async(selected_q: dict, question: str, ocr_data: dict,
                     _ss_set("_solution_status", "stale_discarded", _state=_state)
                     return
 
-            # P15/P24: only mark ready if solution passes the full quality gate.
-            from services.solution_quality import solution_quality_report
-            report = solution_quality_report(solution, selected_q)
+            # P15/P24: only mark ready if solution passes the quality gate.
+            from services.solution_quality import (
+                solution_quality_report,
+                solution_quality_report_choice_display,
+            )
+            if q_type == "选择题":
+                report = solution_quality_report_choice_display(solution, selected_q)
+                if not report.get("ok"):
+                    try:
+                        from services.grading_adapter import ensure_structured_for_display
+                        solution = ensure_structured_for_display(solution, "选择题")
+                        report = solution_quality_report_choice_display(solution, selected_q)
+                    except Exception:
+                        pass
+            else:
+                report = solution_quality_report(solution, selected_q)
             solution["_quality_report"] = report
             solution["_should_regenerate"] = bool(report.get("should_regenerate"))
             if report.get("ok"):
+                if force:
+                    _ss_set("force_regenerate_solution", False, _state=_state)
                 _ss_set("_async_solution", solution, _state=_state)
                 _ss_set("_solution_status", "ready", _state=_state)
                 _ss_set("_solution_error", "", _state=_state)
-                if force:
-                    _ss_set("force_regenerate_solution", False, _state=_state)
+                _ss_set("standard_answer", solution, _state=_state)
+                try:
+                    _cache_detailed_answer(
+                        selected_q,
+                        solution.get("standard_answer") or "",
+                        model,
+                    )
+                except Exception:
+                    pass
+                try:
+                    import streamlit as st
+                    st.session_state["_async_solution"] = solution
+                    st.session_state["standard_answer"] = solution
+                    st.session_state["_solution_status"] = "ready"
+                    _gr = st.session_state.get("grading_result")
+                    if isinstance(_gr, dict):
+                        _gr["standard_solution_status"] = "ready"
+                        _gr["_hide_until_solution_ready"] = False
+                except Exception:
+                    pass
                 gr = _ss_get("grading_result", {}, _state=_state)
                 if isinstance(gr, dict) and gr.get("_hide_until_solution_ready"):
                     gr["_hide_until_solution_ready"] = False
@@ -1702,10 +2139,13 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
                 "answer_source_issues": issues,
                 "answer_source_field": str(resolved.get("source_field") or ""),
                 "correct_answer": "", "correct_option": "",
-                "student_answer": stu_letter or stu,
-                "total_score": total_score,
-                "is_correct": None,
-            },
+            "student_answer": stu_letter or stu,
+            "total_score": total_score,
+            "is_correct": None,
+            "hide_diagnosis": True,
+            "skip_diagnosis": True,
+            "skip_step_analysis": True,
+        },
             "diagnosis_result": {
                 "error_type": "standard_answer_missing",
                 "root_cause": "该题缺少标准选项，无法自动判分",
@@ -1726,10 +2166,15 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
     score = total_score if is_correct else 0
 
     # ── Solution status ──
-    sol_status = "ready" if _solution_cache_hit(selected_q) else "pending"
-    sol_task = None if sol_status == "ready" else _ensure_solution_async(
-        selected_q, question, ocr_data, client, model, _state=_state,
-    )
+    if _solution_cache_hit(selected_q):
+        sol_status = "ready"
+        sol_task = None
+    else:
+        sol_task = _ensure_solution_async(
+            selected_q, question, ocr_data, client, model, _state=_state,
+        )
+        sol_status = "pending" if sol_task else "missing"
+    wait_state = _standard_solution_wait_state(sol_status, sol_task)
     _ss_set("_solution_status", sol_status, _state=_state)
     _ss_set("_solution_task_id", sol_task, _state=_state)
 
@@ -1747,9 +2192,10 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "student_answer": stu_letter or stu,
             "total_score": total_score,
             "grading_method": "local_choice_match",
-            "standard_solution_status": sol_status,
-            "standard_solution_task_id": sol_task,
-            "_hide_until_solution_ready": True,
+            "hide_diagnosis": True,
+            "skip_diagnosis": True,
+            "skip_step_analysis": True,
+            **wait_state,
         },
         "diagnosis_result": {
             "error_type": "无错误" if is_correct else "选择题答案错误",
@@ -1759,9 +2205,14 @@ def _grade_choice_fast(selected_q: dict, student_ans: str, ocr_data: dict,
         },
         "standard_answer": {
             "success": True,
-            "standard_answer": (selected_q.get("standard_answer") or f"正确选项: {correct_option}"),
+            "standard_answer": (
+                ""
+                if sol_status == "pending"
+                else (selected_q.get("standard_answer") or f"正确选项: {correct_option}")
+            ),
             "total_score": total_score, "steps": [],
             "_solution_status": sol_status,
+            "standard_solution_status": sol_status,
         },
         "standard_answer_structured": None,
         "error_record": None,  # built when async solution completes
@@ -1796,11 +2247,17 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
     kps = selected_q.get("knowledge_points", [])
 
     # ── Solution status ──
-    sol_status = "ready" if _solution_cache_hit(selected_q) else "pending"
-    sol_task = None if sol_status == "ready" else _ensure_solution_async(
-        selected_q, question, ocr_data, client, model, _state=_state,
-    )
+    if _solution_cache_hit(selected_q):
+        sol_status = "ready"
+        sol_task = None
+    else:
+        sol_task = _ensure_solution_async(
+            selected_q, question, ocr_data, client, model, _state=_state,
+        )
+        sol_status = "pending" if sol_task else "missing"
+    wait_state = _standard_solution_wait_state(sol_status, sol_task)
     _ss_set("_solution_status", sol_status, _state=_state)
+    _ss_set("_solution_task_id", sol_task, _state=_state)
 
     return {
         "grading_result": {
@@ -1809,8 +2266,7 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "comment": "回答正确" if is_correct else "答案错误，请查看标准解法",
             "engine": "fill_compare", "confidence": confidence,
             "_fast_path": True,
-            "standard_solution_status": sol_status,
-            "_hide_until_solution_ready": True,
+            **wait_state,
             # P39: unified fill escalation fields
             "quick_compare_confidence": confidence,
             "quick_compare_status": _compare_status,
@@ -1820,6 +2276,9 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "answer_source_field": str(resolved.get("source_field") or ""),
             "total_score": total_score,
             "grading_method": "quick_compare",
+            "hide_diagnosis": True,
+            "skip_diagnosis": True,
+            "skip_step_analysis": True,
         },
         "diagnosis_result": {
             "error_type": "无错误" if is_correct else "填空题错误",
@@ -1832,6 +2291,7 @@ def _grade_fill_fast(selected_q: dict, student_ans: str, ocr_data: dict,
             "standard_answer": cached or "",
             "total_score": total_score, "steps": [],
             "_solution_status": sol_status,
+            "standard_solution_status": sol_status,
         },
         "standard_answer_structured": None,
         "error_record": None,  # built when async solution completes
@@ -1843,7 +2303,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                              client=None, stream_callback=None):
     """执行批改流程。
 
-    P15: 选择题/填空题走本地 fast path，跳过 LLM 调用。
+    选择题/填空题与解答题/证明题共用同一批改流水线（标准解法 + LLM/图对齐批改）。
 
     Args:
         _state: None=使用 st.session_state（主线程），dict=使用 dict（后台线程）
@@ -1865,6 +2325,19 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     _user_id = user_id or (_ss_get("auth", {}, _state=_state).get("user_id", ""))
     _memory = memory or _ss_get("memory", _state=_state)
 
+    def _emit_phase(phase: str, detail: str, progress: int | None = None):
+        if not stream_callback:
+            return
+        try:
+            stream_callback({
+                "type": "phase",
+                "phase": phase,
+                "detail": detail,
+                "progress": progress,
+            })
+        except Exception:
+            pass
+
     # 获取或创建 LLM client. Do this before any grading shortcut so the
     # unanswered/view-only path can generate a detailed solution for every type.
     if client is None:
@@ -1884,15 +2357,22 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     _q_source = selected_q.get("category") or selected_q.get("source") or ""
     _q_id = selected_q.get("question_id", "")
     if not (student_ans or "").strip():
+        _emit_phase("solution", "正在生成标准答案", 20)
         logger.info(f"[GRADING_INTENT] qid={_q_id} type={q_type} source={_q_source} mode=view_only")
         status = ctx.status("📖 查看标准答案...", expanded=True)
-        force_detail = bool(client) and not _solution_cache_hit(selected_q)
+        force_detail = _view_only_should_force_expansion(selected_q, client)
         solution = _build_standard_solution(question, ocr_data, selected_q, client, status,
                                              force_expansion=force_detail,
                                              _state=_state, model=_model)
         if solution is None:
             _ss_set("grading_triggered", False, _state=_state)
             return None
+
+        sol_status = _standard_solution_status({}, solution, _state=_state or {})
+        sol_task = _ss_get("_solution_task_id", None, _state=_state)
+        wait_state = _standard_solution_wait_state(sol_status, sol_task)
+        # Do not inject gate error text into standard_answer — keep empty for honest empty state.
+        solution["standard_solution_status"] = wait_state["standard_solution_status"]
 
         _ss_set("standard_answer", solution, _state=_state)
         gresult = {
@@ -1902,8 +2382,10 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "view_only": True,
             "hide_score_card": True,
             "hide_diagnosis": True,
-            "standard_solution_status": solution.get("standard_solution_status", "ready"),
+            "correct_answer": selected_q.get("correct_option") or selected_q.get("final_answer", ""),
+            **wait_state,
         }
+        _ss_set("_solution_status", wait_state["standard_solution_status"], _state=_state)
         _q_kps = (selected_q or {}).get("knowledge_points", []) or []
         if not _q_kps:
             _ocr_kp = ocr_data.get("knowledge_point", "") if ocr_data else ""
@@ -1926,6 +2408,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         _ss_set("grading_result", gresult, _state=_state)
         _ss_set("diagnosis_result", dresult, _state=_state)
         status.write("✓ 完成")
+        _emit_phase("completed", "标准答案已生成", 100)
         _ss_set("answer_view_mode", True, _state=_state)
         _ss_set("grading_triggered", False, _state=_state)
         status.update(label="✅ 查看答案完成", state="complete", expanded=False)
@@ -1937,34 +2420,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             "error_record": None,
         }
 
-    # ═══════════════════════════════════════════════
-    # P15 FAST PATH: 选择题/填空题 — 本地判分 + 后台解析
-    # ═══════════════════════════════════════════════
-    if q_type == "选择题":
-        # Resolve client for async solution generation
-        _fc = client
-        if _fc is None and _state is not None:
-            api_key = str(_state.get("api_key", "") or "")
-            if api_key:
-                from llm_client import create_client
-                base_url = str(_state.get("base_url", LLM_BASE_URL) or "")
-                protocol = str(_state.get("protocol", "openai") or "openai")
-                _fc = create_client(api_key=api_key, base_url=base_url, protocol=protocol)
-        return _grade_choice_fast(selected_q, student_ans, ocr_data,
-                                  question=question, client=_fc, model=_model, _state=_state)
-    if q_type == "填空题" and (student_ans or "").strip():
-        result = _grade_fill_fast(selected_q, student_ans, ocr_data,
-                                  question=question, client=client, model=_model, _state=_state)
-        from config import should_escalate_fill_to_llm
-        _fill_gr = result["grading_result"]
-        if not should_escalate_fill_to_llm(_fill_gr):
-            return result
-        # Low confidence — fall through to full AI path
-        logger.info(f"[FILL_ESCALATE] qid={selected_q.get('question_id','')} "
-                    f"confidence={_fill_gr.get('confidence')} "
-                    f"threshold={FILL_QUICK_COMPARE_CONFIDENCE_THRESHOLD} "
-                    f"reason=low_confidence")
-
     # client 已在函数开头获取，此处检查是否可用
     if client is None:
         if _state is not None:
@@ -1975,13 +2430,15 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         return None
 
     _t_start = time.time()
+    _emit_phase("prepare", "正在准备题目与作答内容", 5)
     status = ctx.status("🔍 正在准备批改...", expanded=True)
     status.write("⏳ 获取标准答案...")
+    _emit_phase("solution", "正在获取标准答案与规范解", 20)
     selected_q = selected_q or _ss_get("selected_question", _state=_state) or {}
     q_type = selected_q.get("question_type", ocr_data.get("question_type", ""))
 
-    # 解答题/证明题：标准答案生成 与 lock_question 可并行
-    is_complex = q_type in ("解答题", "证明题")
+    # 有 question_id 时：标准答案生成与 lock_question 并行（与解答题相同）
+    is_complex = q_type in ("选择题", "填空题", "解答题", "证明题")
     solution = None
     _future_solution = None
     _ts_status = None
@@ -1995,8 +2452,6 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         )
         status.write("⏳ 标准答案与规范解并行生成中...")
     else:
-        # 选择题和填空题也需要详细解答，方便用户查看标准解法。
-        # 但如果题库中已有详细解答则不再强制展开，避免浪费 LLM 调用。
         _cached = selected_q.get("standard_answer", "")
         _cached_detailed = (
             (_cached or "").strip()
@@ -2009,210 +2464,141 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
             _ss_set("grading_triggered", False, _state=_state)
             return None
 
-    # Step 2: 批改 — Engine A 快速路径(选择/填空) vs Engine B LLM路径(解答/证明)
+    # Step 2: 批改 — 图对齐优先，失败则 LLM（全题型统一）
     std_ans = ""
     total_score = 10
-    is_fast_path = q_type in ("选择题", "填空题")
-
-    if is_fast_path and not is_complex:
-        if _future_solution:
-            solution = _future_solution.result()
-            _ts_status.flush(status)
+    gresult = {"success": True, "total": 0, "comment": ""}
+    dresult = {"error_type": "", "root_cause": ""}
+    if solution and not std_ans:
         std_ans = _solution_to_text(solution) or solution.get("standard_answer", "")
         total_score = solution.get("total_score", 10)
-        # Engine A: 规则引擎快速判分 (<100ms, 无LLM调用)
-        import re
-        stu = (student_ans or "").strip()
-        correct_option = selected_q.get("correct_option", "")
-        if q_type == "选择题" and correct_option:
-            stu_letter = None
-            for m in re.finditer(r'[A-D]', stu.upper()):
-                stu_letter = m.group(0)
-            is_correct = (stu_letter == correct_option)
-            score = total_score if is_correct else 0
-            gresult = {
-                "success": True, "total": score, "step_score": score, "result_score": 0,
-                "step_analysis": [], "deductions": [],
-                "comment": "正确" if is_correct else f"错误, 正确选项为 {correct_option}",
-            }
-        else:
-            from symbolic_executor import quick_compare, ErrorLevel
-            result = quick_compare(stu, std_ans)
-            is_correct = result["equivalent"]
-            score = total_score if is_correct else 0
-            gresult = {
-                "success": True, "total": score, "step_score": score, "result_score": 0,
-                "step_analysis": [], "deductions": [],
-                "comment": "正确" if is_correct else (
-                    "计算错误" if result["error_level"] == ErrorLevel.LEVEL_1
-                    else "答案错误，请查看标准解法"
-                ),
-            }
-        if is_correct:
-            dresult = {
-                "error_type": "无错误", "root_cause": "",
-                "is_repeat": False, "repeat_count": 0,
-                "affects_future": False, "weak_points": [],
-            }
-        else:
-            if q_type == "选择题":
-                correct_opt = selected_q.get("correct_option", "")
-                dresult = {
-                    "error_type": "选择题答案错误",
-                    "root_cause": f"正确答案是 {correct_opt}，你选择了 {student_ans[:10]}。请分析每个选项的数学含义。",
-                    "is_repeat": False, "repeat_count": 0,
-                    "affects_future": False, "weak_points": selected_q.get("knowledge_points", []),
-                }
-            else:
-                dresult = {
-                    "error_type": "填空题错误",
-                    "root_cause": "答案与标准答案不等价，请查看标准解法了解正确答案。",
-                    "is_repeat": False, "repeat_count": 0,
-                    "affects_future": False, "weak_points": selected_q.get("knowledge_points", []),
-                }
-        status.write("✓ 快速批改完成（规则引擎）")
-    else:
-        # ── 解答题/证明题：lock_question + extract 与标准答案生成并行 ──
-        status.write("⏳ 启动图对齐批改引擎...")
-        engine_c_ok = False
-        _canonical = None
-        locked = None
-        _trace_result = None
-        if selected_q.get("question_id"):
-            try:
-                from question_locker import lock_question
-                from graph_matching import grade_with_graph
-                _qdb = _ss_get("question_db", _state=_state)
-                locked = lock_question(selected_q, _qdb, client, _model)
-                _canonical = locked.get("canonical_trace")
+    # ── lock_question + extract 与标准答案生成并行 ──
+    status.write("⏳ 启动图对齐批改引擎...")
+    _emit_phase("grading", "正在启动图对齐批改引擎", 50)
+    engine_c_ok = False
+    _canonical = None
+    locked = None
+    _trace_result = None
+    if selected_q.get("question_id"):
+        try:
+            from question_locker import lock_question
+            from graph_matching import grade_with_graph
+            _qdb = _ss_get("question_db", _state=_state)
+            locked = lock_question(selected_q, _qdb, client, _model)
+            _canonical = locked.get("canonical_trace")
 
-                from student_trace_extractor import extract_student_trace
-                from symbolic_executor import build_student_graph_from_trace
-                _trace_result = extract_student_trace(
-                    student_ans or "", question, client, _model
-                )
-                student_graph = build_student_graph_from_trace(_trace_result)
+            from student_trace_extractor import extract_student_trace
+            from symbolic_executor import build_student_graph_from_trace
+            _trace_result = extract_student_trace(
+                student_ans or "", question, client, _model
+            )
+            student_graph = build_student_graph_from_trace(_trace_result)
 
-                if _future_solution:
-                    solution = _future_solution.result()
-                    _ts_status.flush(status)
-                    _executor.shutdown(wait=False)
-                std_ans = _solution_to_text(solution) or solution.get("standard_answer", "")
-                total_score = solution.get("total_score", 10)
-                status.write("✓ 标准答案与规范解就绪")
-
-                best_score = -1.0
-                best_gresult = None
-                best_method_name = ""
-                method_count = 0
-
-                if _canonical and _canonical.is_multimethod():
-                    status.write(f"⏳ 多解法图对齐批改中（{_canonical.method_count()}种解法）...")
-                else:
-                    status.write("⏳ 图对齐批改中...")
-
-                for method in (_canonical.methods if _canonical else []):
-                    mg = method.graph
-                    if not mg or len(mg.nodes) <= 1:
-                        continue
-                    method_count += 1
-                    try:
-                        graph_result = grade_with_graph(
-                            student_ans or "", mg,
-                            student_graph=student_graph,
-                            student_trace=_trace_result,
-                        )
-                        score = graph_result.get("score", 0)
-                        if score > best_score:
-                            best_score = score
-                            best_gresult = {
-                                "success": True,
-                                "total": round(score, 1),
-                                "step_score": round(score * 0.5, 1),
-                                "result_score": round(score * 0.5, 1),
-                                "step_analysis": [
-                                    {"num": i+1, "content": m.get("label", ""),
-                                     "judgment": "正确" if m.get("matched") else "缺失/错误",
-                                     "score": f"{m.get('weight', 0):.1f}",
-                                     "comment": m.get("error", "")}
-                                    for i, m in enumerate(graph_result.get("matched_steps", []))
-                                ],
-                                "deductions": [],
-                                "comment": graph_result.get("error_label", ""),
-                                "_engine": "C_graph",
-                            }
-                            best_method_name = method.method_name
-                    except Exception:
-                        continue
-
-                if best_gresult is not None:
-                    gresult = best_gresult
-                    try:
-                        from method_classifier import classify_student_method
-                        classification = classify_student_method(_trace_result, _canonical)
-                        gresult["method_family"] = classification["family_name"]
-                        gresult["tier"] = (
-                            "t1_fast_path" if (
-                                classification["recommendation"] != "semantic_fallback"
-                                and _compute_confidence(None, None) > 0.8
-                            ) else "t3_graph_match" if classification["recommendation"] != "semantic_fallback"
-                            else "t4_semantic_fallback"
-                        )
-                    except Exception:
-                        pass
-                    if best_method_name and _canonical:
-                        gresult["method_matched"] = best_method_name
-                        for m in _canonical.methods:
-                            if m.method_name == best_method_name:
-                                m.usage_count += 1
-                                break
-
-                    if locked.get("standard_answer"):
-                        solution["standard_answer"] = locked["standard_answer"]
-                        std_ans = _solution_to_text(solution) or solution["standard_answer"]
-                    engine_c_ok = True
-                    status.write(f"✓ 图对齐批改完成（{method_count}法，最佳匹配: {best_method_name}）")
-            except Exception as _e_c:
-                logger.error(f"[Engine C 失败] {_e_c}")
-
-        if _future_solution and solution is None:
-            solution = _future_solution.result()
-            _ts_status.flush(status)
-            _executor.shutdown(wait=False)
+            if _future_solution:
+                solution = _future_solution.result()
+                _ts_status.flush(status)
+                _executor.shutdown(wait=False)
             std_ans = _solution_to_text(solution) or solution.get("standard_answer", "")
             total_score = solution.get("total_score", 10)
+            status.write("✓ 标准答案与规范解就绪")
 
-        if not engine_c_ok:
-            # Try multi-canonical pool matching before falling back to LLM
-            canonical_pool = get_canonical_solutions(selected_q)
-            if canonical_pool and _trace_result:
-                pool_best = find_best_canonical_match(_trace_result, canonical_pool)
-                if pool_best:
-                    gresult["method_matched"] = pool_best.get("method_name", "")
-                    gresult["_matched_from_pool"] = True
-                    status.write(f"✓ 解法池匹配完成（{pool_best.get('method_name', '')}）")
-                else:
-                    # P39: use routed model for grading
-                    from services.model_router import select_grading_model
-                    _grading_model, _model_reason = select_grading_model(
-                        selected_q, q_type, _model, task="grading")
-                    grading = GradingAgent(client, _grading_model)
-                    gresult = grading.grade(
-                        question=question, standard_answer=std_ans,
-                        student_answer=student_ans, total_score=total_score,
-                        knowledge_points=ocr_data.get("knowledge_point", ""),
-                        difficulty=selected_q.get("difficulty", "中等"),
-                        canonical_trace=_canonical,
-                        question_type=q_type,
+            best_score = -1.0
+            best_gresult = None
+            best_method_name = ""
+            method_count = 0
+
+            if _canonical and _canonical.is_multimethod():
+                status.write(f"⏳ 多解法图对齐批改中（{_canonical.method_count()}种解法）...")
+                _emit_phase("grading", "正在进行多解法图对齐批改", 58)
+            else:
+                status.write("⏳ 图对齐批改中...")
+                _emit_phase("grading", "正在进行图对齐批改", 58)
+
+            for method in (_canonical.methods if _canonical else []):
+                mg = method.graph
+                if not mg or len(mg.nodes) <= 1:
+                    continue
+                method_count += 1
+                try:
+                    graph_result = grade_with_graph(
+                        student_ans or "", mg,
+                        student_graph=student_graph,
+                        student_trace=_trace_result,
                     )
-                    gresult["_model_used"] = _grading_model
-                    gresult["_model_route_reason"] = _model_reason
-                    logger.info(f"[MODEL_ROUTE] qid={selected_q.get('question_id','')} "
-                                f"type={q_type} model={_grading_model} reason={_model_reason}")
-                    status.write("✓ LLM批改完成")
+                    score = graph_result.get("score", 0)
+                    if score > best_score:
+                        best_score = score
+                        best_gresult = {
+                            "success": True,
+                            "total": round(score, 1),
+                            "step_score": round(score * 0.5, 1),
+                            "result_score": round(score * 0.5, 1),
+                            "step_analysis": [
+                                {"num": i+1, "content": m.get("label", ""),
+                                 "judgment": "正确" if m.get("matched") else "缺失/错误",
+                                 "score": f"{m.get('weight', 0):.1f}",
+                                 "comment": m.get("error", "")}
+                                for i, m in enumerate(graph_result.get("matched_steps", []))
+                            ],
+                            "deductions": [],
+                            "comment": graph_result.get("error_label", ""),
+                            "_engine": "C_graph",
+                        }
+                        best_method_name = method.method_name
+                except Exception:
+                    continue
+
+            if best_gresult is not None:
+                gresult = best_gresult
+                try:
+                    from method_classifier import classify_student_method
+                    classification = classify_student_method(_trace_result, _canonical)
+                    gresult["method_family"] = classification["family_name"]
+                    gresult["tier"] = (
+                        "t1_fast_path" if (
+                            classification["recommendation"] != "semantic_fallback"
+                            and _compute_confidence(None, None) > 0.8
+                        ) else "t3_graph_match" if classification["recommendation"] != "semantic_fallback"
+                        else "t4_semantic_fallback"
+                    )
+                except Exception:
+                    pass
+                if best_method_name and _canonical:
+                    gresult["method_matched"] = best_method_name
+                    for m in _canonical.methods:
+                        if m.method_name == best_method_name:
+                            m.usage_count += 1
+                            break
+
+                if locked.get("standard_answer"):
+                    solution["standard_answer"] = locked["standard_answer"]
+                    std_ans = _solution_to_text(solution) or solution["standard_answer"]
+                engine_c_ok = True
+                status.write(f"✓ 图对齐批改完成（{method_count}法，最佳匹配: {best_method_name}）")
+                _emit_phase("grading", "图对齐批改完成", 68)
+        except Exception as _e_c:
+            logger.error(f"[Engine C 失败] {_e_c}")
+
+    if _future_solution and solution is None:
+        solution = _future_solution.result()
+        _ts_status.flush(status)
+        _executor.shutdown(wait=False)
+        std_ans = _solution_to_text(solution) or solution.get("standard_answer", "")
+        total_score = solution.get("total_score", 10)
+
+    if not engine_c_ok:
+        # Try multi-canonical pool matching before falling back to LLM
+        canonical_pool = get_canonical_solutions(selected_q)
+        if canonical_pool and _trace_result:
+            pool_best = find_best_canonical_match(_trace_result, canonical_pool)
+            if pool_best:
+                gresult["method_matched"] = pool_best.get("method_name", "")
+                gresult["_matched_from_pool"] = True
+                status.write(f"✓ 解法池匹配完成（{pool_best.get('method_name', '')}）")
             else:
                 # P39: use routed model for grading
                 from services.model_router import select_grading_model
+                _emit_phase("grading", "正在调用 LLM 批改", 62)
                 _grading_model, _model_reason = select_grading_model(
                     selected_q, q_type, _model, task="grading")
                 grading = GradingAgent(client, _grading_model)
@@ -2229,38 +2615,84 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
                 logger.info(f"[MODEL_ROUTE] qid={selected_q.get('question_id','')} "
                             f"type={q_type} model={_grading_model} reason={_model_reason}")
                 status.write("✓ LLM批改完成")
-
-        # Step 3: 诊断（高正确率跳过LLM，直接用本地诊断，节省5-30秒）
-        status.write("⏳ 正在诊断分析...")
-        _score = gresult.get("total", 0)
-        _max = solution.get("total_score", 10)
-        _is_high_score = _max > 0 and _score / _max >= 0.9
-
-        if _is_high_score:
-            diagnosis = DiagnosisAgent(None, _model)
-            history = []
-            dresult = diagnosis._local_diagnose(gresult, history)
-            status.write("✓ 诊断完成（高分快速通道）")
+                _emit_phase("grading", "LLM 批改完成", 72)
         else:
-            diagnosis = DiagnosisAgent(client, _model)
-            history = []
-            if _memory and _user_id:
-                try:
-                    history = _memory.get_errors(
-                        user_id=_user_id,
-                        knowledge_point=ocr_data.get("knowledge_point", "")
-                    )
-                except Exception:
-                    pass
-            dresult = diagnosis.diagnose(
-                question=question, student_answer=student_ans,
-                standard_answer=std_ans, grading_result=gresult,
-                error_history=history,
+            # P39: use routed model for grading
+            from services.model_router import select_grading_model
+            _emit_phase("grading", "正在调用 LLM 批改", 62)
+            _grading_model, _model_reason = select_grading_model(
+                selected_q, q_type, _model, task="grading")
+            grading = GradingAgent(client, _grading_model)
+            gresult = grading.grade(
+                question=question, standard_answer=std_ans,
+                student_answer=student_ans, total_score=total_score,
+                knowledge_points=ocr_data.get("knowledge_point", ""),
+                difficulty=selected_q.get("difficulty", "中等"),
+                canonical_trace=_canonical,
+                question_type=q_type,
             )
-            status.write("✓ 诊断完成")
+            gresult["_model_used"] = _grading_model
+            gresult["_model_route_reason"] = _model_reason
+            logger.info(f"[MODEL_ROUTE] qid={selected_q.get('question_id','')} "
+                        f"type={q_type} model={_grading_model} reason={_model_reason}")
+            status.write("✓ LLM批改完成")
+            _emit_phase("grading", "LLM 批改完成", 72)
+
+    # Step 3: 诊断（高正确率跳过LLM，直接用本地诊断，节省5-30秒）
+    if _is_choice_or_fill_single_answer(q_type, student_ans):
+        dresult = _suppress_choice_fill_analysis(gresult, {})
+        _ss_set("grading_result", gresult, _state=_state)
+        _ss_set("diagnosis_result", dresult, _state=_state)
+        status.write("✓ 选择/填空单答案已完成判分，跳过错因与步骤分析")
+        _emit_phase("finalize", "正在整理选择/填空判分结果", 92)
+        _elapsed = time.time() - _t_start
+        status.write(f"完成 ({_elapsed:.1f}s)")
+        _ss_set("answer_view_mode", True, _state=_state)
+        _ss_set("grading_triggered", False, _state=_state)
+        status.update(label=f"完成 ({_elapsed:.1f}s)", state="complete", expanded=False)
+        _emit_phase("completed", "批改完成", 100)
+        return {
+            "grading_result": gresult,
+            "diagnosis_result": dresult,
+            "standard_answer": solution,
+            "standard_answer_structured": _ss_get("standard_answer_structured", _state=_state),
+            "error_record": None,
+        }
+
+    status.write("⏳ 正在诊断分析...")
+    _emit_phase("diagnosis", "正在分析错误原因与薄弱知识点", 78)
+    _score = gresult.get("total", 0)
+    _max = solution.get("total_score", 10)
+    _is_high_score = _max > 0 and _score / _max >= 0.9
+
+    if _is_high_score:
+        diagnosis = DiagnosisAgent(None, _model)
+        history = []
+        dresult = diagnosis._local_diagnose(gresult, history)
+        status.write("✓ 诊断完成（高分快速通道）")
+        _emit_phase("diagnosis", "诊断分析完成", 84)
+    else:
+        diagnosis = DiagnosisAgent(client, _model)
+        history = []
+        if _memory and _user_id:
+            try:
+                history = _memory.get_errors(
+                    user_id=_user_id,
+                    knowledge_point=ocr_data.get("knowledge_point", "")
+                )
+            except Exception:
+                pass
+        dresult = diagnosis.diagnose(
+            question=question, student_answer=student_ans,
+            standard_answer=std_ans, grading_result=gresult,
+            error_history=history,
+        )
+        status.write("✓ 诊断完成")
+        _emit_phase("diagnosis", "诊断分析完成", 84)
     _ss_set("grading_result", gresult, _state=_state)
     _ss_set("diagnosis_result", dresult, _state=_state)
     status.write("⏳ 检查候选方法...")
+    _emit_phase("finalize", "正在检查候选方法", 88)
 
     # Step 3.5: 候选方法提交 — 高分低匹配时提交到人工审核队列
     try:
@@ -2291,6 +2723,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
     #   Renderer → displays results                (pure display)
     try:
         from agents.verifier_agent import VerifierAgent
+        _emit_phase("finalize", "正在复核推理质量", 91)
         verifier = VerifierAgent()
         report = verifier.verify(
             reasoning_text=gresult.get("comment", ""),
@@ -2304,6 +2737,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
         pass  # Verification is advisory; never block grading
 
     status.write("⏳ 保存到错题本...")
+    _emit_phase("finalize", "正在整理结果并构建错题记录", 94)
 
     # Step 4: 构建错题记录
     error_record = None
@@ -2384,6 +2818,7 @@ def _execute_grading_process(question, student_ans, ocr_data, selected_q, contai
 
     _elapsed = time.time() - _t_start
     status.write(f"✓ 批改完成！（总耗时 {_elapsed:.1f} 秒）")
+    _emit_phase("completed", "批改完成", 100)
     _ss_set("answer_view_mode", True, _state=_state)
     _ss_set("grading_triggered", False, _state=_state)
     status.update(label=f"✅ 批改完成（{_elapsed:.1f}s）", state="complete", expanded=False)
@@ -2755,29 +3190,15 @@ def render_grading_page(db, render_latex):
             # ── Progress bar ──
             from views.components.grading_progress import (
                 inject_progress_css, render_progress,
-                estimate_smooth_progress, get_expected_grading_seconds,
             )
+            from services.grading_task_runner import get_task_phase
             inject_progress_css()
-            expected_s = get_expected_grading_seconds(selected_q, ocr_data)
-            smooth = estimate_smooth_progress(
-                elapsed_s=elapsed, status="processing",
-                base_progress=task.get("progress", 0),
-                expected_s=expected_s, max_before_done=97,
-            )
-            # Map elapsed to phase
-            _phase_map = [
-                (10, "prepare", "正在准备题目与作答内容"),
-                (25, "solution", "正在生成标准答案与解题步骤"),
-                (50, "grading", "正在分析学生作答并进行 AI 批改"),
-                (75, "grading", "正在计算得分与扣分点"),
-                (90, "diagnosis", "正在分析错误原因与薄弱知识点"),
-                (9999, "finalize", "正在整理结果"),
-            ]
-            _phase, _detail = "grading", "正在批改中…"
-            for secs, ph, dt in _phase_map:
-                if elapsed < secs:
-                    _phase, _detail = ph, dt
-                    break
+            phase_event = get_task_phase(pending_task_id) or {}
+            _phase = phase_event.get("phase") or "prepare"
+            if _phase == "completed":
+                _phase = "finalize"
+            _detail = phase_event.get("detail") or "正在准备批改任务"
+            smooth = int(phase_event.get("progress") or 5)
             render_progress(
                 progress=smooth, phase=_phase, detail=_detail,
                 elapsed_s=int(elapsed),
@@ -2788,6 +3209,7 @@ def render_grading_page(db, render_latex):
             del st.session_state["_poll_start"]
             set_grading_active(False)
             _restore_results_to_session(task)
+            _remember_pending_solution_task(task)
             del st.session_state["pending_task_id"]
             st.rerun()
         elif task["status"] == "failed":
@@ -2852,6 +3274,8 @@ def render_grading_page(db, render_latex):
     grading_result = st.session_state.get("grading_result")
     if grading_result:
         with result_placeholder.container():
+            if _refresh_pending_solution_task():
+                st.rerun()
             gr = grading_result
             sa = st.session_state.standard_answer or {}
             dr = st.session_state.diagnosis_result or {}
@@ -2861,8 +3285,11 @@ def render_grading_page(db, render_latex):
             knowledge_points = selected_q.get("knowledge_points", []) or ocr_data.get("knowledge_point", "").split(",")
 
             # ── P15-2: Hide result until detailed solution is ready ──
-            _sol_status = gr.get("standard_solution_status") or st.session_state.get("_solution_status")
-            _hide_until_ready = gr.get("_hide_until_solution_ready")
+            _sol_status = _standard_solution_status(gr, sa, _state=st.session_state)
+            _hide_until_ready = bool(
+                gr.get("_hide_until_solution_ready")
+                or (isinstance(sa, dict) and sa.get("_hide_until_solution_ready"))
+            ) and _sol_status != "missing"
             _async_sol = st.session_state.get("_async_solution")
 
             if _hide_until_ready and _sol_status != "ready":
@@ -2875,8 +3302,18 @@ def render_grading_page(db, render_latex):
                 # Timeout guard: if solution generation takes too long, treat as failed
                 _q_type_for_timeout = selected_q.get("question_type") or ocr_data.get("question_type", "")
                 _SOLUTION_TIMEOUT_S = _get_standard_solution_timeout_seconds(_q_type_for_timeout)
-                _sol_elapsed = time.time() - st.session_state.get("_poll_start", time.time())
-                if _sol_status != "failed" and _sol_elapsed > _SOLUTION_TIMEOUT_S:
+                _solution_progress_start = st.session_state.get("_solution_progress_start")
+                if not _solution_progress_start:
+                    _solution_progress_start = time.time()
+                    st.session_state["_solution_progress_start"] = _solution_progress_start
+                _sol_elapsed = time.time() - _solution_progress_start
+                _qid = selected_q.get("question_id", "")
+                _still_running = bool(_qid and st.session_state.get(f"_solution_running_{_qid}"))
+                if (
+                    _sol_status != "failed"
+                    and _sol_elapsed > _SOLUTION_TIMEOUT_S
+                    and not _still_running
+                ):
                     _sol_status = "failed"
                     st.session_state["_solution_status"] = "failed"
                     st.session_state["_solution_error"] = "标准解答生成超时，请重试"
@@ -2908,7 +3345,9 @@ def render_grading_page(db, render_latex):
                 else:
                     # Show progress while waiting for detailed solution
                     expected_s = get_expected_grading_seconds(selected_q, ocr_data)
-                    _elapsed = time.time() - st.session_state.get("_poll_start", time.time())
+                    _solution_progress_start = st.session_state.get("_solution_progress_start") or time.time()
+                    st.session_state["_solution_progress_start"] = _solution_progress_start
+                    _elapsed = time.time() - _solution_progress_start
                     smooth = estimate_smooth_progress(
                         elapsed_s=_elapsed, status="processing",
                         expected_s=min(expected_s, 30), max_before_done=97,
@@ -2918,22 +3357,39 @@ def render_grading_page(db, render_latex):
                         detail="正在生成详细步骤解析…",
                         elapsed_s=int(_elapsed),
                     )
+                    time.sleep(1 if _elapsed < 60 else 2)
+                    st.rerun()
                 st.stop()
 
             # ── Solution ready: merge async result ──
             if _async_sol and _sol_status == "ready":
                 sa = _async_sol
+                st.session_state["standard_answer"] = _async_sol
                 if _async_sol.get("_structured"):
                     st.session_state["standard_answer_structured"] = _async_sol["_structured"]
                 st.session_state["_solution_status"] = "ready"
+                if isinstance(gr, dict):
+                    gr["standard_solution_status"] = "ready"
+                    gr["_hide_until_solution_ready"] = False
 
-            render_grading_result_cards(
+            renderer_events = render_grading_result_cards(
                 gr, sa, dr, total,
                 knowledge_points=knowledge_points,
                 question=selected_q,
                 question_db=db,
-                solution_expanded=(gr.get("engine") == "view_only" or _sol_status == "ready"),
+                solution_expanded=(
+                    gr.get("engine") == "view_only"
+                    or _sol_status == "ready"
+                    or _sol_status == "pending"
+                ),
             )
+            _handle_grading_renderer_events(renderer_events)
+
+            if _sol_status == "pending":
+                if _refresh_pending_solution_task():
+                    st.rerun()
+                time.sleep(1)
+                st.rerun()
 
         if "standard_answer_structured" in st.session_state:
             del st.session_state["standard_answer_structured"]
@@ -3068,20 +3524,25 @@ def save_as_canonical_solution(selected_q: dict, expanded: str,
 
 def get_canonical_solutions(selected_q: dict) -> list[dict]:
     """Return all canonical solutions, sorted best first."""
+    from services.grading_adapter import normalize_canonical_entry
     if not selected_q:
         return []
     pool = selected_q.get("canonical_solutions") or []
     if pool:
-        pool.sort(key=lambda s: (
+        normalized_pool = [
+            normalize_canonical_entry(entry, question=selected_q)
+            for entry in pool
+        ]
+        normalized_pool.sort(key=lambda s: (
             bool(s.get("reviewed")),
             bool(s.get("structured")),
             bool(s.get("canonical_ir")),
             s.get("generated_at", ""),
         ), reverse=True)
-        return pool
+        return normalized_pool
     meta = selected_q.get("solution_metadata") or {}
     if meta.get("canonical") and selected_q.get("standard_answer"):
-        return [{
+        legacy_entry = {
             "solution_id": "default",
             "method_name": "标准解法",
             "semantic_tags": [],
@@ -3091,22 +3552,12 @@ def get_canonical_solutions(selected_q: dict) -> list[dict]:
             "canonical_ir": selected_q.get("_canonical_ir") or selected_q.get("canonical_ir"),
             "generated_by": meta.get("generated_by", "legacy"),
             "generated_at": meta.get("generated_at", ""),
-        }]
+        }
+        return [normalize_canonical_entry(legacy_entry, question=selected_q)]
     return []
 
 
 def _solution_from_canonical_entry(entry: dict, selected_q: dict) -> dict:
     """Build solution dict from a canonical pool entry."""
-    canonical_ir = entry.get("canonical_ir")
-    solution_ir = entry.get("solution_ir") or canonical_ir
-    return {
-        "success": True,
-        "standard_answer": entry.get("standard_answer", ""),
-        "total_score": selected_q.get("score", 10),
-        "steps": entry.get("steps") or [],
-        "_structured": entry.get("structured"),
-        "_canonical_ir": canonical_ir,
-        "_solution_ir": solution_ir,
-        "_ai_unverified": not bool(entry.get("reviewed", False)),
-        "standard_solution_source": "canonical",
-    }
+    from services.grading_adapter import canonical_entry_to_solution
+    return canonical_entry_to_solution(entry, selected_q)

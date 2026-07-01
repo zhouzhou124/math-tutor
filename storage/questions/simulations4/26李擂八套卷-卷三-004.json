@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷三-004",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "曲线积分",
+    "Green公式"
+  ],
+  "tags": [
+    "曲线积分",
+    "Green公式",
+    "复连通"
+  ],
+  "question": "设有向曲线 $L$ 是上半圆 $y=\\sqrt{1-x^2}$，从点 $(1,0)$ 到点 $(-1,0)$，则 $\\displaystyle\\int_L\\frac{(4x-y)\\,dx+(x-y)\\,dy}{4x^2+y^2}=$",
+  "options": {
+    "A": "$\\pi$",
+    "B": "$-\\pi$",
+    "C": "$\\frac{\\pi}{2}$",
+    "D": "$-\\frac{\\pi}{2}$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有向曲线 $L$ 是上半圆 $y=\\sqrt{1-x^2}$，从点 $(1,0)$ 到点 $(-1,0)$，则 $\\displaystyle\\int_L\\frac{(4x-y)\\,dx+(x-y)\\,dy}{4x^2+y^2}=$",
+  "raw_answer_text": "C"
+}

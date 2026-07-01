@@ -13,8 +13,8 @@
     "C": "$\\sqrt{1+\\sqrt{x}} - 1$",
     "D": "$1 - \\cos\\sqrt{x}$"
   },
-  "correct_option": "D",
-  "standard_answer": "正确选项: D. $1 - \\cos\\sqrt{x}$",
+  "correct_option": "B",
+  "standard_answer": "步骤1：明确等价无穷小定义\n两个无穷小量 $\\alpha(x)$ 与 $\\beta(x)$ 等价，是指 $\\lim_{x\\to0^+}\\frac{\\alpha(x)}{\\beta(x)}=1$。\n\n步骤2：分析各选项\n\n- **选项 A**：当 $x\\to0^+$ 时，$\\frac{1}{x}\\to+\\infty$，$e^{\\frac{1}{x}}\\to+\\infty$，$1-e^{\\frac{1}{x}}\\to-\\infty$，不是无穷小量。\n\n- **选项 B**：$\\ln\\frac{1+x}{1-\\sqrt{x}} = \\ln(1+x) - \\ln(1-\\sqrt{x})$，利用等价无穷小 $\\ln(1+u)\\sim u$：\n  $$\\ln(1+x)\\sim x = o(\\sqrt{x}),$$\n  $$\\ln(1-\\sqrt{x})\\sim -\\sqrt{x}.$$\n  所以 $\\ln\\frac{1+x}{1-\\sqrt{x}} \\sim 0 - (-\\sqrt{x}) = \\sqrt{x}$，即 $\\lim_{x\\to0^+}\\frac{\\ln\\frac{1+x}{1-\\sqrt{x}}}{\\sqrt{x}} = 1$，与 $\\sqrt{x}$ 等价。\n\n- **选项 C**：$\\sqrt{1+\\sqrt{x}}-1 \\sim \\frac{\\sqrt{x}}{2}$（利用 $(1+u)^\\alpha-1\\sim\\alpha u$），所以 $\\lim_{x\\to0^+}\\frac{\\sqrt{1+\\sqrt{x}}-1}{\\sqrt{x}} = \\frac{1}{2} \\neq 1$，不等价。\n\n- **选项 D**：$1-\\cos\\sqrt{x} \\sim \\frac{x}{2}$（利用 $1-\\cos u\\sim\\frac{u^2}{2}$），所以 $\\lim_{x\\to0^+}\\frac{1-\\cos\\sqrt{x}}{\\sqrt{x}} = \\lim_{x\\to0^+}\\frac{x/2}{\\sqrt{x}} = 0$，是高阶无穷小，不等价。\n\n步骤3：得出结论\n只有选项B与 $\\sqrt{x}$ 等价，故选B。",
   "knowledge_points": [
     "极限与连续"
   ],
@@ -23,5 +23,37 @@
   ],
   "solution_steps": [],
   "raw_question_text": "当 $x\\to 0^+$ 时，与 $\\sqrt{x}$ 等价的无穷小量是",
-  "raw_answer_text": "正确选项: D. $1 - \\cos\\sqrt{x}$"
+  "raw_answer_text": "正确选项: B",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780409685",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：明确等价无穷小定义\n两个无穷小量 $\\alpha(x)$ 与 $\\beta(x)$ 等价，是指 $\\lim_{x\\to0^+}\\frac{\\alpha(x)}{\\beta(x)}=1$。\n\n步骤2：分析各选项\n\n- **选项 A**：当 $x\\to0^+$ 时，$\\frac{1}{x}\\to+\\infty$，$e^{\\frac{1}{x}}\\to+\\infty$，$1-e^{\\frac{1}{x}}\\to-\\infty$，不是无穷小量。\n\n- **选项 B**：$\\ln\\frac{1+x}{1-\\sqrt{x}} = \\ln(1+x) - \\ln(1-\\sqrt{x})$，利用等价无穷小 $\\ln(1+u)\\sim u$：\n  $$\\ln(1+x)\\sim x = o(\\sqrt{x}),$$\n  $$\\ln(1-\\sqrt{x})\\sim -\\sqrt{x}.$$\n  所以 $\\ln\\frac{1+x}{1-\\sqrt{x}} \\sim 0 - (-\\sqrt{x}) = \\sqrt{x}$，即 $\\lim_{x\\to0^+}\\frac{\\ln\\frac{1+x}{1-\\sqrt{x}}}{\\sqrt{x}} = 1$，与 $\\sqrt{x}$ 等价。\n\n- **选项 C**：$\\sqrt{1+\\sqrt{x}}-1 \\sim \\frac{\\sqrt{x}}{2}$（利用 $(1+u)^\\alpha-1\\sim\\alpha u$），所以 $\\lim_{x\\to0^+}\\frac{\\sqrt{1+\\sqrt{x}}-1}{\\sqrt{x}} = \\frac{1}{2} \\neq 1$，不等价。\n\n- **选项 D**：$1-\\cos\\sqrt{x} \\sim \\frac{x}{2}$（利用 $1-\\cos u\\sim\\frac{u^2}{2}$），所以 $\\lim_{x\\to0^+}\\frac{1-\\cos\\sqrt{x}}{\\sqrt{x}} = \\lim_{x\\to0^+}\\frac{x/2}{\\sqrt{x}} = 0$，是高阶无穷小，不等价。\n\n步骤3：得出结论\n只有选项B与 $\\sqrt{x}$ 等价，故选B。",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-07",
+      "reviewed": true,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-07",
+    "reviewed": true,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

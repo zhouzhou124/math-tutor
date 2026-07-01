@@ -1,0 +1,29 @@
+{
+  "question_id": "26宇哥四套卷-卷二-022",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "解答题",
+  "question_no": 22,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "最大似然估计",
+    "正态分布",
+    "相合估计"
+  ],
+  "tags": [
+    "最大似然估计",
+    "正态分布",
+    "相合估计"
+  ],
+  "question": "设随机变量 $X$ 与 $Y$ 相互独立且均服从 $N(\\mu,\\sigma^2)$，令 $Z=X-Y$。(1) 求 $Z$ 的概率密度；(2) 设 $Z_1,Z_2,\\cdots,Z_n$ 为来自总体 $Z$ 的简单随机样本，求 $\\sigma^2$ 的最大似然估计量；(3) 是否存在实数 $a$，使得 $\\lim_{n\\to\\infty}P\\{\\hat\\sigma^2=a\\}=0$？说明理由。",
+  "source": "import_zhangyu4_v2",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "(1) 因 $X,Y$ 独立，$Z=X-Y\\sim N(0,3\\sigma^2)$，故 $f(z;\\sigma^2)=\\frac1{\\sqrt{6\\pi\\sigma^2}}\\exp(-\\frac{z^2}{6\\sigma^2})$，$-\\infty<z<+\\infty$。(2) 似然函数为 $L(\\sigma^2)=\\prod_{i=1}^n\\frac1{\\sqrt{6\\pi\\sigma^2}}\\exp(-\\frac{z_i^2}{6\\sigma^2})$。由极大似然法得 $\\hat\\sigma^2=\\frac1{3n}\\sum_{i=1}^n Z_i^2$。(3) 不存在。因为 $\\hat\\sigma^2\\overset{P}{\\longrightarrow}\\sigma^2$，对任意实数 $a$，取 $\\varepsilon>|\\sigma^2-a|$，则 $\\lim_{n\\to\\infty}P\\{|\\hat\\sigma^2-a|\\le\\varepsilon\\}=1\\ne0$，故不存在这样的 $a$。",
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 与 $Y$ 相互独立且均服从 $N(\\mu,\\sigma^2)$，令 $Z=X-Y$。(1) 求 $Z$ 的概率密度；(2) 设 $Z_1,Z_2,\\cdots,Z_n$ 为来自总体 $Z$ 的简单随机样本，求 $\\sigma^2$ 的最大似然估计量；(3) 是否存在实数 $a$，使得 $\\lim_{n\\to\\infty}P\\{\\hat\\sigma^2=a\\}=0$？说明理由。",
+  "raw_answer_text": ""
+}

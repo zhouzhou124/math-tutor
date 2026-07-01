@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 11,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "方向导数",
+    "梯度"
+  ],
+  "tags": [
+    "方向导数",
+    "梯度",
+    "多元函数"
+  ],
+  "question": "设函数 $f(x,y,z)=xy^2z^3-e^{3x-y}$，则 $f(x,y,z)$ 在点 $(2,1,1)$ 处最大方向导数为$\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\sqrt{10e^{10}+2e^5+53}$",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x,y,z)=xy^2z^3-e^{3x-y}$，则 $f(x,y,z)$ 在点 $(2,1,1)$ 处最大方向导数为$\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\sqrt{10e^{10}+2e^5+53}$"
+}

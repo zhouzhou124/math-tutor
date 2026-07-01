@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-010",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 10,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "参数估计",
+    "均匀分布"
+  ],
+  "tags": [
+    "参数估计",
+    "均匀分布"
+  ],
+  "question": "设总体 $X\\sim U(0,\\alpha)$，$Y\\sim U(\\alpha,2\\alpha)$，$\\alpha>0$ 为未知参数，$X,Y$ 相互独立，记 $Z_{(a,b)}=aX+bY$，则当 $Z_{(k_1,k_2)}$ 是 $\\alpha$ 的最有效的估计量时，有",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$k_1=\\frac13,\\ k_2=\\frac23$",
+    "B": "$k_1=\\frac23,\\ k_2=\\frac13$",
+    "C": "$k_1=\\frac15,\\ k_2=\\frac35$",
+    "D": "$k_1=\\frac12,\\ k_2=\\frac12$"
+  },
+  "correct_option": "C",
+  "_original_answer": "",
+  "standard_answer": "C",
+  "raw_question_text": "设总体 $X\\sim U(0,\\alpha)$，$Y\\sim U(\\alpha,2\\alpha)$，$\\alpha>0$ 为未知参数，$X,Y$ 相互独立，记 $Z_{(a,b)}=aX+bY$，则当 $Z_{(k_1,k_2)}$ 是 $\\alpha$ 的最有效的估计量时，有",
+  "raw_answer_text": "C"
+}

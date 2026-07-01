@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-002",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数",
+    "二阶偏导"
+  ],
+  "tags": [
+    "偏导数",
+    "二阶偏导",
+    "分段函数"
+  ],
+  "question": "设 $f(x,y)= \\begin{cases} \\sin x\\cos y,&x\\ne0,\\\\ 1-\\cos y,&x=0, \\end{cases}$ 则",
+  "options": {
+    "A": "$f'_x(0,0)=0$",
+    "B": "$\\displaystyle\\lim_{x\\to0,y\\to0}f(x,y)=0$",
+    "C": "$f''_{xy}(0,0)=1$",
+    "D": "$f'_y(0,0)=1$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x,y)= \\begin{cases} \\sin x\\cos y,&x\\ne0,\\\\ 1-\\cos y,&x=0, \\end{cases}$ 则",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "证明题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "中值定理",
+    "微分证明"
+  ],
+  "tags": [
+    "中值定理",
+    "微分证明",
+    "Cauchy中值定理"
+  ],
+  "question": "设 $f(x)$ 在 $[0,1]$ 上连续，在 $(0,1)$ 内可导，满足 $f(0)=0$，$f(1)=1$，且 $f'(x)\\ne0$，$x\\in(0,1)$，试证明 \n(1) 存在不同的 $\\xi_1,\\xi_2\\in(0,1)$，使得 $\\displaystyle\\frac{\\xi_1}{f'(\\xi_1)}+\\frac{\\xi_2}{f'(\\xi_2)}=1$；\n(2) 存在不同的 $\\eta_1,\\eta_2,\\eta_3\\in(0,1)$，使得 $\\displaystyle\\frac{\\eta_1^2}{f'(\\eta_1)}+\\frac{\\eta_2^2}{f'(\\eta_2)}+\\frac{\\eta_3^2}{f'(\\eta_3)}=1$.",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 由 $f'(x)\\ne0$ 且 $f(1)-f(0)=1$，知 $f'(x)>0$。由积分中值定理，可在 $(0,\\frac12)$ 与 $(\\frac12,1)$ 内分别取不同的 $\\xi_1,\\xi_2$，使 $f(\\frac12)-f(0)=\\frac12f'(\\xi_1)$，$f(1)-f(\\frac12)=\\frac12f'(\\xi_2)$。再配合连续性与介值思想可得 $\\frac{\\xi_1}{f'(\\xi_1)}+\\frac{\\xi_2}{f'(\\xi_2)}=1$。(II) 同理，将区间 $[0,1]$ 分成三段并用 Cauchy 中值定理与连续性，可得存在不同的 $\\eta_1,\\eta_2,\\eta_3\\in(0,1)$，使 $\\frac{\\eta_1^2}{f'(\\eta_1)}+\\frac{\\eta_2^2}{f'(\\eta_2)}+\\frac{\\eta_3^2}{f'(\\eta_3)}=1$。",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 在 $[0,1]$ 上连续，在 $(0,1)$ 内可导，满足 $f(0)=0$，$f(1)=1$，且 $f'(x)\\ne0$，$x\\in(0,1)$，试证明 \n(1) 存在不同的 $\\xi_1,\\xi_2\\in(0,1)$，使得 $\\displaystyle\\frac{\\xi_1}{f'(\\xi_1)}+\\frac{\\xi_2}{f'(\\xi_2)}=1$；\n(2) 存在不同的 $\\eta_1,\\eta_2,\\eta_3\\in(0,1)$，使得 $\\displaystyle\\frac{\\eta_1^2}{f'(\\eta_1)}+\\frac{\\eta_2^2}{f'(\\eta_2)}+\\frac{\\eta_3^2}{f'(\\eta_3)}=1$.",
+  "raw_answer_text": "(I) 由 $f'(x)\\ne0$ 且 $f(1)-f(0)=1$，知 $f'(x)>0$。由积分中值定理，可在 $(0,\\frac12)$ 与 $(\\frac12,1)$ 内分别取不同的 $\\xi_1,\\xi_2$，使 $f(\\frac12)-f(0)=\\frac12f'(\\xi_1)$，$f(1)-f(\\frac12)=\\frac12f'(\\xi_2)$。再配合连续性与介值思想可得 $\\frac{\\xi_1}{f'(\\xi_1)}+\\frac{\\xi_2}{f'(\\xi_2)}=1$。(II) 同理，将区间 $[0,1]$ 分成三段并用 Cauchy 中值定理与连续性，可得存在不同的 $\\eta_1,\\eta_2,\\eta_3\\in(0,1)$，使 $\\frac{\\eta_1^2}{f'(\\eta_1)}+\\frac{\\eta_2^2}{f'(\\eta_2)}+\\frac{\\eta_3^2}{f'(\\eta_3)}=1$。"
+}

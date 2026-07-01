@@ -335,13 +335,39 @@ class TestSourceAgnostic:
     """All three sources must follow the same grading path."""
 
     @pytest.mark.parametrize("category", ["数学一", "26宇哥八套卷", "26合工大超越"])
-    def test_选择题_fast_path_same_for_all_sources(self, category):
-        from services.grading_orchestrator import _grade_choice_fast
-        q = {"question_type": "选择题", "correct_option": "B", "score": 5,
-             "category": category}
-        result = _grade_choice_fast(q, "B")
-        assert result["engine"] == "local_choice_fast"
-        assert result["total"] == 5
+    def test_选择题_unified_llm_path_for_all_sources(self, category, monkeypatch):
+        from services.grading_orchestrator import execute_grading
+
+        def fake_build(**kwargs):
+            return {"standard_answer": "解析", "total_score": 5}
+
+        class _Grading:
+            def grade(self, **kwargs):
+                return {"success": True, "total": 5, "comment": "ok"}
+
+        class _Diagnosis:
+            def diagnose(self, **kwargs):
+                return {"error_type": "无错误", "root_cause": ""}
+
+        monkeypatch.setattr("agents.GradingAgent", lambda c, m: _Grading())
+        monkeypatch.setattr("agents.DiagnosisAgent", lambda c, m: _Diagnosis())
+
+        result = execute_grading(
+            question="test",
+            student_ans="B",
+            selected_q={
+                "question_id": "q1",
+                "question_type": "选择题",
+                "correct_option": "B",
+                "score": 5,
+                "category": category,
+            },
+            client=object(),
+            model="deepseek-chat",
+            build_solution_fn=fake_build,
+        )
+        assert result["grading_result"]["total"] == 5
+        assert result["grading_result"].get("engine") != "local_choice_fast"
 
     @pytest.mark.parametrize("category", ["数学一", "26宇哥八套卷", "26合工大超越"])
     def test_view_only_same_for_all_sources(self, category):

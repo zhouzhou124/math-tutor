@@ -1,0 +1,27 @@
+{
+  "question_id": "26宇哥四套卷-卷一-017",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "偏导数",
+    "多元函数极值"
+  ],
+  "tags": [
+    "偏导数",
+    "多元函数极值"
+  ],
+  "question": "设曲面 $z=f(x,y)$ 过点 $(0,0,2)$，且 $\\Delta z$ 关于 $x$ 的偏增量 $\\Delta_x z=-2xe^{-y}\\cdot\\Delta x+o(\\Delta x)$，$\\Delta z$ 关于 $y$ 的偏增量 $\\Delta_y z=e^{-y}(x^2-y-1)\\Delta y+o(\\Delta y)$，求 $z=f(x,y)$ 的表达式及 $z$ 的极值。",
+  "source": "import_zhangyu4_v1",
+  "options": {},
+  "correct_option": "",
+  "_original_answer": "",
+  "standard_answer": "由偏增量得 $f_x=-2xe^{-y}$，$f_y=e^{-y}(x^2-y-1)$。由 $f_x=-2xe^{-y}$ 得 $f(x,y)=-x^2e^{-y}+\\phi(y)$。又 $f_y=x^2e^{-y}+\\phi'(y)=e^{-y}(x^2-y-1)$，故 $\\phi'(y)=-(y+1)e^{-y}$，$\\phi(y)=(y+2)e^{-y}+C$。由 $f(0,0)=2$ 得 $C=0$。因而 $z=f(x,y)=(y+2-x^2)e^{-y}$。驻点满足 $f_x=0$，$f_y=0$，得 $(x,y)=(0,-1)$。此时 $z=e$。又 $f_{xx}(0,-1)=-2e$，$f_{xy}(0,-1)=0$，$f_{yy}(0,-1)=-e$，Hessian 负定，故 $z$ 有极大值 $e$，极大值点为 $(0,-1,e)$。",
+  "solution_steps": [],
+  "raw_question_text": "设曲面 $z=f(x,y)$ 过点 $(0,0,2)$，且 $\\Delta z$ 关于 $x$ 的偏增量 $\\Delta_x z=-2xe^{-y}\\cdot\\Delta x+o(\\Delta x)$，$\\Delta z$ 关于 $y$ 的偏增量 $\\Delta_y z=e^{-y}(x^2-y-1)\\Delta y+o(\\Delta y)$，求 $z=f(x,y)$ 的表达式及 $z$ 的极值。",
+  "raw_answer_text": ""
+}

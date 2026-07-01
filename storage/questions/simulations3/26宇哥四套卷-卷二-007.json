@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-007",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "线性相关",
+    "线性方程组"
+  ],
+  "tags": [
+    "线性相关",
+    "线性方程组",
+    "几何应用"
+  ],
+  "question": "设 $\\alpha_1=(a_1,a_2,a_3)^T$，$\\alpha_2=(b_1,b_2,b_3)^T$，$\\alpha_3=(c_1,c_2,c_3)^T$，其中 $a_i^2+b_i^2\\ne0$，$i=1,2,3$，则三条直线 $a_ix+b_iy+c_i=0$ $(i=1,2,3)$ 交于一点的充分必要条件是",
+  "options": {
+    "A": "$\\alpha_1,\\alpha_2,\\alpha_3$ 线性相关",
+    "B": "$\\alpha_1,\\alpha_2,\\alpha_3$ 线性相关，但 $\\alpha_1,\\alpha_2$ 线性无关",
+    "C": "向量组 $\\alpha_1,\\alpha_2,\\alpha_3$ 的秩等于向量组 $\\alpha_1,\\alpha_2$ 的秩",
+    "D": "$\\alpha_1,\\alpha_2,\\alpha_3$ 线性无关"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\alpha_1=(a_1,a_2,a_3)^T$，$\\alpha_2=(b_1,b_2,b_3)^T$，$\\alpha_3=(c_1,c_2,c_3)^T$，其中 $a_i^2+b_i^2\\ne0$，$i=1,2,3$，则三条直线 $a_ix+b_iy+c_i=0$ $(i=1,2,3)$ 交于一点的充分必要条件是",
+  "raw_answer_text": ""
+}

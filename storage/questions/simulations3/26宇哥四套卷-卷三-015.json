@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷三-015",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 15,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "二次曲面",
+    "分类"
+  ],
+  "tags": [
+    "二次曲面",
+    "分类",
+    "椭球面"
+  ],
+  "question": "若二次曲面 $x^2+(2+a)y^2+az^2+2x-2z-y-5=0$ 为椭球面，则常数 $a$ 的取值范围为",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$a>0$",
+  "source": "import_zhangyu4_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "若二次曲面 $x^2+(2+a)y^2+az^2+2x-2z-y-5=0$ 为椭球面，则常数 $a$ 的取值范围为",
+  "raw_answer_text": "$a>0$"
+}

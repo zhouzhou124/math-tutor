@@ -5,6 +5,7 @@ import time
 from config import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
 from llm_client import create_client
 import credential_store
+from views.auth.session_state import clear_user_session, get_current_username
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # views/ parent
 
@@ -291,4 +292,12 @@ def render_settings_page(db, render_latex):
         with col2:
             st.caption(f"错题数: {st.session_state.memory.get_error_stats(st.session_state.auth['user_id']).total_errors}")
             st.caption(f"数据位置: `E:\\math_tutor\\storage\\`")
+
+    with st.container(border=True):
+        st.subheader("账户")
+        st.caption(f"当前用户：{get_current_username() or '未登录'}")
+        if st.session_state.get("auth", {}).get("is_logged_in"):
+            if st.button("退出登录", type="secondary", use_container_width=True, key="settings_logout"):
+                clear_user_session()
+                st.rerun()
 

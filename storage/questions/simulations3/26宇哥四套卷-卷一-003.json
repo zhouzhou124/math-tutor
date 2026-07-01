@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-003",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "二重积分",
+    "交换积分次序"
+  ],
+  "tags": [
+    "二重积分",
+    "交换积分次序"
+  ],
+  "question": "$\\displaystyle \\int_{\\frac14}^{\\frac12}dy\\int_{\\frac12}^{\\sqrt y}e^{\\frac yx}\\,dx +\\int_{\\frac12}^{1}dy\\int_y^{\\sqrt y}e^{\\frac yx}\\,dx =$",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$\\displaystyle\\frac{3e}{4}-\\frac{\\sqrt e}{2}$",
+    "B": "$\\displaystyle\\frac{3e}{8}-\\frac{\\sqrt e}{2}$",
+    "C": "$\\displaystyle\\frac{3e}{4}+\\frac{\\sqrt e}{2}$",
+    "D": "$\\displaystyle\\frac{3e}{8}+\\frac{\\sqrt e}{2}$"
+  },
+  "correct_option": "B",
+  "_original_answer": "",
+  "standard_answer": "B",
+  "raw_question_text": "$\\displaystyle \\int_{\\frac14}^{\\frac12}dy\\int_{\\frac12}^{\\sqrt y}e^{\\frac yx}\\,dx +\\int_{\\frac12}^{1}dy\\int_y^{\\sqrt y}e^{\\frac yx}\\,dx =$",
+  "raw_answer_text": "B"
+}

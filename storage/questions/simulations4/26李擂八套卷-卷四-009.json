@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷四-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 9,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "无偏估计",
+    "方差"
+  ],
+  "tags": [
+    "无偏估计",
+    "方差",
+    "正态分布",
+    "卡方分布"
+  ],
+  "question": "设 $X_1,X_2,X_3$ 相互独立且均服从正态分布 $N(\\mu,\\sigma^2)$，$T=(2X_1-X_2-X_3)^2+(2X_2-X_1-X_3)^2+(2X_3-X_1-X_2)^2$，则",
+  "options": {
+    "A": "$\\frac1{12}T$ 是 $\\sigma^2$ 的无偏估计量，且 $D(T)=324\\sigma^4$",
+    "B": "$\\frac1{18}T$ 是 $\\sigma^2$ 的无偏估计量，且 $D(T)=324\\sigma^4$",
+    "C": "$\\frac1{12}T$ 是 $\\sigma^2$ 的无偏估计量，且 $D(T)=486\\sigma^4$",
+    "D": "$\\frac1{18}T$ 是 $\\sigma^2$ 的无偏估计量，且 $D(T)=486\\sigma^4$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $X_1,X_2,X_3$ 相互独立且均服从正态分布 $N(\\mu,\\sigma^2)$，$T=(2X_1-X_2-X_3)^2+(2X_2-X_1-X_3)^2+(2X_3-X_1-X_2)^2$，则",
+  "raw_answer_text": "B"
+}

@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-004",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 4,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "空间解析几何",
+    "投影"
+  ],
+  "tags": [
+    "空间解析几何",
+    "投影",
+    "椭球面"
+  ],
+  "question": "设椭球面 $\\Sigma:x^2+y^2+z^2-yz=1$，则其在 $xOy$ 面上的投影区域为",
+  "options": {
+    "A": "$x^2+\\frac54y^2\\le 1$",
+    "B": "$\\frac34x^2+y^2\\le 1$",
+    "C": "$x^2+\\frac34y^2\\le 1$",
+    "D": "$\\frac54x^2+y^2\\le 1$"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设椭球面 $\\Sigma:x^2+y^2+z^2-yz=1$，则其在 $xOy$ 面上的投影区域为",
+  "raw_answer_text": ""
+}

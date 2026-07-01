@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷二-006",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "初等变换",
+    "矩阵等价"
+  ],
+  "tags": [
+    "初等变换",
+    "矩阵等价",
+    "行最简形"
+  ],
+  "question": "下列矩阵中，可以经过若干次初等行变换得到矩阵 $\\begin{pmatrix} 1&1&0&1\\\\ 0&1&0&0\\\\ 0&0&0&0 \\end{pmatrix}$ 的是",
+  "options": {
+    "A": "$\\begin{pmatrix}1&1&0&1\\\\1&2&1&3\\\\2&3&1&4\\end{pmatrix}$",
+    "B": "$\\begin{pmatrix}1&1&0&1\\\\1&1&2&5\\\\1&1&1&3\\end{pmatrix}$",
+    "C": "$\\begin{pmatrix}1&0&0&1\\\\0&1&0&3\\\\0&1&0&0\\end{pmatrix}$",
+    "D": "$\\begin{pmatrix}1&1&0&1\\\\1&2&0&1\\\\2&3&0&2\\end{pmatrix}$"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "下列矩阵中，可以经过若干次初等行变换得到矩阵 $\\begin{pmatrix} 1&1&0&1\\\\ 0&1&0&0\\\\ 0&0&0&0 \\end{pmatrix}$ 的是",
+  "raw_answer_text": ""
+}

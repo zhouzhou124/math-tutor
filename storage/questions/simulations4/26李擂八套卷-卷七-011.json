@@ -1,0 +1,25 @@
+{
+  "question_id": "26李擂八套卷-卷七-011",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "$\\displaystyle\\lim_{x\\to\\infty}x^2\\left(2\\arcsin\\frac{1}{x}-\\sqrt{1+\\frac{1}{x}}-\\sqrt{1-\\frac{1}{x}}\\right)=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$-\\infty$",
+  "knowledge_points": [
+    "极限",
+    "等价无穷小"
+  ],
+  "tags": [
+    "极限",
+    "等价无穷小",
+    "泰勒展开"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "$\\displaystyle\\lim_{x\\to\\infty}x^2\\left(2\\arcsin\\frac{1}{x}-\\sqrt{1+\\frac{1}{x}}-\\sqrt{1-\\frac{1}{x}}\\right)=\\underline{\\qquad}$.",
+  "raw_answer_text": "$-\\infty$"
+}

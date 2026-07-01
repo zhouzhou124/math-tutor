@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷七-009",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设随机变量 $X$ 的概率密度为 $f_X(x)=\\begin{cases}2x,&0<x<1,\\\\0,&\\text{其他},\\end{cases}$ 则下列随机变量中服从指数分布的是$(\\quad)$",
+  "options": {
+    "A": "$-2\\ln X$",
+    "B": "$\\ln^2 X$",
+    "C": "$\\sqrt{-\\ln X}$",
+    "D": "$\\ln X$"
+  },
+  "correct_option": "A",
+  "standard_answer": "A. $-2\\ln X$",
+  "knowledge_points": [
+    "随机变量及其分布",
+    "指数分布"
+  ],
+  "tags": [
+    "随机变量及其分布",
+    "指数分布",
+    "函数变换"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设随机变量 $X$ 的概率密度为 $f_X(x)=\\begin{cases}2x,&0<x<1,\\\\0,&\\text{其他},\\end{cases}$ 则下列随机变量中服从指数分布的是$(\\quad)$",
+  "raw_answer_text": "A. $-2\\ln X$"
+}

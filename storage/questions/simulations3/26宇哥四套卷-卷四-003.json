@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-003",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 3,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程",
+    "常系数线性方程"
+  ],
+  "tags": [
+    "微分方程",
+    "常系数线性方程",
+    "特征方程"
+  ],
+  "question": "已知 $y_1=xe^x+e^{2x}$ 和 $y_2=xe^x+e^{-x}$ 是二阶常系数非齐次线性微分方程的两个解，则此方程为",
+  "options": {
+    "A": "$y''-y'+2y=e^x+2xe^x$",
+    "B": "$y''-y'-2y=e^x-2xe^x$",
+    "C": "$y''-y'+2y=e^{2x}-e^{-x}$",
+    "D": "$y''-y'-2y=e^x+e^{2x}$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "已知 $y_1=xe^x+e^{2x}$ 和 $y_2=xe^x+e^{-x}$ 是二阶常系数非齐次线性微分方程的两个解，则此方程为",
+  "raw_answer_text": "B"
+}

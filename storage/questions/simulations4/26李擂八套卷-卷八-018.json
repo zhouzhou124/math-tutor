@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-018",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "question_no": 18,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "微分方程",
+    "旋转体体积"
+  ],
+  "tags": [
+    "微分方程",
+    "旋转体体积"
+  ],
+  "question": "设 $L:y=y(x)$，$x>0$ 是过点 $(1,0)$ 的一条光滑曲线，$P$ 是曲线 $L$ 上任意一点，已知曲线 $L$ 在点 $P$ 处的法线在 $y$ 轴上的截距等于点 $P$ 到坐标原点的距离，则\n(1) 求曲线 $y=y(x)$ 的方程；\n(2) 过点 $P$ 作曲线 $L$ 的切线，该切线与两个坐标轴围成一个三角形，求使得该三角形绕 $y$ 轴旋转一周所得的旋转体体积最小时 $P$ 的坐标。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $y=\\frac{x^2-1}{2}$。(II) $P=\\left(\\frac1{\\sqrt2},-\\frac14\\right)$。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $L:y=y(x)$，$x>0$ 是过点 $(1,0)$ 的一条光滑曲线，$P$ 是曲线 $L$ 上任意一点，已知曲线 $L$ 在点 $P$ 处的法线在 $y$ 轴上的截距等于点 $P$ 到坐标原点的距离，则\n(1) 求曲线 $y=y(x)$ 的方程；\n(2) 过点 $P$ 作曲线 $L$ 的切线，该切线与两个坐标轴围成一个三角形，求使得该三角形绕 $y$ 轴旋转一周所得的旋转体体积最小时 $P$ 的坐标。",
+  "raw_answer_text": "(I) $y=\\frac{x^2-1}{2}$。(II) $P=\\left(\\frac1{\\sqrt2},-\\frac14\\right)$。"
+}

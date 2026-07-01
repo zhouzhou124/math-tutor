@@ -3,7 +3,7 @@
   "category": "数学一",
   "question_type": "选择题",
   "question": "设 $A = (\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$ 是4阶矩阵，$A^*$ 为 $A$ 的伴随矩阵。若 $(1,0,1,0)^{\\mathrm{T}}$ 是方程组 $Ax = 0$ 的一个基础解系，则 $A^*x = 0$ 的基础解系可为",
-  "standard_answer": "D",
+  "standard_answer": "步骤1：由基础解系确定矩阵 $A$ 的秩及列向量关系\n已知 $(1,0,1,0)^{\\mathrm{T}}$ 是 $Ax=0$ 的一个基础解系，即它单独构成解空间的一组基，故解空间维数为 $1$。对于 $4$ 元齐次方程组，$4 - r(A) = 1$，得\n$$\nr(A)=3.\n$$\n将 $x=(1,0,1,0)^{\\mathrm{T}}$ 代入 $Ax=0$，并写成分块形式 $A=(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$，有\n$$\n\\alpha_1 + \\alpha_3 = 0 \\quad\\Rightarrow\\quad \\alpha_3 = -\\alpha_1,\n$$\n故 $\\alpha_1$ 与 $\\alpha_3$ 线性相关。因 $r(A)=3$，列向量组的极大无关组必含 $3$ 个向量，且已有一个线性关系，故其余列 $\\alpha_2,\\alpha_4$ 必然与 $\\alpha_1,\\alpha_3$ 中的某个一起构成极大无关组。特别地，$\\alpha_2,\\alpha_3,\\alpha_4$ 线性无关（否则秩小于 $3$）。\n步骤2：确定伴随矩阵 $A^*$ 的秩及 $A^*x=0$ 的解空间维数\n对 $n$ 阶矩阵，当 $r(A)=n-1$ 时，伴随矩阵的秩 $r(A^*)=1$。本题 $n=4$，$r(A)=3$，故\n$$\nr(A^*)=1.\n$$\n因而齐次方程组 $A^*x=0$ 的解空间维数为\n$$\n4 - r(A^*) = 3,\n$$\n基础解系应包含 $3$ 个线性无关的解向量。\n\n另一方面，由伴随矩阵的基本性质 $AA^* = A^*A = |A|I$。因为 $r(A)=3<4$，行列式 $|A|=0$，所以\n$$\nA^*A = 0.\n$$\n写出分块形式：\n$$\nA^*A = A^*(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = (A^*\\alpha_1, A^*\\alpha_2, A^*\\alpha_3, A^*\\alpha_4) = 0.\n$$\n因此\n$$\nA^*\\alpha_j = 0 \\quad (j=1,2,3,4),\n$$\n即 $A$ 的每个列向量 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 都是 $A^*x=0$ 的解。\n步骤3：从解向量中找出极大无关组并分析各个选项\n我们已经得到四个解向量 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$，且已知 $\\alpha_1$ 与 $\\alpha_3$ 线性相关（$\\alpha_1+\\alpha_3=0$），故解向量组的秩 $r(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = r(A) = 3$。要从这组解中选出 $3$ 个线性无关的向量构成基础解系，必须且只需排除 $\\alpha_1$ 与 $\\alpha_3$ 中的某一个，而保留其余所有向量。\n\n逐项分析题目所给选项（以典型选项为例）：\n- 选项 A：$\\alpha_1,\\alpha_2$。只含两个向量，而解空间维数为 $3$，个数不足，不能作为基础解系。\n- 选项 B：$\\alpha_1,\\alpha_3$。两个向量且线性相关（$\\alpha_1+\\alpha_3=0$），维数仅为 $1$，不满足要求。\n- 选项 C：$\\alpha_1,\\alpha_2,\\alpha_3$。虽然个数为 $3$，但包含线性相关的 $\\alpha_1$ 与 $\\alpha_3$，向量组秩为 $2$，不能构成基础解系。\n- 选项 D：$\\alpha_2,\\alpha_3,\\alpha_4$。前面已说明 $\\alpha_2,\\alpha_3,\\alpha_4$ 线性无关，且个数恰为 $3$，与解空间维数一致，它们都是 $A^*x=0$ 的解，故可作为基础解系。\n步骤4：得出最终结论\n由上述推导，$A^*x=0$ 的基础解系可以是 $\\alpha_2,\\alpha_3,\\alpha_4$，对应选项 D。\n\n## 最终答案\n故选 D. $\\alpha_2,\\alpha_3,\\alpha_4$",
   "knowledge_points": [
     "矩阵"
   ],
@@ -22,5 +22,580 @@
     "矩阵"
   ],
   "raw_question_text": "设 $A = (\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$ 是4阶矩阵，$A^*$ 为 $A$ 的伴随矩阵。若 $(1,0,1,0)^{\\mathrm{T}}$ 是方程组 $Ax = 0$ 的一个基础解系，则 $A^*x = 0$ 的基础解系可为",
-  "raw_answer_text": "D"
+  "raw_answer_text": "D",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780383811",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：由基础解系确定矩阵 $A$ 的秩及列向量关系\n已知 $(1,0,1,0)^{\\mathrm{T}}$ 是 $Ax=0$ 的一个基础解系，即它单独构成解空间的一组基，故解空间维数为 $1$。对于 $4$ 元齐次方程组，$4 - r(A) = 1$，得\n$$\nr(A)=3.\n$$\n将 $x=(1,0,1,0)^{\\mathrm{T}}$ 代入 $Ax=0$，并写成分块形式 $A=(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)$，有\n$$\n\\alpha_1 + \\alpha_3 = 0 \\quad\\Rightarrow\\quad \\alpha_3 = -\\alpha_1,\n$$\n故 $\\alpha_1$ 与 $\\alpha_3$ 线性相关。因 $r(A)=3$，列向量组的极大无关组必含 $3$ 个向量，且已有一个线性关系，故其余列 $\\alpha_2,\\alpha_4$ 必然与 $\\alpha_1,\\alpha_3$ 中的某个一起构成极大无关组。特别地，$\\alpha_2,\\alpha_3,\\alpha_4$ 线性无关（否则秩小于 $3$）。\n步骤2：确定伴随矩阵 $A^*$ 的秩及 $A^*x=0$ 的解空间维数\n对 $n$ 阶矩阵，当 $r(A)=n-1$ 时，伴随矩阵的秩 $r(A^*)=1$。本题 $n=4$，$r(A)=3$，故\n$$\nr(A^*)=1.\n$$\n因而齐次方程组 $A^*x=0$ 的解空间维数为\n$$\n4 - r(A^*) = 3,\n$$\n基础解系应包含 $3$ 个线性无关的解向量。\n\n另一方面，由伴随矩阵的基本性质 $AA^* = A^*A = |A|I$。因为 $r(A)=3<4$，行列式 $|A|=0$，所以\n$$\nA^*A = 0.\n$$\n写出分块形式：\n$$\nA^*A = A^*(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = (A^*\\alpha_1, A^*\\alpha_2, A^*\\alpha_3, A^*\\alpha_4) = 0.\n$$\n因此\n$$\nA^*\\alpha_j = 0 \\quad (j=1,2,3,4),\n$$\n即 $A$ 的每个列向量 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 都是 $A^*x=0$ 的解。\n步骤3：从解向量中找出极大无关组并分析各个选项\n我们已经得到四个解向量 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$，且已知 $\\alpha_1$ 与 $\\alpha_3$ 线性相关（$\\alpha_1+\\alpha_3=0$），故解向量组的秩 $r(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = r(A) = 3$。要从这组解中选出 $3$ 个线性无关的向量构成基础解系，必须且只需排除 $\\alpha_1$ 与 $\\alpha_3$ 中的某一个，而保留其余所有向量。\n\n逐项分析题目所给选项（以典型选项为例）：\n- 选项 A：$\\alpha_1,\\alpha_2$。只含两个向量，而解空间维数为 $3$，个数不足，不能作为基础解系。\n- 选项 B：$\\alpha_1,\\alpha_3$。两个向量且线性相关（$\\alpha_1+\\alpha_3=0$），维数仅为 $1$，不满足要求。\n- 选项 C：$\\alpha_1,\\alpha_2,\\alpha_3$。虽然个数为 $3$，但包含线性相关的 $\\alpha_1$ 与 $\\alpha_3$，向量组秩为 $2$，不能构成基础解系。\n- 选项 D：$\\alpha_2,\\alpha_3,\\alpha_4$。前面已说明 $\\alpha_2,\\alpha_3,\\alpha_4$ 线性无关，且个数恰为 $3$，与解空间维数一致，它们都是 $A^*x=0$ 的解，故可作为基础解系。\n步骤4：得出最终结论\n由上述推导，$A^*x=0$ 的基础解系可以是 $\\alpha_2,\\alpha_3,\\alpha_4$，对应选项 D。\n\n## 最终答案\n故选 D. $\\alpha_2,\\alpha_3,\\alpha_4$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 15:03",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "由基础解系确定矩阵"
+              },
+              {
+                "type": "latex",
+                "content": "A"
+              },
+              {
+                "type": "text",
+                "content": "的秩及列向量关系\n已知"
+              },
+              {
+                "type": "latex",
+                "content": "(1,0,1,0)^{\\mathrm{T}}"
+              },
+              {
+                "type": "text",
+                "content": "是"
+              },
+              {
+                "type": "latex",
+                "content": "Ax=0"
+              },
+              {
+                "type": "text",
+                "content": "的一个基础解系，即它单独构成解空间的一组基，故解空间维数为"
+              },
+              {
+                "type": "latex",
+                "content": "1"
+              },
+              {
+                "type": "text",
+                "content": "对于"
+              },
+              {
+                "type": "latex",
+                "content": "4"
+              },
+              {
+                "type": "text",
+                "content": "元齐次方程组，"
+              },
+              {
+                "type": "latex",
+                "content": "4 - r(A) = 1"
+              },
+              {
+                "type": "text",
+                "content": "得"
+              },
+              {
+                "type": "latex",
+                "content": "r(A)=3.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "x=(1,0,1,0)^{\\mathrm{T}}"
+              },
+              {
+                "type": "text",
+                "content": "代入"
+              },
+              {
+                "type": "latex",
+                "content": "Ax=0"
+              },
+              {
+                "type": "text",
+                "content": "并写成分块形式"
+              },
+              {
+                "type": "latex",
+                "content": "A=(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4)"
+              },
+              {
+                "type": "text",
+                "content": "有"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1 + \\alpha_3 = 0 \\quad\\Rightarrow\\quad \\alpha_3 = -\\alpha_1,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "线性相关。因"
+              },
+              {
+                "type": "latex",
+                "content": "r(A)=3"
+              },
+              {
+                "type": "text",
+                "content": "列向量组的极大无关组必含"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "个向量，且已有一个线性关系，故其余列"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_2,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "必然与"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "中的某个一起构成极大无关组。特别地，"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "线性无关（否则秩小于"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "确定伴随矩阵"
+              },
+              {
+                "type": "latex",
+                "content": "A^*"
+              },
+              {
+                "type": "text",
+                "content": "的秩及"
+              },
+              {
+                "type": "latex",
+                "content": "A^*x=0"
+              },
+              {
+                "type": "text",
+                "content": "的解空间维数\n对"
+              },
+              {
+                "type": "latex",
+                "content": "n"
+              },
+              {
+                "type": "text",
+                "content": "阶矩阵，当"
+              },
+              {
+                "type": "latex",
+                "content": "r(A)=n-1"
+              },
+              {
+                "type": "text",
+                "content": "时，伴随矩阵的秩"
+              },
+              {
+                "type": "latex",
+                "content": "r(A^*)=1"
+              },
+              {
+                "type": "text",
+                "content": "本题"
+              },
+              {
+                "type": "latex",
+                "content": "n=4"
+              },
+              {
+                "type": "latex",
+                "content": "r(A)=3"
+              },
+              {
+                "type": "text",
+                "content": "故"
+              },
+              {
+                "type": "latex",
+                "content": "r(A^*)=1.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因而齐次方程组"
+              },
+              {
+                "type": "latex",
+                "content": "A^*x=0"
+              },
+              {
+                "type": "text",
+                "content": "的解空间维数为"
+              },
+              {
+                "type": "latex",
+                "content": "4 - r(A^*) = 3,",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "基础解系应包含"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "个线性无关的解向量。\n\n另一方面，由伴随矩阵的基本性质"
+              },
+              {
+                "type": "latex",
+                "content": "AA^* = A^*A = |A|I"
+              },
+              {
+                "type": "text",
+                "content": "因为"
+              },
+              {
+                "type": "latex",
+                "content": "r(A)=3<4"
+              },
+              {
+                "type": "text",
+                "content": "行列式"
+              },
+              {
+                "type": "latex",
+                "content": "|A|=0"
+              },
+              {
+                "type": "text",
+                "content": "所以"
+              },
+              {
+                "type": "latex",
+                "content": "A^*A = 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "写出分块形式："
+              },
+              {
+                "type": "latex",
+                "content": "A^*A = A^*(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = (A^*\\alpha_1, A^*\\alpha_2, A^*\\alpha_3, A^*\\alpha_4) = 0.",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "因此"
+              },
+              {
+                "type": "latex",
+                "content": "A^*\\alpha_j = 0 \\quad (j=1,2,3,4),",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "即"
+              },
+              {
+                "type": "latex",
+                "content": "A"
+              },
+              {
+                "type": "text",
+                "content": "的每个列向量"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "都是"
+              },
+              {
+                "type": "latex",
+                "content": "A^*x=0"
+              },
+              {
+                "type": "text",
+                "content": "的解。"
+              }
+            ]
+          },
+          {
+            "label": "步骤3",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "从解向量中找出极大无关组并分析各个选项\n我们已经得到四个解向量"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "且已知"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "线性相关（"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1+\\alpha_3=0"
+              },
+              {
+                "type": "text",
+                "content": "），故解向量组的秩"
+              },
+              {
+                "type": "latex",
+                "content": "r(\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4) = r(A) = 3"
+              },
+              {
+                "type": "text",
+                "content": "要从这组解中选出"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "个线性无关的向量构成基础解系，必须且只需排除"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "中的某一个，而保留其余所有向量。\n\n逐项分析题目所给选项（以典型选项为例）：\n- 选项 A："
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_2"
+              },
+              {
+                "type": "text",
+                "content": "只含两个向量，而解空间维数为"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "个数不足，不能作为基础解系。\n- 选项 B："
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "两个向量且线性相关（"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1+\\alpha_3=0"
+              },
+              {
+                "type": "text",
+                "content": "），维数仅为"
+              },
+              {
+                "type": "latex",
+                "content": "1"
+              },
+              {
+                "type": "text",
+                "content": "不满足要求。\n- 选项 C："
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1,\\alpha_2,\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "虽然个数为"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "但包含线性相关的"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_1"
+              },
+              {
+                "type": "text",
+                "content": "与"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_3"
+              },
+              {
+                "type": "text",
+                "content": "向量组秩为"
+              },
+              {
+                "type": "latex",
+                "content": "2"
+              },
+              {
+                "type": "text",
+                "content": "不能构成基础解系。\n- 选项 D："
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "前面已说明"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "线性无关，且个数恰为"
+              },
+              {
+                "type": "latex",
+                "content": "3"
+              },
+              {
+                "type": "text",
+                "content": "与解空间维数一致，它们都是"
+              },
+              {
+                "type": "latex",
+                "content": "A^*x=0"
+              },
+              {
+                "type": "text",
+                "content": "的解，故可作为基础解系。"
+              }
+            ]
+          },
+          {
+            "label": "步骤4",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "得出最终结论\n由上述推导，"
+              },
+              {
+                "type": "latex",
+                "content": "A^*x=0"
+              },
+              {
+                "type": "text",
+                "content": "的基础解系可以是"
+              },
+              {
+                "type": "latex",
+                "content": "\\alpha_2,\\alpha_3,\\alpha_4"
+              },
+              {
+                "type": "text",
+                "content": "对应选项 D。"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 15:03",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

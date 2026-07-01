@@ -1,0 +1,29 @@
+{
+  "question_id": "26李擂八套卷-卷五-020",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "证明题",
+  "question_no": 20,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "数列极限",
+    "递推数列",
+    "Stolz定理"
+  ],
+  "tags": [
+    "数列极限",
+    "递推数列",
+    "Stolz定理"
+  ],
+  "question": "设数列 $\\{x_n\\}$ 满足 $x_{n+1}=x_n-\\frac{x_n\\ln x_n}{\\ln x_n+1}$，$n=1,2,3,\\cdots$，$x_1>e^{-1}$ 且 $x_1\\ne1$，则 \n(1) 证明 $\\displaystyle\\lim_{n\\to\\infty}x_n$ 存在并求 $\\displaystyle\\lim_{n\\to\\infty}x_n$；\n(2) 求 $\\displaystyle\\lim_{n\\to\\infty}\\frac{x_{n+1}-1}{\\ln^2x_n}$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) $\\lim_{n\\to\\infty}x_n=1$；(II) $\\lim_{n\\to\\infty}\\frac{x_{n+1}-1}{\\ln^2x_n}=\\frac12$。",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设数列 $\\{x_n\\}$ 满足 $x_{n+1}=x_n-\\frac{x_n\\ln x_n}{\\ln x_n+1}$，$n=1,2,3,\\cdots$，$x_1>e^{-1}$ 且 $x_1\\ne1$，则 \n(1) 证明 $\\displaystyle\\lim_{n\\to\\infty}x_n$ 存在并求 $\\displaystyle\\lim_{n\\to\\infty}x_n$；\n(2) 求 $\\displaystyle\\lim_{n\\to\\infty}\\frac{x_{n+1}-1}{\\ln^2x_n}$。",
+  "raw_answer_text": "(I) $\\lim_{n\\to\\infty}x_n=1$；(II) $\\lim_{n\\to\\infty}\\frac{x_{n+1}-1}{\\ln^2x_n}=\\frac12$。"
+}

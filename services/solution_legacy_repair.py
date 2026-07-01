@@ -313,6 +313,7 @@ _GREEK_CORRUPTION_MAP = {
     "varphis": "varphi", "varepsilons": "varepsilon",
     "varthetas": "vartheta", "varkappas": "varkappa",
     "varrhos": "varrho",
+    "Gamm": "Gamma",
     "alph": "alpha", "bet": "beta", "gam": "gamma",
     "del": "delta", "eps": "epsilon", "the": "theta",
     "lam": "lambda", "sig": "sigma", "ome": "omega",

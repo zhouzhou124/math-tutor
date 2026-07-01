@@ -1,0 +1,60 @@
+{
+  "question_id": "26李擂八套卷-卷一-016",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "填空题",
+  "question_no": 16,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "概率",
+    "条件概率"
+  ],
+  "tags": [
+    "概率",
+    "条件概率",
+    "古典概型"
+  ],
+  "question": "设有两个外观一模一样的充电器，每个充电器均能给手机充电 $3$ 次，小明每次从两个充电器中随机选一个给手机充电，假设两个充电器上的电量指示灯都坏了，只有在充电器电量用完再用该充电器连接手机充电时才能发现电量已用完，则当小明发现其中一个充电器电量已用完时，另一个充电器恰好还能给手机充电 $1$ 次的概率为 $\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\frac{5}{16}$",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设有两个外观一模一样的充电器，每个充电器均能给手机充电 $3$ 次，小明每次从两个充电器中随机选一个给手机充电，假设两个充电器上的电量指示灯都坏了，只有在充电器电量用完再用该充电器连接手机充电时才能发现电量已用完，则当小明发现其中一个充电器电量已用完时，另一个充电器恰好还能给手机充电 $1$ 次的概率为 $\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\displaystyle\\frac{5}{16}$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780756092",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：建立概率模型\n\n将两个充电器分别记为 $A$ 和 $B$，每个充满电可供充电 $3$ 次。小明每次独立地以概率 $\\frac12$ 选择 $A$，以概率 $\\frac12$ 选择 $B$ 进行充电。只有当某个充电器已经使用 $3$ 次后再次被选中时，才会发现电量已用完，过程随之停止。求停止时另一个充电器恰好还能充电 $1$ 次（即已被使用 $2$ 次）的概率。\n\n用 $N_A$ 和 $N_B$ 分别表示截止当前 $A$ 和 $B$ 被选中的次数。初始均为 $0$。每次选中若 $N_A<3$ 或 $N_B<3$ 则成功充电，次数加 $1$；一旦某个充电器达到被选中 $4$ 次（第 $4$ 次选中即发现没电），过程立即停止。在停止时刻，未达到 $4$ 的充电器被选中的次数就是其被使用的次数。\n\n目标事件等价于：停止时，存在一个充电器达到 $4$ 次，另一个充电器恰好达到 $2$ 次。\n步骤2：利用对称性和组合数计算概率\n\n由对称性，先计算“$A$ 先达到 $4$ 次且停止时 $N_B=2$”的概率，再乘 $2$。\n\n事件 $\\{N_A=4,\\ N_B=2,\\ \\text{且最后一次选中 }A\\}$ 的序列长度为 $4+2=6$。最后一次必为 $A$，前 $5$ 次中 $A$ 出现 $3$ 次，$B$ 出现 $2$ 次。满足条件的序列数为 $\\binom{5}{3}$，每个序列的概率为 $\\left(\\frac12\\right)^6$。故\n\n$$\nP_A = \\binom{5}{3}\\left(\\frac12\\right)^6 = 10 \\times \\frac1{64} = \\frac{10}{64}.\n$$\n\n同理，$B$ 先达到 $4$ 次且 $N_A=2$ 的概率也是 $\\frac{10}{64}$。因此所求概率为\n\n$$\nP = 2 \\times \\frac{10}{64} = \\frac{20}{64} = \\frac{5}{16}.\n$$\n\n（注：可以验证所有可能的停止状态概率之和为 $1$，过程从略。）\n\n## 最终答案\n\n$\\displaystyle\\frac{5}{16}$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-06 22:28",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-06 22:28",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
+}

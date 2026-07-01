@@ -1,0 +1,31 @@
+{
+  "question_id": "26李擂八套卷-卷六-010",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "选择题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "设 $(X_1,Y_1),(X_2,Y_2),\\cdots,(X_n,Y_n)$ 为来自总体 $N(0,0;1,4;-\\frac12)$ 的简单随机样本，\n$\\overline X=\\frac1n\\sum_{i=1}^nX_i,\\quad\n\\overline Y=\\frac1n\\sum_{i=1}^nY_i,\\quad\nS_1^2=\\frac1{n-1}\\sum_{i=1}^n(X_i-\\overline X)^2,\\quad\nS_2^2=\\frac1{n-1}\\sum_{i=1}^n(X_i+Y_i-\\overline X-\\overline Y)^2,$\n则下列说法中正确的有$(\\quad)$ 个\n\n① $\\displaystyle\\frac{n\\overline X^2}{S_1^2}$ 服从自由度为 $(1,n-1)$ 的 $F$ 分布;\n② $\\displaystyle\\frac{3n\\overline X^2}{S_2^2}$ 服从自由度为 $(1,n-1)$ 的 $F$ 分布;\n③ $\\displaystyle\\frac n3(\\overline X+\\overline Y)^2+(n-1)S_2^2$ 服从自由度为 $n$ 的 $\\chi^2$ 分布.",
+  "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "knowledge_points": [
+    "数理统计",
+    "参数估计"
+  ],
+  "tags": [
+    "数理统计",
+    "F分布",
+    "卡方分布"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "设 $(X_1,Y_1),(X_2,Y_2),\\cdots,(X_n,Y_n)$ 为来自总体 $N(0,0;1,4;-\\frac12)$ 的简单随机样本，\n$\\overline X=\\frac1n\\sum_{i=1}^nX_i,\\quad\n\\overline Y=\\frac1n\\sum_{i=1}^nY_i,\\quad\nS_1^2=\\frac1{n-1}\\sum_{i=1}^n(X_i-\\overline X)^2,\\quad\nS_2^2=\\frac1{n-1}\\sum_{i=1}^n(X_i+Y_i-\\overline X-\\overline Y)^2,$\n则下列说法中正确的有$(\\quad)$ 个\n\n① $\\displaystyle\\frac{n\\overline X^2}{S_1^2}$ 服从自由度为 $(1,n-1)$ 的 $F$ 分布;\n② $\\displaystyle\\frac{3n\\overline X^2}{S_2^2}$ 服从自由度为 $(1,n-1)$ 的 $F$ 分布;\n③ $\\displaystyle\\frac n3(\\overline X+\\overline Y)^2+(n-1)S_2^2$ 服从自由度为 $n$ 的 $\\chi^2$ 分布.",
+  "raw_answer_text": "C"
+}

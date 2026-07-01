@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷二-001",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "选择题",
+  "question_no": 1,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "极值",
+    "拐点",
+    "导数极限"
+  ],
+  "tags": [
+    "极值",
+    "拐点",
+    "导数极限"
+  ],
+  "question": "设函数 $f(x)$ 一阶可导，且满足 $\\displaystyle\\lim_{x\\to0}\\frac{f'(x)}{x^2}=1$，则 $y=f(x)$ 在 $x=0$ 处",
+  "options": {
+    "A": "取极值，不一定取拐点",
+    "B": "取拐点，不取极值点",
+    "C": "不取极值，也不一定取拐点",
+    "D": "取极值，也取拐点"
+  },
+  "correct_option": "C",
+  "standard_answer": "C",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $f(x)$ 一阶可导，且满足 $\\displaystyle\\lim_{x\\to0}\\frac{f'(x)}{x^2}=1$，则 $y=f(x)$ 在 $x=0$ 处",
+  "raw_answer_text": "C"
+}

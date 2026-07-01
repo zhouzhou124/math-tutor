@@ -1,0 +1,28 @@
+{
+  "question_id": "26宇哥四套卷-卷二-019",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷二",
+  "question_type": "证明题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "中值定理",
+    "定积分"
+  ],
+  "tags": [
+    "中值定理",
+    "定积分",
+    "存在性证明"
+  ],
+  "question": "设 $f(x)$ 是 $[0,1]$ 上的正值连续函数，证明\n(1) 存在唯一的 $\\xi\\in(0,1)$，使得 $\\displaystyle\\int_0^\\xi f(t)\\,dt=\\int_\\xi^1\\frac1{f(t)}\\,dt$；\n(2) 对任意自然数 $n(n\\ge2)$，存在唯一的 $x_n\\in(0,1)$，使得 $\\displaystyle\\int_{\\frac1n}^{x_n}f(t)\\,dt=\\int_{x_n}^1\\frac1{f(t)}\\,dt$，且 $\\displaystyle\\lim_{n\\to\\infty}x_n=\\xi$。",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(1) 令 $F(x)=\\int_0^x f(t)\\,dt-\\int_x^1\\frac1{f(t)}\\,dt$。因 $f(x)>0$，故 $F'(x)=f(x)+\\frac1{f(x)}>0$，所以 $F(x)$ 严格递增。又 $F(0)<0$，$F(1)>0$，由零点存在唯一性定理，存在唯一 $\\xi\\in(0,1)$ 使 $F(\\xi)=0$。(2) 令 $F_n(x)=\\int_{\\frac1n}^x f(t)\\,dt-\\int_x^1\\frac1{f(t)}\\,dt$。则 $F_n'(x)=f(x)+\\frac1{f(x)}>0$，$F_n(\\frac1n)<0$，$F_n(1)>0$，故唯一 $x_n\\in(\\frac1n,1)$ 使 $F_n(x_n)=0$。又 $F_n(x)\\to F(x)$，且 $F$ 唯一零点为 $\\xi$，故 $\\lim_{n\\to\\infty}x_n=\\xi$。",
+  "source": "import_zhangyu4_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $f(x)$ 是 $[0,1]$ 上的正值连续函数，证明\n(1) 存在唯一的 $\\xi\\in(0,1)$，使得 $\\displaystyle\\int_0^\\xi f(t)\\,dt=\\int_\\xi^1\\frac1{f(t)}\\,dt$；\n(2) 对任意自然数 $n(n\\ge2)$，存在唯一的 $x_n\\in(0,1)$，使得 $\\displaystyle\\int_{\\frac1n}^{x_n}f(t)\\,dt=\\int_{x_n}^1\\frac1{f(t)}\\,dt$，且 $\\displaystyle\\lim_{n\\to\\infty}x_n=\\xi$。",
+  "raw_answer_text": ""
+}

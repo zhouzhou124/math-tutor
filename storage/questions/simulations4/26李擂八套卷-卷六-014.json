@@ -1,0 +1,22 @@
+{
+  "question_id": "26李擂八套卷-卷六-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷六",
+  "question_type": "填空题",
+  "difficulty": "中等",
+  "score": 5,
+  "question": "已知函数 $f(x)=\\begin{cases}2x,&0\\le x<1,\\\\ x^2,&1\\le x\\le2\\end{cases}$ 的傅里叶级数为 $\\displaystyle\\sum_{n=0}^{\\infty}a_n\\cos\\frac n2\\pi x$，$S(x)$ 为 $\\displaystyle\\sum_{n=0}^{\\infty}a_n\\cos\\frac n2\\pi x$ 的和函数，则 $S(7)=\\underline{\\qquad}$.",
+  "correct_option": "",
+  "standard_answer": "$\\frac{3}{2}$",
+  "knowledge_points": [
+    "傅里叶级数"
+  ],
+  "tags": [
+    "傅里叶级数"
+  ],
+  "solution_steps": [],
+  "raw_question_text": "已知函数 $f(x)=\\begin{cases}2x,&0\\le x<1,\\\\ x^2,&1\\le x\\le2\\end{cases}$ 的傅里叶级数为 $\\displaystyle\\sum_{n=0}^{\\infty}a_n\\cos\\frac n2\\pi x$，$S(x)$ 为 $\\displaystyle\\sum_{n=0}^{\\infty}a_n\\cos\\frac n2\\pi x$ 的和函数，则 $S(7)=\\underline{\\qquad}$.",
+  "raw_answer_text": "$\\frac{3}{2}$"
+}

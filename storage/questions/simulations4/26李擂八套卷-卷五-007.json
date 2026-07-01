@@ -1,0 +1,34 @@
+{
+  "question_id": "26李擂八套卷-卷五-007",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷五",
+  "question_type": "选择题",
+  "question_no": 7,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "相似对角化",
+    "可交换矩阵",
+    "特征向量"
+  ],
+  "tags": [
+    "相似对角化",
+    "可交换矩阵",
+    "特征向量"
+  ],
+  "question": "设 $3$ 阶矩阵 $A$ 有一个二重特征值和一个单特征值，$3$ 阶矩阵 $B$ 与 $A$ 可交换，则下列说法正确的是",
+  "options": {
+    "A": "若 $A$ 可相似对角化，则 $B$ 也可相似对角化",
+    "B": "若 $A$ 可相似对角化，则 $B$ 的特征向量一定是 $A$ 的特征向量",
+    "C": "若 $A$ 不可相似对角化，则 $B$ 也不可相似对角化",
+    "D": "若 $A$ 不可相似对角化，则 $A$ 的特征向量一定是 $B$ 的特征向量"
+  },
+  "correct_option": "D",
+  "standard_answer": "D",
+  "source": "import_lilei8_v5",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $3$ 阶矩阵 $A$ 有一个二重特征值和一个单特征值，$3$ 阶矩阵 $B$ 与 $A$ 可交换，则下列说法正确的是",
+  "raw_answer_text": "D"
+}

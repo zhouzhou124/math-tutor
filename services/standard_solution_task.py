@@ -153,21 +153,16 @@ def _normalize_task_result(
         sol["standard_solution_error"] = ""
         return sol
 
-    status = "failed" if not report.get("renderable", False) else "incomplete"
-    issues = ", ".join(_issues_from_report(report)[:6]) or "quality_gate_failed"
+    from services.grading_adapter import _quarantine_solution_for_failed_render
+
     debug_text = raw_text or _raw_solution_text(solution) or _raw_solution_text(sol)
-    sol["standard_solution_status"] = status
-    sol["standard_solution_source"] = "failed"
-    sol["standard_solution_error"] = (
-        f"standard solution quality gate failed: {issues}"
+    gate_status = "incomplete" if report.get("renderable", False) else "failed"
+    return _quarantine_solution_for_failed_render(
+        sol,
+        raw_text=debug_text,
+        report=report,
+        status=gate_status,
     )
-    sol["standard_answer"] = ""
-    sol["steps"] = []
-    sol["_structured"] = None
-    sol["_debug_raw_standard_answer"] = html.escape(debug_text[:4000], quote=True)
-    sol["_failed_raw_preview"] = html.escape(debug_text[:500], quote=True)
-    sol["_failed_quality_report"] = report
-    return sol
 
 
 def build_standard_solution_task(

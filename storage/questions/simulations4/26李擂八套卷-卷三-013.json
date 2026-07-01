@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷三-013",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷三",
+  "question_type": "填空题",
+  "question_no": 13,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "隐函数",
+    "偏导数"
+  ],
+  "tags": [
+    "隐函数",
+    "偏导数",
+    "二阶混合偏导"
+  ],
+  "question": "设函数 $z=z(x,y)$ 由方程 $e^z+xyz+\\ln(xy)-\\displaystyle\\int_0^{x-y}\\sin t^2\\,dt=1$ 确定，则 $\\displaystyle\\left.\\frac{\\partial^2z}{\\partial x\\partial y}\\right|_{\\substack{x=1 \\\\ y=1}}=\\_\\_\\_\\_\\_$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\frac38$",
+  "source": "import_lilei8_v3",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设函数 $z=z(x,y)$ 由方程 $e^z+xyz+\\ln(xy)-\\displaystyle\\int_0^{x-y}\\sin t^2\\,dt=1$ 确定，则 $\\displaystyle\\left.\\frac{\\partial^2z}{\\partial x\\partial y}\\right|_{\\substack{x=1 \\\\ y=1}}=\\_\\_\\_\\_\\_$",
+  "raw_answer_text": "$\\frac38$"
+}

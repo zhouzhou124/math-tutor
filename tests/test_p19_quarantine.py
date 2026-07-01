@@ -72,13 +72,14 @@ class TestSolutionRenderable:
 
 
 class TestNormalizeSolutionForRenderQuarantine:
-    def test_broken_raw_answer_gets_failed_status(self):
+    def test_broken_raw_answer_keeps_content_for_display(self):
         from services.grading_adapter import normalize_solution_for_render
-        # Multiple unfixable fragments: empty frac repeated
-        sol = {"standard_answer": r"\frac{} \frac{} \frac{}"}
+        raw = r"\frac{} \frac{} \frac{}"
+        sol = {"standard_answer": raw}
         out = normalize_solution_for_render(sol)
-        assert out.get("standard_solution_status") == "failed"
-        assert out["_structured"] is None
+        assert r"\frac{}" in str(out.get("standard_answer") or "")
+        assert "标准解答质量门禁" not in str(out.get("standard_answer") or "")
+        assert out.get("_quality_report")
 
     def test_broken_structured_is_dropped_and_rebuilt_clean(self):
         from services.grading_adapter import normalize_solution_for_render

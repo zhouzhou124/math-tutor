@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷二-014",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷二",
+  "question_type": "填空题",
+  "question_no": 14,
+  "score": 5,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "曲面积分",
+    "Gauss公式"
+  ],
+  "tags": [
+    "曲面积分",
+    "Gauss公式",
+    "补面法"
+  ],
+  "question": "设 $\\Sigma$ 为曲面 $z=x^2+y^2$ 被平面 $x+y+z=1$ 所截取的有限部分，方向向上，则 $$\\displaystyle\\iint_{\\Sigma}x\\,dy\\,dz+y\\,dz\\,dx-z\\,dx\\,dy=\\_\\_\\_\\_\\_$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$-\\frac{45\\pi}{8}$",
+  "source": "import_lilei8_v2",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设 $\\Sigma$ 为曲面 $z=x^2+y^2$ 被平面 $x+y+z=1$ 所截取的有限部分，方向向上，则 $$\\displaystyle\\iint_{\\Sigma}x\\,dy\\,dz+y\\,dz\\,dx-z\\,dx\\,dy=\\_\\_\\_\\_\\_$$",
+  "raw_answer_text": "$-\\frac{45\\pi}{8}$"
+}

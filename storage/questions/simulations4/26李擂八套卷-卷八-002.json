@@ -1,0 +1,33 @@
+{
+  "question_id": "26李擂八套卷-卷八-002",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "隐函数",
+    "极值"
+  ],
+  "tags": [
+    "隐函数",
+    "极值"
+  ],
+  "question": "函数 $y=f(x)$ 由方程 $|x|\\cos y+2y+e^y=1$ 确定，则 $f(x)$ 在 $x=0$ 处",
+  "options": {
+    "A": "不可导，不取极值",
+    "B": "不可导，取极值",
+    "C": "可导，不取极值",
+    "D": "可导，取极值"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "函数 $y=f(x)$ 由方程 $|x|\\cos y+2y+e^y=1$ 确定，则 $f(x)$ 在 $x=0$ 处",
+  "raw_answer_text": "B"
+}

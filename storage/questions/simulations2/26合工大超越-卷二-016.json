@@ -13,12 +13,179 @@
     "不定积分"
   ],
   "question": "(本题满分10分) 计算 $$\\int \\frac{e^x}{(e^x+3)^2} dx$$",
-  "standard_answer": "$-\\frac{1}{e^x+3} + C$",
+  "standard_answer": "步骤1：识别被积函数的结构，发现分子恰好是分母内部表达式的导数。 \n给定不定积分 \n$$\nI = \\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x,\n$$\n注意到分母中的核心部分是 $e^x+3$，其导数为 $(e^x+3)' = e^x$，恰好与被积函数的分子 $e^x$ 相同。这一结构提示我们可以通过凑微分法将积分转化为关于 $e^x+3$ 的简单幂函数的积分。\n\n步骤2：利用微分关系，将分子与 $\\mathrm{d}x$ 合并为微分形式。 \n由 $(e^x+3)' = e^x$ 可得 \n$$\ne^x\\,\\mathrm{d}x = \\mathrm{d}(e^x+3).\n$$\n因此原积分可以等价地写为 \n$$\nI = \\int \\frac{1}{(e^x+3)^2}\\,\\mathrm{d}(e^x+3).\n$$\n\n步骤3：引入新变量，将积分化为标准的不定积分形式。 \n令 \n$$\nu = e^x+3,\n$$\n则 $\\mathrm{d}u = \\mathrm{d}(e^x+3)$，并且原积分的被积表达式完全用 $u$ 表示为 \n$$\nI = \\int \\frac{1}{u^2}\\,\\mathrm{d}u.\n$$\n\n步骤4：将 $\\frac{1}{u^2}$ 写成幂函数形式，明确积分类型。 \n因为 $\\frac{1}{u^2} = u^{-2}$，所以 \n$$\nI = \\int u^{-2}\\,\\mathrm{d}u.\n$$\n这是一个基本的幂函数积分，可直接套用公式。\n\n步骤5：应用幂函数积分公式 $\\int u^n\\,\\mathrm{d}u = \\frac{u^{n+1}}{n+1}+C\\;(n \\neq -1)$ 进行计算。 \n这里 $n = -2 \\neq -1$，代入公式得到 \n$$\n\\int u^{-2}\\,\\mathrm{d}u = \\frac{u^{-2+1}}{-2+1} + C = \\frac{u^{-1}}{-1} + C = -\\,\\frac{1}{u} + C.\n$$\n\n步骤6：将中间变量 $u$ 替换回原来的变量 $x$。 \n由步骤3的换元 $u = e^x+3$，得 \n$$\nI = -\\,\\frac{1}{e^x+3} + C.\n$$\n\n步骤7：给出原不定积分的最终表达式。 \n通过以上步骤，我们完成了积分的计算，结果中已经包含任意常数 $C$，它是积分常数的标准记法。\n\n## 最终答案\n$$\n\\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x = -\\frac{1}{e^x+3} + C.\n$$",
   "source": "import_hegongda_v2",
   "solution_steps": [],
   "options": {},
   "volume": "卷二",
   "__cached_at__": 1779466026.0340784,
   "raw_question_text": "(本题满分10分) 计算 $$\\int \\frac{e^x}{(e^x+3)^2} dx$$",
-  "raw_answer_text": "$-\\frac{1}{e^x+3} + C$"
+  "raw_answer_text": "$-\\frac{1}{e^x+3} + C$",
+  "canonical_solutions": [
+    {
+      "solution_id": "sol_1780380471",
+      "method_name": "标准解法",
+      "semantic_tags": [],
+      "standard_answer": "步骤1：凑微分，将分子化为某个函数的微分形式\n\n注意到被积函数中分子为 $e^x$，而分母中含有 $e^x+3$，且 $(e^x+3)' = e^x$。因此可以将 $e^x\\,\\mathrm{d}x$ 凑成 $d(e^x+3)$，从而为换元或直接凑微分积分做准备。\n\n$$\ne^x \\mathrm{d}x = d(e^x+3)\n$$\n\n于是原积分可改写为\n\n$$\n\\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x = \\int \\frac{1}{(e^x+3)^2}\\,d(e^x+3)\n$$\n步骤2：利用幂函数的积分公式求出原函数\n\n令 $u = e^x+3$，则积分化为\n\n$$\n\\int \\frac{1}{u^2}\\,\\mathrm{d}u = \\int u^{-2}\\,\\mathrm{d}u\n$$\n\n由基本积分公式 $\\int u^{n}\\,\\mathrm{d}u = \\frac{u^{n+1}}{n+1}+C$（$n \\neq -1$），取 $n = -2$ 得\n\n$$\n\\int u^{-2}\\,\\mathrm{d}u = \\frac{u^{-2+1}}{-2+1} + C = \\frac{u^{-1}}{-1} + C = -\\,\\frac{1}{u} + C\n$$\n\n将 $u = e^x+3$ 代回，即得到原积分的结果\n\n$$\n\\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x = -\\,\\frac{1}{e^x+3} + C\n$$\n\n## 最终答案\n\n$$\n-\\frac{1}{e^x+3} + C\n$$",
+      "generated_by": "deepseek-v4-pro",
+      "generated_at": "2026-06-02 14:07",
+      "reviewed": false,
+      "format_version": "p24_solution_quality_gate",
+      "quality_report": {
+        "ok": true,
+        "renderable": true,
+        "complete": true,
+        "detailed": true,
+        "covers_requirements": true,
+        "logically_plausible": true,
+        "issues": [],
+        "should_regenerate": false
+      },
+      "structured": {
+        "steps": [
+          {
+            "label": "步骤1",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "凑微分，将分子化为某个函数的微分形式\n\n注意到被积函数中分子为"
+              },
+              {
+                "type": "latex",
+                "content": "e^x"
+              },
+              {
+                "type": "text",
+                "content": "而分母中含有"
+              },
+              {
+                "type": "latex",
+                "content": "e^x+3"
+              },
+              {
+                "type": "text",
+                "content": "且"
+              },
+              {
+                "type": "latex",
+                "content": "(e^x+3)' = e^x"
+              },
+              {
+                "type": "text",
+                "content": "因此可以将"
+              },
+              {
+                "type": "latex",
+                "content": "e^x\\,\\mathrm{d}x"
+              },
+              {
+                "type": "text",
+                "content": "凑成"
+              },
+              {
+                "type": "latex",
+                "content": "d(e^x+3)"
+              },
+              {
+                "type": "text",
+                "content": "从而为换元或直接凑微分积分做准备。"
+              },
+              {
+                "type": "latex",
+                "content": "e^x \\mathrm{d}x = d(e^x+3)",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "于是原积分可改写为"
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x = \\int \\frac{1}{(e^x+3)^2}\\, d(e^x+3)",
+                "display": "block"
+              }
+            ]
+          },
+          {
+            "label": "步骤2",
+            "blocks": [
+              {
+                "type": "text",
+                "content": "利用幂函数的积分公式求出原函数\n\n令"
+              },
+              {
+                "type": "latex",
+                "content": "u = e^x+3"
+              },
+              {
+                "type": "text",
+                "content": "则积分化为"
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{1}{u^2}\\,\\mathrm{d}u = \\int u^{-2}\\,\\mathrm{d}u",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "由基本积分公式"
+              },
+              {
+                "type": "latex",
+                "content": "\\int u^{n}\\,\\mathrm{d}u = \\frac{u^{n+1}}{n+1}+C"
+              },
+              {
+                "type": "latex",
+                "content": "n \\ne -1"
+              },
+              {
+                "type": "text",
+                "content": "），取"
+              },
+              {
+                "type": "latex",
+                "content": "n = -2"
+              },
+              {
+                "type": "text",
+                "content": "得"
+              },
+              {
+                "type": "latex",
+                "content": "\\int u^{-2}\\,\\mathrm{d}u = \\frac{u^{-2+1}}{-2+1} + C = \\frac{u^{-1}}{-1} + C = -\\,\\frac{1}{u} + C",
+                "display": "block"
+              },
+              {
+                "type": "text",
+                "content": "将"
+              },
+              {
+                "type": "latex",
+                "content": "u = e^x+3"
+              },
+              {
+                "type": "text",
+                "content": "代回，即得到原积分的结果"
+              },
+              {
+                "type": "latex",
+                "content": "\\int \\frac{e^x}{(e^x+3)^2}\\,\\mathrm{d}x = -\\,\\frac{1}{e^x+3} + C",
+                "display": "block"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "solution_metadata": {
+    "canonical": true,
+    "has_steps": false,
+    "pool_size": 1,
+    "generated_by": "deepseek-v4-pro",
+    "generated_at": "2026-06-02 14:26",
+    "reviewed": false,
+    "render_version": "v2",
+    "solution_format_version": "p24_solution_quality_gate"
+  }
 }

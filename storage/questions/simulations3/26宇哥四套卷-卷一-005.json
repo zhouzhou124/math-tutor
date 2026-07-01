@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-005",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 5,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "向量组",
+    "线性表示"
+  ],
+  "tags": [
+    "向量组",
+    "线性表示"
+  ],
+  "question": "设向量 $\\beta$ 可由向量组 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 线性表示，但不可由向量组 $(I):\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，记向量组 $(II):\\alpha_1,\\alpha_2,\\alpha_3,\\beta$，则",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$\\alpha_4$ 不可由向量组 $(I)$ 线性表示，也不可由向量组 $(II)$ 线性表示",
+    "B": "$\\alpha_4$ 不可由向量组 $(I)$ 线性表示，但可由向量组 $(II)$ 线性表示",
+    "C": "$\\alpha_4$ 可由向量组 $(I)$ 线性表示，也可由向量组 $(II)$ 线性表示",
+    "D": "$\\alpha_4$ 可由向量组 $(I)$ 线性表示，但不可由向量组 $(II)$ 线性表示"
+  },
+  "correct_option": "B",
+  "_original_answer": "",
+  "standard_answer": "B",
+  "raw_question_text": "设向量 $\\beta$ 可由向量组 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$ 线性表示，但不可由向量组 $(I):\\alpha_1,\\alpha_2,\\alpha_3$ 线性表示，记向量组 $(II):\\alpha_1,\\alpha_2,\\alpha_3,\\beta$，则",
+  "raw_answer_text": "B"
+}

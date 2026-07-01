@@ -1,0 +1,30 @@
+{
+  "question_id": "26李擂八套卷-卷七-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷七",
+  "question_type": "解答题",
+  "difficulty": "中等",
+  "score": 10,
+  "question": "求函数 $f(x,y,z)=xyz$ 在条件 $x-y+2z=0$ 和 $x^2+y^2+4z^2=4$ 约束下的最大值和最小值。",
+  "correct_option": "",
+  "standard_answer": "最大值 $\\frac{2\\sqrt{6}}{9}$，最小值 $-\\frac{2\\sqrt{6}}{9}$",
+  "knowledge_points": [
+    "多元函数微分",
+    "条件极值"
+  ],
+  "tags": [
+    "多元函数微分",
+    "条件极值",
+    "拉格朗日乘数法"
+  ],
+  "solution_steps": [
+    "由 $y=x+2z$，约束化为 $x^2+(x+2z)^2+4z^2=4$",
+    "对 $xyz=x(x+2z)z$ 作条件极值",
+    "利用拉格朗日乘数法求解",
+    "$\\max xyz=\\frac{2\\sqrt{6}}{9}$，$\\min xyz=-\\frac{2\\sqrt{6}}{9}$"
+  ],
+  "raw_question_text": "求函数 $f(x,y,z)=xyz$ 在条件 $x-y+2z=0$ 和 $x^2+y^2+4z^2=4$ 约束下的最大值和最小值。",
+  "raw_answer_text": "最大值 $\\frac{2\\sqrt{6}}{9}$，最小值 $-\\frac{2\\sqrt{6}}{9}$"
+}

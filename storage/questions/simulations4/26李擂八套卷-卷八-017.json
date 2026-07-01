@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷八-017",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "math_type": "26李擂八套卷",
+  "volume": "卷八",
+  "question_type": "解答题",
+  "question_no": 17,
+  "score": 10,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "反常积分",
+    "分部积分"
+  ],
+  "tags": [
+    "反常积分",
+    "分部积分"
+  ],
+  "question": "求反常积分 $$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{(1+x)^3}\\,dx$$",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{(1+x)^3}\\,dx=\\left[-\\frac{\\arctan x}{2(1+x)^2}\\right]_0^{+\\infty}+\\frac12\\int_0^{+\\infty}\\frac{dx}{(1+x)^2(1+x^2)}=\\frac14$。",
+  "source": "import_lilei8_v8_user",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "求反常积分 $$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{(1+x)^3}\\,dx$$",
+  "raw_answer_text": "$\\displaystyle\\int_0^{+\\infty}\\frac{\\arctan x}{(1+x)^3}\\,dx=\\left[-\\frac{\\arctan x}{2(1+x)^2}\\right]_0^{+\\infty}+\\frac12\\int_0^{+\\infty}\\frac{dx}{(1+x)^2(1+x^2)}=\\frac14$。"
+}

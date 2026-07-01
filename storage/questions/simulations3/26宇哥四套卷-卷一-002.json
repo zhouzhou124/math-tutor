@@ -1,0 +1,31 @@
+{
+  "question_id": "26宇哥四套卷-卷一-002",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷一",
+  "question_type": "选择题",
+  "question_no": 2,
+  "score": 5,
+  "difficulty": "中等",
+  "knowledge_points": [
+    "微分方程",
+    "二阶常系数线性方程"
+  ],
+  "tags": [
+    "微分方程",
+    "二阶常系数线性方程"
+  ],
+  "question": "若微分方程 $y''+ay'+by=0$ 的解在 $(-\\infty,+\\infty)$ 上均为有界函数，则",
+  "source": "import_zhangyu4_v1",
+  "options": {
+    "A": "$a=0,\\ b>0$",
+    "B": "$a=0,\\ b<0$",
+    "C": "$a\\ne 0,\\ b<0$",
+    "D": "$a\\ne 0,\\ b>0$"
+  },
+  "correct_option": "A",
+  "_original_answer": "",
+  "standard_answer": "A",
+  "raw_question_text": "若微分方程 $y''+ay'+by=0$ 的解在 $(-\\infty,+\\infty)$ 上均为有界函数，则",
+  "raw_answer_text": "A"
+}

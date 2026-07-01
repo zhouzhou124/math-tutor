@@ -1,0 +1,33 @@
+{
+  "question_id": "26宇哥四套卷-卷四-006",
+  "year": 2026,
+  "category": "26宇哥四套卷",
+  "volume": "卷四",
+  "question_type": "选择题",
+  "question_no": 6,
+  "score": 5,
+  "difficulty": "简单",
+  "knowledge_points": [
+    "二次型",
+    "符号差"
+  ],
+  "tags": [
+    "二次型",
+    "符号差",
+    "惯性指数"
+  ],
+  "question": "二次型 $f(x_1,x_2,x_3)=x_1^2+2x_1x_2+2x_3^2$ 的符号差（正惯性指数$-$负惯性指数）为",
+  "options": {
+    "A": "$2$",
+    "B": "$1$",
+    "C": "$0$",
+    "D": "$-1$"
+  },
+  "correct_option": "B",
+  "standard_answer": "B",
+  "source": "import_zhangyu4_v4",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "二次型 $f(x_1,x_2,x_3)=x_1^2+2x_1x_2+2x_3^2$ 的符号差（正惯性指数$-$负惯性指数）为",
+  "raw_answer_text": "B"
+}

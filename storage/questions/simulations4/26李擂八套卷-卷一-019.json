@@ -1,0 +1,28 @@
+{
+  "question_id": "26李擂八套卷-卷一-019",
+  "year": 2026,
+  "category": "26李擂八套卷",
+  "volume": "卷一",
+  "question_type": "解答题",
+  "question_no": 19,
+  "score": 10,
+  "difficulty": "困难",
+  "knowledge_points": [
+    "积分方程",
+    "旋转体体积"
+  ],
+  "tags": [
+    "积分方程",
+    "旋转体体积",
+    "卷积"
+  ],
+  "question": "设连续函数 $f(x)$ 满足方程 $\\displaystyle4\\int_0^x e^t f(x-t)\\,dt-2\\int_0^x f(t)\\,dt=a(e^x+e^{-x}-2)+2(1-e^x)$，则 \n(1) 求 $f(x)$；\n(2) 设 $y=f(x)$，$x\\in[0,+\\infty)$ 与 $x$ 轴之间的无界区域为 $D$，为了使得 $D$ 绕 $x$ 轴旋转一周所得的旋转体体积最小，求 $a$ 的值.",
+  "options": {},
+  "correct_option": "",
+  "standard_answer": "(I) 对方程两边取 Laplace 变换，设 $F(s)=\\mathcal L[f(x)]$。则 $F(s)\\left(\\frac4{s-1}-\\frac2s\\right)=a\\left(\\frac1{s-1}+\\frac1{s+1}-\\frac2s\\right)+2\\left(\\frac1s-\\frac1{s-1}\\right)$。化简得 $F(s)=\\frac{a-s-1}{(s+1)^2}=\\frac a{(s+1)^2}-\\frac1{s+1}$。故 $f(x)=(ax-1)e^{-x}$。(II) 旋转体体积 $V(a)=\\pi\\int_0^{+\\infty}(ax-1)^2e^{-2x}\\,dx=\\pi\\left(\\frac{a^2}{4}-\\frac a2+\\frac12\\right)$。所以 $V(a)$ 在 $a=1$ 时取最小值，故 $a=1$。",
+  "source": "import_lilei8_v1",
+  "_original_answer": "",
+  "solution_steps": [],
+  "raw_question_text": "设连续函数 $f(x)$ 满足方程 $\\displaystyle4\\int_0^x e^t f(x-t)\\,dt-2\\int_0^x f(t)\\,dt=a(e^x+e^{-x}-2)+2(1-e^x)$，则 \n(1) 求 $f(x)$；\n(2) 设 $y=f(x)$，$x\\in[0,+\\infty)$ 与 $x$ 轴之间的无界区域为 $D$，为了使得 $D$ 绕 $x$ 轴旋转一周所得的旋转体体积最小，求 $a$ 的值.",
+  "raw_answer_text": "(I) 对方程两边取 Laplace 变换，设 $F(s)=\\mathcal L[f(x)]$。则 $F(s)\\left(\\frac4{s-1}-\\frac2s\\right)=a\\left(\\frac1{s-1}+\\frac1{s+1}-\\frac2s\\right)+2\\left(\\frac1s-\\frac1{s-1}\\right)$。化简得 $F(s)=\\frac{a-s-1}{(s+1)^2}=\\frac a{(s+1)^2}-\\frac1{s+1}$。故 $f(x)=(ax-1)e^{-x}$。(II) 旋转体体积 $V(a)=\\pi\\int_0^{+\\infty}(ax-1)^2e^{-2x}\\,dx=\\pi\\left(\\frac{a^2}{4}-\\frac a2+\\frac12\\right)$。所以 $V(a)$ 在 $a=1$ 时取最小值，故 $a=1$。"
+}
